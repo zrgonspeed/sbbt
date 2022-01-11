@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_px_1280_x"
+    android:layout_height="@dimen/dp_px_720_y"
+    android:background="@drawable/bk_0">
+
+    <RelativeLayout
+        android:id="@+id/rl_factory_select"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_px_30_y"
+            android:text="@string/string_factory_select_mode"
+            android:textColor="@color/textView_white"
+            android:textSize="@dimen/font_size_36pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_px_100_y"
+            android:gravity="center"
+            android:text="@string/string_factory_select_mode_tip"
+            android:textColor="@color/textView_white"
+            android:textSize="@dimen/font_size_28pt" />
+
+        <ImageView
+            android:id="@+id/btn_factory_one"
+            android:layout_width="@dimen/dp_px_240_x"
+            android:layout_height="@dimen/dp_px_240_y"
+            android:layout_marginStart="@dimen/dp_px_325_x"
+            android:layout_marginTop="@dimen/dp_px_240_y"
+            android:src="@drawable/btn_factory1" />
+
+        <ImageView
+            android:id="@+id/btn_factory_two"
+            android:layout_width="@dimen/dp_px_240_x"
+            android:layout_height="@dimen/dp_px_240_y"
+            android:layout_marginLeft="@dimen/dp_px_718_x"
+            android:layout_marginTop="@dimen/dp_px_240_y"
+            android:src="@drawable/btn_factory2" />
+    </RelativeLayout>
+
+    <include
+        layout="@layout/layout_under_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_px_635_y" />
+</RelativeLayout>

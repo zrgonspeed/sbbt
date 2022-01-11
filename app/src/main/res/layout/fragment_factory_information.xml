@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_px_1034_x"
+    android:layout_height="@dimen/dp_px_500_y">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_26_x"
+        android:layout_marginTop="@dimen/dp_px_58_y"
+        android:text="@string/string_factory_total_time"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_21pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_total_time"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_277_x"
+        android:layout_marginTop="@dimen/dp_px_58_y"
+        android:gravity="end"
+        android:text="111 hr 28 min"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_21pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_26_x"
+        android:layout_marginTop="@dimen/dp_px_152_y"
+        android:text="@string/string_factory_total_distance"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_21pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_total_distance"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_277_x"
+        android:layout_marginTop="@dimen/dp_px_152_y"
+        android:gravity="end"
+        android:text="111 km"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_21pt"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/btn_info_reset"
+        android:layout_width="@dimen/dp_px_170_x"
+        android:layout_height="@dimen/dp_px_77_y"
+        android:layout_marginStart="@dimen/dp_px_181_x"
+        android:layout_marginTop="@dimen/dp_px_403_y"
+        android:src="@drawable/btn_factory_reset" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_3_x"
+        android:layout_height="@dimen/dp_px_430_y"
+        android:layout_marginStart="@dimen/dp_px_532_x"
+        android:layout_marginTop="@dimen/dp_px_35_y"
+        android:src="@drawable/img_factory_line" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_560_x"
+        android:layout_marginTop="@dimen/dp_px_58_y"
+        android:text="@string/string_factory_sdk"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_21pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_sdk"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_780_x"
+        android:layout_marginTop="@dimen/dp_px_58_y"
+        android:gravity="end"
+        android:text="20160425 V"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_21pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_560_x"
+        android:layout_marginTop="@dimen/dp_px_152_y"
+        android:text="@string/string_factory_firmware"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_21pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_firmware"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_780_x"
+        android:layout_marginTop="@dimen/dp_px_152_y"
+        android:gravity="end"
+        android:text="20160425 V"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_21pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_560_x"
+        android:layout_marginTop="@dimen/dp_px_246_y"
+        android:text="@string/string_factory_soffware"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_21pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_soffware"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_780_x"
+        android:layout_marginTop="@dimen/dp_px_246_y"
+        android:gravity="end"
+        android:text="AC00553-54T-08 V"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_21pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_560_x"
+        android:layout_marginTop="@dimen/dp_px_340_y"
+        android:text="@string/string_factory_mcu"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_21pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_ncu"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_780_x"
+        android:layout_marginTop="@dimen/dp_px_340_y"
+        android:gravity="end"
+        android:text="20160425 V"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_21pt"
+        android:textStyle="bold" />
+</RelativeLayout>

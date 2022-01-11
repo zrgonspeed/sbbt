@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_px_1280_x"
+    android:layout_height="@dimen/dp_px_170_y">
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_1280_x"
+        android:layout_height="@dimen/dp_px_141_y"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/img_sportmode_under_bar" />
+
+    <ImageView
+        android:id="@+id/btn_start_stop_skip"
+        android:layout_width="@dimen/dp_px_280_x"
+        android:layout_height="@dimen/dp_px_126_y"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/btn_sportmode_stop" />
+
+    <TextView
+        android:id="@+id/txt_running_incline_ctrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_243_x"
+        android:layout_marginTop="@dimen/dp_px_48_y"
+        android:text="@string/string_incline"
+        android:textColor="@color/running_text_orange"
+        android:textSize="@dimen/font_size_18pt" />
+
+    <ImageView
+        android:id="@+id/btn_incline_roller"
+        android:layout_width="@dimen/dp_px_24_x"
+        android:layout_height="@dimen/dp_px_66_y"
+        android:layout_marginStart="@dimen/dp_px_279_x"
+        android:layout_marginTop="@dimen/dp_px_87_y"
+        android:src="@drawable/btn_sportmode_roller_icon" />
+
+    <com.run.treadmill.widget.LongClickImage
+        android:id="@+id/btn_incline_up"
+        android:layout_width="@dimen/dp_px_125_x"
+        android:layout_height="@dimen/dp_px_66_y"
+        android:layout_marginStart="@dimen/dp_px_134_x"
+        android:layout_marginTop="@dimen/dp_px_87_y"
+        android:src="@drawable/btn_sportmode_incline_up" />
+
+    <com.run.treadmill.widget.LongClickImage
+        android:id="@+id/btn_incline_down"
+        android:layout_width="@dimen/dp_px_125_x"
+        android:layout_height="@dimen/dp_px_66_y"
+        android:layout_marginStart="@dimen/dp_px_316_x"
+        android:layout_marginTop="@dimen/dp_px_87_y"
+        android:src="@drawable/btn_sportmode_incline_down" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_951_x"
+        android:layout_marginTop="@dimen/dp_px_48_y"
+        android:text="@string/string_speed"
+        android:textColor="@color/running_text_orange"
+        android:textSize="@dimen/font_size_18pt" />
+
+    <ImageView
+        android:id="@+id/btn_speed_roller"
+        android:layout_width="@dimen/dp_px_24_x"
+        android:layout_height="@dimen/dp_px_66_y"
+        android:layout_marginStart="@dimen/dp_px_977_x"
+        android:layout_marginTop="@dimen/dp_px_87_y"
+        android:src="@drawable/btn_sportmode_roller_icon" />
+
+    <com.run.treadmill.widget.LongClickImage
+        android:id="@+id/btn_speed_up"
+        android:layout_width="@dimen/dp_px_125_x"
+        android:layout_height="@dimen/dp_px_66_y"
+        android:layout_marginStart="@dimen/dp_px_1014_x"
+        android:layout_marginTop="@dimen/dp_px_87_y"
+        android:src="@drawable/btn_sportmode_speed_up" />
+
+    <com.run.treadmill.widget.LongClickImage
+        android:id="@+id/btn_speed_down"
+        android:layout_width="@dimen/dp_px_125_x"
+        android:layout_height="@dimen/dp_px_66_y"
+        android:layout_marginStart="@dimen/dp_px_832_x"
+        android:layout_marginTop="@dimen/dp_px_87_y"
+        android:src="@drawable/btn_sportmode_speed_down" />
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="@dimen/dp_px_110_x"
+        android:layout_height="@dimen/dp_px_85_y"
+        android:layout_marginStart="@dimen/dp_px_1150_x"
+        android:layout_marginTop="@dimen/dp_px_72_y"
+        android:src="@drawable/btn_back"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/btn_home"
+        android:layout_width="@dimen/dp_px_110_x"
+        android:layout_height="@dimen/dp_px_85_y"
+        android:layout_marginStart="@dimen/dp_px_1150_x"
+        android:layout_marginTop="@dimen/dp_px_72_y"
+        android:src="@drawable/btn_home"
+        android:visibility="gone" />
+</RelativeLayout>

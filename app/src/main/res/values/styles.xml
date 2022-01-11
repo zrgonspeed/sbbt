@@ -1,0 +1,80 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="NoTitle_FullScreen_NoTrans" parent="Theme.AppCompat">
+        <!--设置无标题-->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否半透明-->
+        <item name="android:windowIsTranslucent">false</item>
+        <!--是否全屏-->
+        <item name="android:windowFullscreen">true</item>
+        <!--  <item name="android:windowAnimationStyle">@style/notAnimation</item> -->
+    </style>
+
+    <style name="AlertDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item> <!--无边框-->
+           
+        <item name="android:windowIsFloating">true</item><!--悬浮在父界面之上-->
+           
+        <item name="android:windowIsTranslucent">true</item><!--允许呈现半透明状态-->
+           
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+            <item name="android:windowBackground">@android:color/transparent</item> <!--透明背景-->
+        <item name="android:background">@android:color/transparent</item>
+            <item name="android:backgroundDimEnabled">true</item> <!-- 允许周围模糊 -->
+           
+        <item name="android:backgroundDimAmount">0.5</item><!--设置模糊灰度-->
+    </style>
+
+    <style name="HomeTipsDialog" parent="@android:style/Theme.Dialog">
+        <!--无边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--悬浮在父界面之上-->
+        <item name="android:windowIsFloating">false</item>
+        <!--允许呈现半透明状态-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--无标题-->
+        <item name="android:windowNoTitle">true</item>
+        <!--透明背景-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <!-- 允许周围模糊 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--设置模糊灰度-->
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
+
+    <style name="spinner_style_1" parent="android:style/Widget.ListView.DropDown">
+        <item name="android:divider">@color/textView_black</item>
+        <item name="android:dividerHeight">@dimen/dp_px_11_y</item>
+    </style>
+
+
+    <!-- 取消界面转场动画使用-->
+    <style name="NoAnimationTheme" parent="AppTheme">
+        <item name="android:windowAnimationStyle">@style/Animation</item>
+    </style>
+
+    <style name="Animation">
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@null</item>
+        <item name="android:taskOpenEnterAnimation">@null</item>
+        <item name="android:taskOpenExitAnimation">@null</item>
+        <item name="android:taskCloseEnterAnimation">@null</item>
+        <item name="android:taskCloseExitAnimation">@null</item>
+        <item name="android:taskToFrontEnterAnimation">@null</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@null</item>
+    </style>
+
+</resources>

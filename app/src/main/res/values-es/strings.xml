@@ -1,0 +1,200 @@
+<resources>
+    <string name="media_select_title">MEDIA</string>
+    <string name="language">Idioma</string>
+
+
+    <!-- 公用 -->
+    <string name="string_common_time">Tiempo</string>
+    <string name="string_common_distance">Distancia</string>
+    <string name="string_common_calories">Calorías</string>
+    <string name="string_unit_km">km</string>
+    <string name="string_unit_mile">mile</string>
+    <string name="string_unit_kmh">km/h</string>
+    <string name="string_unit_mileh">mile/h</string>
+    <string name="string_unit_kph">kph</string>
+    <string name="string_unit_mph">mph</string>
+    <string name="string_unit_kcal">kcal</string>
+    <string name="string_unit_bpm">bpm</string>
+    <string name="string_unit_percent">%</string>
+    <string name="string_unit_kg">kg</string>
+    <string name="string_unit_lb">lb</string>
+    <string name="string_unit_hr">hr</string>
+    <string name="string_unit_min">min</string>
+    <string name="string_unit_sec">sec</string>
+    <string name="string_max">máx.</string>
+    <string name="string_min">mín.</string>
+    <string name="string_keybord_max_speed">Velocidad máx.</string>
+    <string name="string_keybord_min_speed">Velocidad mín.</string>
+    <string name="string_keybord_wheel_size">Tamaño rueda</string>
+    <string name="string_keybord_speed_rate">Speed Rate</string>
+    <string name="string_keybord_max_incline">Pendiente máx.</string>
+    <string name="string_keybord_lube">Lubricante</string>
+    <string name="string_keybord_rpm">RPM</string>
+
+    <!-- 运动选择界面 -->
+
+    <string name="string_select_gender">Género</string>
+    <string name="string_select_age">Edad</string>
+    <string name="string_select_weight">Peso</string>
+    <string name="string_select_time">Tiempo</string>
+    <string name="string_select_target_hr">FC objetivo</string>
+    <string name="string_select_start_hint">Presionar Iniciar para iniciar la sesión de ejercicios</string>
+    <string name="string_select_next_hint">Presionar Siguiente para hacer un esbozo del gráfico</string>
+    <string name="string_select_back_hint">Presionar Atrás para configurar</string>
+    <string name="string_select_next_chart_hint">Presionar Siguiente para hacer un esbozo del gráfico</string>
+    <string name="string_select_next_hrc_hint">Presionar Siguiente para seleccionar un valor para CFC</string>
+
+    <string name="string_goal">OBJETIVO</string>
+    <string name="string_goal_1">Este programa permite al usuario establecer un objetivo para la sesión de ejercicios\n seleccionando las opciones TIEMPO, DISTANCIA o CALORÍAS.</string>
+
+    <string name="string_hrc">CFC</string>
+    <string name="string_hrc60">60 % de CFC</string>
+    <string name="string_hrc80">80 % de CFC</string>
+    <string name="string_target_hr">FC objetivo</string>
+
+    <string name="string_program">PROGRAMS</string>
+    <string name="string_program_1">Select a profile chart</string>
+    <string name="string_program_profile">PROFILE</string>
+
+    <string name="string_user_program">PROGRAMA DEL USUARIO</string>
+    <string name="string_select_chart_slide">Deslice el dedo para establecer el gráfico de pendiente y velocidad.</string>
+
+    <string name="string_fitness">PRUEBA DE FORMA FÍSICA</string>
+
+    <string name="string_hill">COLINA</string>
+    <string name="string_interval">INTERVALO</string>
+    <string name="string_vision">VISIÓN</string>
+    <string name="string_movie_name_1">Túnel verde</string>
+    <string name="string_movie_name_2">Camino Verde</string>
+
+    <!-- 运动界面 -->
+    <string name="string_count_down_go">IR</string>
+    <string name="string_title_media">MEDIA</string>
+
+    <string name="string_mode_quick_start">INICIO RÁPIDO</string>
+    <string name="string_mode_goal">OBJETIVO</string>
+    <string name="string_mode_hrc">CFC</string>
+    <string name="string_mode_fitness">PRUEBA DE FORMA FÍSICA</string>
+    <string name="string_mode_user_program">PROGRAMA DEL USUARIO</string>
+    <string name="string_mode_user_program_2">DEL USUARIO </string>
+    <string name="string_mode_program">PROGRAMS</string>
+    <string name="string_mode_hill">COLINA</string>
+    <string name="string_mode_interval">INTERVALO</string>
+    <string name="string_mode_vision">VISIÓN</string>
+
+    <string name="string_incline">Pendiente</string>
+    <string name="string_speed">Velocidad</string>
+
+    <string name="string_running_incline">Pendiente</string>
+    <string name="string_running_speed">Velocidad</string>
+    <string name="string_running_time">Tiempo</string>
+    <string name="string_running_distance">Distancia</string>
+    <string name="string_running_calories">Calorías</string>
+    <string name="string_running_pulse">Pulso</string>
+    <string name="string_running_mets">MET</string>
+
+    <string name="string_running_warm_up">Calentar</string>
+    <string name="string_running_stop">DETENER</string>
+    <string name="string_running_cool_down">Enfriamiento</string>
+
+    <string name="string_running_no_pulse">Sin Latido Cardiaco Detectado</string>
+    <string name="string_running_over_pulse">La frecuencia cardíaca\n es demasiado alto</string>
+
+    <!-- summary -->
+    <string name="string_summary">Resumen de la sesión de ejercicios</string>
+    <string name="string_co2_max">VO2 máx.</string>
+    <string name="string_avg_speed">Avg. Velocidad</string>
+    <string name="string_avg_incline">Avg. Promedio</string>
+    <string name="string_avg_mets">Avg. MET</string>
+    <string name="string_avg_pulse">Avg. Pulso</string>
+    <string name="string_summary_max_speed">Velocidad máx.</string>
+    <string name="string_summary_min_speed">Velocidad mín.</string>
+    <string name="string_summary_max_incline">Promedio máx.</string>
+    <string name="string_summary_min_incline">Promedio mín.</string>
+    <string name="string_summary_max_pulse">Pulso máx.</string>
+    <string name="string_summary_min_pulse">Pulso mín.</string>
+
+    <string name="string_summary_grade_1">Superior</string>
+    <string name="string_summary_grade_2">Excelente</string>
+    <string name="string_summary_grade_3">Bueno</string>
+    <string name="string_summary_grade_4">Fallar</string>
+    <string name="string_summary_grade_5">Deficiente</string>
+    <string name="string_summary_grade_6">Muy pobre</string>
+
+    <!-- factory界面 -->
+    <string name="string_factory_select_mode">SELECCIONAR MODO</string>
+    <string name="string_factory_select_mode_tip">Seleccione entre los modos siguientes Fábrica I, Fábrica II.</string>
+    <string name="string_factory_one">Fábrica I</string>
+    <string name="string_factory_two">Fábrica II</string>
+    <string name="string_factory_setting">Configuración</string>
+    <string name="string_factory_sleep">Modo de reposo</string>
+    <string name="string_factory_display">Modo de pantalla</string>
+    <string name="string_factory_incline">Revertir pendiente</string>
+    <string name="string_factory_buzzer">Timbre</string>
+    <string name="string_factory_login">Página de registro ctrl</string>
+    <string name="string_factory_lube">Lubricante</string>
+    <string name="string_factory_information">Información</string>
+    <string name="string_factory_update">Actualizar</string>
+    <string name="string_factory_logo">Logo</string>
+    <string name="string_factory_calibration">Calibración</string>
+    <string name="string_factory_unit">Unidad</string>
+    <string name="string_factory_speed_calibration">Calibración de la velocidad</string>
+    <string name="string_factory_max_speed">Velocidad máx.</string>
+    <string name="string_factory_min_speed">Velocidad mín.</string>
+    <string name="string_factory_wheel">Tamaño rueda</string>
+    <string name="string_factory_speed_rate">Speed Rate</string>
+    <string name="string_factory_incline_calibration">Calibración de la pendiente</string>
+    <string name="string_factory_max_incline">Pendiente máx.</string>
+    <string name="string_factory_calibra_ad">AD de calibración</string>
+    <string name="string_factory_rpm">RPM</string>
+    <string name="string_factory_usb_update">Asegúrese de que la unidad USB que contiene el software actualizado,\n está insertada en el puerto USB.</string>
+    <string name="string_factory_total_time">Tiempo total</string>
+    <string name="string_factory_total_distance">Distancia total</string>
+    <string name="string_factory_sdk">Versión de SDK</string>
+    <string name="string_factory_firmware">Versión de firmware</string>
+    <string name="string_factory_soffware">Versión de software</string>
+    <string name="string_factory_mcu">Versión de MCU</string>
+    <string name="string_factory_usb_logo">Asegúrese de que la unidad USB que contiene \nel logo actualizado, está insertada en el puerto USB.</string>
+    <string name="string_factory_pop_reset">¿Está seguro de que el parámetro necesita restablecerse?</string>
+    <string name="string_factory_touch">Prueba táctil</string>
+
+    <!-- 设置界面 -->
+    <string name="string_setting_system">Sistema</string>
+    <string name="string_setting_bluetooth">Bluetooth</string>
+    <string name="string_setting_wireless">Inalámbrica</string>
+    <string name="string_setting_lock">Bloquear</string>
+    <string name="string_setting_psw">Contraseña</string>
+
+    <string name="string_setting_language">Idioma</string>
+    <string name="string_setting_brightness">Brillo</string>
+    <string name="string_setting_sound">Sonidos</string>
+    <string name="string_setting_update">SYSTEM &#038; APPS</string>
+    <string name="string_setting_restore">Restore</string>
+    <string name="string_setting_time">Tiempo</string>
+    <string name="string_setting_remaining_time">Tiempo restante</string>>
+    <string name="string_setting_distance">Distancia</string>
+    <string name="string_setting_remaining_distance">Distancia restante</string>
+    <string name="string_setting_customer_psw">Contraseña del cliente</string>
+    <string name="string_setting_sr_psw">CONTRASEÑA del SR</string>
+
+    <!-- app更新界面 -->
+    <string name="string_app_store_title">Application Manager</string>
+    <string name="string_app_store_dialog_title">tip</string>
+    <string name="string_app_store_dialog_msg">Downloading</string>
+    <string name="string_app_store_fail">network anomaly</string>
+    <string name="string_app_store_update">ACTUALIZAR</string>
+    <string name="string_app_store_update_fail">RENOVAR</string>
+    <string name="string_app_store_wait_download">WAIT DOWNLOAD</string>
+    <string name="string_app_store_wait_install">WAIT INSTALL</string>
+    <string name="string_app_store_installing">INSTALLING</string>
+    <string name="string_app_store_install_fail">install fail</string>
+
+    <!-- 错误 -->
+    <string name="string_emergency_stop">PARADA DE EMERGENCIA</string>
+    <string name="string_time_out">TIME OUT</string>
+    <string name="string_calibration_failure">ERROR DE CALIBRACIÓN</string>
+    <string name="string_u_disk_no_file">Cannot find U disk update</string>
+    <string name="string_runing_pause">Pausar</string>
+
+    <string name="server_hint">El servidor actual es</string>
+</resources>

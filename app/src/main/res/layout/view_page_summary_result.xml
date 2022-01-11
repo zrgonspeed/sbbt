@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_px_1060_x"
+    android:layout_height="@dimen/dp_px_592_y"
+    android:background="@drawable/img_sportmode_summary_1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_40_y"
+        android:text="@string/string_summary"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_30pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_60_x"
+        android:layout_marginTop="@dimen/dp_px_130_y"
+        android:gravity="center|left"
+        android:text="@string/string_common_time"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_210_x"
+        android:layout_marginTop="@dimen/dp_px_130_y"
+        android:gravity="center|right"
+        android:text="130:00"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/font_size_47pt" />
+
+    <TextView
+        android:id="@+id/tv_unit_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_443_x"
+        android:layout_marginTop="@dimen/dp_px_160_y"
+        android:gravity="end"
+        android:text="@string/string_unit_min"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_60_x"
+        android:layout_marginTop="@dimen/dp_px_223_y"
+        android:gravity="center|left"
+        android:text="@string/string_common_distance"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:id="@+id/tv_distance"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_210_x"
+        android:layout_marginTop="@dimen/dp_px_223_y"
+        android:gravity="center|right"
+        android:text="10.5"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/font_size_47pt" />
+
+    <TextView
+        android:id="@+id/tv_unit_dis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_443_x"
+        android:layout_marginTop="@dimen/dp_px_250_y"
+        android:text="@string/string_unit_km"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_60_x"
+        android:layout_marginTop="@dimen/dp_px_316_y"
+        android:gravity="center|left"
+        android:text="@string/string_common_calories"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:id="@+id/tv_calories"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_210_x"
+        android:layout_marginTop="@dimen/dp_px_316_y"
+        android:gravity="center|right"
+        android:text="1239.1"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/font_size_47pt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_438_x"
+        android:layout_marginTop="@dimen/dp_px_345_y"
+        android:text="@string/string_unit_kcal"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <LinearLayout
+        android:id="@+id/ly_score"
+        android:layout_width="@dimen/dp_px_430_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_60_x"
+        android:layout_marginTop="@dimen/dp_px_410_y"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="@dimen/dp_px_150_x"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
+            android:text="@string/string_co2_max"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_25pt" />
+
+        <TextView
+            android:id="@+id/tv_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dp_px_10_x"
+            android:gravity="center|left"
+            android:text="@string/string_co2_max"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/font_size_25pt" />
+
+        <TextView
+            android:id="@+id/tv_vo2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|right"
+            android:paddingTop="@dimen/dp_px_5_y"
+            android:text="78.7"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/font_size_47pt" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_590_x"
+        android:layout_marginTop="@dimen/dp_px_130_y"
+        android:gravity="start|center"
+        android:text="@string/string_avg_speed"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:id="@+id/tv_avg_speed"
+        android:layout_width="@dimen/dp_px_130_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_820_x"
+        android:layout_marginTop="@dimen/dp_px_130_y"
+        android:gravity="right"
+        android:text="10.0"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/font_size_47pt" />
+
+    <TextView
+        android:id="@+id/tv_unit_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_955_x"
+        android:layout_marginTop="@dimen/dp_px_160_y"
+        android:text="@string/string_unit_kmh"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_590_x"
+        android:layout_marginTop="@dimen/dp_px_223_y"
+        android:gravity="start|center"
+        android:text="@string/string_avg_incline"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:id="@+id/tv_avg_incline"
+        android:layout_width="@dimen/dp_px_130_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_820_x"
+        android:layout_marginTop="@dimen/dp_px_223_y"
+        android:gravity="right"
+        android:text="10"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/font_size_47pt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_960_x"
+        android:layout_marginTop="@dimen/dp_px_250_y"
+        android:text="@string/string_unit_percent"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_590_x"
+        android:layout_marginTop="@dimen/dp_px_316_y"
+        android:gravity="start|center"
+        android:text="@string/string_avg_mets"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:id="@+id/tv_avg_mets"
+        android:layout_width="@dimen/dp_px_130_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_820_x"
+        android:layout_marginTop="@dimen/dp_px_316_y"
+        android:gravity="right"
+        android:text="10"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/font_size_47pt" />
+
+    <TextView
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_590_x"
+        android:layout_marginTop="@dimen/dp_px_410_y"
+        android:gravity="start|center"
+        android:text="@string/string_avg_pulse"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:id="@+id/tv_avg_pulse"
+        android:layout_width="@dimen/dp_px_130_x"
+        android:layout_height="@dimen/dp_px_80_y"
+        android:layout_marginStart="@dimen/dp_px_820_x"
+        android:layout_marginTop="@dimen/dp_px_410_y"
+        android:gravity="right"
+        android:text="120"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/font_size_47pt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_955_x"
+        android:layout_marginTop="@dimen/dp_px_435_y"
+        android:text="@string/string_unit_bpm"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_25pt" />
+</RelativeLayout>

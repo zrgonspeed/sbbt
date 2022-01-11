@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner_language">
+        <item>US</item>
+        <!--<item>中文</item>-->
+        <item>Deutsch</item>
+        <item>Français</item>
+        <item>Español</item>
+        <item>Português</item>
+    </string-array>
+
+    <string-array name="ignore_thirdAPK_send_message">
+        <item>com.google.android.youtube</item>
+        <item>com.android.chrome</item>
+        <item>com.twitter.android</item>
+        <item>com.facebook.katana</item>
+        <item>com.instagram.android</item>
+        <item>com.spotify.music</item>
+        <item>com.netflix.mediaclient</item>
+        <item>com.android.music</item>
+        <item>com.softwinner.fireplayer</item>
+        <item>com.baidu.searchbox.pad</item>
+        <item>com.sina.weibo</item>
+        <item>com.qiyi.video.pad</item>
+        <item>com.yahoo.mobile.client.android.flickr</item>
+    </string-array>
+
+    <string-array name="thirdApk_packageName">
+        <item>@string/string_app_pk_name_1</item>
+        <item>@string/string_app_pk_name_2</item>
+        <item>@string/string_app_pk_name_3</item>
+        <item>@string/string_app_pk_name_4</item>
+        <item>@string/string_app_pk_name_5</item>
+        <item>@string/string_app_pk_name_6</item>
+        <item>@string/string_app_pk_name_7</item>
+        <item>@string/string_app_pk_name_8</item>
+        <item>@string/string_app_pk_name_9</item>
+        <item>@string/string_app_pk_name_10</item>
+    </string-array>
+
+    <integer-array name="thirdApk_drawable">
+        <item>@drawable/btn_home_youtube</item>
+        <item>@drawable/btn_home_chrome</item>
+        <item>@drawable/btn_home_twitter</item>
+        <item>@drawable/btn_home_facebook</item>
+        <item>@drawable/btn_home_instagram</item>
+        <item>@drawable/btn_home_spotify</item>
+        <item>@drawable/btn_home_netflix</item>
+        <item>@drawable/btn_home_mp3</item>
+        <item>@drawable/btn_home_mp4</item>
+        <item>@drawable/btn_home_screen_mirroring</item>
+    </integer-array>
+
+    <integer-array name="thirdApk_drawable_running">
+        <item>@drawable/btn_media_youtube</item>
+        <item>@drawable/btn_media_chrome</item>
+        <item>@drawable/btn_media_twitter</item>
+        <item>@drawable/btn_media_facebook</item>
+        <item>@drawable/btn_media_instagram</item>
+        <item>@drawable/btn_media_spotify</item>
+        <item>@drawable/btn_media_netflix</item>
+        <item>@drawable/btn_media_mp3</item>
+        <item>@drawable/btn_media_mp4</item>
+        <item>@drawable/btn_media_screen_mirroring</item>
+    </integer-array>
+
+    <!--    下面三个主要用于app更新列表-->
+    <string-array name="thirdApk_update_name">
+        <item>YouTube</item>
+        <item>GoogleChrome</item>
+        <item>Twitter</item>
+        <item>Facebook</item>
+        <item>Instagram</item>
+        <item>Spotify</item>
+        <item>NETFLIX</item>
+        <item>AnplusMirroring</item>
+    </string-array>
+
+    <string-array name="thirdApk_update_packagename">
+        <item>@string/string_app_pk_name_1</item>
+        <item>@string/string_app_pk_name_2</item>
+        <item>@string/string_app_pk_name_3</item>
+        <item>@string/string_app_pk_name_4</item>
+        <item>@string/string_app_pk_name_5</item>
+        <item>@string/string_app_pk_name_6</item>
+        <item>@string/string_app_pk_name_7</item>
+        <item>@string/string_app_pk_name_8</item>
+        <item>@string/string_app_pk_name_9</item>
+        <item>@string/string_app_pk_name_10</item>
+    </string-array>
+
+    <integer-array name="thirdApk_update_img">
+        <item>@drawable/btn_media_youtube_1</item>
+        <item>@drawable/btn_media_chrome_1</item>
+        <item>@drawable/btn_media_twitter_1</item>
+        <item>@drawable/btn_media_facebook_1</item>
+        <item>@drawable/btn_media_instagram_1</item>
+        <item>@drawable/btn_media_spotify_1</item>
+        <item>@drawable/btn_media_netflix_1</item>
+        <item>@drawable/btn_media_screen_mirroring_1</item>
+    </integer-array>
+
+    <integer-array name="moviesId">
+        <item>@drawable/img_program_virtual_02</item>
+        <item>@drawable/img_program_virtual_01</item>
+    </integer-array>
+
+    <integer-array name="showMoviesId">
+        <item>@drawable/img_program_virtual_02_4</item>
+        <item>@drawable/img_program_virtual_01_4</item>
+    </integer-array>
+
+    <string-array name="moviesName">
+        <item>@string/string_movie_name_1</item>
+        <item>@string/string_movie_name_2</item>
+    </string-array>
+</resources>

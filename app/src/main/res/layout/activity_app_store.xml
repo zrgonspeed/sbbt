@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_px_1280_x"
+    android:layout_height="@dimen/dp_px_720_y"
+    android:background="@drawable/bk_0">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_50_y"
+        android:text="@string/string_app_store_title"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_30pt"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rl_app"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/dp_px_30_x"
+        android:layout_marginTop="@dimen/dp_px_150_y"
+        android:layout_marginEnd="@dimen/dp_px_30_x"
+        android:layout_marginBottom="@dimen/dp_px_30_y"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/img_loading"
+        android:layout_width="@dimen/dp_px_150_x"
+        android:layout_height="@dimen/dp_px_150_y"
+        android:layout_centerInParent="true"
+        android:src="@drawable/img_factory_update_1" />
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/string_app_store_fail"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_30pt"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="@dimen/dp_px_110_x"
+        android:layout_height="@dimen/dp_px_85_y"
+        android:layout_marginStart="@dimen/dp_px_1170_x"
+        android:layout_marginTop="@dimen/dp_px_30_x"
+        android:onClick="goBack"
+        android:src="@drawable/btn_back" />
+</RelativeLayout>

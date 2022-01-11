@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bk_0">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_20_y"
+        android:gravity="center"
+        android:text="@string/string_hill"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_47pt"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_px_107_x"
+        android:layout_marginTop="@dimen/dp_px_111_y"
+        android:src="@drawable/img_program_frame_1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_px_60_y"
+        android:layout_marginLeft="@dimen/dp_px_157_x"
+        android:layout_marginTop="@dimen/dp_px_130_y"
+        android:gravity="center"
+        android:text="@string/string_select_gender"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_px_60_y"
+        android:layout_marginLeft="@dimen/dp_px_157_x"
+        android:layout_marginTop="@dimen/dp_px_225_y"
+        android:gravity="center"
+        android:text="@string/string_select_age"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_px_60_y"
+        android:layout_marginLeft="@dimen/dp_px_157_x"
+        android:layout_marginTop="@dimen/dp_px_325_y"
+        android:gravity="center"
+        android:text="@string/string_select_weight"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_px_60_y"
+        android:layout_marginLeft="@dimen/dp_px_157_x"
+        android:layout_marginTop="@dimen/dp_px_420_y"
+        android:gravity="center"
+        android:text="@string/string_select_time"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <ImageView
+        android:id="@+id/img_gender_select"
+        android:layout_width="@dimen/dp_px_150_x"
+        android:layout_height="@dimen/dp_px_60_y"
+        android:layout_marginLeft="@dimen/dp_px_353_x"
+        android:layout_marginTop="@dimen/dp_px_130_y"
+        android:src="@drawable/btn_male_2" />
+
+    <RadioGroup
+        android:id="@+id/rg_info"
+        android:layout_width="@dimen/dp_px_150_x"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_px_353_x"
+        android:layout_marginTop="@dimen/dp_px_225_y">
+
+        <RadioButton
+            android:id="@+id/rb_age"
+            android:layout_width="@dimen/dp_px_150_x"
+            android:layout_height="@dimen/dp_px_60_y"
+            android:background="@drawable/img_number_frame"
+            android:button="@null"
+            android:gravity="center"
+            android:textColor="@color/textView_black"
+            android:textSize="@dimen/font_size_30pt"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rb_weight"
+            android:layout_width="@dimen/dp_px_150_x"
+            android:layout_height="@dimen/dp_px_60_y"
+            android:layout_marginTop="@dimen/dp_px_39_y"
+            android:background="@drawable/img_number_frame"
+            android:button="@null"
+            android:gravity="center"
+            android:textColor="@color/textView_black"
+            android:textSize="@dimen/font_size_30pt"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rb_time"
+            android:layout_width="@dimen/dp_px_150_x"
+            android:layout_height="@dimen/dp_px_60_y"
+            android:layout_marginTop="@dimen/dp_px_39_y"
+            android:background="@drawable/img_number_frame"
+            android:button="@null"
+            android:gravity="center"
+            android:textColor="@color/textView_black"
+            android:textSize="@dimen/font_size_30pt"
+            android:textStyle="bold" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/txt_weight_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_px_60_y"
+        android:layout_marginLeft="@dimen/dp_px_530_x"
+        android:layout_marginTop="@dimen/dp_px_325_y"
+        android:gravity="center"
+        android:text="@string/string_unit_kg"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <TextView
+        android:id="@+id/txt_time_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_px_60_y"
+        android:layout_marginLeft="@dimen/dp_px_530_x"
+        android:layout_marginTop="@dimen/dp_px_420_y"
+        android:gravity="center"
+        android:text="@string/string_unit_min"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_size_25pt" />
+
+    <ImageView
+        android:id="@+id/img_gender_draw"
+        android:layout_width="@dimen/dp_px_450_x"
+        android:layout_height="@dimen/dp_px_370_y"
+        android:layout_marginLeft="@dimen/dp_px_700_x"
+        android:layout_marginTop="@dimen/dp_px_130_y"
+        android:src="@drawable/img_gender_draw_1" />
+
+    <RadioGroup
+        android:id="@+id/rg_gender_info"
+        android:layout_width="@dimen/dp_px_450_x"
+        android:layout_height="@dimen/dp_px_60_y"
+        android:layout_marginLeft="@dimen/dp_px_700_x"
+        android:layout_marginTop="@dimen/dp_px_130_y"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_male"
+            android:layout_width="@dimen/dp_px_150_x"
+            android:layout_height="@dimen/dp_px_60_y"
+            android:button="@drawable/btn_male"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/rb_female"
+            android:layout_width="@dimen/dp_px_150_x"
+            android:layout_height="@dimen/dp_px_60_y"
+            android:layout_marginLeft="@dimen/dp_px_150_x"
+            android:button="@drawable/btn_female" />
+
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/btn_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_px_1003_x"
+        android:layout_marginTop="@dimen/dp_px_538_y"
+        android:src="@drawable/btn_start" />
+
+    <TextView
+        android:layout_width="@dimen/dp_px_400_x"
+        android:layout_height="@dimen/dp_px_77_y"
+        android:layout_marginLeft="@dimen/dp_px_590_x"
+        android:layout_marginTop="@dimen/dp_px_538_y"
+        android:gravity="center|right"
+        android:text="@string/string_select_start_hint"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_18pt" />
+
+    <include
+        layout="@layout/layout_under_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_px_635_y" />
+</RelativeLayout>

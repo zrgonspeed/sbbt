@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/float_window_volume_layout"
+    android:layout_width="@dimen/dp_px_65_x"
+    android:layout_height="@dimen/dp_px_222_y"
+    android:background="@drawable/btn_media_volume_3"
+    android:visibility="gone">
+
+    <com.run.treadmill.widget.VerticalSeekBar
+        android:id="@+id/float_window_seek_bar_voice"
+        android:layout_width="@dimen/dp_px_65_x"
+        android:layout_height="@dimen/dp_px_182_y"
+        android:layout_marginTop="@dimen/dp_px_21_y"
+        android:focusable="true"
+        android:max="100"
+        android:maxHeight="@dimen/dp_px_3_y"
+        android:minHeight="@dimen/dp_px_3_y"
+        android:paddingTop="@dimen/dp_px_2_x"
+        android:progressDrawable="@drawable/seek_bar_float_voice"
+        android:thumb="@drawable/seek_bar_float_voice_point"
+        android:visibility="visible" />
+
+</RelativeLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<litepal>
+    <!-- 数据库名称 -->
+    <dbname value="PramaDB" />
+    <!-- 数据库版本号 -->
+    <version value="10" />
+    <!-- 映射模型 -->
+    <list>
+        <mapping class="com.run.treadmill.db.UserDB" />
+        <mapping class="com.run.treadmill.db.UserCustomDataDB" />
+    </list>
+
+</litepal>

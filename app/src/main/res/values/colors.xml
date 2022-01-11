@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="background_black">#000000</color>
+
+    <color name="textView_black">#000000</color>
+    <color name="textView_white">#FFFFFF</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="transparent_black">#DD000000</color>
+
+    <color name="red">#CF1331</color>
+    <color name="pink">#BA187B</color>
+    <color name="purple">#7855A4</color>
+    <color name="darkBlue">#4F7CB9</color>
+    <color name="lightBlue">#18A9CF</color>
+    <color name="grassGreen">#83A56A</color>
+    <color name="yellow">#FFC107</color>
+    <color name="orange">#D27201</color>
+
+    <color name="green">#2BB419</color>
+    <color name="deepGreen">#0DA02C</color>
+    <color name="gray">#969191</color>
+    <color name="light_gray">#BDBDBF</color>
+    <color name="blue">#0D4B9F</color>
+
+    <color name="histogramListView_bg">#1A2B3B</color>
+    <color name="histogramListView_bottom">#454344</color>
+
+    <color name="histogramListView_line_bg_head">#F01A2B3B</color>
+    <color name="histogramListView_line_bg_bottom">#D03E474B</color>
+
+    <color name="histogramListView_line_passed">#B8C6CB</color>
+    <color name="histogramListView_line_working">#FFC000</color>
+    <color name="histogramListView_line_future">#B8C6CB</color>
+
+    <color name="chart_small">#45526B</color>
+    <color name="chart_max">#121C2F</color>
+
+    <color name="histogramListView_bottom_text">#FFFFFF</color>
+
+    <color name="running_text_orange">#ffc000</color>
+
+    <color name="color_ff4631">#ff4631</color>
+
+    <color name="txt_lock_key_press">#3A404040</color>
+    <color name="txt_lock_key_text">#374D4F</color>
+
+    <color name="gridview_title">#373637</color>
+    <color name="gridview_bg">#1C1C1C</color>
+</resources>

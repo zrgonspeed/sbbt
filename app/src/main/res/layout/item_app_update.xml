@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_px_100_y">
+
+    <ImageView
+        android:id="@+id/img_app_icon"
+        android:layout_width="@dimen/dp_px_68_x"
+        android:layout_height="@dimen/dp_px_68_y"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/dp_px_15_x"
+        android:scaleType="centerCrop"
+        android:src="@drawable/btn_logo_1" />
+
+    <TextView
+        android:id="@+id/tv_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/dp_px_60_x"
+        android:layout_toEndOf="@+id/img_app_icon"
+        android:text="YouTuBe"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_25pt"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_update"
+        android:layout_width="@dimen/dp_px_130_x"
+        android:layout_height="@dimen/dp_px_100_y"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_app_update"
+        android:text="@string/string_app_store_update"
+        android:textSize="@dimen/font_size_15pt" />
+</RelativeLayout>

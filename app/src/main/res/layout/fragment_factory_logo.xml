@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_px_1034_x"
+    android:layout_height="@dimen/dp_px_500_y">
+
+    <TextView
+        android:layout_width="@dimen/dp_px_820_x"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_100_y"
+        android:gravity="center"
+        android:text="@string/string_factory_usb_logo"
+        android:textColor="@color/textView_white"
+        android:textSize="@dimen/font_size_50pt" />
+
+    <ImageView
+        android:id="@+id/img_old_logo"
+        android:layout_width="@dimen/dp_px_282_x"
+        android:layout_height="@dimen/dp_px_100_y"
+        android:layout_marginStart="@dimen/dp_px_200_x"
+        android:layout_marginTop="@dimen/dp_px_233_y"
+        android:background="@drawable/btn_logo_1"
+        android:scaleType="centerInside" />
+
+    <ImageView
+        android:id="@+id/img_new_logo"
+        android:layout_width="@dimen/dp_px_282_x"
+        android:layout_height="@dimen/dp_px_100_y"
+        android:layout_marginStart="@dimen/dp_px_550_x"
+        android:layout_marginTop="@dimen/dp_px_233_y"
+        android:scaleType="centerInside" />
+
+    <ImageView
+        android:id="@+id/btn_update_logo"
+        android:layout_width="@dimen/dp_px_364_x"
+        android:layout_height="@dimen/dp_px_77_y"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_380_y"
+        android:src="@drawable/btn_update_logo" />
+</RelativeLayout>

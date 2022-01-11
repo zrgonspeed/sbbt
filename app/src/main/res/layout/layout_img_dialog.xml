@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/dialog_img"
+        android:layout_width="@dimen/dp_px_933_x"
+        android:layout_height="@dimen/dp_px_363_y"
+        android:layout_marginStart="@dimen/dp_px_50_x"
+        android:layout_marginTop="@dimen/dp_px_50_y"
+        android:src="@drawable/img_pop_password_error" />
+</FrameLayout>

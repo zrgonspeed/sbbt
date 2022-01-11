@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/img_media_app"
+        android:layout_width="@dimen/dp_px_175_x"
+        android:layout_height="@dimen/dp_px_175_y"
+        android:layout_margin="@dimen/dp_px_35_y"
+        android:scaleType="fitXY" />
+</RelativeLayout>

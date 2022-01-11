@@ -1,0 +1,219 @@
+<resources>
+    <string name="app_name" translatable="false">TreadMill</string>
+
+    <string name="media_select_title">Media</string>
+    <string name="language">Language</string>
+
+    <!-- 公用 -->
+    <string name="string_common_time">Time</string>
+    <string name="string_common_distance">Distance</string>
+    <string name="string_common_calories">Calories</string>
+    <string name="string_unit_km">km</string>
+    <string name="string_unit_mile">mile</string>
+    <string name="string_unit_kmh">km/h</string>
+    <string name="string_unit_mileh">mile/h</string>
+    <string name="string_unit_kph">kph</string>
+    <string name="string_unit_mph">mph</string>
+    <string name="string_unit_kcal">kcal</string>
+    <string name="string_unit_bpm">bpm</string>
+    <string name="string_unit_percent">%</string>
+    <string name="string_unit_kg">kg</string>
+    <string name="string_unit_lb">lb</string>
+    <string name="string_unit_hr">hr</string>
+    <string name="string_unit_min">min</string>
+    <string name="string_unit_sec">sec</string>
+    <string name="string_max">Max</string>
+    <string name="string_min">Min</string>
+    <string name="string_keybord_max_speed">Max Speed</string>
+    <string name="string_keybord_min_speed">Min Speed</string>
+    <string name="string_keybord_wheel_size">Wheel Size</string>
+    <string name="string_keybord_speed_rate">Speed Rate</string>
+    <string name="string_keybord_max_incline">Max Incline</string>
+    <string name="string_keybord_lube">Lube</string>
+    <string name="string_keybord_rpm">RPM</string>
+
+    <!-- 运动选择界面 -->
+    <string name="string_select_gender">Gender</string>
+    <string name="string_select_age">Age</string>
+    <string name="string_select_weight">Weight</string>
+    <string name="string_select_time">Time</string>
+    <string name="string_select_target_hr">Target HR</string>
+    <string name="string_select_start_hint">Press Start to begin workout</string>
+    <string name="string_select_next_hint">Press Next to select profile</string>
+    <string name="string_select_back_hint">Press Back for settings</string>
+    <string name="string_select_next_chart_hint">Press Next to profile chart</string>
+    <string name="string_select_next_hrc_hint">Press Next to select a HRC</string>
+
+    <string name="string_goal">GOAL</string>
+    <string name="string_goal_1">This program allows you to set a workout goal by setting either TIME, DISTANCE or CALORIES.</string>
+
+    <string name="string_hrc">HRC</string>
+    <string name="string_hrc60">HRC 60%</string>
+    <string name="string_hrc80">HRC 80%</string>
+    <string name="string_target_hr">Target HR</string>
+
+    <string name="string_program">PROGRAMS</string>
+    <string name="string_program_1">Select a profile chart</string>
+    <string name="string_program_profile">PROFILE</string>
+
+    <string name="string_user_program">USER PROGRAM</string>
+    <string name="string_select_chart_slide">Slide your finger to set the Incline and Speed chart</string>
+
+    <string name="string_fitness">FITNESS TEST</string>
+
+    <string name="string_hill">HILL</string>
+    <string name="string_interval">INTERVAL</string>
+    <string name="string_vision">VISION</string>
+    <string name="string_movie_name_1">Green Tunnel</string>
+    <string name="string_movie_name_2">Green Road</string>
+
+    <!-- 运动界面 -->
+    <string name="string_count_down_go">GO</string>
+    <string name="string_title_media">MEDIA</string>
+
+    <string name="string_mode_quick_start">QUICK START</string>
+    <string name="string_mode_goal">GOAL</string>
+    <string name="string_mode_hrc">HRC</string>
+    <string name="string_mode_fitness">FITNESS TEST</string>
+    <string name="string_mode_user_program">USER PROGRAMS</string>
+    <string name="string_mode_user_program_2">USER </string>
+    <string name="string_mode_program">PROGRAMS</string>
+    <string name="string_mode_hill">HILL</string>
+    <string name="string_mode_interval">INTERVAL</string>
+    <string name="string_mode_vision">VISION</string>
+
+    <string name="string_incline">INCLINE</string>
+    <string name="string_speed">SPEED</string>
+
+    <string name="string_running_incline">Incline</string>
+    <string name="string_running_speed">Speed</string>
+    <string name="string_running_time">Time</string>
+    <string name="string_running_distance">Distance</string>
+    <string name="string_running_calories">Calories</string>
+    <string name="string_running_pulse">Pulse</string>
+    <string name="string_running_mets">Mets</string>
+
+    <string name="string_running_warm_up">WARM UP</string>
+    <string name="string_running_stop">STOP</string>
+    <string name="string_running_cool_down">COOL DOWN</string>
+
+    <string name="string_running_no_pulse">NO HR DETECTED</string>
+    <string name="string_running_over_pulse">OVER PULSE</string>
+
+    <!-- summary -->
+    <string name="string_summary">Workout Summary</string>
+    <string name="string_co2_max">VO2 Max</string>
+    <string name="string_avg_speed">Avg. Speed</string>
+    <string name="string_avg_incline">Avg. Incline</string>
+    <string name="string_avg_mets">Avg. Mets</string>
+    <string name="string_avg_pulse">Avg. Pulse</string>
+    <string name="string_summary_max_speed">Max. Speed</string>
+    <string name="string_summary_min_speed">Min. Speed</string>
+    <string name="string_summary_max_incline">Max. Incline</string>
+    <string name="string_summary_min_incline">Min. Incline</string>
+    <string name="string_summary_max_pulse">Max. Pulse</string>
+    <string name="string_summary_min_pulse">Min. Pulse</string>
+
+    <string name="string_summary_grade_1">Superior</string>
+    <string name="string_summary_grade_2">Excellent</string>
+    <string name="string_summary_grade_3">Good</string>
+    <string name="string_summary_grade_4">Fai</string>
+    <string name="string_summary_grade_5">Poor</string>
+    <string name="string_summary_grade_6">Very Poor</string>
+
+    <!-- factory界面 -->
+    <string name="string_factory_select_mode">SELECT MODE</string>
+    <string name="string_factory_select_mode_tip">Please select from the following modes\neither Factory I, Factory II.</string>
+    <string name="string_factory_one">Factory I</string>
+    <string name="string_factory_two">Factory II</string>
+    <string name="string_factory_setting">Settings</string>
+    <string name="string_factory_sleep">Sleep mode</string>
+    <string name="string_factory_display">Display mode</string>
+    <string name="string_factory_incline">Incline revert</string>
+    <string name="string_factory_buzzer">Buzzer</string>
+    <string name="string_factory_login">Login ctrl page</string>
+    <string name="string_factory_lube">Lube</string>
+    <string name="string_factory_information">Information</string>
+    <string name="string_factory_update">Update</string>
+    <string name="string_factory_logo">Logo</string>
+    <string name="string_factory_calibration">Calibration</string>
+    <string name="string_factory_unit">Unit</string>
+    <string name="string_factory_speed_calibration">Speed Calibration</string>
+    <string name="string_factory_max_speed">Max Speed</string>
+    <string name="string_factory_min_speed">Min Speed</string>
+    <string name="string_factory_wheel">Wheel Size</string>
+    <string name="string_factory_speed_rate">Speed Rate</string>
+    <string name="string_factory_incline_calibration">Incline Calibration</string>
+    <string name="string_factory_max_incline">Max Incline</string>
+    <string name="string_factory_rpm">RPM</string>
+    <string name="string_factory_calibra_ad">Calibration AD</string>
+    <string name="string_factory_usb_update">Please make sure the USB, which contains the\nupdated software, is inserted into the USB port</string>
+    <string name="string_factory_total_time">Total Time</string>
+    <string name="string_factory_total_distance">Total Distance</string>
+    <string name="string_factory_sdk">SDK Ver.</string>
+    <string name="string_factory_firmware">Firmware Ver.</string>
+    <string name="string_factory_soffware">Software Ver.</string>
+    <string name="string_factory_mcu">MCU Ver.</string>
+    <string name="string_factory_usb_logo">Please make sure the USB, which contains the\n updated logo, is inserted into the USB port</string>
+    <string name="string_factory_pop_reset">Are you sure the parameter need to be reset?</string>
+    <string name="string_factory_touch">Touch Test</string>
+
+    <!-- 设置界面 -->
+    <string name="string_setting_system">System</string>
+    <string name="string_setting_bluetooth">Bluetooth</string>
+    <string name="string_setting_wireless">Wireless</string>
+    <string name="string_setting_lock">Lock</string>
+    <string name="string_setting_psw">Password</string>
+    <string name="string_setting_language">Language</string>
+    <string name="string_setting_brightness">Brightness</string>
+    <string name="string_setting_sound">Sound</string>
+    <string name="string_setting_update">SYSTEM &#038; APPS</string>
+    <string name="string_setting_restore">Restore</string>
+    <string name="string_setting_time">Time</string>
+    <string name="string_setting_remaining_time">Remaining Time</string>>
+    <string name="string_setting_distance">Distance</string>
+    <string name="string_setting_remaining_distance">Remaining Distance</string>
+    <string name="string_setting_customer_psw">customer Password</string>
+    <string name="string_setting_sr_psw">SR Password</string>
+
+    <!-- app更新界面 -->
+    <string name="string_app_store_title">Application Manager</string>
+    <string name="string_app_store_dialog_title">tip</string>
+    <string name="string_app_store_dialog_msg">Downloading</string>
+    <string name="string_app_store_fail">network anomaly</string>
+    <string name="string_app_store_update">UPDATE</string>
+    <string name="string_app_store_update_fail">RENEW UPDATE</string>
+    <string name="string_app_store_wait_download">WAIT DOWNLOAD</string>
+    <string name="string_app_store_wait_install">WAIT INSTALL</string>
+    <string name="string_app_store_installing">INSTALLING</string>
+    <string name="string_app_store_install_fail">install fail</string>
+    <string name="string_app_store_check_md5">CHECKING MD5</string>
+    <string name="string_app_store_md5_fail">File calc MD5 fail</string>
+
+    <!-- 错误 -->
+    <string name="string_emergency_stop">EMERGENCY STOP</string>
+    <string name="string_time_out">TIME OUT</string>
+    <string name="string_calibration_failure">CALIBRATION FAILURE</string>
+    <string name="string_u_disk_no_file">Cannot find U disk update</string>
+
+    <!-- 第三方媒体app包名，类名 -->
+    <string name="string_app_pk_name_1">com.google.android.youtube</string>
+    <!--    <string name="string_app_pk_name_1">info.kfsoft.android.MemoryIndicator</string>-->
+    <string name="string_app_pk_name_2">com.android.chrome</string>
+    <string name="string_app_pk_name_3">com.twitter.android</string>
+    <string name="string_app_pk_name_4">com.facebook.katana</string>
+    <string name="string_app_pk_name_5">com.instagram.android</string>
+    <string name="string_app_pk_name_6">com.spotify.music</string>
+    <string name="string_app_pk_name_7">com.netflix.mediaclient</string>
+    <string name="string_app_pk_name_8">com.android.music</string>
+    <string name="string_app_pk_name_9">com.softwinner.fireplayer</string>
+    <string name="string_app_pk_name_10">com.anplus.tft</string>
+
+    <!--OTA更新MCU-->
+    <string name="ota_update">Update......</string>
+    <string name="no__update_files">No OTA update files were detected</string>
+    <string name="incorrect_signature">Incorrect signature</string>
+
+    <!--OTA更新APK-->
+    <string name="server_hint">The current server is</string>
+</resources>

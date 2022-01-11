@@ -1,0 +1,215 @@
+<resources>
+    <string name="media_select_title">媒体</string>
+    <string name="language">语言</string>
+
+
+    <!-- 公用 -->
+    <string name="string_common_time">时间</string>
+    <string name="string_common_distance">距离</string>
+    <string name="string_common_calories">卡路里</string>
+    <string name="string_unit_km">km</string>
+    <string name="string_unit_mile">mile</string>
+    <string name="string_unit_kmh">km/h</string>
+    <string name="string_unit_mileh">mile/h</string>
+    <string name="string_unit_kph">kph</string>
+    <string name="string_unit_mph">mph</string>
+    <string name="string_unit_kcal">kcal</string>
+    <string name="string_unit_bpm">bpm</string>
+    <string name="string_unit_percent">%</string>
+    <string name="string_unit_kg">kg</string>
+    <string name="string_unit_lb">lb</string>
+    <string name="string_unit_hr">hr</string>
+    <string name="string_unit_min">min</string>
+    <string name="string_unit_sec">sec</string>
+    <string name="string_max">最大</string>
+    <string name="string_min">最小</string>
+    <string name="string_keybord_max_speed">最大速度</string>
+    <string name="string_keybord_min_speed">最小速度</string>
+    <string name="string_keybord_wheel_size">轮径尺寸</string>
+    <string name="string_keybord_speed_rate">速比</string>
+    <string name="string_keybord_max_incline">最大扬升</string>
+    <string name="string_keybord_lube">润滑油</string>
+    <string name="string_keybord_rpm">RPM</string>
+
+    <!-- 运动选择界面 -->
+    <string name="string_select_gender">性别</string>
+    <string name="string_select_age">年龄</string>
+    <string name="string_select_weight">体重</string>
+    <string name="string_select_time">时间</string>
+    <string name="string_select_target_hr">心率控制目标值</string>
+    <string name="string_select_start_hint">按开始进行运动</string>
+    <string name="string_select_next_hint">按下一个选择图表</string>
+    <string name="string_select_back_hint">按返回重设</string>
+    <string name="string_select_next_chart_hint">按下一个选择图表</string>
+    <string name="string_select_next_hrc_hint">按下一个选择一个HRC模式</string>
+
+    <string name="string_goal">目标模式</string>
+    <string name="string_goal_1">此程序允许用户设定一个运动目标,\n时间, 距离 或卡路里择一设定</string>
+
+    <string name="string_hrc">心率控制系统</string>
+    <string name="string_hrc60">心率控制60%</string>
+    <string name="string_hrc80">心率控制80%</string>
+    <string name="string_target_hr">心率控制目标值</string>
+
+    <string name="string_program">程序</string>
+    <string name="string_program_1">选择一个图表</string>
+    <string name="string_program_profile">PROFILE</string>
+
+    <string name="string_user_program">用户程序</string>
+
+    <string name="string_select_chart_slide">滑动你的手指设定扬升和速度图表</string>
+
+    <string name="string_fitness">运动测试模式</string>
+
+    <string name="string_hill">登山模式</string>
+    <string name="string_interval">间歇模式</string>
+    <string name="string_vision">虚拟情景</string>
+    <string name="string_movie_name_1">绿色隧道</string>
+    <string name="string_movie_name_2">绿色公路</string>
+
+    <!-- 运动界面 -->
+    <string name="string_count_down_go">开始</string>
+    <string name="string_title_media">媒体</string>
+
+    <string name="string_mode_quick_start">快速启动</string>
+    <string name="string_mode_goal">目标模式</string>
+    <string name="string_mode_hrc">心率控制系统</string>
+    <string name="string_mode_fitness">运动测试模式</string>
+    <string name="string_mode_user_program">用户程序</string>
+    <string name="string_mode_user_program_2">用户 </string>
+    <string name="string_mode_program">程序</string>
+    <string name="string_mode_hill">登山模式</string>
+    <string name="string_mode_interval">间歇模式</string>
+    <string name="string_mode_vision">虚拟情景</string>
+
+    <string name="string_incline">扬升</string>
+    <string name="string_speed">速度</string>
+
+    <string name="string_running_incline">扬升</string>
+    <string name="string_running_speed">速度</string>
+    <string name="string_running_time">时间</string>
+    <string name="string_running_distance">距离</string>
+    <string name="string_running_calories">卡路里</string>
+    <string name="string_running_pulse">心跳</string>
+    <string name="string_running_mets">代谢当量</string>
+
+    <string name="string_running_warm_up">暖身</string>
+    <string name="string_running_stop">停止</string>
+    <string name="string_running_cool_down">冷却</string>
+
+    <string name="string_running_no_pulse">没有心跳感应</string>
+    <string name="string_running_over_pulse">心律超标</string>
+
+    <!-- summary -->
+    <string name="string_summary">运动报告</string>
+    <string name="string_co2_max">最大摄氧量</string>
+    <string name="string_avg_speed">平均速度</string>
+    <string name="string_avg_incline">平均扬升</string>
+    <string name="string_avg_mets">平均代谢当量</string>
+    <string name="string_avg_pulse">平均心跳</string>
+    <string name="string_summary_max_speed">最大速度</string>
+    <string name="string_summary_min_speed">最低速度</string>
+    <string name="string_summary_max_incline">最大扬升</string>
+    <string name="string_summary_min_incline">最低扬升</string>
+    <string name="string_summary_max_pulse">最大心跳</string>
+    <string name="string_summary_min_pulse">最低心跳</string>
+
+    <string name="string_summary_grade_1">优越</string>
+    <string name="string_summary_grade_2">优秀</string>
+    <string name="string_summary_grade_3">好</string>
+    <string name="string_summary_grade_4">失败</string>
+    <string name="string_summary_grade_5">差</string>
+    <string name="string_summary_grade_6">很差</string>
+
+    <!-- factory界面 -->
+    <string name="string_factory_select_mode">选择模式</string>
+    <string name="string_factory_select_mode_tip">选择下面模式:工厂I 工厂II</string>
+    <string name="string_factory_one">工厂I</string>
+    <string name="string_factory_two">工厂II</string>
+    <string name="string_factory_setting">设定</string>
+    <string name="string_factory_sleep">睡眠模式</string>
+    <string name="string_factory_display">显示模式</string>
+    <string name="string_factory_incline">扬升回复</string>
+    <string name="string_factory_buzzer">警报器</string>
+    <string name="string_factory_login">登入控制页面</string>
+    <string name="string_factory_lube">润滑油</string>
+    <string name="string_factory_information">讯息</string>
+    <string name="string_factory_update">更新</string>
+    <string name="string_factory_logo">商标</string>
+    <string name="string_factory_calibration">校正</string>
+    <string name="string_factory_unit">单位</string>
+    <string name="string_factory_speed_calibration">速度校正</string>
+    <string name="string_factory_max_speed">最大速度</string>
+    <string name="string_factory_min_speed">最小速度</string>
+    <string name="string_factory_wheel">轮径尺寸</string>
+    <string name="string_factory_speed_rate">速比</string>
+    <string name="string_factory_incline_calibration">扬升校正</string>
+    <string name="string_factory_max_incline">最大扬升</string>
+    <string name="string_factory_calibra_ad">校正AD</string>
+    <string name="string_factory_rpm">RPM</string>
+    <string name="string_factory_usb_update">请确认内含最新版软件的USB\n已确实插入USB埠</string>
+    <string name="string_factory_total_time">总时间</string>
+    <string name="string_factory_total_distance">总距离</string>
+    <string name="string_factory_sdk">SDK 版本</string>
+    <string name="string_factory_firmware">固件版本</string>
+    <string name="string_factory_soffware">软件版本</string>
+    <string name="string_factory_mcu">下位机版本</string>
+    <string name="string_factory_usb_logo">请确认内含最新版商标的USB\n已确实插入USB埠</string>
+    <string name="string_factory_pop_reset">确定参数要重新设定?</string>
+    <string name="string_factory_touch">触摸测试</string>
+
+    <!-- 设置界面 -->
+    <string name="string_setting_system">系统</string>
+    <string name="string_setting_bluetooth">蓝牙</string>
+    <string name="string_setting_wireless">无线装置</string>
+    <string name="string_setting_lock">锁定</string>
+    <string name="string_setting_psw">密码设定</string>
+
+    <string name="string_setting_language">语言</string>
+    <string name="string_setting_brightness">亮度</string>
+    <string name="string_setting_sound">声音</string>
+    <string name="string_setting_update">系统和应用程序</string>
+    <string name="string_setting_restore">恢复</string>
+    <string name="string_setting_time">时间</string>
+    <string name="string_setting_remaining_time">剩余时间</string>>
+    <string name="string_setting_distance">距离</string>
+    <string name="string_setting_remaining_distance">剩余距离</string>
+    <string name="string_setting_customer_psw">客人密码</string>
+    <string name="string_setting_sr_psw">SR密码</string>
+
+    <!-- app更新界面 -->
+    <string name="string_app_store_title">应用管理</string>
+    <string name="string_app_store_dialog_title">提示</string>
+    <string name="string_app_store_dialog_msg">正在下载</string>
+    <string name="string_app_store_fail">网络异常</string>
+    <string name="string_app_store_update">更新</string>
+    <string name="string_app_store_update_fail">重新更新</string>
+    <string name="string_app_store_wait_download">等待下载</string>
+    <string name="string_app_store_wait_install">等待安装</string>
+    <string name="string_app_store_installing">正在下载</string>
+    <string name="string_app_store_install_fail">安装失败</string>
+
+    <!-- 错误 -->
+    <string name="string_emergency_stop">紧急停止</string>
+    <string name="string_time_out">超时</string>
+    <string name="string_calibration_failure">校正错误</string>
+    <string name="string_u_disk_no_file">找不到U盘更新</string>
+
+    <!-- 第三方媒体app包名，类名 -->
+    <string name="string_app_pk_name_1">com.baidu.searchbox.pad</string>
+    <!--    <string name="string_app_pk_name_1">info.kfsoft.android.MemoryIndicator</string>-->
+    <string name="string_app_pk_name_2">com.sina.weibo</string>
+    <string name="string_app_pk_name_3">com.qiyi.video.pad</string>
+    <string name="string_app_pk_name_4">com.android.music</string>
+    <string name="string_app_pk_name_5">com.softwinner.fireplayer</string>
+
+    <string name="string_app_pk_name_6">com.anplus.tft</string>
+    <string name="string_app_pk_name_7">com.tencent.qqmusic</string>
+
+    <string name="string_app_pk_name_8">com.android.cameraSelf</string>
+    <string name="string_app_pk_name_9">com.yahoo.mobile.client.android.flickr</string>
+    <string name="ota_update">更新......</string>
+    <string name="no__update_files">没有检测到OTA更新文件</string>
+    <string name="incorrect_signature">签名不正确</string>
+    <string name="server_hint">当前的服务器是\n</string>
+</resources>

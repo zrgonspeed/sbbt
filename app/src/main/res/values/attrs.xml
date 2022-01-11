@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DirectionView">
+        <!-- 内弧的半径 -->
+        <attr name="in_arc_radius" format="integer" />
+        <!-- 外弧的半径 -->
+        <attr name="out_arc_radius" format="integer" />
+        <!-- 弧的粗细 -->
+        <attr name="arc_width" format="integer" />
+        <!-- 箭头缩放大小 -->
+        <attr name="arrow_size" format="float" />
+        <!-- 球的半径 -->
+        <attr name="ball_radius" format="integer" />
+
+    </declare-styleable>
+    <declare-styleable name="HistogramListView">
+        <!-- 主要背景色 -->
+        <attr name="bottomHeight" format="integer" />
+        <!-- 柱状高度 -->
+        <attr name="chartHeight" format="float" />
+        <!-- 柱状宽度 -->
+        <attr name="chartWidth" format="float" />
+        <!-- 柱状间隔 -->
+        <attr name="chartPadding" format="float" />
+        <!-- 标尺最大值 -->
+        <attr name="maxValue" format="integer" />
+        <!-- 模式名称 -->
+        <attr name="modeName" format="string" />
+        <!-- 模式名称的字体大小 -->
+        <attr name="txtSize" format="dimension" />
+        <!-- 整个控件的高度与layout_height要保持一致 -->
+        <attr name="viewHeight" format="dimension|float" />
+        <!-- 整个控件的宽度度与layout_width要保持一致 -->
+        <attr name="viewWidth" format="dimension|float" />
+    </declare-styleable>
+
+    <declare-styleable name="MultiClickImageView">
+        <!-- 点击次数 -->
+        <attr name="clickCount" format="integer" />
+        <!-- 总时间(秒) -->
+        <attr name="clickTime" format="integer" />
+    </declare-styleable>
+</resources>
+
