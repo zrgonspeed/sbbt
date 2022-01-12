@@ -272,7 +272,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         edit_min_speed.setText(String.valueOf(SpManager.getMinSpeed(isMetric)));
         rg_metric.check(isMetric ? R.id.rb_metric : R.id.rb_imperial);
         rg_metric.setOnCheckedChangeListener((group, checkedId) -> {
-//            BuzzerUtil.buzzerRingOnce();
+            BuzzerManager.getInstance().buzzerRingOnce();
             if (checkedId == R.id.rb_metric) {
                 edit_max_speed.setText(String.valueOf(SpManager.getMaxSpeed(true)));
                 edit_min_speed.setText(String.valueOf(SpManager.getMinSpeed(true)));
@@ -458,6 +458,12 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         if (FileUtil.isCheckExist(mUdiskPath + "/" + InitParam.LOGO_NAME)) {
             img_new_logo.setImageBitmap(FileUtil.imgFileTOBitmap(mUdiskPath + "/" + InitParam.LOGO_NAME));
         }
+        for (RadioButton radioButton : viewsLeft) {
+            radioButton.setOnClickListener((v) -> {
+                BuzzerManager.getInstance().buzzerRingOnce();
+            });
+        }
+
 
         // 左侧按钮选中事件
         rg_factory.setOnCheckedChangeListener((group, checkedId) -> {
@@ -869,6 +875,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
                 break;
             case R.id.btn_setting_reset:
                 createResetDialog(v1 -> {
+                    BuzzerManager.getInstance().buzzerRingOnce();
 //                    SpManager.setSleep(true);
 //                    SpManager.setDisplay(true);
 //                    SpManager.setGSMode(true);
@@ -885,6 +892,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
                 break;
             case R.id.btn_info_reset:
                 createResetDialog(v1 -> {
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     SpManager.resetRunTotalTime(0L);
                     SpManager.resetRunTotalDis(0f);
                     mResetDialog.dismiss();
@@ -1012,6 +1020,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
     }
 
     public void goHome(View view) {
+        BuzzerManager.getInstance().buzzerRingOnce();
         finish();
     }
 
@@ -1091,9 +1100,10 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
                     .setView(getLayoutInflater().inflate(R.layout.layout_yes_no_dialog, rl_main_two, false))
                     .create();
             mResetDialog.setCanceledOnTouchOutside(true);
-            btn_pop_yes = (ImageView) mResetDialog.findViewById(R.id.btn_pop_yes);
-            btn_pop_no = (ImageView) mResetDialog.findViewById(R.id.btn_pop_no);
+            btn_pop_yes = mResetDialog.findViewById(R.id.btn_pop_yes);
+            btn_pop_no = mResetDialog.findViewById(R.id.btn_pop_no);
             btn_pop_no.setOnClickListener(v -> {
+                BuzzerManager.getInstance().buzzerRingOnce();
                 mResetDialog.dismiss();
             });
         }
@@ -1214,6 +1224,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        BuzzerManager.getInstance().buzzerRingOnce();
         switch (buttonView.getId()) {
             case R.id.tb_sleep:
                 SpManager.setSleep(isChecked);

@@ -104,9 +104,7 @@ public class GoalSelectActivity extends BaseSelectActivity<GoalSelectView, GoalS
 
     @OnClick({R.id.rb_time, R.id.rb_distance, R.id.rb_calories, R.id.btn_start})
     public void onClick(View view) {
-        if (view.getId() != R.id.btn_start) {
-            BuzzerManager.getInstance().buzzerRingOnce();
-        }
+        BuzzerManager.getInstance().buzzerRingOnce();
         switch (view.getId()) {
             case R.id.btn_start:
                 if (isOnclickStart) {

@@ -14,6 +14,7 @@ import android.view.SoundEffectConstants;
 
 import com.run.treadmill.R;
 import com.run.treadmill.util.GpIoUtils;
+import com.run.treadmill.util.Logger;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -26,6 +27,8 @@ import java.util.Map;
  * @Time 2019/08/14
  */
 public class BuzzerManager {
+    private static final String TAG = BuzzerManager.class.getSimpleName();
+
     public static final int BUZZER_CMD = 1;
     public static final int BUZZER_SYSTEM = 2;
     public static final int BUZZER_IO = 3;
@@ -234,12 +237,13 @@ public class BuzzerManager {
 
         @Override
         public void buzzerRingOnce() {
-            mAudioManager.playSoundEffect(SoundEffectConstants.CLICK);
+            Logger.d(TAG, "buzzerRingOnce()");
+//            mAudioManager.playSoundEffect(SoundEffectConstants.CLICK);
+            mSoundPool.play(poolMap.get("spasm"), 1, 1, 1000, 0, 1f);
         }
 
         @Override
         public void buzzerRingLong(long time) {
-            //   ToastUtils.toast(mContext, "buzzerRingLong(long time)");
             if (playId == 0) {
                 mSoundPool.stop(playId);
             }

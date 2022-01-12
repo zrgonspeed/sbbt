@@ -683,6 +683,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
     }
 
     public void goHome(View view) {
+        BuzzerManager.getInstance().buzzerRingOnce();
         if (isChangeLanguage) {
             return;
         }

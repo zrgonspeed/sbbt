@@ -20,6 +20,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dp_px_150_y"
             android:text="@string/string_factory_pop_reset"
+            android:textAlignment="center"
             android:textColor="@color/textView_black"
             android:textSize="@dimen/font_size_25pt"
             android:textStyle="bold" />

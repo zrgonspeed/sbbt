@@ -122,6 +122,7 @@ public abstract class BaseSelectActivity<V extends BaseSelectView, P extends Bas
     }
 
     public void goHome(View view) {
+        BuzzerManager.getInstance().buzzerRingOnce();
         finish();
     }
 

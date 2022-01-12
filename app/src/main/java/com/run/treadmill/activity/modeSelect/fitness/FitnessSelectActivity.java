@@ -88,9 +88,7 @@ public class FitnessSelectActivity extends BaseSelectActivity<FitnessSelectView,
 
     @OnClick({R.id.rb_age, R.id.rb_weight, R.id.btn_start})
     public void click(View view) {
-        if (view.getId() != R.id.btn_start) {
-            BuzzerManager.getInstance().buzzerRingOnce();
-        }
+        BuzzerManager.getInstance().buzzerRingOnce();
         switch (view.getId()) {
             case R.id.rb_age:
                 mCalcBuilder.reset()

@@ -92,9 +92,7 @@ public class IntervalSelectActivity extends BaseSelectActivity<IntervalSelectVie
 
     @OnClick({R.id.rb_age, R.id.rb_weight, R.id.rb_time, R.id.btn_start})
     public void click(View view) {
-        if (view.getId() != R.id.btn_start) {
-            BuzzerManager.getInstance().buzzerRingOnce();
-        }
+        BuzzerManager.getInstance().buzzerRingOnce();
         switch (view.getId()) {
             default:
                 break;

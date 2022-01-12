@@ -117,9 +117,7 @@ public class HrcSelectActivity extends BaseSelectActivity<HrcSelectView, HrcSele
 
     @OnClick({R.id.btn_next_or_back, R.id.btn_start, R.id.rb_age, R.id.rb_weight, R.id.rb_time, R.id.rb_hrc60, R.id.rb_hrc80, R.id.rb_target_hr})
     public void click(View view) {
-        if (view.getId() != R.id.btn_start) {
-            BuzzerManager.getInstance().buzzerRingOnce();
-        }
+        BuzzerManager.getInstance().buzzerRingOnce();
         switch (view.getId()) {
             default:
                 break;

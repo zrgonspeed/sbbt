@@ -172,9 +172,7 @@ public class UserProgramSelectActivity extends BaseSelectActivity<UserProgramSel
 
     @OnClick({R.id.btn_next_or_back, R.id.btn_start, R.id.rb_age, R.id.rb_weight, R.id.rb_time, R.id.btn_line_chart_incline, R.id.btn_line_chart_speed})
     public void click(View view) {
-        if (view.getId() != R.id.btn_start) {
-            BuzzerManager.getInstance().buzzerRingOnce();
-        }
+        BuzzerManager.getInstance().buzzerRingOnce();
         switch (view.getId()) {
             case R.id.rb_age:
                 mCalcBuilder.reset()
