@@ -5,7 +5,9 @@ import android.content.res.TypedArray;
 import android.os.Message;
 
 import com.run.serial.SerialCommand;
+import com.run.serial.SerialUtils;
 import com.run.treadmill.base.BasePresenter;
+import com.run.treadmill.base.MyApplication;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
@@ -173,5 +175,19 @@ public abstract class BaseRunPresenter<V extends BaseRunView> extends BasePresen
             resIds[i] = ar.getResourceId(i, 0);
         }
         return resIds;
+    }
+
+    @Override
+    public void onFail(byte[] data, int len, int count) {
+        super.onFail(data, len, count);
+
+        if (MyApplication.DEFAULT_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
+            // DC光感下控，发最小速度失败时
+            if ((mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE
+                    || mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE)
+                    && data[3] == ParamCons.CMD_SET_SPEED) {
+                SerialUtils.getInstance().reMoveReSendPackage();
+            }
+        }
     }
 }

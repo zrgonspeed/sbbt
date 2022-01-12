@@ -114,6 +114,124 @@ public class AppStoreActivity extends BaseActivity<AppStoreView, AppStorePresent
             getPresenter().getAppList(this);
             isFirst = false;
         }
+
+        /*ArrayList<AppBean.AppInfo> appInfos = new ArrayList<>();
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("YouTube");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("GoogleChrome");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("YouTube");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("GoogleChrome");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("YouTube");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("GoogleChrome");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("YouTube");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("GoogleChrome");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("YouTube");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("GoogleChrome");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("YouTube");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("GoogleChrome");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("YouTube");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("GoogleChrome");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("YouTube");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+        {
+            AppBean.AppInfo appInfo = new AppBean.AppInfo();
+            appInfo.setName("GoogleChrome");
+            appInfo.setVersion("14.25.57");
+            appInfo.setImgId(getPresenter().getAppImgs().get(appInfo.getName()));
+            appInfos.add(appInfo);
+        }
+                initList(appInfos);
+
+        */
+
     }
 
     @Override

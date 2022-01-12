@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dp_px_1280_x"
-    android:layout_height="@dimen/dp_px_123_y">
+    android:layout_width="@dimen/dp_px_1920_x"
+    android:layout_height="@dimen/dp_px_184_y">
 
     <ImageView
-        android:layout_width="@dimen/dp_px_1280_x"
-        android:layout_height="@dimen/dp_px_123_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/img_sportmode_top_bar" />
 
     <ImageView
         android:id="@+id/img_voice"
-        android:layout_width="@dimen/dp_px_45_x"
-        android:layout_height="@dimen/dp_px_41_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_30_x"
         android:layout_marginTop="@dimen/dp_px_50_y"
         android:src="@drawable/btn_float_window_voice" />
@@ -20,171 +20,171 @@
         android:id="@+id/txt_running_incline_param"
         android:layout_width="@dimen/dp_px_140_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_130_x"
-        android:layout_marginTop="@dimen/dp_px_22_y"
+        android:layout_marginStart="@dimen/dp_px_230_x"
+        android:layout_marginTop="@dimen/dp_px_8_y"
         android:gravity="center"
         android:text="@string/string_running_incline"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/font_size_15pt" />
+        android:textColor="@color/light_gray"
+        android:textSize="@dimen/font_size_16pt" />
 
     <TextView
         android:id="@+id/tv_incline"
         android:layout_width="@dimen/dp_px_140_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_130_x"
-        android:layout_marginTop="@dimen/dp_px_60_y"
+        android:layout_marginStart="@dimen/dp_px_240_x"
+        android:layout_marginTop="@dimen/dp_px_90_y"
         android:gravity="center"
         android:text="10 %"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_25pt" />
+        android:textSize="@dimen/font_size_18pt" />
 
     <TextView
         android:layout_width="@dimen/dp_px_140_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_275_x"
-        android:layout_marginTop="@dimen/dp_px_22_y"
+        android:layout_marginStart="@dimen/dp_px_445_x"
+        android:layout_marginTop="@dimen/dp_px_8_y"
         android:gravity="center"
         android:text="@string/string_running_time"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/font_size_15pt" />
+        android:textColor="@color/light_gray"
+        android:textSize="@dimen/font_size_16pt" />
 
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="@dimen/dp_px_140_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_275_x"
-        android:layout_marginTop="@dimen/dp_px_60_y"
+        android:layout_marginStart="@dimen/dp_px_445_x"
+        android:layout_marginTop="@dimen/dp_px_90_y"
         android:gravity="center"
         android:text="18:59"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_25pt" />
+        android:textSize="@dimen/font_size_18pt" />
 
     <TextView
         android:layout_width="@dimen/dp_px_140_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_420_x"
-        android:layout_marginTop="@dimen/dp_px_22_y"
+        android:layout_marginStart="@dimen/dp_px_670_x"
+        android:layout_marginTop="@dimen/dp_px_8_y"
         android:gravity="center"
         android:text="@string/string_running_distance"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/font_size_15pt" />
+        android:textColor="@color/light_gray"
+        android:textSize="@dimen/font_size_16pt" />
 
     <TextView
         android:id="@+id/tv_distance"
-        android:layout_width="@dimen/dp_px_140_x"
+        android:layout_width="@dimen/dp_px_200_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_420_x"
-        android:layout_marginTop="@dimen/dp_px_60_y"
+        android:layout_marginStart="@dimen/dp_px_635_x"
+        android:layout_marginTop="@dimen/dp_px_90_y"
         android:gravity="center"
-        android:text="13.5 km"
+        android:text="13.115"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_25pt" />
+        android:textSize="@dimen/font_size_18pt" />
 
     <TextView
         android:layout_width="@dimen/dp_px_140_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_570_x"
-        android:layout_marginTop="@dimen/dp_px_22_y"
+        android:layout_marginStart="@dimen/dp_px_890_x"
+        android:layout_marginTop="@dimen/dp_px_8_y"
         android:gravity="center"
         android:text="@string/string_running_calories"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/font_size_15pt" />
+        android:textColor="@color/light_gray"
+        android:textSize="@dimen/font_size_16pt" />
 
     <TextView
         android:id="@+id/tv_calories"
-        android:layout_width="@dimen/dp_px_160_x"
+        android:layout_width="@dimen/dp_px_200_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_560_x"
-        android:layout_marginTop="@dimen/dp_px_60_y"
+        android:layout_marginStart="@dimen/dp_px_860_x"
+        android:layout_marginTop="@dimen/dp_px_90_y"
         android:gravity="center"
-        android:text="153 kcal"
+        android:text="1532.6"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_25pt" />
+        android:textSize="@dimen/font_size_18pt" />
 
     <TextView
         android:layout_width="@dimen/dp_px_140_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_720_x"
-        android:layout_marginTop="@dimen/dp_px_22_y"
+        android:layout_marginStart="@dimen/dp_px_1115_x"
+        android:layout_marginTop="@dimen/dp_px_8_y"
         android:gravity="center"
         android:text="@string/string_running_pulse"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/font_size_15pt" />
+        android:textColor="@color/light_gray"
+        android:textSize="@dimen/font_size_16pt" />
 
     <TextView
         android:id="@+id/tv_pulse"
         android:layout_width="@dimen/dp_px_120_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_720_x"
-        android:layout_marginTop="@dimen/dp_px_60_y"
+        android:layout_marginStart="@dimen/dp_px_1120_x"
+        android:layout_marginTop="@dimen/dp_px_90_y"
         android:gravity="center"
         android:text="120"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_25pt" />
+        android:textSize="@dimen/font_size_18pt" />
 
     <ImageView
         android:id="@+id/img_pulse"
-        android:layout_width="@dimen/dp_px_30_x"
-        android:layout_height="@dimen/dp_px_25_y"
-        android:layout_marginStart="@dimen/dp_px_825_x"
-        android:layout_marginTop="@dimen/dp_px_73_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_1235_x"
+        android:layout_marginTop="@dimen/dp_px_105_y"
         android:src="@drawable/img_pulse_2" />
 
     <TextView
         android:layout_width="@dimen/dp_px_140_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_865_x"
-        android:layout_marginTop="@dimen/dp_px_22_y"
+        android:layout_marginStart="@dimen/dp_px_1330_x"
+        android:layout_marginTop="@dimen/dp_px_8_y"
         android:gravity="center"
         android:text="@string/string_running_mets"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/font_size_15pt" />
+        android:textColor="@color/light_gray"
+        android:textSize="@dimen/font_size_16pt" />
 
     <TextView
         android:id="@+id/tv_mets"
         android:layout_width="@dimen/dp_px_140_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_865_x"
-        android:layout_marginTop="@dimen/dp_px_60_y"
+        android:layout_marginStart="@dimen/dp_px_1330_x"
+        android:layout_marginTop="@dimen/dp_px_90_y"
         android:gravity="center"
         android:text="10"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_25pt" />
+        android:textSize="@dimen/font_size_18pt" />
 
     <TextView
         android:layout_width="@dimen/dp_px_140_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_1015_x"
-        android:layout_marginTop="@dimen/dp_px_22_y"
+        android:layout_marginStart="@dimen/dp_px_1581_x"
+        android:layout_marginTop="@dimen/dp_px_8_y"
         android:gravity="center"
         android:text="@string/string_running_speed"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/font_size_15pt" />
+        android:textColor="@color/light_gray"
+        android:textSize="@dimen/font_size_16pt" />
 
     <TextView
         android:id="@+id/tv_speed"
-        android:layout_width="@dimen/dp_px_140_x"
+        android:layout_width="@dimen/dp_px_200_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_1015_x"
-        android:layout_marginTop="@dimen/dp_px_60_y"
+        android:layout_marginStart="@dimen/dp_px_1540_x"
+        android:layout_marginTop="@dimen/dp_px_90_y"
         android:gravity="center"
         android:text="13.5 kph"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_25pt" />
+        android:textSize="@dimen/font_size_18pt" />
 
     <ImageView
         android:id="@+id/img_wifi"
-        android:layout_width="@dimen/dp_px_43_x"
-        android:layout_height="@dimen/dp_px_41_y"
-        android:layout_marginStart="@dimen/dp_px_1198_x"
-        android:layout_marginTop="@dimen/dp_px_62_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_1804_x"
+        android:layout_marginTop="@dimen/dp_px_64_y"
         android:src="@drawable/img_wifi" />
 
     <ImageView
         android:id="@+id/img_bt"
-        android:layout_width="@dimen/dp_px_30_x"
-        android:layout_height="@dimen/dp_px_41_y"
-        android:layout_marginStart="@dimen/dp_px_1241_x"
-        android:layout_marginTop="@dimen/dp_px_62_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_1865_x"
+        android:layout_marginTop="@dimen/dp_px_64_y"
         android:src="@drawable/img_bt" />
 </RelativeLayout>

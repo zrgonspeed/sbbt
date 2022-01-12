@@ -73,7 +73,7 @@ public abstract class BaseRunParamFloatWindow {
 
         DisplayMetrics dm = new DisplayMetrics();
         mWindowManager.getDefaultDisplay().getMetrics(dm);
-        mFloatWindow = createFloatWindow(dm.widthPixels, mContext.getResources().getDimensionPixelSize(R.dimen.dp_px_131_y));
+        mFloatWindow = createFloatWindow(dm.widthPixels, mContext.getResources().getDimensionPixelSize(R.dimen.dp_px_184_y));
         floatWindowManager.addView(mFloatWindow, wmParams);
 
         pulseAnimation = AnimationUtils.loadAnimation(mContext, R.anim.heart_rate);

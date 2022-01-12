@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dp_px_1280_x"
-    android:layout_height="@dimen/dp_px_720_y"
-    android:background="@android:color/black">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bk_0">
 
     <TextView
         android:id="@+id/tv_title"
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_px_120_y"
+        android:layout_marginTop="@dimen/dp_px_150_y"
         android:gravity="center"
         android:text="@string/string_goal_1"
         android:textColor="@color/white"
@@ -28,22 +28,22 @@
 
     <RelativeLayout
         android:id="@+id/rl_one"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="visible">
 
         <RadioGroup
             android:id="@+id/rg_goal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_188_x"
-            android:layout_marginTop="@dimen/dp_px_240_y"
+            android:layout_marginStart="@dimen/dp_px_324_x"
+            android:layout_marginTop="@dimen/dp_px_370_y"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/rb_time"
-                android:layout_width="@dimen/dp_px_238_x"
-                android:layout_height="@dimen/dp_px_240_y"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@drawable/btn_goal_time"
                 android:button="@null"
                 android:gravity="center"
@@ -54,8 +54,8 @@
 
             <RadioButton
                 android:id="@+id/rb_distance"
-                android:layout_width="@dimen/dp_px_238_x"
-                android:layout_height="@dimen/dp_px_240_y"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_px_96_x"
                 android:background="@drawable/btn_goal_distance_km"
                 android:button="@null"
@@ -67,8 +67,8 @@
 
             <RadioButton
                 android:id="@+id/rb_calories"
-                android:layout_width="@dimen/dp_px_238_x"
-                android:layout_height="@dimen/dp_px_240_y"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_px_96_x"
                 android:background="@drawable/btn_goal_calories"
                 android:button="@null"
@@ -80,10 +80,10 @@
         </RadioGroup>
 
         <TextView
-            android:layout_width="@dimen/dp_px_400_x"
+            android:layout_width="@dimen/dp_px_1000_x"
             android:layout_height="@dimen/dp_px_77_y"
-            android:layout_marginStart="@dimen/dp_px_590_x"
-            android:layout_marginTop="@dimen/dp_px_538_y"
+            android:layout_marginStart="@dimen/dp_px_450_x"
+            android:layout_marginTop="@dimen/dp_px_810_y"
             android:gravity="center|end"
             android:text="@string/string_select_start_hint"
             android:textColor="@color/white"
@@ -91,25 +91,25 @@
 
         <ImageView
             android:id="@+id/btn_start"
-            android:layout_width="@dimen/dp_px_170_x"
-            android:layout_height="@dimen/dp_px_77_y"
-            android:layout_marginStart="@dimen/dp_px_1003_x"
-            android:layout_marginTop="@dimen/dp_px_538_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_1470_x"
+            android:layout_marginTop="@dimen/dp_px_789_y"
             android:src="@drawable/btn_start" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_two"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="gone">
 
         <TextView
             android:id="@+id/btn_selected"
-            android:layout_width="@dimen/dp_px_238_x"
-            android:layout_height="@dimen/dp_px_240_y"
-            android:layout_marginStart="@dimen/dp_px_198_x"
-            android:layout_marginTop="@dimen/dp_px_240_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_324_x"
+            android:layout_marginTop="@dimen/dp_px_370_y"
             android:background="@drawable/btn_goal_time_2"
             android:gravity="center"
             android:textSize="@dimen/font_size_80pt"
@@ -121,5 +121,5 @@
         layout="@layout/layout_under_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_px_635_y" />
+        android:layout_marginTop="@dimen/dp_px_955_y" />
 </RelativeLayout>

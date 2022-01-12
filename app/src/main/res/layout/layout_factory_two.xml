@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_main_two"
-    android:layout_width="@dimen/dp_px_1280_x"
-    android:layout_height="@dimen/dp_px_720_y">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bk_0">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_px_10_y"
+        android:layout_marginTop="@dimen/dp_px_30_y"
         android:text="@string/string_factory_two"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_30pt"
@@ -19,21 +20,22 @@
         android:layout_width="@dimen/dp_px_200_x"
         android:layout_height="@dimen/dp_px_65_y"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_px_10_y" />
+        android:layout_marginTop="@dimen/dp_px_10_y"
+        android:visibility="gone" />
 
     <RadioGroup
         android:id="@+id/rg_factory"
-        android:layout_width="@dimen/dp_px_136_x"
-        android:layout_height="@dimen/dp_px_500_y"
-        android:layout_marginStart="@dimen/dp_px_42_x"
-        android:layout_marginTop="@dimen/dp_px_82_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_90_x"
+        android:layout_marginTop="@dimen/dp_px_148_y"
         android:background="@drawable/img_factory_select_bar_1"
         android:orientation="vertical">
 
         <RadioButton
             android:id="@+id/rb_setting"
-            android:layout_width="@dimen/dp_px_140_x"
-            android:layout_height="@dimen/dp_px_122_y"
+            android:layout_width="@dimen/dp_px_198_x"
+            android:layout_height="@dimen/dp_px_170_y"
             android:layout_marginTop="@dimen/dp_px_12_y"
             android:background="@drawable/rb_factory_select"
             android:button="@null"
@@ -44,8 +46,8 @@
 
         <RadioButton
             android:id="@+id/rb_information"
-            android:layout_width="@dimen/dp_px_140_x"
-            android:layout_height="@dimen/dp_px_122_y"
+            android:layout_width="@dimen/dp_px_198_x"
+            android:layout_height="@dimen/dp_px_170_y"
             android:layout_marginTop="@dimen/dp_px_1_y"
             android:background="@drawable/rb_factory_select"
             android:button="@null"
@@ -56,8 +58,8 @@
 
         <RadioButton
             android:id="@+id/rb_update"
-            android:layout_width="@dimen/dp_px_140_x"
-            android:layout_height="@dimen/dp_px_122_y"
+            android:layout_width="@dimen/dp_px_198_x"
+            android:layout_height="@dimen/dp_px_170_y"
             android:layout_marginTop="@dimen/dp_px_1_y"
             android:background="@drawable/rb_factory_select"
             android:button="@null"
@@ -68,8 +70,8 @@
 
         <RadioButton
             android:id="@+id/rb_logo"
-            android:layout_width="@dimen/dp_px_140_x"
-            android:layout_height="@dimen/dp_px_122_y"
+            android:layout_width="@dimen/dp_px_198_x"
+            android:layout_height="@dimen/dp_px_170_y"
             android:layout_marginTop="@dimen/dp_px_1_y"
             android:background="@drawable/rb_factory_select"
             android:button="@null"
@@ -80,45 +82,45 @@
     </RadioGroup>
 
     <ImageView
-        android:layout_width="@dimen/dp_px_1034_x"
-        android:layout_height="@dimen/dp_px_500_y"
-        android:layout_marginStart="@dimen/dp_px_178_x"
-        android:layout_marginTop="@dimen/dp_px_82_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_288_x"
+        android:layout_marginTop="@dimen/dp_px_148_y"
         android:src="@drawable/img_factory_bk" />
 
     <include
         android:id="@+id/layout_setting"
         layout="@layout/fragment_factory_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_178_x"
-        android:layout_marginTop="@dimen/dp_px_82_y"
-        android:visibility="visible" />
+        android:layout_width="@dimen/dp_px_1542_x"
+        android:layout_height="@dimen/dp_px_723_y"
+        android:layout_marginStart="@dimen/dp_px_288_x"
+        android:layout_marginTop="@dimen/dp_px_148_y"
+        android:visibility="gone" />
 
     <include
         android:id="@+id/layout_information"
         layout="@layout/fragment_factory_information"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_178_x"
-        android:layout_marginTop="@dimen/dp_px_82_y"
+        android:layout_width="@dimen/dp_px_1542_x"
+        android:layout_height="@dimen/dp_px_723_y"
+        android:layout_marginStart="@dimen/dp_px_288_x"
+        android:layout_marginTop="@dimen/dp_px_148_y"
         android:visibility="gone" />
 
     <include
         android:id="@+id/layout_update"
         layout="@layout/fragment_factory_update"
-        android:layout_width="@dimen/dp_px_1034_x"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_178_x"
-        android:layout_marginTop="@dimen/dp_px_82_y"
-        android:visibility="gone" />
+        android:layout_width="@dimen/dp_px_1542_x"
+        android:layout_height="@dimen/dp_px_723_y"
+        android:layout_marginStart="@dimen/dp_px_288_x"
+        android:layout_marginTop="@dimen/dp_px_148_y"
+        android:visibility="visible" />
 
     <include
         android:id="@+id/layout_logo"
         layout="@layout/fragment_factory_logo"
-        android:layout_width="@dimen/dp_px_1034_x"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_178_x"
-        android:layout_marginTop="@dimen/dp_px_82_y"
+        android:layout_width="@dimen/dp_px_1542_x"
+        android:layout_height="@dimen/dp_px_723_y"
+        android:layout_marginStart="@dimen/dp_px_288_x"
+        android:layout_marginTop="@dimen/dp_px_148_y"
         android:visibility="gone" />
 </RelativeLayout>

@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_main"
-    android:layout_width="@dimen/dp_px_1280_x"
-    android:layout_height="@dimen/dp_px_720_y"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@drawable/bk_0">
 
     <ImageView
         android:id="@+id/btn_quick_start"
-        android:layout_width="@dimen/dp_px_677_x"
-        android:layout_height="@dimen/dp_px_164_y"
-        android:layout_marginStart="@dimen/dp_px_69_x"
-        android:layout_marginTop="@dimen/dp_px_443_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_129_x"
+        android:layout_marginTop="@dimen/dp_px_680_y"
         android:src="@drawable/btn_home_quickstart" />
 
     <ImageView
         android:id="@+id/btn_fitness"
-        android:layout_width="@dimen/dp_px_212_x"
-        android:layout_height="@dimen/dp_px_164_y"
-        android:layout_marginStart="@dimen/dp_px_765_x"
-        android:layout_marginTop="@dimen/dp_px_443_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_1144_x"
+        android:layout_marginTop="@dimen/dp_px_680_y"
         android:src="@drawable/btn_home_fitness" />
 
     <ImageView
         android:id="@+id/btn_userprogram"
-        android:layout_width="@dimen/dp_px_677_y"
-        android:layout_height="@dimen/dp_px_164_y"
-        android:layout_marginStart="@dimen/dp_px_302_x"
-        android:layout_marginTop="@dimen/dp_px_264_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_467_x"
+        android:layout_marginTop="@dimen/dp_px_420_y"
         android:src="@drawable/btn_home_userprogram" />
 
     <ImageView
         android:id="@+id/btn_goal"
-        android:layout_width="@dimen/dp_px_212_x"
-        android:layout_height="@dimen/dp_px_164_y"
-        android:layout_marginStart="@dimen/dp_px_69_x"
-        android:layout_marginTop="@dimen/dp_px_82_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_129_x"
+        android:layout_marginTop="@dimen/dp_px_160_y"
         android:src="@drawable/btn_home_goal" />
 
     <ImageView
         android:id="@+id/btn_hrc"
-        android:layout_width="@dimen/dp_px_212_x"
-        android:layout_height="@dimen/dp_px_164_y"
-        android:layout_marginStart="@dimen/dp_px_69_x"
-        android:layout_marginTop="@dimen/dp_px_264_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_129_x"
+        android:layout_marginTop="@dimen/dp_px_420_y"
         android:src="@drawable/btn_home_hrc" />
 
     <ImageView
@@ -74,26 +74,26 @@
 
     <ImageView
         android:id="@+id/btn_setting"
-        android:layout_width="@dimen/dp_px_212_x"
-        android:layout_height="@dimen/dp_px_164_y"
-        android:layout_marginStart="@dimen/dp_px_767_x"
-        android:layout_marginTop="@dimen/dp_px_82_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_1144_x"
+        android:layout_marginTop="@dimen/dp_px_160_y"
         android:src="@drawable/btn_home_setting" />
 
     <ImageView
         android:id="@+id/btn_media"
-        android:layout_width="@dimen/dp_px_212_x"
-        android:layout_height="@dimen/dp_px_526_y"
-        android:layout_marginStart="@dimen/dp_px_1000_x"
-        android:layout_marginTop="@dimen/dp_px_82_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_1480_x"
+        android:layout_marginTop="@dimen/dp_px_160_y"
         android:src="@drawable/btn_home_media" />
 
     <ImageView
         android:id="@+id/btn_program"
-        android:layout_width="@dimen/dp_px_444_x"
-        android:layout_height="@dimen/dp_px_164_y"
-        android:layout_marginStart="@dimen/dp_px_302_x"
-        android:layout_marginTop="@dimen/dp_px_82_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_467_x"
+        android:layout_marginTop="@dimen/dp_px_160_y"
         android:src="@drawable/btn_home_program" />
 
     <com.run.treadmill.widget.LongPressView
@@ -107,18 +107,18 @@
 
     <ImageView
         android:id="@+id/btn_logo"
-        android:layout_width="@dimen/dp_px_240_x"
-        android:layout_height="@dimen/dp_px_85_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_px_635_y"
+        android:layout_marginTop="@dimen/dp_px_955_y"
         android:src="@drawable/btn_logo_1" />
 
     <com.run.treadmill.widget.MultiClickAndLongPressView
         android:id="@+id/btn_factory"
-        android:layout_width="@dimen/dp_px_240_x"
-        android:layout_height="@dimen/dp_px_85_y"
+        android:layout_width="@dimen/dp_px_335_x"
+        android:layout_height="@dimen/dp_px_125_y"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_px_635_y" />
+        android:layout_marginTop="@dimen/dp_px_955_y" />
 
     <TextView
         android:id="@+id/tv_sleep"

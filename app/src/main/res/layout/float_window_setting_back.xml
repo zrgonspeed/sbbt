@@ -6,7 +6,7 @@
 
     <ImageView
         android:id="@+id/btn_setting_back"
-        android:layout_width="@dimen/dp_px_110_x"
-        android:layout_height="@dimen/dp_px_85_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/btn_setting_back" />
 </LinearLayout>

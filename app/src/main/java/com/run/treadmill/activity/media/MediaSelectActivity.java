@@ -152,7 +152,7 @@ public class MediaSelectActivity extends BaseActivity<MediaSelectView, MediaSele
         GridLayoutManager glm1 = new GridLayoutManager(this, 5);
         glm1.setOrientation(GridLayoutManager.VERTICAL);
         page1RV.setLayoutManager(glm1);
-        int[] drawable1 = new int[10];
+        int[] drawable1 = new int[drawable.length];
         System.arraycopy(drawable, 0, drawable1, 0, drawable1.length);
         MediaSelectAppAdapter adapter1 = new MediaSelectAppAdapter(context, drawable1);
         page1RV.setAdapter(adapter1);

@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/dp_px_1034_x"
-    android:layout_height="@dimen/dp_px_500_y">
+    android:layout_width="@dimen/dp_px_1542_x"
+    android:layout_height="@dimen/dp_px_723_y"
+    android:background="@drawable/img_factory_bk">
 
     <TextView
-        android:layout_width="@dimen/dp_px_820_x"
+        android:layout_width="@dimen/dp_px_1020_x"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_px_174_y"
+        android:layout_marginStart="@dimen/dp_px_265_x"
+        android:layout_marginTop="@dimen/dp_px_245_y"
         android:gravity="center"
         android:text="@string/string_factory_usb_update"
         android:textColor="@color/textView_white"
-        android:textSize="@dimen/font_size_50pt" />
+        android:textSize="@dimen/font_size_25pt" />
 
     <ImageView
         android:id="@+id/btn_factory_update"
-        android:layout_width="@dimen/dp_px_364_x"
-        android:layout_height="@dimen/dp_px_77_y"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_px_380_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_500_x"
+        android:layout_marginTop="@dimen/dp_px_565_y"
         android:src="@drawable/btn_factory_update" />
 
     <com.run.treadmill.widget.MultiClickAndLongPressView
@@ -28,8 +29,8 @@
         android:layout_height="0dp"
         android:layout_alignTop="@id/btn_factory_update"
         android:layout_alignBottom="@id/btn_factory_update"
-        android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@id/btn_factory_update" />
+        android:layout_marginStart="@dimen/dp_px_250_x"
+        android:layout_marginEnd="@dimen/dp_px_10_x" />
 
     <com.run.treadmill.widget.MultiClickAndLongPressView
         android:id="@+id/btn_ota_update"
@@ -37,9 +38,10 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/btn_factory_update"
         android:layout_alignBottom="@+id/btn_factory_update"
-        android:layout_marginStart="10dp"
-        android:layout_toRightOf="@+id/btn_factory_update" />
+        android:layout_marginStart="@dimen/dp_px_10_x"
+        android:layout_toEndOf="@+id/btn_factory_update" />
 
+    <!--Server-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_hint"
         android:layout_width="match_parent"
@@ -48,8 +50,8 @@
 
         <ImageView
             android:id="@+id/img_err_bk"
-            android:layout_width="@dimen/dp_px_700_x"
-            android:layout_height="@dimen/dp_px_363_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/img_pop_bk"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -59,8 +61,8 @@
 
         <ImageView
             android:id="@+id/img_err_icon"
-            android:layout_width="@dimen/dp_px_120_x"
-            android:layout_height="@dimen/dp_px_120_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/img_factory_update_2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,6 +74,7 @@
             android:id="@+id/tv_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="ssssssssssssssssssssssssssssss"
             android:textColor="@color/textView_black"
             android:textSize="@dimen/font_size_40pt"
             android:textStyle="bold"
@@ -79,40 +82,43 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.6" />
+            app:layout_constraintVertical_bias="0.7" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!--OTA-->
     <RelativeLayout
         android:id="@+id/rl_ota_update"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:visibility="gone">
 
         <ImageView
             android:id="@+id/im_update_bk"
-            android:layout_width="@dimen/dp_px_933_x"
-            android:layout_height="@dimen/dp_px_363_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_px_60_y"
             android:src="@drawable/img_pop_updated" />
 
         <ImageView
             android:id="@+id/btn_update_pop_yes"
-            android:layout_width="@dimen/dp_px_364_x"
-            android:layout_height="@dimen/dp_px_77_y"
-            android:layout_marginStart="@dimen/dp_px_100_x"
-            android:layout_marginTop="@dimen/dp_px_450_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/im_update_bk"
+            android:layout_marginTop="@dimen/dp_px_600_y"
             android:src="@drawable/btn_pop_yes" />
 
         <ImageView
             android:id="@+id/btn_update_pop_no"
-            android:layout_width="@dimen/dp_px_364_x"
-            android:layout_height="@dimen/dp_px_77_y"
-            android:layout_marginStart="@dimen/dp_px_520_x"
-            android:layout_marginTop="@dimen/dp_px_450_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/im_update_bk"
+            android:layout_marginStart="@dimen/dp_px_712_x"
+            android:layout_marginTop="@dimen/dp_px_600_y"
             android:src="@drawable/btn_pop_no" />
     </RelativeLayout>
 
+    <!--OTA Error-->
     <RelativeLayout
         android:id="@+id/rl_error_tip"
         android:layout_width="match_parent"
@@ -121,8 +127,8 @@
         android:visibility="gone">
 
         <ImageView
-            android:layout_width="@dimen/dp_px_150_x"
-            android:layout_height="@dimen/dp_px_150_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_px_110_y"
             android:src="@drawable/img_factory_update_2" />
@@ -132,18 +138,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_px_300_y"
+            android:layout_marginTop="@dimen/dp_px_350_y"
             android:gravity="center"
             android:textColor="@color/textView_white"
-            android:textSize="@dimen/font_size_47pt"
+            android:textSize="@dimen/font_size_25pt"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/btn_ok"
-            android:layout_width="@dimen/dp_px_170_x"
-            android:layout_height="@dimen/dp_px_77_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_px_390_y"
+            android:layout_marginTop="@dimen/dp_px_450_y"
             android:src="@drawable/btn_ok" />
     </RelativeLayout>
 </RelativeLayout>

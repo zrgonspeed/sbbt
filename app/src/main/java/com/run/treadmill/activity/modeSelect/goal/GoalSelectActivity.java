@@ -97,7 +97,7 @@ public class GoalSelectActivity extends BaseSelectActivity<GoalSelectView, GoalS
                     rl_two.setVisibility(View.GONE);
                 }
             }
-        }).setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_657_x), getResources().getDimensionPixelSize(R.dimen.dp_px_215_y))
+        }).setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_800_x), getResources().getDimensionPixelSize(R.dimen.dp_px_250_y))
                 .mainView(rl_two)
                 .startPopWindow();
     }

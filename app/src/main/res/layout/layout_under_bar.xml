@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dp_px_1280_x"
-    android:layout_height="@dimen/dp_px_85_y">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="@dimen/dp_px_1280_x"
-        android:layout_height="@dimen/dp_px_85_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/img_under_bar" />
 
     <ImageView
         android:id="@+id/btn_logo"
-        android:layout_width="@dimen/dp_px_240_x"
-        android:layout_height="@dimen/dp_px_85_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:src="@drawable/btn_logo_1" />
 
     <ImageView
         android:id="@+id/btn_home"
-        android:layout_width="@dimen/dp_px_110_x"
-        android:layout_height="@dimen/dp_px_85_y"
-        android:layout_marginStart="@dimen/dp_px_1170_x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_1758_x"
         android:onClick="goHome"
         android:src="@drawable/btn_home" />
 </RelativeLayout>

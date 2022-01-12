@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dp_px_1280_x"
-    android:layout_height="@dimen/dp_px_720_y"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:clickable="true">
 
     <ImageView
-        android:layout_width="@dimen/dp_px_1034_x"
-        android:layout_height="@dimen/dp_px_500_y"
-        android:layout_marginLeft="@dimen/dp_px_191_x"
-        android:layout_marginTop="@dimen/dp_px_90_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_288_x"
+        android:layout_marginTop="@dimen/dp_px_148_y"
         android:src="@drawable/img_factory_bk" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_px_204_x"
-        android:layout_marginTop="@dimen/dp_px_140_y"
+        android:layout_marginStart="@dimen/dp_px_347_x"
+        android:layout_marginTop="@dimen/dp_px_230_y"
         android:text="@string/string_factory_calibra_ad"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_21pt" />
@@ -24,8 +24,8 @@
         android:id="@+id/tv_ad_max"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_px_482_x"
-        android:layout_marginTop="@dimen/dp_px_125_y"
+        android:layout_marginStart="@dimen/dp_px_737_x"
+        android:layout_marginTop="@dimen/dp_px_209_y"
         android:text="200"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_36pt"
@@ -34,8 +34,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_px_594_x"
-        android:layout_marginTop="@dimen/dp_px_140_y"
+        android:layout_marginLeft="@dimen/dp_px_895_x"
+        android:layout_marginTop="@dimen/dp_px_230_y"
         android:text="@string/string_max"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_18pt" />
@@ -44,8 +44,8 @@
         android:id="@+id/tv_ad_min"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_px_482_x"
-        android:layout_marginTop="@dimen/dp_px_208_y"
+        android:layout_marginLeft="@dimen/dp_px_737_x"
+        android:layout_marginTop="@dimen/dp_px_325_y"
         android:text="150"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_36pt"
@@ -54,26 +54,28 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_px_594_x"
-        android:layout_marginTop="@dimen/dp_px_223_y"
+        android:layout_marginLeft="@dimen/dp_px_895_x"
+        android:layout_marginTop="@dimen/dp_px_347_y"
         android:text="@string/string_min"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_18pt" />
 
     <ImageView
         android:id="@+id/img_loading"
-        android:layout_width="@dimen/dp_px_150_x"
-        android:layout_height="@dimen/dp_px_150_y"
-        android:layout_marginLeft="@dimen/dp_px_636_x"
-        android:layout_marginTop="@dimen/dp_px_326_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_956_x"
+        android:layout_marginTop="@dimen/dp_px_496_y"
         android:src="@drawable/img_factory_update_1" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_px_657_x"
-        android:layout_marginTop="@dimen/dp_px_506_y"
+        android:layout_alignStart="@id/img_loading"
+        android:layout_alignEnd="@id/img_loading"
+        android:layout_marginTop="@dimen/dp_px_744_y"
         android:text="@string/string_factory_calibration"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_18pt" />
 </RelativeLayout>

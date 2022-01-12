@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dp_px_1280_x"
-    android:layout_height="@dimen/dp_px_720_y"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@drawable/bk_0">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_summary"
-        android:layout_width="@dimen/dp_px_1060_x"
-        android:layout_height="@dimen/dp_px_592_y"
-        android:layout_marginStart="@dimen/dp_px_110_x" />
+        android:layout_width="@dimen/dp_px_1601_x"
+        android:layout_height="@dimen/dp_px_893_y"
+        android:layout_marginStart="@dimen/dp_px_160_x" />
 
     <ImageView
         android:id="@+id/img_indicator"
-        android:layout_width="@dimen/dp_px_175_x"
-        android:layout_height="@dimen/dp_px_19_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_px_541_y"
+        android:layout_marginStart="@dimen/dp_px_838_x"
+        android:layout_marginTop="@dimen/dp_px_802_y"
         android:src="@drawable/img_sportmode_summary_page_1" />
 
     <include
         layout="@layout/layout_under_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_px_635_y" />
+        android:layout_marginTop="@dimen/dp_px_955_y" />
 </RelativeLayout>

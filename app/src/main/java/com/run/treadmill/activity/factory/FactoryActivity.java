@@ -16,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
@@ -35,6 +36,7 @@ import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.floatWindow.SettingBackFloatWindow;
 import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.base.BaseActivity;
+import com.run.treadmill.base.MyApplication;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
@@ -102,7 +104,13 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
     private ImageView img_loading;
     private TextView tv_ad_max, tv_ad_min;
 
+    private TextView tv_max_incline_per;
+    private TextView tv_incline_cal;
+    private TextView tv_max_incline;
+
+
     private TextView edit_rpm;
+    private TextView tv_rpm;
     private ImageView btn_rpm_start_stop;
     private LongClickImage btn_rpm_up, btn_rpm_down;
 
@@ -143,11 +151,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
     private boolean isOpenGSMode = false;
     private int curMinAD = 0;
 
-    // adb进入(A133不需要)
-    private SettingBackFloatWindow settingBackFloatWindow;
-    private MultiClickAndLongPressView btn_setting;
-    private String sysSetting = "com.android.settings";
-    private String developmentSettings = "com.android.settings.DevelopmentSettings";
     private boolean isNoShowErr = false;
     private int num;
 
@@ -199,9 +202,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         } else if (num == 2) {
             btn_factory_two.performClick();
         }
-        if (settingBackFloatWindow != null) {
-            settingBackFloatWindow.stopFloatWindow();
-        }
         btn_home.setEnabled(true);
         SysSoundCheck.MusicPause(this);
     }
@@ -209,6 +209,13 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
     @Override
     protected int getLayoutId() {
         return R.layout.activity_factory;
+    }
+
+    private void setViewTop(View view, int dimenId) {
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+        layoutParams.topMargin = (int) getResources().getDimension(dimenId);
+        view.setLayoutParams(layoutParams);
+        view.invalidate();
     }
 
     private void initFactoryOne() {
@@ -225,10 +232,39 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         rg_metric = (RadioGroup) findViewById(R.id.rg_metric);
         tip_mark = (TextView) findViewById(R.id.tip_mark);
 
+        tv_max_incline_per = (TextView) findViewById(R.id.tv_max_incline_per);
+        tv_incline_cal = (TextView) findViewById(R.id.tv_incline_cal);
+        tv_max_incline = (TextView) findViewById(R.id.tv_max_incline);
+
+        tv_rpm = (TextView) findViewById(R.id.tv_rpm);
         edit_rpm = (TextView) findViewById(R.id.edit_rpm);
         btn_rpm_up = (LongClickImage) findViewById(R.id.btn_rpm_up);
         btn_rpm_down = (LongClickImage) findViewById(R.id.btn_rpm_down);
         btn_rpm_start_stop = (ImageView) findViewById(R.id.btn_rpm_start_stop);
+
+        if (MyApplication.DEFAULT_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
+            tv_rpm.setVisibility(View.GONE);
+            edit_rpm.setVisibility(View.GONE);
+            btn_rpm_up.setVisibility(View.GONE);
+            btn_rpm_down.setVisibility(View.GONE);
+            btn_rpm_start_stop.setVisibility(View.GONE);
+            setViewTop(tv_incline_cal, R.dimen.dp_px_362_y);
+            setViewTop(tv_max_incline_per, R.dimen.dp_px_494_y);
+            setViewTop(tv_max_incline, R.dimen.dp_px_494_y);
+            setViewTop(edit_max_incline, R.dimen.dp_px_468_y);
+            setViewTop(btn_calibrate, R.dimen.dp_px_713_y);
+        } else if (MyApplication.DEFAULT_DEVICE_TYPE == CTConstant.DEVICE_TYPE_AA) {
+            tv_rpm.setVisibility(View.VISIBLE);
+            edit_rpm.setVisibility(View.VISIBLE);
+            btn_rpm_up.setVisibility(View.VISIBLE);
+            btn_rpm_down.setVisibility(View.VISIBLE);
+            btn_rpm_start_stop.setVisibility(View.VISIBLE);
+            setViewTop(tv_incline_cal, R.dimen.dp_px_135_y);
+            setViewTop(tv_max_incline_per, R.dimen.dp_px_228_y);
+            setViewTop(tv_max_incline, R.dimen.dp_px_228_y);
+            setViewTop(edit_max_incline, R.dimen.dp_px_218_y);
+            setViewTop(btn_calibrate, R.dimen.dp_px_300_y);
+        }
 
         tv_minspeed_unit.setText(getString(isMetric ? R.string.string_unit_kmh : R.string.string_unit_mileh));
         tv_maxspeed_unit.setText(getString(isMetric ? R.string.string_unit_kmh : R.string.string_unit_mileh));
@@ -746,7 +782,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
             case R.id.edit_rpm:
                 selectTv(edit_rpm, true);
                 showCalculator(CTConstant.TYPE_FACTORY_RPM, edit_rpm, R.string.string_keybord_rpm, 0, this, rl_main_one,
-                        getResources().getDimensionPixelSize(R.dimen.dp_px_186_x), getResources().getDimensionPixelSize(R.dimen.dp_px_188_y));
+                        getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
                 break;
             case R.id.btn_calibrate:
                 setRpmEnable(2);
@@ -775,35 +811,35 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
             case R.id.edit_max_speed:
                 selectTv(edit_max_speed, true);
                 showCalculator(CTConstant.TYPE_FACTORY_HIGH_SPEED, edit_max_speed, R.string.string_keybord_max_speed, 1, this, rl_main_one,
-                        getResources().getDimensionPixelSize(R.dimen.dp_px_719_x), getResources().getDimensionPixelSize(R.dimen.dp_px_188_y));
+                        getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
                 break;
             case R.id.edit_min_speed:
                 selectTv(edit_min_speed, true);
                 showCalculator(CTConstant.TYPE_FACTORY_LOW_SPEED, edit_min_speed, R.string.string_keybord_min_speed, 1, this, rl_main_one,
-                        getResources().getDimensionPixelSize(R.dimen.dp_px_719_x), getResources().getDimensionPixelSize(R.dimen.dp_px_188_y));
+                        getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
                 break;
             case R.id.edit_wheel_size:
                 selectTv(edit_wheel_size, true);
                 if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
                     showCalculator(CTConstant.TYPE_FACTORY_SPEED_RATE, edit_wheel_size, R.string.string_keybord_speed_rate, 1, this, rl_main_one,
-                            getResources().getDimensionPixelSize(R.dimen.dp_px_719_x), getResources().getDimensionPixelSize(R.dimen.dp_px_188_y));
+                            getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
                 } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
                     showCalculator(CTConstant.TYPE_FACTORY_SPEED_RATE, edit_wheel_size, R.string.string_keybord_speed_rate, 1, this, rl_main_one,
-                            getResources().getDimensionPixelSize(R.dimen.dp_px_719_x), getResources().getDimensionPixelSize(R.dimen.dp_px_188_y));
+                            getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
                 } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
                     showCalculator(CTConstant.TYPE_FACTORY_WHEEL_SIZE, edit_wheel_size, R.string.string_keybord_wheel_size, 2, this, rl_main_one,
-                            getResources().getDimensionPixelSize(R.dimen.dp_px_719_x), getResources().getDimensionPixelSize(R.dimen.dp_px_188_y));
+                            getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
                 }
                 break;
             case R.id.edit_max_incline:
                 selectTv(edit_max_incline, true);
                 showCalculator(CTConstant.TYPE_FACTORY_MAX_INCLINE, edit_max_incline, R.string.string_keybord_max_incline, 0, this, rl_main_one,
-                        getResources().getDimensionPixelSize(R.dimen.dp_px_186_x), getResources().getDimensionPixelSize(R.dimen.dp_px_188_y));
+                        getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
                 break;
             case R.id.tv_lube:
                 selectTv(tv_lube, true);
                 showCalculator(CTConstant.TYPE_FACTORY_LUBE, tv_lube, R.string.string_keybord_lube, 0, this, rl_main_two,
-                        getResources().getDimensionPixelSize(R.dimen.dp_px_186_x), getResources().getDimensionPixelSize(R.dimen.dp_px_188_y));
+                        getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
                 break;
             case R.id.btn_factory_update:
                 if (FileUtil.isCheckExist(mUdiskPath + "/" + InitParam.APK_NAME)) {
@@ -844,7 +880,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
 
                     tv_lube.setSelected(true);
                     showCalculator(CTConstant.TYPE_FACTORY_LUBE, tv_lube, R.string.string_keybord_lube, 0, this, rl_main_two,
-                            getResources().getDimensionPixelSize(R.dimen.dp_px_186_x), getResources().getDimensionPixelSize(R.dimen.dp_px_188_y));
+                            getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
                 });
                 break;
             case R.id.btn_info_reset:

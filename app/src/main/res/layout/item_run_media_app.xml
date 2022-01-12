@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/dp_px_10_x"
     android:gravity="center"
-    android:paddingLeft="@dimen/dp_px_10_x"
-    android:paddingTop="@dimen/dp_px_15_x"
-    android:paddingRight="@dimen/dp_px_10_x">
+    android:paddingStart="@dimen/dp_px_33_x"
+    android:paddingTop="@dimen/dp_px_40_x">
 
     <ImageView
         android:id="@+id/img_media_app"
-        android:layout_width="@dimen/dp_px_68_x"
-        android:layout_height="@dimen/dp_px_68_y" />
+        android:layout_width="@dimen/dp_px_100_x"
+        android:layout_height="@dimen/dp_px_100_y" />
 </RelativeLayout>

@@ -5,8 +5,8 @@
 
     <ImageView
         android:id="@+id/dialog_img"
-        android:layout_width="@dimen/dp_px_933_x"
-        android:layout_height="@dimen/dp_px_363_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_50_x"
         android:layout_marginTop="@dimen/dp_px_50_y"
         android:src="@drawable/img_pop_password_error" />

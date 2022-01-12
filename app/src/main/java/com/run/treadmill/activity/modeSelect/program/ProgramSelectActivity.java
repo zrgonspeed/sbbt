@@ -164,12 +164,12 @@ public class ProgramSelectActivity extends BaseSelectActivity<ProgramSelectView,
             btn_line_chart_speed.setBackground(getDrawable(R.drawable.tx_fillet_small_bg));
 
             RelativeLayout.LayoutParams speedParams = (RelativeLayout.LayoutParams) btn_line_chart_speed.getLayoutParams();
-            speedParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_280_x);
-            speedParams.setMarginStart(getResources().getDimensionPixelSize(R.dimen.dp_px_785_x));
+            speedParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_400_x);
+            speedParams.setMarginStart(getResources().getDimensionPixelSize(R.dimen.dp_px_1120_x));
             btn_line_chart_speed.setLayoutParams(speedParams);
 
             RelativeLayout.LayoutParams inclineParams = (RelativeLayout.LayoutParams) btn_line_chart_incline.getLayoutParams();
-            inclineParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_520_x);
+            inclineParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_720_x);
             btn_line_chart_incline.setLayoutParams(inclineParams);
         } else {
             btn_line_chart_speed.setTextColor(getColor(R.color.running_text_orange));
@@ -178,12 +178,12 @@ public class ProgramSelectActivity extends BaseSelectActivity<ProgramSelectView,
             btn_line_chart_speed.setBackground(getDrawable(R.drawable.tx_fillet_max_bg));
 
             RelativeLayout.LayoutParams speedParams = (RelativeLayout.LayoutParams) btn_line_chart_speed.getLayoutParams();
-            speedParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_520_x);
-            speedParams.setMarginStart(getResources().getDimensionPixelSize(R.dimen.dp_px_545_x));
+            speedParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_720_x);
+            speedParams.setMarginStart(getResources().getDimensionPixelSize(R.dimen.dp_px_800_x));
             btn_line_chart_speed.setLayoutParams(speedParams);
 
             RelativeLayout.LayoutParams inclineParams = (RelativeLayout.LayoutParams) btn_line_chart_incline.getLayoutParams();
-            inclineParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_280_x);
+            inclineParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_400_x);
             btn_line_chart_incline.setLayoutParams(inclineParams);
         }
         img_unit.setImageResource(isLineChartIncline ? R.drawable.img_sportmode_profile_incline_calibration_1 : (isMetric ? R.drawable.img_sportmode_profile_speed_calibration_km_1 : R.drawable.img_sportmode_profile_speed_calibration_mile_1));

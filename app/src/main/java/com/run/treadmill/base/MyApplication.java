@@ -40,7 +40,7 @@ public class MyApplication extends LitePalApplication {
      */
     public boolean isFirst = true;
 
-    public static final int DEFAULT_DEVICE_TYPE = CTConstant.DEVICE_TYPE_AA;
+    public static final int DEFAULT_DEVICE_TYPE = CTConstant.DEVICE_TYPE_DC;
 
     @Override
     public void onCreate() {

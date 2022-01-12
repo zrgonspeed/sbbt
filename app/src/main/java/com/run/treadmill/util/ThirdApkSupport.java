@@ -85,7 +85,7 @@ public class ThirdApkSupport {
         try {
             packageinfo = context.getPackageManager().getPackageInfo(packageName, 0);
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            Logger.e(e.getMessage());
         }
         if (packageinfo == null) {
             return;

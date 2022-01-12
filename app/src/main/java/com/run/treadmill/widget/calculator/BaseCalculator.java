@@ -79,7 +79,7 @@ public abstract class BaseCalculator implements View.OnClickListener {
 
         initScreen();
         isMetric = SpManager.getIsMetric();
-        popupWindow = new PopupWindow(view, context.getResources().getDimensionPixelSize(R.dimen.dp_px_520_x), context.getResources().getDimensionPixelSize(R.dimen.dp_px_370_y));
+        popupWindow = new PopupWindow(view, context.getResources().getDimensionPixelSize(R.dimen.dp_px_750_x), context.getResources().getDimensionPixelSize(R.dimen.dp_px_525_y));
     }
 
     private void initScreen() {
@@ -463,6 +463,10 @@ public abstract class BaseCalculator implements View.OnClickListener {
             if (mBaseCalculator != null && mBaseCalculator.popupWindow != null) {
                 mBaseCalculator.stopPopWindow();
             }
+        }
+
+        public void setXAndY(float x, float y) {
+            setXAndY((int)x, (int)y);
         }
     }
 }

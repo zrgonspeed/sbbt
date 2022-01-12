@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dp_px_1060_x"
-    android:layout_height="@dimen/dp_px_592_y"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@drawable/img_sportmode_summary_3">
 
     <com.run.treadmill.widget.LineGraphicView
         android:id="@+id/lgv_incline"
-        android:layout_width="@dimen/dp_px_799_x"
-        android:layout_height="@dimen/dp_px_359_y"
-        android:layout_marginStart="@dimen/dp_px_155_x"
+        android:layout_width="@dimen/dp_px_1120_x"
+        android:layout_height="@dimen/dp_px_530_y"
+        android:layout_marginStart="@dimen/dp_px_268_x"
         android:layout_marginTop="@dimen/dp_px_45_y" />
 
     <TextView
         android:id="@+id/tv_max_incline"
         android:layout_width="@dimen/dp_px_230_x"
-        android:layout_height="@dimen/dp_px_80_y"
-        android:layout_marginStart="@dimen/dp_px_210_x"
-        android:layout_marginTop="@dimen/dp_px_428_y"
+        android:layout_height="@dimen/dp_px_120_y"
+        android:layout_marginStart="@dimen/dp_px_300_x"
+        android:layout_marginTop="@dimen/dp_px_608_y"
         android:gravity="center"
         android:text="15"
         android:textColor="@color/yellow"
@@ -25,8 +25,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_390_x"
-        android:layout_marginTop="@dimen/dp_px_450_y"
+        android:layout_marginStart="@dimen/dp_px_480_x"
+        android:layout_marginTop="@dimen/dp_px_650_y"
         android:text="@string/string_unit_percent"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_25pt" />
@@ -34,9 +34,9 @@
     <TextView
         android:id="@+id/tv_min_incline"
         android:layout_width="@dimen/dp_px_230_x"
-        android:layout_height="@dimen/dp_px_80_y"
-        android:layout_marginStart="@dimen/dp_px_620_x"
-        android:layout_marginTop="@dimen/dp_px_428_y"
+        android:layout_height="@dimen/dp_px_120_y"
+        android:layout_marginStart="@dimen/dp_px_1020_x"
+        android:layout_marginTop="@dimen/dp_px_608_y"
         android:gravity="center"
         android:text="5.0"
         android:textColor="@color/yellow"
@@ -45,18 +45,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_800_x"
-        android:layout_marginTop="@dimen/dp_px_450_y"
+        android:layout_marginStart="@dimen/dp_px_1210_x"
+        android:layout_marginTop="@dimen/dp_px_650_y"
         android:text="@string/string_unit_percent"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_25pt" />
 
 
     <TextView
-        android:layout_width="@dimen/dp_px_230_x"
+        android:layout_width="@dimen/dp_px_300_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_210_x"
-        android:layout_marginTop="@dimen/dp_px_506_y"
+        android:layout_marginStart="@dimen/dp_px_350_x"
+        android:layout_marginTop="@dimen/dp_px_720_y"
         android:gravity="center"
         android:text="@string/string_summary_max_incline"
         android:textColor="@color/white"
@@ -65,8 +65,8 @@
     <TextView
         android:layout_width="@dimen/dp_px_230_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_620_x"
-        android:layout_marginTop="@dimen/dp_px_506_y"
+        android:layout_marginStart="@dimen/dp_px_1080_x"
+        android:layout_marginTop="@dimen/dp_px_720_y"
         android:gravity="center"
         android:text="@string/string_summary_min_incline"
         android:textColor="@color/white"

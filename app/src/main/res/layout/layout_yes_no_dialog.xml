@@ -1,51 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dp_px_1280_x"
-    android:layout_height="@dimen/dp_px_720_y">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="@dimen/dp_px_933_x"
-        android:layout_height="@dimen/dp_px_363_y"
-        android:layout_marginLeft="@dimen/dp_px_50_x"
-        android:layout_marginTop="@dimen/dp_px_50_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/img_pop_bk" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_px_50_x"
-        android:layout_marginTop="@dimen/dp_px_50_y"
+        android:layout_width="@dimen/dp_px_1246_x"
+        android:layout_height="@dimen/dp_px_485_y"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_info"
             android:layout_width="@dimen/dp_px_933_x"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dp_px_150_y"
-            android:gravity="center"
             android:text="@string/string_factory_pop_reset"
             android:textColor="@color/textView_black"
             android:textSize="@dimen/font_size_25pt"
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_px_80_y"
-            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_px_130_y"
             android:orientation="horizontal"
             android:textAlignment="center">
 
             <ImageView
                 android:id="@+id/btn_pop_yes"
-                android:layout_width="@dimen/dp_px_364_x"
-                android:layout_height="@dimen/dp_px_77_y"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_px_50_x"
                 android:src="@drawable/btn_pop_yes" />
 
             <ImageView
                 android:id="@+id/btn_pop_no"
-                android:layout_width="@dimen/dp_px_364_x"
-                android:layout_height="@dimen/dp_px_77_y"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/btn_pop_no" />
         </LinearLayout>
     </LinearLayout>

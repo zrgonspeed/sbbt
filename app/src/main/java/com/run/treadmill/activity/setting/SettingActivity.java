@@ -262,7 +262,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                         .callBack(this)
                         .maxLength(4)
                         .mainView(rl_main)
-                        .setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_453_x), getResources().getDimensionPixelSize(R.dimen.dp_px_195_y))
+                        .setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_353_x), getResources().getDimensionPixelSize(R.dimen.dp_px_195_y))
                         .startPopWindow();
                 break;
             case R.id.btn_setting_reset_time:
@@ -271,7 +271,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                         .editTypeName(R.string.string_common_time)
                         .callBack(this)
                         .mainView(rl_main)
-                        .setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_453_x), getResources().getDimensionPixelSize(R.dimen.dp_px_195_y))
+                        .setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_353_x), getResources().getDimensionPixelSize(R.dimen.dp_px_195_y))
                         .startPopWindow();
                 break;
             case R.id.btn_setting_reset_distance:
@@ -280,7 +280,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                         .editTypeName(R.string.string_common_distance)
                         .callBack(this)
                         .mainView(rl_main)
-                        .setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_453_x), getResources().getDimensionPixelSize(R.dimen.dp_px_195_y))
+                        .setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_1100_x), getResources().getDimensionPixelSize(R.dimen.dp_px_195_y))
                         .startPopWindow();
                 break;
             case R.id.btn_setting_reset_customer_psw:
@@ -289,7 +289,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                         .callBack(this)
                         .maxLength(4)
                         .mainView(rl_main)
-                        .setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_453_x), getResources().getDimensionPixelSize(R.dimen.dp_px_195_y))
+                        .setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_1100_x), getResources().getDimensionPixelSize(R.dimen.dp_px_195_y))
                         .startPopWindow();
                 break;
             case R.id.btn_setting_update:

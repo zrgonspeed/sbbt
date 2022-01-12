@@ -2,43 +2,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_main"
-    android:layout_width="@dimen/dp_px_1280_x"
-    android:layout_height="@dimen/dp_px_720_y"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@drawable/bk_0">
 
     <!-- 中间的图表 -->
     <ImageView
         android:id="@+id/img_unit"
-        android:layout_width="@dimen/dp_px_52_x"
-        android:layout_height="@dimen/dp_px_342_y"
-        android:layout_marginStart="@dimen/dp_px_191_x"
-        android:layout_marginTop="@dimen/dp_px_178_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_343_x"
+        android:layout_marginTop="@dimen/dp_px_238_y"
         android:src="@drawable/img_sportmode_profile_incline_calibration_1"
         android:visibility="gone" />
 
     <com.run.treadmill.widget.HistogramListView
         android:id="@+id/lineChartView"
-        android:layout_width="@dimen/dp_px_830_x"
-        android:layout_height="@dimen/dp_px_342_y"
-        android:layout_marginStart="@dimen/dp_px_243_x"
-        android:layout_marginTop="@dimen/dp_px_166_y"
+        android:layout_width="@dimen/dp_px_1120_x"
+        android:layout_height="@dimen/dp_px_500_y"
+        android:layout_marginStart="@dimen/dp_px_400_x"
+        android:layout_marginTop="@dimen/dp_px_242_y"
         android:visibility="gone"
-        app:bottomHeight="33"
+        app:bottomHeight="50"
         app:chartHeight="360"
         app:chartPadding="2"
         app:chartWidth="39.4"
         app:maxValue="20"
         app:modeName="@string/string_mode_quick_start"
-        app:txtSize="@dimen/font_size_15pt"
-        app:viewHeight="@dimen/dp_px_342_y"
-        app:viewWidth="@dimen/dp_px_830_x" />
+        app:txtSize="@dimen/font_size_16pt"
+        app:viewHeight="@dimen/dp_px_500_y"
+        app:viewWidth="@dimen/dp_px_1120_x" />
 
     <TextView
         android:id="@+id/btn_line_chart_incline"
-        android:layout_width="@dimen/dp_px_520_x"
+        android:layout_width="@dimen/dp_px_720_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_255_x"
-        android:layout_marginTop="@dimen/dp_px_175_y"
+        android:layout_marginStart="@dimen/dp_px_400_x"
+        android:layout_marginTop="@dimen/dp_px_242_y"
         android:background="@drawable/tx_fillet_max_bg"
         android:gravity="center"
         android:text="@string/string_incline"
@@ -48,10 +48,10 @@
 
     <TextView
         android:id="@+id/btn_line_chart_speed"
-        android:layout_width="@dimen/dp_px_280_x"
+        android:layout_width="@dimen/dp_px_400_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_785_x"
-        android:layout_marginTop="@dimen/dp_px_175_y"
+        android:layout_marginStart="@dimen/dp_px_1120_x"
+        android:layout_marginTop="@dimen/dp_px_242_y"
         android:background="@drawable/tx_fillet_small_bg"
         android:gravity="center"
         android:text="@string/string_speed"
@@ -83,12 +83,12 @@
     <RelativeLayout
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="@dimen/dp_px_1280_x"
-            android:layout_height="@dimen/dp_px_141_y"
-            android:layout_marginTop="@dimen/dp_px_579_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_px_867_y"
             android:background="@drawable/img_sportmode_under_bar" />
 
         <ImageView
@@ -101,77 +101,79 @@
 
         <TextView
             android:id="@+id/txt_running_incline_ctrl"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_px_200_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_243_x"
-            android:layout_marginTop="@dimen/dp_px_596_y"
+            android:layout_marginStart="@dimen/dp_px_355_x"
+            android:layout_marginTop="@dimen/dp_px_897_y"
             android:text="@string/string_incline"
+            android:textAlignment="center"
             android:textColor="@color/running_text_orange"
             android:textSize="@dimen/font_size_18pt" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_px_200_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_951_x"
-            android:layout_marginTop="@dimen/dp_px_596_y"
+            android:layout_marginStart="@dimen/dp_px_1370_x"
+            android:layout_marginTop="@dimen/dp_px_897_y"
             android:text="@string/string_speed"
+            android:textAlignment="center"
             android:textColor="@color/running_text_orange"
             android:textSize="@dimen/font_size_18pt" />
 
         <com.run.treadmill.widget.LongClickImage
             android:id="@+id/btn_incline_up"
-            android:layout_width="@dimen/dp_px_125_x"
-            android:layout_height="@dimen/dp_px_66_y"
-            android:layout_marginStart="@dimen/dp_px_134_x"
-            android:layout_marginTop="@dimen/dp_px_640_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_215_x"
+            android:layout_marginTop="@dimen/dp_px_952_y"
             android:src="@drawable/btn_sportmode_incline_up" />
 
         <ImageView
             android:id="@+id/btn_incline_roller"
-            android:layout_width="@dimen/dp_px_24_x"
-            android:layout_height="@dimen/dp_px_66_y"
-            android:layout_marginStart="@dimen/dp_px_275_x"
-            android:layout_marginTop="@dimen/dp_px_640_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_437_x"
+            android:layout_marginTop="@dimen/dp_px_952_y"
             android:src="@drawable/btn_sportmode_roller_icon" />
 
         <com.run.treadmill.widget.LongClickImage
             android:id="@+id/btn_incline_down"
-            android:layout_width="@dimen/dp_px_125_x"
-            android:layout_height="@dimen/dp_px_66_y"
-            android:layout_marginStart="@dimen/dp_px_316_x"
-            android:layout_marginTop="@dimen/dp_px_640_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_518_x"
+            android:layout_marginTop="@dimen/dp_px_952_y"
             android:src="@drawable/btn_sportmode_incline_down" />
 
         <ImageView
             android:id="@+id/btn_start_stop_skip"
-            android:layout_width="@dimen/dp_px_280_x"
-            android:layout_height="@dimen/dp_px_126_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_px_551_y"
+            android:layout_marginTop="@dimen/dp_px_830_y"
             android:src="@drawable/btn_sportmode_stop" />
 
         <com.run.treadmill.widget.LongClickImage
             android:id="@+id/btn_speed_up"
-            android:layout_width="@dimen/dp_px_125_x"
-            android:layout_height="@dimen/dp_px_66_y"
-            android:layout_marginStart="@dimen/dp_px_1014_x"
-            android:layout_marginTop="@dimen/dp_px_640_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_1531_x"
+            android:layout_marginTop="@dimen/dp_px_952_y"
             android:src="@drawable/btn_sportmode_speed_up" />
 
         <ImageView
             android:id="@+id/btn_speed_roller"
-            android:layout_width="@dimen/dp_px_24_x"
-            android:layout_height="@dimen/dp_px_66_y"
-            android:layout_marginStart="@dimen/dp_px_975_x"
-            android:layout_marginTop="@dimen/dp_px_640_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_1450_x"
+            android:layout_marginTop="@dimen/dp_px_952_y"
             android:src="@drawable/btn_sportmode_roller_icon" />
 
         <com.run.treadmill.widget.LongClickImage
             android:id="@+id/btn_speed_down"
-            android:layout_width="@dimen/dp_px_125_x"
-            android:layout_height="@dimen/dp_px_66_y"
-            android:layout_marginStart="@dimen/dp_px_832_x"
-            android:layout_marginTop="@dimen/dp_px_640_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_1228_x"
+            android:layout_marginTop="@dimen/dp_px_952_y"
             android:src="@drawable/btn_sportmode_speed_down" />
 
         <ImageView
@@ -187,195 +189,195 @@
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_px_123_y">
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="@dimen/dp_px_1280_x"
-            android:layout_height="@dimen/dp_px_123_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/img_sportmode_top_bar" />
 
         <TextView
             android:id="@+id/btn_media"
-            android:layout_width="@dimen/dp_px_100_x"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_3_x"
+            android:layout_marginStart="@dimen/dp_px_10_x"
             android:layout_marginTop="@dimen/dp_px_54_y"
             android:gravity="center"
             android:text="@string/string_title_media"
             android:textColor="@drawable/tv_media_color"
-            android:textSize="@dimen/font_size_20pt"
-            android:visibility="gone" />
+            android:textSize="@dimen/font_size_16pt"
+            android:visibility="visible" />
 
         <TextView
             android:id="@+id/txt_running_incline_param"
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_130_x"
-            android:layout_marginTop="@dimen/dp_px_22_y"
+            android:layout_marginStart="@dimen/dp_px_230_x"
+            android:layout_marginTop="@dimen/dp_px_8_y"
             android:gravity="center"
             android:text="@string/string_running_incline"
             android:textColor="@color/light_gray"
-            android:textSize="@dimen/font_size_15pt" />
+            android:textSize="@dimen/font_size_16pt" />
 
         <TextView
             android:id="@+id/tv_incline"
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_130_x"
-            android:layout_marginTop="@dimen/dp_px_60_y"
+            android:layout_marginStart="@dimen/dp_px_240_x"
+            android:layout_marginTop="@dimen/dp_px_90_y"
             android:gravity="center"
             android:text="10 %"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_25pt" />
+            android:textSize="@dimen/font_size_18pt" />
 
         <TextView
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_275_x"
-            android:layout_marginTop="@dimen/dp_px_22_y"
+            android:layout_marginStart="@dimen/dp_px_445_x"
+            android:layout_marginTop="@dimen/dp_px_8_y"
             android:gravity="center"
             android:text="@string/string_running_time"
             android:textColor="@color/light_gray"
-            android:textSize="@dimen/font_size_15pt" />
+            android:textSize="@dimen/font_size_16pt" />
 
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_275_x"
-            android:layout_marginTop="@dimen/dp_px_60_y"
+            android:layout_marginStart="@dimen/dp_px_445_x"
+            android:layout_marginTop="@dimen/dp_px_90_y"
             android:gravity="center"
             android:text="18:59"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_25pt" />
+            android:textSize="@dimen/font_size_18pt" />
 
         <TextView
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_420_x"
-            android:layout_marginTop="@dimen/dp_px_22_y"
+            android:layout_marginStart="@dimen/dp_px_670_x"
+            android:layout_marginTop="@dimen/dp_px_8_y"
             android:gravity="center"
             android:text="@string/string_running_distance"
             android:textColor="@color/light_gray"
-            android:textSize="@dimen/font_size_15pt" />
+            android:textSize="@dimen/font_size_16pt" />
 
         <TextView
             android:id="@+id/tv_distance"
-            android:layout_width="@dimen/dp_px_140_x"
+            android:layout_width="@dimen/dp_px_200_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_420_x"
-            android:layout_marginTop="@dimen/dp_px_60_y"
+            android:layout_marginStart="@dimen/dp_px_635_x"
+            android:layout_marginTop="@dimen/dp_px_90_y"
             android:gravity="center"
-            android:text="13.5 km"
+            android:text="13.115"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_25pt" />
+            android:textSize="@dimen/font_size_18pt" />
 
         <TextView
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_570_x"
-            android:layout_marginTop="@dimen/dp_px_22_y"
+            android:layout_marginStart="@dimen/dp_px_890_x"
+            android:layout_marginTop="@dimen/dp_px_8_y"
             android:gravity="center"
             android:text="@string/string_running_calories"
             android:textColor="@color/light_gray"
-            android:textSize="@dimen/font_size_15pt" />
+            android:textSize="@dimen/font_size_16pt" />
 
         <TextView
             android:id="@+id/tv_calories"
-            android:layout_width="@dimen/dp_px_160_x"
+            android:layout_width="@dimen/dp_px_200_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_560_x"
-            android:layout_marginTop="@dimen/dp_px_60_y"
+            android:layout_marginStart="@dimen/dp_px_860_x"
+            android:layout_marginTop="@dimen/dp_px_90_y"
             android:gravity="center"
-            android:text="1532.6 kcal"
+            android:text="1532.6"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_25pt" />
+            android:textSize="@dimen/font_size_18pt" />
 
         <TextView
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_720_x"
-            android:layout_marginTop="@dimen/dp_px_22_y"
+            android:layout_marginStart="@dimen/dp_px_1115_x"
+            android:layout_marginTop="@dimen/dp_px_8_y"
             android:gravity="center"
             android:text="@string/string_running_pulse"
             android:textColor="@color/light_gray"
-            android:textSize="@dimen/font_size_15pt" />
+            android:textSize="@dimen/font_size_16pt" />
 
         <TextView
             android:id="@+id/tv_pulse"
             android:layout_width="@dimen/dp_px_120_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_720_x"
-            android:layout_marginTop="@dimen/dp_px_60_y"
+            android:layout_marginStart="@dimen/dp_px_1120_x"
+            android:layout_marginTop="@dimen/dp_px_90_y"
             android:gravity="center"
             android:text="120"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_25pt" />
+            android:textSize="@dimen/font_size_18pt" />
 
         <ImageView
             android:id="@+id/img_pulse"
-            android:layout_width="@dimen/dp_px_30_x"
-            android:layout_height="@dimen/dp_px_20_y"
-            android:layout_marginStart="@dimen/dp_px_825_x"
-            android:layout_marginTop="@dimen/dp_px_73_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_1235_x"
+            android:layout_marginTop="@dimen/dp_px_105_y"
             android:src="@drawable/img_pulse_2" />
 
         <TextView
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_865_x"
-            android:layout_marginTop="@dimen/dp_px_22_y"
+            android:layout_marginStart="@dimen/dp_px_1330_x"
+            android:layout_marginTop="@dimen/dp_px_8_y"
             android:gravity="center"
             android:text="@string/string_running_mets"
             android:textColor="@color/light_gray"
-            android:textSize="@dimen/font_size_15pt" />
+            android:textSize="@dimen/font_size_16pt" />
 
         <TextView
             android:id="@+id/tv_mets"
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_865_x"
-            android:layout_marginTop="@dimen/dp_px_60_y"
+            android:layout_marginStart="@dimen/dp_px_1330_x"
+            android:layout_marginTop="@dimen/dp_px_90_y"
             android:gravity="center"
             android:text="10"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_25pt" />
+            android:textSize="@dimen/font_size_18pt" />
 
         <TextView
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_1015_x"
-            android:layout_marginTop="@dimen/dp_px_22_y"
+            android:layout_marginStart="@dimen/dp_px_1581_x"
+            android:layout_marginTop="@dimen/dp_px_8_y"
             android:gravity="center"
             android:text="@string/string_running_speed"
             android:textColor="@color/light_gray"
-            android:textSize="@dimen/font_size_15pt" />
+            android:textSize="@dimen/font_size_16pt" />
 
         <TextView
             android:id="@+id/tv_speed"
-            android:layout_width="@dimen/dp_px_140_x"
+            android:layout_width="@dimen/dp_px_200_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_1015_x"
-            android:layout_marginTop="@dimen/dp_px_60_y"
+            android:layout_marginStart="@dimen/dp_px_1540_x"
+            android:layout_marginTop="@dimen/dp_px_90_y"
             android:gravity="center"
             android:text="13.5 kph"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_25pt" />
+            android:textSize="@dimen/font_size_18pt" />
 
         <ImageView
             android:id="@+id/img_wifi"
-            android:layout_width="@dimen/dp_px_43_x"
-            android:layout_height="@dimen/dp_px_41_y"
-            android:layout_marginStart="@dimen/dp_px_1198_x"
-            android:layout_marginTop="@dimen/dp_px_54_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_1804_x"
+            android:layout_marginTop="@dimen/dp_px_64_y"
             android:src="@drawable/img_wifi" />
 
         <ImageView
             android:id="@+id/img_bt"
-            android:layout_width="@dimen/dp_px_30_x"
-            android:layout_height="@dimen/dp_px_41_y"
-            android:layout_marginStart="@dimen/dp_px_1241_x"
-            android:layout_marginTop="@dimen/dp_px_54_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_1865_x"
+            android:layout_marginTop="@dimen/dp_px_64_y"
             android:src="@drawable/img_bt" />
     </RelativeLayout>
 
@@ -390,36 +392,27 @@
         android:visibility="gone">
 
         <ImageView
-            android:layout_width="@dimen/dp_px_933_x"
-            android:layout_height="@dimen/dp_px_363_y"
-            android:layout_marginStart="@dimen/dp_px_174_x"
-            android:layout_marginTop="@dimen/dp_px_179_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_337_x"
+            android:layout_marginTop="@dimen/dp_px_298_y"
             android:src="@drawable/img_pop_pause" />
 
         <ImageView
             android:id="@+id/btn_pause_quit"
-            android:layout_width="@dimen/dp_px_179_x"
-            android:layout_height="@dimen/dp_px_126_y"
-            android:layout_marginStart="@dimen/dp_px_443_x"
-            android:layout_marginTop="@dimen/dp_px_551_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_667_x"
+            android:layout_marginTop="@dimen/dp_px_830_y"
             android:src="@drawable/btn_pause_quit" />
 
         <ImageView
             android:id="@+id/btn_pause_continue"
-            android:layout_width="@dimen/dp_px_179_x"
-            android:layout_height="@dimen/dp_px_126_y"
-            android:layout_marginStart="@dimen/dp_px_659_x"
-            android:layout_marginTop="@dimen/dp_px_551_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_983_x"
+            android:layout_marginTop="@dimen/dp_px_830_y"
             android:src="@drawable/btn_pause_continue" />
-
-        <!--        <ImageView-->
-        <!--            android:id="@+id/btn_skip"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_centerHorizontal="true"-->
-        <!--            android:layout_marginTop="@dimen/dp_px_551_y"-->
-        <!--            android:src="@drawable/btn_skip_warmup"-->
-        <!--            android:visibility="gone" />-->
     </RelativeLayout>
 
     <!-- 倒计时 -->
@@ -448,8 +441,8 @@
 
         <ImageView
             android:id="@+id/img_tip"
-            android:layout_width="@dimen/dp_px_150_x"
-            android:layout_height="@dimen/dp_px_150_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_px_210_y"
             android:src="@drawable/img_factory_update_2" />
@@ -459,7 +452,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_px_400_y"
+            android:layout_marginTop="@dimen/dp_px_500_y"
             android:gravity="center"
             android:textColor="@color/textView_white"
             android:textSize="@dimen/font_size_47pt"

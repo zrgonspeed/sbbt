@@ -66,8 +66,8 @@
 
     <ImageView
         android:id="@+id/img_gender_select"
-        android:layout_width="@dimen/dp_px_150_x"
-        android:layout_height="@dimen/dp_px_60_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_px_353_x"
         android:layout_marginTop="@dimen/dp_px_130_y"
         android:src="@drawable/btn_male_2" />
@@ -81,8 +81,8 @@
 
         <RadioButton
             android:id="@+id/rb_age"
-            android:layout_width="@dimen/dp_px_150_x"
-            android:layout_height="@dimen/dp_px_60_y"
+            android:layout_width="@dimen/dp_px_140_x"
+            android:layout_height="@dimen/dp_px_56_y"
             android:background="@drawable/img_number_frame"
             android:button="@null"
             android:gravity="center"
@@ -92,8 +92,8 @@
 
         <RadioButton
             android:id="@+id/rb_weight"
-            android:layout_width="@dimen/dp_px_150_x"
-            android:layout_height="@dimen/dp_px_60_y"
+            android:layout_width="@dimen/dp_px_140_x"
+            android:layout_height="@dimen/dp_px_56_y"
             android:layout_marginTop="@dimen/dp_px_39_y"
             android:background="@drawable/img_number_frame"
             android:button="@null"
@@ -104,8 +104,8 @@
 
         <RadioButton
             android:id="@+id/rb_time"
-            android:layout_width="@dimen/dp_px_150_x"
-            android:layout_height="@dimen/dp_px_60_y"
+            android:layout_width="@dimen/dp_px_140_x"
+            android:layout_height="@dimen/dp_px_56_y"
             android:layout_marginTop="@dimen/dp_px_39_y"
             android:background="@drawable/img_number_frame"
             android:button="@null"
@@ -156,15 +156,15 @@
 
         <RadioButton
             android:id="@+id/rb_male"
-            android:layout_width="@dimen/dp_px_150_x"
-            android:layout_height="@dimen/dp_px_60_y"
+            android:layout_width="@dimen/dp_px_140_x"
+            android:layout_height="@dimen/dp_px_56_y"
             android:button="@drawable/btn_male"
             android:checked="true" />
 
         <RadioButton
             android:id="@+id/rb_female"
-            android:layout_width="@dimen/dp_px_150_x"
-            android:layout_height="@dimen/dp_px_60_y"
+            android:layout_width="@dimen/dp_px_140_x"
+            android:layout_height="@dimen/dp_px_56_y"
             android:layout_marginLeft="@dimen/dp_px_150_x"
             android:button="@drawable/btn_female" />
 

@@ -35,6 +35,7 @@ import com.run.treadmill.activity.EmptyMessageTask;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
 import com.run.treadmill.adapter.MediaRunAppAdapter;
 import com.run.treadmill.base.BaseActivity;
+import com.run.treadmill.base.MyApplication;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.common.MsgWhat;
@@ -649,7 +650,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                         .editTypeName(R.string.string_speed)
                         .floatPoint(1)
                         .mainView(rl_main)
-                        .setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_405_x), getResources().getDimensionPixelSize(R.dimen.dp_px_186_y))
+                        .setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_234_y))
                         .startPopWindow();
 
                 setControlEnable(false);
@@ -667,7 +668,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                         .editType(CTConstant.TYPE_INCLINE)
                         .editTypeName(R.string.string_incline)
                         .mainView(rl_main)
-                        .setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_405_x), getResources().getDimensionPixelSize(R.dimen.dp_px_186_y))
+                        .setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_234_y))
                         .startPopWindow();
 
                 setControlEnable(false);
@@ -767,8 +768,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             rv_media.setLayoutManager(new GridLayoutManager(this, 2));
             rv_media.setAdapter(mMediaRunAppAdapter);
             mediaPopWin = new PopupWindow(mediaView,
-                    getResources().getDimensionPixelSize(R.dimen.dp_px_180_x),
-                    getResources().getDimensionPixelSize(R.dimen.dp_px_460_y));
+                    getResources().getDimensionPixelSize(R.dimen.dp_px_300_x),
+                    getResources().getDimensionPixelSize(R.dimen.dp_px_715_y));
         }
 
         if (mediaPopWin.isShowing()) {
@@ -777,7 +778,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             mediaPopWin.showAtLocation(btn_media,
                     Gravity.NO_GRAVITY,
                     (getResources().getDimensionPixelSize(R.dimen.dp_px_0_x)),
-                    getResources().getDimensionPixelSize(R.dimen.dp_px_115_y));
+                    getResources().getDimensionPixelSize(R.dimen.dp_px_147_y));
             btn_media.setSelected(true);
         }
     }
@@ -969,12 +970,12 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             btn_line_chart_speed.setBackground(getDrawable(R.drawable.tx_fillet_small_bg));
 
             RelativeLayout.LayoutParams speedParams = (RelativeLayout.LayoutParams) btn_line_chart_speed.getLayoutParams();
-            speedParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_280_x);
-            speedParams.setMarginStart(getResources().getDimensionPixelSize(R.dimen.dp_px_785_x));
+            speedParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_400_x);
+            speedParams.setMarginStart(getResources().getDimensionPixelSize(R.dimen.dp_px_1120_x));
             btn_line_chart_speed.setLayoutParams(speedParams);
 
             RelativeLayout.LayoutParams inclineParams = (RelativeLayout.LayoutParams) btn_line_chart_incline.getLayoutParams();
-            inclineParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_520_x);
+            inclineParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_720_x);
             btn_line_chart_incline.setLayoutParams(inclineParams);
         } else {
             btn_line_chart_speed.setTextColor(getColor(R.color.running_text_orange));
@@ -983,12 +984,12 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             btn_line_chart_speed.setBackground(getDrawable(R.drawable.tx_fillet_max_bg));
 
             RelativeLayout.LayoutParams speedParams = (RelativeLayout.LayoutParams) btn_line_chart_speed.getLayoutParams();
-            speedParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_520_x);
-            speedParams.setMarginStart(getResources().getDimensionPixelSize(R.dimen.dp_px_545_x));
+            speedParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_720_x);
+            speedParams.setMarginStart(getResources().getDimensionPixelSize(R.dimen.dp_px_800_x));
             btn_line_chart_speed.setLayoutParams(speedParams);
 
             RelativeLayout.LayoutParams inclineParams = (RelativeLayout.LayoutParams) btn_line_chart_incline.getLayoutParams();
-            inclineParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_280_x);
+            inclineParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_400_x);
             btn_line_chart_incline.setLayoutParams(inclineParams);
         }
 
@@ -1130,6 +1131,12 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                         mActivity.tv_prepare.setVisibility(View.GONE);
                         return;
                     } else {
+                        if (MyApplication.DEFAULT_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
+                            if (mActivity.mRunningParam.countDown == 1) {
+                                ControlManager.getInstance().reset();
+                                ControlManager.getInstance().setSpeed(SpManager.getMinSpeed(mActivity.isMetric));
+                            }
+                        }
                         mActivity.tv_prepare.setText(String.valueOf(mActivity.mRunningParam.countDown));
                         BuzzerManager.getInstance().buzzRingLongObliged(200);
                     }

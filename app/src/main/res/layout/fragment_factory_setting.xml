@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dp_px_1034_x"
-    android:layout_height="@dimen/dp_px_500_y">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/img_factory_bk">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_26_x"
-        android:layout_marginTop="@dimen/dp_px_58_y"
+        android:layout_marginStart="@dimen/dp_px_59_x"
+        android:layout_marginTop="@dimen/dp_px_82_y"
         android:text="@string/string_factory_sleep"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_21pt" />
 
     <ToggleButton
         android:id="@+id/tb_sleep"
-        android:layout_width="@dimen/dp_px_130_x"
-        android:layout_height="@dimen/dp_px_45_y"
-        android:layout_marginStart="@dimen/dp_px_323_x"
-        android:layout_marginTop="@dimen/dp_px_46_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_476_x"
+        android:layout_marginTop="@dimen/dp_px_80_y"
         android:background="@drawable/btn_on_off"
         android:textOff=""
         android:textOn="" />
@@ -25,18 +26,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_26_x"
-        android:layout_marginTop="@dimen/dp_px_152_y"
+        android:layout_marginStart="@dimen/dp_px_59_x"
+        android:layout_marginTop="@dimen/dp_px_214_y"
         android:text="@string/string_factory_display"
         android:textColor="@color/gray"
         android:textSize="@dimen/font_size_21pt" />
 
     <ToggleButton
         android:id="@+id/tb_display"
-        android:layout_width="@dimen/dp_px_130_x"
-        android:layout_height="@dimen/dp_px_45_y"
-        android:layout_marginStart="@dimen/dp_px_323_x"
-        android:layout_marginTop="@dimen/dp_px_140_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_476_x"
+        android:layout_marginTop="@dimen/dp_px_212_y"
         android:background="@drawable/btn_on_off"
         android:enabled="false"
         android:textOff=""
@@ -45,18 +46,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_26_x"
-        android:layout_marginTop="@dimen/dp_px_246_y"
+        android:layout_marginStart="@dimen/dp_px_59_x"
+        android:layout_marginTop="@dimen/dp_px_346_y"
         android:text="@string/string_factory_incline"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_21pt" />
 
     <ToggleButton
         android:id="@+id/tb_incline"
-        android:layout_width="@dimen/dp_px_130_x"
-        android:layout_height="@dimen/dp_px_45_y"
-        android:layout_marginStart="@dimen/dp_px_323_x"
-        android:layout_marginTop="@dimen/dp_px_234_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_476_x"
+        android:layout_marginTop="@dimen/dp_px_344_y"
         android:background="@drawable/btn_on_off"
         android:textOff=""
         android:textOn="" />
@@ -64,45 +65,45 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_26_x"
-        android:layout_marginTop="@dimen/dp_px_340_y"
+        android:layout_marginStart="@dimen/dp_px_59_x"
+        android:layout_marginTop="@dimen/dp_px_478_y"
         android:text="@string/string_factory_touch"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_21pt" />
 
     <ToggleButton
         android:id="@+id/tb_touch"
-        android:layout_width="@dimen/dp_px_130_x"
-        android:layout_height="@dimen/dp_px_45_y"
-        android:layout_marginStart="@dimen/dp_px_323_x"
-        android:layout_marginTop="@dimen/dp_px_328_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_476_x"
+        android:layout_marginTop="@dimen/dp_px_476_y"
         android:background="@drawable/btn_on_off"
         android:textOff=""
         android:textOn="" />
 
     <ImageView
-        android:layout_width="@dimen/dp_px_130_x"
-        android:layout_height="@dimen/dp_px_45_y"
-        android:layout_marginStart="@dimen/dp_px_532_x"
-        android:layout_marginTop="@dimen/dp_px_35_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_770_x"
+        android:layout_marginTop="@dimen/dp_px_49_y"
         android:src="@drawable/img_factory_line"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_560_x"
-        android:layout_marginTop="@dimen/dp_px_58_y"
+        android:layout_marginStart="@dimen/dp_px_823_x"
+        android:layout_marginTop="@dimen/dp_px_82_y"
         android:text="@string/string_factory_buzzer"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_21pt" />
 
     <ToggleButton
         android:id="@+id/tb_buzzer"
-        android:layout_width="@dimen/dp_px_130_x"
-        android:layout_height="@dimen/dp_px_45_y"
-        android:layout_marginStart="@dimen/dp_px_853_x"
-        android:layout_marginTop="@dimen/dp_px_46_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_1235_x"
+        android:layout_marginTop="@dimen/dp_px_80_y"
         android:background="@drawable/btn_on_off"
         android:textOff=""
         android:textOn="" />
@@ -110,18 +111,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_560_x"
-        android:layout_marginTop="@dimen/dp_px_152_y"
+        android:layout_marginStart="@dimen/dp_px_823_x"
+        android:layout_marginTop="@dimen/dp_px_214_y"
         android:text="@string/string_factory_login"
         android:textColor="@color/gray"
         android:textSize="@dimen/font_size_21pt" />
 
     <ToggleButton
         android:id="@+id/tb_login_ctrl"
-        android:layout_width="@dimen/dp_px_130_x"
-        android:layout_height="@dimen/dp_px_45_y"
-        android:layout_marginStart="@dimen/dp_px_853_x"
-        android:layout_marginTop="@dimen/dp_px_140_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_1235_x"
+        android:layout_marginTop="@dimen/dp_px_212_y"
         android:background="@drawable/btn_on_off"
         android:enabled="false"
         android:textOff=""
@@ -130,28 +131,28 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_560_x"
-        android:layout_marginTop="@dimen/dp_px_246_y"
+        android:layout_marginStart="@dimen/dp_px_823_x"
+        android:layout_marginTop="@dimen/dp_px_346_y"
         android:text="@string/string_factory_lube"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_21pt" />
 
     <TextView
         android:id="@+id/tv_lube"
-        android:layout_width="@dimen/dp_px_180_x"
+        android:layout_width="@dimen/dp_px_300_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_800_x"
-        android:layout_marginTop="@dimen/dp_px_246_y"
-        android:gravity="right"
+        android:layout_marginStart="@dimen/dp_px_1200_x"
+        android:layout_marginTop="@dimen/dp_px_346_y"
+        android:gravity="center"
         android:text="6000.0   km"
         android:textColor="@drawable/txt_lube_color"
         android:textSize="@dimen/font_size_21pt" />
 
     <ImageView
         android:id="@+id/btn_setting_reset"
-        android:layout_width="@dimen/dp_px_170_x"
-        android:layout_height="@dimen/dp_px_77_y"
-        android:layout_marginStart="@dimen/dp_px_813_x"
-        android:layout_marginTop="@dimen/dp_px_330_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_1170_x"
+        android:layout_marginTop="@dimen/dp_px_471_y"
         android:src="@drawable/btn_factory_reset" />
 </RelativeLayout>

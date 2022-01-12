@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dp_px_1280_x"
-    android:layout_height="@dimen/dp_px_720_y"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/transparent_black"
     android:clickable="true">
 
     <ImageView
         android:id="@+id/img_err_bk"
-        android:layout_width="@dimen/dp_px_933_x"
-        android:layout_height="@dimen/dp_px_363_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:src="@drawable/img_pop_bk" />
 
     <ImageView
         android:id="@+id/img_err_icon"
-        android:layout_width="@dimen/dp_px_150_x"
-        android:layout_height="@dimen/dp_px_150_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_px_250_y"
         android:src="@drawable/img_factory_update_2" />
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_px_419_y"
+        android:layout_marginTop="@dimen/dp_px_500_y"
         android:text="@string/string_emergency_stop"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_60pt"
