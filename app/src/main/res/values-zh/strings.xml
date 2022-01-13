@@ -197,7 +197,6 @@
 
     <!-- 第三方媒体app包名，类名 -->
     <string name="string_app_pk_name_1">com.baidu.searchbox.pad</string>
-    <!--    <string name="string_app_pk_name_1">info.kfsoft.android.MemoryIndicator</string>-->
     <string name="string_app_pk_name_2">com.sina.weibo</string>
     <string name="string_app_pk_name_3">com.qiyi.video.pad</string>
     <string name="string_app_pk_name_4">me.wcy.music</string>

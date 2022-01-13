@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -175,10 +174,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         if (!isNormal) {
             isNormal = true;
             startTimerOfSafe();
-//            ThirdApkSupport.killAllThirtyApp(this);
         }
 
-//        EarphoneSoundCheck.initSysSoundOut();
         isOnClicking = false;
         ErrorManager.getInstance().exitError = false;
         isFitShowConnect(FitShowTreadmillManager.getInstance().isConnect());

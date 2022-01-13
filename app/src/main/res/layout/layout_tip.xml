@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_tip"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/dp_px_1920_x"
+    android:layout_height="@dimen/dp_px_1080_y"
     android:background="@color/transparent_black"
     android:clickable="true">
 
@@ -43,7 +43,7 @@
         android:id="@+id/rl_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <com.run.treadmill.widget.MultiClickAndLongPressView
             android:id="@+id/lpv_update"
@@ -57,7 +57,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_px_250_y"
             android:src="@drawable/img_pop_bk"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/img_err_icon"
