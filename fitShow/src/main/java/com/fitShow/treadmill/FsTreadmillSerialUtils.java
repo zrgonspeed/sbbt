@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.SerialManager;
 import android.hardware.SerialPort;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -83,6 +84,7 @@ public class FsTreadmillSerialUtils {
                 FsTreadmillRxData.getInstance().init(serialPort);
                 rxData = FsTreadmillRxData.getInstance();
 
+                Log.e("sss", "name " + serialPort.toString());
                 openSuccess = true;
             }
         } catch (Exception e) {

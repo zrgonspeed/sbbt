@@ -19,6 +19,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
+import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.widget.HistogramListView;
@@ -165,6 +166,13 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
             mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
             mRunningParam.setLcCurStageNum(0);
             mRunningParam.startRefreshData();
+
+            // 设置运动秀APP 的程序模式 设定的速度扬升值。
+            if (FitShowTreadmillManager.getInstance().isProgramMode) {
+                fitShowSetSpeed(FitShowTreadmillManager.getInstance().targetSpeed);
+                fitShowSetIncline(FitShowTreadmillManager.getInstance().targetIncline);
+                FitShowTreadmillManager.getInstance().isProgramMode = false;
+            }
         }
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
             mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
@@ -250,7 +258,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
             getPresenter().setSpeedValue(0, minSpeed, false);
             getPresenter().setInclineValue(0, 0, false);
             if (FitShowTreadmillManager.getInstance().isConnect()) {
-                FitShowTreadmillManager.getInstance().sendPauseSpeedAndIncline();
+                FitShowTreadmillManager.getInstance().sendPauseSpeedAndIncline((int) (SpManager.getMinSpeed(isMetric) * 10));
             }
             FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_PAUSED);
         }

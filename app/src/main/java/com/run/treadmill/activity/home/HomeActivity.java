@@ -121,12 +121,12 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         init();
 
         // 延迟3秒
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                FitShowTreadmillManager.getInstance().sendRestartFS();
-            }
-
-        }, 3 * 1000);
+//        new Handler().postDelayed(new Runnable() {
+//            public void run() {
+//                FitShowTreadmillManager.getInstance().sendRestartFS();
+//            }
+//
+//        }, 3 * 1000);
 
         GpIoUtils.setScreen_1();
 
@@ -359,7 +359,11 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             return;
         } else {
             if (FitShowTreadmillManager.getInstance().getRunStart() != FsTreadmillCommand.STATUS_NORMAL) {
-                FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_NORMAL);
+                if (!FitShowTreadmillManager.getInstance().clickStart) {
+                    FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_NORMAL);
+                } else {
+                    FitShowTreadmillManager.getInstance().clickStart = false;
+                }
             }
         }
         if (tipsPop.isShowTips()) {

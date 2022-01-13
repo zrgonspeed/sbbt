@@ -59,7 +59,7 @@ public final class FsTreadmillTxData {
     private synchronized void sendDataToTx(byte[] data, int len) throws Exception {
         outPutBuffer.clear();
         outPutBuffer.put(data);
-        //Log.d("FsTreadmill Send", ConvertData.byteArrayToHexString(data, len));
+        Log.d("FsTreadmill Send", ConvertData.byteArrayToHexString(data, len));
         serialPort.write(outPutBuffer, len);
     }
 

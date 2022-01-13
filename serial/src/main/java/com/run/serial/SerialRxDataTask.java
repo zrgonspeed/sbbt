@@ -44,7 +44,7 @@ public final class SerialRxDataTask implements Runnable {
                     Thread.sleep(1);
                     continue;
                 }
-                Log.d("read isReadData", ">>  " + ConvertData.byteArrayToHexString(buff, iDataLen));
+//                Log.d("read isReadData", ">>  " + ConvertData.byteArrayToHexString(buff, iDataLen));
 
                 int PACK_FRAME_HEADER = SerialCommand.PACK_FRAME_HEADER;
                 int PACK_FRAME_END = SerialCommand.PACK_FRAME_END;

@@ -1126,6 +1126,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                             }
                         }
                         mActivity.tv_prepare.setText(String.valueOf(mActivity.mRunningParam.countDown));
+                        if (FitShowTreadmillManager.getInstance().isConnect()) {
+                            // 运动秀需要
+                            FitShowTreadmillManager.getInstance().setCountDown(mActivity.mRunningParam.countDown);
+                        }
                         BuzzerManager.getInstance().buzzRingLongObliged(200);
                     }
                     mActivity.mRunningParam.countDown--;

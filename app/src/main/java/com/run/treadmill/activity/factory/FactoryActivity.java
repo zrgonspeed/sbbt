@@ -25,7 +25,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.run.android.ShellCmdUtils;
 import com.run.serial.OTAParam;
-import com.run.serial.SerialUtils;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.SafeKeyTimer;
@@ -186,6 +185,8 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         FileUtil.setLogoIcon(this, btn_logo);
 
         mUdiskPath = FileUtil.getStoragePath(this, true);
+//        mUdiskPath = "/storage/emulated/0/ota";
+
         btn_factory_one.setOnClickListener(this);
         btn_factory_two.setOnClickListener(this);
 

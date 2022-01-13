@@ -1,7 +1,5 @@
 package com.fitShow.treadmill;
 
-import android.util.Log;
-
 /**
  * @Description
  * @Author YeYueHong
@@ -12,43 +10,43 @@ public class FsTreadmillParam {
     /**
      * 运动时间
      */
-    private Integer workTime;
+    private Integer workTime = 0;
     /**
      * 速度
      */
-    private Integer speed;
+    private Integer speed = 0;
     /**
      * 扬升
      */
-    private Integer incline;
+    private Integer incline = 0;
     /**
      * 心率
      */
-    private Integer hr;
+    private Integer hr = 0;
     /**
      * 步数
      */
-    private Integer stepNumber;
+    private Integer stepNumber = 0;
     /**
      * 距离
      */
-    private Integer distance;
+    private Integer distance = 0;
     /**
      * 卡路里
      */
-    private Integer calorie;
+    private Integer calorie = 0;
     /**
      * 段数
      */
-    private Integer stageNum;
+    private Integer stageNum = 0;
     /**
      * 错误码
      */
-    private Integer error;
+    private Integer error = 0;
     /**
      * 运动状态
      */
-    private Integer runStatus;
+    private Integer runStatus = 0;
 
     public static class Builder {
         private FsTreadmillParam fsTreadmillParam = new FsTreadmillParam();
@@ -95,6 +93,7 @@ public class FsTreadmillParam {
         }
 
         /**
+         *
          * @param incline
          * @return
          */
@@ -115,18 +114,16 @@ public class FsTreadmillParam {
 
         /**
          * 距离内部扩大1000倍
-         *
          * @param distance
          * @return
          */
         public Builder distance(float distance) {
-            fsTreadmillParam.distance = UnitUtil.getFloatToInt(distance * 1000);
+            fsTreadmillParam.distance = UnitUtil.getFloatToInt(distance*1000);
             return this;
         }
 
         /**
          * 卡路里内部扩大10倍
-         *
          * @param calorie
          * @return
          */
@@ -136,7 +133,7 @@ public class FsTreadmillParam {
         }
 
         public Builder stageNum(int stageNum) {
-            fsTreadmillParam.stageNum = stageNum + 1;
+            fsTreadmillParam.stageNum = stageNum+1;
             return this;
         }
 
@@ -161,7 +158,7 @@ public class FsTreadmillParam {
     }
 
     public Integer getSpeed() {
-        if (speed > 255) {//运动秀协议缺陷，一个字节最大只能到255,速度不能大于25.5
+        if (speed>255){//运动秀协议缺陷，一个字节最大只能到255,速度不能大于25.5
             return 255;
         }
         return speed;
@@ -176,6 +173,9 @@ public class FsTreadmillParam {
     }
 
     public Integer getStepNumber() {
+        if (stepNumber <= 0) {
+            return 0;
+        }
         return stepNumber;
     }
 

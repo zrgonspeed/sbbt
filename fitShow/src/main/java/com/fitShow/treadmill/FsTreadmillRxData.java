@@ -52,6 +52,13 @@ public final class FsTreadmillRxData {
         while (true) {
             inPutBuffer.clear();
             iLen = serialPort.read(inPutBuffer);
+
+//            Log.d("Read", "iLen == " + iLen);
+//            Log.d("Read", "sss " + ConvertData.byteArrayToHexString(inPutBuffer.array(), iLen));
+            if (iLen > 0) {
+                Log.d("Read", "iLen == " + iLen);
+                Log.d("Read", "sss " + ConvertData.byteArrayToHexString(inPutBuffer.array(), iLen));
+            }
             if (iLen >= 4
                     && (buff[0] & 0xFF) == FsTreadmillCommand.PKG_HEAD
                     && (buff[iLen - 1] & 0xFF) == FsTreadmillCommand.PKG_END) {
