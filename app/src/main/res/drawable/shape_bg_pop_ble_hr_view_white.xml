@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners
+        android:topLeftRadius="@dimen/pop_layout_ble_hr_view_bg_radio"
+        android:topRightRadius="@dimen/pop_layout_ble_hr_view_bg_radio"
+        />
+    <solid android:color="@color/color_pop_ble_hr_view_bg_white" />
+</shape>

@@ -212,4 +212,13 @@
     <string name="no__update_files">没有检测到OTA更新文件</string>
     <string name="incorrect_signature">签名不正确</string>
     <string name="server_hint">当前的服务器是\n</string>
+
+    <!--蓝牙-->
+    <string name="ble_bluetooth_devices">蓝牙设备</string>
+    <string name="ble_connect">连接</string>
+    <string name="ble_disonnect">断开</string>
+    <string name="ble_text1">当蓝牙打开时，您的设备可以与附近的其他蓝牙设备通信。</string>
+    <string name="ble_no_devices_found">未找到任何设备。</string>
+    <string name="paired_devices">已配对的设备</string>
+    <string name="bt_available">可用设备</string>
 </resources>

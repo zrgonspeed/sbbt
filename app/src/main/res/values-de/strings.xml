@@ -194,7 +194,14 @@
     <string name="string_time_out">TIME OUT</string>
     <string name="string_calibration_failure">KALIBRIERUNGSFEHLER</string>
     <string name="string_u_disk_no_file">Cannot find U disk update</string>
-    <string name="string_runing_pause">PAUSE</string>
 
     <string name="server_hint">Der aktuelle server ist hier</string>
+
+    <string name="ble_bluetooth_devices">Bluetooth-Geräte</string>
+    <string name="ble_connect">Anschließen</string>
+    <string name="ble_disonnect">Trennen</string>
+    <string name="ble_text1">Wenn Bluetooth aktiviert ist, kann Ihr Gerät mit anderen Bluetooth-Geräten in der Nähe kommunizieren.</string>
+    <string name="ble_no_devices_found">Keine Geräte gefunden.</string>
+    <string name="paired_devices">Gekoppelte Geräte</string>
+    <string name="bt_available">Verfügbare Geräte</string>
 </resources>

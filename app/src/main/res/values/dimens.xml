@@ -3022,4 +3022,20 @@
     <dimen name="dp_px_1078_y">1078dp</dimen>
     <dimen name="dp_px_1079_y">1079dp</dimen>
     <dimen name="dp_px_1080_y">1080dp</dimen>
+
+
+    <dimen name="pop_layout_main_w">1000dp</dimen>
+    <dimen name="pop_layout_main_h">600dp</dimen>
+
+    <dimen name="pop_layout_ble_hr_view_bg_radio">26.6667dp</dimen>
+    <dimen name="pop_layout_ble_hr_view_bg_h">517.3333dp</dimen>
+
+    <dimen name="pop_layout_ble_hr_txt_font_size">25.3333sp</dimen>
+    <dimen name="summary_layout_txt_hint_font_size">10.6667sp</dimen>
+
+    <dimen name="pop_layout_ble_hr_line_h">0.6667dp</dimen>
+    <dimen name="home_layout_list_txt_font_size">17.3333sp</dimen>
+    <dimen name="txt_time_font_size">10.6667sp</dimen>
+
+    <dimen name="ble_title_size">35sp</dimen>
 </resources>

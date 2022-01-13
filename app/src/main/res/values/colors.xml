@@ -52,4 +52,223 @@
 
     <color name="gridview_title">#373637</color>
     <color name="gridview_bg">#1C1C1C</color>
+
+
+
+    <color name="ble_tv_device_black">#1C1C1C</color>
+    <color name="ble_tv_device_name_black">#929292</color>
+    <color name="ble_bt_connect_1">#12aece</color>
+    <color name="ble_bt_connect_2">#f04848</color>
+    <color name="ble_bt_connect_3">#929292</color>
+    <color name="ble_bt_item_decoration">#EBEBEB</color>
+
+    <color name="color_E6E6E6_2">#E6E6E6</color>
+    <color name="color_guid_info">#2F3031</color>
+    <color name="color_servers_info">#bcbcbc</color>
+    <color name="color_bcbcbc">#bcbcbc</color>
+    <color name="color_bcbcbc_60">#99bcbcbc</color>
+    <color name="color_E3E1E1">#E3E1E1</color>
+    <color name="color_CC9B9B9B">#CC9B9B9B</color>
+    <color name="color_9d2227">#9d2227</color>
+    <color name="color_f6f6f6">#f6f6f6</color>
+    <color name="color_key_test_bg">#b1d0e5</color>
+
+    <color name="color_2f3031">#2f3031</color>
+    <color name="color_2f3031_60">#992f3031</color>
+    <color name="color_white">#FFFFFF</color>
+
+    <color name="color_pop_ble_hr_bg_white">#000000</color>
+    <color name="color_pop_ble_hr_view_bg_white">#F6F6F6</color>
+    <color name="color_pop_ble_hr_line_white">#E6E6E6</color>
+
+
+    <color name="color_black">#000000</color>
+    <color name="color_black_0">#00000000</color>
+    <color name="color_black_75">#BF000000</color>
+    <color name="color_gary">#FF00FF</color>
+    <color name="color_white_20">#33FFFFFF</color>
+    <color name="color_red">#FF0000</color>
+    <color name="color_light_blue">#98DEFF</color>
+    <color name="color_gray">#969191</color>
+    <color name="color_light_gray">#e6e6e6</color>
+    <color name="color_deep_red">#9d2227</color>
+    <color name="color_black_60">#87000000</color>
+
+    <color name="color_white_00">#00FFFFFF</color>
+    <color name="color_deep_red_14">#149d2227</color>
+    <color name="color_deep_red_20">#339d2227</color>
+
+    <color name="color_txt_color_2">#2F3031</color>
+    <color name="color_txt_color_3">#BCBCBC</color>
+    <color name="color_txt_color_4">#9D2227</color>
+
+
+    <color name="color_workout_float_bg">#A8000000</color>
+
+
+    <color name="color_white_home">#F6F6F6</color>
+    <color name="color_login_line">#4FFFFFFF</color>
+
+    <color name="color_btn_bg_style_1_normal">#9D2227</color>
+    <color name="color_btn_bg_style_1_press">#6D171B</color>
+    <color name="color_btn_bg_style_1_disable">#7F9D2227</color>
+
+    <color name="color_btn_txt_style_1_normal">#FFFFFF</color>
+    <color name="color_btn_txt_style_1_press">#FFFFFF</color>
+    <color name="color_btn_txt_style_1_disable">#FFFFFF</color>
+
+    <color name="color_btn_bg_style_2_normal">#E6E6E6</color>
+    <color name="color_btn_bg_style_2_press">#BCBCBC</color>
+    <color name="color_btn_bg_style_2_disable">#7FE6E6E6</color>
+
+    <color name="color_btn_txt_style_2_normal">#000000</color>
+    <color name="color_btn_txt_style_2_press">#000000</color>
+    <color name="color_btn_txt_style_2_disable">#000000</color>
+
+    <color name="color_btn_bg_style_3_normal">#3F9B9B9B</color>
+    <color name="color_btn_bg_style_3_press">#4D9B9B9B</color>
+    <color name="color_btn_bg_style_3_disable">#7F9D2227</color>
+
+    <color name="color_btn_txt_style_3_normal">#FFFFFF</color>
+    <color name="color_btn_txt_style_3_press">#FFFFFF</color>
+    <color name="color_btn_txt_style_3_disable">#4AFFFFFF</color>
+
+    <color name="color_btn_bg_style_4_normal">#FFFFFF</color>
+    <color name="color_btn_bg_style_4_press">#FFFFFF</color>
+    <color name="color_btn_bg_style_4_press_stroke">#9D2227</color>
+    <color name="color_btn_bg_style_4_disable">#7F9D2227</color>
+
+    <color name="color_btn_txt_style_4_normal">#000000</color>
+    <color name="color_btn_txt_style_4_press">#9D2227</color>
+    <color name="color_btn_txt_style_4_disable">#4AFFFFFF</color>
+
+    <color name="color_btn_txt_style_5_normal">#BCBCBC</color>
+    <color name="color_btn_txt_style_5_check">#2F3031</color>
+
+    <color name="color_btn_bg_style_5_normal">#FFFFFF</color>
+    <color name="color_btn_bg_style_5_check">#FFFFFF</color>
+
+    <color name="shape_bg_user_profile_delete">#BCBCBC</color>
+
+    <color name="color_split_line">#4AFFFFFF</color>
+    <color name="color_split_line_2">#E6E6E6</color>
+    <color name="color_user_profile_position_line">#9D2227</color>
+
+    <color name="color_edit_Cursor_1">#BCBCBC</color>
+    <color name="color_edit_bottom_line_1">#BCBCBC</color>
+    <color name="color_edit_bottom_line_2">#9D2227</color>
+
+    <color name="color_picker_base_triangle">#9D2227</color>
+    <color name="color_picker_base_scale">#bcbcbc</color>
+    <color name="color_picker_base_buoy">#9D2227</color>
+    <color name="color_picker_base_value">#FF000000</color>
+    <color name="color_picker_base_unit">#2f3031</color>
+
+    <color name="color_picker_vertical_age_triangle">#FFFFFF</color>
+    <color name="color_picker_vertical_age_scale">#A0FFFFFF</color>
+    <color name="color_picker_vertical_age_buoy">#FFFFFF</color>
+    <color name="color_picker_vertical_age_value">#FFFFFF</color>
+    <color name="color_picker_vertical_age_unit">#BCBCBC</color>
+
+    <color name="color_picker_vertical_weight_triangle">#FFFFFF</color>
+    <color name="color_picker_vertical_weight_scale">#A0FFFFFF</color>
+    <color name="color_picker_vertical_weight_buoy">#FFFFFF</color>
+    <color name="color_picker_vertical_weight_value">#FFFFFF</color>
+    <color name="color_picker_vertical_weight_unit">#BCBCBC</color>
+
+    <color name="color_picker_horizontal_sound_black_triangle">#FFFFFF</color>
+    <color name="color_picker_horizontal_sound_black_scale">#BCBCBC</color>
+    <color name="color_picker_horizontal_sound_black_buoy">#FFFFFF</color>
+    <color name="color_picker_horizontal_sound_black_value">#FFFFFF</color>
+    <color name="color_picker_horizontal_sound_black_unit">#9FFFFFFF</color>
+
+    <color name="color_picker_horizontal_sound_white_triangle">#9D2227</color>
+    <color name="color_picker_horizontal_sound_white_scale">#BCBCBC</color>
+    <color name="color_picker_horizontal_sound_white_buoy">#9D2227</color>
+    <color name="color_picker_horizontal_sound_white_value">#000000</color>
+    <color name="color_picker_horizontal_sound_white_unit">#FFFFFF</color>
+
+    <color name="color_pop_sound_bg_black">#BF000000</color>
+    <color name="color_pop_sound_view_bg_black">#2F3031</color>
+    <color name="color_pop_sound_line_black">#33000000</color>
+
+    <color name="color_pop_sound_bg_white">#000000</color>
+    <color name="color_pop_sound_view_bg_white">#F6F6F6</color>
+    <color name="color_pop_sound_line_white">#E6E6E6</color>
+
+    <color name="color_pop_ble_hr_bg_black">#B2000000</color>
+    <color name="color_pop_ble_hr_view_bg_black">#2F3031</color>
+    <color name="color_pop_ble_hr_line_black">#33000000</color>
+
+
+    <color name="color_workout_block_view_value">#FFFFFF</color>
+    <color name="color_workout_block_view_describe">#BCBCBC</color>
+    <color name="color_workout_block_view_normal">#009B9B9B</color>
+    <color name="color_workout_block_view_press">#4A9B9B9B</color>
+
+    <color name="color_workout_block_view_percent_bg">#33FFFFFF</color>
+    <color name="color_workout_block_view_percent_curr">#80FFFFFF</color>
+
+    <color name="color_workout_vertical_value_position">#FFFFFF</color>
+    <color name="color_workout_vertical_value_scale">#BCBCBC</color>
+
+    <color name="color_workout_vertical_value_position_2">#4AFFFFFF</color>
+    <color name="color_workout_vertical_value_scale_2">#4ABCBCBC</color>
+
+    <color name="color_workout_speed_normal">#9D2227</color>
+    <color name="color_workout_speed_pass">#4D9D2227</color>
+    <color name="color_workout_speed_running_head">#FFFFFFFF</color>
+    <color name="color_workout_speed_running_bottom">#FF9D2227</color>
+
+    <color name="color_workout_incline_normal">#FF8D30</color>
+    <color name="color_workout_incline_pass">#4DFF8D30</color>
+    <color name="color_workout_incline_running_head">#FFFFFFFF</color>
+    <color name="color_workout_incline_running_bottom">#FFFF8D30</color>
+
+    <color name="color_workout_running_head">#FFFFFFFF</color>
+    <color name="color_workout_running_bottom">#00FFFFFF</color>
+
+    <color name="color_workout_lap_now">#FFFFFF</color>
+    <color name="color_workout_lap_next">#CE8588</color>
+    <color name="color_workout_lap_next_2">#BA5357</color>
+
+    <color name="color_txt_workout_ctrl_value_hint">#BCBCBC</color>
+
+    <color name="color_txt_summary_page_bg">#FFFFFF</color>
+    <color name="color_txt_summary_page_hint">#BCBCBC</color>
+
+    <color name="color_txt_histogram_button_bg_default">#FFFFFF</color>
+    <color name="color_txt_histogram_button_bg_press">#F6F6F6</color>
+    <color name="color_txt_histogram_button_profile">#BCBCBC</color>
+
+    <color name="color_txt_histogram_button_bg_default_2">#3F9B9B9B</color>
+    <color name="color_txt_histogram_button_bg_press_2">#4DF6F6F6</color>
+    <color name="color_txt_histogram_button_profile_2">#FFFFFF</color>
+
+
+    <color name="color_txt_histogram_list_view2_profile">#BCBCBC</color>
+
+    <color name="color_position_bar_normal_1">#BCBCBC</color>
+    <color name="color_position_bar_normal_2">#BCBCBC</color>
+    <color name="color_position_bar_tg">#9D2227</color>
+
+    <color name="btn_bg_1">#1E76BD</color>
+    <color name="btn_bg_2">#052136</color>
+    <color name="btn_bg_3">#221E76BD</color>
+
+    <color name="color_line_1">#BCBCBC</color>
+
+    <color name="color_internet_hint_bg">#4A000000</color>
+
+    <color name="color_home_float_head_bg">#E5F6F6F6</color>
+    <color name="color_guid_tabLayout_position_line">#9D2227</color>
+    <color name="color_guid_tabLayout_position_txt_normal">#FFFFFF</color>
+    <color name="color_guid_tabLayout_position_txt_check">#BCBCBC</color>
+
+    <color name="color_guid_tabLayout_position_txt_normal_2">#000000</color>
+    <color name="color_guid_tabLayout_position_txt_check_2">#BCBCBC</color>
+
+    <color name="color_picker_view_disable_scale">#7FE6E6E6</color>
+    <color name="color_picker_view_disable_buoy">#7F9D2227</color>
+    <color name="color_picker_view_disable_triangle">#7F9D2227</color>
 </resources>

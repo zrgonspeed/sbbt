@@ -193,6 +193,13 @@
     <string name="string_calibration_failure">CALIBRATION FAILURE</string>
     <string name="string_u_disk_no_file">Cannot find U disk update</string>
 
-    <string name="string_runing_pause">PAUSE</string>
     <string name="server_hint">The current server is</string>
+
+    <string name="ble_bluetooth_devices">Bluetooth Devices</string>
+    <string name="ble_connect">Connect</string>
+    <string name="ble_disonnect">Disonnect</string>
+    <string name="ble_text1">When Bluetooth is turned on, your device can communicate with other nearby Bluetooth devices.</string>
+    <string name="ble_no_devices_found">No devices found.</string>
+    <string name="paired_devices">Paired devices</string>
+    <string name="bt_available">Available</string>
 </resources>

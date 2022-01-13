@@ -28,6 +28,7 @@ import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.appStore.AppStoreActivity;
 import com.run.treadmill.activity.floatWindow.SettingBackFloatWindow;
 import com.run.treadmill.base.BaseActivity;
+import com.run.treadmill.bluetooth.activity.BluetoothActivity;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
@@ -230,15 +231,18 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                     mCalcBuilder.stopPopWin();
                 } else {
                     //进入蓝牙
-                    layout_setting_1.setVisibility(View.GONE);
+                    // 进入自定义蓝牙
+                    startActivity(new Intent(this, BluetoothActivity.class));
+                    btn_home.setEnabled(false);
+
+/*                    layout_setting_1.setVisibility(View.GONE);
                     if (settingBackFloatWindow != null) {
                         settingBackFloatWindow.stopFloatWindow();
                         settingBackFloatWindow = null;
                     }
                     settingBackFloatWindow = new SettingBackFloatWindow(getApplicationContext(), SettingActivity.this);
                     settingBackFloatWindow.startFloat();
-                    ThirdApkSupport.doStartApplicationWithPackageName(this, sysSetting, bt);
-                    btn_home.setEnabled(false);
+                    ThirdApkSupport.doStartApplicationWithPackageName(this, sysSetting, bt);*/
                 }
                 break;
             case R.id.rb_setting_type3:

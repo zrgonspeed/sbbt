@@ -193,6 +193,10 @@
             android:name=".activity.appStore.AppStoreActivity"
             android:configChanges="locale|touchscreen|keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|mcc|mnc|navigation|fontScale" />
 
+        <activity
+            android:name="com.run.treadmill.bluetooth.activity.BluetoothActivity"
+            android:configChanges="locale|touchscreen|keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|mcc|mnc|navigation|fontScale" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.run.treadmill.provider"
