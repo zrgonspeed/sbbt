@@ -72,6 +72,8 @@ public class ReBootTask implements Runnable, RxDataCallBack {
                 Logger.d("reboot task start");
                 ControlManager.getInstance().writeDeviceType();
                 ControlManager.getInstance().readDeviceType();
+
+//                ControlManager.getInstance().writeNormalExpand();
                 while (!isTimeOut) {
                     Thread.sleep(80);
                     if (isGetDeviceType) {

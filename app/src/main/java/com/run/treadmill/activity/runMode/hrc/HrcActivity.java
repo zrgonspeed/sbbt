@@ -276,17 +276,17 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
                     getPresenter().setInclineValue(-1, 0, false);
                 }
                 break;
-      /*      case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_5_CLICK:
+case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_8_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_10_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_6_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_12_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_15_CLICK:
+
                 if ((btn_incline_up.isEnabled() || btn_incline_down.isEnabled()) && rl_tip.getVisibility() == View.GONE) {
                     myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                     getPresenter().setInclineValue(0, SerialKeyValue.getKeyRepresentValue(keyValue), false);
                 }
-                break;*/
+                break;
             default:
                 break;
         }

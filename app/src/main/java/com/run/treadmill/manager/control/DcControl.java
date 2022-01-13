@@ -303,4 +303,11 @@ public class DcControl extends BaseControl {
             sendWriteSomeData(ParamCons.CMD_BUZZ, data);
         }
     }
+
+    public void writeNormalExpand() {
+        byte bytes1 = DataTypeConversion.intLowToByte(128);
+        byte[] bytes = {10, 19, bytes1, 20, bytes1, 21, bytes1, 22, bytes1, 23, bytes1,
+                24, bytes1, 25, bytes1, 26, bytes1, 27, bytes1, 28, bytes1};
+        sendWriteSomeData((byte) 28, bytes);
+    }
 }

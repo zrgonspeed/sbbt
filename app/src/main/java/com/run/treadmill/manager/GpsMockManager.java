@@ -82,12 +82,14 @@ public class GpsMockManager {
                         , true, true, false, false, true, true, true
                         , Criteria.POWER_HIGH, Criteria.ACCURACY_FINE);
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
+                Logger.e(e.getMessage());
             }
             try {
                 locationManager.setTestProviderEnabled(locateType, true);
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
+                Logger.e(e.getMessage());
             }
             locationManager.setTestProviderStatus(locateType, LocationProvider.AVAILABLE, null, System.currentTimeMillis());
 
@@ -104,10 +106,12 @@ public class GpsMockManager {
                 mMockThread = new MockThread(coordinates);
                 mMockThread.start();
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
+                Logger.e(e.getMessage());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+//                e.printStackTrace();
+            Logger.e(e.getMessage());
         }
 
        /* fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);

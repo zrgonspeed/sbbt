@@ -49,6 +49,8 @@ public class MsgWhat {
      */
     public static final int MSG_DATA_KEY_EVENT = 50004;
 
+    public static final int MSG_DATA_BELT_STATUS = 50007;
+
     public static final int MSG_DATA_BELT_AND_INCLINE = 50005;
 
     /**

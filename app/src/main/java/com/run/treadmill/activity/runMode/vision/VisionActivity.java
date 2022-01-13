@@ -264,11 +264,11 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
                     getPresenter().setSpeedValue(-1, 0, false);
                 }
                 break;
+            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_3_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_6_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_8_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_10_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_9_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_12_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_14_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_15_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_16_CLICK:
                 if (btn_speed_up.isEnabled() || btn_speed_down.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();

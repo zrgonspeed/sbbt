@@ -188,6 +188,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         isFitShowConnect(FitShowTreadmillManager.getInstance().isConnect());
         FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_NORMAL);
 
+        ControlManager.getInstance().stopRun(isMetric);
     }
 
     @Override

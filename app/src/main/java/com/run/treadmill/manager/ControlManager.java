@@ -5,7 +5,9 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.run.serial.RxDataCallBack;
+import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
+import com.run.serial.TxData;
 import com.run.treadmill.base.MyApplication;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.control.AaControl;
@@ -14,6 +16,7 @@ import com.run.treadmill.manager.control.ControlStrategy;
 import com.run.treadmill.manager.control.DcControl;
 import com.run.treadmill.manager.control.NormalParam;
 import com.run.treadmill.manager.control.ParamCons;
+import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.UnitUtil;
 
 /**
@@ -363,5 +366,19 @@ public class ControlManager {
 
     public void buzz(int count, long time) {
         mStrategy.buzz(new byte[]{(byte) count, (byte) time});
+    }
+
+    public void writeNormalExpand() {
+        byte bytes1 = DataTypeConversion.intLowToByte(0);
+        byte[] bytes = {10, 19, bytes1, 20, bytes1, 21, bytes1, 22, bytes1, 23, bytes1,
+                24, bytes1, 25, bytes1, 26, bytes1, 27, bytes1, 28, bytes1};
+        sendWriteSomeData((byte) 28, bytes);
+    }
+
+    void sendWriteSomeData(byte param, byte[] data) {
+        TxData.getInstance().setCtrl(SerialCommand.TX_WR_SOME);
+        TxData.getInstance().setParam(param);
+        TxData.getInstance().setData(data);
+        SerialUtils.getInstance().sendPackage();
     }
 }

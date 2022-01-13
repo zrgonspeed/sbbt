@@ -502,6 +502,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public void beltAndInclineStatus(int beltStatus, int inclineStatus, int curInclineAd) {
         if (beltStatus != 0) {
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL && btn_start_stop_skip.isEnabled()) {
+                Logger.e("runStatus == " + mRunningParam.runStatus);
                 btn_start_stop_skip.setEnabled(false);
             }
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP && btn_pause_continue.isEnabled()) {
