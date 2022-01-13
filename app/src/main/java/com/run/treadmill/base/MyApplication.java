@@ -116,7 +116,7 @@ public class MyApplication extends LitePalApplication {
             }
         }
 
-        boolean resultFitShow = FitShowTreadmillManager.getInstance().initSerial(getApplicationContext(), 9600, "/dev/ttyS3");
+        boolean resultFitShow = FitShowTreadmillManager.getInstance().initSerial(getApplicationContext(), 115200, "/dev/ttyS3");
         if (resultFitShow) {
             FitShowTreadmillManager.getInstance().startThread();
         }

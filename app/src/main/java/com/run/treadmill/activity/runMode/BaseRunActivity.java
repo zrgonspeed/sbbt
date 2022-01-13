@@ -3,7 +3,6 @@ package com.run.treadmill.activity.runMode;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -835,7 +834,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         tv_prepare.setVisibility(View.VISIBLE);
         mCountdownTask = new EmptyMessageTask(myHandler, MsgWhat.MSG_PREPARE_TIME);
         currentPro = SystemSoundManager.getInstance().getCurrentPro();
-        SystemSoundManager.getInstance().setAudioVolume(30, 100);
+        SystemSoundManager.getInstance().setAudioVolume(70, 100);
         try {
             mTimer.schedule(mCountdownTask, delay, 1000);
         } catch (Exception e) {

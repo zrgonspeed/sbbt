@@ -1,8 +1,9 @@
 package com.run.serial;
 
 import android.hardware.SerialPort;
-import androidx.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import java.nio.ByteBuffer;
 
@@ -43,21 +44,21 @@ public final class SerialRxDataTask implements Runnable {
                     Thread.sleep(1);
                     continue;
                 }
-                // Log.d("read isReadData", ">>  " + ConvertData.byteArrayToHexString(buff, iDataLen));
+                Log.d("read isReadData", ">>  " + ConvertData.byteArrayToHexString(buff, iDataLen));
 
                 int PACK_FRAME_HEADER = SerialCommand.PACK_FRAME_HEADER;
                 int PACK_FRAME_END = SerialCommand.PACK_FRAME_END;
 
-                if ( OTAParam.isSendBinCnt ) {
-                    for ( int i = 0; i < OTAParam.readUpdateReplyPkg.length; i++ ) {
-                        if ( buff[i] != OTAParam.readUpdateReplyPkg[i] ) {
+                if (OTAParam.isSendBinCnt) {
+                    for (int i = 0; i < OTAParam.readUpdateReplyPkg.length; i++) {
+                        if (buff[i] != OTAParam.readUpdateReplyPkg[i]) {
 //                            Log.d("OTA", "buff[i] != readBytes[i]");
 //                            Log.d("OTA", "buff == " + Arrays.toString(buff));
 //                            Log.d("OTA", "readBytes == " + Arrays.toString(readBytes));
                             break;
                         }
                         // �������鶼��ȣ�sendOtaConnectPackage()
-                        if ( i == OTAParam.readUpdateReplyPkg.length - 1 ) {
+                        if (i == OTAParam.readUpdateReplyPkg.length - 1) {
 //                            Log.d("OTA", "����������� isSendBinData = true");
                             OTAParam.isSendBinData = true;
                             SerialTxData.getInstance().sendOtaConnectPackage();
@@ -65,7 +66,7 @@ public final class SerialRxDataTask implements Runnable {
                     }
                 }
 
-                if ( OTAParam.isSendBinData ) {
+                if (OTAParam.isSendBinData) {
                     PACK_FRAME_HEADER = SerialCommand.PACK_FRAME_END;
                     PACK_FRAME_END = SerialCommand.PACK_FRAME_HEADER;
                 }
@@ -92,6 +93,12 @@ public final class SerialRxDataTask implements Runnable {
                                 break;
                             }
                             if ((buff[i] & 0xFF) == PACK_FRAME_END) {
+                                if (OTAParam.isSendBinCnt) {
+                                    if (ResultBuf[1] == -128) {
+                                        OTAParam.reSend = true;
+                                        return;
+                                    }
+                                }
                                 rawPackageLen = SerialData.comUnPackage(readDataBuffer, ResultBuf, offset);
                                 reSet();
                                 if (rawPackageLen > 0) {

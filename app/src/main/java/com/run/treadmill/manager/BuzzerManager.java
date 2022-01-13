@@ -119,7 +119,7 @@ public class BuzzerManager {
         }
 
 
-        Logger.e("canBuzzerWhenLongKey == " + canBuzzerWhenLongKey);
+//        Logger.e("canBuzzerWhenLongKey == " + canBuzzerWhenLongKey);
         if (!canBuzzerWhenLongKey) {
             return;
         }

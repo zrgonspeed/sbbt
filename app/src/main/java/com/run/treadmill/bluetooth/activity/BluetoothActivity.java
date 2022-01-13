@@ -34,6 +34,7 @@ import com.run.treadmill.bluetooth.other.BluetoothReceiver;
 import com.run.treadmill.bluetooth.receiver.BleAutoPairHelper;
 import com.run.treadmill.bluetooth.window.BleLoading;
 import com.run.treadmill.factory.CreatePresenter;
+import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.widget.RecycleViewDivider;
 
@@ -138,6 +139,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
             public void onItemClick(BluetoothDevice b) {
                 Logger.i("onItemClick(BluetoothDevice b) " + b.getName());
                 Logger.d(TAG, ">>>>>>>>>>>> onItemClick 1");
+                BuzzerManager.getInstance().buzzerRingOnce();
                 final BluetoothDevice device = b;
                 if (device == null) {
                     return;
@@ -187,6 +189,8 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
             public void onItemClick(BluetoothDevice device) {
                 Logger.i("onAvaItemClick(BluetoothDevice device) " + device.getName());
                 Logger.d(TAG, ">>>>>>>>>>>> onAvaItemClick 1");
+                BuzzerManager.getInstance().buzzerRingOnce();
+
                 if (BtUtil.isConnecting(device)) {
                     Logger.d(TAG, ">>>>>>>>>>>> onAvaItemClick 2");
                     BleAutoPairHelper.removeBond(device);
@@ -321,6 +325,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
     @OnClick({R.id.btn_close, R.id.pb_top_loading})
     public void onViewClicked(View view) {
         Logger.e(TAG, "点击了 " + view.getAccessibilityClassName());
+        BuzzerManager.getInstance().buzzerRingOnce();
         switch (view.getId()) {
             case R.id.btn_close:
                 finish();
@@ -348,6 +353,9 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
     @OnCheckedChanged({R.id.tb_ble})
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         Logger.e(TAG, "onCheckedChanged   " + isChecked);
+        if (buttonView.isPressed()) {
+            BuzzerManager.getInstance().buzzerRingOnce();
+        }
         if (buttonView.getId() == R.id.tb_ble) {
             Logger.e(TAG, "蓝牙开关设置 此时为 " + isChecked);
 
