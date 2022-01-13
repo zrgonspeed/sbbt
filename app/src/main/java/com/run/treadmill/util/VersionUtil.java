@@ -19,52 +19,58 @@ import java.util.regex.Pattern;
  * @Time 2019/07/26
  */
 public class VersionUtil {
+    private static final String TAG = VersionUtil.class.getSimpleName();
 
     /**
      * @param
      * @explain 获取App版本号
      */
     public static String getAppVersionName(Context context) {
-        String versionName = "";
-        try {
-            // ---get the package info---
-            PackageManager pm = context.getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
-            versionName = pi.versionName;
-            if (versionName == null || versionName.length() <= 0) {
-                return "";
+        synchronized (VersionUtil.class) {
+            String versionName = "";
+            try {
+                // ---get the package info---
+                PackageManager pm = context.getPackageManager();
+                PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+                versionName = pi.versionName;
+                if (versionName == null || versionName.length() <= 0) {
+                    return "";
+                }
+            } catch (Exception e) {
+                Logger.e("VersionInfo", "Exception: " + e);
             }
-        } catch (Exception e) {
-            Logger.e("VersionInfo", "Exception: " + e);
+            return versionName;
         }
-        return versionName;
+
     }
 
     public static String getSpecAppVersionName(Context context, String name) {
-        String versionName = "";
-        try {
-            // ---get the package info---
-            PackageManager pm = context.getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(name, 0);
-            versionName = pi.versionName;
-            if (versionName == null || versionName.length() <= 0) {
-                return "";
+        synchronized (VersionUtil.class) {
+            String versionName = "";
+            try {
+                // ---get the package info---
+                PackageManager pm = context.getPackageManager();
+                PackageInfo pi = pm.getPackageInfo(name, 0);
+                versionName = pi.versionName;
+                if (versionName == null || versionName.length() <= 0) {
+                    return "";
+                }
+            } catch (Exception e) {
+                Logger.e("VersionInfo", "Exception" + e);
+                return "0.0";
             }
-        } catch (Exception e) {
-            Logger.e("VersionInfo", "Exception" + e);
-            return "0.0";
-        }
-        if (name.equals("com.netflix.mediaclient")) {
-            versionName = getNumAndPoint(versionName);
-            String[] oldVs = versionName.split("\\ ");
-            if (oldVs.length > 0) {
-                return oldVs[0];
+            if (name.equals("com.netflix.mediaclient")) {
+                versionName = getNumAndPoint(versionName);
+                String[] oldVs = versionName.split("\\ ");
+                if (oldVs.length > 0) {
+                    return oldVs[0];
+                }
             }
+            if (name.equals("com.run.treadmill")) {
+                versionName = versionName.replace("V", ".");
+            }
+            return getNumAndPoint(versionName);
         }
-        if (name.equals("com.run.treadmill")) {
-            versionName = versionName.replace("V", ".");
-        }
-        return getNumAndPoint(versionName);
     }
 
     /**
@@ -81,11 +87,17 @@ public class VersionUtil {
         if (curVersion.equals(newVersion)) {
             return false;
         }
-        curVersion = curVersion.replace("V", ".");
-        newVersion = newVersion.replace("V", ".");
+        curVersion = replaceAllUnNum(curVersion, ".");
+        newVersion = replaceAllUnNum(newVersion, ".");
 
         String curDataStr = curVersion.split(" ")[0];
         String newDataStr = newVersion.split(" ")[0];
+
+        curDataStr = replaceElu(curDataStr, '.');
+        newDataStr = replaceElu(newDataStr, '.');
+        Logger.d(TAG, "isNewVersion last compare ver,curDataStr = " + curDataStr);
+        Logger.d(TAG, "isNewVersion last compare ver,newDataStr = " + newDataStr);
+
         String[] curData = curDataStr.split("\\.");
         String[] newData = newDataStr.split("\\.");
         for (int i = 0; i < Math.min(curData.length, newData.length); i++) {
@@ -97,6 +109,40 @@ public class VersionUtil {
             }
         }
         return (curData.length < newData.length);
+    }
+
+    /**
+     * 字串中把非数字替换成某个字串
+     *
+     * @param str
+     * @param replacement
+     * @return
+     */
+    public static String replaceAllUnNum(String str, String replacement) {
+        Pattern pattern = Pattern.compile("[^0-9]+");
+        Matcher matcher = pattern.matcher(str);
+        String result = matcher.replaceAll(replacement).trim();
+        return result;
+    }
+
+    private static String replaceElu(String str, char elem) {
+        char[] se = str.toCharArray();
+        for (int i = 0; i < se.length; i++) {
+            if (i + 1 == se.length) {
+                if (se[i] == elem) {
+                    se[i] = ' ';
+                }
+                break;
+            }
+            if (se[i] == elem && se[i + 1] == elem) {
+                se[i] = ' ';
+            }
+        }
+        String result = new String(se).replaceAll(" ", "").trim();
+        if (result.startsWith(".")) {
+            result = result.substring(1);
+        }
+        return result;
     }
 
     /**
@@ -146,6 +192,7 @@ public class VersionUtil {
      */
     public static String getFireWareVersion() {
         String versionOS = android.os.Build.VERSION.INCREMENTAL + "V10";
+
         return versionOS;
     }
 
@@ -163,6 +210,10 @@ public class VersionUtil {
             Log.e("===", "---" + e.getMessage(), e);
         }
         return value;
+    }
+
+    public static String getFireWareVersion2() {
+        return android.os.Build.VERSION.INCREMENTAL;
     }
 
     /**

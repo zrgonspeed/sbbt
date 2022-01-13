@@ -1,5 +1,6 @@
 package com.run.treadmill.base;
 
+import android.Manifest;
 import android.app.backup.BackupManager;
 import android.bluetooth.BluetoothA2dp;
 import android.bluetooth.BluetoothAdapter;
@@ -26,8 +27,9 @@ import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.manager.GpsMockManager;
 import com.run.treadmill.manager.HardwareSoundManager;
+import com.run.treadmill.manager.PermissionManager;
 import com.run.treadmill.manager.SpManager;
-import com.run.treadmill.manager.VoiceManager;
+import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
@@ -65,9 +67,19 @@ public class MyApplication extends LitePalApplication {
         ControlManager.getInstance().init(DEFAULT_DEVICE_TYPE);
         ErrorManager.init(DEFAULT_DEVICE_TYPE);
         SpManager.init(getApplicationContext());
-
+        grantPermission();
+        // 系统语言
         Locale locale = getResources().getConfiguration().locale;
-        if (!(locale.getLanguage().endsWith("en")
+        // 默认英文
+        String language = SpManager.getLanguage();
+        Logger.i(TAG, "sp_language == " + language + "   local == " + locale.getLanguage());
+        if (!locale.getLanguage().contains(language)) {
+            Logger.d("changeSystemLanguage60 " + language);
+            changeSystemLanguage60(new Locale(language));
+
+        }
+        // 旧的
+/*        if (!(locale.getLanguage().endsWith("en")
                 || locale.getLanguage().endsWith("de")
                 || locale.getLanguage().endsWith("fr")
                 || locale.getLanguage().endsWith("es")
@@ -76,7 +88,7 @@ public class MyApplication extends LitePalApplication {
             Logger.d("changeSystemLanguage60 Locale.ENGLISH");
             changeSystemLanguage60(Locale.ENGLISH);
             return;
-        }
+        }*/
 
         CrashHandler myc = new CrashHandler(getApplicationContext());
         Thread.setDefaultUncaughtExceptionHandler(myc);
@@ -92,8 +104,8 @@ public class MyApplication extends LitePalApplication {
         BuzzerManager.getInstance().setBuzzerEnable(buzzer);
         BuzzerManager.getInstance().init(BuzzerManager.BUZZER_SYSTEM, getApplicationContext());
 
-        VoiceManager.getInstance().init(getApplicationContext());
-        VoiceManager.getInstance().setEffectsEnabled(buzzer ? 1 : 0);
+        SystemSoundManager.getInstance().init(getApplicationContext());
+        SystemSoundManager.getInstance().setEffectsEnabled(buzzer ? 1 : 0);
 
         ControlManager.getInstance().setMetric(SpManager.getIsMetric());
         if (!BleDebug.disableSerial) {
@@ -117,15 +129,13 @@ public class MyApplication extends LitePalApplication {
         }
         writeCaptivePortalDetection(0);
 
-        //A133申请权限
-        ShellCmdUtils.getInstance().execCommand("pm grant com.run.treadmill android.permission.ACCESS_FINE_LOCATION");
-        ShellCmdUtils.getInstance().execCommand("pm grant com.run.treadmill android.permission.ACCESS_COARSE_LOCATION");
-        ShellCmdUtils.getInstance().execCommand("pm grant com.run.treadmill android.permission.ACCESS_BACKGROUND_LOCATION");
         //附件类模拟GPS位置类初始化
         GpsMockManager.getInstance().init(this);
         //停止模拟
         //GpsMockManager.getInstance().stopMockLocation();
 
+        deleteQQmusicData();
+        closeAnimation();
         // OTA更新APK相关
         SpManager.setAlterUpdatePath(false);
         SpManager.setChangedServer(false);
@@ -212,11 +222,59 @@ public class MyApplication extends LitePalApplication {
         }
     }
 
+
+    private void closeAnimation() {
+        new Thread() {
+            @Override
+            public void run() {
+                ShellCmdUtils.getInstance().execCommand("settings put global window_animation_scale 0");
+                ShellCmdUtils.getInstance().execCommand("settings put global transition_animation_scale 0");
+                ShellCmdUtils.getInstance().execCommand("settings put global animator_duration_scale 0");
+            }
+        }.start();
+    }
+
+    private void writeCaptivePortalDetection(final int param) {
+        new Thread() {
+            @Override
+            public void run() {
+                ShellCmdUtils.getInstance()
+                        .execCommand("settings put global captive_portal_detection_enabled " + param);
+            }
+        }.start();
+    }
+
+    private void deleteQQmusicData() {
+        new Thread() {
+            @Override
+            public void run() {
+                //删除QQ音乐下载的数据
+                ShellCmdUtils.getInstance().execCommand("rm -rf /sdcard/qqmusicpad/song");
+            }
+        }.start();
+    }
+
     @Override
     public void onTerminate() {
         super.onTerminate();
         unregisterReceiver();
         Logger.d("==================app 被销毁了一次=====================");
+    }
+
+    /**
+     * A133申请权限
+     */
+    private void grantPermission() {
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_FINE_LOCATION);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_COARSE_LOCATION);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.READ_CONTACTS);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.MEDIA_CONTENT_CONTROL);
+
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_FINE_LOCATION);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_COARSE_LOCATION);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_BACKGROUND_LOCATION);
     }
 
     private boolean readTouchesOptions() {
@@ -228,16 +286,6 @@ public class MyApplication extends LitePalApplication {
             @Override
             public void run() {
                 ShellCmdUtils.getInstance().execCommand("settings put system pointer_location " + param);
-            }
-        }.start();
-    }
-
-    private void writeCaptivePortalDetection(final int param) {
-        new Thread() {
-            @Override
-            public void run() {
-                ShellCmdUtils.getInstance()
-                        .execCommand("settings put global captive_portal_detection_enabled " + param);
             }
         }.start();
     }

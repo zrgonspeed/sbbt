@@ -1,9 +1,7 @@
 package com.run.serial;
 
 import android.hardware.SerialPort;
-
 import androidx.annotation.NonNull;
-
 import android.util.Log;
 
 import java.nio.ByteBuffer;
@@ -26,9 +24,6 @@ public final class SerialRxDataTask implements Runnable {
     private int rawPackageLen;
     private byte[] ResultBuf = new byte[SerialCommand.RECEIVE_PACK_LEN_MAX];
 
-    byte[] readBytes = {(byte) 0x70, 0x6C, 0x65, 0x61, 0x73, 0x65,
-            (byte) 0x20, 0x30, 0x20, (byte) 0x0A, (byte) 0x00,};
-
     protected SerialRxDataTask(@NonNull SerialPort port) {
         serialPort = port;
     }
@@ -48,26 +43,29 @@ public final class SerialRxDataTask implements Runnable {
                     Thread.sleep(1);
                     continue;
                 }
+                // Log.d("read isReadData", ">>  " + ConvertData.byteArrayToHexString(buff, iDataLen));
 
                 int PACK_FRAME_HEADER = SerialCommand.PACK_FRAME_HEADER;
                 int PACK_FRAME_END = SerialCommand.PACK_FRAME_END;
 
-                if (SerialUtils.isSendBinCnt) {
-                    for (int i = 0; i < readBytes.length; i++) {
-                        if (buff[i] != readBytes[i]) {
+                if ( OTAParam.isSendBinCnt ) {
+                    for ( int i = 0; i < OTAParam.readUpdateReplyPkg.length; i++ ) {
+                        if ( buff[i] != OTAParam.readUpdateReplyPkg[i] ) {
 //                            Log.d("OTA", "buff[i] != readBytes[i]");
 //                            Log.d("OTA", "buff == " + Arrays.toString(buff));
 //                            Log.d("OTA", "readBytes == " + Arrays.toString(readBytes));
                             break;
                         }
-                        if (i == readBytes.length - 1) {
-                            SerialUtils.isSendBinData = true;
+                        // �������鶼��ȣ�sendOtaConnectPackage()
+                        if ( i == OTAParam.readUpdateReplyPkg.length - 1 ) {
+//                            Log.d("OTA", "����������� isSendBinData = true");
+                            OTAParam.isSendBinData = true;
                             SerialTxData.getInstance().sendOtaConnectPackage();
                         }
                     }
                 }
 
-                if (SerialUtils.isSendBinData) {
+                if ( OTAParam.isSendBinData ) {
                     PACK_FRAME_HEADER = SerialCommand.PACK_FRAME_END;
                     PACK_FRAME_END = SerialCommand.PACK_FRAME_HEADER;
                 }

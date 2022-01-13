@@ -78,7 +78,7 @@ public class FileUtil {
 
     public static String getUdiskPath(Context context, String path) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return getStoragePath(context, "usb");
+            return getStoragePath(context, true);
         } else {
             return path;
         }
@@ -140,7 +140,7 @@ public class FileUtil {
     }
 
     public static long getUDiskTotalSpace(Context mContext) {
-        String path = getStoragePath(mContext, "usb") + "test";
+        String path = getStoragePath(mContext, true) + "test";
 
         File dirPath = new File(path);
         dirPath.mkdirs();
@@ -154,6 +154,7 @@ public class FileUtil {
     }
 
     /**
+     * A133新方法
      * 安装APK文件
      *
      * @param mContext
@@ -161,107 +162,51 @@ public class FileUtil {
      */
     public static void installApk(Context mContext, File apkfile) {
         Intent i = new Intent(Intent.ACTION_VIEW);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) { // 7.0+以上版本
-            Uri apkUri = FileProvider.getUriForFile(mContext,
-                    mContext.getApplicationContext().getPackageName() + ".provider", apkfile);
-            i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            i.setDataAndType(apkUri, "application/vnd.android.package-archive");
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        } else {
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
-                    "application/vnd.android.package-archive");
-        }
+        // 7.0+以上版本
+        Uri apkUri = FileProvider.getUriForFile(mContext,
+                mContext.getApplicationContext().getPackageName() + ".provider", apkfile);
+        i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        i.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(i);
     }
 
-    private static String getStoragePath(Context pContext, String keyword) {
-        final StorageManager storageManager = (StorageManager) pContext.getSystemService(Context.STORAGE_SERVICE);
+    public static String getStoragePath(Context context, boolean isUsb) {
+        String path = "";
+        StorageManager mStorageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
+        Class<?> volumeInfoClazz;
+        Class<?> diskInfoClaszz;
         try {
-            //得到StorageManager中的getVolumeList()方法的对象
-            final Method getVolumeList = storageManager.getClass().getMethod("getVolumeList");
-            //---------------------------------------------------------------------
-
-            //得到StorageVolume类的对象
-            final Class<?> storageValumeClazz = Class.forName("android.os.storage.StorageVolume");
-            //---------------------------------------------------------------------
-            //获得StorageVolume中的一些方法
-            final Method getPath = storageValumeClazz.getMethod("getPath");
-            Method isRemovable = storageValumeClazz.getMethod("isRemovable");
-
-            Method mGetState = null;
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-                try {
-                    mGetState = storageValumeClazz.getMethod("getState");
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
+            volumeInfoClazz = Class.forName("android.os.storage.VolumeInfo");
+            diskInfoClaszz = Class.forName("android.os.storage.DiskInfo");
+            Method StorageManager_getVolumes = Class.forName("android.os.storage.StorageManager").getMethod("getVolumes");
+            Method VolumeInfo_GetDisk = volumeInfoClazz.getMethod("getDisk");
+            Method VolumeInfo_GetPath = volumeInfoClazz.getMethod("getPath");
+            Method DiskInfo_IsUsb = diskInfoClaszz.getMethod("isUsb");
+            Method DiskInfo_IsSd = diskInfoClaszz.getMethod("isSd");
+            List<Object> List_VolumeInfo = (List<Object>) StorageManager_getVolumes.invoke(mStorageManager);
+            assert List_VolumeInfo != null;
+            for (int i = 0; i < List_VolumeInfo.size(); i++) {
+                Object volumeInfo = List_VolumeInfo.get(i);
+                Object diskInfo = VolumeInfo_GetDisk.invoke(volumeInfo);
+                if (diskInfo == null) continue;
+                boolean sd = (boolean) DiskInfo_IsSd.invoke(diskInfo);
+                boolean usb = (boolean) DiskInfo_IsUsb.invoke(diskInfo);
+                File file = (File) VolumeInfo_GetPath.invoke(volumeInfo);
+                if (isUsb == usb) {//usb
+                    assert file != null;
+                    path = file.getAbsolutePath();
+                } else if (!isUsb == sd) {//sd
+                    assert file != null;
+                    path = file.getAbsolutePath();
                 }
             }
-            Method getUserLabel = storageValumeClazz.getMethod("getUserLabel");
-
-            //调用getVolumeList方法，参数为：“谁”中调用这个方法
-            final Object invokeVolumeList = getVolumeList.invoke(storageManager);
-            final int length = Array.getLength(invokeVolumeList);
-
-            for (int i = 0; i < length; i++) {
-                final Object storageValume = Array.get(invokeVolumeList, i);//得到StorageVolume对象
-                final String path = (String) getPath.invoke(storageValume);
-                final boolean removable = (Boolean) isRemovable.invoke(storageValume);
-                String state = null;
-                if (mGetState != null) {
-                    state = (String) mGetState.invoke(storageValume);
-                } else {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        state = Environment.getStorageState(new File(path));
-                    } else {
-                        if (removable) {
-                            state = EnvironmentCompat.getStorageState(new File(path));
-                        } else {
-                            //不能移除的存储介质，一直是mounted
-                            state = Environment.MEDIA_MOUNTED;
-                        }
-                        final File externalStorageDirectory = Environment.getExternalStorageDirectory();
-                    }
-                }
-
-                //
-                String userLabel = (String) getUserLabel.invoke(storageValume);
-
-                if (keyword.contains("SD")) {
-                    if (path.equals(sdPath)) {
-                        return path + "/";
-                    }
-                    if (userLabel.contains(keyword)) {
-                        return path + "/";
-                    }
-                } else if (keyword.contains("usb")) {
-                    if (path.equals(uPath)) {
-                        return path + "/";
-                    }
-                    File videoPath = new File(path + "/" + CTConstant.vrVideoPath[0]);
-                    if (!videoPath.exists()) {
-                        if (!userLabel.contains("内部存储")
-                                && !userLabel.contains("Intern")
-                                && !userLabel.contains("SD")) {
-                            return path + "/";
-                        }
-                    }
-                }
-
-            }
-            return null;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
         } catch (Exception e) {
+            Log.d(TAG, "[——————— ——————— Exception:" + e.getMessage() + "]");
             e.printStackTrace();
         }
-        return null;
+        Log.d(TAG, " path " + path);
+        return path;
     }
 
     private static long getTotalSize(String path) {
@@ -323,44 +268,5 @@ public class FileUtil {
                 return String.format("%.2fKB", kbValue);
             }
         }
-    }
-
-    @SuppressLint("PrivateApi")
-    public static String getStoragePath(Context context, boolean isUsb) {
-        String path = "";
-        StorageManager mStorageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
-        Class<?> volumeInfoClazz;
-        Class<?> diskInfoClaszz;
-        try {
-            volumeInfoClazz = Class.forName("android.os.storage.VolumeInfo");
-            diskInfoClaszz = Class.forName("android.os.storage.DiskInfo");
-            Method StorageManager_getVolumes = Class.forName("android.os.storage.StorageManager").getMethod("getVolumes");
-            Method VolumeInfo_GetDisk = volumeInfoClazz.getMethod("getDisk");
-            Method VolumeInfo_GetPath = volumeInfoClazz.getMethod("getPath");
-            Method DiskInfo_IsUsb = diskInfoClaszz.getMethod("isUsb");
-            Method DiskInfo_IsSd = diskInfoClaszz.getMethod("isSd");
-            List<Object> List_VolumeInfo = (List<Object>) StorageManager_getVolumes.invoke(mStorageManager);
-            assert List_VolumeInfo != null;
-            for (int i = 0; i < List_VolumeInfo.size(); i++) {
-                Object volumeInfo = List_VolumeInfo.get(i);
-                Object diskInfo = VolumeInfo_GetDisk.invoke(volumeInfo);
-                if (diskInfo == null) continue;
-                boolean sd = (boolean) DiskInfo_IsSd.invoke(diskInfo);
-                boolean usb = (boolean) DiskInfo_IsUsb.invoke(diskInfo);
-                File file = (File) VolumeInfo_GetPath.invoke(volumeInfo);
-                if (isUsb == usb) {//usb
-                    assert file != null;
-                    path = file.getAbsolutePath();
-                } else if (!isUsb == sd) {//sd
-                    assert file != null;
-                    path = file.getAbsolutePath();
-                }
-            }
-        } catch (Exception e) {
-            Log.d(TAG, "[——————— ——————— Exception:" + e.getMessage() + "]");
-            e.printStackTrace();
-        }
-        Log.d(TAG, " path " + path);
-        return path;
     }
 }

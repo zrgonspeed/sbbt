@@ -13,10 +13,8 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.serial.SerialKeyValue;
-import com.run.treadmill.util.Logger;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * @Description 这里用一句话描述
@@ -273,12 +271,14 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
                 if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                 }
                 break;
             case SerialKeyValue.STOP_CLICK:
                 if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
                 break;
@@ -289,6 +289,9 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
             case SerialKeyValue.INCLINE_UP_CLICK:
             case SerialKeyValue.INCLINE_UP_CLICK_LONG_1:
             case SerialKeyValue.INCLINE_UP_CLICK_LONG_2:
+            case SerialKeyValue.INCLINE_UP_HAND_CLICK:
+            case SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_1:
+            case SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_2:
                 if (btn_incline_up.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setInclineValue(1, 0, false);
@@ -297,6 +300,9 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
             case SerialKeyValue.INCLINE_DOWN_CLICK:
             case SerialKeyValue.INCLINE_DOWN_CLICK_LONG_1:
             case SerialKeyValue.INCLINE_DOWN_CLICK_LONG_2:
+            case SerialKeyValue.INCLINE_DOWN_HAND_CLICK:
+            case SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_1:
+            case SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_2:
                 if (btn_incline_down.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setInclineValue(-1, 0, false);
@@ -305,6 +311,9 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
             case SerialKeyValue.SPEED_UP_CLICK:
             case SerialKeyValue.SPEED_UP_CLICK_LONG_1:
             case SerialKeyValue.SPEED_UP_CLICK_LONG_2:
+            case SerialKeyValue.SPEED_UP_HAND_CLICK:
+            case SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_1:
+            case SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_2:
                 if (btn_speed_up.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setSpeedValue(1, 0, false);
@@ -313,12 +322,15 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
             case SerialKeyValue.SPEED_DOWN_CLICK:
             case SerialKeyValue.SPEED_DOWN_CLICK_LONG_1:
             case SerialKeyValue.SPEED_DOWN_CLICK_LONG_2:
+            case SerialKeyValue.SPEED_DOWN_HAND_CLICK:
+            case SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_1:
+            case SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_2:
                 if (btn_speed_down.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setSpeedValue(-1, 0, false);
                 }
                 break;
-case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_8_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_6_CLICK:

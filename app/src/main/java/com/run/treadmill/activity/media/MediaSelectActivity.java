@@ -3,15 +3,14 @@ package com.run.treadmill.activity.media;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;

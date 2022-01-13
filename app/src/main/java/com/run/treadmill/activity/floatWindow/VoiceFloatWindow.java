@@ -9,12 +9,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.run.treadmill.R;
-import com.run.treadmill.activity.setting.SettingActivity;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.VoiceManager;
+import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.widget.VerticalSeekBar;
 
 public class VoiceFloatWindow {
@@ -64,11 +62,11 @@ public class VoiceFloatWindow {
 
     private void init() {
         float_window_seek_bar_voice = (VerticalSeekBar) mFloatWindow.findViewById(R.id.float_window_seek_bar_voice);
-//        float_window_seek_bar_voice.setProgress(VoiceManager.getInstance().getCurrentPro(float_window_seek_bar_voice.getMax()));
-        float_window_seek_bar_voice.setProgress(VoiceManager.getInstance().getCurrentPro() > float_window_seek_bar_voice.getMax()
-                ? float_window_seek_bar_voice.getMax() : VoiceManager.getInstance().getCurrentPro());
-        if (VoiceManager.getInstance().getCurrentPro() > float_window_seek_bar_voice.getMax()) {
-            VoiceManager.getInstance().setAudioVolume(float_window_seek_bar_voice.getMax(), 100);
+//        float_window_seek_bar_voice.setProgress(SystemSoundManager.getInstance().getCurrentPro(float_window_seek_bar_voice.getMax()));
+        float_window_seek_bar_voice.setProgress(SystemSoundManager.getInstance().getCurrentPro() > float_window_seek_bar_voice.getMax()
+                ? float_window_seek_bar_voice.getMax() : SystemSoundManager.getInstance().getCurrentPro());
+        if (SystemSoundManager.getInstance().getCurrentPro() > float_window_seek_bar_voice.getMax()) {
+            SystemSoundManager.getInstance().setAudioVolume(float_window_seek_bar_voice.getMax(), 100);
         }
         float_window_seek_bar_voice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -85,7 +83,7 @@ public class VoiceFloatWindow {
                 if (mFloatWindow.getVisibility() == View.GONE) {
                     return;
                 }
-                VoiceManager.getInstance().setAudioVolume(progress, seekBar.getMax());
+                SystemSoundManager.getInstance().setAudioVolume(progress, seekBar.getMax());
                 mFloatWindowManager.currentPro = progress;
             }
         });
@@ -97,31 +95,31 @@ public class VoiceFloatWindow {
         }
         if (mFloatWindow.getVisibility() == View.GONE) {
             if (isUp == 1) {
-                if (VoiceManager.getInstance().getCurrentPro() < 100) {
+                if (SystemSoundManager.getInstance().getCurrentPro() < 100) {
                     BuzzerManager.getInstance().buzzerRingOnce();
-                    VoiceManager.getInstance().setAudioVolume(VoiceManager.getInstance().getCurrentPro() + 1, 100);
-                    mFloatWindowManager.currentPro = VoiceManager.getInstance().getCurrentPro();
+                    SystemSoundManager.getInstance().setAudioVolume(SystemSoundManager.getInstance().getCurrentPro() + 1, 100);
+                    mFloatWindowManager.currentPro = SystemSoundManager.getInstance().getCurrentPro();
                     float_window_seek_bar_voice.setProgress(mFloatWindowManager.currentPro);
                 }
             } else {
-                if (VoiceManager.getInstance().getCurrentPro() > 0) {
+                if (SystemSoundManager.getInstance().getCurrentPro() > 0) {
                     BuzzerManager.getInstance().buzzerRingOnce();
-                    VoiceManager.getInstance().setAudioVolume(VoiceManager.getInstance().getCurrentPro() - 1, 100);
-                    mFloatWindowManager.currentPro = VoiceManager.getInstance().getCurrentPro();
+                    SystemSoundManager.getInstance().setAudioVolume(SystemSoundManager.getInstance().getCurrentPro() - 1, 100);
+                    mFloatWindowManager.currentPro = SystemSoundManager.getInstance().getCurrentPro();
                     float_window_seek_bar_voice.setProgress(mFloatWindowManager.currentPro);
                 }
             }
             return;
         }
         if (isUp == 1) {
-            if (VoiceManager.getInstance().getCurrentPro() < 100) {
+            if (SystemSoundManager.getInstance().getCurrentPro() < 100) {
                 BuzzerManager.getInstance().buzzerRingOnce();
-                float_window_seek_bar_voice.setProgress(VoiceManager.getInstance().getCurrentPro() + 1);
+                float_window_seek_bar_voice.setProgress(SystemSoundManager.getInstance().getCurrentPro() + 1);
             }
         } else {
-            if (VoiceManager.getInstance().getCurrentPro() > 0) {
+            if (SystemSoundManager.getInstance().getCurrentPro() > 0) {
                 BuzzerManager.getInstance().buzzerRingOnce();
-                float_window_seek_bar_voice.setProgress(VoiceManager.getInstance().getCurrentPro() - 1);
+                float_window_seek_bar_voice.setProgress(SystemSoundManager.getInstance().getCurrentPro() - 1);
             }
         }
 

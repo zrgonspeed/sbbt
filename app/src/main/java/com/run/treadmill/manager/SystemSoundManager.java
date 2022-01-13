@@ -1,6 +1,7 @@
 package com.run.treadmill.manager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.provider.Settings;
 import android.view.SoundEffectConstants;
@@ -10,9 +11,9 @@ import android.view.SoundEffectConstants;
  *
  * @author
  */
-public class VoiceManager {
+public class SystemSoundManager {
 
-    private static VoiceManager instance;
+    private static SystemSoundManager ourInstance;
     private AudioManager mAudioManager;
     private Context mContext;
 
@@ -21,14 +22,19 @@ public class VoiceManager {
      */
     private int currentPro;
 
-    public static VoiceManager getInstance() {
-        if (instance == null) {
-            instance = new VoiceManager();
-        }
-        return instance;
+    private SystemSoundManager() {
+
     }
 
-    private VoiceManager() {
+    public static SystemSoundManager getInstance() {
+        if (null == ourInstance) {
+            synchronized (SystemSoundManager.class) {
+                if (null == ourInstance) {
+                    ourInstance = new SystemSoundManager();
+                }
+            }
+        }
+        return ourInstance;
     }
 
     public void init(Context context) {
@@ -45,6 +51,9 @@ public class VoiceManager {
 
     // 设置多媒体声音大小
     public void setAudioVolume(int progress, int max) {
+        if (progress > max || progress < 0) {
+            return;
+        }
         currentPro = progress;
         int toset = (progress * mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / max);
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, toset, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
@@ -88,4 +97,19 @@ public class VoiceManager {
     public int getCurrentPro() {
         return currentPro;
     }
+
+
+    /**
+     * 停止播放音乐
+     *
+     * @param mContext
+     */
+    public static void MusicPause(Context mContext) {
+        String PAUSE_ACTION = "com.android.music.musicservicecommand.pause";
+        Intent intent = new Intent();
+        intent.setAction(PAUSE_ACTION);
+        intent.putExtra("command", "pause");
+        mContext.sendBroadcast(intent);
+    }
+
 }

@@ -5,9 +5,7 @@ import android.os.Message;
 import com.run.treadmill.activity.runMode.BaseRunPresenter;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.common.MsgWhat;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.util.Logger;
 
 /**
  * @Description 这里用一句话描述

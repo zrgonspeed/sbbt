@@ -1,13 +1,13 @@
 package com.run.treadmill.adapter;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.appStore.AppBean;
@@ -38,7 +38,7 @@ public class AppStoreAdapter extends RecyclerView.Adapter<AppStoreAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         AppBean.AppInfo app = apps.get(position);
         holder.img_app_icon.setImageResource(app.imgId);
-        holder.tv_app_name.setText("GoogleChrome".equals(app.getName()) ? "Google Chrome" : app.getName());
+        holder.tv_app_name.setText(app.getName());
         switch (app.isUpdate) {
             case AppBean.UPDATE:
                 holder.btn_update.setEnabled(true);

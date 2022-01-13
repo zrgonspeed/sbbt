@@ -1,9 +1,7 @@
 package com.run.serial;
 
 import android.os.SystemClock;
-
 import androidx.annotation.NonNull;
-
 import android.util.Log;
 
 import java.util.logging.Logger;
@@ -23,7 +21,7 @@ public final class SerialTxDataTask implements Runnable {
     public void run() {
         try {
             while (SerialUtils.isSendData) {
-                if (!SerialUtils.isSendBinCnt) {
+                if (!OTAParam.isSendBinCnt) {
                     if (!txData.isEmptyUnClearQueue()) {
                         txData.reSendUnClearPackage();
                         txData.isHasSendUnClearPackageQueue = true;

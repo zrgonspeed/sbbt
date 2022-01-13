@@ -1,9 +1,9 @@
 package com.run.treadmill.adapter;
 
+import androidx.viewpager.widget.PagerAdapter;
+
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

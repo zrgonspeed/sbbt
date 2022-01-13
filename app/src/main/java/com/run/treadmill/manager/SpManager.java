@@ -198,6 +198,11 @@ public class SpManager {
      */
     private static final String SET_CHANGED_LANGUAGE = "set_changed_language";
 
+    /**
+     * 语言切换
+     */
+    private static final String SET_LANGUAGE = "set_language";
+
     public static void setError(String error) {
         StorageParam.setParam(ERROR, error);
     }
@@ -737,5 +742,18 @@ public class SpManager {
      */
     public static void setBinUpdate(boolean isUpdate) {
         StorageParam.setParam(SET_BIN_UPDATE, isUpdate);
+    }
+
+    public static void setLanguage(String language) {
+        StorageParam.setParam(SET_LANGUAGE, language);
+    }
+
+    /**
+     * zh de en fr es pt
+     *
+     * @return
+     */
+    public static String getLanguage() {
+        return StorageParam.getParam(SET_LANGUAGE, "en");
     }
 }

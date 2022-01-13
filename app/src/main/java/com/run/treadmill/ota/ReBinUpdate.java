@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 
 import com.run.android.ShellCmdUtils;
+import com.run.serial.OTAParam;
 import com.run.serial.SerialUtils;
 import com.run.treadmill.R;
-import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.util.Logger;
 
 import java.io.ByteArrayOutputStream;
@@ -21,11 +21,11 @@ public class ReBinUpdate extends BaseUpdate {
         Logger.d("procBin()");
 
         Logger.d("========data======1===");
-        if (SerialUtils.getInstance().isSendBinCnt) {
+        if (OTAParam.isSendBinCnt) {
             return;
         }
         activity = act;
-        SerialUtils.getInstance().isSendBinCnt = true;
+        OTAParam.isSendBinCnt = true;
         SerialUtils.getInstance().reMoveAllReSendPackage();
 
         //ControlManager.getInstance().sendUpdateCmd();
@@ -35,7 +35,7 @@ public class ReBinUpdate extends BaseUpdate {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        SerialUtils.getInstance().isSendBinData = true;
+        OTAParam.isSendBinData = true;
         SerialUtils.getInstance().sendOtaConnectPackage();
 
         byte[] data = readStream(path);
@@ -45,11 +45,11 @@ public class ReBinUpdate extends BaseUpdate {
             int index = 0;
             boolean isEndSend = false;
 
-            int oneFrameLen = 256;
+            final int oneFrameLen = 256;
 
             @Override
             public void run() {
-                while (!isEndSend && !SerialUtils.isSendBinData) {
+                while (!isEndSend && !OTAParam.isSendBinData) {
                     try {
                         Thread.sleep(1000);
                     } catch (Exception e) {
@@ -61,18 +61,18 @@ public class ReBinUpdate extends BaseUpdate {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                /*SerialUtils.isSendOtaData = true;
-                SerialUtils.isSendOtaOneFrame = true;*/
-                //SpManager.setBinUpdate(true);
+
                 Logger.d("========data======2===");
                 while (!isEndSend) {
                     try {
-                        if (SerialUtils.isSendBinData && SerialUtils.isSendBinOneFrame) {
+                        if (OTAParam.reSend) {
+                            OTAParam.isSendBinOneFrame = true;
+                            index = OTAParam.index;
+                        }
+
+                        if (OTAParam.isSendBinData && OTAParam.isSendBinOneFrame) {
                             int readLen = oneFrameLen;
                             byte[] pkgBytes;
-                            /*if ( (index + oneFrameLen) >= data.length ) {
-                                readLen = data.length - index;
-                            }*/
                             pkgBytes = new byte[readLen];
 
                             for (int i = 0; i < pkgBytes.length; i++) {
@@ -86,13 +86,16 @@ public class ReBinUpdate extends BaseUpdate {
                             }
                             Logger.d("========data====index=====" + index + " data.length " + data.length);
 
-                            SerialUtils.isSendBinOneFrame = false;
+                            OTAParam.isSendBinOneFrame = false;
+
+                            OTAParam.pkgBytes = pkgBytes;
+                            OTAParam.index = index;
+                            OTAParam.reSend = false;
                             SerialUtils.getInstance().sendOtaDataPackage(pkgBytes, index);
 
                             index += readLen;
                             //if ( index >= data.length ) {
                             if (index >= 0x0000CF00) {
-                                SpManager.setBinUpdate(false);
                                 Logger.d("========data====3=====");
                                 isEndSend = true;
                                 index = data.length;
@@ -115,9 +118,8 @@ public class ReBinUpdate extends BaseUpdate {
                     }
                 }
                 Logger.d("isEndSend=" + isEndSend);
-                while (isEndSend && SerialUtils.isSendBinOneFrame) {
+                if (isEndSend && OTAParam.isSendBinOneFrame) {
                     ShellCmdUtils.getInstance().execCommand("reboot");
-                    break;
                 }
 
             }

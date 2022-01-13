@@ -2,16 +2,6 @@ package com.run.serial;
 
 public class SerialCommand {
     /**
-     * 0x6D：下发更新命令 0x6D 参数 0x69 --转接板进入OTA更新
-     */
-    public final static int CMD_UPDATE = 0x6D;
-
-    /**
-     * 0xD0：下发更新数据命令
-     */
-    public final static int CMD_BIN_DATA = 0xD0;
-
-    /**
      * 超时次数
      */
     final static int TIME_OUT_COUNT = 20;

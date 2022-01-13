@@ -24,6 +24,53 @@
         <item>com.qiyi.video.pad</item>
         <item>com.yahoo.mobile.client.android.flickr</item>
     </string-array>
+    <!--要删除账户数据的APP-->
+    <string-array name="delete_thirdAPK_accounts">
+        <item>com.google.android.youtube</item>
+        <item>com.android.chrome</item>
+        <item>com.twitter.android</item>
+        <item>com.facebook.katana</item>
+        <item>com.instagram.android</item>
+        <item>com.spotify.music</item>
+        <item>com.netflix.mediaclient</item>
+        <item>com.android.music</item>
+        <item>com.softwinner.fireplayer</item>
+        <item>com.anplus.tft</item>
+        <item>com.baidu.searchbox.pad</item>
+        <item>com.sina.weibo</item>
+        <item>com.qiyi.video.pad</item>
+        <item>com.yahoo.mobile.client.android.flickr</item>
+        <item>com.tencent.qqmusicpad</item>
+        <item>com.hpplay.happyplay.aw</item>
+    </string-array>
+
+    <!--回到Home需要关闭的的APP-->
+    <string-array name="stop_thirdAPK">
+        <item>com.google.android.youtube</item>
+        <item>com.android.chrome</item>
+        <item>com.twitter.android</item>
+        <item>com.facebook.katana</item>
+        <item>com.instagram.android</item>
+        <item>com.spotify.music</item>
+        <item>com.netflix.mediaclient</item>
+        <item>com.android.music</item>
+        <item>com.softwinner.fireplayer</item>
+        <item>com.anplus.tft</item>
+        <item>com.baidu.searchbox.pad</item>
+        <item>com.sina.weibo</item>
+        <item>com.qiyi.video.pad</item>
+        <item>com.yahoo.mobile.client.android.flickr</item>
+        <item>com.tencent.qqmusicpad</item>
+        <item>com.amazon.avod.thirdpartyclient</item>
+        <item>com.amazon.mShop.android.shopping</item>
+        <item>com.kinomap.training</item>
+
+        <!--        谷歌服务不能杀，会导致无限重启-->
+        <!--        <item>com.google.android.gms</item>-->
+
+        <!--        <item>com.android.cameraSelf</item>-->
+        <!--        <item>com.android.settings</item>-->
+    </string-array>
 
     <string-array name="thirdApk_packageName">
         <item>@string/string_app_pk_name_1</item>

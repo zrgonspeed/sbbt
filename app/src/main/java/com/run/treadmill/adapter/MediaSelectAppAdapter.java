@@ -1,16 +1,15 @@
 package com.run.treadmill.adapter;
 
 import android.content.Context;
+
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.run.treadmill.R;
-
-import org.jetbrains.annotations.NotNull;
 
 public class MediaSelectAppAdapter extends RecyclerView.Adapter<MediaSelectAppAdapter.ViewHolder> {
     private int[] imgs;
@@ -26,7 +25,6 @@ public class MediaSelectAppAdapter extends RecyclerView.Adapter<MediaSelectAppAd
         }
     }
 
-    @NotNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_select_media_app, parent, false));
@@ -55,7 +53,7 @@ public class MediaSelectAppAdapter extends RecyclerView.Adapter<MediaSelectAppAd
         void setOnItemClick(int position);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img_media_app;
 

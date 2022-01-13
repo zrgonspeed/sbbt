@@ -6,7 +6,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.widget.ImageView;
+
+import com.run.treadmill.manager.BuzzerManager;
 
 import java.lang.ref.WeakReference;
 
@@ -51,11 +54,20 @@ public class LongClickImage extends ImageView {
     /**
      * 初始化监听
      */
+    @SuppressLint("ClickableViewAccessibility")
     private void init() {
         handler = new MyHandler(this);
         setOnLongClickListener(v -> {
             new Thread(new LongClickThread()).start();
             return true;
+        });
+
+        setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                BuzzerManager.canBuzzerWhenLongKey = true;
+            }
+
+            return false;
         });
     }
 
@@ -102,6 +114,9 @@ public class LongClickImage extends ImageView {
                 //直接调用普通点击事件
                 button.setTag(1);
                 button.performClick();
+
+                // 长按时不响按键音，测试说太难听了
+                BuzzerManager.canBuzzerWhenLongKey = false;
             }
         }
     }

@@ -46,10 +46,11 @@ public class SafeKeyTimer {
     }
 
     private void handleTimerOutEvent() {
+        setIsSafe(true);
         if (timerCallBack != null) {
             timerCallBack.setSafeState();
         }
-        setIsSafe(true);
+
         closeTimer();
     }
 

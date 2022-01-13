@@ -23,7 +23,6 @@ import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FormulaUtil;
-import com.run.treadmill.util.Logger;
 import com.run.treadmill.widget.LongClickImage;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
 
@@ -78,7 +77,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         params.y = 0;
         params.width = w;
         params.height = h;
-//        params.windowAnimations = android.R.style.Animation;
+        params.windowAnimations = android.R.style.Animation_Translucent;
 
         wmParams = params;
         return mWindow;
@@ -160,11 +159,13 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         switch (keyValue) {
             case SerialKeyValue.BACK_KEY_CLICK:
                 if (btn_back.getVisibility() == View.VISIBLE && btn_back.isEnabled()) {
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     btn_back.performClick();
                 }
                 break;
             case SerialKeyValue.HOME_KEY_CLICK:
                 if (btn_home.getVisibility() == View.VISIBLE && btn_home.isEnabled()) {
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     btn_home.performClick();
                 }
                 break;

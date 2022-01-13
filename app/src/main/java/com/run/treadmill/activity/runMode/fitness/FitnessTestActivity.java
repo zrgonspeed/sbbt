@@ -2,12 +2,11 @@ package com.run.treadmill.activity.runMode.fitness;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
@@ -15,9 +14,10 @@ import com.run.treadmill.activity.summary.SummaryActivity;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
+import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
+import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.serial.SerialKeyValue;
-import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.widget.HistogramListView;
 
@@ -61,6 +61,16 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
             showPopTip();
         }
+    }
+
+    @Override
+    protected void showPopTip() {
+        if (ErrorManager.getInstance().isHasInclineError()) {
+            showInclineError();
+        } else {
+            tv_incline.setText(StringUtil.valueAndUnit("0", getString(R.string.string_unit_percent), runParamUnitTextSize));
+        }
+        super.showPopTip();
     }
 
     @Override
@@ -168,26 +178,31 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
                 if ((mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP)
                         && btn_pause_continue.isEnabled()) {
                     btn_pause_continue.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                 }
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                 }
                 break;
             case SerialKeyValue.STOP_CLICK:
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
                         && btn_pause_quit.isEnabled()) {
                     btn_pause_quit.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
                 break;

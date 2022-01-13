@@ -5,13 +5,9 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,8 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
+
+import androidx.annotation.Nullable;
 
 import com.run.android.ShellCmdUtils;
 import com.run.treadmill.R;
@@ -37,7 +33,7 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemBrightManager;
-import com.run.treadmill.manager.VoiceManager;
+import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.Logger;
@@ -314,35 +310,31 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                 btn_delete_accounts_no.setEnabled(false);
                 btn_delete_accounts_yes.setVisibility(View.GONE);
                 btn_delete_accounts_no.setVisibility(View.GONE);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            // android9以后 的账户数据路径不同
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                                ShellCmdUtils.getInstance().execCommand("rm -rf /data/system_de/0/*");
-                            } else {
-                                ShellCmdUtils.getInstance().execCommand("rm -rf /data/system/users/0/accounts.db");
-                                ShellCmdUtils.getInstance().execCommand("rm -rf /data/system/users/0/accounts.db-journal");
-                            }
-                            String[] pkNames = getResources().getStringArray(R.array.ignore_thirdAPK_send_message);
-                            for (String pkName : pkNames) {
-                                ThirdApkSupport.killCommonApp(getApplicationContext(), pkName);
-                            }
-                            for (String pkName : pkNames) {
-                                if (pkName.contains("youtube")) {
-                                    ShellCmdUtils.getInstance().execCommand("rm -rf /data/data/" + pkName + "/databases/*");
-                                } else {
-                                    ShellCmdUtils.getInstance().execCommand("rm -rf /data/data/" + pkName + "/*");
-                                }
-
-                            }
-
-                            Thread.sleep(3000);
-                            ShellCmdUtils.getInstance().execCommand("reboot");
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                new Thread(() -> {
+                    try {
+                        // android9以后 的账户数据路径不同
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                            ShellCmdUtils.getInstance().execCommand("rm -rf /data/system_de/0/*");
+                        } else {
+                            ShellCmdUtils.getInstance().execCommand("rm -rf /data/system/users/0/accounts.db");
+                            ShellCmdUtils.getInstance().execCommand("rm -rf /data/system/users/0/accounts.db-journal");
                         }
+                        String[] pkNames = getResources().getStringArray(R.array.delete_thirdAPK_accounts);
+                        for (String pkName : pkNames) {
+                            ThirdApkSupport.killCommonApp(getApplicationContext(), pkName);
+                        }
+                        for (String pkName : pkNames) {
+                            if (pkName.contains("youtube")) {
+                                ShellCmdUtils.getInstance().execCommand("rm -rf /data/data/" + pkName + "/databases/*");
+                            } else {
+                                ShellCmdUtils.getInstance().execCommand("rm -rf /data/data/" + pkName + "/*");
+                            }
+                        }
+
+                        Thread.sleep(3000);
+                        ShellCmdUtils.getInstance().execCommand("reboot");
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }).start();
                 break;
@@ -397,28 +389,30 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
       /*      case SerialKeyValue.VOICE_UP_CLICK:
             case SerialKeyValue.VOICE_UP_CLICK_LONG_1:
             case SerialKeyValue.VOICE_UP_CLICK_LONG_2:
-                if (sb_setting_sound != null && VoiceManager.getInstance().getCurrentPro() < 100) {
+                if (sb_setting_sound != null && SystemSoundManager.getInstance().getCurrentPro() < 100) {
                     BuzzerManager.getInstance().buzzerRingOnce();
-                    sb_setting_sound.setProgress(VoiceManager.getInstance().getCurrentPro() + 1);
+                    sb_setting_sound.setProgress(SystemSoundManager.getInstance().getCurrentPro() + 1);
                     sb_setting_sound.postInvalidate();
                 }
                 break;
             case SerialKeyValue.VOICE_DOWN_CLICK:
             case SerialKeyValue.VOICE_DOWN_CLICK_LONG_1:
             case SerialKeyValue.VOICE_DOWN_CLICK_LONG_2:
-                if (sb_setting_sound != null && VoiceManager.getInstance().getCurrentPro() > 0) {
+                if (sb_setting_sound != null && SystemSoundManager.getInstance().getCurrentPro() > 0) {
                     BuzzerManager.getInstance().buzzerRingOnce();
-                    sb_setting_sound.setProgress(VoiceManager.getInstance().getCurrentPro() - 1);
+                    sb_setting_sound.setProgress(SystemSoundManager.getInstance().getCurrentPro() - 1);
                     sb_setting_sound.postInvalidate();
                 }
                 break;*/
             case SerialKeyValue.HOME_KEY_CLICK:
                 if (btn_home.isEnabled() && btn_home.getVisibility() == View.VISIBLE) {
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     btn_home.performClick();
                 }
                 break;
             case SerialKeyValue.BACK_KEY_CLICK:
                 if (btn_back.isEnabled() && btn_back.getVisibility() == View.VISIBLE) {
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     btn_back.performClick();
                 }
                 break;
@@ -578,6 +572,10 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                     sp_language.setSelection(currLanguagePos, true);
                     return;
                 }
+
+                SpManager.setAlterUpdatePath(false);
+                SpManager.setChangedServer(false);
+
                 switch (position) {
                     case 0:
                         changeSystemLanguage60(Locale.ENGLISH);
@@ -629,16 +627,13 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                 SystemBrightManager.setBrightness(SettingActivity.this, seekBar.getProgress() + minBright);
             }
         });
-        sb_setting_sound.setMax(60);
-        sb_setting_sound.setProgress(VoiceManager.getInstance().getCurrentPro() > sb_setting_sound.getMax() ? sb_setting_sound.getMax() : VoiceManager.getInstance().getCurrentPro());
-        if (VoiceManager.getInstance().getCurrentPro() > sb_setting_sound.getMax()) {
-            VoiceManager.getInstance().setAudioVolume(sb_setting_sound.getMax(), 100);
-        }
+        sb_setting_sound.setMax(100);
+        sb_setting_sound.setProgress(SystemSoundManager.getInstance().getCurrentPro());
         sb_setting_sound.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                VoiceManager.getInstance().setAudioVolume(seekBar.getProgress(), 100);
+                SystemSoundManager.getInstance().setAudioVolume(seekBar.getProgress(), 100);
             }
 
             @Override
@@ -647,7 +642,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                VoiceManager.getInstance().setAudioVolume(progress, 100);
+                SystemSoundManager.getInstance().setAudioVolume(progress, 100);
             }
         });
 
@@ -732,12 +727,12 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
     }
 
     private synchronized void changeSystemLanguage60(final Locale locale) {
+        Logger.i(TAG, "切换语言为 " + locale.getLanguage());
+        SpManager.setLanguage(locale.getLanguage());
+
         isChangeLanguage = true;
         sp_language.setClickable(false);
         sp_language.setEnabled(false);
-
-        SpManager.setAlterUpdatePath(false);
-        SpManager.setChangedServer(false);
 
         new Thread(() -> {
             try {

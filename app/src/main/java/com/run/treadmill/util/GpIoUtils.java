@@ -13,6 +13,12 @@ public class GpIoUtils {
     public static int IO_STATE_0 = 0;
     public static int IO_STATE_NOT_EXIT = -1;
 
+
+    public static final int VOICE_FROM_SYSTEM = 0;
+    public static final int VOICE_FROM_OUTSIDE = 1;
+    public static final int VOICE_FROM_HDMI_IN = 3;
+    public static final int VOICE_FROM_OTHER = 4;
+
     /**
      * 控制屏幕开关
      */
@@ -106,6 +112,12 @@ public class GpIoUtils {
 
         GROUP_LOUDSPEAKER = 'E';
         GROUP_LOUDSPEAKER_NUM = 15;
+
+        GROUP_SYSTEM_SOUND_A = 'E';
+        GROUP_SYSTEM_SOUND_A_NUM = 16;
+
+        GROUP_SYSTEM_SOUND_B = 'E';
+        GROUP_SYSTEM_SOUND_B_NUM = 17;
     }
 
     private static void setA133_IO() {
@@ -267,5 +279,37 @@ public class GpIoUtils {
 
     public static void setSystemSound_B_0() {
         setSystemSound_B(IO_STATE_0);
+    }
+
+    public static int checkSystemVoice_A() {
+        return readGPIO(GROUP_SYSTEM_SOUND_A, GROUP_SYSTEM_SOUND_A_NUM);
+    }
+
+    public static int checkSystemVoice_B() {
+        return readGPIO(GROUP_SYSTEM_SOUND_B, GROUP_SYSTEM_SOUND_B_NUM);
+    }
+
+    public static int checkSystemVoiceFrom() {
+        int sys_A = checkSystemVoice_A();
+        int sys_B = checkSystemVoice_B();
+        if (sys_A == GpIoUtils.IO_STATE_0) {
+
+            if (sys_B == GpIoUtils.IO_STATE_0) {
+                return VOICE_FROM_HDMI_IN;
+            } else if (sys_B == GpIoUtils.IO_STATE_1) {
+                return VOICE_FROM_OTHER;
+            }
+
+        } else if (sys_A == GpIoUtils.IO_STATE_1) {
+
+            if (sys_B == GpIoUtils.IO_STATE_0) {
+                return VOICE_FROM_OUTSIDE;
+            } else if (sys_B == GpIoUtils.IO_STATE_1) {
+                return VOICE_FROM_SYSTEM;
+            }
+
+        }
+
+        return -1;
     }
 }

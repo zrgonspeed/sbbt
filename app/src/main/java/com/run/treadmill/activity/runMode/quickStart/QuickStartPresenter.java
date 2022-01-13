@@ -1,10 +1,7 @@
 package com.run.treadmill.activity.runMode.quickStart;
 
-import android.util.Log;
-
 import com.run.treadmill.activity.runMode.BaseRunPresenter;
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.util.Logger;
 
 import java.util.Arrays;
 

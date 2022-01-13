@@ -2,15 +2,14 @@ package com.run.treadmill.activity.modeSelect.fitness;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.modeSelect.BaseSelectActivity;

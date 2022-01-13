@@ -10,9 +10,9 @@ import android.os.Message;
 
 import androidx.annotation.IntDef;
 
-import android.view.SoundEffectConstants;
-
+import com.run.serial.SerialUtils;
 import com.run.treadmill.R;
+import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
 
@@ -28,6 +28,7 @@ import java.util.Map;
  */
 public class BuzzerManager {
     private static final String TAG = BuzzerManager.class.getSimpleName();
+    public static boolean canBuzzerWhenLongKey = true;
 
     public static final int BUZZER_CMD = 1;
     public static final int BUZZER_SYSTEM = 2;
@@ -101,6 +102,28 @@ public class BuzzerManager {
         if (!canBuzzer) {
             return;
         }
+
+        // 连续key的按键音取消 (speed incline)
+        int keyValue = SerialUtils.keyValue;
+        Logger.e("keyValue == " + keyValue);
+        if (keyValue == SerialKeyValue.INCLINE_UP_CLICK_LONG_1 || keyValue == SerialKeyValue.INCLINE_UP_CLICK_LONG_2
+                || keyValue == SerialKeyValue.SPEED_UP_CLICK_LONG_1 || keyValue == SerialKeyValue.SPEED_UP_CLICK_LONG_2
+                || keyValue == SerialKeyValue.INCLINE_DOWN_CLICK_LONG_1 || keyValue == SerialKeyValue.INCLINE_DOWN_CLICK_LONG_2
+                || keyValue == SerialKeyValue.SPEED_DOWN_CLICK_LONG_1 || keyValue == SerialKeyValue.SPEED_DOWN_CLICK_LONG_2
+                || keyValue == SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_1 || keyValue == SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_2
+                || keyValue == SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_1 || keyValue == SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_2
+                || keyValue == SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_1 || keyValue == SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_2
+                || keyValue == SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_1 || keyValue == SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_2
+        ) {
+            return;
+        }
+
+
+        Logger.e("canBuzzerWhenLongKey == " + canBuzzerWhenLongKey);
+        if (!canBuzzerWhenLongKey) {
+            return;
+        }
+
         mStrategy.buzzerRingOnce();
     }
 

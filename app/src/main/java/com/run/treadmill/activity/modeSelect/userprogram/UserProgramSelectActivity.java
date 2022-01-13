@@ -3,9 +3,6 @@ package com.run.treadmill.activity.modeSelect.userprogram;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,6 +12,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.ActionModeCallbackInterceptor;
@@ -26,7 +25,6 @@ import com.run.treadmill.db.UserDB;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.SpManager;
-import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.widget.HistogramListView;
 import com.run.treadmill.widget.calculator.BaseCalculator;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;

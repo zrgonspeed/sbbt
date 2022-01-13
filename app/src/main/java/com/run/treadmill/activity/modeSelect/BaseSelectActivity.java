@@ -1,11 +1,10 @@
 package com.run.treadmill.activity.modeSelect;
 
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;
@@ -109,9 +108,11 @@ public abstract class BaseSelectActivity<V extends BaseSelectView, P extends Bas
             case SerialKeyValue.START_CLICK:
                 if (btn_start.isEnabled()) {
                     btn_start.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                 }
                 break;
             case SerialKeyValue.HOME_KEY_CLICK:
+BuzzerManager.getInstance().buzzerRingOnce();
                 btn_home.performClick();
                 break;
         }

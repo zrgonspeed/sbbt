@@ -277,6 +277,9 @@ public class InitParam {
      */
     public static String CN_HOST;
 
+    public static final String UPDATE_THIRD_A133_END = "/restapi/apk/A133/update/treadmill?apkNames=";
+    public static final String UPDATE_TREADMILL_END = "/restapi/apk/A133/update/treadmill?apkNames=";
+
     static {
         if (isTestServer) {
             NOT_CN_HOST = "http://apk-test.anplus-tech.com";

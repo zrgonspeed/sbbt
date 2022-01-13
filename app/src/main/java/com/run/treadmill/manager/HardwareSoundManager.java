@@ -11,6 +11,8 @@ public class HardwareSoundManager implements Runnable {
     public static final int HARDWARE_A133_1 = 51;
 
     public static final int HARDWARE_T3_1 = 21;
+
+
     private static HardwareSoundManager ourInstance = null;
 
 
@@ -89,12 +91,23 @@ public class HardwareSoundManager implements Runnable {
         GpIoUtils.setSystemSound_B_1();
     }
 
+    /**
+     * 播放hdmi in声源
+     */
+    public static void setVoiceFromHdmi_in() {
+        if (ourInstance != null && ourInstance.mission != null) {
+            ourInstance.mission.setVoiceFromHdmi_in();
+            return;
+        }
+        GpIoUtils.setSystemSound_A_1();
+        GpIoUtils.setSystemSound_B_0();
+    }
+
     private interface HardwareMission {
         /**
          * 在线程中执行的循环任务
          */
         void loopMissionStart();
-
 
         /**
          * 播放外接音源的 gpio 操作
@@ -105,6 +118,11 @@ public class HardwareSoundManager implements Runnable {
          * 播放系统音源的 gpio 操作
          */
         void setVoiceFromSystem();
+
+        /**
+         * 播放hdmi in的 gpio 操作
+         */
+        void setVoiceFromHdmi_in();
     }
 
     private abstract class BaseHardwareMission implements HardwareMission {
@@ -119,27 +137,39 @@ public class HardwareSoundManager implements Runnable {
          */
         protected int loudspeakerState = -1;
 
+
+        /**
+         * 系统当前播声音来源
+         */
+        protected int systemVoiceState = -1;
+        /**
+         * 系上一次设置的统当前播声音来源
+         */
+        protected int lastSystemVoiceState = -1;
+
+
         /**
          * 外部音源状态
          */
         protected int ioOutSideState = -1;
 
         /**
-         * 上一次设置的 外部音源状态
+         * hdmi in音源状态
          */
-        protected int lastIoOutSideState = -1;
+        protected int ioHdmiInState = -1;
 
         /**
          * 上一次设置的 喇叭开关状态
          */
         protected int lastLoudspeakerState = -1;
 
+
         /**
          * 控制外接喇叭开关
          */
         protected synchronized void setLoudspeakerState(int io_state) {
-            if (lastLoudspeakerState != loudspeakerState) {
-                lastLoudspeakerState = loudspeakerState;
+            if (lastLoudspeakerState != io_state) {
+                lastLoudspeakerState = io_state;
                 GpIoUtils.setLoudspeaker(io_state);
             }
         }
@@ -151,8 +181,11 @@ public class HardwareSoundManager implements Runnable {
          * @param B_io_state B通道状态:0,1
          */
         protected synchronized void setSystemVoiceFrom(int A_io_state, int B_io_state) {
-            if (lastIoOutSideState != ioOutSideState) {
-                lastIoOutSideState = ioOutSideState;
+            //Logger.e("lastSystemVoiceState == " + lastSystemVoiceState + "    systemVoiceState == " + systemVoiceState);
+            if (lastSystemVoiceState != ioOutSideState) {
+                lastSystemVoiceState = ioOutSideState;
+
+                //Logger.e("setSystemSound_A setSystemSound_B");
                 GpIoUtils.setSystemSound_A(A_io_state);
                 GpIoUtils.setSystemSound_B(B_io_state);
             }
@@ -176,6 +209,12 @@ public class HardwareSoundManager implements Runnable {
             GpIoUtils.setSystemSound_A_1();
             GpIoUtils.setSystemSound_B_1();
         }
+
+        @Override
+        public void setVoiceFromHdmi_in() {
+
+        }
+
     }
 
 
@@ -217,6 +256,12 @@ public class HardwareSoundManager implements Runnable {
             GpIoUtils.setSystemSound_A_1();
             GpIoUtils.setSystemSound_B_1();
         }
+
+        @Override
+        public void setVoiceFromHdmi_in() {
+
+        }
+
     }
 
     /**
@@ -230,7 +275,12 @@ public class HardwareSoundManager implements Runnable {
                     Thread.sleep(1000);
 
                     earPhoneState = GpIoUtils.checkEarPhoneState();
+                    loudspeakerState = GpIoUtils.checkLoudspeakerState();
+
+                    systemVoiceState = GpIoUtils.checkSystemVoiceFrom();
+
                     ioOutSideState = GpIoUtils.checkOutSideSoundState();
+
                     if (ioOutSideState == GpIoUtils.IO_STATE_0) {
                         //TODO:外部音源接入,播放外部音源
                         setSystemVoiceFrom(GpIoUtils.IO_STATE_1, GpIoUtils.IO_STATE_0);
@@ -272,8 +322,17 @@ public class HardwareSoundManager implements Runnable {
             GpIoUtils.setSystemSound_A_1();
             GpIoUtils.setSystemSound_B_1();
         }
+
+        @Override
+        public void setVoiceFromHdmi_in() {
+
+        }
+
     }
 
+    /**
+     * A133控制任务1:持续检查外接音源状态,切换系统当前播放音源
+     */
     private class Hardware_A133_1 extends BaseHardwareMission {
         @Override
         public synchronized void loopMissionStart() {
@@ -282,6 +341,10 @@ public class HardwareSoundManager implements Runnable {
                     Thread.sleep(1000);
 
                     ioOutSideState = GpIoUtils.checkOutSideSoundState();
+
+                    systemVoiceState = GpIoUtils.checkSystemVoiceFrom();
+
+                    //Logger.e("ioOutSideState == " + ioOutSideState + "    systemVoiceState == " + systemVoiceState);
                     //TODO: 0是接入，1是没有接入(根据硬件设计有所改变)
                     if (ioOutSideState == GpIoUtils.IO_STATE_0) {
                         //TODO:外部音源接入,播放外部音源
@@ -300,7 +363,7 @@ public class HardwareSoundManager implements Runnable {
 
         @Override
         public void setVoiceFromOutSide() {
-            GpIoUtils.setSystemSound_A_0();
+            GpIoUtils.setSystemSound_A_1();
             GpIoUtils.setSystemSound_B_0();
         }
 
@@ -309,5 +372,11 @@ public class HardwareSoundManager implements Runnable {
             GpIoUtils.setSystemSound_A_1();
             GpIoUtils.setSystemSound_B_1();
         }
+
+        @Override
+        public void setVoiceFromHdmi_in() {
+
+        }
+
     }
 }

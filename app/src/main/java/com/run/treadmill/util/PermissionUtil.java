@@ -2,14 +2,18 @@ package com.run.treadmill.util;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AppOpsManager;
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.collection.SimpleArrayMap;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.util.Log;
+import java.lang.reflect.Method;
 
 /**
  * Author by HEKE
@@ -58,7 +62,7 @@ public class PermissionUtil {
                     PermissionUtil.REQUEST_ALERT_WINDOW);
             return false;
         }
-        return true;
+        return false;
     }
 
     /**
@@ -170,4 +174,30 @@ public class PermissionUtil {
         return false;
     }
 
+    /**
+     * 取消升级未知来源软件的弹窗
+     *
+     * @param activity
+     * @param packageName
+     * @param permission
+     * @return
+     */
+    public static boolean grantPermission(Activity activity, String packageName, String permission) {
+        try {
+            Object object = activity.getSystemService(Context.APP_OPS_SERVICE);
+            if (object == null) {
+                return false;
+            }
+            Class localClass = object.getClass();
+            Method method1 = localClass.getMethod("setMode", int.class, int.class, String.class, int.class);
+            method1.setAccessible(true);
+            ApplicationInfo applicationInfo = activity.getPackageManager().getApplicationInfo(
+                    "com.run.treadmill", 0);
+            method1.invoke(object, 66, applicationInfo.uid, "com.run.treadmill", AppOpsManager.MODE_ALLOWED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

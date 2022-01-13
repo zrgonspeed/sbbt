@@ -9,6 +9,7 @@ import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.common.RunModeTable;
+import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FormulaUtil;
 
@@ -144,6 +145,7 @@ public class FitnessTestRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
                 if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
                 break;

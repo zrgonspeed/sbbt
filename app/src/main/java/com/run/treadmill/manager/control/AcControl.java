@@ -2,6 +2,7 @@ package com.run.treadmill.manager.control;
 
 import android.content.Context;
 
+import com.run.serial.OTAParam;
 import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
@@ -204,7 +205,7 @@ public class AcControl extends BaseControl {
 
     @Override
     public void sendUpdateCmd(byte[] data) {
-        sendWriteOneData((byte) (SerialCommand.CMD_UPDATE & 0xFF), data);
+        sendWriteOneData((byte) (OTAParam.CMD_UPDATE & 0xFF), data);
     }
 
     @Override

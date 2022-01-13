@@ -81,6 +81,21 @@ public class SerialKeyValue {
 
     public final static int KEY_EVEN_CANCEL = -3;
 
+    public static final int INCLINE_UP_HAND_CLICK = 0xcc;
+    public static final int INCLINE_UP_HAND_CLICK_LONG_1 = 0xcd;
+    public static final int INCLINE_UP_HAND_CLICK_LONG_2 = 0xce;
+    public static final int INCLINE_DOWN_HAND_CLICK = 0xc8;
+    public static final int INCLINE_DOWN_HAND_CLICK_LONG_1 = 0xc9;
+    public static final int INCLINE_DOWN_HAND_CLICK_LONG_2 = 0xca;
+
+    public static final int SPEED_UP_HAND_CLICK = 0xc4;
+    public static final int SPEED_UP_HAND_CLICK_LONG_1 = 0xc5;
+    public static final int SPEED_UP_HAND_CLICK_LONG_2 = 0xc6;
+
+    public static final int SPEED_DOWN_HAND_CLICK = 0xc0;
+    public static final int SPEED_DOWN_HAND_CLICK_LONG_1 = 0xc1;
+    public static final int SPEED_DOWN_HAND_CLICK_LONG_2 = 0xc2;
+
     private static int oldKeyValue = -1;
 
     public static int isNeedSendMsg(int keyValue) {
@@ -123,18 +138,26 @@ public class SerialKeyValue {
      * @return true 需要发送消息
      */
     private static boolean isResponseForAways(int keyValue) {
-        if (keyValue == INCLINE_UP_CLICK_LONG_1
+        return (keyValue == INCLINE_UP_CLICK_LONG_1
                 || keyValue == INCLINE_UP_CLICK_LONG_2
+
                 || keyValue == INCLINE_DOWN_CLICK_LONG_1
                 || keyValue == INCLINE_DOWN_CLICK_LONG_2
+
+                || keyValue == INCLINE_UP_HAND_CLICK_LONG_1
+                || keyValue == INCLINE_UP_HAND_CLICK_LONG_2
+                || keyValue == INCLINE_DOWN_HAND_CLICK_LONG_1
+                || keyValue == INCLINE_DOWN_HAND_CLICK_LONG_2
 
                 || keyValue == SPEED_UP_CLICK_LONG_1
                 || keyValue == SPEED_UP_CLICK_LONG_2
                 || keyValue == SPEED_DOWN_CLICK_LONG_1
-                || keyValue == SPEED_DOWN_CLICK_LONG_2) {
-            return true;
-        }
-        return false;
+                || keyValue == SPEED_DOWN_CLICK_LONG_2
+
+                || keyValue == SPEED_UP_HAND_CLICK_LONG_1
+                || keyValue == SPEED_UP_HAND_CLICK_LONG_2
+                || keyValue == SPEED_DOWN_HAND_CLICK_LONG_1
+                || keyValue == SPEED_DOWN_HAND_CLICK_LONG_2);
     }
 
     /**

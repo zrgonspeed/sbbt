@@ -37,7 +37,7 @@ public class AppStorePresenter extends BasePresenter<AppStoreView> implements Ok
     public String downloadPath = null;
 
     void getAppList(Context context) {
-        this.reqUrl = new StringBuilder(InitParam.getUpdateHost(mContext) + "/restapi/apk/update/treadmill?apkNames=");
+        this.reqUrl = new StringBuilder(InitParam.getUpdateHost(mContext) + InitParam.UPDATE_THIRD_A133_END);
         this.downloadPath = InitParam.getDownloadPath(reqUrl.toString());
 
         //TODO:名字可能没写好

@@ -2,20 +2,17 @@ package com.run.treadmill.activity.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.fingerprint.FingerprintManager;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
-
-import androidx.annotation.Nullable;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.fitShow.treadmill.FsTreadmillCommand;
-import com.run.serial.SerialUtils;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.SafeKeyTimer;
@@ -26,7 +23,6 @@ import com.run.treadmill.activity.modeSelect.goal.GoalSelectActivity;
 import com.run.treadmill.activity.modeSelect.hrc.HrcSelectActivity;
 import com.run.treadmill.activity.modeSelect.program.ProgramSelectActivity;
 import com.run.treadmill.activity.modeSelect.userprogram.UserProgramSelectActivity;
-import com.run.treadmill.activity.modeSelect.vision.VisionSelectActivity;
 import com.run.treadmill.activity.runMode.quickStart.QuickStartActivity;
 import com.run.treadmill.activity.setting.SettingActivity;
 import com.run.treadmill.base.BaseActivity;

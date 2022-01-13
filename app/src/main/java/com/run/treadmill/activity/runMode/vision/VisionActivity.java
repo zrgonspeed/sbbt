@@ -2,11 +2,10 @@ package com.run.treadmill.activity.runMode.vision;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-
 import android.view.SurfaceView;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
@@ -224,22 +223,26 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
                         && btn_pause_continue.isEnabled()) {
                     btn_pause_continue.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                 }
                 break;
             case SerialKeyValue.STOP_CLICK:
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
                         && btn_pause_quit.isEnabled()) {
                     btn_pause_quit.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
                 break;
@@ -249,6 +252,9 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
             case SerialKeyValue.SPEED_UP_CLICK:
             case SerialKeyValue.SPEED_UP_CLICK_LONG_1:
             case SerialKeyValue.SPEED_UP_CLICK_LONG_2:
+            case SerialKeyValue.SPEED_UP_HAND_CLICK:
+            case SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_1:
+            case SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_2:
                 if (btn_speed_up.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
@@ -258,6 +264,9 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
             case SerialKeyValue.SPEED_DOWN_CLICK:
             case SerialKeyValue.SPEED_DOWN_CLICK_LONG_1:
             case SerialKeyValue.SPEED_DOWN_CLICK_LONG_2:
+            case SerialKeyValue.SPEED_DOWN_HAND_CLICK:
+            case SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_1:
+            case SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_2:
                 if (btn_speed_down.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);

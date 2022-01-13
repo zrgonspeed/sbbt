@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.SerialManager;
 import android.hardware.SerialPort;
-
 import androidx.annotation.NonNull;
 
 public class SerialUtils {
@@ -18,10 +17,7 @@ public class SerialUtils {
     static boolean isSendData = false;
     static boolean isReadData = false;
 
-    public static boolean isSendBinCnt = false;
-    public static boolean isSendBinData = false;
-    public static boolean isSendBinOneFrame = true;
-    public static boolean isInBinUpdateStatus = false;
+    public static int keyValue = 0;
 
     private SerialUtils() {
     }
@@ -140,8 +136,8 @@ public class SerialUtils {
     /**
      * 停止发送安全key错误不允许下发的命令
      */
-    public synchronized void stopResend() {
-        if (!SerialTxData.getInstance().isStopReSend) {
+    public synchronized void stopResend(){
+        if(!SerialTxData.getInstance().isStopReSend){
             SerialTxData.getInstance().isStopReSend = true;
         }
     }
@@ -150,7 +146,7 @@ public class SerialUtils {
      * <br>重新清空数据并且下发数据</br>
      */
     public synchronized void resetSend() {
-        if (SerialTxData.getInstance().isStopReSend) {
+        if(SerialTxData.getInstance().isStopReSend){
             SerialTxData.getInstance().isStopReSend = false;
             reMoveAllReSendPackage();
         }
@@ -182,17 +178,18 @@ public class SerialUtils {
         SerialTxDataTask.waitTime = s;
     }
 
+
     /**
-     * 1.OTA连接命令
+     * 1.连接命令
      */
-    public synchronized void sendOtaConnectPackage() {
+    public synchronized void sendOtaConnectPackage(){
         SerialTxData.getInstance().sendOtaConnectPackage();
     }
 
     /**
-     * 2.OTA帧数据
+     * 2.帧数据
      */
-    public synchronized void sendOtaDataPackage(byte[] data, int len) {
+    public synchronized void sendOtaDataPackage(byte[] data, int len){
         SerialTxData.getInstance().sendOtaDataPackage(data, len);
     }
 }

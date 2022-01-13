@@ -3,6 +3,7 @@ package com.run.treadmill.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -26,6 +27,7 @@ public class StringUtil {
      * @return
      */
     public static String removeUnit(String value) {
+        String temp = value;
         //小数
         String regExPoint = "(\\d+\\.\\d+)";
         //整数
@@ -48,6 +50,9 @@ public class StringUtil {
                 //如果没有小数和整数相匹配,即字符串中没有整数和小数，就设为空
                 value = "";
             }
+        }
+        if (temp.contains("-")) {
+            return "-" + value;
         }
         return value;
     }
@@ -100,8 +105,10 @@ public class StringUtil {
         }
         SpannableString sp = new SpannableString(res);
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resId);
-        if (bitmap != null) {
-            ImageSpan imageSpan = new ImageSpan(context, bitmap);
+        Bitmap newBitmap = alterSizeBitmap(bitmap, 100, 65);
+
+        if (newBitmap != null) {
+            ImageSpan imageSpan = new ImageSpan(context, newBitmap);
             if (!isLeft) {
                 sp.setSpan(imageSpan, res.length() - 1, res.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             } else {
@@ -109,5 +116,24 @@ public class StringUtil {
             }
         }
         return sp;
+    }
+
+    /**
+     * 设置bitmap宽高，返回新的bitmap
+     *
+     * @param bitmap
+     * @param newWidth
+     * @param newHeight
+     * @return
+     */
+    public static Bitmap alterSizeBitmap(Bitmap bitmap, int newWidth, int newHeight) {
+        //计算压缩的比率
+        float scaleWidth = ((float) newWidth) / bitmap.getWidth();
+        float scaleHeight = ((float) newHeight) / bitmap.getHeight();
+        //获取想要缩放的matrix
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        //获取新的bitmap
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 }

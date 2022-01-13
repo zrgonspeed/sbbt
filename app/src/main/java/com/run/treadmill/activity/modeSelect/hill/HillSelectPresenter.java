@@ -5,7 +5,6 @@ import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.db.UserDB;
 import com.run.treadmill.manager.UserInfoManager;
-import com.run.treadmill.util.UnitUtil;
 
 /**
  * @Description 这里用一句话描述

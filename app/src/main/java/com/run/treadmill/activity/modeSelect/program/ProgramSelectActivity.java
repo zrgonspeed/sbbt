@@ -21,7 +21,6 @@ import com.run.treadmill.db.UserDB;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.UserInfoManager;
-import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.widget.HistogramListView;
 import com.run.treadmill.widget.calculator.BaseCalculator;

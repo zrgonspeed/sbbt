@@ -15,7 +15,6 @@ import com.run.treadmill.manager.UserInfoManager;
 import com.run.treadmill.manager.control.NormalParam;
 import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.util.DataTypeConversion;
-import com.run.treadmill.util.Logger;
 
 import org.litepal.LitePal;
 

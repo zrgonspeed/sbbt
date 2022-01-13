@@ -9,21 +9,15 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.factory.FactoryActivity;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
-import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.Logger;
-import com.run.treadmill.widget.LongPressView;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
-
-import java.io.File;
 
 public class HomeTipsDialog extends Dialog implements View.OnClickListener {
     private Context context;

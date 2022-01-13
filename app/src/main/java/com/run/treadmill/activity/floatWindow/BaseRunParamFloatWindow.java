@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.run.treadmill.R;
 import com.run.treadmill.common.CTConstant;
+import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.WifiBTStateManager;
 import com.run.treadmill.util.StringUtil;
@@ -63,7 +64,7 @@ public abstract class BaseRunParamFloatWindow {
         wmParams.y = 0;
         wmParams.width = w;
         wmParams.height = h;
-//        wmParams.windowAnimations = android.R.style.Animation;
+        wmParams.windowAnimations = android.R.style.Animation_Translucent;
 
         return mWindow;
     }
@@ -110,7 +111,7 @@ public abstract class BaseRunParamFloatWindow {
         tv_speed.addTextChangedListener(new BaseRunParamFloatWindow.SpeedTextWatcher());
 
         if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
-            tv_speed.setText(mFloatWindowManager.getSpeedValue("0"));
+            tv_speed.setText(mFloatWindowManager.getSpeedValue(String.valueOf(0.0f)));
             tv_incline.setText(StringUtil.valueAndUnit("0", "%", mFloatWindowManager.runParamUnitTextSize));
         } else {
             tv_speed.setText(mFloatWindowManager.getSpeedValue(String.valueOf(mFloatWindowManager.mRunningParam.getCurrSpeed())));

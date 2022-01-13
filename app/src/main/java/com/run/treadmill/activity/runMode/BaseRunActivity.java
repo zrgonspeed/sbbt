@@ -3,17 +3,11 @@ package com.run.treadmill.activity.runMode;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
@@ -26,6 +20,10 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.fitShow.treadmill.FsTreadmillCommand;
 import com.run.android.ShellCmdUtils;
@@ -44,8 +42,7 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.manager.SpManager;
-import com.run.treadmill.manager.SysSoundCheck;
-import com.run.treadmill.manager.VoiceManager;
+import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.WifiBTStateManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.DataTypeConversion;
@@ -185,7 +182,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     /**
      * 记录当前音量，321go需要固定音量，做复位音量用
      */
-    private int currentPro;
+    private int currentPro = -1;
     /**
      * 针对quick start 进入媒体与媒体回来运动的逻辑差别作区分
      */
@@ -267,7 +264,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             stopPauseTimer();
             finishRunning();
         }
-        currentPro = VoiceManager.getInstance().getCurrentPro();
+
         getPresenter().setInclineAndSpeed(maxIncline, minSpeed, maxSpeed);
         if (myHandler == null) {
             myHandler = new MyHandler(this);
@@ -294,7 +291,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
             tv_speed.setText(getSpeedValue(String.valueOf(0.0f)));
-            showPopTip();
         }
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL || mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE
                 || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
@@ -429,8 +425,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         //如果速度感应线从一开始就没插好，常态包速度一直返回0，并且处于非stop状态，则取最后下发的速度
         getPresenter().checkLastSpeedOnRunning(isMetric);
         super.safeError();
-        //音量恢复
-        restoreVolume();
+        if (currentPro != -1) {
+            //音量恢复
+            restoreVolume();
+        }
     }
 
     @Override
@@ -485,6 +483,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
      * 音量恢复
      */
     private void restoreVolume() {
+        // zrg 打印
+        Logger.e("restoreVolume()--isActionVolume = " + isActionVolume + " currentPro = " + currentPro);
         if (isActionVolume) {
             return;
         }
@@ -493,7 +493,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             @Override
             public void run() {
                 super.run();
-                VoiceManager.getInstance().setAudioVolume(currentPro, 100);
+                SystemSoundManager.getInstance().setAudioVolume(currentPro, 100);
             }
         }.start();
     }
@@ -746,17 +746,18 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     protected void longClickBuzzer(LongClickImage btn) {
-        if ((Integer) btn.getTag() != 1) {
-            BuzzerManager.getInstance().buzzerRingOnce();
-        } else {
-            btn.setTag(-1);
-        }
+//        if ((Integer) btn.getTag() != 1) {
+//            BuzzerManager.getInstance().buzzerRingOnce();
+//        } else {
+//            btn.setTag(-1);
+//        }
     }
 
     protected void showMediaPopWin(@CTConstant.RunMode int runMode) {
         if (mMediaRunAppAdapter == null) {
             mMediaRunAppAdapter = new MediaRunAppAdapter(iconList);
             mMediaRunAppAdapter.setOnItemClick(position -> {
+                BuzzerManager.getInstance().buzzerRingOnce();
                 isGoMedia = true;
                 enterThirdApk(runMode, pkgName[position]);
                 hideMediaPopWin();
@@ -792,33 +793,21 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         mediaPkgName = pkgName;
         mRunningParam.mediaPkgName = pkgName;
         if (pkgName.contains("com.facebook.katana")) {
-            SysSoundCheck.MusicPause(this);
             ThirdApkSupport.stopKillLoginAppTimer();
-            PackageManager pm = getPackageManager();
-            Intent intent = pm.getLaunchIntentForPackage("com.facebook.katana");
-            if (intent != null) {
-                startActivity(intent);
-            }
-//            ShellCmdUtils.getInstance().execCommand("am start -n com.facebook.katana/.LoginActivity");
-        } else if (pkgName.contains("com.android.music")) {
-            ThirdApkSupport.doStartApplicationWithPackageName(this, "com.android.music", "com.android.music.MusicBrowserActivity");
-        } else if (pkgName.contains("com.anplus.tft")) {
-            startActivity(getPackageManager().getLaunchIntentForPackage("com.anplus.tft"));
-        } else if (pkgName.contains("com.kinomap.training")) {
-            ShellCmdUtils.getInstance()
-                    .execCommand("am start -n com.kinomap.training/com.kinomap.training.MainActivity");
+            startActivity(getPackageManager().getLaunchIntentForPackage("com.facebook.katana"));
         } else {
-            SysSoundCheck.MusicPause(this);
             ThirdApkSupport.doStartApplicationWithPackageName(this, pkgName);
         }
-        mFloatWindowManager.runningActivityStartMedia(runMode, "com.kinomap.training".equals(pkgName));
+        mFloatWindowManager.runningActivityStartMedia(runMode);
     }
 
     /**
      * 离开关闭第三方apk
      */
     public void shortDownThirtyApk() {
-        SysSoundCheck.MusicPause(this);
+        SystemSoundManager.MusicPause(this);
+        ThirdApkSupport.killInputmethodPid(this, "com.google.android.inputmethod.pinyin");
+        Logger.d("shortDownThirtyApk pkgName =" + mediaPkgName);
         if (mediaPkgName.contains("com.facebook.katana")) {
             int facebookId = ThirdApkSupport.findPid(this, "com.facebook.katana");
             Logger.d("kill facebookId = " + facebookId);
@@ -828,8 +817,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         if (!mediaPkgName.equals("")) {
             ThirdApkSupport.killCommonApp(this, mediaPkgName);
         }
-        ThirdApkSupport.killInputmethodPid(this, "com.google.android.inputmethod.pinyin");
-        Logger.d("shortDownThirtyApk pkgName =" + mediaPkgName);
     }
 
     protected void hideMediaPopWin() {
@@ -847,7 +834,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     private void showPrepare(long delay) {
         tv_prepare.setVisibility(View.VISIBLE);
         mCountdownTask = new EmptyMessageTask(myHandler, MsgWhat.MSG_PREPARE_TIME);
-        VoiceManager.getInstance().setAudioVolume(50, 100);
+        currentPro = SystemSoundManager.getInstance().getCurrentPro();
+        SystemSoundManager.getInstance().setAudioVolume(30, 100);
         try {
             mTimer.schedule(mCountdownTask, delay, 1000);
         } catch (Exception e) {
@@ -1119,7 +1107,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                         //防止go声音没结束就修改回原来的声音
                         postDelayed(() -> {
                             //音量恢复
-                            VoiceManager.getInstance().setAudioVolume(mActivity.currentPro, 100);
+                            SystemSoundManager.getInstance().setAudioVolume(mActivity.currentPro, 100);
                         }, 1000);
                         if (!ErrorManager.getInstance().isHasInclineError()) {
                             mActivity.tv_incline.setText(
@@ -1146,11 +1134,13 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 case MsgWhat.MSG_CLICK_INCLINE:
                     if (mActivity.btn_line_chart_incline != null) {
                         mActivity.btn_line_chart_incline.performClick();
+                        BuzzerManager.getInstance().buzzerRingOnce();
                     }
                     break;
                 case MsgWhat.MSG_CLICK_SPEED:
                     if (mActivity.btn_line_chart_speed != null) {
                         mActivity.btn_line_chart_speed.performClick();
+                        BuzzerManager.getInstance().buzzerRingOnce();
                     }
                     break;
                 default:

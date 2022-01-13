@@ -1,22 +1,14 @@
 package com.run.treadmill.activity.factory;
 
 import android.Manifest;
-import android.app.AppOpsManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
@@ -28,12 +20,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.run.android.ShellCmdUtils;
+import com.run.serial.OTAParam;
 import com.run.serial.SerialUtils;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.SafeKeyTimer;
-import com.run.treadmill.activity.floatWindow.SettingBackFloatWindow;
 import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.base.MyApplication;
@@ -45,8 +40,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
-import com.run.treadmill.manager.SysSoundCheck;
-import com.run.treadmill.manager.VoiceManager;
+import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.ota.BaseUpdate;
 import com.run.treadmill.ota.BinUpdate;
 import com.run.treadmill.ota.Md5Manager;
@@ -56,6 +50,7 @@ import com.run.treadmill.receiver.USBBroadcastReceiver;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.PermissionUtil;
 import com.run.treadmill.util.TimeStringUtil;
 import com.run.treadmill.util.UnitUtil;
 import com.run.treadmill.util.VersionUtil;
@@ -68,7 +63,6 @@ import com.run.treadmill.widget.calculator.CalculatorOfFactory;
 
 import java.io.File;
 import java.lang.ref.SoftReference;
-import java.lang.reflect.Method;
 
 import butterknife.BindView;
 
@@ -181,7 +175,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         super.onCreate(savedInstanceState);
         mCalculatorBuilder = new BaseCalculator.Builder(new CalculatorOfFactory(this));
 
-        grantPermission("com.run.treadmill", Manifest.permission.REQUEST_INSTALL_PACKAGES);
+        PermissionUtil.grantPermission(this, "com.run.treadmill", Manifest.permission.REQUEST_INSTALL_PACKAGES);
     }
 
     @Override
@@ -203,7 +197,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
             btn_factory_two.performClick();
         }
         btn_home.setEnabled(true);
-        SysSoundCheck.MusicPause(this);
+        SystemSoundManager.MusicPause(this);
     }
 
     @Override
@@ -530,18 +524,18 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         rl_main.addView(errView);
     }
 
-    boolean isSetMaxAd = false;//防止没有上升过程
+    private boolean isSetMaxAd = false;//防止没有上升过程
 
     @Override
     public void onCalibrationAd(int max, int min) {
         if (include_calibrate.getVisibility() == View.GONE) {
             return;
         }
-        if (-1 != max && Integer.valueOf(tv_ad_max.getText().toString()) != max) {
+        if (-1 != max && Integer.parseInt(tv_ad_max.getText().toString()) != max) {
             isSetMaxAd = true;
             tv_ad_max.setText(String.valueOf(max));
         }
-        if (-1 != min && Integer.valueOf(tv_ad_min.getText().toString()) != min) {
+        if (-1 != min && Integer.parseInt(tv_ad_min.getText().toString()) != min) {
             if (!isSetMaxAd) {
                 isSetMaxAd = true;
                 tv_ad_max.setText(String.valueOf(min));
@@ -742,6 +736,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         }
         switch (keyValue) {
             case SerialKeyValue.HOME_KEY_CLICK:
+                BuzzerManager.getInstance().buzzerRingOnce();
                 btn_home.performClick();
                 break;
         }
@@ -918,7 +913,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
                     rl_ota_update.setVisibility(View.GONE);
                     return;
                 }
-                if (SerialUtils.getInstance().isSendBinCnt) {
+                if (OTAParam.isSendBinCnt) {
                     rl_ota_update.setVisibility(View.GONE);
                     return;
                 }
@@ -1219,6 +1214,10 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
             getPresenter().stopGetAd();
         }
         super.onDestroy();
+        if (mUsbBroadcastReceiver != null) {
+            unregisterReceiver(mUsbBroadcastReceiver);
+            mUsbBroadcastReceiver = null;
+        }
         mCalculatorBuilder.stopPopWin();
     }
 
@@ -1247,7 +1246,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
                 SpManager.setBuzzer(isChecked);
                 BuzzerManager.getInstance().setBuzzerEnable(isChecked);
                 if (BuzzerManager.getInstance().getBuzzerType() == BuzzerManager.BUZZER_SYSTEM) {
-                    VoiceManager.getInstance().setEffectsEnabled(isChecked ? 1 : 0);
+                    SystemSoundManager.getInstance().setEffectsEnabled(isChecked ? 1 : 0);
                 }
                 break;
 //            case R.id.tb_login_ctrl:
@@ -1363,25 +1362,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
             unregisterReceiver(mUsbBroadcastReceiver);
             mUsbBroadcastReceiver = null;
         }
-    }
-
-    private boolean grantPermission(String packageName, String permission) {
-        try {
-            Object object = getSystemService(Context.APP_OPS_SERVICE);
-            if (object == null) {
-                return false;
-            }
-            Class localClass = object.getClass();
-            Method method1 = localClass.getMethod("setMode", int.class, int.class, String.class, int.class);
-            method1.setAccessible(true);
-            ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo(
-                    "com.run.treadmill", 0);
-            method1.invoke(object, 66, applicationInfo.uid, "com.run.treadmill", AppOpsManager.MODE_ALLOWED);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
     }
 
     @Override

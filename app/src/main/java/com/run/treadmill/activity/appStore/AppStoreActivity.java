@@ -1,9 +1,6 @@
 package com.run.treadmill.activity.appStore;
 
 import android.Manifest;
-import android.app.AppOpsManager;
-import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -30,10 +26,12 @@ import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.http.DownloadListener;
 import com.run.treadmill.http.OkHttpHelper;
+import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.Md5Manager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.PermissionUtil;
 import com.run.treadmill.widget.RecycleViewDivider;
 
 import org.greenrobot.eventbus.EventBus;
@@ -42,7 +40,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -96,7 +93,8 @@ public class AppStoreActivity extends BaseActivity<AppStoreView, AppStorePresent
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        grantPermission("com.run.treadmill", Manifest.permission.REQUEST_INSTALL_PACKAGES);
+        PermissionUtil.grantPermission(this, "com.run.treadmill", Manifest.permission.REQUEST_INSTALL_PACKAGES);
+
         EventBus.getDefault().register(this);
         myHandler = new MyHandler(this);
     }
@@ -450,6 +448,7 @@ public class AppStoreActivity extends BaseActivity<AppStoreView, AppStorePresent
     }
 
     public void goBack(View view) {
+        BuzzerManager.getInstance().buzzerRingOnce();
         this.finish();
     }
 
@@ -563,22 +562,4 @@ public class AppStoreActivity extends BaseActivity<AppStoreView, AppStorePresent
         }
     }
 
-    boolean grantPermission(String packageName, String permission) {
-        try {
-            Object object = getSystemService(Context.APP_OPS_SERVICE);
-            if (object == null) {
-                return false;
-            }
-            Class localClass = object.getClass();
-            Method method1 = localClass.getMethod("setMode", int.class, int.class, String.class, int.class);
-            method1.setAccessible(true);
-            ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo(
-                    "com.run.treadmill", 0);
-            method1.invoke(object, 66, applicationInfo.uid, "com.run.treadmill", AppOpsManager.MODE_ALLOWED);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
 }

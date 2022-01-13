@@ -230,6 +230,7 @@ public class HillRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
                 if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
                 break;
@@ -239,6 +240,9 @@ public class HillRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
             case SerialKeyValue.INCLINE_UP_CLICK:
             case SerialKeyValue.INCLINE_UP_CLICK_LONG_1:
             case SerialKeyValue.INCLINE_UP_CLICK_LONG_2:
+            case SerialKeyValue.INCLINE_UP_HAND_CLICK:
+            case SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_1:
+            case SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_2:
                 if (btn_incline_up.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setInclineValue(1, 0, true);
@@ -247,6 +251,9 @@ public class HillRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
             case SerialKeyValue.INCLINE_DOWN_CLICK:
             case SerialKeyValue.INCLINE_DOWN_CLICK_LONG_1:
             case SerialKeyValue.INCLINE_DOWN_CLICK_LONG_2:
+            case SerialKeyValue.INCLINE_DOWN_HAND_CLICK:
+            case SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_1:
+            case SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_2:
                 if (btn_incline_down.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setInclineValue(-1, 0, true);
@@ -255,6 +262,9 @@ public class HillRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
             case SerialKeyValue.SPEED_UP_CLICK:
             case SerialKeyValue.SPEED_UP_CLICK_LONG_1:
             case SerialKeyValue.SPEED_UP_CLICK_LONG_2:
+            case SerialKeyValue.SPEED_UP_HAND_CLICK:
+            case SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_1:
+            case SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_2:
                 if (btn_speed_up.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setSpeedValue(1, 0, true);
@@ -263,6 +273,9 @@ public class HillRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
             case SerialKeyValue.SPEED_DOWN_CLICK:
             case SerialKeyValue.SPEED_DOWN_CLICK_LONG_1:
             case SerialKeyValue.SPEED_DOWN_CLICK_LONG_2:
+            case SerialKeyValue.SPEED_DOWN_HAND_CLICK:
+            case SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_1:
+            case SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_2:
                 if (btn_speed_down.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setSpeedValue(-1, 0, true);

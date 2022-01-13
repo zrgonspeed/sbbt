@@ -2,13 +2,12 @@ package com.run.treadmill.activity.modeSelect.goal;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.modeSelect.BaseSelectActivity;
@@ -16,7 +15,6 @@ import com.run.treadmill.activity.runMode.goal.GoalActivity;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.widget.calculator.BaseCalculator;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;

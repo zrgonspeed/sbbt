@@ -15,7 +15,6 @@ import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.control.NormalParam;
 import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.util.FormulaUtil;
-import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.UnitUtil;
 
 /**

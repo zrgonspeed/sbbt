@@ -19,7 +19,6 @@ import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
 
 import java.lang.reflect.Method;
 
@@ -37,12 +36,10 @@ public class NotificationBackend {
                 Method forceStopPackage = mAppOps.getClass().getDeclaredMethod("setMode", int.class, int.class, String.class, int.class);
                 forceStopPackage.setAccessible(true);
                 forceStopPackage.invoke(mAppOps, 11, ai.uid, pkg, AppOpsManager.MODE_IGNORED);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ignore) {
             }
             return true;
-        } catch (Exception e) {
-            Log.w(TAG, "Error calling NoMan " + e.getMessage());
+        } catch (Exception ignore) {
             return false;
         }
     }

@@ -1,9 +1,7 @@
 package com.run.serial;
 
 import android.hardware.SerialPort;
-
 import androidx.annotation.NonNull;
-
 import android.util.Log;
 
 import java.nio.ByteBuffer;
@@ -62,7 +60,7 @@ public class SerialTxData {
             outputBuffer.clear();
             outputBuffer.put(bytes);
             serialPort.write(outputBuffer, length);
-            Log.v("send", ">>  " + ConvertData.byteArrayToHexString(bytes, length));
+            Log.v("send", ">>  " + ConvertData.byteArrayToHexString(bytes,length));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,7 +129,7 @@ public class SerialTxData {
     }
 
     protected synchronized void reMoveQueuePackage() {
-        //Log.d(TAG, "reMoveQueuePackage");
+        Log.d(TAG, "reMoveQueuePackage");
         hasReSendCount = 0;
         if (!isEmptyQueue()) {
             reSendPackageQueue.poll();
@@ -220,12 +218,7 @@ public class SerialTxData {
 //    }
 
     protected synchronized void sendOtaConnectPackage() {
-        byte[] srcBytes = {(byte) 0xAA, 0x00, 0x11, 0x71, 0x00,
-                (byte) 0x81, 0x01, 0x01, (byte) 0xE0, (byte) 0x91,
-                0x28, (byte) 0xCE, 0x47, 0x44, 0x00,
-                0x24, 0x00, 0x00, 0x01, (byte) 0xF4,
-                (byte) 0xF0,};
-        sendPackage(srcBytes, srcBytes.length);
+        sendPackage(OTAParam.otaConnectPkg, OTAParam.otaConnectPkg.length);
     }
 
     protected synchronized void sendOtaDataPackage(byte[] data, int length) {

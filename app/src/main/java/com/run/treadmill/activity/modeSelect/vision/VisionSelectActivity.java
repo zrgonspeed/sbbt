@@ -3,15 +3,14 @@ package com.run.treadmill.activity.modeSelect.vision;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.modeSelect.BaseSelectActivity;

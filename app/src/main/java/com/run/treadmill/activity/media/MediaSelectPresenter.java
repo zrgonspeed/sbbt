@@ -3,15 +3,11 @@ package com.run.treadmill.activity.media;
 import android.content.Context;
 import android.content.res.TypedArray;
 
-import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.base.BasePresenter;
 import com.run.treadmill.manager.SpManager;
-import com.run.treadmill.util.UnitUtil;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class MediaSelectPresenter extends BasePresenter<MediaSelectView> {
 

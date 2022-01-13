@@ -2,6 +2,7 @@ package com.run.treadmill.interceptor;
 
 import android.os.Message;
 
+import com.run.serial.SerialUtils;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.MsgWhat;
 import com.run.treadmill.manager.ControlManager;
@@ -27,7 +28,7 @@ public class NormalInterceptor implements SerialInterceptor {
 //        }
         int keyResult = SerialKeyValue.isNeedSendMsg(curKeyValue);
         normalArray[0] = keyResult;
-
+        SerialUtils.keyValue = keyResult;
         normalArray[1] = ((RealChain) chain).resolveDate(data, NormalParam.BELT_STATE_INX, NormalParam.BELT_STATE_LEN);
         if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
             //如果无其他错误只有扬升错误，不管扬升处于什么状态都认为可以开始运动
