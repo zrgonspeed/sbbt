@@ -52,6 +52,7 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
         if (mDevice.getName() == null) {
             return;
         }
+
         holder.tv_ble_name.setText(mDevice.getName() == null ? "null" : mDevice.getName());
         holder.tv_ble_bondstate.setText(mDevice.getAddress() == null ? "null" : mDevice.getBondState() + "");
         holder.tv_ble_address.setText(mDevice.getAddress() == null ? "null" : mDevice.getAddress());
@@ -63,24 +64,29 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
 //            Logger.e(TAG, "name ==  " + mDevice.getName() + "   isCon2 == " + isCon2 + "     isCon == " + isCon);
             if (isCon2) {
                 holder.tv_ble_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_9d2227));
-//                holder.tv_ble_name.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mContext, R.drawable.img_connect), null, null, null);
                 holder.iv_icon.setBackgroundResource(R.drawable.btn_setting_link_1);
                 holder.btn_ble_connect.setDisconnect();
             } else {
                 holder.tv_ble_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_2f3031));
-                holder.tv_ble_name.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                holder.iv_icon.setBackgroundResource(R.drawable.btn_setting_bluetooth_1);
                 holder.btn_ble_connect.setConnect();
             }
             holder.btn_ble_connect.setEnabled(true);
         } else if (mDevice.getBondState() == BluetoothDevice.BOND_BONDING) {
+            holder.iv_icon.setBackgroundResource(R.drawable.btn_setting_bluetooth_1);
             holder.tv_ble_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_2f3031));
-            holder.tv_ble_name.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             holder.btn_ble_connect.setConnecting();
             holder.btn_ble_connect.setEnabled(false);
         } else {
-            if (!BtUtil.connecting) {
+            if (BtUtil.connecting) {
+                // 设为连接中
+                holder.iv_icon.setBackgroundResource(R.drawable.btn_setting_bluetooth_1);
                 holder.tv_ble_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_2f3031));
-                holder.tv_ble_name.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                holder.btn_ble_connect.setConnecting();
+                holder.btn_ble_connect.setEnabled(false);
+            } else {
+                holder.iv_icon.setBackgroundResource(R.drawable.btn_setting_bluetooth_1);
+                holder.tv_ble_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_2f3031));
                 holder.btn_ble_connect.setConnect();
                 holder.btn_ble_connect.setEnabled(true);
             }
@@ -89,11 +95,38 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
         holder.btn_ble_connect.setOnClickListener(v -> {
             if (mListener != null) {
                 Logger.d(TAG, ">>>>>>>>>>>> onPairedItemClick = " + mDevice.getName());
-                holder.btn_ble_connect.setEnabled(false);
-                if (isHasConnected()) {
-                    Logger.d(TAG, ">>>>>>>>>>>> onPairedItemClick = " + mDevice.getName());
-                    holder.btn_ble_connect.setEnabled(true);
+                if (BtUtil.clickConnBt) {
+                    return;
                 }
+
+
+                BtUtil.clickConnBt = true;
+
+                if (BtUtil.connecting) {
+                    Logger.e(TAG, "正在连接其他设备");
+                    return;
+                }
+
+                holder.btn_ble_connect.setEnabled(false);
+//                if (isHasConnected()) {
+//                    Logger.d(TAG, ">>>>>>>>>>>> onPairedItemClick = " + mDevice.getName());
+//                    holder.btn_ble_connect.setEnabled(true);
+//                }
+
+                // 断开已连接的设备
+                BtUtil.disConnectCurrentDevice(mContext);
+
+                // 是当前设备断开
+                if (BtUtil.isConnecting2(mContext, mDevice) || BtUtil.isConnecting(mDevice)) {
+                    return;
+                }
+
+               /* if (BtUtil.status != 1) {
+                    // 想连其它
+                    Logger.e("想连其它-----------------------------------------return");
+                    return;
+                }*/
+
                 holder.btn_ble_connect.setConnecting();
                 mListener.onItemClick(mDevice);
             }
@@ -110,6 +143,7 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
             holder.iv_icon.setImageResource(BtUtil.getDeviceType(mDevice.getBluetoothClass()));
         }
     }
+
 
     @Override
     public int getItemCount() {
@@ -153,7 +187,7 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
 
     public boolean isHasConnected() {
         for (BluetoothDevice device : mBleDevices) {
-            if (BtUtil.isConnecting(device)) {
+            if (BtUtil.isConnecting2(mContext, device)) {
                 return true;
             }
         }

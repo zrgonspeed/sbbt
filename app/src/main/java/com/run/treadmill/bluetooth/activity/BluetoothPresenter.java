@@ -72,6 +72,10 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
                 Logger.d(TAG, "ACTION_BOND_STATE_CHANGED ====== " + bondState);
                 //hideProgressDialog();
 
+                if (bondState == BluetoothDevice.BOND_NONE) {
+                    BtUtil.clickConnBt = false;
+                }
+
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && bondState == BluetoothDevice.BOND_BONDED) {//BOND_BONDED BOND_NONE
                     if (device != null && device.getAddress().equals(mCurDeviceAddress)) {
@@ -193,7 +197,7 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
             case BluetoothDevice.ACTION_ACL_DISCONNECTED: {
                 BluetoothDevice phoneDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 BtUtil.printDevice(TAG, phoneDevice);
-
+                BtUtil.clickConnBt = false;
                 getView().refreshPairedAdapter();
                 getView().refreshAvaAdapter();
 
@@ -229,6 +233,9 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
                         }
                         case BluetoothAdapter.STATE_CONNECTED:
                             Logger.i(TAG, "真正连接成功，可播放");
+                            BtUtil.clickConnBt = false;
+                            getView().refreshPairedAdapter();
+                            getView().refreshAvaAdapter();
                             break;
                         case BluetoothAdapter.STATE_DISCONNECTED: {
                             Logger.d(TAG, "BluetoothAdapter.STATE_DISCONNECTED");
@@ -337,6 +344,7 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
             @Override
             public void onConnFailed() {
                 getView().refreshPairedAdapter();
+                BtUtil.clickConnBt = false;
                 ToastUtils.show(context.getString(R.string.workout_head_ble_sink_hint_timeout), Toast.LENGTH_SHORT);
             }
         });

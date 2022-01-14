@@ -95,7 +95,7 @@ public class InitParam {
     /**
      * 最大扬升预设值
      */
-    public static final int DEFAULT_MAX_INCLINE = 20;//20;
+    public static final int DEFAULT_MAX_INCLINE = 15;//20;
 
     /**
      * 最大轮径

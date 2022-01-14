@@ -48,6 +48,9 @@ public class BtUtil {
     public static final int PROFILE_NAP = 5;
 
     public static final int PROFILE_A2DP_SINK = 6;
+    public static boolean realOK;
+    public static boolean clickConnBt;
+    public static int status;
     private static List<BluetoothDevice> mPairedDevices = new ArrayList<>();
 
     public static boolean connecting = false;
@@ -449,8 +452,15 @@ public class BtUtil {
         }
     }
 
+    public static void disconnect2(Context context, BluetoothDevice device) {
+        if (device != null) {
+            Logger.i(TAG, "断开当前连接设备2---  " + device.getName());
+            disconnect2(context, device.getAddress());
+        }
+    }
 
     public static void disconnect2(Context context, String address) {
+
         CachedBluetoothDevice cachedDevice;
         BluetoothDevice mBluetoothDevice;
         mBluetoothDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
@@ -581,6 +591,14 @@ public class BtUtil {
         return mPairedDevices;
     }
 
+    public static void disConnectCurrentDevice(Context context) {
+        for (BluetoothDevice device : mPairedDevices) {
+            if (isConnecting2(context, device) || isConnecting(device)) {
+                disconnect2(context, device);
+            }
+        }
+    }
+
 
     public static class DockBluetoothCallback implements BluetoothCallback {
         private final Context mContext;
@@ -687,7 +705,7 @@ public class BtUtil {
             Logger.e(TAG, "device == null");
             return;
         }
-        Logger.e(TAG, "name ==  " + device.getName() + "    bondState == " + device.getBondState());
+//        Logger.e(TAG, "name ==  " + device.getName() + "    bondState == " + device.getBondState());
     }
 
     //        Set<BluetoothDevice> bondedDevices = bleAdapter.getBondedDevices();

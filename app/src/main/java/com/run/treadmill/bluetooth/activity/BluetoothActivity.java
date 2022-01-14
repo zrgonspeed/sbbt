@@ -212,11 +212,11 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
                 } else {
                     Logger.d(TAG, ">>>>>>>>>>>> onItemClick 4");
 
-                    if (blePairedAdapter.isHasConnected()) {
-                        ToastUtils.show(context.getString(R.string.workout_head_ble_sink_hint_exitlink), Toast.LENGTH_SHORT);
-                        blePairedAdapter.notifyDataSetChanged();
-                        return;
-                    }
+//                    if (blePairedAdapter.isHasConnected()) {
+//                        ToastUtils.show(context.getString(R.string.workout_head_ble_sink_hint_exitlink), Toast.LENGTH_SHORT);
+//                        blePairedAdapter.notifyDataSetChanged();
+//                        return;
+//                    }
 
                     getPresenter().connectPaired(device);
                 }
@@ -234,8 +234,16 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         blePairedAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
-                super.onChanged();
                 Logger.e(TAG, "已配对列表数据改变了 size == " + blePairedAdapter.getItemCount());
+                if (blePairedAdapter.getItemCount() == 0) {
+                    if (ll_ble_paired.getVisibility() == View.VISIBLE) {
+                        ll_ble_paired.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (ll_ble_paired.getVisibility() == View.GONE) {
+                        ll_ble_paired.setVisibility(View.VISIBLE);
+                    }
+                }
             }
         });
 
@@ -444,7 +452,6 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
             }
 
             if (isChecked) {
-                ll_ble_paired.setVisibility(View.VISIBLE);
                 ll_ble_ava.setVisibility(View.VISIBLE);
                 setAnimation(View.VISIBLE, false, true);
 
@@ -559,6 +566,9 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         tv_count.setVisibility(View.GONE);
         setCount(0);
         bleAvaAdapter.clearList();
+
+        ll_ble_paired.setVisibility(View.GONE);
+        pb_top_loading.setVisibility(View.GONE);
     }
 
     @Override

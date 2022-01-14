@@ -63,24 +63,23 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
             boolean isCon = BtUtil.isConnecting(mDevice);
             if (isCon) {
                 holder.tv_ble_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_9d2227));
-//                holder.tv_ble_name.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mContext, R.drawable.img_connect), null, null, null);
                 holder.iv_icon.setBackgroundResource(R.drawable.btn_setting_link_1);
                 holder.btn_ble_connect.setDisconnect();
             } else {
                 holder.tv_ble_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_2f3031));
-                holder.tv_ble_name.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                holder.iv_icon.setBackgroundResource(R.drawable.btn_setting_bluetooth_1);
                 holder.btn_ble_connect.setConnect();
             }
             holder.btn_ble_connect.setEnabled(true);
 
         } else if (mDevice.getBondState() == BluetoothDevice.BOND_BONDING) {
+            holder.iv_icon.setBackgroundResource(R.drawable.btn_setting_bluetooth_1);
             holder.tv_ble_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_2f3031));
-            holder.tv_ble_name.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             holder.btn_ble_connect.setConnecting();
             holder.btn_ble_connect.setEnabled(false);
         } else {
+            holder.iv_icon.setBackgroundResource(R.drawable.btn_setting_bluetooth_1);
             holder.tv_ble_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_2f3031));
-            holder.tv_ble_name.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             holder.btn_ble_connect.setConnect();
             holder.btn_ble_connect.setEnabled(true);
         }
@@ -88,11 +87,20 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
         holder.btn_ble_connect.setOnClickListener(v -> {
             if (mListener != null) {
                 Logger.d(TAG, ">>>>>>>>>>>> onAvaItemClick = " + mDevice.getName());
-                holder.btn_ble_connect.setEnabled(false);
-                if (isHasConnected()) {
-                    Logger.d("BluetoothReceiver", ">>>>>>>>>>>> onAvaItemClick = " + mDevice.getName());
-                    holder.btn_ble_connect.setEnabled(true);
+                if (BtUtil.connecting) {
+                    Logger.e(TAG, "正在连接其他设备");
+                    return;
                 }
+
+                holder.btn_ble_connect.setEnabled(false);
+//
+//                if (isHasConnected()) {
+//                    holder.btn_ble_connect.setEnabled(true);
+//                }
+
+                // 断开已连接的设备
+                BtUtil.disConnectCurrentDevice(mContext);
+
                 holder.btn_ble_connect.setConnecting();
                 mListener.onItemClick(mDevice);
             }

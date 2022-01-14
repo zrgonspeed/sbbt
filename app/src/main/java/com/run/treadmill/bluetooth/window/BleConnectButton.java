@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.run.treadmill.R;
+import com.run.treadmill.bluetooth.BleSwap.BtUtil;
 import com.run.treadmill.util.Logger;
 
 public class BleConnectButton extends androidx.appcompat.widget.AppCompatButton {
@@ -48,6 +49,7 @@ public class BleConnectButton extends androidx.appcompat.widget.AppCompatButton 
 
     public void setConnect() {
         status = 1;
+        BtUtil.status = status;
         setText(R.string.workout_ble_connect_state_1);
         setTextColor(getContext().getColor(R.color.ble_bt_connect_1));
         setBackground(getContext().getDrawable(R.drawable.ble_btn_bg_1));
@@ -55,6 +57,7 @@ public class BleConnectButton extends androidx.appcompat.widget.AppCompatButton 
 
     public void setConnecting() {
         status = 2;
+        BtUtil.status = status;
 
         setText(R.string.workout_ble_connect_state_4);
         setTextColor(getContext().getColor(R.color.ble_bt_connect_1));
@@ -63,6 +66,7 @@ public class BleConnectButton extends androidx.appcompat.widget.AppCompatButton 
 
     public void setDisconnect() {
         status = 3;
+        BtUtil.status = status;
 
         setText(R.string.workout_ble_connect_state_2);
         setTextColor(getContext().getColor(R.color.ble_bt_connect_2));
