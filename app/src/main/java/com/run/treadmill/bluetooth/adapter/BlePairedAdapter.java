@@ -60,7 +60,7 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
         if (mDevice.getBondState() == BluetoothDevice.BOND_BONDED) {
             boolean isCon2 = BtUtil.isConnecting2(mContext, mDevice);
             boolean isCon = BtUtil.isConnecting(mDevice);
-            Logger.e(TAG, "name ==  " + mDevice.getName() + "   isCon2 == " + isCon2 + "     isCon == " + isCon);
+//            Logger.e(TAG, "name ==  " + mDevice.getName() + "   isCon2 == " + isCon2 + "     isCon == " + isCon);
             if (isCon2) {
                 holder.tv_ble_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_9d2227));
 //                holder.tv_ble_name.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mContext, R.drawable.img_connect), null, null, null);

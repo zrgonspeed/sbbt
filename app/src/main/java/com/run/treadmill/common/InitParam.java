@@ -3,7 +3,6 @@ package com.run.treadmill.common;
 import android.content.Context;
 
 import com.run.treadmill.manager.SpManager;
-import com.run.treadmill.util.Logger;
 
 public class InitParam {
     public static final String APK = "553-54T-08";
@@ -11,6 +10,10 @@ public class InitParam {
     public static final String APK_NAME = "AC00" + APK + ".apk";
     public static final String LOGO_NAME = "logo.png";
 
+    /**
+     * 隐藏音量条时间  单位：ms
+     */
+    public static final int HIDE_VOICE_TIME = 3000;
     /**
      * warm up 时间
      */

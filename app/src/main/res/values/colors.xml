@@ -54,7 +54,6 @@
     <color name="gridview_bg">#1C1C1C</color>
 
 
-
     <color name="ble_tv_device_black">#1C1C1C</color>
     <color name="ble_tv_device_name_black">#929292</color>
     <color name="ble_bt_connect_1">#12aece</color>
@@ -271,4 +270,6 @@
     <color name="color_picker_view_disable_scale">#7FE6E6E6</color>
     <color name="color_picker_view_disable_buoy">#7F9D2227</color>
     <color name="color_picker_view_disable_triangle">#7F9D2227</color>
+
+    <color name="color_bt_smart_refresh">#E1E1E1</color>
 </resources>

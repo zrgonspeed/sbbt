@@ -656,7 +656,7 @@ public class BtUtil {
             if (isPhone(device)) {
                 boolean connecting2 = isConnecting2(context, device);
                 boolean connecting = isConnecting(device);
-                Logger.e("deviceName ==  " + device.getName());
+//                Logger.e("deviceName ==  " + device.getName());
                 Logger.e("connecting2 == " + connecting2 + "    connecting == " + connecting);
                 Logger.e(TAG, "当前已配对的设备是手机");
                 return true;
@@ -672,7 +672,7 @@ public class BtUtil {
             if (isBTEarphone(device)) {
                 boolean connecting2 = isConnecting2(context, device);
                 boolean connecting = isConnecting(device);
-                Logger.e("deviceName ==  " + device.getName());
+//                Logger.e("deviceName ==  " + device.getName());
                 Logger.e("connecting2 == " + connecting2 + "    connecting == " + connecting);
                 Logger.e(TAG, "当前已配对的设备是蓝牙音箱");
                 return true;

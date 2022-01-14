@@ -2,20 +2,28 @@ package com.run.treadmill.activity.floatWindow;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import com.run.treadmill.R;
+import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.widget.VerticalSeekBar;
 
+import java.lang.ref.WeakReference;
+
 public class VoiceFloatWindow {
+    private final int HIDE_VOICE = 10001;
     private Context mContext;
 
     private WindowManager mWindowManager;
@@ -24,6 +32,8 @@ public class VoiceFloatWindow {
     private WindowManager.LayoutParams wmParams;
     private RelativeLayout mFloatWindow;
     private VerticalSeekBar float_window_seek_bar_voice;
+
+    private MyFloatHandler myFloatHandler;
 
     VoiceFloatWindow(Context context, WindowManager windowManager) {
         this.mContext = context;
@@ -62,12 +72,8 @@ public class VoiceFloatWindow {
 
     private void init() {
         float_window_seek_bar_voice = (VerticalSeekBar) mFloatWindow.findViewById(R.id.float_window_seek_bar_voice);
-//        float_window_seek_bar_voice.setProgress(SystemSoundManager.getInstance().getCurrentPro(float_window_seek_bar_voice.getMax()));
-        float_window_seek_bar_voice.setProgress(SystemSoundManager.getInstance().getCurrentPro() > float_window_seek_bar_voice.getMax()
-                ? float_window_seek_bar_voice.getMax() : SystemSoundManager.getInstance().getCurrentPro());
-        if (SystemSoundManager.getInstance().getCurrentPro() > float_window_seek_bar_voice.getMax()) {
-            SystemSoundManager.getInstance().setAudioVolume(float_window_seek_bar_voice.getMax(), 100);
-        }
+//        float_window_seek_bar_voice.setProgress(VoiceManager.getInstance().getCurrentPro(float_window_seek_bar_voice.getMax()));
+        float_window_seek_bar_voice.setProgress(SystemSoundManager.getInstance().getCurrentPro());
         float_window_seek_bar_voice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
@@ -87,12 +93,33 @@ public class VoiceFloatWindow {
                 mFloatWindowManager.currentPro = progress;
             }
         });
+
+        float_window_seek_bar_voice.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        if (myFloatHandler != null) {
+                            myFloatHandler.removeMessages(HIDE_VOICE);
+                        }
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP:
+                        senHideVoiceMessage();
+                        break;
+                }
+                return false;
+            }
+        });
+        myFloatHandler = new MyFloatHandler(Looper.getMainLooper(), this);
     }
 
     void setProgress(int isUp) {
         if (float_window_seek_bar_voice == null || mFloatWindow == null) {
             return;
         }
+        showOrHideFloatWindow(false);
+
         if (mFloatWindow.getVisibility() == View.GONE) {
             if (isUp == 1) {
                 if (SystemSoundManager.getInstance().getCurrentPro() < 100) {
@@ -128,20 +155,55 @@ public class VoiceFloatWindow {
     public void showOrHideFloatWindow(boolean isShow) {
         if (isShow) {
             mFloatWindow.setVisibility(View.GONE);
+            myFloatHandler.removeMessages(HIDE_VOICE);
         } else {
             mFloatWindow.setVisibility(View.VISIBLE);
+            senHideVoiceMessage();
         }
     }
 
     public void showOrHideFloatWindow() {
         if (mFloatWindow.getVisibility() == View.VISIBLE) {
             mFloatWindow.setVisibility(View.GONE);
+            myFloatHandler.removeMessages(HIDE_VOICE);
         } else {
             mFloatWindow.setVisibility(View.VISIBLE);
+            senHideVoiceMessage();
         }
     }
 
+    private void senHideVoiceMessage() {
+        if (myFloatHandler != null) {
+            myFloatHandler.removeMessages(HIDE_VOICE);
+            myFloatHandler.sendEmptyMessageDelayed(HIDE_VOICE, InitParam.HIDE_VOICE_TIME);
+        }
+
+    }
+
     void stopFloat() {
+        myFloatHandler.removeCallbacksAndMessages(null);
+        myFloatHandler = null;
         mFloatWindowManager.removeView(mFloatWindow);
+    }
+
+    static class MyFloatHandler extends Handler {
+        private WeakReference<VoiceFloatWindow> mWeakRefrence;
+        private VoiceFloatWindow vfw;
+
+        MyFloatHandler(Looper looper, VoiceFloatWindow vfw) {
+            super(looper);
+            mWeakRefrence = new WeakReference<>(vfw);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (mWeakRefrence == null) {
+                return;
+            }
+            vfw = mWeakRefrence.get();
+            if (msg.what == vfw.HIDE_VOICE) {
+                vfw.mFloatWindow.setVisibility(View.GONE);
+            }
+        }
     }
 }

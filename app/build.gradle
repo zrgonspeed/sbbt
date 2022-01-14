@@ -80,6 +80,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.1.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
 
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-x'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-x'
+
     implementation project(':serial')
     implementation project(':fitShow')
 }

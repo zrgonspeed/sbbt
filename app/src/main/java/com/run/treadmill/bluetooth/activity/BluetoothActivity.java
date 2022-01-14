@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -33,10 +36,17 @@ import com.run.treadmill.bluetooth.other.BluetoothHelper;
 import com.run.treadmill.bluetooth.other.BluetoothReceiver;
 import com.run.treadmill.bluetooth.receiver.BleAutoPairHelper;
 import com.run.treadmill.bluetooth.window.BleLoading;
+import com.run.treadmill.bluetooth.window.MyHeader;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.widget.RecycleViewDivider;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.RefreshState;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
@@ -75,6 +85,9 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
     @BindView(R.id.tv_count)
     TextView tv_count;
 
+    @BindView(R.id.rl_status_refresh)
+    public SmartRefreshLayout rl_status_refresh;
+
     private Context context;
     private Activity activity;
 
@@ -82,6 +95,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
     private BluetoothAdapter bleAdapter;
     private BleAvaAdapter bleAvaAdapter;
     private BlePairedAdapter blePairedAdapter;
+    private boolean refreshing = false;
 
     @Override
     protected int getLayoutId() {
@@ -115,6 +129,48 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         rv_ble_paired.setVisibility(View.VISIBLE);
 
         initBle();
+        initRefreshList();
+    }
+
+    private void initRefreshList() {
+        rl_status_refresh.setRefreshHeader(new MyHeader(getApplicationContext()).setSpinnerStyle(SpinnerStyle.FixedBehind).setPrimaryColorId(R.color.white).setAccentColorId(android.R.color.darker_gray).setEnableLastTime(false));
+
+        rl_status_refresh.setNestedScrollingEnabled(true);
+        rl_status_refresh.setEnableLoadMore(false);
+        rl_status_refresh.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
+            @Override
+            public void onStateChanged(@NonNull RefreshLayout refreshLayout, @NonNull RefreshState oldState, @NonNull RefreshState newState) {
+                super.onStateChanged(refreshLayout, oldState, newState);
+//                Logger.i("oldState == " + oldState + "   newState == " + newState);
+                // oldState == RefreshFinish   newState == None  这时才刷新动画完成
+                if (oldState == RefreshState.RefreshFinish && newState == RefreshState.None) {
+//                    rl_status_refresh.setEnableRefresh(false);
+                    Logger.i("刷新动画完成");
+                }
+            }
+        });
+        rl_status_refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                // 正在刷新中不能再下拉刷新
+                if (refreshing) {
+                    Logger.i("正在刷新中不能再下拉刷新");
+                    rl_status_refresh.finishRefresh();
+                    return;
+                }
+
+                Logger.i("下拉刷新中");
+                startScan();
+
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    rl_status_refresh.finishRefresh(true);
+                }, 1500);
+            }
+        });
     }
 
     private void initBle() {
@@ -240,12 +296,14 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
             return;
         }
         setAnimation(View.VISIBLE, false, true);
-        bleAdapter.startDiscovery();
+
         blePairedAdapter.initList(BtUtil.getPairedDevices(bleAdapter));
 
         initSource();
         BluetoothReceiver.regBluetoothRec(this);
         BluetoothReceiver.regBluetoothStatus(this);
+
+        startScan();
     }
 
     /**
@@ -333,21 +391,42 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
             case R.id.pb_top_loading:
                 // 没转时才能点
                 // 搜索蓝牙
-                BluetoothHelper.getInstance().startLbeScan();
-                if (!pb_top_loading.isAnimating() && bleAdapter.isEnabled()) {
-                    //开始loading动画
-                    setAnimation(View.VISIBLE, false, true);
-//                    pb_loading.setVisibility(View.VISIBLE);
-                    tv_ble_no_device.setVisibility(View.GONE);
-                    if (bleAdapter != null) {
-                        bleAvaAdapter.clearList();
-                        bleAdapter.startDiscovery();
-                        bleAvaAdapter.clearDelBle();
-                        BluetoothHelper.getInstance().startLbeScan();
-                    }
+                if (!pb_top_loading.isAnimating()) {
+                    startScan();
                 }
                 break;
         }
+    }
+
+
+    private void startScan() {
+        if (refreshing) {
+            return;
+        }
+        startRefresh();
+        BluetoothHelper.getInstance().startLbeScan();
+        setAnimation(View.VISIBLE, false, true);
+
+        if (bleAdapter.isEnabled()) {
+            //开始loading动画
+            tv_ble_no_device.setVisibility(View.GONE);
+            if (bleAdapter != null) {
+                bleAvaAdapter.clearList();
+                bleAdapter.startDiscovery();
+                Logger.i("真的开始扫描了！！！！！！！！！！！！！！！！");
+                bleAvaAdapter.clearDelBle();
+                BluetoothHelper.getInstance().startLbeScan();
+                startRefresh();
+            }
+        }
+    }
+
+    private void startRefresh() {
+        refreshing = true;
+    }
+
+    public void stopRefresh() {
+        refreshing = false;
     }
 
     @OnCheckedChanged({R.id.tb_ble})
@@ -454,7 +533,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         // 应该像原生设置的蓝牙一样搜到的结果
         // 只显示音箱、耳机等设备
         if (BtUtil.isBTEarphone(device)) {
-            Logger.i(TAG, "找到设备   device " + device.getName() + "        type  " + BtUtil.getDeviceTypeString(device.getBluetoothClass()));
+            Logger.d(TAG, "找到设备   device " + device.getName() + "        type  " + BtUtil.getDeviceTypeString(device.getBluetoothClass()));
             bleAvaAdapter.addDevice(device, rssi);
 //            if (pb_loading.getVisibility() == View.VISIBLE) {
 //                pb_loading.setVisibility(View.GONE);
@@ -474,6 +553,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
 
     @Override
     public void onBTStateOFF() {
+        stopRefresh();
         setTb_ble(true, false);
         setAnimation(View.GONE, false, false);
         tv_count.setVisibility(View.GONE);
@@ -483,9 +563,9 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
 
     @Override
     public void onBTStateON() {
-        bleAdapter.startDiscovery();
+        startScan();
+
         setTb_ble(true, true);
-        setAnimation(View.VISIBLE, false, true);
         tv_count.setVisibility(View.GONE);
         setCount(0);
     }
@@ -498,7 +578,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
     @Override
     public void onFinishDiscovery() {
         Logger.e(TAG, "bleAvaAdapter.mBleDevices == " + bleAvaAdapter.mBleDevices);
-
+        stopRefresh();
         setAnimation(View.VISIBLE, true, false);
         if (BleDebug.debug) {
             tv_count.setVisibility(View.VISIBLE);

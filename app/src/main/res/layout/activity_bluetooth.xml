@@ -172,16 +172,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_ble_ava_title" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_ble_ava"
+
+            <!--下拉刷新-->
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/rl_status_refresh"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="@color/transparent"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_ble_ava_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_ble_ava_title">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_ble_ava"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:visibility="visible" />
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
             <!--加载圈-->
             <androidx.constraintlayout.widget.ConstraintLayout
