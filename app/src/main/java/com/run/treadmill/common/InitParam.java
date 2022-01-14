@@ -163,7 +163,7 @@ public class InitParam {
     /**
      * 默认轮径（英制）
      */
-    public static final float DEFAULT_WHEEL_SIZE = 2.55f;
+    public static final float DEFAULT_WHEEL_SIZE = 2.26f;
     /**
      * 默认速率
      */

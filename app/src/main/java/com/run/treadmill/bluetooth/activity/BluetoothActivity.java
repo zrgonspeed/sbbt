@@ -114,6 +114,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         rv_ble_paired.addItemDecoration(new RecycleViewDivider(context, LinearLayoutManager.HORIZONTAL, 2, context.getColor(R.color.ble_bt_item_decoration)));
         rv_ble_paired.setVisibility(View.VISIBLE);
 
+        pb_top_loading.setVisibility(View.GONE);
         initBle();
     }
 
@@ -275,14 +276,14 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
     private void setAnimation(int visible, boolean enable, boolean isStart) {
         Logger.d(TAG, "setAnimation()  visible==" + visible + "  enable==" + enable + "  isStart==" + isStart);
 
-        if (isStart) {
+/*        if (isStart) {
             pb_top_loading.start();
             pb_top_loading.setEnabled(false);
         } else {
             pb_top_loading.stop();
             pb_top_loading.setEnabled(true);
         }
-        pb_top_loading.setVisibility(visible);
+        pb_top_loading.setVisibility(visible);*/
     }
 
     private void setTb_ble(boolean enable, boolean isCheck) {
@@ -330,7 +331,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
             case R.id.btn_close:
                 finish();
                 break;
-            case R.id.pb_top_loading:
+/*            case R.id.pb_top_loading:
                 // 没转时才能点
                 // 搜索蓝牙
                 BluetoothHelper.getInstance().startLbeScan();
@@ -346,7 +347,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
                         BluetoothHelper.getInstance().startLbeScan();
                     }
                 }
-                break;
+                break;*/
         }
     }
 
