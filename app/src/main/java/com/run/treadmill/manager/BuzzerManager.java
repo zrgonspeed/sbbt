@@ -105,7 +105,7 @@ public class BuzzerManager {
 
         // 连续key的按键音取消 (speed incline)
         int keyValue = SerialUtils.keyValue;
-        Logger.e("keyValue == " + keyValue);
+//        Logger.e("keyValue == " + keyValue);
         if (keyValue == SerialKeyValue.INCLINE_UP_CLICK_LONG_1 || keyValue == SerialKeyValue.INCLINE_UP_CLICK_LONG_2
                 || keyValue == SerialKeyValue.SPEED_UP_CLICK_LONG_1 || keyValue == SerialKeyValue.SPEED_UP_CLICK_LONG_2
                 || keyValue == SerialKeyValue.INCLINE_DOWN_CLICK_LONG_1 || keyValue == SerialKeyValue.INCLINE_DOWN_CLICK_LONG_2

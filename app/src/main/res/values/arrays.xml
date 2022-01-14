@@ -2,11 +2,11 @@
 <resources>
     <string-array name="spinner_language">
         <item>US</item>
-        <!--<item>中文</item>-->
         <item>Deutsch</item>
         <item>Français</item>
         <item>Español</item>
         <item>Português</item>
+        <item>中文</item>
     </string-array>
 
     <string-array name="ignore_thirdAPK_send_message">
@@ -19,7 +19,7 @@
         <item>com.netflix.mediaclient</item>
         <item>com.android.music</item>
         <item>com.softwinner.fireplayer</item>
-        <item>com.baidu.searchbox.pad</item>
+        <item>org.mozilla.firefox</item>
         <item>com.sina.weibo</item>
         <item>com.qiyi.video.pad</item>
         <item>com.yahoo.mobile.client.android.flickr</item>
@@ -36,7 +36,7 @@
         <item>com.android.music</item>
         <item>com.softwinner.fireplayer</item>
         <item>com.anplus.tft</item>
-        <item>com.baidu.searchbox.pad</item>
+        <item>org.mozilla.firefox</item>
         <item>com.sina.weibo</item>
         <item>com.qiyi.video.pad</item>
         <item>com.yahoo.mobile.client.android.flickr</item>
@@ -56,7 +56,7 @@
         <item>com.android.music</item>
         <item>com.softwinner.fireplayer</item>
         <item>com.anplus.tft</item>
-        <item>com.baidu.searchbox.pad</item>
+        <item>org.mozilla.firefox</item>
         <item>com.sina.weibo</item>
         <item>com.qiyi.video.pad</item>
         <item>com.yahoo.mobile.client.android.flickr</item>

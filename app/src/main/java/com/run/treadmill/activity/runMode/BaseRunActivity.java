@@ -390,7 +390,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
         refreshWifiAndBt();
 
-        if (Integer.valueOf(mRunningParam.getShowPulse()) <= 0) {
+        if (Integer.parseInt(mRunningParam.getShowPulse()) <= 0) {
             if (img_pulse.getAnimation() != null && img_pulse.getAnimation().hasStarted()) {
                 img_pulse.clearAnimation();
             }

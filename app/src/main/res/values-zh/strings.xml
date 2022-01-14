@@ -196,7 +196,7 @@
     <string name="string_u_disk_no_file">找不到U盘更新</string>
 
     <!-- 第三方媒体app包名，类名 -->
-    <string name="string_app_pk_name_1">com.baidu.searchbox.pad</string>
+    <string name="string_app_pk_name_1">org.mozilla.firefox</string>
     <string name="string_app_pk_name_2">com.sina.weibo</string>
     <string name="string_app_pk_name_3">com.qiyi.video.pad</string>
     <string name="string_app_pk_name_4">me.wcy.music</string>

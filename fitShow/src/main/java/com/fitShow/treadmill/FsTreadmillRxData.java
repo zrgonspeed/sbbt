@@ -1,10 +1,10 @@
 package com.fitShow.treadmill;
 
 import android.hardware.SerialPort;
+import android.os.SystemClock;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
-
-import android.util.Log;
 
 import com.fitShow.ConvertData;
 
@@ -56,8 +56,8 @@ public final class FsTreadmillRxData {
 //            Log.d("Read", "iLen == " + iLen);
 //            Log.d("Read", "sss " + ConvertData.byteArrayToHexString(inPutBuffer.array(), iLen));
             if (iLen > 0) {
-                Log.d("Read", "iLen == " + iLen);
-                Log.d("Read", "sss " + ConvertData.byteArrayToHexString(inPutBuffer.array(), iLen));
+//                Log.d("Read", "iLen == " + iLen);
+//                Log.d("Read", "sss " + ConvertData.byteArrayToHexString(inPutBuffer.array(), iLen));
             }
             if (iLen >= 4
                     && (buff[0] & 0xFF) == FsTreadmillCommand.PKG_HEAD
@@ -77,6 +77,8 @@ public final class FsTreadmillRxData {
             if (hasPkg) {
                 break;
             }
+
+            SystemClock.sleep(100);
         }
         hasPkg = false;
         return iLen;
