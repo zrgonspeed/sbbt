@@ -103,7 +103,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
 
         ll_ble_paired.setVisibility(View.GONE);
         ll_ble_ava.setVisibility(View.GONE);
-        pb_loading.setVisibility(View.VISIBLE);
+//        pb_loading.setVisibility(View.VISIBLE);
         tv_ble_no_device.setVisibility(View.GONE);
 
         rv_ble_ava.setLayoutManager(new LinearLayoutManager(context));
@@ -114,7 +114,6 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         rv_ble_paired.addItemDecoration(new RecycleViewDivider(context, LinearLayoutManager.HORIZONTAL, 2, context.getColor(R.color.ble_bt_item_decoration)));
         rv_ble_paired.setVisibility(View.VISIBLE);
 
-        pb_top_loading.setVisibility(View.GONE);
         initBle();
     }
 
@@ -222,13 +221,13 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
 
                 if (bleAvaAdapter.getItemCount() == 0) {
                     if (pb_top_loading.isAnimating()) {
-                        pb_loading.setVisibility(View.VISIBLE);
+//                        pb_loading.setVisibility(View.VISIBLE);
                     } else {
-                        pb_loading.setVisibility(View.GONE);
+//                        pb_loading.setVisibility(View.GONE);
                     }
                     tv_ble_no_device.setVisibility(View.GONE);
                 } else {
-                    pb_loading.setVisibility(View.GONE);
+//                    pb_loading.setVisibility(View.GONE);
                 }
             }
         });
@@ -276,14 +275,14 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
     private void setAnimation(int visible, boolean enable, boolean isStart) {
         Logger.d(TAG, "setAnimation()  visible==" + visible + "  enable==" + enable + "  isStart==" + isStart);
 
-/*        if (isStart) {
+        if (isStart) {
             pb_top_loading.start();
             pb_top_loading.setEnabled(false);
         } else {
             pb_top_loading.stop();
             pb_top_loading.setEnabled(true);
         }
-        pb_top_loading.setVisibility(visible);*/
+        pb_top_loading.setVisibility(visible);
     }
 
     private void setTb_ble(boolean enable, boolean isCheck) {
@@ -331,14 +330,14 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
             case R.id.btn_close:
                 finish();
                 break;
-/*            case R.id.pb_top_loading:
+            case R.id.pb_top_loading:
                 // 没转时才能点
                 // 搜索蓝牙
                 BluetoothHelper.getInstance().startLbeScan();
                 if (!pb_top_loading.isAnimating() && bleAdapter.isEnabled()) {
                     //开始loading动画
                     setAnimation(View.VISIBLE, false, true);
-                    pb_loading.setVisibility(View.VISIBLE);
+//                    pb_loading.setVisibility(View.VISIBLE);
                     tv_ble_no_device.setVisibility(View.GONE);
                     if (bleAdapter != null) {
                         bleAvaAdapter.clearList();
@@ -347,7 +346,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
                         BluetoothHelper.getInstance().startLbeScan();
                     }
                 }
-                break;*/
+                break;
         }
     }
 
@@ -457,9 +456,9 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         if (BtUtil.isBTEarphone(device)) {
             Logger.i(TAG, "找到设备   device " + device.getName() + "        type  " + BtUtil.getDeviceTypeString(device.getBluetoothClass()));
             bleAvaAdapter.addDevice(device, rssi);
-            if (pb_loading.getVisibility() == View.VISIBLE) {
-                pb_loading.setVisibility(View.GONE);
-            }
+//            if (pb_loading.getVisibility() == View.VISIBLE) {
+//                pb_loading.setVisibility(View.GONE);
+//            }
         }
     }
 
@@ -508,7 +507,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         if (bleAvaAdapter.getItemCount() == 0) {
             tv_ble_no_device.setVisibility(View.VISIBLE);
             rv_ble_ava.setVisibility(View.GONE);
-            pb_loading.setVisibility(View.GONE);
+//            pb_loading.setVisibility(View.GONE);
         }
         bleAvaAdapter.notifyDataSetChanged();
     }

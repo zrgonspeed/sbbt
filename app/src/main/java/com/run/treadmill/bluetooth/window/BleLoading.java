@@ -41,7 +41,12 @@ public class BleLoading extends ProgressBar {
 
     public void stop() {
         setAnimating(false);
-        setIndeterminateDrawable(getContext().getDrawable(R.drawable.btn_setting_bluetooth_connect));
-        setProgressDrawable(getContext().getDrawable(R.drawable.btn_setting_bluetooth_connect));
+        setIndeterminateDrawable(getContext().getDrawable(R.drawable.img_factory_update_1));
+        setProgressDrawable(getContext().getDrawable(R.drawable.img_factory_update_1));
+    }
+
+    @Override
+    public void setVisibility(int visibility) {
+        super.setVisibility(visibility);
     }
 }
