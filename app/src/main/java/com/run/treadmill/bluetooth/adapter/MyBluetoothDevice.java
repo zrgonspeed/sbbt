@@ -18,4 +18,5 @@ public class MyBluetoothDevice {
     public int getBtStatus() {
         return btStatus;
     }
+
 }

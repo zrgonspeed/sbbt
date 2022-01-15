@@ -28,4 +28,6 @@ public interface BluetoothView extends BaseView {
     void addToPairedAdapter(BluetoothDevice device, short rssi);
 
     void updateItem(BluetoothDevice device);
+
+    void realConnected();
 }

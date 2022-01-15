@@ -14,6 +14,7 @@ import com.android.settingslib.bluetooth.CachedBluetoothDevice;
 import com.android.settingslib.bluetooth.CachedBluetoothDeviceManager;
 import com.android.settingslib.bluetooth.LocalBluetoothManager;
 import com.run.treadmill.R;
+import com.run.treadmill.bluetooth.adapter.BleAdapter;
 import com.run.treadmill.bluetooth.receiver.BleAutoPairHelper;
 import com.run.treadmill.util.Logger;
 
@@ -54,6 +55,8 @@ public class BtUtil {
     private static List<BluetoothDevice> mPairedDevices = new ArrayList<>();
 
     public static boolean connecting = false;
+    private static BleAdapter mBlePairedAdapter;
+    private static BleAdapter mBleAvaAdapter;
 
     public static String getDeviceTypeString(BluetoothClass bluetoothClass) {
         int deviceType = getDeviceType(bluetoothClass);
@@ -312,9 +315,9 @@ public class BtUtil {
         return false;
     }
 
-    public static boolean isHasConnected() {
+    public static boolean isHasConnected(Context context) {
         for (BluetoothDevice device : mPairedDevices) {
-            if (BtUtil.isConnecting(device)) {
+            if (BtUtil.isConnecting(device) && BtUtil.isConnecting2(context, device)) {
                 return true;
             }
         }
@@ -346,14 +349,14 @@ public class BtUtil {
             mDeviceManager = manager.getCachedDeviceManager();
             cachedDevice = mDeviceManager.findDevice(mBluetoothDevice);
             if (cachedDevice == null) {
-                Log.i(TAG, mBluetoothDevice.getName() + "    isConnecting2:" + false);
+                Log.i(TAG, mBluetoothDevice.getName() + "    isConnecting2:" + false + "   cachedDevice == null");
                 return false;
             }
             boolean isConnecting2 = cachedDevice.isConnected();
             Log.i(TAG, mBluetoothDevice.getName() + "    isConnecting2:" + isConnecting2);
             return isConnecting2;
         }
-        Log.i(TAG, mBluetoothDevice.getName() + "    isConnecting2:" + false);
+        Log.i(TAG, mBluetoothDevice.getName() + "    isConnecting2:" + false + "   mBluetoothDevice == null");
         return false;
     }
 
@@ -597,6 +600,21 @@ public class BtUtil {
                 disconnect2(context, device);
             }
         }
+    }
+
+    public static boolean hasConnecting() {
+        if (mBleAvaAdapter == null || mBlePairedAdapter == null) {
+            return false;
+        }
+        return mBleAvaAdapter.hasConnecting() || mBlePairedAdapter.hasConnecting();
+    }
+
+    public static void setBleAvaAdapter(BleAdapter bleAdapter) {
+        mBleAvaAdapter = bleAdapter;
+    }
+
+    public static void setBlePairedAdapter(BleAdapter bleAdapter) {
+        mBlePairedAdapter = bleAdapter;
     }
 
 

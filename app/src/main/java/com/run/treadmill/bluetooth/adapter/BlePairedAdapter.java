@@ -20,6 +20,7 @@ import com.run.treadmill.bluetooth.window.BleConnectButton;
 import com.run.treadmill.util.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.ViewHolder> implements BleAdapter {
@@ -39,6 +40,7 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
         this.mDelBleMac = new ArrayList<String>();
 
         BtUtil.setBlePairedDevices(mBleDevices);
+        BtUtil.setBlePairedAdapter(this);
     }
 
     @NonNull
@@ -105,7 +107,7 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
                     return;
                 }
 
-                if (hasConnecting()) {
+                if (BtUtil.hasConnecting()) {
                     Logger.i(TAG, "其它按钮还有状态");
                     return;
                 }
@@ -120,6 +122,9 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
                 BtUtil.disConnectCurrentDevice(mContext);
                 if (myDevice.getBtStatus() == 3) {
                     // 是当前设备断开
+                    holder.iv_icon.setBackgroundResource(R.drawable.btn_setting_bluetooth_1);
+                    holder.tv_ble_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_2f3031));
+                    holder.btn_ble_connect.setConnect();
                     return;
                 }
 
@@ -140,8 +145,8 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
         }
     }
 
-
-    private boolean hasConnecting() {
+    @Override
+    public boolean hasConnecting() {
         for (MyBluetoothDevice myDevice : myBluetoothDevices) {
             if (myDevice.getBtStatus() == 2) {
                 return true;
@@ -286,6 +291,11 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
                 tv_ble_bondstate.setVisibility(View.GONE);
                 tv_ble_address.setVisibility(View.GONE);
             }
+        }
+    }
+
+    private void sortList() {
+        for (MyBluetoothDevice myBluetoothDevice : myBluetoothDevices) {
         }
     }
 }

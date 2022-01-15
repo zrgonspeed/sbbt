@@ -14,7 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -29,7 +28,6 @@ import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.bluetooth.BleDebug;
 import com.run.treadmill.bluetooth.BleSwap.BleController;
 import com.run.treadmill.bluetooth.BleSwap.BtUtil;
-import com.run.treadmill.bluetooth.BleSwap.ToastUtils;
 import com.run.treadmill.bluetooth.adapter.BleAvaAdapter;
 import com.run.treadmill.bluetooth.adapter.BlePairedAdapter;
 import com.run.treadmill.bluetooth.other.BluetoothHelper;
@@ -133,8 +131,9 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
     }
 
     private void initRefreshList() {
-        rl_status_refresh.setRefreshHeader(new MyHeader(getApplicationContext()).setSpinnerStyle(SpinnerStyle.FixedBehind).setPrimaryColorId(R.color.white).setAccentColorId(android.R.color.darker_gray).setEnableLastTime(false));
+        refreshPairedAdapter();
 
+        rl_status_refresh.setRefreshHeader(new MyHeader(getApplicationContext()).setSpinnerStyle(SpinnerStyle.FixedBehind).setPrimaryColorId(R.color.white).setAccentColorId(android.R.color.darker_gray).setEnableLastTime(false));
         rl_status_refresh.setNestedScrollingEnabled(true);
         rl_status_refresh.setEnableLoadMore(false);
         rl_status_refresh.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
@@ -263,11 +262,11 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
                 } else {
                     Logger.d(TAG, ">>>>>>>>>>>> onAvaItemClick 4");
 
-                    if (bleAvaAdapter.isHasConnected()) {
+/*                    if (bleAvaAdapter.isHasConnected()) {
                         ToastUtils.show(context.getString(R.string.workout_head_ble_sink_hint_exitlink), Toast.LENGTH_SHORT);
                         bleAvaAdapter.notifyDataSetChanged();
                         return;
-                    }
+                    }*/
 
                     getPresenter().connectAva(device);
                 }
@@ -600,6 +599,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
 //            pb_loading.setVisibility(View.GONE);
         }
         bleAvaAdapter.notifyDataSetChanged();
+        blePairedAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -613,5 +613,12 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
     @Override
     public void updateItem(BluetoothDevice device) {
         bleAvaAdapter.updateItem(device);
+    }
+
+    @Override
+    public void realConnected() {
+        BtUtil.clickConnBt = false;
+        refreshPairedAdapter();
+        refreshAvaAdapter();
     }
 }

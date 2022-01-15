@@ -136,16 +136,22 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
                 BluetoothDevice newDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 Logger.d(TAG, "收到配对请求 >> " + newDevice.getName() + "  type == " + BtUtil.getDeviceTypeString(newDevice.getBluetoothClass()));
 
-                if (BtUtil.isHasConnected()) {
+                if (BtUtil.isHasConnected(context)) {
                     Logger.e("当前已有设备连接，不接受新的配对");
                     return;
                 }
 
                 if (BtUtil.isPhone(newDevice)) {
+                    if (bluetoothAdapter != null) {
+                        bluetoothAdapter.cancelDiscovery();
+                    }
                     BtUtil.setSubordinate(activity);
                 }
 
                 if (BtUtil.isBTEarphone(newDevice)) {
+                    if (bluetoothAdapter != null) {
+                        bluetoothAdapter.cancelDiscovery();
+                    }
                     BtUtil.setPrincipal(activity);
                 }
                 break;
@@ -158,7 +164,7 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
             case BluetoothAdapter.ACTION_DISCOVERY_FINISHED: {
                 Logger.i(TAG, "ACTION_DISCOVERY_FINISHED >> ");
                 getView().onFinishDiscovery();
-                mBleController.removeMsg();
+//                mBleController.removeMsg();
                 break;
             }
             case BluetoothDevice.ACTION_ACL_CONNECTED: {
@@ -235,9 +241,7 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
                         }
                         case BluetoothAdapter.STATE_CONNECTED:
                             Logger.i(TAG, "真正连接成功，可播放");
-                            BtUtil.clickConnBt = false;
-                            getView().refreshPairedAdapter();
-                            getView().refreshAvaAdapter();
+                            getView().realConnected();
                             break;
                         case BluetoothAdapter.STATE_DISCONNECTED: {
                             Logger.d(TAG, "BluetoothAdapter.STATE_DISCONNECTED");
@@ -316,7 +320,9 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
 
             @Override
             public void onConnFailed() {
+                BtUtil.clickConnBt = false;
                 getView().refreshAvaAdapter();
+                getView().refreshPairedAdapter();
                 ToastUtils.show(context.getString(R.string.workout_head_ble_sink_hint_timeout), Toast.LENGTH_SHORT);
             }
         });
@@ -345,8 +351,9 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
 
             @Override
             public void onConnFailed() {
-                getView().refreshPairedAdapter();
                 BtUtil.clickConnBt = false;
+                getView().refreshPairedAdapter();
+                Logger.e(TAG, "蓝牙连接超时 " + device.getName());
                 ToastUtils.show(context.getString(R.string.workout_head_ble_sink_hint_timeout), Toast.LENGTH_SHORT);
             }
         });

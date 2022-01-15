@@ -38,6 +38,8 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
         this.myBluetoothDevices = new ArrayList<MyBluetoothDevice>();
         this.mRssis = new ArrayList<Short>();
         this.mDelBleMac = new ArrayList<String>();
+
+        BtUtil.setBleAvaAdapter(this);
     }
 
     @NonNull
@@ -95,11 +97,11 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
         holder.btn_ble_connect.setOnClickListener(v -> {
             if (mListener != null) {
                 Logger.d(TAG, ">>>>>>>>>>>> onAvaItemClick = " + mDevice.getName());
-                if (BtUtil.clickConnBt) {
-                    return;
-                }
+//                if (BtUtil.clickConnBt) {
+//                    return;
+//                }
 
-                if (hasConnecting()) {
+                if (BtUtil.hasConnecting()) {
                     Logger.i(TAG, "其它按钮还有状态");
                     return;
                 }
@@ -130,7 +132,8 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
         }
     }
 
-    private boolean hasConnecting() {
+    @Override
+    public boolean hasConnecting() {
         for (MyBluetoothDevice myDevice : myBluetoothDevices) {
             if (myDevice.getBtStatus() == 2) {
                 return true;

@@ -10,6 +10,8 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.run.treadmill.util.Logger;
+
 @SuppressLint("MissingPermission")
 public class BleController {
 
@@ -93,6 +95,7 @@ public class BleController {
      * @param connectCallback 连接回调
      */
     public void Connect(final String address, ConnectCallback connectCallback) {
+        Logger.i(TAG, "正在连接蓝牙   address == " + address);
         Connect(CONNECTION_TIME_OUT, address, connectCallback);
     }
 
@@ -111,6 +114,9 @@ public class BleController {
         }, connectionTimeOut <= 0 ? CONNECTION_TIME_OUT : connectionTimeOut);
     }
 
+    /**
+     * 取消连接超时失败回调
+     */
     public void removeMsg() {
         mHandler.removeCallbacksAndMessages(null);
     }
