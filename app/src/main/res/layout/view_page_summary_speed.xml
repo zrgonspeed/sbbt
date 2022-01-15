@@ -15,10 +15,10 @@
         android:id="@+id/tv_max_speed"
         android:layout_width="@dimen/dp_px_230_x"
         android:layout_height="@dimen/dp_px_120_y"
-        android:layout_marginStart="@dimen/dp_px_300_x"
+        android:layout_marginStart="@dimen/dp_px_240_x"
         android:layout_marginTop="@dimen/dp_px_608_y"
-        android:gravity="center"
-        android:text="15"
+        android:gravity="center|right"
+        android:text="15.0"
         android:textColor="@color/yellow"
         android:textSize="@dimen/font_size_47pt" />
 
@@ -36,10 +36,10 @@
         android:id="@+id/tv_min_speed"
         android:layout_width="@dimen/dp_px_230_x"
         android:layout_height="@dimen/dp_px_120_y"
-        android:layout_marginStart="@dimen/dp_px_1020_x"
+        android:layout_marginStart="@dimen/dp_px_970_x"
         android:layout_marginTop="@dimen/dp_px_608_y"
-        android:gravity="center"
-        android:text="5.0"
+        android:gravity="center|right"
+        android:text="50.0"
         android:textColor="@color/yellow"
         android:textSize="@dimen/font_size_47pt" />
 
@@ -54,7 +54,7 @@
         android:textSize="@dimen/font_size_25pt" />
 
     <TextView
-        android:layout_width="@dimen/dp_px_300_x"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_350_x"
         android:layout_marginTop="@dimen/dp_px_720_y"
@@ -64,7 +64,7 @@
         android:textSize="@dimen/font_size_25pt" />
 
     <TextView
-        android:layout_width="@dimen/dp_px_230_x"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_1080_x"
         android:layout_marginTop="@dimen/dp_px_720_y"

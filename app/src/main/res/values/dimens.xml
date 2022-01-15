@@ -18,6 +18,9 @@
     <dimen name="font_size_40pt">40sp</dimen>
     <dimen name="font_size_50pt">50sp</dimen>
 
+    <dimen name="font_size_factory_one_wheel_size">42sp</dimen>
+    <dimen name="font_size_factory_one_cali">38sp</dimen>
+
 
     <dimen name="dp_px_0_x">0dp</dimen>
     <dimen name="dp_px_1_x">1dp</dimen>

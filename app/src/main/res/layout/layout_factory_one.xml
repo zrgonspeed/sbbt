@@ -26,7 +26,7 @@
         android:paddingRight="@dimen/dp_px_5_x"
         android:text="@string/string_factory_calibration"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_18pt" />
+        android:textSize="@dimen/font_size_factory_one_cali" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
         android:id="@+id/rg_metric"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_501_x"
+        android:layout_marginStart="@dimen/dp_px_520_x"
         android:layout_marginTop="@dimen/dp_px_205_y"
         android:orientation="horizontal">
 
@@ -148,7 +148,7 @@
         android:layout_marginTop="@dimen/dp_px_758_y"
         android:text="@string/string_factory_wheel"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_21pt"
+        android:textSize="@dimen/font_size_factory_one_wheel_size"
         android:visibility="visible" />
 
     <TextView

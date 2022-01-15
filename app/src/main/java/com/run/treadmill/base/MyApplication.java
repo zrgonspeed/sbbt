@@ -78,17 +78,6 @@ public class MyApplication extends LitePalApplication {
             changeSystemLanguage60(new Locale(language));
 
         }
-        // 旧的
-/*        if (!(locale.getLanguage().endsWith("en")
-                || locale.getLanguage().endsWith("de")
-                || locale.getLanguage().endsWith("fr")
-                || locale.getLanguage().endsWith("es")
-                || locale.getLanguage().contains("pt")
-                || locale.getLanguage().contains("zh"))) {
-            Logger.d("changeSystemLanguage60 Locale.ENGLISH");
-            changeSystemLanguage60(Locale.ENGLISH);
-            return;
-        }*/
 
         CrashHandler myc = new CrashHandler(getApplicationContext());
         Thread.setDefaultUncaughtExceptionHandler(myc);

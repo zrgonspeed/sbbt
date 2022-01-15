@@ -165,34 +165,34 @@
             android:src="@drawable/img_program_frame_1" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_px_300_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_240_x"
+            android:layout_marginStart="@dimen/dp_px_210_x"
             android:layout_marginTop="@dimen/dp_px_240_y"
             android:gravity="center"
             android:text="@string/string_hrc60"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/font_size_21pt" />
+            android:textSize="@dimen/font_size_18pt" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_px_300_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_240_x"
+            android:layout_marginStart="@dimen/dp_px_210_x"
             android:layout_marginTop="@dimen/dp_px_376_y"
             android:gravity="center"
             android:text="@string/string_hrc80"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/font_size_21pt" />
+            android:textSize="@dimen/font_size_18pt" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_px_300_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_240_x"
+            android:layout_marginStart="@dimen/dp_px_210_x"
             android:layout_marginTop="@dimen/dp_px_512_y"
             android:gravity="center"
             android:text="@string/string_target_hr"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/font_size_21pt" />
+            android:textSize="@dimen/font_size_18pt" />
 
         <RadioGroup
             android:id="@+id/rg_hrc"
