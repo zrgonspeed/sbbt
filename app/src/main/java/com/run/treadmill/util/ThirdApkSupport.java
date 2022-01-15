@@ -100,6 +100,10 @@ public class ThirdApkSupport {
             return;
         }
 
+        if ("com.qiyi.video.pad".equals(packageName)) {
+            context.startActivity(context.getPackageManager().getLaunchIntentForPackage(packageName));
+        }
+
         // 不知为何打开service不行
 //        if ("com.netflix.mediaclient".equals(packageName)) {
 //            context.startActivity(context.getPackageManager().getLaunchIntentForPackage(packageName));
