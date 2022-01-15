@@ -517,9 +517,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             }
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP && !btn_pause_continue.isEnabled()) {
                 btn_pause_continue.setEnabled(true);
-                if (FitShowTreadmillManager.getInstance().isConnect()) {
-                    FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_PAUSED);
-                }
             }
             return;
         }
@@ -530,9 +527,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             }
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP && !btn_pause_continue.isEnabled()) {
                 btn_pause_continue.setEnabled(true);
-                if (FitShowTreadmillManager.getInstance().isConnect()) {
-                    FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_PAUSED);
-                }
             }
             return;
         }
@@ -598,14 +592,11 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                     BuzzerManager.getInstance().buzzerRingOnce();
                     mRunningParam.runStatus = CTConstant.RUN_STATUS_STOP;
                     btn_pause_continue.setEnabled(false);
+                    // gsMode默认false
+                    // 客户要求修改扬升机制
+                    ControlManager.getInstance().stopRun(false);
+                    ControlManager.getInstance().resetIncline();
 
-                    //默认为不打开GS模式 ,这样不会下发扬升暂停命令
-                    //同时需要额外下发扬升复位命令
-                    /*if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-                        ControlManager.getInstance().stopRunOnPause();
-                    } else {*/
-                    ControlManager.getInstance().stopRun(gsMode);
-                    //   }
                     if (mVideoPlayerSelf != null) {
                         mVideoPlayerSelf.videoPlayerStartPause();
                     }
@@ -1065,10 +1056,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         if (mRunningParam != null) {
             mRunningParam.end();
         }
-        if (!gsMode && ErrorManager.getInstance().errStatus != ErrorManager.ERR_INCLINE_CALIBRATE
-                && !ErrorManager.getInstance().hasInclineError) {
-            ControlManager.getInstance().resetIncline();
-        }
+
         shortDownThirtyApk();
     }
 

@@ -136,6 +136,15 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
     }
 
     @Override
+    protected void showPopTip() {
+        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+            getPresenter().setSpeedValue(0, minSpeed, true);
+            getPresenter().setInclineValue(0, 0, true);
+        }
+        super.showPopTip();
+    }
+
+    @Override
     public void onSpeedChange(float speed) {
         tv_speed.setText(getSpeedValue(String.valueOf(speed)));
         refreshLineChart();

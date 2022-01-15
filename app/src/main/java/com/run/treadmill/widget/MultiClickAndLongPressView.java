@@ -74,7 +74,7 @@ public class MultiClickAndLongPressView extends ImageView {
                 //将原数组的第二位到最后一个复制到第1位到倒数第2位
                 System.arraycopy(mHints, 1, mHints, 0, mHints.length - 1);
                 mHints[mHints.length - 1] = SystemClock.uptimeMillis();
-                Logger.d("onClick", "mHints[0]=" + mHints[0] + ",m(SystemClock.uptimeMillis() - limiit)=" + (SystemClock.uptimeMillis() - limiit));
+                //Logger.d("onClick", "mHints[0]=" + mHints[0] + ",m(SystemClock.uptimeMillis() - limiit)=" + (SystemClock.uptimeMillis() - limiit));
                 if (mHints[0] >= (SystemClock.uptimeMillis() - limiit)) {
                     if (multiClickListener != null) {
                         mHints = new long[mCount];

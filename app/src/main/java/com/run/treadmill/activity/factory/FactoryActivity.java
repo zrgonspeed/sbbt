@@ -485,15 +485,9 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
 
     private void initNeedResetSetting() {
         tb_sleep.setChecked(SpManager.getSleep());
-//        tb_display.setChecked(SpManager.getDisplay());
-        tb_incline.setChecked(SpManager.getGSMode());
+        tb_incline.setChecked(false);
+        tb_incline.setEnabled(false);
         tb_buzzer.setChecked(SpManager.getBuzzer());
-//        tb_login_ctrl.setChecked(SpManager.getLoginCtrl());
-//        tv_lube.setText(String.format("%d %s", SpManager.getMaxLubeDis(), getString(isMetric ? R.string.string_unit_km : R.string.string_unit_mile)));
-
-//        tv_lube.setText(String.format("%s %s"
-//                , UnitUtil.getFloatToIntClear(isMetric ? (SpManager.getMaxLubeDis() - SpManager.getRunLubeDis()) : UnitUtil.getKmToMile(SpManager.getMaxLubeDis() - SpManager.getRunLubeDis()))
-//                , isMetric ? getString(R.string.string_unit_km) : getString(R.string.string_unit_mile)));
         tv_lube.setText(String.format("%s %s"
                 , UnitUtil.getFloatToIntClear(SpManager.getMaxLubeDis() - SpManager.getRunLubeDis() <= 0 ? 0 : SpManager.getMaxLubeDis() - SpManager.getRunLubeDis())
                 , getString(isMetric ? R.string.string_unit_km : R.string.string_unit_mile)));

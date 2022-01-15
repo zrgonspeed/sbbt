@@ -50,6 +50,15 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
     }
 
     @Override
+    protected void showPopTip() {
+        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+            getPresenter().setSpeedValue(0, minSpeed, false);
+            getPresenter().setInclineValue(0, 0, false);
+        }
+        super.showPopTip();
+    }
+
+    @Override
     public void dataCallback() {
         super.dataCallback();
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN && mRunningParam.getCoolDownTime() == 0) {

@@ -521,16 +521,8 @@ public class SpManager {
     }
 
     public static boolean getGSMode() {
-        return StorageParam.getParam(SET_GS_INCLINE, true);
+        return StorageParam.getParam(SET_GS_INCLINE, false);
     }
-
-//    public static void setLoginCtrl(boolean loginCtrl){
-//        StorageParam.setParam(SET_LOGIN_CTRL, loginCtrl);
-//    }
-//
-//    public static boolean getLoginCtrl(){
-//        return StorageParam.getParam(SET_LOGIN_CTRL,true);
-//    }
 
     /**
      * 获取最大速度

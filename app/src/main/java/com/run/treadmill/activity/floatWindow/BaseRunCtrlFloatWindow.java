@@ -315,12 +315,10 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 }
                 BuzzerManager.getInstance().buzzerRingOnce();
                 mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_STOP;
-
-                /*if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-                    ControlManager.getInstance().stopRunOnPause();
-                } else {*/
-                ControlManager.getInstance().stopRun(gsMode);
-                //}
+                // gsMode默认false
+                // 客户要求修改扬升机制
+                ControlManager.getInstance().stopRun(false);
+                ControlManager.getInstance().resetIncline();
                 if (FitShowTreadmillManager.getInstance().isConnect()) {
                     FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_PAUSED);
                 }

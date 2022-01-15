@@ -41,6 +41,7 @@ import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.NotificationBackend;
 import com.run.treadmill.util.PermissionUtil;
+import com.run.treadmill.util.ThirdApkSupport;
 import com.run.treadmill.widget.LongPressView;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
 
@@ -100,6 +101,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     private boolean isOpenGSMode = false;
     private int curMinAD = 0;
+    private boolean isFirst = true;
     private boolean isOnPause = false;
 
 
@@ -107,16 +109,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Context context = getApplicationContext();
-        //TODO :注意 这是专门用来屏蔽第三方apk消息的包名列表,在更改第三方apk种类的时候需要连同这个也一起更新
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String[] pkNames = context.getResources().getStringArray(R.array.ignore_thirdAPK_send_message);
-                for (String pkName : pkNames) {
-                    NotificationBackend.setNotificationsBanned(context, pkName, false);
-                }
-            }
-        }).start();
+        onCreateMission();
         init();
 
         // 延迟3秒
@@ -129,10 +122,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
         GpIoUtils.setScreen_1();
 
-        // 用于发出按键声音, 可能第三方通知会大声
-        AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        mAudioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, mAudioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-//        Logger.i("maxVolume == " + mAudioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
     }
 
     @Override
@@ -164,9 +153,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             int errorTip = ErrorManager.getInstance().getErrorTip();
             if (errorTip != CTConstant.NO_SHOW_TIPS) {
                 tipsPop.showTipPop(errorTip);
-                if (ErrorManager.getInstance().errStatus == CTConstant.SHOW_TIPS_COMM_ERROR) {
-                    //otaUpdate();
-                }
+
             } else {
                 getPresenter().checkLubeAndLock();
             }
@@ -197,21 +184,18 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 tipsPop.showTipPop(errorTip);
             } else {
                 getPresenter().checkLubeAndLock();
-                if (tipsPop.getLastTips() == CTConstant.NO_SHOW_TIPS
-                        && getPresenter().checkMachineLubeNull()) {
-                    showMachineLue(CTConstant.SHOW_TIPS_MACHINE_LUBE_NULL);
-                }
             }
         }
     }
 
     @Override
     protected void onPause() {
-        isOnPause = true;
         super.onPause();
+        isOnPause = true;
         if (mSleepTimer != null) {
             mSleepTimer.closeTimer();
         }
+        isFirst = false;
         FitShowTreadmillManager.getInstance().setFitShowStatusCallBack(null);
     }
 
@@ -228,7 +212,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         }
         if (btn_quick_start.isEnabled()) {
             btn_quick_start.setEnabled(false);
-            btn_machine_lube.setEnabled(false);
+
             FitShowTreadmillManager.getInstance().setNOtConnect(true);
         }
         showTipPop(CTConstant.SHOW_TIPS_OTHER_ERROR);
@@ -243,18 +227,17 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         startTimerOfSafe();
         if (btn_quick_start.isEnabled()) {
             btn_quick_start.setEnabled(false);
-            btn_machine_lube.setEnabled(false);
+
             FitShowTreadmillManager.getInstance().setNOtConnect(true);
         }
     }
 
     @Override
     public void commOutError() {
-        //otaUpdate();
         showTipPop(CTConstant.SHOW_TIPS_COMM_ERROR);
         if (btn_quick_start.isEnabled()) {
             btn_quick_start.setEnabled(false);
-            btn_machine_lube.setEnabled(false);
+
             FitShowTreadmillManager.getInstance().setNOtConnect(true);
         }
     }
@@ -269,6 +252,9 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         }
     }
 
+    /**
+     * 没人调
+     */
     @Override
     public void showLube() {
         showTipPop(CTConstant.SHOW_TIPS_LUBE);
@@ -276,7 +262,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @Override
     public void showMachineLue(int type) {
-        showTipPop(type);
+
     }
 
     @Override
@@ -297,7 +283,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     private void showTipPop(int tips) {
         if (!((MyApplication) getApplication()).isFirst) {
             btn_factory.releasedLongClick();
-            btn_machine_lube.releasedLongClick();
             tipsPop.showTipPop(tips);
         }
     }
@@ -329,6 +314,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             if (!ErrorManager.getInstance().exitError
                     && btn_quick_start.isEnabled()) {
                 btn_quick_start.performClick();
+                BuzzerManager.getInstance().buzzerRingOnce();
             }
         }
 //        if (keyValue == SerialKeyValue.STOP_CLICK) {
@@ -344,13 +330,13 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @Override
     public void beltAndInclineStatus(int beltStatus, int inclineStatus, int curInclineAd) {
-        if (isOnPause) {//防止切换界面还调用该方法（运动秀受影响）/
+        //Log.d("beltAndInclineStatus", ",beltStatus=" + beltStatus + ",inclineStatus=" + inclineStatus + ",curInclineAd=" + curInclineAd);
+        if (isOnPause) {//防止切换界面还调用该方法（运动秀受影响）
             return;
         }
         if (!SafeKeyTimer.getInstance().getIsSafe()) {
             if (btn_quick_start.isEnabled()) {
                 btn_quick_start.setEnabled(false);
-                btn_machine_lube.setEnabled(false);
             }
             FitShowTreadmillManager.getInstance().setNOtConnect(true);
             return;
@@ -366,15 +352,23 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         if (tipsPop.isShowTips()) {
             if (btn_quick_start.isEnabled()) {
                 btn_quick_start.setEnabled(false);
-                btn_machine_lube.setEnabled(false);
             }
             FitShowTreadmillManager.getInstance().setNOtConnect(true);
             return;
         }
         if (beltStatus != 0) {
             if (btn_quick_start.isEnabled()) {
+
                 btn_quick_start.setEnabled(false);
-                btn_machine_lube.setEnabled(false);
+            }
+            if (isFirst) {
+                if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
+                    ControlManager.getInstance().stopRun(false);
+                } else {
+                    ControlManager.getInstance().stopRun(false);
+//                    ControlManager.getInstance().resetIncline();
+                }
+                isFirst = false;
             }
             FitShowTreadmillManager.getInstance().setNOtConnect(true);
             return;
@@ -387,7 +381,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         if (ErrorManager.getInstance().isHasInclineError()) {
             if (!btn_quick_start.isEnabled()) {
                 btn_quick_start.setEnabled(true);
-                btn_machine_lube.setEnabled(true);
             }
             FitShowTreadmillManager.getInstance().setNOtConnect(false);
             return;
@@ -398,7 +391,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             if (checkADValueIsInSafe(curInclineAd)) {
                 if (!btn_quick_start.isEnabled()) {
                     btn_quick_start.setEnabled(true);
-                    btn_machine_lube.setEnabled(true);
                 }
                 FitShowTreadmillManager.getInstance().setNOtConnect(false);
                 return;
@@ -406,8 +398,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         }
 
         if (btn_quick_start.isEnabled()) {
+
             btn_quick_start.setEnabled(false);
-            btn_machine_lube.setEnabled(false);
         }
         FitShowTreadmillManager.getInstance().setNOtConnect(true);
     }
@@ -449,25 +441,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 runOnUiThread(() -> tv_sleep.setVisibility(View.VISIBLE));
             }
             mSleepTimer.closeTimer();
-        } else if (tag.equals(machineLubeTag)) {
-            if (tipsPop.getLastTips() != CTConstant.SHOW_TIPS_MACHINE_LUBE
-                    && tipsPop.getLastTips() != CTConstant.SHOW_TIPS_LUBE) {
-                ControlManager.getInstance().setLube(0);
-                machineLubeTimer.closeTimer();
-                return;
-            }
-            if (lastTime < InitParam.MACHINE_LUBE_TIME) {
-                return;
-            }
-            machineLubeTimer.closeTimer();
-            ControlManager.getInstance().setLube(0);
-            runOnUiThread(() -> {
-                        if (tipsPop.getLastTips() == CTConstant.SHOW_TIPS_MACHINE_LUBE) {
-                            tipsPop.stopTipsPop();
-                        }
-                        tipsPop.machineLubeFinish();
-                    }
-            );
         }
     }
 
@@ -480,7 +453,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     public void onTipDialogDismiss(@CTConstant.TipPopType int tipPopType) {
         if (btn_quick_start.isEnabled()) {
             btn_quick_start.setEnabled(false);
-            btn_machine_lube.setEnabled(false);
             FitShowTreadmillManager.getInstance().setNOtConnect(true);
         }
     }
@@ -493,6 +465,11 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     }
 
     @Override
+    public void startMachineLubeTimer() {
+
+    }
+
+    @Override
     public void wakeUpSleep() {
         if (GpIoUtils.checkScreenState() == GpIoUtils.IO_STATE_0) {
             GpIoUtils.setScreen_1();
@@ -500,33 +477,20 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             tv_sleep.setVisibility(View.GONE);
         }
         startTimerOfSleep();
-
     }
 
     @Override
     public boolean isQuickStartEnable() {
-        return btn_quick_start.isEnabled();
-    }
-
-    @Override
-    public void startMachineLubeTimer() {
-        if (machineLubeTimer == null) {
-            machineLubeTimer = new CustomTimer();
-            machineLubeTimer.setTag(machineLubeTag);
-        }
-        machineLubeTimer.closeTimer();
-        machineLubeTimer.setTag(machineLubeTag);
-        machineLubeTimer.startTimer(1000, 1000, this);
+        return false;
     }
 
     @Override
     public void onClick(View view) {
         if (getPresenter().inOnSleep) {
-            // 睡眠时点击屏幕不唤醒
-//            wakeUpSleep();
+            wakeUpSleep();
             return;
         }
-        reSetSleepTime();
+/*        reSetSleepTime();
         if (isOnClicking) {
             return;
         }
@@ -536,6 +500,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         if (ErrorManager.getInstance().exitError) {
             return;
         }
+        }*/
+
         if (view.getId() != R.id.btn_quick_start) {
             BuzzerManager.getInstance().buzzerRingOnce();
         }
@@ -585,6 +551,26 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         }
     }
 
+    private void onCreateMission() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                    String[] pkNames = getApplicationContext().getResources().getStringArray(R.array.ignore_thirdAPK_send_message);
+                    //TODO :注意 这是专门用来屏蔽第三方apk消息的包名列表,在更改第三方apk种类的时候需要连同这个也一起更新
+                    for (String pkName : pkNames) {
+                        NotificationBackend.setNotificationsBanned(getApplicationContext(), pkName, false);
+                        ThirdApkSupport.killCommonApp(getApplicationContext(), pkName);
+                    }
+                } catch (Exception ignore) {
+                }
+
+            }
+        }).start();
+
+    }
+
     private void init() {
         btn_quick_start.setOnClickListener(this);
         btn_userprogram.setOnClickListener(this);
@@ -600,46 +586,27 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         //开机上电需要reboot时间
         isNormal = false;
 
-        btn_factory.setOnMultiClickListener(new MultiClickAndLongPressView.OnMultiClickListener() {
-            @Override
-            public void onMultiClick() {
-                if (getPresenter().inOnSleep
-                        || isOnClicking) {
-                    return;
-                }
-                isOnClicking = true;
-                startActivity(new Intent(HomeActivity.this, FactoryActivity.class));
+        // 点10次进工厂模式
+        btn_factory.setOnMultiClickListener(() -> {
+            if (getPresenter().inOnSleep
+                    || isOnClicking) {
                 return;
             }
-        });
-
-        btn_machine_lube.setOnLongClickListener(v -> {
-            if (getPresenter().inOnSleep
-                    || isOnClicking
-                    || !btn_machine_lube.isEnabled()) {
-                return false;
-            }
-            if (getPresenter().checkMachineLubeNull()) {
-                showMachineLue(CTConstant.SHOW_TIPS_MACHINE_LUBE_NULL);
-            } else {
-                showMachineLue(CTConstant.SHOW_TIPS_MACHINE_LUBE);
-            }
-            return false;
+            isOnClicking = true;
+            startActivity(new Intent(HomeActivity.this, FactoryActivity.class));
         });
 
         PermissionUtil.hasReadExternalStoragePermission(this);
         PermissionUtil.hasAlertWindowPermission(this);
 
         tipsPop = new HomeTipsDialog(this);
-        // 点击屏幕不唤醒
-//        tv_sleep.setOnClickListener(v -> {
-//            if (getPresenter().inOnSleep) {
-//                wakeUpSleep();
-//            } else {
-//                reSetSleepTime();
-//            }
-//        });
-
+        tv_sleep.setOnClickListener(v -> {
+            if (getPresenter().inOnSleep) {
+                wakeUpSleep();
+            } else {
+                reSetSleepTime();
+            }
+        });
     }
 
     private void startTimerOfSleep() {
@@ -656,9 +623,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     private void startTimerOfSafe() {
         btn_quick_start.setEnabled(false);
-        btn_machine_lube.setEnabled(false);
-        SafeKeyTimer.getInstance().registerSafeCb(this);
         FitShowTreadmillManager.getInstance().setNOtConnect(true);
+        SafeKeyTimer.getInstance().registerSafeCb(this);
         if (SafeKeyTimer.getInstance().getIsSafe()) {
             SafeKeyTimer.getInstance().startTimer(getPresenter().getSafeKeyDelayTime(ReBootTask.isReBootFinish), this);
         }
@@ -677,21 +643,22 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
      * @return
      */
     private boolean checkADValueIsInSafe(int curAD) {
-        if (isOpenGSMode) {
-            return true;
-        }
-        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AC_AD);
-
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AA_AD);
-
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-            return (Math.abs(curAD - curMinAD) < InitParam.ABS_DC_AD);
-
-        } else {
-            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AC_AD);
-        }
+        return true;
+//        if (isOpenGSMode) {
+//            return true;
+//        }
+//        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
+//            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AC_AD);
+//
+//        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA ){
+//            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AA_AD);
+//
+//        }  else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
+//            return (Math.abs(curAD - curMinAD) < InitParam.ABS_DC_AD);
+//
+//        } else {
+//            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AC_AD);
+//        }
     }
 
     @Override

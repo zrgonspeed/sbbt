@@ -96,7 +96,6 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        setIntent(intent);
         if (mRunningParam.runStatus != CTConstant.RUN_STATUS_PREPARE) {
             btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
         }

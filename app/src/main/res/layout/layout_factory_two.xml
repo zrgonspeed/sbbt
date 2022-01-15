@@ -95,7 +95,7 @@
         android:layout_height="@dimen/dp_px_723_y"
         android:layout_marginStart="@dimen/dp_px_288_x"
         android:layout_marginTop="@dimen/dp_px_148_y"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <include
         android:id="@+id/layout_information"
@@ -111,7 +111,7 @@
         layout="@layout/fragment_factory_update"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <include
         android:id="@+id/layout_logo"

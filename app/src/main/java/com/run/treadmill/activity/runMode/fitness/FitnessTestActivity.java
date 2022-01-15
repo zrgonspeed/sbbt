@@ -117,6 +117,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
     @Override
     public void finishRunning() {
         super.finishRunning();
+        ControlManager.getInstance().resetIncline();
         Intent intent = new Intent(this, SummaryActivity.class);
         intent.putExtra(CTConstant.NEED_VO2, true);
         startActivity(intent);
