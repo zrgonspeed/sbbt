@@ -29,6 +29,7 @@ import com.run.treadmill.http.OkHttpHelper;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.Md5Manager;
 import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.PermissionUtil;
@@ -260,7 +261,11 @@ public class AppStoreActivity extends BaseActivity<AppStoreView, AppStorePresent
 
     @Override
     public void cmdKeyValue(int keyValue) {
-
+        switch (keyValue) {
+            case SerialKeyValue.BACK_KEY_CLICK:
+                btn_back.performClick();
+                break;
+        }
     }
 
     @Override
