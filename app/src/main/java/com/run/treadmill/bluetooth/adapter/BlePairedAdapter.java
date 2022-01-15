@@ -27,12 +27,14 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
     public Context mContext;
 
     public List<BluetoothDevice> mBleDevices;
+    public List<MyBluetoothDevice> myBluetoothDevices;
     private List<Short> mRssis;
     private List<String> mDelBleMac;
 
     public BlePairedAdapter(Context c) {
         this.mContext = c;
         this.mBleDevices = new ArrayList<BluetoothDevice>();
+        this.myBluetoothDevices = new ArrayList<MyBluetoothDevice>();
         this.mRssis = new ArrayList<Short>();
         this.mDelBleMac = new ArrayList<String>();
 
@@ -48,11 +50,13 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final BluetoothDevice mDevice = mBleDevices.get(position);
+        final MyBluetoothDevice myDevice = myBluetoothDevices.get(position);
 //        Logger.d(TAG, "position name = " + mDevice.getName());
         if (mDevice.getName() == null) {
             return;
         }
 
+        Logger.i(TAG, "holder == " + holder);
         holder.tv_ble_name.setText(mDevice.getName() == null ? "null" : mDevice.getName());
         holder.tv_ble_bondstate.setText(mDevice.getAddress() == null ? "null" : mDevice.getBondState() + "");
         holder.tv_ble_address.setText(mDevice.getAddress() == null ? "null" : mDevice.getAddress());
@@ -92,6 +96,8 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
             }
         }
 
+        myDevice.setBTStatus(holder.btn_ble_connect.getStatus());
+
         holder.btn_ble_connect.setOnClickListener(v -> {
             if (mListener != null) {
                 Logger.d(TAG, ">>>>>>>>>>>> onPairedItemClick = " + mDevice.getName());
@@ -99,33 +105,23 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
                     return;
                 }
 
+                if (hasConnecting()) {
+                    Logger.i(TAG, "其它按钮还有状态");
+                    return;
+                }
 
                 BtUtil.clickConnBt = true;
-
                 if (BtUtil.connecting) {
                     Logger.e(TAG, "正在连接其他设备");
                     return;
                 }
-
                 holder.btn_ble_connect.setEnabled(false);
-//                if (isHasConnected()) {
-//                    Logger.d(TAG, ">>>>>>>>>>>> onPairedItemClick = " + mDevice.getName());
-//                    holder.btn_ble_connect.setEnabled(true);
-//                }
-
                 // 断开已连接的设备
                 BtUtil.disConnectCurrentDevice(mContext);
-
-                // 是当前设备断开
-                if (BtUtil.isConnecting2(mContext, mDevice) || BtUtil.isConnecting(mDevice)) {
+                if (myDevice.getBtStatus() == 3) {
+                    // 是当前设备断开
                     return;
                 }
-
-               /* if (BtUtil.status != 1) {
-                    // 想连其它
-                    Logger.e("想连其它-----------------------------------------return");
-                    return;
-                }*/
 
                 holder.btn_ble_connect.setConnecting();
                 mListener.onItemClick(mDevice);
@@ -145,6 +141,15 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
     }
 
 
+    private boolean hasConnecting() {
+        for (MyBluetoothDevice myDevice : myBluetoothDevices) {
+            if (myDevice.getBtStatus() == 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public int getItemCount() {
         if (mBleDevices != null) {
@@ -160,6 +165,7 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
 //                && !mDelBleMac.contains(device.getAddress())
                 && device.getName() != null) {
             mBleDevices.add(device);
+            myBluetoothDevices.add(new MyBluetoothDevice(device));
             mRssis.add(rssi);
             notifyDataSetChanged();
         }
@@ -171,6 +177,7 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
         if (mBleDevices.contains(device)) {
             int id = mBleDevices.lastIndexOf(device);
             mBleDevices.remove(mBleDevices.lastIndexOf(device));
+            myBluetoothDevices.remove(id);
             mRssis.remove(id);
             notifyDataSetChanged();
         }

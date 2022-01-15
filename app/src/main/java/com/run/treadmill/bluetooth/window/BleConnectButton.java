@@ -94,4 +94,8 @@ public class BleConnectButton extends androidx.appcompat.widget.AppCompatButton 
             setBackground(getContext().getDrawable(R.drawable.ble_btn_bg_3));
         }
     }
+
+    public int getStatus() {
+        return status;
+    }
 }

@@ -609,4 +609,9 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         // 从搜索列表中移去
         bleAvaAdapter.removeDevice(device);
     }
+
+    @Override
+    public void updateItem(BluetoothDevice device) {
+        bleAvaAdapter.updateItem(device);
+    }
 }

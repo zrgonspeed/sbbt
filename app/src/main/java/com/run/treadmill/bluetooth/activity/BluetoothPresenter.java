@@ -74,14 +74,16 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
 
                 if (bondState == BluetoothDevice.BOND_NONE) {
                     BtUtil.clickConnBt = false;
+                    getView().refreshPairedAdapter();
                 }
 
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && bondState == BluetoothDevice.BOND_BONDED) {//BOND_BONDED BOND_NONE
                     if (device != null && device.getAddress().equals(mCurDeviceAddress)) {
                         mBleController.removeMsg();
-                    }
 
+                        getView().updateItem(device);
+                    }
 //                    bleAvaAdapter.addDevice(device, intent.getShortExtra(BluetoothDevice.EXTRA_RSSI, Short.MAX_VALUE));
 //                    pb_loading.setVisibility(View.GONE);
                 }

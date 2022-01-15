@@ -27,14 +27,17 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
     public Context mContext;
 
     public List<BluetoothDevice> mBleDevices;
+    public List<MyBluetoothDevice> myBluetoothDevices;
+
     private List<Short> mRssis;
     private List<String> mDelBleMac;
 
     public BleAvaAdapter(Context c) {
         this.mContext = c;
-        mBleDevices = new ArrayList<BluetoothDevice>();
-        mRssis = new ArrayList<Short>();
-        mDelBleMac = new ArrayList<String>();
+        this.mBleDevices = new ArrayList<BluetoothDevice>();
+        this.myBluetoothDevices = new ArrayList<MyBluetoothDevice>();
+        this.mRssis = new ArrayList<Short>();
+        this.mDelBleMac = new ArrayList<String>();
     }
 
     @NonNull
@@ -51,6 +54,8 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final BluetoothDevice mDevice = mBleDevices.get(position);
+        final MyBluetoothDevice myDevice = myBluetoothDevices.get(position);
+
         if (mDevice.getName() == null) {
             return;
         }
@@ -84,22 +89,35 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
             holder.btn_ble_connect.setEnabled(true);
         }
 
+        myDevice.setBTStatus(holder.btn_ble_connect.getStatus());
+
+
         holder.btn_ble_connect.setOnClickListener(v -> {
             if (mListener != null) {
                 Logger.d(TAG, ">>>>>>>>>>>> onAvaItemClick = " + mDevice.getName());
+                if (BtUtil.clickConnBt) {
+                    return;
+                }
+
+                if (hasConnecting()) {
+                    Logger.i(TAG, "其它按钮还有状态");
+                    return;
+                }
+
+                BtUtil.clickConnBt = true;
                 if (BtUtil.connecting) {
                     Logger.e(TAG, "正在连接其他设备");
                     return;
                 }
 
-                holder.btn_ble_connect.setEnabled(false);
-//
-//                if (isHasConnected()) {
-//                    holder.btn_ble_connect.setEnabled(true);
-//                }
 
+                holder.btn_ble_connect.setEnabled(false);
                 // 断开已连接的设备
                 BtUtil.disConnectCurrentDevice(mContext);
+                if (myDevice.getBtStatus() == 3) {
+                    // 是当前设备断开
+                    return;
+                }
 
                 holder.btn_ble_connect.setConnecting();
                 mListener.onItemClick(mDevice);
@@ -110,6 +128,15 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
             holder.iv_icon.setBackgroundResource(R.color.grassGreen);
             holder.iv_icon.setImageResource(BtUtil.getDeviceType(mDevice.getBluetoothClass()));
         }
+    }
+
+    private boolean hasConnecting() {
+        for (MyBluetoothDevice myDevice : myBluetoothDevices) {
+            if (myDevice.getBtStatus() == 2) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -134,6 +161,7 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
 
             Logger.i(TAG, "加进去了addDevice() == " + device.getName() + "       rssi == " + rssi);
             mBleDevices.add(device);
+            myBluetoothDevices.add(new MyBluetoothDevice(device));
             mRssis.add(rssi);
             notifyDataSetChanged();
         }
@@ -144,6 +172,7 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
         if (mBleDevices.contains(device)) {
             int id = mBleDevices.lastIndexOf(device);
             mBleDevices.remove(mBleDevices.lastIndexOf(device));
+            myBluetoothDevices.remove(id);
             mRssis.remove(id);
             notifyDataSetChanged();
         }
@@ -210,6 +239,11 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
 
     public void setOnBleAvaItemClickListener(OnBleAvaItemClickListener listener) {
         mListener = listener;
+    }
+
+    public void updateItem(BluetoothDevice device) {
+        Logger.i(TAG, "device == " + device);
+        notifyItemChanged(mBleDevices.indexOf(device));
     }
 
     public interface OnBleAvaItemClickListener {
