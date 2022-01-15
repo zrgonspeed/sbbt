@@ -82,7 +82,7 @@
         <item>@string/string_app_pk_name_7</item>
         <item>@string/string_app_pk_name_8</item>
         <item>@string/string_app_pk_name_9</item>
-        <item>@string/string_app_pk_name_10</item>
+<!--        <item>@string/string_app_pk_name_10</item>-->
     </string-array>
 
     <integer-array name="thirdApk_drawable">
@@ -95,7 +95,7 @@
         <item>@drawable/btn_home_netflix</item>
         <item>@drawable/btn_home_mp3</item>
         <item>@drawable/btn_home_mp4</item>
-        <item>@drawable/btn_home_screen_mirroring</item>
+<!--        <item>@drawable/btn_home_screen_mirroring</item>-->
     </integer-array>
 
     <integer-array name="thirdApk_drawable_running">
@@ -108,7 +108,7 @@
         <item>@drawable/btn_media_netflix</item>
         <item>@drawable/btn_media_mp3</item>
         <item>@drawable/btn_media_mp4</item>
-        <item>@drawable/btn_media_screen_mirroring</item>
+<!--        <item>@drawable/btn_media_screen_mirroring</item>-->
     </integer-array>
 
     <!--    下面三个主要用于app更新列表-->
@@ -120,7 +120,7 @@
         <item>Instagram</item>
         <item>Spotify</item>
         <item>NETFLIX</item>
-        <item>AnplusMirroring</item>
+<!--        <item>AnplusMirroring</item>-->
     </string-array>
 
     <string-array name="thirdApk_update_packagename">
@@ -133,7 +133,7 @@
         <item>@string/string_app_pk_name_7</item>
         <item>@string/string_app_pk_name_8</item>
         <item>@string/string_app_pk_name_9</item>
-        <item>@string/string_app_pk_name_10</item>
+<!--        <item>@string/string_app_pk_name_10</item>-->
     </string-array>
 
     <integer-array name="thirdApk_update_img">
@@ -144,7 +144,7 @@
         <item>@drawable/btn_media_instagram_1</item>
         <item>@drawable/btn_media_spotify_1</item>
         <item>@drawable/btn_media_netflix_1</item>
-        <item>@drawable/btn_media_screen_mirroring_1</item>
+<!--        <item>@drawable/btn_media_screen_mirroring_1</item>-->
     </integer-array>
 
     <integer-array name="moviesId">

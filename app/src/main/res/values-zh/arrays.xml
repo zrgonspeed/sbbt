@@ -10,7 +10,6 @@
     </string-array>
 
     <integer-array name="thirdApk_drawable">
-<!--        <item>@drawable/btn_home_baidu</item>-->
         <item>@drawable/btn_home_firefox</item>
         <item>@drawable/btn_home_weibo</item>
         <item>@drawable/btn_home_aiqiyi</item>
@@ -20,7 +19,6 @@
     </integer-array>
 
     <integer-array name="thirdApk_drawable_running">
-<!--        <item>@drawable/btn_media_baidu</item>-->
         <item>@drawable/btn_media_firefox</item>
         <item>@drawable/btn_media_weibo</item>
         <item>@drawable/btn_media_aiqiyi</item>
