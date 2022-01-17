@@ -2,12 +2,10 @@ package com.run.treadmill.base;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
-
-import android.view.View;
 
 import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.factory.PresenterFactory;
@@ -66,19 +64,24 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
 
     @Override
     protected void onResume() {
-        super.onResume();
-        mProxyImpl.onResume((V) this);
-        if (ReBootTask.isReBootFinish) {
-            ControlManager.getInstance().regRxDataCallBack(getPresenter());
-        } else {
-            ReBootTask.getInstance().setPresenter(getPresenter());
+        long start = System.currentTimeMillis();
+        {
+            super.onResume();
+            mProxyImpl.onResume((V) this);
+            if (ReBootTask.isReBootFinish) {
+                ControlManager.getInstance().regRxDataCallBack(getPresenter());
+            } else {
+                ReBootTask.getInstance().setPresenter(getPresenter());
+            }
+            FitShowTreadmillManager.getInstance().setFitShowStatusCallBack(this);
+            if (this.getLocalClassName().contains("HomeActivity")) {
+                FitShowTreadmillManager.getInstance().setNOtConnect(false);
+            } else {
+                FitShowTreadmillManager.getInstance().setNOtConnect(true);
+            }
         }
-        FitShowTreadmillManager.getInstance().setFitShowStatusCallBack(this);
-        if (this.getLocalClassName().contains("HomeActivity")) {
-            FitShowTreadmillManager.getInstance().setNOtConnect(false);
-        } else {
-            FitShowTreadmillManager.getInstance().setNOtConnect(true);
-        }
+        long end = System.currentTimeMillis();
+        Logger.i("BaseActivity onResume() time == " + (end - start));
     }
 
     protected abstract int getLayoutId();

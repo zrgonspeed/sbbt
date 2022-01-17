@@ -75,8 +75,8 @@ public class MyApplication extends LitePalApplication {
         Logger.i(TAG, "sp_language == " + language + "   local == " + locale.getLanguage());
         if (!locale.getLanguage().contains(language)) {
             Logger.d("changeSystemLanguage60 " + language);
+            SpManager.setLanguage(language);
             changeSystemLanguage60(new Locale(language));
-
         }
 
         CrashHandler myc = new CrashHandler(getApplicationContext());

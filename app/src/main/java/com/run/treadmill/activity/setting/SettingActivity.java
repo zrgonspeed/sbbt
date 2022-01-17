@@ -596,7 +596,8 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                         changeSystemLanguage60(new Locale("pt", "PT"));
                         break;
                     case 5:
-                        changeSystemLanguage60(new Locale("zh", "ZH"));
+//                        changeSystemLanguage60(new Locale("zh", "ZH")); //这个会使地区变为台湾  ZH不对，CN才是大陆
+                        changeSystemLanguage60(Locale.SIMPLIFIED_CHINESE);
                         break;
                 }
             }

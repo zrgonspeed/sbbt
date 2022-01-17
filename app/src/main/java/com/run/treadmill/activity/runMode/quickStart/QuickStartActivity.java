@@ -21,6 +21,7 @@ import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.widget.HistogramListView;
 
@@ -73,24 +74,32 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     @Override
     protected void onResume() {
         super.onResume();
-        if (quickToMedia) {
-            quickToMedia = false;
-            mFloatWindowManager.regRxDataCallBackAgain();
-        } else {
-            FitShowTreadmillManager.getInstance().setFitShowRunningCallBack(this);
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
-                FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_START);
+        long start = System.currentTimeMillis();
+        {
+            if (quickToMedia) {
+                quickToMedia = false;
+                mFloatWindowManager.regRxDataCallBackAgain();
+            } else {
+                FitShowTreadmillManager.getInstance().setFitShowRunningCallBack(this);
+                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
+                    FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_START);
+                }
+            }
+            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
+                btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_start);
             }
         }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
-            btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_start);
-        }
+        long end = System.currentTimeMillis();
+        Logger.i("QuickStartActivity onResume() time == " + (end - start));
     }
 
     @Override
     protected void onPause() {
+        long start = System.currentTimeMillis();
         super.onPause();
         //FitShowTreadmillManager.getInstance().setFitShowRunningCallBack(null);
+        long end = System.currentTimeMillis();
+        Logger.i("QuickStartActivity onPause() time == " + (end - start));
     }
 
     @Override

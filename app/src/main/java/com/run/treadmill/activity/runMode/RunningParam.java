@@ -827,7 +827,9 @@ public class RunningParam {
                 this.currIncline = mInclineArray[this.lcCurStageNum];
             }
 
-            mCallback.onCurStageNumChange();
+            if (mCallback != null) {
+                mCallback.onCurStageNumChange();
+            }
         }
     }
 

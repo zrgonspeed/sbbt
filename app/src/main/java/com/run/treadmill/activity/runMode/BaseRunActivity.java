@@ -24,7 +24,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.fitShow.treadmill.FsTreadmillCommand;
 import com.run.android.ShellCmdUtils;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
@@ -245,62 +244,68 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     @Override
     protected void onResume() {
         super.onResume();
-        if (ErrorManager.getInstance().exitError) {
-            finish();
-            return;
-        }
-        isFinish = getIntent().getBooleanExtra("isFinish", false);
-        //媒体的mp4（或者其他媒体） 自己退出回来
-        if (!quickToMedia && rl_main.getVisibility() == View.GONE) {
-            //关闭悬浮窗
-            if (mFloatWindowManager != null) {
-                mFloatWindowManager.stopFloatWindow();
+
+        long start = System.currentTimeMillis();
+        {
+            if (ErrorManager.getInstance().exitError) {
+                finish();
+                return;
             }
-            mRunningParam.setCallback(this);
-            rl_main.setVisibility(View.VISIBLE);
-        }
-        if (isFinish) {
-            stopPauseTimer();
-            finishRunning();
-        }
+            isFinish = getIntent().getBooleanExtra("isFinish", false);
+            //媒体的mp4（或者其他媒体） 自己退出回来
+            if (!quickToMedia && rl_main.getVisibility() == View.GONE) {
+                //关闭悬浮窗
+                if (mFloatWindowManager != null) {
+                    mFloatWindowManager.stopFloatWindow();
+                }
+                mRunningParam.setCallback(this);
+                rl_main.setVisibility(View.VISIBLE);
+            }
+            if (isFinish) {
+                stopPauseTimer();
+                finishRunning();
+            }
 
-        getPresenter().setInclineAndSpeed(maxIncline, minSpeed, maxSpeed);
-        if (myHandler == null) {
-            myHandler = new MyHandler(this);
-        }
-        if (mTimer == null) {
-            mTimer = new Timer();
-        }
+            getPresenter().setInclineAndSpeed(maxIncline, minSpeed, maxSpeed);
+            if (myHandler == null) {
+                myHandler = new MyHandler(this);
+            }
+            if (mTimer == null) {
+                mTimer = new Timer();
+            }
 
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
-            showPrepare(500);
-        }
-        if (lineChartView != null) {
-            btn_media.setVisibility(View.VISIBLE);
-            btn_line_chart_incline.setVisibility(View.VISIBLE);
-            btn_line_chart_speed.setVisibility(View.VISIBLE);
-            img_unit.setVisibility(View.VISIBLE);
-            lineChartView.setVisibility(View.VISIBLE);
-        }
-        initRunParam();
-        if (mCalcBuilder == null) {
-            mCalcBuilder = new BaseCalculator.Builder(new CalculatorOfRun(this));
-            mCalcBuilder.callBack(this);
-        }
+            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
+                showPrepare(500);
+            }
+            if (lineChartView != null) {
+                btn_media.setVisibility(View.VISIBLE);
+                btn_line_chart_incline.setVisibility(View.VISIBLE);
+                btn_line_chart_speed.setVisibility(View.VISIBLE);
+                img_unit.setVisibility(View.VISIBLE);
+                lineChartView.setVisibility(View.VISIBLE);
+            }
+            initRunParam();
+            if (mCalcBuilder == null) {
+                mCalcBuilder = new BaseCalculator.Builder(new CalculatorOfRun(this));
+                mCalcBuilder.callBack(this);
+            }
 
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
-            tv_speed.setText(getSpeedValue(String.valueOf(0.0f)));
-        }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL || mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
-            setControlEnable(false);
-            btn_speed_roller.setEnabled(false);
-            btn_incline_roller.setEnabled(false);
-        } else {
-            btn_speed_roller.setEnabled(true);
-            btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
-        }
+            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+                tv_speed.setText(getSpeedValue(String.valueOf(0.0f)));
+            }
+            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL || mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE
+                    || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
+                setControlEnable(false);
+                btn_speed_roller.setEnabled(false);
+                btn_incline_roller.setEnabled(false);
+            } else {
+                btn_speed_roller.setEnabled(true);
+                btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
+            }
 
+        }
+        long end = System.currentTimeMillis();
+        Logger.i("BaseRunActivity onResume() time == " + (end - start));
     }
 
     @Override

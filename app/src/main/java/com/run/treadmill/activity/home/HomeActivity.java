@@ -2,7 +2,6 @@ package com.run.treadmill.activity.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -490,20 +489,11 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             wakeUpSleep();
             return;
         }
-/*        reSetSleepTime();
-        if (isOnClicking) {
-            return;
-        }
-        if (tipsPop.isShowTips()) {
-            return;
-        }
-        if (ErrorManager.getInstance().exitError) {
-            return;
-        }
-        }*/
-
         if (view.getId() != R.id.btn_quick_start) {
             BuzzerManager.getInstance().buzzerRingOnce();
+        }
+        if (isOnClicking) {
+            return;
         }
         isOnClicking = true;
         switch (view.getId()) {
