@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 public class BleAutoPairHelper {
     private static final String TAG = "BleAutoPairHelper";
 
-    public static void setDiscoverableTimeout(Context context) {
+    public static void setDiscoverableTimeout(Context context, int timeout, int discoveryTime) {
         BluetoothManager bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
         BluetoothAdapter adapter = bluetoothManager.getAdapter();
         try {
@@ -31,8 +31,8 @@ public class BleAutoPairHelper {
             setDiscoverableTimeout.setAccessible(true);
             Method setScanMode = BluetoothAdapter.class.getMethod("setScanMode", int.class, int.class);
             setScanMode.setAccessible(true);
-            setDiscoverableTimeout.invoke(adapter, 0);
-            setScanMode.invoke(adapter, BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE, 0);
+            setDiscoverableTimeout.invoke(adapter, timeout);
+            setScanMode.invoke(adapter, BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE, discoveryTime);
         } catch (Exception e) {
             e.printStackTrace();
             Logger.e(TAG, "setDiscoverableTimeout failure:" + e.getMessage());

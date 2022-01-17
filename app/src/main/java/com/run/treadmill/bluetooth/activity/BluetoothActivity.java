@@ -411,7 +411,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
             return;
         }
         startRefresh();
-        BluetoothHelper.getInstance().startLbeScan();
+//        BluetoothHelper.getInstance().startLbeScan();
         setAnimation(View.VISIBLE, false, true);
 
         if (bleAdapter.isEnabled()) {
@@ -422,7 +422,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
                 bleAdapter.startDiscovery();
                 Logger.i("真的开始扫描了！！！！！！！！！！！！！！！！");
                 bleAvaAdapter.clearDelBle();
-                BluetoothHelper.getInstance().startLbeScan();
+//                BluetoothHelper.getInstance().startLbeScan();
                 startRefresh();
             }
         }
@@ -539,8 +539,10 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         // 应该像原生设置的蓝牙一样搜到的结果
         // 只显示音箱、耳机等设备
         if (BtUtil.isBTEarphone(device)) {
-            Logger.d(TAG, "找到设备   device " + device.getName() + "        type  " + BtUtil.getDeviceTypeString(device.getBluetoothClass()));
-            bleAvaAdapter.addDevice(device, rssi);
+            if (!bleAvaAdapter.contains(device)) {
+                Logger.i(TAG, "找到新设备   " + device.getName() + "        type  " + BtUtil.getDeviceTypeString(device.getBluetoothClass()));
+                bleAvaAdapter.addDevice(device, rssi);
+            }
 //            if (pb_loading.getVisibility() == View.VISIBLE) {
 //                pb_loading.setVisibility(View.GONE);
 //            }

@@ -151,7 +151,7 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
     }
 
     public void addDevice(BluetoothDevice device, Short rssi) {
-        Logger.d(TAG, "addDevice() == " + device.getName() + "       rssi == " + rssi);
+//        Logger.d(TAG, "addDevice() == " + device.getName() + "       rssi == " + rssi);
 
         if (!mBleDevices.contains(device)
                 && !mDelBleMac.contains(device.getAddress())
@@ -168,7 +168,7 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
             mRssis.add(rssi);
             notifyDataSetChanged();
         }
-        Logger.d(TAG, " mBleDevices.size == " + mBleDevices.size());
+//        Logger.d(TAG, " mBleDevices.size == " + mBleDevices.size());
     }
 
     public void removeDevice(BluetoothDevice device) {
@@ -247,6 +247,10 @@ public class BleAvaAdapter extends RecyclerView.Adapter<BleAvaAdapter.ViewHolder
     public void updateItem(BluetoothDevice device) {
         Logger.i(TAG, "device == " + device);
         notifyItemChanged(mBleDevices.indexOf(device));
+    }
+
+    public boolean contains(BluetoothDevice device) {
+        return mBleDevices.contains(device);
     }
 
     public interface OnBleAvaItemClickListener {

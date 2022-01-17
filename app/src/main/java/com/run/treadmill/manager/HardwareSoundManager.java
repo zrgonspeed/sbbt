@@ -1,6 +1,7 @@
 package com.run.treadmill.manager;
 
 import com.run.treadmill.util.GpIoUtils;
+import com.run.treadmill.util.Logger;
 
 public class HardwareSoundManager implements Runnable {
     public final String TAG = "HardwareSoundManager";
@@ -341,10 +342,9 @@ public class HardwareSoundManager implements Runnable {
                     Thread.sleep(1000);
 
                     ioOutSideState = GpIoUtils.checkOutSideSoundState();
-
                     systemVoiceState = GpIoUtils.checkSystemVoiceFrom();
 
-                    //Logger.e("ioOutSideState == " + ioOutSideState + "    systemVoiceState == " + systemVoiceState);
+//                    Logger.e("ioOutSideState == " + ioOutSideState + "    systemVoiceState == " + systemVoiceState);
                     //TODO: 0是接入，1是没有接入(根据硬件设计有所改变)
                     if (ioOutSideState == GpIoUtils.IO_STATE_0) {
                         //TODO:外部音源接入,播放外部音源
@@ -354,8 +354,30 @@ public class HardwareSoundManager implements Runnable {
                         setSystemVoiceFrom(GpIoUtils.IO_STATE_1, GpIoUtils.IO_STATE_1);
                     }
 
-                } catch (Exception ignore) {
 
+                    /*earPhoneState = GpIoUtils.checkEarPhoneState();
+                    loudspeakerState = GpIoUtils.checkLoudspeakerState();
+                    Logger.e("earPhoneState == " + earPhoneState + "    loudspeakerState == " + loudspeakerState);
+                    if (ioOutSideState == GpIoUtils.IO_STATE_0) {
+                        if (earPhoneState == GpIoUtils.IO_STATE_0) {
+                            //TODO:耳机接入,关闭外接喇叭
+                            setLoudspeakerState(GpIoUtils.IO_STATE_0);
+                        } else if (earPhoneState == GpIoUtils.IO_STATE_1) {
+                            //TODO:耳机拔出,打开外接喇叭
+                            setLoudspeakerState(GpIoUtils.IO_STATE_1);
+                        }
+                    } else if (ioOutSideState == GpIoUtils.IO_STATE_1) {
+                        if (earPhoneState == GpIoUtils.IO_STATE_0) {
+                            //TODO:耳机接入,关闭外接喇叭
+                            setLoudspeakerState(GpIoUtils.IO_STATE_0);
+                        } else if (earPhoneState == GpIoUtils.IO_STATE_1) {
+                            //TODO:耳机拔出,打开外接喇叭
+                            setLoudspeakerState(GpIoUtils.IO_STATE_1);
+                        }
+                    }*/
+
+                } catch (Exception ignore) {
+                    Logger.e(TAG, ignore.getMessage());
                 }
             }
 

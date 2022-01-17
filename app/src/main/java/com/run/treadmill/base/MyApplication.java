@@ -143,10 +143,12 @@ public class MyApplication extends LitePalApplication {
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);//蓝牙开始搜索
         filter.addAction(BluetoothAdapter.ACTION_REQUEST_ENABLE);
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);//蓝牙开关状态
+        filter.addAction(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);//蓝牙开关状态
 
-        filter.addAction("android.bluetooth.adapter.action.BLE_STATE_CHANGED");//要接收的广播
+        // 心率设备才用到BLE低功耗蓝牙
+/*        filter.addAction("android.bluetooth.adapter.action.BLE_STATE_CHANGED");//要接收的广播
         filter.addAction("android.bluetooth.adapter.action.BLE_ACL_CONNECTED");//要接收的广播
-        filter.addAction("android.bluetooth.adapter.action.BLE_ACL_DISCONNECTED");//要接收的广播
+        filter.addAction("android.bluetooth.adapter.action.BLE_ACL_DISCONNECTED");//要接收的广播*/
 
         filter.addAction(BluetoothDevice.ACTION_FOUND);//蓝牙发现新设备(未配对的设备)
         filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);//最底层连接建立
@@ -160,7 +162,7 @@ public class MyApplication extends LitePalApplication {
 
         bleSinkMission();
         BluetoothHelper.initBtManager(application);
-        BleAutoPairHelper.setDiscoverableTimeout(application);
+        BleAutoPairHelper.setDiscoverableTimeout(application, 0, 0);
         ToastUtils.init(getApplicationContext());
     }
 

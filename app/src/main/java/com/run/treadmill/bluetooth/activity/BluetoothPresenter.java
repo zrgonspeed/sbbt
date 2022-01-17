@@ -29,6 +29,7 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
     private Context context;
     private String mCurDeviceAddress;
     private BleController mBleController;
+    private long startTime;
 
     public void setBleController(BleController mBleController) {
         this.mBleController = mBleController;
@@ -44,14 +45,20 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
 
     @Override
     public void onBtReceive(Context context, Intent intent) {
+        String action = intent.getAction();
+//        Logger.d(TAG, "action == " + action);
+
+        BluetoothDevice device0 = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+        if (device0 != null) {
+            Logger.d(TAG, "name == " + device0.getName());
+        }
+
         BluetoothAdapter bluetoothAdapter = getView().getBluetoothAdapter();
         if (bluetoothAdapter != null && bluetoothAdapter.isEnabled()) {
             if (BleDebug.debug) {
                 getView().refreshAvaCount();
             }
         }
-
-        String action = intent.getAction();
         switch (action) {
             case BluetoothDevice.ACTION_FOUND: {
                 if (bluetoothAdapter != null && !bluetoothAdapter.isEnabled()) {
@@ -157,12 +164,14 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
                 break;
             }
             case BluetoothAdapter.ACTION_DISCOVERY_STARTED: {
+                startTime = System.currentTimeMillis();
                 Logger.i(TAG, "ACTION_DISCOVERY_STARTED");
                 getView().onStartDiscovery();
                 break;
             }
             case BluetoothAdapter.ACTION_DISCOVERY_FINISHED: {
-                Logger.i(TAG, "ACTION_DISCOVERY_FINISHED >> ");
+                long endTime = System.currentTimeMillis();
+                Logger.i(TAG, "ACTION_DISCOVERY_FINISHED >> time == " + (endTime - startTime) / 1000);
                 getView().onFinishDiscovery();
 //                mBleController.removeMsg();
                 break;

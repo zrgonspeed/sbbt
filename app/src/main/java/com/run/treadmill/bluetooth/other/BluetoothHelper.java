@@ -37,7 +37,7 @@ public class BluetoothHelper {
     private BluetoothAdapter mBtAdapter;
     private BluetoothLeScanner mBtScanner;
 
-    private BtCallBack mBtCallBack;
+    //    private BtCallBack mBtCallBack;
     private ScanCallback mScanCallback;
     private BluetoothGattCallback mBtGettCallback;
 
@@ -100,10 +100,6 @@ public class BluetoothHelper {
         instance = new BluetoothHelper(application);
     }
 
-    public void setCallBack(BtCallBack callBack) {
-        mBtCallBack = callBack;
-    }
-
     public void startLbeScan() {
         Logger.d(TAG, "startLbeScan()");
 
@@ -149,6 +145,8 @@ public class BluetoothHelper {
                 @Override
                 public void onScanResult(int callbackType, ScanResult result) {
                     super.onScanResult(callbackType, result);
+                    Logger.i("onScanResult");
+
                     if (lastResultTime == 0) {
                         lastResultTime = result.getTimestampNanos();
                         Logger.d(TAG, "ScanCallback onScanResult begin time = " + lastResultTime);
@@ -217,6 +215,7 @@ public class BluetoothHelper {
      * 停止扫描
      */
     public void stopScan() {
+        Logger.i(TAG, "stopScan()");
         try {
             if (mBtScanner != null) {
                 mBtScanner.stopScan(mScanCallback);
@@ -379,22 +378,12 @@ public class BluetoothHelper {
         }
     }
 
-    public interface BtCallBack {
-        void needOpenBt();
-
-        void onHr(int hr);
-
-        void onScanResult(int callbackType, List<ScanResult> results);
-
-        void onConnectState(int newState);
-    }
-
     public static class MyBtHandler extends Handler {
         private WeakReference<BluetoothHelper> weak;
         private BluetoothHelper mHelper;
         private ScanResult result;
 
-        private final long s = 1000000L * 1000 * 6;
+        private final long s = 1000000L * 1000 * 30;
 
         private boolean needAdd = true;
 
@@ -409,31 +398,24 @@ public class BluetoothHelper {
                 return;
             }
             switch (msg.what) {
-                case MSG_WHAT_SCAN_RESULT:
+                case MSG_WHAT_SCAN_RESULT: {
                     if (msg.arg1 == -1) {
                         //停止扫描失败 返回 强制中断扫描
                         Logger.d(mHelper.TAG, "handleMessage MSG_WHAT_SCAN_RESULT start scan fail !!!");
                         mHelper.stopScan();
-                        if (mHelper.mBtCallBack != null) {
-                            mHelper.mBtCallBack.onScanResult(-1, null);
-                            return;
-                        }
                         return;
                     }
                     result = (ScanResult) msg.obj;
                     long l = result.getTimestampNanos() - mHelper.lastResultTime;
+
                     if (mHelper.lastResultTime != 0 && mHelper.lastResultTime != -1 && (l > s)) {
                         //扫描时间超过 一定量 直接回调
                         mHelper.lastResultTime = -1;
-                        if (mHelper.mBtCallBack == null) {
-                            mHelper.stopScan();
-                            return;
-                        }
-                        mHelper.mBtCallBack.onScanResult(msg.arg1, mHelper.scanResults);
+                        mHelper.stopScan();
                         Logger.d(mHelper.TAG, "handleMessage MSG_WHAT_SCAN_RESULT scan finish on time");
                     }
-
                     if (result.getDevice().getType() == BluetoothDevice.DEVICE_TYPE_UNKNOWN) {
+                        Logger.e("device unknown");
                         return;
                     }
                     needAdd = true;
@@ -458,15 +440,16 @@ public class BluetoothHelper {
                         }
                     }
                     break;
+                }
                 case MSG_WHAT_CONNECT_STATUS:
-                    if (mHelper.mBtCallBack != null) {
-                        mHelper.mBtCallBack.onConnectState(msg.arg1);
-                    }
+//                    if (mHelper.mBtCallBack != null) {
+//                        mHelper.mBtCallBack.onConnectState(msg.arg1);
+//                    }
                     break;
                 case MSG_WHAT_BT_HR:
-                    if (mHelper.mBtCallBack != null) {
-                        mHelper.mBtCallBack.onHr(msg.arg1);
-                    }
+//                    if (mHelper.mBtCallBack != null) {
+//                        mHelper.mBtCallBack.onHr(msg.arg1);
+//                    }
                     break;
                 case MSG_WHAT_BT_OPEN:
                     mHelper.mBtScanner = mHelper.mBtAdapter.getBluetoothLeScanner();
