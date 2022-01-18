@@ -643,7 +643,6 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         }
 
 //        tv_connecting.setVisibility(visibility);
-
     }
 
     @Override

@@ -123,26 +123,15 @@ public class MyApplication extends LitePalApplication {
 
         //附件类模拟GPS位置类初始化
         GpsMockManager.getInstance().init(this);
-        //停止模拟
-        //GpsMockManager.getInstance().stopMockLocation();
 
         deleteQQmusicData();
         closeAnimation();
+
         // OTA更新APK相关
         SpManager.setAlterUpdatePath(false);
         SpManager.setChangedServer(false);
 
-
         initBT();
-
-        AudioManager mAudioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-        new Thread(() -> {
-            while (true) {
-                Logger.e(TAG, "volume == " + mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
-                SystemClock.sleep(1000);
-            }
-        }).start();
-
     }
 
     private void initBT() {

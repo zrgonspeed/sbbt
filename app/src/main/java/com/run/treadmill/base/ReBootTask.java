@@ -136,12 +136,12 @@ public class ReBootTask implements Runnable, RxDataCallBack {
 
                 if (!SpManager.getGSMode() && ErrorManager.getInstance().errStatus != ErrorManager.ERR_INCLINE_CALIBRATE
                         && !ErrorManager.getInstance().hasInclineError) {
-                    if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
+                   /* if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
                         ControlManager.getInstance().setIncline(0.0f);
                     } else {
                         ControlManager.getInstance().resetIncline();
-                    }
-                    getInfoCount += 1;
+                    }*/
+//                    getInfoCount += 1;
                 }
 
                 while (getInfoCount > 0) {

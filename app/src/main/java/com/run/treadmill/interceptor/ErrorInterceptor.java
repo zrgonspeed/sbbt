@@ -29,12 +29,12 @@ public class ErrorInterceptor implements SerialInterceptor {
 //            }
 //        }
 
-        if (ErrorManager.getInstance().isSafeError) {
+/*        if (ErrorManager.getInstance().isSafeError) {
             if (!SpManager.getGSMode() && ErrorManager.getInstance().errStatus != ErrorManager.ERR_INCLINE_CALIBRATE
                     && !ErrorManager.getInstance().hasInclineError) {
                 ControlManager.getInstance().resetIncline();
             }
-        }
+        }*/
 
         if (curSysError != ErrorManager.getInstance().errStatus) {
             //TODO:处理安全key清除错误问题

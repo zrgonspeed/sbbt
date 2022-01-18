@@ -1265,21 +1265,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
      * @return
      */
     private boolean checkADValueIsInSafe(int curAD) {
-        if (isOpenGSMode) {
-            return true;
-        }
-        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AC_AD);
-
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AA_AD);
-
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-            return (Math.abs(curAD - curMinAD) < InitParam.ABS_DC_AD);
-
-        } else {
-            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AC_AD);
-        }
+        return true;
     }
 
     private synchronized void writeShowTouchesOptions(final int param) {

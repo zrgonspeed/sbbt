@@ -58,7 +58,7 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
             return;
         }
 
-        Logger.i(TAG, "holder == " + holder);
+//        Logger.i(TAG, "holder == " + holder);
         holder.tv_ble_name.setText(mDevice.getName() == null ? "null" : mDevice.getName());
         holder.tv_ble_bondstate.setText(mDevice.getAddress() == null ? "null" : mDevice.getBondState() + "");
         holder.tv_ble_address.setText(mDevice.getAddress() == null ? "null" : mDevice.getAddress());
@@ -165,10 +165,10 @@ public class BlePairedAdapter extends RecyclerView.Adapter<BlePairedAdapter.View
 
     public void addDevice(BluetoothDevice device, Short rssi) {
 //        return;
-        Logger.i(TAG, "addDevice()---- " + device.getName());
         if (!mBleDevices.contains(device)
 //                && !mDelBleMac.contains(device.getAddress())
                 && device.getName() != null) {
+            Logger.i(TAG, "addDevice()---- " + device.getName());
             mBleDevices.add(device);
             myBluetoothDevices.add(new MyBluetoothDevice(device));
             mRssis.add(rssi);

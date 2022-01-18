@@ -225,7 +225,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         startTimerOfSafe();
         if (btn_quick_start.isEnabled()) {
             btn_quick_start.setEnabled(false);
-
             FitShowTreadmillManager.getInstance().setNOtConnect(true);
         }
     }

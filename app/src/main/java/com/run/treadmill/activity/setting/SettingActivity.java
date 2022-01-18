@@ -716,7 +716,8 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
      * @return
      */
     private boolean checkADValueIsInSafe(int curAD) {
-        if (isOpenGSMode) {
+        return true;
+        /*if (isOpenGSMode) {
             return true;
         }
         if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
@@ -730,7 +731,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
 
         } else {
             return (Math.abs(curAD - curMinAD) < InitParam.ABS_AC_AD);
-        }
+        }*/
     }
 
     private synchronized void changeSystemLanguage60(final Locale locale) {

@@ -143,7 +143,6 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
                 BluetoothDevice newDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 Logger.d(TAG, "收到配对请求 >> " + newDevice.getName() + "  type == " + BtUtil.getDeviceTypeString(newDevice.getBluetoothClass()));
 
-
                 getView().showConnecting(newDevice);
                 if (BtUtil.isHasConnected(context)) {
                     Logger.e("当前已有设备连接，不接受新的配对");
@@ -252,11 +251,20 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
                             break;
                         }
                         case BluetoothAdapter.STATE_CONNECTED:
+                            Logger.d(TAG, "BluetoothAdapter.STATE_CONNECTED");
+
                             Logger.i(TAG, "真正连接成功，可播放");
                             getView().realConnected();
                             break;
                         case BluetoothAdapter.STATE_DISCONNECTED: {
                             Logger.d(TAG, "BluetoothAdapter.STATE_DISCONNECTED");
+                            //3.在其他界面，如果连接了耳机断开后，自动切换为从
+                            //从界面，当前是蓝牙主，断开蓝牙耳机、蓝牙手机，切换为蓝牙从
+                            break;
+                        }
+                        case BluetoothAdapter.STATE_DISCONNECTING: {
+                            Logger.i(TAG, "主动断开中-------------------");
+                            Logger.d(TAG, "BluetoothAdapter.STATE_DISCONNECTING");
                             //3.在其他界面，如果连接了耳机断开后，自动切换为从
                             //从界面，当前是蓝牙主，断开蓝牙耳机、蓝牙手机，切换为蓝牙从
                             break;

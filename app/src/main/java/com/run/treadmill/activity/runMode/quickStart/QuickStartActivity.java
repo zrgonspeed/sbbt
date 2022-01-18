@@ -293,6 +293,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     @Override
     public void fitShowStopRunning() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING) {
+            ControlManager.getInstance().resetIncline();
             finishRunning();
         } else if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
             btn_pause_quit.performClick();
