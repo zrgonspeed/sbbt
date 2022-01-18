@@ -30,4 +30,8 @@ public interface BluetoothView extends BaseView {
     void updateItem(BluetoothDevice device);
 
     void realConnected();
+
+    void showConnecting(BluetoothDevice newDevice);
+
+    void hideConnecting(BluetoothDevice phoneDevice);
 }

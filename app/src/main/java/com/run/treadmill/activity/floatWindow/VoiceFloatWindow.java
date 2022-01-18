@@ -16,7 +16,6 @@ import android.widget.SeekBar;
 
 import com.run.treadmill.R;
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.widget.VerticalSeekBar;
 
@@ -114,7 +113,7 @@ public class VoiceFloatWindow {
         myFloatHandler = new MyFloatHandler(Looper.getMainLooper(), this);
     }
 
-    void setProgress(int isUp) {
+/*    void setProgress(int isUp) {
         if (float_window_seek_bar_voice == null || mFloatWindow == null) {
             return;
         }
@@ -150,7 +149,7 @@ public class VoiceFloatWindow {
             }
         }
 
-    }
+    }*/
 
     public void showOrHideFloatWindow(boolean isShow) {
         if (isShow) {
@@ -168,6 +167,7 @@ public class VoiceFloatWindow {
             myFloatHandler.removeMessages(HIDE_VOICE);
         } else {
             mFloatWindow.setVisibility(View.VISIBLE);
+            float_window_seek_bar_voice.setProgress(SystemSoundManager.getInstance().getCurrentPro(100));
             senHideVoiceMessage();
         }
     }

@@ -120,7 +120,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 //        }, 3 * 1000);
 
         GpIoUtils.setScreen_1();
-
     }
 
     @Override
@@ -167,7 +166,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         isFitShowConnect(FitShowTreadmillManager.getInstance().isConnect());
         FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_NORMAL);
 
-        ControlManager.getInstance().stopRun(isMetric);
+        ControlManager.getInstance().stopRun(isOpenGSMode);
     }
 
     @Override
@@ -696,4 +695,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

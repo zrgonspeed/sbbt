@@ -143,6 +143,8 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
                 BluetoothDevice newDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 Logger.d(TAG, "收到配对请求 >> " + newDevice.getName() + "  type == " + BtUtil.getDeviceTypeString(newDevice.getBluetoothClass()));
 
+
+                getView().showConnecting(newDevice);
                 if (BtUtil.isHasConnected(context)) {
                     Logger.e("当前已有设备连接，不接受新的配对");
                     return;
@@ -217,6 +219,7 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
                 BtUtil.clickConnBt = false;
                 getView().refreshPairedAdapter();
                 getView().refreshAvaAdapter();
+                getView().hideConnecting(phoneDevice);
 
                 mBleController.removeMsg();
                 break;

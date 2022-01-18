@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.provider.Settings;
-import android.view.SoundEffectConstants;
+
 
 /**
  * 封装系统声音
@@ -43,6 +43,11 @@ public class SystemSoundManager {
         getCurrentPro(100);
     }
 
+    // 获取记录的音量，这个值在每次设置的时候会更新
+    public int getCurrentPro() {
+        return currentPro;
+    }
+
     // 获取多媒体声音大小(小心这个有时候很耗时间， 可能是kill mp4的时候)
     public int getCurrentPro(int max) {
         currentPro = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC) * max / mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
@@ -57,6 +62,7 @@ public class SystemSoundManager {
         currentPro = progress;
         int toset = (progress * mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / max);
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, toset, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+
     }
 
     //关闭按键音
@@ -64,7 +70,7 @@ public class SystemSoundManager {
         Settings.System.putInt(mContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, value);
     }
 
-    //按键音
+    /*//按键音
     public void playClickSound() {
         mAudioManager.playSoundEffect(SoundEffectConstants.CLICK);
     }
@@ -91,12 +97,7 @@ public class SystemSoundManager {
         if (mAudioManager.isMusicActive()) {
             mAudioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
         }
-    }
-
-    // 获取记录的音量，这个值在每次设置的时候会更新
-    public int getCurrentPro() {
-        return currentPro;
-    }
+    }*/
 
 
     /**

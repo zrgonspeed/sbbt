@@ -339,6 +339,12 @@ public class BtUtil {
         return false;
     }
 
+    /**
+     * 从缓存设备判断连接
+     * @param context
+     * @param device
+     * @return
+     */
     public static boolean isConnecting2(Context context, BluetoothDevice device) {
         CachedBluetoothDevice cachedDevice;
         BluetoothDevice mBluetoothDevice;

@@ -9,6 +9,8 @@ import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.media.AudioManager;
+import android.os.SystemClock;
 import android.provider.Settings;
 
 import com.run.android.ShellCmdUtils;
@@ -132,6 +134,15 @@ public class MyApplication extends LitePalApplication {
 
 
         initBT();
+
+        AudioManager mAudioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        new Thread(() -> {
+            while (true) {
+                Logger.e(TAG, "volume == " + mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+                SystemClock.sleep(1000);
+            }
+        }).start();
+
     }
 
     private void initBT() {

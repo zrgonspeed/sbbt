@@ -30,7 +30,6 @@ import com.run.treadmill.bluetooth.BleSwap.BleController;
 import com.run.treadmill.bluetooth.BleSwap.BtUtil;
 import com.run.treadmill.bluetooth.adapter.BleAvaAdapter;
 import com.run.treadmill.bluetooth.adapter.BlePairedAdapter;
-import com.run.treadmill.bluetooth.other.BluetoothHelper;
 import com.run.treadmill.bluetooth.other.BluetoothReceiver;
 import com.run.treadmill.bluetooth.receiver.BleAutoPairHelper;
 import com.run.treadmill.bluetooth.window.BleLoading;
@@ -82,6 +81,8 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
 
     @BindView(R.id.tv_count)
     TextView tv_count;
+    @BindView(R.id.tv_connecting)
+    TextView tv_connecting;
 
     @BindView(R.id.rl_status_refresh)
     public SmartRefreshLayout rl_status_refresh;
@@ -622,5 +623,36 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         BtUtil.clickConnBt = false;
         refreshPairedAdapter();
         refreshAvaAdapter();
+
+        setTextConnecting("", View.GONE);
+    }
+
+    private void setTextConnecting(String text, int visibility) {
+        tv_connecting.setText(text);
+
+        if (visibility == View.GONE) {
+            if (tv_connecting.getVisibility() == View.GONE) {
+                return;
+            }
+        }
+
+        if (visibility == View.VISIBLE) {
+            if (tv_connecting.getVisibility() == View.VISIBLE) {
+                return;
+            }
+        }
+
+//        tv_connecting.setVisibility(visibility);
+
+    }
+
+    @Override
+    public void showConnecting(BluetoothDevice newDevice) {
+        setTextConnecting(newDevice.getName() + " connecting", View.VISIBLE);
+    }
+
+    @Override
+    public void hideConnecting(BluetoothDevice newDevice) {
+        setTextConnecting("", View.GONE);
     }
 }
