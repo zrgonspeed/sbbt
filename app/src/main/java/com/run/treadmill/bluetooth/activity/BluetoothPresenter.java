@@ -50,7 +50,7 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
 
         BluetoothDevice device0 = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
         if (device0 != null) {
-            Logger.d(TAG, "name == " + device0.getName());
+            Logger.d(TAG, "onBtReceive()    name == " + device0.getName());
         }
 
         BluetoothAdapter bluetoothAdapter = getView().getBluetoothAdapter();
@@ -179,7 +179,7 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
             }
             case BluetoothDevice.ACTION_ACL_CONNECTED: {
                 BluetoothDevice ble = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                Logger.d(TAG, " ACTION_ACL_CONNECTED = " + intent.getAction() + " getBondState " + ble.getBondState());
+                Logger.d(TAG, "getBondState " + ble.getBondState());
                 if (BtUtil.isPrincipal(BLE_PRINCIPAL) && BtUtil.isPhone(ble)) {
                     // 从界面,当前是蓝牙主,手机配对
                     BtUtil.unpair(context, ble.getAddress());
@@ -204,7 +204,7 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
                 }
 
 
-                Logger.e(TAG, "ACTION_ACL_CONNECTED-----------------------");
+                Logger.e(TAG, "ACTION_ACL_CONNECTED-----------------------" + device0.getName());
                 BluetoothDevice phoneDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 Logger.e(TAG, phoneDevice.getName() + "           bonstate == " + phoneDevice.getBondState());
 
@@ -229,7 +229,7 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
                     Logger.i(TAG, "ACTION_CONNECTION_STATE_CHANGED state " + state1);
                     switch (state1) {
                         case BluetoothAdapter.STATE_CONNECTING: {
-                            Logger.d(TAG, "BluetoothAdapter.STATE_CONNECTING");
+                            Logger.d(TAG, "BluetoothAdapter.STATE_CONNECTING  " + device0.getName());
                             //如果在从界面，蓝牙耳机开启，那么不能自动去连接必须关闭
                             BluetoothDevice a2dpBle = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                             if (BtUtil.isSubordinate(BLE_SUBORDINATE)) {
@@ -240,6 +240,7 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
                                 }
                                 Logger.d(TAG, " STATE_CONNECTED " + action);
                             }
+
                             //如果在主界面，蓝牙耳机开启，那么手机不能去连接必须关闭
                             if (BtUtil.isPrincipal(BLE_PRINCIPAL)) {
                                 if (BtUtil.isPhone(a2dpBle)) {
@@ -252,18 +253,17 @@ public class BluetoothPresenter extends BasePresenter<BluetoothView> implements 
                         }
                         case BluetoothAdapter.STATE_CONNECTED:
                             Logger.d(TAG, "BluetoothAdapter.STATE_CONNECTED");
-
-                            Logger.i(TAG, "真正连接成功，可播放");
+                            Logger.i(TAG, "真正连接成功，可播放  " + device0.getName());
                             getView().realConnected();
                             break;
                         case BluetoothAdapter.STATE_DISCONNECTED: {
-                            Logger.d(TAG, "BluetoothAdapter.STATE_DISCONNECTED");
+                            Logger.d(TAG, "BluetoothAdapter.STATE_DISCONNECTED  " + device0.getName());
                             //3.在其他界面，如果连接了耳机断开后，自动切换为从
                             //从界面，当前是蓝牙主，断开蓝牙耳机、蓝牙手机，切换为蓝牙从
                             break;
                         }
                         case BluetoothAdapter.STATE_DISCONNECTING: {
-                            Logger.i(TAG, "主动断开中-------------------");
+                            Logger.i(TAG, "主动断开中-------------------" + device0.getName());
                             Logger.d(TAG, "BluetoothAdapter.STATE_DISCONNECTING");
                             //3.在其他界面，如果连接了耳机断开后，自动切换为从
                             //从界面，当前是蓝牙主，断开蓝牙耳机、蓝牙手机，切换为蓝牙从

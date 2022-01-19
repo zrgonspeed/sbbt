@@ -234,7 +234,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         blePairedAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
-                Logger.e(TAG, "已配对列表数据改变了 size == " + blePairedAdapter.getItemCount());
+                Logger.d(TAG, "已配对列表数据改变了 size == " + blePairedAdapter.getItemCount());
                 if (blePairedAdapter.getItemCount() == 0) {
                     if (ll_ble_paired.getVisibility() == View.VISIBLE) {
                         ll_ble_paired.setVisibility(View.GONE);
@@ -281,7 +281,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
             @Override
             public void onChanged() {
                 super.onChanged();
-                Logger.e(TAG, "蓝牙列表数据改变了 size == " + bleAvaAdapter.getItemCount());
+                Logger.d(TAG, "蓝牙列表数据改变了 size == " + bleAvaAdapter.getItemCount());
 
                 if (bleAvaAdapter.getItemCount() == 0) {
                     if (pb_top_loading.isAnimating()) {
