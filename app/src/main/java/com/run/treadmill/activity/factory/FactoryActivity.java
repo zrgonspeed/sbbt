@@ -184,8 +184,9 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         mFactoryHandler = new FactoryHandler(this);
         FileUtil.setLogoIcon(this, btn_logo);
 
+        // 注册U盘拔插广播
+        regisBroadcastReceiver();
         mUdiskPath = FileUtil.getStoragePath(this, true);
-//        mUdiskPath = "/storage/emulated/0/ota";
 
         btn_factory_one.setOnClickListener(this);
         btn_factory_two.setOnClickListener(this);
@@ -479,8 +480,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         }
         rg_factory.check(viewsLeft[lastItemInx].getId());
 
-        // 注册U盘拔插广播
-        regisBroadcastReceiver();
     }
 
     private void initNeedResetSetting() {
@@ -1209,10 +1208,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
             getPresenter().stopGetAd();
         }
         super.onDestroy();
-        if (mUsbBroadcastReceiver != null) {
-            unregisterReceiver(mUsbBroadcastReceiver);
-            mUsbBroadcastReceiver = null;
-        }
         mCalculatorBuilder.stopPopWin();
     }
 
