@@ -71,10 +71,10 @@
 
         <ImageView
             android:id="@+id/img_run_pop_tip"
-            android:layout_width="@dimen/dp_px_933_x"
-            android:layout_height="@dimen/dp_px_363_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_px_180_y"
+            android:layout_marginTop="@dimen/dp_px_270_y"
             android:src="@drawable/img_pop_warmup" />
 
     </RelativeLayout>
@@ -101,9 +101,9 @@
 
         <TextView
             android:id="@+id/txt_running_incline_ctrl"
-            android:layout_width="@dimen/dp_px_200_x"
+            android:layout_width="@dimen/dp_px_270_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_355_x"
+            android:layout_marginStart="@dimen/dp_px_320_x"
             android:layout_marginTop="@dimen/dp_px_897_y"
             android:text="@string/string_incline"
             android:textAlignment="center"
@@ -111,9 +111,9 @@
             android:textSize="@dimen/font_size_18pt" />
 
         <TextView
-            android:layout_width="@dimen/dp_px_200_x"
+            android:layout_width="@dimen/dp_px_270_x"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_1370_x"
+            android:layout_marginStart="@dimen/dp_px_1335_x"
             android:layout_marginTop="@dimen/dp_px_897_y"
             android:text="@string/string_speed"
             android:textAlignment="center"
@@ -213,7 +213,7 @@
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_px_230_x"
-            android:layout_marginTop="@dimen/dp_px_8_y"
+            android:layout_marginTop="@dimen/dp_px_6_y"
             android:gravity="center"
             android:text="@string/string_running_incline"
             android:textColor="@color/light_gray"
@@ -234,7 +234,7 @@
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_px_445_x"
-            android:layout_marginTop="@dimen/dp_px_8_y"
+            android:layout_marginTop="@dimen/dp_px_6_y"
             android:gravity="center"
             android:text="@string/string_running_time"
             android:textColor="@color/light_gray"
@@ -255,7 +255,7 @@
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_px_670_x"
-            android:layout_marginTop="@dimen/dp_px_8_y"
+            android:layout_marginTop="@dimen/dp_px_6_y"
             android:gravity="center"
             android:text="@string/string_running_distance"
             android:textColor="@color/light_gray"
@@ -276,7 +276,7 @@
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_px_890_x"
-            android:layout_marginTop="@dimen/dp_px_8_y"
+            android:layout_marginTop="@dimen/dp_px_6_y"
             android:gravity="center"
             android:text="@string/string_running_calories"
             android:textColor="@color/light_gray"
@@ -297,7 +297,7 @@
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_px_1115_x"
-            android:layout_marginTop="@dimen/dp_px_8_y"
+            android:layout_marginTop="@dimen/dp_px_6_y"
             android:gravity="center"
             android:text="@string/string_running_pulse"
             android:textColor="@color/light_gray"
@@ -326,7 +326,7 @@
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_px_1330_x"
-            android:layout_marginTop="@dimen/dp_px_8_y"
+            android:layout_marginTop="@dimen/dp_px_6_y"
             android:gravity="center"
             android:text="@string/string_running_mets"
             android:textColor="@color/light_gray"
@@ -347,7 +347,7 @@
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_px_1581_x"
-            android:layout_marginTop="@dimen/dp_px_8_y"
+            android:layout_marginTop="@dimen/dp_px_6_y"
             android:gravity="center"
             android:text="@string/string_running_speed"
             android:textColor="@color/light_gray"
