@@ -29,17 +29,17 @@ public class HistogramListView extends View {
     /**
      * 控件高度与layout_width保持一致(必须是数值)
      */
-    private float viewHeight = 300;
+    private float viewHeight = getResources().getDimension(R.dimen.dp_px_500_y);
 
     /**
      * 控件宽度与layout_height保持一致(必须是数值)
      */
-    private float viewWidth = 600;
+    private float viewWidth = getResources().getDimension(R.dimen.dp_px_1120_x);
 
     /**
-     * 柱状高度
+     * 柱状宽度
      */
-    private float chartWidth = 65f;
+    private float chartWidth = 35.3f;
     /**
      * 包括间隔柱宽
      */
@@ -48,12 +48,17 @@ public class HistogramListView extends View {
     /**
      * 柱状宽度
      */
-    private float chartHeight = 300f;
+    private float chartHeight = 360f;
 
     /**
      * 每一条柱的间隔
      */
-    private float chartPadding = 10f;
+    private float chartPadding = 2f;
+
+    /**
+     * 底部背景色高度
+     */
+    private int bottomHeight = 50;
 
     /**
      * 当前正在运动的位置
@@ -64,10 +69,6 @@ public class HistogramListView extends View {
     private Paint viewPain;
 
     private Paint bottomPain;
-    /**
-     * 底部背景色高度
-     */
-    private int bottomHeight = 50;
 
     private Paint lineBgPain;
 
