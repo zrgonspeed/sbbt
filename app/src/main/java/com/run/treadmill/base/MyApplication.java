@@ -9,8 +9,6 @@ import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.media.AudioManager;
-import android.os.SystemClock;
 import android.provider.Settings;
 
 import com.run.android.ShellCmdUtils;
@@ -66,72 +64,92 @@ public class MyApplication extends LitePalApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        ControlManager.getInstance().init(DEFAULT_DEVICE_TYPE);
-        ErrorManager.init(DEFAULT_DEVICE_TYPE);
-        SpManager.init(getApplicationContext());
-        grantPermission();
-        // 系统语言
-        Locale locale = getResources().getConfiguration().locale;
-        // 默认英文
-        String language = SpManager.getLanguage();
-        Logger.i(TAG, "sp_language == " + language + "   local == " + locale.getLanguage());
-        if (!locale.getLanguage().contains(language)) {
-            Logger.d("changeSystemLanguage60 " + language);
-            SpManager.setLanguage(language);
-            changeSystemLanguage60(new Locale(language));
+
+        // Manager
+        {
+            ControlManager.getInstance().init(DEFAULT_DEVICE_TYPE);
+            ErrorManager.init(DEFAULT_DEVICE_TYPE);
+            SpManager.init(getApplicationContext());
         }
-
-        CrashHandler myc = new CrashHandler(getApplicationContext());
-        Thread.setDefaultUncaughtExceptionHandler(myc);
-
-        //TODO:根据板子类型 填入不同参数,根据情况需要自行重新定义新类型
-        GpIoUtils.init(GpIoUtils.HARDWARE_A133);
-
-        //TODO:根据板子类型 以及项目相对于的硬件情况 新增或者使用旧的任务
-        HardwareSoundManager.getInstance().init(HardwareSoundManager.HARDWARE_A133_1);
-        HardwareSoundManager.setVoiceFromSystem();
-
-        boolean buzzer = SpManager.getBuzzer();
-        BuzzerManager.getInstance().setBuzzerEnable(buzzer);
-        BuzzerManager.getInstance().init(BuzzerManager.BUZZER_SYSTEM, getApplicationContext());
-
-        SystemSoundManager.getInstance().init(getApplicationContext());
-        SystemSoundManager.getInstance().setEffectsEnabled(buzzer ? 1 : 0);
-
-        ControlManager.getInstance().setMetric(SpManager.getIsMetric());
-        if (!BleDebug.disableSerial) {
-            boolean result = ControlManager.getInstance().initSerial(getApplicationContext(), 38400, "/dev/ttyS2");
-            if (result) {
-                ControlManager.getInstance().startSerial(SerialCommand.TX_RD_SOME, ParamCons.NORMAL_PACKAGE_PARAM, new byte[]{});
-                ReBootTask.getInstance().startReBootThread();
+        grantPermission();
+        // 语言
+        {
+            // 系统语言
+            Locale locale = getResources().getConfiguration().locale;
+            // 默认英文
+            String language = SpManager.getLanguage();
+            Logger.i(TAG, "sp_language == " + language + "   local == " + locale.getLanguage());
+            if (!locale.getLanguage().contains(language)) {
+                Logger.d("changeSystemLanguage60 " + language);
+                SpManager.setLanguage(language);
+                changeSystemLanguage60(new Locale(language));
             }
         }
 
-        boolean resultFitShow = FitShowTreadmillManager.getInstance().initSerial(getApplicationContext(), 9600, "/dev/ttyS3");
-        Logger.e("resultFitShow == " + resultFitShow);
-        if (resultFitShow) {
-            FitShowTreadmillManager.getInstance().startThread();
+        // Gpio
+        {
+            GpIoUtils.init(GpIoUtils.HARDWARE_A133);
         }
 
-        boolean touchesOption = readTouchesOptions();
-        if (!SpManager.getDisplay() && touchesOption) {
-            writeShowTouchesOptions(0);
-        } else if (SpManager.getDisplay() && !touchesOption) {
-            writeShowTouchesOptions(1);
+        // 声音
+        {
+            HardwareSoundManager.getInstance().init(HardwareSoundManager.HARDWARE_A133_1);
+            HardwareSoundManager.setVoiceFromSystem();
+
+            boolean buzzer = SpManager.getBuzzer();
+            BuzzerManager.getInstance().setBuzzerEnable(buzzer);
+            BuzzerManager.getInstance().init(BuzzerManager.BUZZER_SYSTEM, getApplicationContext());
+
+            SystemSoundManager.getInstance().init(getApplicationContext());
+            SystemSoundManager.getInstance().setEffectsEnabled(buzzer ? 1 : 0);
         }
-        writeCaptivePortalDetection(0);
 
-        //附件类模拟GPS位置类初始化
-        GpsMockManager.getInstance().init(this);
+        // 串口
+        {
+            ControlManager.getInstance().setMetric(SpManager.getIsMetric());
+            if (!BleDebug.disableSerial) {
+                boolean result = ControlManager.getInstance().initSerial(getApplicationContext(), 38400, "/dev/ttyS2");
+                if (result) {
+                    ControlManager.getInstance().startSerial(SerialCommand.TX_RD_SOME, ParamCons.NORMAL_PACKAGE_PARAM, new byte[]{});
+                    ReBootTask.getInstance().startReBootThread();
+                }
+            }
 
-        deleteQQmusicData();
-        closeAnimation();
+            boolean resultFitShow = FitShowTreadmillManager.getInstance().initSerial(getApplicationContext(), 9600, "/dev/ttyS3");
+            Logger.e("resultFitShow == " + resultFitShow);
+            if (resultFitShow) {
+                FitShowTreadmillManager.getInstance().startThread();
+            }
+        }
 
-        // OTA更新APK相关
-        SpManager.setAlterUpdatePath(false);
-        SpManager.setChangedServer(false);
+        // 触摸测试
+        {
+            boolean touchesOption = readTouchesOptions();
+            if (!SpManager.getDisplay() && touchesOption) {
+                writeShowTouchesOptions(0);
+            } else if (SpManager.getDisplay() && !touchesOption) {
+                writeShowTouchesOptions(1);
+            }
+            writeCaptivePortalDetection(0);
+        }
 
-        initBT();
+        // 其它
+        {
+            CrashHandler myc = new CrashHandler(getApplicationContext());
+            Thread.setDefaultUncaughtExceptionHandler(myc);
+
+            //附件类模拟GPS位置类初始化
+            GpsMockManager.getInstance().init(this);
+
+            deleteQQmusicData();
+            closeAnimation();
+
+            // OTA更新APK相关
+            SpManager.setAlterUpdatePath(false);
+            SpManager.setChangedServer(false);
+
+            initBT();
+        }
     }
 
     private void initBT() {
