@@ -1,4 +1,4 @@
-package com.run.treadmill.bluetooth.other;
+package com.run.treadmill.bluetooth.receiver;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -12,7 +12,7 @@ import android.os.Message;
 
 import com.run.treadmill.R;
 import com.run.treadmill.bluetooth.BleSwap.BtUtil;
-import com.run.treadmill.bluetooth.receiver.BleAutoPairHelper;
+import com.run.treadmill.bluetooth.other.BleAutoPairHelper;
 import com.run.treadmill.util.Logger;
 
 import org.jetbrains.annotations.NotNull;

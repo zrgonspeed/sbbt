@@ -239,5 +239,5 @@
     <string name="workout_head_ble_sink_hint_exitlink">Exit existing link!</string>
     <string name="workout_head_ble_sink_hint_timeout">time out, try again!</string>
 
-    <string name="pop_hr_count">%1$d DEVICES FOUND</string>
+    <string name="ble_devices_count">%1$d DEVICES FOUND</string>
 </resources>

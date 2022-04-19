@@ -15,7 +15,7 @@ import com.android.settingslib.bluetooth.CachedBluetoothDeviceManager;
 import com.android.settingslib.bluetooth.LocalBluetoothManager;
 import com.run.treadmill.R;
 import com.run.treadmill.bluetooth.adapter.BleAdapter;
-import com.run.treadmill.bluetooth.receiver.BleAutoPairHelper;
+import com.run.treadmill.bluetooth.other.BleAutoPairHelper;
 import com.run.treadmill.util.Logger;
 
 import java.io.ByteArrayInputStream;

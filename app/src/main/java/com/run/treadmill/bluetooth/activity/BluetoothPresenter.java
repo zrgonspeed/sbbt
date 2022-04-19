@@ -15,9 +15,9 @@ import com.run.treadmill.bluetooth.BleDebug;
 import com.run.treadmill.bluetooth.BleSwap.BleController;
 import com.run.treadmill.bluetooth.BleSwap.BtUtil;
 import com.run.treadmill.bluetooth.BleSwap.ConnectCallback;
-import com.run.treadmill.bluetooth.BleSwap.ToastUtils;
-import com.run.treadmill.bluetooth.other.BluetoothReceiver;
-import com.run.treadmill.bluetooth.receiver.BleAutoPairHelper;
+import com.run.treadmill.bluetooth.other.ToastUtils;
+import com.run.treadmill.bluetooth.receiver.BluetoothReceiver;
+import com.run.treadmill.bluetooth.other.BleAutoPairHelper;
 import com.run.treadmill.util.Logger;
 
 import static com.run.treadmill.bluetooth.BleSwap.BtCommon.BLE_PRINCIPAL;

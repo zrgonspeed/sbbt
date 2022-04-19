@@ -30,8 +30,8 @@ import com.run.treadmill.bluetooth.BleSwap.BleController;
 import com.run.treadmill.bluetooth.BleSwap.BtUtil;
 import com.run.treadmill.bluetooth.adapter.BleAvaAdapter;
 import com.run.treadmill.bluetooth.adapter.BlePairedAdapter;
-import com.run.treadmill.bluetooth.other.BluetoothReceiver;
-import com.run.treadmill.bluetooth.receiver.BleAutoPairHelper;
+import com.run.treadmill.bluetooth.receiver.BluetoothReceiver;
+import com.run.treadmill.bluetooth.other.BleAutoPairHelper;
 import com.run.treadmill.bluetooth.window.BleLoading;
 import com.run.treadmill.bluetooth.window.MyHeader;
 import com.run.treadmill.factory.CreatePresenter;
@@ -501,7 +501,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
      * @param count
      */
     private void setCount(int count) {
-        tv_count.setText(context.getString(R.string.pop_hr_count, count));
+        tv_count.setText(context.getString(R.string.ble_devices_count, count));
     }
 
     @Override

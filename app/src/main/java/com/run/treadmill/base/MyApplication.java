@@ -1,25 +1,22 @@
 package com.run.treadmill.base;
 
 import android.Manifest;
-import android.app.backup.BackupManager;
 import android.bluetooth.BluetoothA2dp;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
 import android.provider.Settings;
 
 import com.run.android.ShellCmdUtils;
 import com.run.serial.SerialCommand;
-import com.run.treadmill.R;
 import com.run.treadmill.bluetooth.BleDebug;
 import com.run.treadmill.bluetooth.BleSwap.BtUtil;
-import com.run.treadmill.bluetooth.BleSwap.ToastUtils;
+import com.run.treadmill.bluetooth.other.ToastUtils;
 import com.run.treadmill.bluetooth.other.BluetoothHelper;
-import com.run.treadmill.bluetooth.other.BluetoothReceiver;
-import com.run.treadmill.bluetooth.receiver.BleAutoPairHelper;
+import com.run.treadmill.bluetooth.receiver.BluetoothReceiver;
+import com.run.treadmill.bluetooth.other.BleAutoPairHelper;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
@@ -33,11 +30,11 @@ import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
+import com.run.treadmill.util.LanguageUtil;
 import com.run.treadmill.util.Logger;
 
 import org.litepal.LitePalApplication;
 
-import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.Set;
 
@@ -52,8 +49,6 @@ import java.util.Set;
  */
 public class MyApplication extends LitePalApplication {
     private static final String TAG = MyApplication.class.getSimpleName();
-
-    private Context application;
     /**
      * 是否第一次启动
      */
@@ -74,15 +69,15 @@ public class MyApplication extends LitePalApplication {
         grantPermission();
         // 语言
         {
-            // 系统语言
+            // 当前系统语言
             Locale locale = getResources().getConfiguration().locale;
-            // 默认英文
+            // 目标语言
             String language = SpManager.getLanguage();
             Logger.i(TAG, "sp_language == " + language + "   local == " + locale.getLanguage());
             if (!locale.getLanguage().contains(language)) {
                 Logger.d("changeSystemLanguage60 " + language);
                 SpManager.setLanguage(language);
-                changeSystemLanguage60(new Locale(language));
+                LanguageUtil.changeSystemLanguage60(new Locale(language));
             }
         }
 
@@ -153,8 +148,17 @@ public class MyApplication extends LitePalApplication {
     }
 
     private void initBT() {
-        application = getApplicationContext();
+        registerBTReceiver();
+        bleSinkMission();
+        Context context = getApplicationContext();
+        BluetoothHelper.initBtManager(context);
+        BleAutoPairHelper.setDiscoverableTimeout(context, 0, 0);
+        ToastUtils.init(getApplicationContext());
+    }
 
+    private BluetoothReceiver receiver = new BluetoothReceiver();
+
+    private void registerBTReceiver() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);//蓝牙搜索结束
@@ -177,22 +181,25 @@ public class MyApplication extends LitePalApplication {
         filter.addAction(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED); //BluetoothHeadset连接状态
         filter.addAction(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED); //BluetoothA2dp连接状态
         registerReceiver(receiver, filter);
-
-        bleSinkMission();
-        BluetoothHelper.initBtManager(application);
-        BleAutoPairHelper.setDiscoverableTimeout(application, 0, 0);
-        ToastUtils.init(getApplicationContext());
     }
 
-    private BluetoothReceiver receiver = new BluetoothReceiver();
-
-    public void unregisterReceiver() {
+    private void unRegisterBTReceiver() {
         if (receiver != null) {
             unregisterReceiver(receiver);
             receiver = null;
         }
     }
 
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        unRegisterBTReceiver();
+        Logger.d("==================app 被销毁了一次=====================");
+    }
+
+    /**
+     * 解除蓝牙配对
+     */
     private synchronized void bleSinkMission() {
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
@@ -208,30 +215,6 @@ public class MyApplication extends LitePalApplication {
             BtUtil.unpair(this, device.getAddress());
         }
     }
-
-    private void cancelPair() {
-        try {
-            BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-            if (mBluetoothAdapter != null) {
-                Set<BluetoothDevice> bondedDevices = mBluetoothAdapter.getBondedDevices();
-                if (bondedDevices != null) {
-                    for (BluetoothDevice device : bondedDevices) {
-                        Logger.i(TAG, "device name is : " + device.getName() + " state is:" + device.getBondState());
-                        if (BtUtil.getDeviceType(device.getBluetoothClass()) == R.drawable.ic_bt_headphones_a2dp) {
-                            Logger.i(TAG, " device getDeviceType name is : " + device.getName() + " state is:" + device.getBondState());
-                            BtUtil.unpair(this, device.getAddress());
-                        } else if (BtUtil.getDeviceType(device.getBluetoothClass()) == R.drawable.ic_bt_cellphone) {
-                            Logger.i(TAG, "device getDeviceType is : " + device.getName() + " state is:" + device.getBondState());
-                            BtUtil.unpair(this, device.getAddress());
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
     private void closeAnimation() {
         new Thread() {
@@ -264,29 +247,6 @@ public class MyApplication extends LitePalApplication {
         }.start();
     }
 
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-        unregisterReceiver();
-        Logger.d("==================app 被销毁了一次=====================");
-    }
-
-    /**
-     * A133申请权限
-     */
-    private void grantPermission() {
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_FINE_LOCATION);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_COARSE_LOCATION);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.READ_CONTACTS);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.MEDIA_CONTENT_CONTROL);
-
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_FINE_LOCATION);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_COARSE_LOCATION);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-    }
-
     private boolean readTouchesOptions() {
         return Settings.System.getInt(getContentResolver(), "pointer_location", 0) != 0;
     }
@@ -300,26 +260,17 @@ public class MyApplication extends LitePalApplication {
         }.start();
     }
 
-    private synchronized void changeSystemLanguage60(final Locale locale) {
-        try {
-            if (locale != null) {
-                Class classActivityManagerNative = Class.forName("android.app.ActivityManagerNative");
-                Method getDefault = classActivityManagerNative.getDeclaredMethod("getDefault");
-                Object objIActivityManager = getDefault.invoke(classActivityManagerNative);
-                Class classIActivityManager = Class.forName("android.app.IActivityManager");
-                Method getConfiguration = classIActivityManager.getDeclaredMethod("getConfiguration");
-                Configuration config = (Configuration) getConfiguration.invoke(objIActivityManager);
-                config.setLocale(locale);
-                Class clzConfig = Class.forName("android.content.res.Configuration");
-                java.lang.reflect.Field userSetLocale = clzConfig.getField("userSetLocale");
-                userSetLocale.set(config, true);
-                Class[] clzParams = {Configuration.class};
-                Method updateConfiguration = classIActivityManager.getDeclaredMethod("updateConfiguration", clzParams);
-                updateConfiguration.invoke(objIActivityManager, config);
-                BackupManager.dataChanged("com.android.providers.settings");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    /**
+     * A133申请权限
+     */
+    private void grantPermission() {
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.READ_EXTERNAL_STORAGE);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.READ_CONTACTS);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.MEDIA_CONTENT_CONTROL);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_FINE_LOCATION);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_COARSE_LOCATION);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_BACKGROUND_LOCATION);
     }
 }

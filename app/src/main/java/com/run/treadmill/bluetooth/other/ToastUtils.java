@@ -1,4 +1,4 @@
-package com.run.treadmill.bluetooth.BleSwap;
+package com.run.treadmill.bluetooth.other;
 
 import android.content.Context;
 import android.widget.Toast;

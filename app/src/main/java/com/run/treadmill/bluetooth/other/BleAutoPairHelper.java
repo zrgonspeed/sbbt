@@ -1,4 +1,4 @@
-package com.run.treadmill.bluetooth.receiver;
+package com.run.treadmill.bluetooth.other;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
