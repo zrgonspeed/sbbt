@@ -107,18 +107,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Context context = getApplicationContext();
         onCreateMission();
         init();
-
-        // 延迟3秒
-//        new Handler().postDelayed(new Runnable() {
-//            public void run() {
-//                FitShowTreadmillManager.getInstance().sendRestartFS();
-//            }
-//
-//        }, 3 * 1000);
-
         GpIoUtils.setScreen_1();
     }
 
@@ -539,24 +529,21 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         }
     }
 
+    /**
+     * 屏蔽第三方通知
+     */
     private void onCreateMission() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1000);
-                    String[] pkNames = getApplicationContext().getResources().getStringArray(R.array.ignore_thirdAPK_send_message);
-                    //TODO :注意 这是专门用来屏蔽第三方apk消息的包名列表,在更改第三方apk种类的时候需要连同这个也一起更新
-                    for (String pkName : pkNames) {
-                        NotificationBackend.setNotificationsBanned(getApplicationContext(), pkName, false);
-                        ThirdApkSupport.killCommonApp(getApplicationContext(), pkName);
-                    }
-                } catch (Exception ignore) {
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+                String[] pkNames = getApplicationContext().getResources().getStringArray(R.array.ignore_thirdAPK_send_message);
+                for (String pkName : pkNames) {
+                    NotificationBackend.setNotificationsBanned(getApplicationContext(), pkName, false);
+                    ThirdApkSupport.killCommonApp(getApplicationContext(), pkName);
                 }
-
+            } catch (Exception ignore) {
             }
         }).start();
-
     }
 
     private void init() {
