@@ -54,8 +54,6 @@ public class BinUpdate extends BaseUpdate {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                /*SerialUtils.isSendOtaData = true;
-                SerialUtils.isSendOtaOneFrame = true;*/
                 Logger.d("========data======2===");
 
                 while (!isEndSend) {
@@ -141,16 +139,11 @@ public class BinUpdate extends BaseUpdate {
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         dialog.setCancelable(false);
         dialog.setTitle(activity.getString(R.string.ota_update));
-        /*dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface arg0, int arg1) {
-                dialog.dismiss();
-            }
-        });*/
+
         dialog.show();
         dialog.setProgress(pro);
         if (pro >= 100) {
             dialog.dismiss();
-            //Toast.makeText(getContext(), "NO NETWORKS FOUND", Toast.LENGTH_LONG).show();
         }
     }
 

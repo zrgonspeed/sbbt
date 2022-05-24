@@ -185,11 +185,12 @@ public class SpManager {
      */
     private static final String INIT_LANGUAGE_SOUND_BRIGHTNESS = "init_language_sound_brightness";
     /**
-     * 是否空中更新
+     * 是否已经安装下载的apk
      */
     private static final String SET_UPDATE_IS_NETWORK = "set_update_is_network";
 
-    /*是否切换更新路径
+    /**
+     * 是否切换更新路径
      */
     private static final String SET_ALTER_UPDATE_PATH = "set_alter_update_path";
 

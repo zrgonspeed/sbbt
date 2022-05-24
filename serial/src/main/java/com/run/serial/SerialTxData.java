@@ -313,7 +313,7 @@ public class SerialTxData {
             len--;
             //Log.d(TAG, "1 len " + len + " resultLen " + resultLen );
         }
-        pResultBuf[resStep] = (byte) SerialCommand.PACK_FRAME_HEADER;//加上包尾
+        pResultBuf[resStep] = (byte) SerialCommand.PACK_FRAME_HEADER;// OTA
         resultLen++;
         //Log.d(TAG, " len " + len + " resultLen " + resultLen );
 //        cmdString = SerialStringUtil.byteArrayToHexString(pResultBuf, resultLen);

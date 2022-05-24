@@ -898,7 +898,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
                 LayoutInflater.from(this).inflate(R.layout.layout_factory_two, rl_factory_select, true);
                 initFactoryTwo();
                 break;
-            case R.id.btn_update_pop_yes:
+            case R.id.btn_update_pop_yes: {
                 // 从多个bin文件中选择日期最新的bin文件进行拷贝。
                 boolean result = OTAUtils.copyUpanToAn(mUdiskPath, getFilesDir() + "/OTA");
                 if (!result) {
@@ -951,7 +951,8 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
                         rl_ota_update.setVisibility(View.GONE);
                     }
                 }
-                break;
+            }
+            break;
             case R.id.btn_update_pop_no:
                 rl_ota_update.setVisibility(View.GONE);
                 break;

@@ -52,14 +52,9 @@ public final class SerialRxDataTask implements Runnable {
                 if (OTAParam.isSendBinCnt) {
                     for (int i = 0; i < OTAParam.readUpdateReplyPkg.length; i++) {
                         if (buff[i] != OTAParam.readUpdateReplyPkg[i]) {
-//                            Log.d("OTA", "buff[i] != readBytes[i]");
-//                            Log.d("OTA", "buff == " + Arrays.toString(buff));
-//                            Log.d("OTA", "readBytes == " + Arrays.toString(readBytes));
                             break;
                         }
-                        // �������鶼��ȣ�sendOtaConnectPackage()
                         if (i == OTAParam.readUpdateReplyPkg.length - 1) {
-//                            Log.d("OTA", "����������� isSendBinData = true");
                             OTAParam.isSendBinData = true;
                             SerialTxData.getInstance().sendOtaConnectPackage();
                         }
