@@ -335,6 +335,8 @@ public class HardwareSoundManager implements Runnable {
      * A133控制任务1:持续检查外接音源状态,切换系统当前播放音源
      */
     private class Hardware_A133_1 extends BaseHardwareMission {
+        public boolean record = true;
+
         @Override
         public synchronized void loopMissionStart() {
             while (true) {
@@ -344,43 +346,28 @@ public class HardwareSoundManager implements Runnable {
                     ioOutSideState = GpIoUtils.checkOutSideSoundState();
                     systemVoiceState = GpIoUtils.checkSystemVoiceFrom();
 
-//                    Logger.e("ioOutSideState == " + ioOutSideState + "    systemVoiceState == " + systemVoiceState);
+                    // Logger.e("ioOutSideState == " + ioOutSideState + "    systemVoiceState == " + systemVoiceState);
                     //TODO: 0是接入，1是没有接入(根据硬件设计有所改变)
                     if (ioOutSideState == GpIoUtils.IO_STATE_0) {
                         //TODO:外部音源接入,播放外部音源
                         setSystemVoiceFrom(GpIoUtils.IO_STATE_1, GpIoUtils.IO_STATE_0);
+                        if (record) {
+                            startOrStopRecordPlay(true);
+                            record = false;
+                        }
                     } else if (ioOutSideState == GpIoUtils.IO_STATE_1) {
                         //TODO:外部音源拔出或者没有接入,播放系统音源
                         setSystemVoiceFrom(GpIoUtils.IO_STATE_1, GpIoUtils.IO_STATE_1);
+                        if (!record) {
+                            startOrStopRecordPlay(false);
+                            record = true;
+                        }
                     }
-
-
-                    /*earPhoneState = GpIoUtils.checkEarPhoneState();
-                    loudspeakerState = GpIoUtils.checkLoudspeakerState();
-                    Logger.e("earPhoneState == " + earPhoneState + "    loudspeakerState == " + loudspeakerState);
-                    if (ioOutSideState == GpIoUtils.IO_STATE_0) {
-                        if (earPhoneState == GpIoUtils.IO_STATE_0) {
-                            //TODO:耳机接入,关闭外接喇叭
-                            setLoudspeakerState(GpIoUtils.IO_STATE_0);
-                        } else if (earPhoneState == GpIoUtils.IO_STATE_1) {
-                            //TODO:耳机拔出,打开外接喇叭
-                            setLoudspeakerState(GpIoUtils.IO_STATE_1);
-                        }
-                    } else if (ioOutSideState == GpIoUtils.IO_STATE_1) {
-                        if (earPhoneState == GpIoUtils.IO_STATE_0) {
-                            //TODO:耳机接入,关闭外接喇叭
-                            setLoudspeakerState(GpIoUtils.IO_STATE_0);
-                        } else if (earPhoneState == GpIoUtils.IO_STATE_1) {
-                            //TODO:耳机拔出,打开外接喇叭
-                            setLoudspeakerState(GpIoUtils.IO_STATE_1);
-                        }
-                    }*/
 
                 } catch (Exception ignore) {
                     Logger.e(TAG, ignore.getMessage());
                 }
             }
-
         }
 
         @Override
@@ -400,5 +387,12 @@ public class HardwareSoundManager implements Runnable {
 
         }
 
+        private void startOrStopRecordPlay(boolean start) {
+            if (start) {
+                RecordPlayManager.getInstance().startRecordPlay();
+            } else {
+                RecordPlayManager.getInstance().stopRecordPlay();
+            }
+        }
     }
 }

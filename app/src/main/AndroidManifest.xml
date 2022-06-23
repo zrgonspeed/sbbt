@@ -21,6 +21,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <!--允许配对设备-->
     <uses-permission android:name="android.permission.BLUETOOTH" />
