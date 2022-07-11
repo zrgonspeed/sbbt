@@ -18,6 +18,7 @@ import com.run.treadmill.activity.runMode.quickStart.QuickStartActivity;
 import com.run.treadmill.adapter.MediaSelectAppAdapter;
 import com.run.treadmill.adapter.MediaSelectPagerAdapter;
 import com.run.treadmill.base.BaseActivity;
+import com.run.treadmill.bluetooth.BleDebug;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
@@ -156,6 +157,9 @@ public class MediaSelectActivity extends BaseActivity<MediaSelectView, MediaSele
         MediaSelectAppAdapter adapter1 = new MediaSelectAppAdapter(context, drawable1);
         page1RV.setAdapter(adapter1);
         adapter1.setOnItemClick(position -> {
+            if (!isCanStart && !BleDebug.disableSerial) {
+                return;
+            }
             mediaPkName = pkgName[position];
             enterThirdApp();
         });
