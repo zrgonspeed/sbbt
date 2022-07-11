@@ -132,6 +132,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public ImageView btn_speed_roller;
     @BindView(R.id.btn_incline_roller)
     public ImageView btn_incline_roller;
+
+    @BindView(R.id.rl_chart_view)
+    public RelativeLayout rl_chart_view;
+
     public TextView btn_media;
     public HistogramListView lineChartView;
     public TextView btn_line_chart_incline, btn_line_chart_speed;
@@ -279,10 +283,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             }
             if (lineChartView != null) {
                 btn_media.setVisibility(View.VISIBLE);
-                btn_line_chart_incline.setVisibility(View.VISIBLE);
-                btn_line_chart_speed.setVisibility(View.VISIBLE);
-                img_unit.setVisibility(View.VISIBLE);
-                lineChartView.setVisibility(View.VISIBLE);
+                rl_chart_view.setVisibility(View.VISIBLE);
             }
             initRunParam();
             if (mCalcBuilder == null) {

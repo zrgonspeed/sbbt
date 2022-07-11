@@ -64,8 +64,8 @@
     <string name="string_hill">登山模式</string>
     <string name="string_interval">间歇模式</string>
     <string name="string_vision">虚拟情景</string>
-    <string name="string_movie_name_1">绿色隧道</string>
-    <string name="string_movie_name_2">绿色公路</string>
+    <string name="string_movie_name_1">热带</string>
+    <string name="string_movie_name_2">海滩</string>
 
     <!-- 运动界面 -->
     <string name="string_count_down_go">开始</string>
@@ -219,4 +219,6 @@
     <string name="string_app_pk_name_5">com.softwinner.fireplayer</string>
     <string name="string_app_pk_name_6">com.anplus.tft</string>
     <string name="string_app_pk_name_7">com.tencent.qqmusicpad</string>
+    <string name="string_movie_name_3">森林</string>
+    <string name="string_movie_name_4">山脉</string>
 </resources>

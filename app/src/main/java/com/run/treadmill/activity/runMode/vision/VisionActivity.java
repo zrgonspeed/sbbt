@@ -16,6 +16,7 @@ import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.util.UnitUtil;
 import com.run.treadmill.widget.VideoPlayerSelf;
@@ -33,11 +34,18 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRunningParam.runStatus = CTConstant.RUN_STATUS_PREPARE;
+
+        btn_media = findViewById(R.id.btn_media);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        btn_media.setVisibility(View.GONE);
+//        img_unit.setVisibility(View.GONE);
+//        lineChartView.setVisibility(View.GONE);
+
         curInx = getIntent().getIntExtra(CTConstant.VR_PATH_INX, -1);
         int duration = getIntent().getIntExtra(CTConstant.VR_PATH_DURATION, -1);
         if (curInx == -1 || curInx >= CTConstant.vrVideoPath.length) {
@@ -46,7 +54,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
             rl_tip.setVisibility(View.VISIBLE);
             return;
         }
-        String path = CTConstant.vrVideoPath[curInx];
+        String path = FileUtil.getStoragePath(this, "SD") + CTConstant.vrVideoPath[curInx];
 
         if (path.isEmpty()) {
             tv_tip.setVisibility(View.GONE);
@@ -60,12 +68,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
         mVideoPlayerSelf = new VideoPlayerSelf(this, surfaceView, path);
         mVideoPlayerSelf.setMinMaxSpeed(isMetric ? minSpeed : UnitUtil.getMileToKmByFloat1(minSpeed), isMetric ? maxSpeed : UnitUtil.getMileToKmByFloat1(maxSpeed));
         mVideoPlayerSelf.setOnTimeCallBack(UnitUtil.getFloatToIntUp(duration / 1000f / 30f), this);
-
-        btn_incline_down.setEnabled(false);
-        btn_incline_up.setEnabled(false);
-        btn_incline_roller.setEnabled(false);
-
-
+        rl_chart_view.setVisibility(View.GONE);
         rl_main.addView(surfaceView, 0);
         surfaceView.setOnClickListener(v -> {
             if (rl_top.getVisibility() == View.VISIBLE) {
@@ -111,12 +114,22 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
     public void click(View view) {
         super.click(view);
         switch (view.getId()) {
+            case R.id.btn_incline_up:
+                BuzzerManager.getInstance().buzzerRingOnce();
+                myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                getPresenter().setInclineValue(1, 0, false);
+                break;
+            case R.id.btn_incline_down:
+                BuzzerManager.getInstance().buzzerRingOnce();
+                myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                getPresenter().setInclineValue(-1, 0, false);
+                break;
             case R.id.btn_speed_up:
-                longClickBuzzer(btn_speed_up);
+                BuzzerManager.getInstance().buzzerRingOnce();
                 getPresenter().setSpeedValue(1, 0, false);
                 break;
             case R.id.btn_speed_down:
-                longClickBuzzer(btn_speed_down);
+                BuzzerManager.getInstance().buzzerRingOnce();
                 getPresenter().setSpeedValue(-1, 0, false);
                 break;
             default:
@@ -133,10 +146,9 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
 
     @Override
     public void afterPrepare() {
-        btn_incline_roller.setEnabled(false);
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
             mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
-            getPresenter().initFirstIncline(curInx);
+            //getPresenter().initFirstIncline(curInx);
             mRunningParam.setLcCurStageNum(0);
             if (mVideoPlayerSelf != null) {
                 mVideoPlayerSelf.setSpeedCtrl(isMetric ? mRunningParam.getCurrSpeed() : UnitUtil.getMileToKmByFloat1(mRunningParam.getCurrSpeed()));
@@ -153,7 +165,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
 
     @Override
     public void onTime(int timePosition) {
-        getPresenter().setInclneByTimePosition(timePosition, curInx);
+        // getPresenter().setInclneByTimePosition(timePosition, curInx);
     }
 
     @Override
@@ -171,6 +183,33 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
 
     @Override
     public void afterInclineChanged(float incline) {
+        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()
+                || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP
+                || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+            return;
+        }
+        if (incline <= 0) {
+            if (btn_incline_down.isEnabled()) {
+                btn_incline_down.setEnabled(false);
+            }
+            if (!btn_incline_up.isEnabled()) {
+                btn_incline_up.setEnabled(true);
+            }
+        } else if (incline >= maxIncline) {
+            if (!btn_incline_down.isEnabled()) {
+                btn_incline_down.setEnabled(true);
+            }
+            if (btn_incline_up.isEnabled()) {
+                btn_incline_up.setEnabled(false);
+            }
+        } else {
+            if (!btn_incline_down.isEnabled()) {
+                btn_incline_down.setEnabled(true);
+            }
+            if (!btn_incline_up.isEnabled()) {
+                btn_incline_up.setEnabled(true);
+            }
+        }
     }
 
     @Override
@@ -202,6 +241,11 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
                 btn_speed_up.setEnabled(true);
             }
         }
+    }
+
+    @Override
+    protected void showPopTip() {
+        super.showPopTip();
     }
 
     @Override

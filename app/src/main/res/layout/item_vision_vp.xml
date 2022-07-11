@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_item_movie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:paddingLeft="@dimen/dp_px_300_x"
+        android:paddingTop="@dimen/dp_px_60_x"
+        android:paddingRight="@dimen/dp_px_86_x" />
+</LinearLayout>

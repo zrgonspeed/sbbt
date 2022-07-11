@@ -64,8 +64,8 @@
     <string name="string_hill">SUBIDA</string>
     <string name="string_interval">INTERVALO</string>
     <string name="string_vision">VISÃO</string>
-    <string name="string_movie_name_1">Túnel Verde</string>
-    <string name="string_movie_name_2">Estrada verde</string>
+    <string name="string_movie_name_1">Tropical</string>
+    <string name="string_movie_name_2">Praias</string>
 
     <!-- 运动界面 -->
     <string name="string_count_down_go">IR</string>
@@ -204,4 +204,6 @@
     <string name="ble_no_devices_found">Nenhum dispositivo encontrado.</string>
     <string name="paired_devices">Dispositivos pareados</string>
     <string name="bt_available">Dispositivos disponíveis</string>
+    <string name="string_movie_name_3">Florestas</string>
+    <string name="string_movie_name_4">Montanhas</string>
 </resources>

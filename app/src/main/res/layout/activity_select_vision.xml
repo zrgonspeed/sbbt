@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@drawable/bk_0">
 
     <TextView
@@ -10,25 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_px_20_y"
+        android:layout_marginTop="@dimen/dp_px_30_y"
         android:gravity="center"
         android:text="@string/string_mode_vision"
         android:textColor="@color/textView_white"
-        android:textSize="@dimen/font_size_47pt"
+        android:textSize="@dimen/font_size_30pt"
         android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_movie"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_movie"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_px_86_x"
-        android:layout_marginTop="@dimen/dp_px_111_y"
-        android:layout_marginRight="@dimen/dp_px_86_x"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_px_100_y"
         android:layout_marginBottom="@dimen/dp_px_100_y"
         android:background="@color/textView_black"
-        android:overScrollMode="never"
         android:visibility="visible" />
 
+    <!--详细界面-->
     <RelativeLayout
         android:id="@+id/rl_vision_p2"
         android:layout_width="match_parent"
@@ -38,88 +36,108 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_px_107_x"
-            android:layout_marginTop="@dimen/dp_px_111_y"
+            android:layout_marginStart="@dimen/dp_px_210_x"
+            android:layout_marginTop="@dimen/dp_px_189_y"
             android:src="@drawable/img_program_frame_2" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_px_157_x"
-            android:layout_marginTop="@dimen/dp_px_292_y"
+            android:layout_marginStart="@dimen/dp_px_250_x"
+            android:layout_marginTop="@dimen/dp_px_400_y"
             android:text="@string/string_select_time"
             android:textColor="@color/textView_white"
-            android:textSize="@dimen/font_size_25pt" />
+            android:textSize="@dimen/font_size_30pt" />
 
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_px_353_x"
-            android:layout_marginTop="@dimen/dp_px_276_y"
+            android:layout_marginStart="@dimen/dp_px_550_x"
+            android:layout_marginTop="@dimen/dp_px_400_y"
             android:background="@drawable/img_number_frame"
             android:gravity="center"
             android:textColor="@color/textView_black"
-            android:textSize="@dimen/font_size_28pt"
+            android:textSize="@dimen/font_size_30pt"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_px_544_x"
-            android:layout_marginTop="@dimen/dp_px_293_y"
+            android:layout_marginStart="@dimen/dp_px_800_x"
+            android:layout_marginTop="@dimen/dp_px_400_y"
             android:text="@string/string_unit_min"
             android:textColor="@color/textView_white"
-            android:textSize="@dimen/font_size_20pt" />
+            android:textSize="@dimen/font_size_30pt" />
 
         <ImageView
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_px_107_x"
-            android:layout_marginTop="@dimen/dp_px_538_y"
+            android:layout_marginStart="@dimen/dp_px_210_x"
+            android:layout_marginTop="@dimen/dp_px_789_y"
             android:src="@drawable/btn_factory_back" />
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="@dimen/dp_px_400_x"
+            android:layout_height="@dimen/dp_px_77_y"
+            android:layout_marginStart="@dimen/dp_px_470_x"
+            android:layout_marginTop="@dimen/dp_px_800_y"
+            android:gravity="center|start"
+            android:text="@string/string_select_back_hint"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_15pt" />
+
+        <TextView
+            android:layout_width="@dimen/dp_px_400_x"
+            android:layout_height="@dimen/dp_px_77_y"
+            android:layout_marginStart="@dimen/dp_px_1050_x"
+            android:layout_marginTop="@dimen/dp_px_800_y"
+            android:gravity="center|end"
+            android:text="@string/string_select_start_hint"
+            android:textColor="@color/textView_white"
+            android:textSize="@dimen/font_size_15pt" />
+
+        <ImageView
+            android:id="@+id/btn_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_1470_x"
+            android:layout_marginTop="@dimen/dp_px_789_y"
+            android:src="@drawable/btn_start" />
 
         <RelativeLayout
             android:id="@+id/rl_vision_p2_path2"
-            android:layout_width="@dimen/dp_px_573_x"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_px_600_x"
-            android:layout_marginTop="@dimen/dp_px_111_y">
+            android:layout_width="@dimen/dp_px_800_x"
+            android:layout_height="@dimen/dp_px_400_y"
+            android:layout_marginStart="@dimen/dp_px_950_x"
+            android:layout_marginTop="@dimen/dp_px_250_y">
 
             <ImageView
                 android:id="@+id/img_target_movie"
-                android:layout_width="@dimen/dp_px_500_x"
-                android:layout_height="@dimen/dp_px_300_y"
-                android:layout_marginLeft="@dimen/dp_px_73_x"
-                android:layout_marginTop="@dimen/dp_px_45_y" />
-
-            <ImageView
-                android:id="@+id/btn_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_px_403_x"
-                android:layout_marginTop="@dimen/dp_px_427_y"
-                android:src="@drawable/btn_start" />
+                android:layout_centerInParent="true" />
 
-            <TextView
-                android:layout_width="@dimen/dp_px_400_x"
-                android:layout_height="@dimen/dp_px_77_y"
-                android:layout_marginTop="@dimen/dp_px_427_y"
-                android:gravity="center|right"
-                android:text="@string/string_select_start_hint"
-                android:textColor="@color/textView_white"
-                android:textSize="@dimen/font_size_18pt" />
         </RelativeLayout>
 
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/btn_vision_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_897_y"
+        android:src="@drawable/img_home_media_page_1"
+        android:visibility="gone" />
 
     <include
         layout="@layout/layout_under_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_px_635_y" />
+        android:layout_marginTop="@dimen/dp_px_955_y" />
 
     <RelativeLayout
         android:id="@+id/rl_sd_error"

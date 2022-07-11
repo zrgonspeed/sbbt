@@ -63,9 +63,9 @@
 
     <string name="string_hill">HILL</string>
     <string name="string_interval">INTERVAL</string>
-    <string name="string_vision">VISION</string>
-    <string name="string_movie_name_1">Green Tunnel</string>
-    <string name="string_movie_name_2">Green Road</string>
+    <string name="string_vision">VIRTUAL RUN</string>
+    <string name="string_movie_name_1">Tropical</string>
+    <string name="string_movie_name_2">Beaches</string>
 
     <!-- 运动界面 -->
     <string name="string_count_down_go">GO</string>
@@ -80,7 +80,7 @@
     <string name="string_mode_program">PROGRAMS</string>
     <string name="string_mode_hill">HILL</string>
     <string name="string_mode_interval">INTERVAL</string>
-    <string name="string_mode_vision">VISION</string>
+    <string name="string_mode_vision">VIRTUAL RUN</string>
 
     <string name="string_incline">INCLINE</string>
     <string name="string_speed">SPEED</string>
@@ -240,4 +240,6 @@
     <string name="workout_head_ble_sink_hint_timeout">time out, try again!</string>
 
     <string name="ble_devices_count">%1$d DEVICES FOUND</string>
+    <string name="string_movie_name_3">Forests</string>
+    <string name="string_movie_name_4">Mountains</string>
 </resources>

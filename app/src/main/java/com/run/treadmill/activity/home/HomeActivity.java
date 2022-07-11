@@ -21,6 +21,7 @@ import com.run.treadmill.activity.modeSelect.goal.GoalSelectActivity;
 import com.run.treadmill.activity.modeSelect.hrc.HrcSelectActivity;
 import com.run.treadmill.activity.modeSelect.program.ProgramSelectActivity;
 import com.run.treadmill.activity.modeSelect.userprogram.UserProgramSelectActivity;
+import com.run.treadmill.activity.modeSelect.vision.VisionSelectActivity;
 import com.run.treadmill.activity.runMode.quickStart.QuickStartActivity;
 import com.run.treadmill.activity.setting.SettingActivity;
 import com.run.treadmill.base.BaseActivity;
@@ -515,7 +516,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 startActivity(new Intent(HomeActivity.this, FitnessSelectActivity.class));
                 break;
             case R.id.btn_vision:
-//                startActivity(new Intent(HomeActivity.this, VisionSelectActivity.class));
+               startActivity(new Intent(HomeActivity.this, VisionSelectActivity.class));
                 break;
             case R.id.btn_interval:
 //                startActivity(new Intent(HomeActivity.this, IntervalSelectActivity.class));

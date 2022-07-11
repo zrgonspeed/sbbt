@@ -269,4 +269,59 @@ public class FileUtil {
             }
         }
     }
+
+    /**
+     * 6.0获取外置sdcard和U盘路径，并区分
+     * @param context
+     * @param keyword  SD = "内部存储"; EXT = "SD卡"; USB = "U盘"
+     * @return
+     */
+    public static String getStoragePath(Context context, String keyword){
+        boolean isUsb = keyword.contains("usb") ? true : false;
+        String path="";
+        StorageManager mStorageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
+        Class<?> volumeInfoClazz;
+        Class<?> diskInfoClaszz;
+        try {
+            volumeInfoClazz = Class.forName("android.os.storage.VolumeInfo");
+            diskInfoClaszz = Class.forName("android.os.storage.DiskInfo");
+            Method StorageManager_getVolumes=Class.forName("android.os.storage.StorageManager").getMethod("getVolumes");
+            Method VolumeInfo_GetDisk = volumeInfoClazz.getMethod("getDisk");
+            Method VolumeInfo_GetPath = volumeInfoClazz.getMethod("getPath");
+            Method DiskInfo_IsUsb = diskInfoClaszz.getMethod("isUsb");
+            Method DiskInfo_IsSd = diskInfoClaszz.getMethod("isSd");
+            List<Object> List_VolumeInfo = (List<Object>) StorageManager_getVolumes.invoke(mStorageManager);
+            assert List_VolumeInfo != null;
+            for(int i=0; i<List_VolumeInfo.size(); i++){
+                Object volumeInfo = List_VolumeInfo.get(i);
+                Object diskInfo = VolumeInfo_GetDisk.invoke(volumeInfo);
+                if(diskInfo==null)continue;
+                boolean sd= (boolean) DiskInfo_IsSd.invoke(diskInfo);
+                boolean usb= (boolean) DiskInfo_IsUsb.invoke(diskInfo);
+                File file= (File) VolumeInfo_GetPath.invoke(volumeInfo);
+                //if (file !=null) {
+                Log.d("assert","USB4");
+                if (isUsb == usb) {//usb
+                    Log.d("assert","USB");
+                    if (file!=null) {
+                        Log.d("assert","USB2");
+                        assert (file != null);
+                        Log.d("assert","USB1");
+                        path = file.getAbsolutePath();
+                    }
+                } else if (!isUsb == sd) {//sd
+                    if (file!=null) {
+                        assert (file != null);
+                        path = file.getAbsolutePath();
+                    }
+                }
+                //}
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "[——————— ——————— Exception:"+e.getMessage()+"]");
+            e.printStackTrace();
+        }
+        Log.d(TAG, " path " + path);
+        return path + "/";
+    }
 }

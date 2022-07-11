@@ -1,56 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_main"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/bk_0">
 
     <!-- 中间的图表 -->
-    <ImageView
-        android:id="@+id/img_unit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_343_x"
-        android:layout_marginTop="@dimen/dp_px_238_y"
-        android:src="@drawable/img_sportmode_profile_incline_calibration_1"
-        android:visibility="visible" />
+    <RelativeLayout
+        android:id="@+id/rl_chart_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
-    <com.run.treadmill.widget.HistogramListView
-        android:id="@+id/lineChartView"
-        android:layout_width="@dimen/dp_px_1120_x"
-        android:layout_height="@dimen/dp_px_500_y"
-        android:layout_marginStart="@dimen/dp_px_400_x"
-        android:layout_marginTop="@dimen/dp_px_242_y"
-        android:visibility="visible"
-        app:modeName="@string/string_mode_quick_start"
-        app:txtSize="@dimen/font_size_16pt" />
+        <ImageView
+            android:id="@+id/img_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_343_x"
+            android:layout_marginTop="@dimen/dp_px_238_y"
+            android:src="@drawable/img_sportmode_profile_incline_calibration_1"
+            android:visibility="visible" />
 
-    <TextView
-        android:id="@+id/btn_line_chart_incline"
-        android:layout_width="@dimen/dp_px_720_x"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_400_x"
-        android:layout_marginTop="@dimen/dp_px_242_y"
-        android:background="@drawable/tx_fillet_max_bg"
-        android:gravity="center"
-        android:text="@string/string_incline"
-        android:textColor="@color/running_text_orange"
-        android:textSize="@dimen/font_size_21pt"
-        android:visibility="visible" />
+        <com.run.treadmill.widget.HistogramListView
+            android:id="@+id/lineChartView"
+            android:layout_width="@dimen/dp_px_1120_x"
+            android:layout_height="@dimen/dp_px_500_y"
+            android:layout_marginStart="@dimen/dp_px_400_x"
+            android:layout_marginTop="@dimen/dp_px_242_y"
+            android:visibility="visible"
+            app:modeName="@string/string_mode_quick_start"
+            app:txtSize="@dimen/font_size_16pt" />
 
-    <TextView
-        android:id="@+id/btn_line_chart_speed"
-        android:layout_width="@dimen/dp_px_400_x"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_1120_x"
-        android:layout_marginTop="@dimen/dp_px_242_y"
-        android:background="@drawable/tx_fillet_small_bg"
-        android:gravity="center"
-        android:text="@string/string_speed"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/font_size_21pt"
-        android:visibility="gone" />
+        <TextView
+            android:id="@+id/btn_line_chart_incline"
+            android:layout_width="@dimen/dp_px_720_x"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_400_x"
+            android:layout_marginTop="@dimen/dp_px_242_y"
+            android:background="@drawable/tx_fillet_max_bg"
+            android:gravity="center"
+            android:text="@string/string_incline"
+            android:textColor="@color/running_text_orange"
+            android:textSize="@dimen/font_size_21pt"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/btn_line_chart_speed"
+            android:layout_width="@dimen/dp_px_400_x"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_1120_x"
+            android:layout_marginTop="@dimen/dp_px_242_y"
+            android:background="@drawable/tx_fillet_small_bg"
+            android:gravity="center"
+            android:text="@string/string_speed"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/font_size_21pt"
+            android:visibility="visible" />
+    </RelativeLayout>
 
     <!-- 暖身、冷却 -->
     <RelativeLayout

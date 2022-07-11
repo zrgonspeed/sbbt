@@ -148,17 +148,23 @@
     </integer-array>
 
     <integer-array name="moviesId">
-        <item>@drawable/img_program_virtual_02</item>
         <item>@drawable/img_program_virtual_01</item>
+        <item>@drawable/img_program_virtual_02</item>
+        <item>@drawable/img_program_virtual_03</item>
+        <item>@drawable/img_program_virtual_04</item>
     </integer-array>
 
     <integer-array name="showMoviesId">
-        <item>@drawable/img_program_virtual_02_4</item>
         <item>@drawable/img_program_virtual_01_4</item>
+        <item>@drawable/img_program_virtual_02_4</item>
+        <item>@drawable/img_program_virtual_03_4</item>
+        <item>@drawable/img_program_virtual_04_4</item>
     </integer-array>
 
     <string-array name="moviesName">
         <item>@string/string_movie_name_1</item>
         <item>@string/string_movie_name_2</item>
+        <item>@string/string_movie_name_3</item>
+        <item>@string/string_movie_name_4</item>
     </string-array>
 </resources>
