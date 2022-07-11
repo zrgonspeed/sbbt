@@ -1,59 +1,43 @@
 package com.run.treadmill.bluetooth.BleSwap;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
+import android.content.IntentFilter;
+import android.os.SystemClock;
+import android.text.TextUtils;
 
-import com.android.settingslib.bluetooth.BluetoothCallback;
 import com.android.settingslib.bluetooth.CachedBluetoothDevice;
 import com.android.settingslib.bluetooth.CachedBluetoothDeviceManager;
 import com.android.settingslib.bluetooth.LocalBluetoothManager;
 import com.run.treadmill.R;
-import com.run.treadmill.bluetooth.adapter.BleAdapter;
-import com.run.treadmill.bluetooth.other.BleAutoPairHelper;
+import com.run.treadmill.bluetooth.activity.adapter.BleAdapter;
+import com.run.treadmill.bluetooth.receiver.BluetoothReceiver;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.ThreadUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static com.run.treadmill.bluetooth.BleSwap.BtCommon.BLE_PRINCIPAL;
-import static com.run.treadmill.bluetooth.BleSwap.BtCommon.BLE_SUBORDINATE;
-import static com.run.treadmill.bluetooth.BleSwap.BtCommon.PERSIST_BT_SWITCH;
-
 @SuppressLint("MissingPermission")
 public class BtUtil {
-
     private static final String TAG = "BtUtil";
 
     public static final int PROFILE_HEADSET = 0;
-
     public static final int PROFILE_A2DP = 1;
-
     public static final int PROFILE_OPP = 2;
-
     public static final int PROFILE_HID = 3;
-
     public static final int PROFILE_PANU = 4;
-
     public static final int PROFILE_NAP = 5;
-
     public static final int PROFILE_A2DP_SINK = 6;
-    public static boolean realOK;
+
     public static boolean clickConnBt;
     public static int status;
     private static List<BluetoothDevice> mPairedDevices = new ArrayList<>();
-
     public static boolean connecting = false;
     private static BleAdapter mBlePairedAdapter;
     private static BleAdapter mBleAvaAdapter;
@@ -121,7 +105,7 @@ public class BtUtil {
         }
     }
 
-    public static boolean doesClassMatch(BluetoothClass bluetoothClass, int profile) {
+    private static boolean doesClassMatch(BluetoothClass bluetoothClass, int profile) {
         if (profile == PROFILE_A2DP) {
             if (bluetoothClass.hasService(BluetoothClass.Service.RENDER)) {
                 return true;
@@ -204,254 +188,107 @@ public class BtUtil {
         }
     }
 
-    private static void setBtSource(boolean isSource, Activity activity) {
-        try {
-            if (isSource) {
-                BtUtil.setprop(PERSIST_BT_SWITCH, BLE_PRINCIPAL);//值为1时，为a2dp主，a133投放音乐到蓝牙音箱
-            } else {
-                BtUtil.setprop(PERSIST_BT_SWITCH, BLE_SUBORDINATE);//值为0时，为a2dp 从。手机投放音乐到A133
-            }
-            Intent intent;
-            if (isSource) {
-                Logger.i(TAG, "电子表设为 主");
-                intent = new Intent("com.sw.action.A2dpService");
-            } else {
-                Logger.i(TAG, "电子表设为 从");
-                intent = new Intent("com.sw.action.A2dpSinkService");
-            }
-            activity.sendBroadcast(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public static String setprop(String key, String defaultValue) {
-        String value = defaultValue;
-        try {
-            Class<?> c = Class.forName("android.os.SystemProperties");
-            Method get = c.getMethod("set", String.class, String.class);
-            get.invoke(c, key, value);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            return value;
-        }
-    }
-
-    public static boolean isPrincipal(String def) {
-        return getProp(PERSIST_BT_SWITCH, def).equals(BLE_PRINCIPAL);
-    }
-
-    public static boolean isSubordinate(String def) {
-        return getProp(PERSIST_BT_SWITCH, def).equals(BLE_SUBORDINATE);
-    }
-
-    public static void setPrincipal(Activity context) {
-        if (!isPrincipal(BLE_PRINCIPAL)) {
-            setBtSource(true, context);
-        }
-    }
-
-    public static void setSubordinate(Activity context) {
-        if (!isSubordinate(BLE_SUBORDINATE)) {
-            setBtSource(false, context);
-        }
-    }
-
-
-    public static String getBTSwitchProp(String def) {
-        return getProp(PERSIST_BT_SWITCH, def);
-    }
-
-    private static String getProp(String key, String defaultValue) {
-        String value = defaultValue;
-        try {
-            Class<?> c = Class.forName("android.os.SystemProperties");
-            Method get = c.getMethod("get", String.class, String.class);
-            value = (String) (get.invoke(c, key, "unknown"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            return value;
-        }
-    }
-
-    public static boolean checkLinkState(int res, int res2) {
-        //ArrayList<BluetoothDevice> deviceList = new ArrayList<>();
-        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
-        Class<BluetoothAdapter> bluetoothAdapterClass = BluetoothAdapter.class;//得到BluetoothAdapter的Class对象
-        try {
-            //得到配对状态的方法
-            Method method = bluetoothAdapterClass.getDeclaredMethod("getConnectionState", (Class[]) null);
-            //打开权限
-            method.setAccessible(true);
-            int state = (int) method.invoke(adapter, (Object[]) null);
-            Log.i(TAG, "checkLinkState1: " + state);
-            if (state == BluetoothAdapter.STATE_CONNECTED) {
-                Log.i(TAG, "BluetoothAdapter.STATE_CONNECTED");
-                Set<BluetoothDevice> devices = adapter.getBondedDevices();
-                Log.i(TAG, "devices:" + devices.size());
-
-                for (BluetoothDevice device : devices) {
-                    Method isConnectedMethod = BluetoothDevice.class.getDeclaredMethod("isConnected", (Class[]) null);
-                    method.setAccessible(true);
-                    boolean isConnected = (boolean) isConnectedMethod.invoke(device, (Object[]) null);
-                    if (isConnected) {
-                        Log.i(TAG, "connected:" + device.getName());
-                        //deviceList.add(device);
-                        if (BtUtil.getDeviceType(device.getBluetoothClass()) == res
-                                || BtUtil.getDeviceType(device.getBluetoothClass()) == res2) {
-                            Log.i(TAG, "connected1:" + device.getName());
-                            return true;
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
-
-    public static boolean isHasConnected(Context context) {
-        for (BluetoothDevice device : mPairedDevices) {
-            if (BtUtil.isConnecting(device) && BtUtil.isConnecting2(context, device)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean isConnecting(BluetoothDevice device) {
-        try {
-            Method isConnectedMethod = BluetoothDevice.class.getDeclaredMethod("isConnected", (Class[]) null);
-            boolean isConnected = (boolean) isConnectedMethod.invoke(device, (Object[]) null);
-            if (isConnected) {
-                Log.i(TAG, device.getName() + "    isConnecting:" + true);
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Log.i(TAG, device.getName() + "    isConnecting:" + false);
-        return false;
-    }
 
     /**
-     * 从缓存设备判断连接
-     * @param context
-     * @param device
-     * @return
+     * 从缓存判断连接
      */
-    public static boolean isConnecting2(Context context, BluetoothDevice device) {
-        CachedBluetoothDevice cachedDevice;
-        BluetoothDevice mBluetoothDevice;
-        mBluetoothDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(device.getAddress());
+    public static boolean isConnectedCache(Context context, BluetoothDevice device) {
+        BluetoothDevice mBluetoothDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(device.getAddress());
         if (mBluetoothDevice != null) {
-            CachedBluetoothDeviceManager mDeviceManager;
             LocalBluetoothManager manager = LocalBluetoothManager.getInstance(context, null);
-            mDeviceManager = manager.getCachedDeviceManager();
-            cachedDevice = mDeviceManager.findDevice(mBluetoothDevice);
+            CachedBluetoothDeviceManager mDeviceManager = manager.getCachedDeviceManager();
+            CachedBluetoothDevice cachedDevice = mDeviceManager.findDevice(mBluetoothDevice);
             if (cachedDevice == null) {
-                Log.i(TAG, mBluetoothDevice.getName() + "    isConnecting2:" + false + "   cachedDevice == null");
+                Logger.i(TAG, mBluetoothDevice.getName() + "    isConnecting2:" + false + "   cachedDevice == null");
                 return false;
             }
             boolean isConnecting2 = cachedDevice.isConnected();
-            Log.i(TAG, mBluetoothDevice.getName() + "    isConnecting2:" + isConnecting2);
+            // Logger.i(TAG, mBluetoothDevice.getName() + "    isConnecting2:" + isConnecting2);
             return isConnecting2;
         }
-        Log.i(TAG, mBluetoothDevice.getName() + "    isConnecting2:" + false + "   mBluetoothDevice == null");
+        // Logger.i(TAG, mBluetoothDevice.getName() + "    isConnecting2:" + false + "   mBluetoothDevice == null");
         return false;
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> T copyImplSerializable(T obj) throws Exception {
-        ByteArrayOutputStream baos = null;
-        ObjectOutputStream oos = null;
-
-        ByteArrayInputStream bais = null;
-        ObjectInputStream ois = null;
-
-        Object o = null;
-        //如果子类没有继承该接口，这一步会报错
-        try {
-            baos = new ByteArrayOutputStream();
-            oos = new ObjectOutputStream(baos);
-            oos.writeObject(obj);
-            bais = new ByteArrayInputStream(baos.toByteArray());
-            ois = new ObjectInputStream(bais);
-
-            o = ois.readObject();
-            return (T) o;
-        } catch (Exception e) {
-            throw new Exception("对象中包含没有继承序列化的对象");
+    public static void disConnectAllDevice(Context context) {
+        for (BluetoothDevice device : mPairedDevices) {
+            disConnectDevice(context, device);
+            BleController.disConnectA2dp(device);
         }
     }
 
-    public static <E> List<E> deepCopy(List<E> src) {
-        /*List<RepairSendBean> items = new ArrayList<RepairSendBean>();
-		    		items = deepCopy(reSendRetList);*/
-        try {
-            ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-            ObjectOutputStream out = new ObjectOutputStream(byteOut);
-            out.writeObject(src);
-
-            ByteArrayInputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());
-            ObjectInputStream in = new ObjectInputStream(byteIn);
-            @SuppressWarnings("unchecked")
-            List<E> dest = (List<E>) in.readObject();
-            return dest;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ArrayList<E>();
+    public static void disConnectDevice(Context context, BluetoothDevice device) {
+        if (device != null) {
+            Logger.i(TAG, "断开连接设备---  " + device.getName());
+            disConnectCacheDevice(context, device.getAddress());
+            BleController.disConnectA2dp(device);
         }
     }
 
+    private static void disConnectCacheDevice(Context context, String address) {
+        BluetoothDevice mBluetoothDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
+        if (mBluetoothDevice != null) {
+            LocalBluetoothManager manager = LocalBluetoothManager.getInstance(context, null);
+            CachedBluetoothDeviceManager mDeviceManager = manager.getCachedDeviceManager();
+            CachedBluetoothDevice cachedDevice = mDeviceManager.findDevice(mBluetoothDevice);
+            if (cachedDevice != null) {
+                cachedDevice.disconnect();
+            }
+        }
+
+/*        int removeIndex = -1;
+        for (int i = 0; i < mPairedDevices.size(); i++) {
+            if (address.equals(mPairedDevices.get(i).getAddress())) {
+                removeIndex = i;
+                break;
+            }
+        }
+        if (removeIndex != -1) {
+            mPairedDevices.remove(removeIndex);
+        }*/
+    }
+
+    /**
+     * 是否确认配对
+     */
+    public static boolean setPairingConfirmation(BluetoothDevice bluetoothDevice, boolean isConfirm) {
+        return BleAutoPairHelper.setPairingConfirmation(bluetoothDevice, isConfirm);
+    }
+
+    public static void pair(Context context, String address) {
+        Logger.d(TAG, "---pair-1--");
+        BluetoothDevice mBluetoothDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
+        if (mBluetoothDevice != null) {
+            LocalBluetoothManager manager = LocalBluetoothManager.getInstance(context, null);
+            CachedBluetoothDeviceManager mDeviceManager = manager.getCachedDeviceManager();
+            CachedBluetoothDevice cachedDevice = mDeviceManager.findDevice(mBluetoothDevice);
+
+            if (cachedDevice == null) {
+                cachedDevice = mDeviceManager.addDevice(mBluetoothDevice);
+                Logger.d(TAG, "---pair-createBond--");
+                cachedDevice.startPairing();
+            } else {
+                cachedDevice.startPairing();
+                Logger.d(TAG, "---pair-2--" + mBluetoothDevice.getName() + "--" + mBluetoothDevice.getAddress()
+                        + " Bond " + mBluetoothDevice.getBondState() + " cachedDevice "
+                        + mDeviceManager.findDevice(mBluetoothDevice));
+            }
+        }
+    }
 
     public static void unpair(Context context, BluetoothDevice device) {
         unpair(context, device.getAddress());
     }
 
-    public static void unpair(Context context, String address) {
-        Log.i(TAG, "unpair: " + address);
-        CachedBluetoothDevice cachedDevice;
-        BluetoothDevice mBluetoothDevice;
-        mBluetoothDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
+    private static void unpair(Context context, String address) {
+        Logger.i(TAG, "unpair: " + address);
+        BluetoothDevice mBluetoothDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
         if (mBluetoothDevice != null) {
-            CachedBluetoothDeviceManager mDeviceManager;
             LocalBluetoothManager manager = LocalBluetoothManager.getInstance(context, null);
-            mDeviceManager = manager.getCachedDeviceManager();
-            cachedDevice = mDeviceManager.findDevice(mBluetoothDevice);
+            CachedBluetoothDeviceManager mDeviceManager = manager.getCachedDeviceManager();
+            CachedBluetoothDevice cachedDevice = mDeviceManager.findDevice(mBluetoothDevice);
             if (cachedDevice == null) {
-                //cachedDevice = mDeviceManager.addDevice(mBluetoothDevice);
-                BleAutoPairHelper.removeBond(mBluetoothDevice);
-            } else {
-                cachedDevice.unpair();
-                //cachedDevice.disconnect();
-                //mDeviceManager.c
-                //cachedDevice.disconnect();
-                Log.d(TAG, "---unpair-2--" + mBluetoothDevice.getName() + "--" + mBluetoothDevice.getAddress()
-                        + " Bond " + mBluetoothDevice.getBondState() + " cachedDevice "
-                        + mDeviceManager.findDevice(mBluetoothDevice));
-            }
-        }
-    }
-
-    public static void disconnect(Context context, String address) {
-        CachedBluetoothDevice cachedDevice;
-        BluetoothDevice mBluetoothDevice;
-        mBluetoothDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
-        if (mBluetoothDevice != null) {
-            CachedBluetoothDeviceManager mDeviceManager;
-            LocalBluetoothManager manager = LocalBluetoothManager.getInstance(context, null);
-            mDeviceManager = manager.getCachedDeviceManager();
-            cachedDevice = mDeviceManager.findDevice(mBluetoothDevice);
-            if (cachedDevice == null) {
-                //cachedDevice = mDeviceManager.addDevice(mBluetoothDevice);
-                BleAutoPairHelper.removeBond(mBluetoothDevice);
-                //cachedDevice.disconnect();
+                BtUtil.removeBond(mBluetoothDevice);
             } else {
                 cachedDevice.unpair();
                 Logger.d(TAG, "---unpair-2--" + mBluetoothDevice.getName() + "--" + mBluetoothDevice.getAddress()
@@ -460,137 +297,6 @@ public class BtUtil {
             }
         }
     }
-
-    public static void disconnect2(Context context, BluetoothDevice device) {
-        if (device != null) {
-            Logger.i(TAG, "断开当前连接设备2---  " + device.getName());
-            disconnect2(context, device.getAddress());
-        }
-    }
-
-    public static void disconnect2(Context context, String address) {
-
-        CachedBluetoothDevice cachedDevice;
-        BluetoothDevice mBluetoothDevice;
-        mBluetoothDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
-        if (mBluetoothDevice != null) {
-            CachedBluetoothDeviceManager mDeviceManager;
-            LocalBluetoothManager manager = LocalBluetoothManager.getInstance(context, null);
-            mDeviceManager = manager.getCachedDeviceManager();
-            cachedDevice = mDeviceManager.findDevice(mBluetoothDevice);
-            if (cachedDevice == null) {
-                //cachedDevice = mDeviceManager.addDevice(mBluetoothDevice);
-                BleAutoPairHelper.removeBond(mBluetoothDevice);
-                //cachedDevice.disconnect();
-            } else {
-                cachedDevice.disconnect();
-                Logger.e("cachedDevice.isConnected() == " + cachedDevice.isConnected());
-//                cachedDevice.unpair();
-                Logger.d(TAG, "---unpair-2--" + mBluetoothDevice.getName() + "--" + mBluetoothDevice.getAddress()
-                        + " Bond " + mBluetoothDevice.getBondState() + " cachedDevice "
-                        + mDeviceManager.findDevice(mBluetoothDevice));
-            }
-        }
-    }
-
-    public static void pair(Context context, String address) {
-        Log.d(TAG, "---pair-1--");
-        CachedBluetoothDevice cachedDevice;
-        BluetoothDevice mBluetoothDevice;
-        mBluetoothDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
-        if (mBluetoothDevice != null) {
-            CachedBluetoothDeviceManager mDeviceManager;
-            LocalBluetoothManager manager = LocalBluetoothManager.getInstance(context, null);
-            mDeviceManager = manager.getCachedDeviceManager();
-            cachedDevice = mDeviceManager.findDevice(mBluetoothDevice);
-            if (cachedDevice == null) {
-                cachedDevice = mDeviceManager.addDevice(mBluetoothDevice);
-                //mBluetoothDevice.createBond();
-                Log.d(TAG, "---pair-createBond--");
-                cachedDevice.startPairing();
-            } else {
-                cachedDevice.startPairing();
-                Log.d(TAG, "---pair-2--" + mBluetoothDevice.getName() + "--" + mBluetoothDevice.getAddress()
-                        + " Bond " + mBluetoothDevice.getBondState() + " cachedDevice "
-                        + mDeviceManager.findDevice(mBluetoothDevice));
-            }
-        }
-    }
-
-    /*public static boolean getConnectedBtDevice(BleAdapter bleSinkAdapter) {
-        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
-        Class<BluetoothAdapter> bluetoothAdapterClass = BluetoothAdapter.class;//得到BluetoothAdapter的Class对象
-        try {
-            //得到配对状态的方法
-            Method method = bluetoothAdapterClass.getDeclaredMethod("getConnectionState", (Class[]) null);
-            //打开权限
-            method.setAccessible(true);
-            int state = (int) method.invoke(adapter, (Object[]) null);
-            if (state == BluetoothAdapter.STATE_CONNECTED) {
-                //Logger.i("BLUETOOTH","BluetoothAdapter.STATE_CONNECTED");
-                Set<BluetoothDevice> devices = adapter.getBondedDevices(); //集合里面包括已绑定的设备和已配对的设备
-                //Logger.i("BLUETOOTH","devices:"+devices.size());
-                for (BluetoothDevice device : devices) {
-                    Method isConnectedMethod = BluetoothDevice.class.getDeclaredMethod("isConnected", (Class[]) null);
-                    isConnectedMethod.setAccessible(true);
-                    boolean isConnected = (boolean) isConnectedMethod.invoke(device, (Object[]) null);
-                    *//*Logger.d("BLUETOOTH-dh","connected:"+device.getName() + " isConnected " + isConnected
-                    + " BtUtil " + BtUtil.getDeviceType(device.getBluetoothClass())
-                    + " getprop " + BtUtil.getprop(PERSIST_BT_SWITCH, BLE_PRINCIPAL)
-                    + " ic_bt_cellphone " + R.drawable.ic_bt_cellphone
-                    + " ic_bt_headphones_a2dp " + R.drawable.ic_bt_headphones_a2dp);*//*
-                    if (isConnected && isPrincipal(BLE_PRINCIPAL) &&
-                            (BtUtil.getDeviceType(device.getBluetoothClass()) == R.drawable.ic_bt_headphones_a2dp ||
-                                    BtUtil.getDeviceType(device.getBluetoothClass()) == R.drawable.ic_bt_headset_hfp)) {
-                        //根据状态来区分是已配对的还是已绑定的，isConnected为true表示是已配对状态。
-                        //Logger.d("BLUETOOTH-dh","connected:"+device.getName());
-                        bleSinkAdapter.addDevice(device, (short) 0);
-                        return true;
-                    } else if (isConnected && isSubordinate(BLE_SUBORDINATE) &&
-                            BtUtil.getDeviceType(device.getBluetoothClass()) == R.drawable.ic_bt_cellphone) {
-                        bleSinkAdapter.addDevice(device, (short) 0);
-                        return true;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }*/
-
-    /*public static void getCacheDev(Context context, BleAdapter myBleAdapter) {
-        Logger.i("getCacheDev(Context context, BleSinkAdapter myBleAdapter)");
-        try {
-            CachedBluetoothDeviceManager mDeviceManager;
-            LocalBluetoothManager manager = LocalBluetoothManager.getInstance(context, null);
-            mDeviceManager = manager.getCachedDeviceManager();
-            Collection<CachedBluetoothDevice> cachedDevices = mDeviceManager.getCachedDevicesCopy();
-
-            for (CachedBluetoothDevice cachedDevice : cachedDevices) {
-                if (cachedDevice.getDevice().getName() != null && isConnecting(cachedDevice.getDevice())) {
-                    //添加已配对设备
-                    if (isPrincipal(BLE_PRINCIPAL) && BtUtil.isBTEarphone(cachedDevice.getDevice())) {
-                        Logger.e(TAG, "AVA add ++++++++++++++++++++++++" + cachedDevice.getName());
-                        myBleAdapter.addDevice(cachedDevice.getDevice(), (short) 0);
-                    } else if (BtUtil.isSubordinate(BLE_SUBORDINATE) && BtUtil.isPhone(cachedDevice.getDevice())) {
-                        myBleAdapter.addDevice(cachedDevice.getDevice(), (short) 0);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
-
-    private static final LocalBluetoothManager.BluetoothManagerCallback mOnInitCallback = new LocalBluetoothManager.BluetoothManagerCallback() {
-        @Override
-        public void onBluetoothManagerInitialized(Context appContext,
-                                                  LocalBluetoothManager bluetoothManager) {
-            bluetoothManager.getEventManager().registerCallback(
-                    new DockBluetoothCallback(appContext));
-        }
-    };
 
     public static void setBlePairedDevices(List<BluetoothDevice> pairedDevices) {
         mPairedDevices = pairedDevices;
@@ -600,13 +306,6 @@ public class BtUtil {
         return mPairedDevices;
     }
 
-    public static void disConnectCurrentDevice(Context context) {
-        for (BluetoothDevice device : mPairedDevices) {
-            if (isConnecting2(context, device) || isConnecting(device)) {
-                disconnect2(context, device);
-            }
-        }
-    }
 
     public static boolean hasConnecting() {
         if (mBleAvaAdapter == null || mBlePairedAdapter == null) {
@@ -623,43 +322,6 @@ public class BtUtil {
         mBlePairedAdapter = bleAdapter;
     }
 
-
-    public static class DockBluetoothCallback implements BluetoothCallback {
-        private final Context mContext;
-
-        public DockBluetoothCallback(Context context) {
-            mContext = context;
-        }
-
-        public void onBluetoothStateChanged(int bluetoothState) {
-        }
-
-        public void onDeviceAdded(CachedBluetoothDevice cachedDevice) {
-        }
-
-        public void onDeviceDeleted(CachedBluetoothDevice cachedDevice) {
-        }
-
-        public void onConnectionStateChanged(CachedBluetoothDevice cachedDevice, int state) {
-        }
-
-        @Override
-        public void onScanningStateChanged(boolean started) {
-            // TODO: Find a more unified place for a persistent BluetoothCallback to live
-            // as this is not exactly dock related.
-        }
-
-        @Override
-        public void onDeviceBondStateChanged(CachedBluetoothDevice cachedDevice, int bondState) {
-        }
-
-        // This can't be called from a broadcast receiver where the filter is set in the Manifest.
-        private static String getDockedDeviceAddress(Context context) {
-            return null;
-        }
-    }
-
-
     public static List<BluetoothDevice> getPairedDevices(BluetoothAdapter bleAdapter) {
         Set<BluetoothDevice> bondedDevices = bleAdapter.getBondedDevices();
         for (BluetoothDevice device : bondedDevices) {
@@ -667,7 +329,6 @@ public class BtUtil {
         }
         return new ArrayList<>(bondedDevices);
     }
-
 
     /**
      * 蓝牙耳机类型  hfp a2dp
@@ -679,7 +340,6 @@ public class BtUtil {
         int deviceType = getDeviceType(device.getBluetoothClass());
         switch (deviceType) {
             case R.drawable.ic_bt_headset_hfp:
-                return true;
             case R.drawable.ic_bt_headphones_a2dp:
                 return true;
         }
@@ -691,58 +351,211 @@ public class BtUtil {
         return deviceType == R.drawable.ic_bt_cellphone;
     }
 
-
     public static boolean curConnectedDeviceIsPhone(Context context, BluetoothAdapter bleAdapter) {
         Set<BluetoothDevice> bondedDevices = bleAdapter.getBondedDevices();
         for (BluetoothDevice device : bondedDevices) {
-            if (isPhone(device)) {
-                boolean connecting2 = isConnecting2(context, device);
-                boolean connecting = isConnecting(device);
-//                Logger.e("deviceName ==  " + device.getName());
-                Logger.e("connecting2 == " + connecting2 + "    connecting == " + connecting);
-                Logger.e(TAG, "当前已配对的设备是手机");
-                return true;
+            if (isConnectClassicBT(device.getAddress())) {
+                if (isPhone(device)) {
+                    Logger.e(TAG, "当前已连接的设备是手机");
+                    return true;
+                } else {
+                    Logger.e(TAG, "当前已连接的设备不是手机");
+                    return false;
+                }
             }
         }
-        Logger.e(TAG, "当前已配对的设备不是手机");
+        Logger.e(TAG, "当前没有蓝牙设备连接");
         return false;
     }
 
     public static boolean curConnectedDeviceIsEarphone(Context context, BluetoothAdapter bleAdapter) {
         Set<BluetoothDevice> bondedDevices = bleAdapter.getBondedDevices();
         for (BluetoothDevice device : bondedDevices) {
-            if (isBTEarphone(device)) {
-                boolean connecting2 = isConnecting2(context, device);
-                boolean connecting = isConnecting(device);
-//                Logger.e("deviceName ==  " + device.getName());
-                Logger.e("connecting2 == " + connecting2 + "    connecting == " + connecting);
-                Logger.e(TAG, "当前已配对的设备是蓝牙音箱");
-                return true;
+            if (isConnectClassicBT(device.getAddress())) {
+                if (isBTEarphone(device)) {
+                    Logger.e(TAG, "当前已连接的设备是蓝牙音箱");
+                    return true;
+                } else {
+                    Logger.e(TAG, "当前已连接的设备不是蓝牙音箱");
+                    return false;
+                }
             }
         }
-        Logger.e(TAG, "当前已配对的设备不是蓝牙音箱");
+        Logger.e(TAG, "当前没有蓝牙设备连接");
         return false;
     }
 
     public static void printDevice(String TAG, BluetoothDevice device) {
         if (device == null) {
-            Logger.e(TAG, "device == null");
+            // Logger.e(TAG, "device == null");
             return;
         }
-//        Logger.e(TAG, "name ==  " + device.getName() + "    bondState == " + device.getBondState());
+        Logger.d(TAG, "name ==  " + device.getName() + "    bondState == " + device.getBondState());
     }
 
-    //        Set<BluetoothDevice> bondedDevices = bleAdapter.getBondedDevices();
-//        for (BluetoothDevice device : bondedDevices) {
-//            Logger.d(TAG, "BluetoothDevice is : " + device.getName() + " state is:" + device.getBondState());
-//            if (BtUtil.getDeviceType(device.getBluetoothClass()) == R.drawable.ic_bt_cellphone) {
-//                Logger.d(TAG, "BluetoothDevice is : " + device.getName() + " state is:" + device.getBondState());
-//                //BleAutoPairHelper.removeBond(device);
-//                BtUtil.unpair(context, device.getAddress());
-//            }
-//        }
+    public static void unregisterReceiver(Context context, BluetoothReceiver receiver) {
+        if (receiver != null) {
+            context.unregisterReceiver(receiver);
+        }
+    }
 
-    //Android蓝牙配对状态检测
-    //https://blog.csdn.net/cpcpcp123/article/details/108573368
+    public static boolean removeBond(BluetoothDevice bluetoothDevice) {
+        return BleAutoPairHelper.removeBond(bluetoothDevice);
+    }
 
+    public static synchronized void rebootDisconnectBT(Context context) {
+        Logger.e(TAG, "BluetoothAdapter.rebootDisconnectBT().getBondedDevices() null");
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter == null) {
+            Logger.e(TAG, "BluetoothAdapter.getDefaultAdapter() null");
+            return;
+        }
+        Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
+        if (bondedDevices == null) {
+            Logger.e(TAG, "BluetoothAdapter.getDefaultAdapter().getBondedDevices() null");
+            return;
+        }
+        ArrayList<BluetoothDevice> list = new ArrayList<>(bondedDevices);
+        for (BluetoothDevice device : list) {
+            BtUtil.disConnectDevice(context, device);
+            BtUtil.unpair(context, device);
+        }
+    }
+
+
+
+    /**
+     * 判断给定的设备mac地址是否已连接经典蓝牙
+     *
+     * @param macAddress 设备mac地址,例如"78:02:B7:01:01:16"
+     * @return
+     */
+    public static boolean isConnectClassicBT(String macAddress) {
+        if (TextUtils.isEmpty(macAddress)) {
+            return false;
+        }
+        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        Class<BluetoothAdapter> bluetoothAdapterClass = BluetoothAdapter.class;//得到BluetoothAdapter的Class对象
+        try {
+            //是否存在连接的蓝牙设备
+            Method method = bluetoothAdapterClass.getDeclaredMethod("getConnectionState", (Class[]) null);
+            method.setAccessible(true);             //打开权限
+
+            int state = (int) method.invoke(bluetoothAdapter, (Object[]) null);
+            if (state == BluetoothAdapter.STATE_CONNECTED) {
+                Set<BluetoothDevice> devices = bluetoothAdapter.getBondedDevices();
+                for (BluetoothDevice device : devices) {
+                    Method isConnectedMethod = BluetoothDevice.class.getDeclaredMethod("isConnected", (Class[]) null);
+                    method.setAccessible(true);
+                    boolean isConnected = (boolean) isConnectedMethod.invoke(device, (Object[]) null);
+                    if (isConnected) {
+                        return macAddress.contains(device.getAddress());
+                    }
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean hasConnected() {
+        Set<BluetoothDevice> devices = BluetoothAdapter.getDefaultAdapter().getBondedDevices();
+        boolean isConnectedFlag = false;
+        for (BluetoothDevice device : devices) {
+            boolean connect = isConnectClassicBT(device.getAddress());
+            Logger.d(device.getName() + " isConnected == " + connect);
+            if (connect) {
+                isConnectedFlag = true;
+            }
+        }
+        return isConnectedFlag;
+    }
+
+    public static void unPairPhones(Context context, BluetoothAdapter bluetoothAdapter) {
+        Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
+        for (BluetoothDevice device : bondedDevices) {
+            if (BtUtil.isPhone(device)) {
+                BtUtil.unpair(context, device);
+            }
+        }
+    }
+
+    private static void unBondBleMission(Context context) {
+        BluetoothAdapter bleSinkAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bleSinkAdapter == null) {
+            Logger.e(TAG, "BluetoothAdapter.getDefaultAdapter() null");
+            return;
+        }
+        Set<BluetoothDevice> bondedDevices = bleSinkAdapter.getBondedDevices();
+        if (bondedDevices == null) {
+            Logger.e(TAG, "BluetoothAdapter.getDefaultAdapter().getBondedDevices() null");
+            return;
+        }
+        for (BluetoothDevice device : bondedDevices) {
+            if (BtUtil.isBTEarphone(device)) {
+                BtUtil.unpair(context, device);
+            } else if (BtUtil.isPhone(device)) {
+                BtUtil.unpair(context, device);
+            }
+        }
+    }
+
+    public static void initBT(Context context, BluetoothReceiver receiver) {
+        // 取消所有配对设备
+        // ThreadUtils.runInThread(() -> {
+        //             int count = 0;
+        //             while (count < 3) {
+        //                 btDevicesAllUnpair(context);
+        //                 count++;
+        //                 SystemClock.sleep(3000);
+        //             }
+        //         },
+        //         2000);
+
+        unBondBleMission(context);
+        // 默认上电是从模式
+        ThreadUtils.runInThread(() -> BtSwapUtil.setSubordinate(context));
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);//蓝牙搜索结束
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);//蓝牙开始搜索
+        filter.addAction(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);//蓝牙开关状态
+        filter.addAction(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);//蓝牙开关状态
+
+        filter.addAction(BluetoothDevice.ACTION_FOUND);//蓝牙发现新设备(未配对的设备)
+        filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);//最底层连接建立
+        filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);//最底层连接断开
+        filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
+
+        filter.addAction(BluetoothDevice.ACTION_PAIRING_REQUEST);//在系统弹出配对框之前(确认/输入配对码)
+        filter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);//设备配对状态改变
+
+        filter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED); //BluetoothAdapter连接状态
+        // filter.addAction(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED); //BluetoothHeadset连接状态
+        // filter.addAction(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED); //BluetoothA2dp连接状态
+        // filter.addAction(BluetoothA2dp.ACTION_PLAYING_STATE_CHANGED); //A2dp播放状态
+        context.registerReceiver(receiver, filter);
+
+        // 默认上电是从模式
+        ThreadUtils.runInThread(() -> BtSwapUtil.setSubordinate(context), 3000);
+
+        // 一直读取蓝牙设备连接状态
+        ThreadUtils.runInThread(() -> {
+            while (true) {
+                int scanMode = BluetoothAdapter.getDefaultAdapter().getScanMode();
+                boolean hasConnected = hasConnected();
+                Logger.i("BTscanMode ==  " + scanMode + " isConnect " + hasConnected);
+                if (!hasConnected && BluetoothReceiver.isNotInBtActivity() && scanMode != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
+                    BtSwapUtil.openDiscoverable();
+                    Logger.i("BTscanMode 1==  " + scanMode + " isConnect " + hasConnected);
+                }
+                SystemClock.sleep(2000);
+            }
+        }, 5000);
+
+        ToastUtils.init(context);
+    }
 }

@@ -2,6 +2,7 @@ package com.run.treadmill.bluetooth.window;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,25 +53,23 @@ public class BleConnectButton extends androidx.appcompat.widget.AppCompatButton 
         BtUtil.status = status;
         setText(R.string.workout_ble_connect_state_1);
         setTextColor(getContext().getColor(R.color.ble_bt_connect_1));
-        setBackground(getContext().getDrawable(R.drawable.ble_btn_bg_1));
+        setBackground(getContext().getDrawable(R.drawable.btn_ble_connect));
     }
 
     public void setConnecting() {
         status = 2;
         BtUtil.status = status;
-
         setText(R.string.workout_ble_connect_state_4);
         setTextColor(getContext().getColor(R.color.ble_bt_connect_1));
-        setBackground(getContext().getDrawable(R.drawable.ble_btn_bg_1));
+        setBackground(getContext().getDrawable(R.drawable.btn_ble_connect));
     }
 
     public void setDisconnect() {
         status = 3;
         BtUtil.status = status;
-
         setText(R.string.workout_ble_connect_state_2);
         setTextColor(getContext().getColor(R.color.ble_bt_connect_2));
-        setBackground(getContext().getDrawable(R.drawable.ble_btn_bg_2));
+        setBackground(getContext().getDrawable(R.drawable.btn_ble_disconnect));
     }
 
     @Override
@@ -89,7 +88,6 @@ public class BleConnectButton extends androidx.appcompat.widget.AppCompatButton 
                     break;
             }
         } else {
-//            setText(R.string.workout_ble_connect_state_1);
             setTextColor(getContext().getColor(R.color.ble_bt_connect_3));
             setBackground(getContext().getDrawable(R.drawable.ble_btn_bg_3));
         }

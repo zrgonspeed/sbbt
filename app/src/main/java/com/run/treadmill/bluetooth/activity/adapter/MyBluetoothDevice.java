@@ -1,9 +1,9 @@
-package com.run.treadmill.bluetooth.adapter;
+package com.run.treadmill.bluetooth.activity.adapter;
 
 import android.bluetooth.BluetoothDevice;
 
 public class MyBluetoothDevice {
-    private BluetoothDevice mDevice;
+    private final BluetoothDevice mDevice;
 
     public MyBluetoothDevice(BluetoothDevice device) {
         this.mDevice = device;

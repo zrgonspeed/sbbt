@@ -13,10 +13,7 @@ import com.run.android.ShellCmdUtils;
 import com.run.serial.SerialCommand;
 import com.run.treadmill.bluetooth.BleDebug;
 import com.run.treadmill.bluetooth.BleSwap.BtUtil;
-import com.run.treadmill.bluetooth.other.ToastUtils;
-import com.run.treadmill.bluetooth.other.BluetoothHelper;
 import com.run.treadmill.bluetooth.receiver.BluetoothReceiver;
-import com.run.treadmill.bluetooth.other.BleAutoPairHelper;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
@@ -56,6 +53,8 @@ public class MyApplication extends LitePalApplication {
 
     public static final int DEFAULT_DEVICE_TYPE = CTConstant.DEVICE_TYPE_DC;
 
+    private BluetoothReceiver receiver = new BluetoothReceiver();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -78,8 +77,11 @@ public class MyApplication extends LitePalApplication {
                 Logger.d("changeSystemLanguage60 " + language);
                 SpManager.setLanguage(language);
                 LanguageUtil.changeSystemLanguage60(new Locale(language));
+                return;
             }
         }
+
+        BtUtil.initBT(this, receiver);
 
         // Gpio
         {
@@ -143,77 +145,15 @@ public class MyApplication extends LitePalApplication {
             SpManager.setAlterUpdatePath(false);
             SpManager.setChangedServer(false);
 
-            initBT();
         }
     }
 
-    private void initBT() {
-        registerBTReceiver();
-        bleSinkMission();
-        Context context = getApplicationContext();
-        BluetoothHelper.initBtManager(context);
-        BleAutoPairHelper.setDiscoverableTimeout(context, 0, 0);
-        ToastUtils.init(getApplicationContext());
-    }
-
-    private BluetoothReceiver receiver = new BluetoothReceiver();
-
-    private void registerBTReceiver() {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED);
-        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);//蓝牙搜索结束
-        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);//蓝牙开始搜索
-        filter.addAction(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);//蓝牙开关状态
-        filter.addAction(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);//蓝牙开关状态
-
-        // 心率设备才用到BLE低功耗蓝牙
-/*        filter.addAction("android.bluetooth.adapter.action.BLE_STATE_CHANGED");//要接收的广播
-        filter.addAction("android.bluetooth.adapter.action.BLE_ACL_CONNECTED");//要接收的广播
-        filter.addAction("android.bluetooth.adapter.action.BLE_ACL_DISCONNECTED");//要接收的广播*/
-
-        filter.addAction(BluetoothDevice.ACTION_FOUND);//蓝牙发现新设备(未配对的设备)
-        filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);//最底层连接建立
-        filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);//最底层连接断开
-        filter.addAction(BluetoothDevice.ACTION_PAIRING_REQUEST);//在系统弹出配对框之前(确认/输入配对码)
-        filter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);//设备配对状态改变
-        filter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED); //BluetoothAdapter连接状态
-        filter.addAction(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED); //BluetoothHeadset连接状态
-        filter.addAction(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED); //BluetoothA2dp连接状态
-        registerReceiver(receiver, filter);
-    }
-
-    private void unRegisterBTReceiver() {
-        if (receiver != null) {
-            unregisterReceiver(receiver);
-            receiver = null;
-        }
-    }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
-        unRegisterBTReceiver();
+        BtUtil.unregisterReceiver(this, receiver);
         Logger.d("==================app 被销毁了一次=====================");
-    }
-
-    /**
-     * 解除蓝牙配对
-     */
-    private synchronized void bleSinkMission() {
-        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (bluetoothAdapter == null) {
-            Logger.e(TAG, "BluetoothAdapter.getDefaultAdapter() null");
-            return;
-        }
-        Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
-        if (bondedDevices == null) {
-            Logger.e(TAG, "BluetoothAdapter.getDefaultAdapter().getBondedDevices() null");
-            return;
-        }
-        for (BluetoothDevice device : bondedDevices) {
-            BtUtil.unpair(this, device.getAddress());
-        }
     }
 
     private void closeAnimation() {
@@ -264,15 +204,13 @@ public class MyApplication extends LitePalApplication {
      * A133申请权限
      */
     private void grantPermission() {
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.READ_EXTERNAL_STORAGE);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_FINE_LOCATION);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_COARSE_LOCATION);
+        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_BACKGROUND_LOCATION);
         PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
         PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.READ_CONTACTS);
         PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE);
         PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.MEDIA_CONTENT_CONTROL);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_FINE_LOCATION);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_COARSE_LOCATION);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_BACKGROUND_LOCATION);
         PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.RECORD_AUDIO);
-
     }
 }

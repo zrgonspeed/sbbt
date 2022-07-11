@@ -210,6 +210,21 @@
     <string name="ble_no_devices_found">未找到任何设备。</string>
     <string name="paired_devices">已配对的设备</string>
     <string name="bt_available">可用设备</string>
+    <string name="workout_head_ble_sink">蓝牙设备</string>
+    <string name="workout_head_ble_sink_hint_back_main">请回到主界面连接蓝牙!</string>
+    <string name="workout_head_ble_sink_hint_1">控制台蓝牙连接到智能手机!</string>
+    <string name="workout_head_ble_sink_hint_2">您要切换搜索模式吗?</string>
+    <string name="workout_head_ble_sink_hint_3">请稍候</string>
+    <string name="workout_head_ble_sink_hint_4">切换到搜索模式…</string>
+    <string name="workout_head_ble_sink_hint_exitlink">退出现有的链接!</string>
+    <string name="workout_head_ble_sink_hint_timeout">暂停，再试一次!</string>
+    <string name="workout_head_ble_sink_hint_5">已经连接一个蓝牙</string>
+    <string name="workout_head_ble_sink_hint_6">是否断开当前蓝牙连接</string>
+    <string name="workout_ble_connect_state_5">断开中</string>
+    <string name="workout_ble_connect_state_1">连接</string>
+    <string name="workout_ble_connect_state_2">断开连接</string>
+    <string name="workout_ble_connect_state_3">设备名未找到</string>
+    <string name="workout_ble_connect_state_4">连接中</string>
 
     <!-- 第三方媒体app包名，类名 -->
     <string name="string_app_pk_name_1">org.mozilla.firefox</string>

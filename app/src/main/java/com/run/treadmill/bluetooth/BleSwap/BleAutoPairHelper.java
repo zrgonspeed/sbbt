@@ -1,4 +1,4 @@
-package com.run.treadmill.bluetooth.other;
+package com.run.treadmill.bluetooth.BleSwap;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -8,8 +8,6 @@ import android.util.Log;
 
 import com.run.treadmill.util.Logger;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -55,18 +53,6 @@ public class BleAutoPairHelper {
         return invokeMethod(bluetoothDevice, "removeBond");
     }
 
-    /**
-     * 设置配对码
-     *
-     * @param bluetoothDevice
-     * @param pinStr
-     * @return
-     */
-    public static boolean setPin(BluetoothDevice bluetoothDevice,
-                                 String pinStr) {
-        byte[] pinCodeBytes = convertPinToBytes(pinStr);
-        return invokeMethod(bluetoothDevice, "setPin", byte[].class, pinCodeBytes);
-    }
 
     /**
      * 取消配对框
@@ -80,11 +66,7 @@ public class BleAutoPairHelper {
     }
 
     /**
-     * 确认配对
-     *
-     * @param bluetoothDevice
-     * @param isConfirm
-     * @return
+     * 是否确认配对
      */
     public static boolean setPairingConfirmation(BluetoothDevice bluetoothDevice,
                                                  boolean isConfirm) {
@@ -111,10 +93,7 @@ public class BleAutoPairHelper {
         }
         Class<? extends BluetoothDevice> clazz = bluetoothDevice.getClass();
         Method method = null;
-
         try {
-
-
             Boolean isSuccess = false;
             if (null == paramClassType) {
                 method = clazz.getMethod(methodName);
@@ -124,7 +103,7 @@ public class BleAutoPairHelper {
                 isSuccess = (Boolean) method.invoke(bluetoothDevice, param);
             }
 
-            Logger.e(TAG, TAG
+            Logger.d(TAG, TAG
                     + " invokeMethod clazz=" + clazz.getSimpleName()
                     + " mac" + bluetoothDevice.getAddress()
                     + " methodName=" + methodName
@@ -133,39 +112,9 @@ public class BleAutoPairHelper {
                     + " isSuccess=" + isSuccess
             );
             return isSuccess;
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            return false;
-        } catch (InvocationTargetException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-    }
-
-    /**
-     * copy from android.bluetooth.BluetoothDevice
-     *
-     * @param pin
-     * @return
-     */
-    private static byte[] convertPinToBytes(String pin) {
-        if (pin == null) {
-            return null;
-        }
-        byte[] pinBytes;
-        try {
-            pinBytes = pin.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException uee) {
-            // this should not happen
-            Logger.e(TAG, "UTF-8 not supported ?!?");
-            return null;
-        }
-        if (pinBytes.length <= 0 || pinBytes.length > 16) {
-            return null;
-        }
-        return pinBytes;
     }
 }

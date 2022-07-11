@@ -238,8 +238,13 @@
     <string name="workout_head_ble_sink_hint_back_main">Please go back to the main interface to connect Bluetooth!</string>
     <string name="workout_head_ble_sink_hint_exitlink">Exit existing link!</string>
     <string name="workout_head_ble_sink_hint_timeout">time out, try again!</string>
+    <string name="workout_head_ble_sink_hint_5">Already connected to a Bluetooth</string>
+    <string name="workout_head_ble_sink_hint_6">Whether to disconnect the current Bluetooth connection</string>
+    <string name="workout_ble_connect_state_5">Disconnect the</string>
 
+    <string name="pop_hr_count">%1$d DEVICES FOUND</string>
     <string name="ble_devices_count">%1$d DEVICES FOUND</string>
+
     <string name="string_movie_name_3">Forests</string>
     <string name="string_movie_name_4">Mountains</string>
 </resources>

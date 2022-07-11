@@ -1,10 +1,15 @@
 package com.run.treadmill.activity.setting;
 
+import android.app.ProgressDialog;
 import android.app.backup.BackupManager;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.run.android.ShellCmdUtils;
 import com.run.treadmill.R;
@@ -24,7 +30,10 @@ import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.appStore.AppStoreActivity;
 import com.run.treadmill.activity.floatWindow.SettingBackFloatWindow;
 import com.run.treadmill.base.BaseActivity;
+import com.run.treadmill.bluetooth.BleSwap.BtSwapUtil;
+import com.run.treadmill.bluetooth.BleSwap.BtUtil;
 import com.run.treadmill.bluetooth.activity.BluetoothActivity;
+import com.run.treadmill.bluetooth.receiver.BluetoothReceiver;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
@@ -36,8 +45,10 @@ import com.run.treadmill.manager.SystemBrightManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FileUtil;
+import com.run.treadmill.util.LanguageUtil;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.ThirdApkSupport;
+import com.run.treadmill.util.ThreadUtils;
 import com.run.treadmill.util.TimeStringUtil;
 import com.run.treadmill.util.UnitUtil;
 import com.run.treadmill.widget.ViewDialog;
@@ -154,13 +165,13 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
     private final int minBright = 80;
     private final int maxProgressBright = 255 - minBright;
 
-    private boolean isOpenGSMode = false;
-    private int curMinAD = 0;
     private SettingBackFloatWindow settingBackFloatWindow;
+    private int type = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bleAdapter = ((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter();
         init();
     }
 
@@ -168,11 +179,15 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
     protected void onResume() {
         super.onResume();
         FileUtil.setLogoIcon(this, btn_logo);
-        loadSpManager();
         if (settingBackFloatWindow != null) {
             settingBackFloatWindow.stopFloatWindow();
         }
         btn_home.setEnabled(true);
+
+        if (type == R.id.rb_setting_type1) {
+            rb_setting_type1.performClick();
+            type = 0;
+        }
     }
 
     @OnClick({R.id.btn_back,
@@ -226,19 +241,18 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                     layout_setting_2_1.setVisibility(View.GONE);
                     mCalcBuilder.stopPopWin();
                 } else {
-                    //进入蓝牙
+                    layout_setting_1.setVisibility(View.GONE);
                     // 进入自定义蓝牙
-                    startActivity(new Intent(this, BluetoothActivity.class));
-                    btn_home.setEnabled(false);
-
-/*                    layout_setting_1.setVisibility(View.GONE);
-                    if (settingBackFloatWindow != null) {
-                        settingBackFloatWindow.stopFloatWindow();
-                        settingBackFloatWindow = null;
+                    if (!BtSwapUtil.isPrincipal(BtSwapUtil.BLE_PRINCIPAL)
+                            && BtUtil.curConnectedDeviceIsPhone(this, bleAdapter)) {
+                        // 如果不是主，并且已经配对了手机
+                        // 显示蓝牙切换对话框
+                        showNormalDialog();
+                        return;
+                    } else {
+                        type = R.id.rb_setting_type1;
+                        startActivity(new Intent(SettingActivity.this, BluetoothActivity.class));
                     }
-                    settingBackFloatWindow = new SettingBackFloatWindow(getApplicationContext(), SettingActivity.this);
-                    settingBackFloatWindow.startFloat();
-                    ThirdApkSupport.doStartApplicationWithPackageName(this, sysSetting, bt);*/
                 }
                 break;
             case R.id.rb_setting_type3:
@@ -702,11 +716,10 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
         if (mCalcBuilder.isPopShowing()) {
             mCalcBuilder.stopPopWin();
         }
-    }
 
-    private void loadSpManager() {
-        isOpenGSMode = SpManager.getGSMode();
-        curMinAD = SpManager.getMinAd();
+        if (switchPrincipalDialog != null && switchPrincipalDialog.isShowing()) {
+            switchPrincipalDialog.dismiss();
+        }
     }
 
     /**
@@ -717,21 +730,6 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
      */
     private boolean checkADValueIsInSafe(int curAD) {
         return true;
-        /*if (isOpenGSMode) {
-            return true;
-        }
-        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AC_AD);
-
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AA_AD);
-
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-            return (Math.abs(curAD - curMinAD) < InitParam.ABS_DC_AD);
-
-        } else {
-            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AC_AD);
-        }*/
     }
 
     private synchronized void changeSystemLanguage60(final Locale locale) {
@@ -742,34 +740,73 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
         sp_language.setClickable(false);
         sp_language.setEnabled(false);
 
-        new Thread(() -> {
+        ThreadUtils.runInThread(() -> {
+            LanguageUtil.changeSystemLanguage60(locale);
+            finish();
+        }, 1000);
+    }
+
+    // 蓝牙相关-------------------------------------------------------------------------------------
+    private BluetoothAdapter bleAdapter;
+    private ProgressDialog swapDialog;
+    private AlertDialog switchPrincipalDialog = null;
+
+    private void switchBleToPrincipal() {
+        runOnUiThread(() -> {
             try {
-                Thread.sleep(1000);
-                if (locale != null) {
-                    try {
-                        Class classActivityManagerNative = Class.forName("android.app.ActivityManagerNative");
-                        Method getDefault = classActivityManagerNative.getDeclaredMethod("getDefault");
-                        Object objIActivityManager = getDefault.invoke(classActivityManagerNative);
-                        Class classIActivityManager = Class.forName("android.app.IActivityManager");
-                        Method getConfiguration = classIActivityManager.getDeclaredMethod("getConfiguration");
-                        Configuration config = (Configuration) getConfiguration.invoke(objIActivityManager);
-                        config.setLocale(locale);
-                        //config.userSetLocale = true;
-                        Class clzConfig = Class.forName("android.content.res.Configuration");
-                        Field userSetLocale = clzConfig.getField("userSetLocale");
-                        userSetLocale.set(config, true);
-                        Class[] clzParams = {Configuration.class};
-                        Method updateConfiguration = classIActivityManager.getDeclaredMethod("updateConfiguration", clzParams);
-                        updateConfiguration.invoke(objIActivityManager, config);
-                        BackupManager.dataChanged("com.android.providers.settings");
-                    } catch (Exception e) {
-                        Logger.d("changeSystemLanguage: " + e.getLocalizedMessage());
-                    }
-                }
-                finish();
+                showSwapDialog(
+                        getString(R.string.workout_head_ble_sink_hint_3),
+                        getString(R.string.workout_head_ble_sink_hint_4));
+
+                BtUtil.unPairPhones(this, bleAdapter);
+                BluetoothReceiver.canChange = false;
+                new Thread(() -> {
+                    SystemClock.sleep(3000);
+                    runOnUiThread(() -> {
+                        hideSwapDialog();
+                        type = R.id.rb_setting_type1;
+                        startActivity(new Intent(SettingActivity.this, BluetoothActivity.class));
+                        BluetoothReceiver.canChange = true;
+                    });
+                }).start();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }).start();
+        });
+    }
+
+    private void hideSwapDialog() {
+        if (swapDialog != null && swapDialog.isShowing()) {
+            swapDialog.dismiss();
+            swapDialog = null;
+        }
+    }
+
+    private void showNormalDialog() {
+        AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(this);
+        normalDialog.setCancelable(false);
+        normalDialog.setTitle(getString(R.string.workout_head_ble_sink_hint_1));
+        normalDialog.setMessage(getString(R.string.workout_head_ble_sink_hint_2));
+        normalDialog.setPositiveButton("Yes",
+                (dialog, which) -> switchBleToPrincipal());
+        normalDialog.setNegativeButton("No",
+                (dialog, which) -> {
+                    rb_setting_type1.performClick();
+                });
+        // 显示
+        switchPrincipalDialog = normalDialog.show();
+    }
+
+    private void showSwapDialog(String title, String message) {
+        if (swapDialog == null) {
+            swapDialog = ProgressDialog.show(this, title, message, true, false);
+            swapDialog.setCancelable(false);
+        } else if (swapDialog.isShowing()) {
+            swapDialog.setTitle(title);
+            swapDialog.setMessage(message);
+        }
+        swapDialog.show();
     }
 }

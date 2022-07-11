@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- 设置按钮的左上角和右下角为弧形 -->
+    <stroke
+        android:width="2dp"
+        android:color="@color/ble_bt_connect_1" />
+    <solid android:color="#E7E7E7" />
+    <corners
+        android:bottomLeftRadius="20px"
+        android:bottomRightRadius="20px"
+        android:topLeftRadius="20px"
+        android:topRightRadius="20px" />
+</shape>

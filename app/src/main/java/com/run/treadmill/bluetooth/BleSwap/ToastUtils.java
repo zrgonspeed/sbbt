@@ -1,4 +1,4 @@
-package com.run.treadmill.bluetooth.other;
+package com.run.treadmill.bluetooth.BleSwap;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -6,16 +6,11 @@ import android.widget.Toast;
 import com.run.treadmill.R;
 
 public class ToastUtils {
-
-    /*private ToastUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }*/
-
     private static Context context;
     // Toast对象
     private static Toast toast;
     // 文字显示的颜色 <color name="white">#FFFFFFFF</color>
-    private static int messageColor = R.color.color_white;
+    private static final int messageColor = R.color.color_white;
 
     /**
      * 在Application中初始化ToastUtils.init(this)
