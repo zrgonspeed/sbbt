@@ -3,11 +3,14 @@ package com.run.treadmill.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.SeekBar;
 
+import com.run.treadmill.R;
+
 public class VerticalSeekBar extends SeekBar {
+
+    public static final int KEY_USER_PRESSED = R.id.tag_pressed;
 
     public VerticalSeekBar(Context context) {
         super(context);
@@ -42,6 +45,11 @@ public class VerticalSeekBar extends SeekBar {
     }
 
     @Override
+    public void setOnSeekBarChangeListener(OnSeekBarChangeListener l) {
+        super.setOnSeekBarChangeListener(l);
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (!isEnabled()) {
             return false;
@@ -50,12 +58,14 @@ public class VerticalSeekBar extends SeekBar {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-            case MotionEvent.ACTION_UP:
+                setTag(KEY_USER_PRESSED, true);
                 int i = getMax() - (int) (getMax() * event.getY() / getHeight());
                 setProgress(i);
                 onSizeChanged(getWidth(), getHeight(), 0, 0);
                 break;
-
+            case MotionEvent.ACTION_UP:
+                setTag(KEY_USER_PRESSED, false);
+                break;
             case MotionEvent.ACTION_CANCEL:
                 break;
         }

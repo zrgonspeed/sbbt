@@ -649,6 +649,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
             }
         });
         sb_setting_sound.setMax(100);
+        SystemSoundManager.getInstance().getCurrentPro(100);
         sb_setting_sound.setProgress(SystemSoundManager.getInstance().getCurrentPro());
         sb_setting_sound.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 

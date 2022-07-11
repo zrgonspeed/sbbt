@@ -1,5 +1,6 @@
 package com.run.treadmill.activity.floatWindow;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Handler;
@@ -17,15 +18,16 @@ import android.widget.SeekBar;
 import com.run.treadmill.R;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.SystemSoundManager;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.widget.VerticalSeekBar;
 
 import java.lang.ref.WeakReference;
 
 public class VoiceFloatWindow {
     private final int HIDE_VOICE = 10001;
-    private Context mContext;
+    private final Context mContext;
 
-    private WindowManager mWindowManager;
+    private final WindowManager mWindowManager;
     private FloatWindowManager mFloatWindowManager;
 
     private WindowManager.LayoutParams wmParams;
@@ -69,10 +71,12 @@ public class VoiceFloatWindow {
         return mWindow;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void init() {
         float_window_seek_bar_voice = (VerticalSeekBar) mFloatWindow.findViewById(R.id.float_window_seek_bar_voice);
 //        float_window_seek_bar_voice.setProgress(VoiceManager.getInstance().getCurrentPro(float_window_seek_bar_voice.getMax()));
         float_window_seek_bar_voice.setProgress(SystemSoundManager.getInstance().getCurrentPro());
+
         float_window_seek_bar_voice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
@@ -88,68 +92,31 @@ public class VoiceFloatWindow {
                 if (mFloatWindow.getVisibility() == View.GONE) {
                     return;
                 }
-                SystemSoundManager.getInstance().setAudioVolume(progress, seekBar.getMax());
-                mFloatWindowManager.currentPro = progress;
+                Object userPressed = seekBar.getTag(VerticalSeekBar.KEY_USER_PRESSED);
+                if (userPressed != null && (boolean) userPressed) {
+//                    Logger.e("userPressed 为true， progress == " + progress);
+                    SystemSoundManager.getInstance().setAudioVolume(progress, seekBar.getMax());
+                    mFloatWindowManager.currentPro = progress;
+                }
             }
         });
 
-        float_window_seek_bar_voice.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        if (myFloatHandler != null) {
-                            myFloatHandler.removeMessages(HIDE_VOICE);
-                        }
-                        break;
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_UP:
-                        senHideVoiceMessage();
-                        break;
-                }
-                return false;
+        float_window_seek_bar_voice.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    if (myFloatHandler != null) {
+                        myFloatHandler.removeMessages(HIDE_VOICE);
+                    }
+                    break;
+                case MotionEvent.ACTION_CANCEL:
+                case MotionEvent.ACTION_UP:
+                    senHideVoiceMessage();
+                    break;
             }
+            return false;
         });
         myFloatHandler = new MyFloatHandler(Looper.getMainLooper(), this);
     }
-
-/*    void setProgress(int isUp) {
-        if (float_window_seek_bar_voice == null || mFloatWindow == null) {
-            return;
-        }
-        showOrHideFloatWindow(false);
-
-        if (mFloatWindow.getVisibility() == View.GONE) {
-            if (isUp == 1) {
-                if (SystemSoundManager.getInstance().getCurrentPro() < 100) {
-                    BuzzerManager.getInstance().buzzerRingOnce();
-                    SystemSoundManager.getInstance().setAudioVolume(SystemSoundManager.getInstance().getCurrentPro() + 1, 100);
-                    mFloatWindowManager.currentPro = SystemSoundManager.getInstance().getCurrentPro();
-                    float_window_seek_bar_voice.setProgress(mFloatWindowManager.currentPro);
-                }
-            } else {
-                if (SystemSoundManager.getInstance().getCurrentPro() > 0) {
-                    BuzzerManager.getInstance().buzzerRingOnce();
-                    SystemSoundManager.getInstance().setAudioVolume(SystemSoundManager.getInstance().getCurrentPro() - 1, 100);
-                    mFloatWindowManager.currentPro = SystemSoundManager.getInstance().getCurrentPro();
-                    float_window_seek_bar_voice.setProgress(mFloatWindowManager.currentPro);
-                }
-            }
-            return;
-        }
-        if (isUp == 1) {
-            if (SystemSoundManager.getInstance().getCurrentPro() < 100) {
-                BuzzerManager.getInstance().buzzerRingOnce();
-                float_window_seek_bar_voice.setProgress(SystemSoundManager.getInstance().getCurrentPro() + 1);
-            }
-        } else {
-            if (SystemSoundManager.getInstance().getCurrentPro() > 0) {
-                BuzzerManager.getInstance().buzzerRingOnce();
-                float_window_seek_bar_voice.setProgress(SystemSoundManager.getInstance().getCurrentPro() - 1);
-            }
-        }
-
-    }*/
 
     public void showOrHideFloatWindow(boolean isShow) {
         if (isShow) {
@@ -187,7 +154,7 @@ public class VoiceFloatWindow {
     }
 
     static class MyFloatHandler extends Handler {
-        private WeakReference<VoiceFloatWindow> mWeakRefrence;
+        private final WeakReference<VoiceFloatWindow> mWeakRefrence;
         private VoiceFloatWindow vfw;
 
         MyFloatHandler(Looper looper, VoiceFloatWindow vfw) {
