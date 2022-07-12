@@ -16,6 +16,7 @@ public class SerialUtils {
 
     static boolean isSendData = false;
     static boolean isReadData = false;
+    static boolean isTimeOut = true;
 
     public static int keyValue = 0;
 
@@ -191,5 +192,18 @@ public class SerialUtils {
      */
     public synchronized void sendOtaDataPackage(byte[] data, int len){
         SerialTxData.getInstance().sendOtaDataPackage(data, len);
+    }
+
+    public void stopSerial() {
+        isReadData = false;
+        isSendData = false;
+        isTimeOut = false;
+        unRegRxDataCallBack();
+        try {
+            if (serialPort != null) {
+                serialPort.close();
+            }
+        } catch (Exception ignore) {
+        }
     }
 }

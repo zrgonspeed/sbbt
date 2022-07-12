@@ -94,7 +94,7 @@ public class SerialRxData {
         if (!OTAParam.isInBinUpdateStatus) {
             SerialUtils.isReadData = false;
         }
-        if (rxDataCallBack != null) {
+        if (rxDataCallBack != null && SerialUtils.isTimeOut) {
             rxDataCallBack.onTimeOut();
         }
     }

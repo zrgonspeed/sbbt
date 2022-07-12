@@ -750,4 +750,18 @@ public class SpManager {
     public static String getLanguage() {
         return StorageParam.getParam(SET_LANGUAGE, "en");
     }
+
+    /**
+     * 保存OtaMcu应用的文件名，通过判断与assets里的apk名称是否一样来决定安装
+     * OtaMcu-220609_V10.apk
+     */
+    private static final String SET_OTA_MCU_NAME = "set_ota_mcu_name";
+
+    public static void setOtaMcuName(String fileName) {
+        StorageParam.setParam(SET_OTA_MCU_NAME, fileName);
+    }
+
+    public static String getOtaMcuName() {
+        return StorageParam.getParam(SET_OTA_MCU_NAME, "");
+    }
 }

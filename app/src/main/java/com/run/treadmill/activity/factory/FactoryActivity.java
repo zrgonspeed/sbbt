@@ -1,6 +1,8 @@
 package com.run.treadmill.activity.factory;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -416,16 +418,17 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         tv_error_tip = (TextView) views[2].findViewById(R.id.tv_error_tip);
         btn_update_pop_yes = (ImageView) views[2].findViewById(R.id.btn_update_pop_yes);
         btn_update_pop_no = (ImageView) views[2].findViewById(R.id.btn_update_pop_no);
-        btn_ota_update.setOnMultiClickListener(new MultiClickAndLongPressView.OnMultiClickListener() {
-            @Override
-            public void onMultiClick() {
-                Logger.i("mUdiskPath == " + mUdiskPath);
-                if (mUdiskPath.isEmpty() || !OTAUtils.checkOtaFileExist(mUdiskPath)) {
-                    tv_error_tip.setText(getString(R.string.no__update_files));
-                    rl_error_tip.setVisibility(View.VISIBLE);
-                } else {
-                    rl_ota_update.setVisibility(View.VISIBLE);
-                }
+        btn_ota_update.setOnMultiClickListener(() -> {
+            Logger.i("mUdiskPath == " + mUdiskPath);
+            try {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                ComponentName cn = new ComponentName("top.cnzrg.otamcu", "top.cnzrg.otamcu.MainActivity");
+                intent.setComponent(cn);
+                startActivity(intent);
+            } catch (ActivityNotFoundException exception) {
+                Logger.e(exception.getMessage());
             }
         });
 

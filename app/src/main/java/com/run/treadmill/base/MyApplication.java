@@ -25,6 +25,7 @@ import com.run.treadmill.manager.PermissionManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.control.ParamCons;
+import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.LanguageUtil;
@@ -145,6 +146,8 @@ public class MyApplication extends LitePalApplication {
             SpManager.setAlterUpdatePath(false);
             SpManager.setChangedServer(false);
 
+            // 第一次开机启动，安装otamcu
+            OtaMcuUtils.installOtaMcu(this);
         }
     }
 

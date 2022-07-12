@@ -201,6 +201,16 @@
             android:name="com.run.treadmill.bluetooth.activity.BluetoothActivity"
             android:configChanges="locale|touchscreen|keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|mcc|mnc|navigation|fontScale" />
 
+        <service
+            android:name="com.run.treadmill.otamcu.OtaMcuService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.run.treadmill.otamcu" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
         <!--A133+-->
         <provider
             android:name="androidx.core.content.FileProvider"
