@@ -34,36 +34,6 @@ public class SerialRxData {
         Log.v("read", ">>  " + ConvertData.byteArrayToHexString(data, len));
         SerialTxData.timeOutCount = SerialCommand.TIME_OUT_COUNT;
 
-        if (OTAParam.isSendBinCnt) {
-            if (data[1] == -128) {
-                OTAParam.reSend = true;
-                return;
-            }
-
-            if (data[1] == SerialCommand.EXC_SUCCEED) {  // 0x80 == -128
-                OTAParam.reSend = false;
-                if ((data[3] & 0xFF) == OTAParam.CMD_UPDATE
-                        || (data[3] & 0xFF) == OTAParam.CMD_BIN_DATA) {
-                    Log.d("rxDataPackage", "------------------------1 ");
-                    if (SerialTxData.getInstance().isHasSendUnClearPackageQueue) {
-                        SerialTxData.getInstance().isHasSendUnClearPackageQueue = false;
-                        SerialTxData.getInstance().reMoveUpClearQueue();
-                    } else {
-                        SerialTxData.getInstance().reMoveQueuePackage();
-                    }
-                }
-
-                if ((data[3] & 0xFF) == OTAParam.CMD_UPDATE) {
-                    Log.d("rxDataPackage", "------------------------2 ");
-                }
-                if ((data[3] & 0xFF) == OTAParam.CMD_BIN_DATA) {
-                    Log.d("rxDataPackage", "------------------------3 ");
-                    OTAParam.isSendBinOneFrame = true;
-                }
-            }
-            return;
-        }
-
         if (rxDataCallBack == null) {
             return;
         }
@@ -81,7 +51,6 @@ public class SerialRxData {
             } else {
                 SerialTxData.getInstance().reMoveQueuePackage();
             }
-//            data[8] = 0;
 
             rxDataCallBack.onSucceed(data, len);
         } else {
@@ -91,9 +60,7 @@ public class SerialRxData {
 
     protected synchronized void timeOut() {
         SerialUtils.isSendData = false;
-        if (!OTAParam.isInBinUpdateStatus) {
-            SerialUtils.isReadData = false;
-        }
+        SerialUtils.isReadData = false;
         if (rxDataCallBack != null && SerialUtils.isTimeOut) {
             rxDataCallBack.onTimeOut();
         }

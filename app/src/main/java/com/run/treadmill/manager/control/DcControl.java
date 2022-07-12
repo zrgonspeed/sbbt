@@ -2,7 +2,6 @@ package com.run.treadmill.manager.control;
 
 import android.content.Context;
 
-import com.run.serial.OTAParam;
 import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
@@ -284,11 +283,6 @@ public class DcControl extends BaseControl {
     @Override
     public void setReboot() {
         sendWriteOneData(ParamCons.CMD_REBOOT, new byte[]{0x5A});
-    }
-
-    @Override
-    public void sendUpdateCmd(byte[] data) {
-        sendWriteOneData((byte) (OTAParam.CMD_UPDATE & 0xFF), data);
     }
 
     @Override

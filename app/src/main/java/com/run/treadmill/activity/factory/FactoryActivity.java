@@ -26,7 +26,6 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.run.android.ShellCmdUtils;
-import com.run.serial.OTAParam;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.SafeKeyTimer;
@@ -42,11 +41,6 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
-import com.run.treadmill.ota.BaseUpdate;
-import com.run.treadmill.ota.BinUpdate;
-import com.run.treadmill.ota.Md5Manager;
-import com.run.treadmill.ota.OTAUtils;
-import com.run.treadmill.ota.ReBinUpdate;
 import com.run.treadmill.receiver.USBBroadcastReceiver;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FileUtil;
@@ -159,10 +153,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
 
     // ota mcu
     private MultiClickAndLongPressView btn_ota_update;
-    private RelativeLayout rl_ota_update, rl_error_tip;
-    private ImageView btn_update_pop_yes, btn_update_pop_no, btn_ok;
-    private TextView tv_error_tip;
-    private BaseUpdate binUpdate;
 
     private int curRPM;
 
@@ -411,13 +401,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         });
 
         // OTA
-        rl_ota_update = (RelativeLayout) views[2].findViewById(R.id.rl_ota_update);
-        rl_error_tip = (RelativeLayout) views[2].findViewById(R.id.rl_error_tip);
         btn_ota_update = (MultiClickAndLongPressView) views[2].findViewById(R.id.btn_ota_update);
-        btn_ok = (ImageView) views[2].findViewById(R.id.btn_ok);
-        tv_error_tip = (TextView) views[2].findViewById(R.id.tv_error_tip);
-        btn_update_pop_yes = (ImageView) views[2].findViewById(R.id.btn_update_pop_yes);
-        btn_update_pop_no = (ImageView) views[2].findViewById(R.id.btn_update_pop_no);
         btn_ota_update.setOnMultiClickListener(() -> {
             Logger.i("mUdiskPath == " + mUdiskPath);
             try {
@@ -432,9 +416,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
             }
         });
 
-        btn_update_pop_yes.setOnClickListener(this);
-        btn_update_pop_no.setOnClickListener(this);
-        btn_ok.setOnClickListener(this);
         btn_setting_reset.setOnClickListener(this);
         btn_info_reset.setOnClickListener(this);
         btn_factory_update.setOnClickListener(this);
@@ -900,67 +881,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
                 rl_factory_select.removeAllViews();
                 LayoutInflater.from(this).inflate(R.layout.layout_factory_two, rl_factory_select, true);
                 initFactoryTwo();
-                break;
-            case R.id.btn_update_pop_yes: {
-                // 从多个bin文件中选择日期最新的bin文件进行拷贝。
-                boolean result = OTAUtils.copyUpanToAn(mUdiskPath, getFilesDir() + "/OTA");
-                if (!result) {
-                    tv_error_tip.setText(getString(R.string.no__update_files));
-                    rl_error_tip.setVisibility(View.VISIBLE);
-                    rl_ota_update.setVisibility(View.GONE);
-                    return;
-                }
-                if (OTAParam.isSendBinCnt) {
-                    rl_ota_update.setVisibility(View.GONE);
-                    return;
-                }
-
-                // 获取复制到Android的bin文件的MD5
-                File anOtaDir = new File(getFilesDir() + "/OTA");
-                // 保证安卓OTA目录只有一个文件
-                File otaFile = anOtaDir.listFiles()[0];
-                String otaFileName = otaFile.getName();
-                // 从文件名取MD5部分
-                String MD5FromFileName = otaFileName.substring(InitParam.PROJECT_NAME.length() + 12, otaFileName.indexOf("."));
-
-                String anOtaFilePath = getFilesDir() + "/OTA/" + otaFileName;
-                if (mUdiskPath.isEmpty() || !FileUtil.isCheckExist(anOtaFilePath)) {
-                    tv_error_tip.setText(getString(R.string.no__update_files));
-                    rl_error_tip.setVisibility(View.VISIBLE);
-                    rl_ota_update.setVisibility(View.GONE);
-                } else {
-                    String apkMD5 = Md5Manager.fileToMD5(anOtaFilePath);
-                    Logger.d("比对MD5: apkMD5==" + apkMD5 + "  MD5FromFileName==" + MD5FromFileName);
-
-                    if (apkMD5.compareTo(MD5FromFileName) == 0) {
-                        if (binUpdate == null) {
-                            Logger.d("准备更新 " + otaFileName);
-
-                            if (ErrorManager.getInstance().errStatus == CTConstant.SHOW_TIPS_COMM_ERROR || ErrorManager.getInstance().errStatus == ErrorManager.ERR_TIME_OUT) {
-                                Logger.e("通信超时，使用 ReBinUpdate");
-                                binUpdate = new ReBinUpdate();
-                            } else {
-                                Logger.e("使用 BinUpdate");
-                                binUpdate = new BinUpdate();
-                            }
-
-                            binUpdate.procBin(this, anOtaFilePath);
-                            btn_update_pop_yes.setVisibility(View.GONE);
-                            btn_update_pop_no.setVisibility(View.GONE);
-                        }
-                    } else {
-                        tv_error_tip.setText(getString(R.string.incorrect_signature));
-                        rl_error_tip.setVisibility(View.VISIBLE);
-                        rl_ota_update.setVisibility(View.GONE);
-                    }
-                }
-            }
-            break;
-            case R.id.btn_update_pop_no:
-                rl_ota_update.setVisibility(View.GONE);
-                break;
-            case R.id.btn_ok:
-                rl_error_tip.setVisibility(View.GONE);
                 break;
             default:
                 break;

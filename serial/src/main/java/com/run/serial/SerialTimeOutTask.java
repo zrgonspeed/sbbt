@@ -18,19 +18,11 @@ public final class SerialTimeOutTask implements Runnable {
             while (true) {
                 //Log.d("SerialTimeOutTask", "=================1=========");
                 SerialTxData.timeOutCount = SerialTxData.timeOutCount - 2;
-                if (SerialTxData.timeOutCount < 0 && !OTAParam.isSendBinCnt) {
+                if (SerialTxData.timeOutCount < 0) {
                     Log.d("SerialTimeOutTask", "=================2=========");
                     SerialTxData.timeOutCount = SerialCommand.TIME_OUT_COUNT;
-                    OTAParam.isInBinUpdateStatus = true;
-
                     SerialRxData.getInstance().timeOut();
                     SerialUtils.isReadData = true;
-                }
-                if ( SerialTxData.timeOutCount < 0 && OTAParam.isSendBinCnt ) {
-                    Log.d("SerialTimeOutTask", "=================3=========");
-                    SerialTxData.timeOutCount = -1;
-                    OTAParam.isInBinUpdateStatus = false;
-                    SerialRxData.getInstance().timeOut();
                 }
                 Thread.sleep(1000);
             }

@@ -1,7 +1,6 @@
 package com.run.serial;
 
 import android.hardware.SerialPort;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -49,23 +48,6 @@ public final class SerialRxDataTask implements Runnable {
                 int PACK_FRAME_HEADER = SerialCommand.PACK_FRAME_HEADER;
                 int PACK_FRAME_END = SerialCommand.PACK_FRAME_END;
 
-                if (OTAParam.isSendBinCnt) {
-                    for (int i = 0; i < OTAParam.readUpdateReplyPkg.length; i++) {
-                        if (buff[i] != OTAParam.readUpdateReplyPkg[i]) {
-                            break;
-                        }
-                        if (i == OTAParam.readUpdateReplyPkg.length - 1) {
-                            OTAParam.isSendBinData = true;
-                            SerialTxData.getInstance().sendOtaConnectPackage();
-                        }
-                    }
-                }
-
-                if (OTAParam.isSendBinData) {
-                    PACK_FRAME_HEADER = SerialCommand.PACK_FRAME_END;
-                    PACK_FRAME_END = SerialCommand.PACK_FRAME_HEADER;
-                }
-
                 for (int i = 0; i < iDataLen; i++) {
                     switch (c_state) {
                         case IDLE_BEGIN:
@@ -88,12 +70,6 @@ public final class SerialRxDataTask implements Runnable {
                                 break;
                             }
                             if ((buff[i] & 0xFF) == PACK_FRAME_END) {
-                                if (OTAParam.isSendBinCnt) {
-                                    if (ResultBuf[1] == -128) {
-                                        OTAParam.reSend = true;
-                                        return;
-                                    }
-                                }
                                 rawPackageLen = SerialData.comUnPackage(readDataBuffer, ResultBuf, offset);
                                 reSet();
                                 if (rawPackageLen > 0) {

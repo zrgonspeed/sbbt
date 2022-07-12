@@ -197,8 +197,6 @@ public interface ControlStrategy {
      */
     void setReboot();
 
-    void sendUpdateCmd(byte[] data);
-
     void writeDeviceType();
 
     void buzz(byte[] data);

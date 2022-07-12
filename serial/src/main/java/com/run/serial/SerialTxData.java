@@ -1,8 +1,9 @@
 package com.run.serial;
 
 import android.hardware.SerialPort;
-import androidx.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -60,7 +61,7 @@ public class SerialTxData {
             outputBuffer.clear();
             outputBuffer.put(bytes);
             serialPort.write(outputBuffer, length);
-            Log.v("send", ">>  " + ConvertData.byteArrayToHexString(bytes,length));
+            Log.v("send", ">>  " + ConvertData.byteArrayToHexString(bytes, length));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -217,106 +218,4 @@ public class SerialTxData {
 //        emergencyStopLen = SerialData.comPackage(srcBytes, emergencyStopBytes, len);
 //    }
 
-    protected synchronized void sendOtaConnectPackage() {
-        sendPackage(OTAParam.otaConnectPkg, OTAParam.otaConnectPkg.length);
-    }
-
-    protected synchronized void sendOtaDataPackage(byte[] data, int length) {
-//        Log.d("sendOtaDataPackage", ">>  " + ConvertData.byteArrayToHexString(data, data.length) + "  "+ length);
-        try {
-//            Log.d("send", ">>  " + ConvertData.byteArrayToHexString(data,data.length));
-            byte[] lenBytes = ConvertData.IntToBytes(length);
-            byte[] srcHeadBytes = {(byte) 0xFE, 0x22, (byte) 0xD0, lenBytes[0], lenBytes[1],
-                    lenBytes[2],};
-
-            byte[] srcBytes = new byte[data.length * 3];
-
-            System.arraycopy(srcHeadBytes, 0, srcBytes, 0, srcHeadBytes.length);
-//            Log.d("send", ">> 1   " + ConvertData.byteArrayToHexString(srcBytes, srcBytes.length));
-            System.arraycopy(data, 0, srcBytes, srcHeadBytes.length, data.length);
-
-            byte[] tmpBytes = new byte[data.length * 3];
-            int resLen = comPackage(srcBytes, tmpBytes, srcHeadBytes.length + data.length);
-//            Log.d("send", ">> 2   " + ConvertData.byteArrayToHexString(tmpBytes, resLen) + " resLen " + resLen);
-
-            byte[] dataBytes = new byte[resLen];
-            System.arraycopy(tmpBytes, 0, dataBytes, 0, resLen);
-//            Log.d("sendOtaDataPackage", ">>  " + ConvertData.byteArrayToHexString(dataBytes,resLen));
-
-            int FRAME_LENGTH = 18;
-            int FRAME_NUM = dataBytes.length / FRAME_LENGTH;
-            int len_a = 0;
-            for (int i = 0; i < FRAME_NUM; i++) {
-                Thread.sleep(50);
-                byte[] resBytes = new byte[SerialCommand.RECEIVE_PACK_LEN_MAX];
-                for (int j = 0; j < FRAME_LENGTH; j++) {
-                    resBytes[j] = dataBytes[len_a];
-                    len_a++;
-                }
-//                Log.d("sendOtaDataPackage", ">>  " + ConvertData.byteArrayToHexString(resBytes, FRAME_LENGTH));
-//                FileUtil.writeTxtToFile(ConvertData.byteArrayToHexString(resBytes, FRAME_LENGTH), "/data/user/0/com.run.treadmill/files", "data.txt");
-                sendPackage(resBytes, FRAME_LENGTH);
-            }
-
-            Thread.sleep(100);
-            int FRAME_END_LENGTH = dataBytes.length % FRAME_LENGTH;
-            byte[] resBytes = new byte[SerialCommand.RECEIVE_PACK_LEN_MAX];
-            for (int j = 0; j < FRAME_END_LENGTH; j++) {
-                resBytes[j] = dataBytes[len_a];
-                len_a++;
-            }
-//            FileUtil.writeTxtToFile(ConvertData.byteArrayToHexString(resBytes, FRAME_END_LENGTH), "/data/user/0/com.run.treadmill/files", "data.txt");
-            sendPackage(resBytes, FRAME_END_LENGTH);
-
-//            Log.d(TAG, "==============totleLen=====" + len_a + " dataBytes length " + dataBytes.length);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    protected static synchronized int comPackage(byte[] pSrcBuf, byte[] pResultBuf, int len) {
-        short crc;
-        int resultLen;
-        crc = SerialData.calCRCByTable(ConvertData.subBytes(pSrcBuf, 1, pSrcBuf.length - 1), len - 1); // 校验码
-        byte[] crcByte = ConvertData.shortToBytes(crc);
-        pSrcBuf[len] = crcByte[0];
-        pSrcBuf[len + 1] = crcByte[1];
-        // 加入CRC后，长度增加2
-        len += 2;
-        // 0xFF
-        pResultBuf[0] = pSrcBuf[0];
-        int srcStep = 0;
-        int resStep = 0;
-        srcStep++;
-        resStep++;
-
-        // 去掉包头的一个字节后，对数据进行拆分。
-        len--;
-        resultLen = 1; // oxff
-        while (len > 0) {
-            if (ConvertData.byteToInt(pSrcBuf[srcStep]) >= SerialCommand.PACK_FRAME_MAX_DATA) {
-                pResultBuf[resStep] = ConvertData.intLowToByte(SerialCommand.PACK_FRAME_MAX_DATA);    //当前值拆分为FD+X
-                resStep++;    //指针后移
-                pResultBuf[resStep] = ConvertData.intLowToByte(ConvertData.byteToInt(pSrcBuf[srcStep]) - SerialCommand.PACK_FRAME_MAX_DATA);    //拆分为X
-                srcStep++;    //指针后移
-                resStep++;    //指针后移
-                resultLen += 2;    //长度加拆分为两个字节
-            }
-            //正常数据
-            else {
-                pResultBuf[resStep] = pSrcBuf[srcStep];
-                srcStep++;
-                resStep++;
-                resultLen++;
-            }
-            len--;
-            //Log.d(TAG, "1 len " + len + " resultLen " + resultLen );
-        }
-        pResultBuf[resStep] = (byte) SerialCommand.PACK_FRAME_HEADER;// OTA
-        resultLen++;
-        //Log.d(TAG, " len " + len + " resultLen " + resultLen );
-//        cmdString = SerialStringUtil.byteArrayToHexString(pResultBuf, resultLen);
-        return resultLen;
-    }
 }

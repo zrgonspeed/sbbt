@@ -2,14 +2,12 @@ package com.run.treadmill.manager.control;
 
 import android.content.Context;
 
-import com.run.serial.OTAParam;
 import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.util.DataTypeConversion;
-import com.run.treadmill.util.Logger;
 
 /**
  * @Description Ac 的控制指令
@@ -207,11 +205,6 @@ public class AaControl extends BaseControl {
     @Override
     public void setReboot() {
         sendWriteOneData(ParamCons.CMD_REBOOT, new byte[]{0x5A});
-    }
-
-    @Override
-    public void sendUpdateCmd(byte[] data) {
-        sendWriteOneData((byte)(OTAParam.CMD_UPDATE & 0xFF), data);
     }
 
     @Override

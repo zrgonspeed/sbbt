@@ -353,13 +353,6 @@ public class ControlManager {
         mStrategy.setReboot();
     }
 
-    /**
-     * sendUpdateCmd
-     */
-    public void sendUpdateCmd() {
-        mStrategy.sendUpdateCmd(new byte[]{(byte) 0x69, 0x00});
-    }
-
     public void writeDeviceType() {
         mStrategy.writeDeviceType();
     }
