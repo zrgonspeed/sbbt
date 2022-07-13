@@ -20,6 +20,7 @@
 
     <dimen name="font_size_factory_one_wheel_size">42sp</dimen>
     <dimen name="font_size_factory_one_cali">38sp</dimen>
+    <dimen name="font_size_setting_psw">38sp</dimen>
 
 
     <dimen name="dp_px_0_x">0dp</dimen>

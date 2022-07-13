@@ -423,7 +423,7 @@
             android:gravity="center"
             android:text="@string/string_setting_sr_psw"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_18pt" />
+            android:textSize="@dimen/font_size_setting_psw" />
 
 
         <TextView

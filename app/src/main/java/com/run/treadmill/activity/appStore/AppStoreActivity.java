@@ -304,6 +304,20 @@ public class AppStoreActivity extends BaseActivity<AppStoreView, AppStorePresent
 
         String path = getPresenter().downloadPath + "/" + mApps.get(position).getName() + ".apk";
 
+        // 对主APK进行处理，打断后台正在下载的主APK
+        if (app.getName().equals(InitParam.PROJECT_NAME)) {
+            String filePath = getPresenter().downloadPath + "/" + app.getName() + ".apk";
+            if (FileUtil.isCheckExist(filePath)) {
+                OkHttpHelper.cancel("HomeActivity");
+                String apkMD5 = Md5Manager.fileToMD5(filePath);
+                if (app.getSign().equals(apkMD5)) {
+                    Logger.i("本地文件与服务器文件相同");
+                } else {
+                    Logger.i("本地文件与服务器文件不相同, 删除检验失败的文件");
+                    getPresenter().deleteApkFile(filePath);
+                }
+            }
+        }
 
         // apk文件存在
         if (FileUtil.isCheckExist(path)) {
