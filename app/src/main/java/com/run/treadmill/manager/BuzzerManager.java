@@ -13,6 +13,7 @@ import androidx.annotation.IntDef;
 import com.run.serial.SerialUtils;
 import com.run.treadmill.R;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.util.ButtonUtils;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
 
@@ -103,26 +104,29 @@ public class BuzzerManager {
             return;
         }
 
+        if (!ButtonUtils.canResponse()) {
+            return;
+        }
+
         // 连续key的按键音取消 (speed incline)
-        int keyValue = SerialUtils.keyValue;
-//        Logger.e("keyValue == " + keyValue);
-        if (keyValue == SerialKeyValue.INCLINE_UP_CLICK_LONG_1 || keyValue == SerialKeyValue.INCLINE_UP_CLICK_LONG_2
-                || keyValue == SerialKeyValue.SPEED_UP_CLICK_LONG_1 || keyValue == SerialKeyValue.SPEED_UP_CLICK_LONG_2
-                || keyValue == SerialKeyValue.INCLINE_DOWN_CLICK_LONG_1 || keyValue == SerialKeyValue.INCLINE_DOWN_CLICK_LONG_2
-                || keyValue == SerialKeyValue.SPEED_DOWN_CLICK_LONG_1 || keyValue == SerialKeyValue.SPEED_DOWN_CLICK_LONG_2
-                || keyValue == SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_1 || keyValue == SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_2
-                || keyValue == SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_1 || keyValue == SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_2
-                || keyValue == SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_1 || keyValue == SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_2
-                || keyValue == SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_1 || keyValue == SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_2
-        ) {
-            return;
-        }
+//         int keyValue = SerialUtils.keyValue;
+// //        Logger.e("keyValue == " + keyValue);
+//         if (keyValue == SerialKeyValue.INCLINE_UP_CLICK_LONG_1 || keyValue == SerialKeyValue.INCLINE_UP_CLICK_LONG_2
+//                 || keyValue == SerialKeyValue.SPEED_UP_CLICK_LONG_1 || keyValue == SerialKeyValue.SPEED_UP_CLICK_LONG_2
+//                 || keyValue == SerialKeyValue.INCLINE_DOWN_CLICK_LONG_1 || keyValue == SerialKeyValue.INCLINE_DOWN_CLICK_LONG_2
+//                 || keyValue == SerialKeyValue.SPEED_DOWN_CLICK_LONG_1 || keyValue == SerialKeyValue.SPEED_DOWN_CLICK_LONG_2
+//                 || keyValue == SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_1 || keyValue == SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_2
+//                 || keyValue == SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_1 || keyValue == SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_2
+//                 || keyValue == SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_1 || keyValue == SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_2
+//                 || keyValue == SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_1 || keyValue == SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_2
+//         ) {
+//             return;
+//         }
 
 
-//        Logger.e("canBuzzerWhenLongKey == " + canBuzzerWhenLongKey);
-        if (!canBuzzerWhenLongKey) {
-            return;
-        }
+//         if (!canBuzzerWhenLongKey) {
+//             return;
+//         }
 
         mStrategy.buzzerRingOnce();
     }
