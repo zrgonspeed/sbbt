@@ -206,4 +206,6 @@
     <string name="bt_available">Dispositivos disponibles</string>
     <string name="string_movie_name_3">Bosques</string>
     <string name="string_movie_name_4">Montañas</string>
+
+    <string name="string_factory_img_reset">Restablecimiento Sistema</string>
 </resources>

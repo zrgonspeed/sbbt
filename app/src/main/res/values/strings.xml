@@ -249,4 +249,6 @@
 
     <string name="string_movie_name_3">Forests</string>
     <string name="string_movie_name_4">Mountains</string>
+
+    <string name="string_factory_img_reset">System Reset</string>
 </resources>

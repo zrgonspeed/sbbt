@@ -115,7 +115,8 @@
         android:layout_marginTop="@dimen/dp_px_214_y"
         android:text="@string/string_factory_login"
         android:textColor="@color/gray"
-        android:textSize="@dimen/font_size_21pt" />
+        android:textSize="@dimen/font_size_21pt"
+        android:visibility="gone" />
 
     <ToggleButton
         android:id="@+id/tb_login_ctrl"
@@ -126,13 +127,14 @@
         android:background="@drawable/btn_on_off"
         android:enabled="false"
         android:textOff=""
-        android:textOn="" />
+        android:textOn=""
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_823_x"
-        android:layout_marginTop="@dimen/dp_px_346_y"
+        android:layout_marginTop="@dimen/dp_px_214_y"
         android:text="@string/string_factory_lube"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_21pt" />
@@ -142,7 +144,7 @@
         android:layout_width="@dimen/dp_px_300_x"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_1200_x"
-        android:layout_marginTop="@dimen/dp_px_346_y"
+        android:layout_marginTop="@dimen/dp_px_214_y"
         android:gravity="center"
         android:text="6000.0   km"
         android:textColor="@drawable/txt_lube_color"
@@ -153,6 +155,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_1170_x"
-        android:layout_marginTop="@dimen/dp_px_471_y"
+        android:layout_marginTop="@dimen/dp_px_300_y"
+        android:src="@drawable/btn_factory_reset" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_823_x"
+        android:layout_marginTop="@dimen/dp_px_478_y"
+        android:text="@string/string_factory_img_reset"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_21pt" />
+
+    <ImageView
+        android:id="@+id/btn_img_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_1170_x"
+        android:layout_marginTop="@dimen/dp_px_550_y"
         android:src="@drawable/btn_factory_reset" />
 </RelativeLayout>

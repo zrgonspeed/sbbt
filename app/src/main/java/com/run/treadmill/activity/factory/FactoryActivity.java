@@ -111,6 +111,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
     private ToggleButton tb_sleep, tb_display, tb_incline, tb_touch, tb_buzzer, tb_login_ctrl;
     private TextView tv_lube;
     private ImageView btn_setting_reset;
+    private ImageView btn_img_reset;
 
     private TextView tv_total_time, tv_total_distance, tv_sdk, tv_firmware, tv_soffware, tv_ncu;
     private ImageView btn_info_reset;
@@ -362,6 +363,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         tb_login_ctrl = (ToggleButton) views[0].findViewById(R.id.tb_login_ctrl);
         tv_lube = (TextView) views[0].findViewById(R.id.tv_lube);
         btn_setting_reset = (ImageView) views[0].findViewById(R.id.btn_setting_reset);
+        btn_img_reset = (ImageView) views[0].findViewById(R.id.btn_setting_reset);
 
         tv_total_time = (TextView) views[1].findViewById(R.id.tv_total_time);
         tv_total_distance = (TextView) views[1].findViewById(R.id.tv_total_distance);
@@ -417,6 +419,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         });
 
         btn_setting_reset.setOnClickListener(this);
+        btn_img_reset.setOnClickListener(this);
         btn_info_reset.setOnClickListener(this);
         btn_factory_update.setOnClickListener(this);
         btn_update_logo.setOnClickListener(this);
@@ -862,6 +865,9 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
                     showCalculator(CTConstant.TYPE_FACTORY_LUBE, tv_lube, R.string.string_keybord_lube, 0, this, rl_main_two,
                             getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
                 });
+                break;
+            case R.id.btn_img_reset:
+                getPresenter().doMasterClear();
                 break;
             case R.id.btn_info_reset:
                 createResetDialog(v1 -> {

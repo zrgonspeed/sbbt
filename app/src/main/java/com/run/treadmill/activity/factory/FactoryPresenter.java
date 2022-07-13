@@ -1,5 +1,8 @@
 package com.run.treadmill.activity.factory;
 
+import static org.litepal.LitePalApplication.getContext;
+
+import android.content.Intent;
 import android.os.Message;
 
 import com.run.serial.SerialCommand;
@@ -236,5 +239,14 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
                 getView().onCalibrationSuccessGoBackHome();
                 break;
         }
+    }
+
+    public void doMasterClear() {
+        Intent intent = new Intent("android.intent.action.MASTER_CLEAR");
+        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        intent.putExtra("android.intent.extra.REASON", "MasterClearConfirm");
+        intent.putExtra("android.intent.extra.WIPE_EXTERNAL_STORAGE", false);
+        intent.addFlags((int) 0x01000000);
+        getContext().sendBroadcast(intent);
     }
 }

@@ -42,7 +42,7 @@
             android:gravity="center"
             android:text="@string/string_factory_setting"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_18pt" />
+            android:textSize="@dimen/font_size_16pt" />
 
         <RadioButton
             android:id="@+id/rb_information"
@@ -54,7 +54,7 @@
             android:gravity="center"
             android:text="@string/string_factory_information"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_18pt" />
+            android:textSize="@dimen/font_size_16pt" />
 
         <RadioButton
             android:id="@+id/rb_update"
@@ -66,7 +66,7 @@
             android:gravity="center"
             android:text="@string/string_factory_update"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_18pt" />
+            android:textSize="@dimen/font_size_16pt" />
 
         <RadioButton
             android:id="@+id/rb_logo"
@@ -78,7 +78,7 @@
             android:gravity="center"
             android:text="@string/string_factory_logo"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_18pt" />
+            android:textSize="@dimen/font_size_16pt" />
     </RadioGroup>
 
     <ImageView

@@ -52,6 +52,13 @@
         android:name="android.permission.ACCESS_MOCK_LOCATION"
         tools:ignore="MockLocation,ProtectedPermissions" />
 
+    <uses-permission
+        android:name="android.permission.MASTER_CLEAR"
+        tools:ignore="ProtectedPermissions" />
+
+    <uses-permission
+        android:name="android.permission.REBOOT"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".base.MyApplication"

@@ -206,4 +206,6 @@
     <string name="bt_available">Verfügbare Geräte</string>
     <string name="string_movie_name_3">Wälder</string>
     <string name="string_movie_name_4">Berge</string>
+
+    <string name="string_factory_img_reset">Systemzur Rücksetzung</string>
 </resources>
