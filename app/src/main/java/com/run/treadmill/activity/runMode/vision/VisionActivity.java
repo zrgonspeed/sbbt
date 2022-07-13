@@ -7,6 +7,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.fitShow.treadmill.FsTreadmillCommand;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.activity.summary.SummaryActivity;
@@ -15,6 +16,8 @@ import com.run.treadmill.common.MsgWhat;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
+import com.run.treadmill.manager.FitShowTreadmillManager;
+import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.StringUtil;
@@ -245,6 +248,10 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
 
     @Override
     protected void showPopTip() {
+        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+            getPresenter().setSpeedValue(0, minSpeed, false);
+            getPresenter().setInclineValue(0, 0, false);
+        }
         super.showPopTip();
     }
 
@@ -293,6 +300,28 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
             case SerialKeyValue.STOP_CLICK_LONG_2:
 
                 break;
+            case SerialKeyValue.INCLINE_UP_CLICK:
+            case SerialKeyValue.INCLINE_UP_CLICK_LONG_1:
+            case SerialKeyValue.INCLINE_UP_CLICK_LONG_2:
+            case SerialKeyValue.INCLINE_UP_HAND_CLICK:
+            case SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_1:
+            case SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_2:
+                if (btn_incline_up.isEnabled()) {
+                    myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                    getPresenter().setInclineValue(1, 0, false);
+                }
+                break;
+            case SerialKeyValue.INCLINE_DOWN_CLICK:
+            case SerialKeyValue.INCLINE_DOWN_CLICK_LONG_1:
+            case SerialKeyValue.INCLINE_DOWN_CLICK_LONG_2:
+            case SerialKeyValue.INCLINE_DOWN_HAND_CLICK:
+            case SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_1:
+            case SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_2:
+                if (btn_incline_down.isEnabled()) {
+                    myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                    getPresenter().setInclineValue(-1, 0, false);
+                }
+                break;
             case SerialKeyValue.SPEED_UP_CLICK:
             case SerialKeyValue.SPEED_UP_CLICK_LONG_1:
             case SerialKeyValue.SPEED_UP_CLICK_LONG_2:
@@ -300,7 +329,6 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
             case SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_1:
             case SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_2:
                 if (btn_speed_up.isEnabled()) {
-                    BuzzerManager.getInstance().buzzerRingOnce();
                     myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                     getPresenter().setSpeedValue(1, 0, false);
                 }
@@ -312,9 +340,19 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
             case SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_1:
             case SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_2:
                 if (btn_speed_down.isEnabled()) {
-                    BuzzerManager.getInstance().buzzerRingOnce();
                     myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                     getPresenter().setSpeedValue(-1, 0, false);
+                }
+                break;
+            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_8_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_6_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_12_CLICK:
+
+                if (btn_incline_up.isEnabled() || btn_incline_down.isEnabled()) {
+                    myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                    getPresenter().setInclineValue(0, SerialKeyValue.getKeyRepresentValue(keyValue), false);
                 }
                 break;
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_3_CLICK:
@@ -324,7 +362,6 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_15_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_16_CLICK:
                 if (btn_speed_up.isEnabled() || btn_speed_down.isEnabled()) {
-                    BuzzerManager.getInstance().buzzerRingOnce();
                     myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                     getPresenter().setSpeedValue(0, SerialKeyValue.getKeyRepresentValue(keyValue), false);
                 }
