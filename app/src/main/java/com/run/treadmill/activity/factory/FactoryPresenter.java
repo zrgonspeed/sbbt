@@ -47,10 +47,10 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
     void calibrate(boolean isMetric, float maxSpeed, float minSpeed, float wheelSize, int maxIncline) {
         if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
             ControlManager.getInstance().setCalcMetric(isMetric);
-            ControlManager.getInstance().setMaxSpeed(DataTypeConversion.intToBytesLitter((int) (maxSpeed * 10)));//扩大10倍下发
-            ControlManager.getInstance().setMinSpeed(DataTypeConversion.intToBytesLitter((int) (minSpeed * 10)));//扩大10倍下发
-            ControlManager.getInstance().setWheelSize(DataTypeConversion.intToBytesLitter((int) (wheelSize * 100)));//扩大100倍下发
-            ControlManager.getInstance().setMaxIncline(DataTypeConversion.intToBytesLitter(maxIncline));//扬升段数
+            ControlManager.getInstance().setMaxSpeed(DataTypeConversion.shortToBytes((short) (maxSpeed * 10)));//扩大10倍下发
+            ControlManager.getInstance().setMinSpeed(DataTypeConversion.shortToBytes((short) (minSpeed * 10)));//扩大10倍下发
+            ControlManager.getInstance().setWheelSize(DataTypeConversion.shortToBytes((short) (wheelSize * 100)));//扩大100倍下发
+            ControlManager.getInstance().setMaxIncline(DataTypeConversion.shortToBytes((short) maxIncline));//扬升段数
         }
         ControlManager.getInstance().calibrate();
     }
