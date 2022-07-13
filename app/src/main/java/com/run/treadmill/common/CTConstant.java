@@ -230,10 +230,10 @@ public class CTConstant {
      * 虚拟场景跑步视频路径
      */
     public static final String[] vrVideoPath = {
-            "/TROPICAL_ESCAPES.mp4",
-            "/BEACH.mp4",
-            "/FOREST.mp4",
-            "/MOUNTAINS.mp4"};
+            "/ANPLUS-01.mp4",
+            "/ANPLUS-02.mp4",
+            "/ANPLUS-03.mp4",
+            "/ANPLUS-04.mp4"};
 
     public static final int NO_SHOW_TIPS = -1;
     public static final int SHOW_TIPS_POINT = 60001;

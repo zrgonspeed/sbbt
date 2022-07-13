@@ -120,6 +120,8 @@
     <string name="string_summary_grade_4">Fai</string>
     <string name="string_summary_grade_5">Poor</string>
     <string name="string_summary_grade_6">Very Poor</string>
+    <string name="string_summary_unit_min_sec" translatable="false">min:sec</string>
+    <string name="string_summary_unit_hr_min" translatable="false">hr:min</string>
 
     <!-- factory界面 -->
     <string name="string_factory_select_mode">SELECT MODE</string>
@@ -223,7 +225,7 @@
     <string name="ble_text1">When Bluetooth is turned on, your device can communicate with other nearby Bluetooth devices.</string>
     <string name="ble_no_devices_found">No devices found.</string>
     <string name="paired_devices">Paired devices</string>
-    <string name="bt_available">Available</string>
+    <string name="bt_available">Available devices</string>
 
     <string name="workout_ble_connect_state_1">CONNECT</string>
     <string name="workout_ble_connect_state_2">DISCONNECT</string>

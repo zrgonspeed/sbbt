@@ -54,8 +54,8 @@ public abstract class BaseSelectActivity<V extends BaseSelectView, P extends Bas
         RunningParam.reset();
         FileUtil.setLogoIcon(this, btn_logo);
 
-        calcX = getResources().getDimensionPixelSize(R.dimen.dp_px_679_x);
-        calcY = getResources().getDimensionPixelSize(R.dimen.dp_px_125_y);
+        calcX = getResources().getDimensionPixelSize(R.dimen.dp_px_1019_x);
+        calcY = getResources().getDimensionPixelSize(R.dimen.dp_px_210_y);
     }
 
     @Override

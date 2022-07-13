@@ -7,9 +7,9 @@
     <com.run.treadmill.widget.LineGraphicView
         android:id="@+id/lgv_speed"
         android:layout_width="@dimen/dp_px_1120_x"
-        android:layout_height="@dimen/dp_px_530_y"
-        android:layout_marginStart="@dimen/dp_px_268_x"
-        android:layout_marginTop="@dimen/dp_px_45_y" />
+        android:layout_height="@dimen/dp_px_500_y"
+        android:layout_marginLeft="@dimen/dp_px_273_x"
+        android:layout_marginTop="@dimen/dp_px_76_y" />
 
     <TextView
         android:id="@+id/tv_max_speed"
