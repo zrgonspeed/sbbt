@@ -363,7 +363,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         tb_login_ctrl = (ToggleButton) views[0].findViewById(R.id.tb_login_ctrl);
         tv_lube = (TextView) views[0].findViewById(R.id.tv_lube);
         btn_setting_reset = (ImageView) views[0].findViewById(R.id.btn_setting_reset);
-        btn_img_reset = (ImageView) views[0].findViewById(R.id.btn_setting_reset);
+        btn_img_reset = (ImageView) views[0].findViewById(R.id.btn_img_reset);
 
         tv_total_time = (TextView) views[1].findViewById(R.id.tv_total_time);
         tv_total_distance = (TextView) views[1].findViewById(R.id.tv_total_distance);

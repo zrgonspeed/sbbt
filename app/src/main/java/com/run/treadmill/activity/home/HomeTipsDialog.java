@@ -130,6 +130,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
                 }
                 break;
             case R.id.btn_lube_pop_yes:
+                img_tip_lube_bg.setBackground(null);
                 img_tip_lube_bg.setImageDrawable(context.getDrawable(R.drawable.img_pop_lube_message_2));
                 btn_lube_pop_yes.setVisibility(View.GONE);
                 btn_lube_pop_no.setVisibility(View.GONE);

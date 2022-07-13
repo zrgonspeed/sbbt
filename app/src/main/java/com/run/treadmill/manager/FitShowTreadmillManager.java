@@ -305,9 +305,9 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
                         byte[] sendData = new byte[6];
                         sendData[0] = FsTreadmillCommand.CMD_SYS_INFO;
                         sendData[1] = FsTreadmillCommand.INFO_MODEL;
-                        sendData[2] = 0x58;
+                        sendData[2] = 0x13;
                         sendData[3] = 0x00;
-                        sendData[4] = (byte) 0x6E;
+                        sendData[4] = (byte) 0x9C;
                         sendData[5] = (byte) 0x00;
                         sendData(sendData, sendData.length);
                         break;
