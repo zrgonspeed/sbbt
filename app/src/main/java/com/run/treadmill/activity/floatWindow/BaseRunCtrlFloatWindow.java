@@ -336,11 +336,11 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
     }
 
     public void longClickBuzzer(LongClickImage btn) {
-        if ((Integer) btn.getTag() != 1) {
+        // if ((Integer) btn.getTag() != 1) {
             BuzzerManager.getInstance().buzzerRingOnce();
-        } else {
-            btn.setTag(-1);
-        }
+        // } else {
+        //     btn.setTag(-1);
+        // }
     }
 
 

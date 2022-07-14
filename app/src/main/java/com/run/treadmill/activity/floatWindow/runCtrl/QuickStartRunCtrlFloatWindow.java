@@ -366,7 +366,8 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
 
     @Override
     public void fitShowStopRunning() {
-        mFloatWindowManager.goBackMyAppFinish();
+        mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_STOP;
+        mFloatWindowManager.fitShowStopRunning();
     }
 
     @Override
