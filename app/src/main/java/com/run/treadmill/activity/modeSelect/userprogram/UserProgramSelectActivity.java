@@ -270,6 +270,7 @@ public class UserProgramSelectActivity extends BaseSelectActivity<UserProgramSel
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+        BuzzerManager.getInstance().buzzerRingOnce();
         switch (checkedId) {
             case R.id.rb_user_1:
                 currInx = 1;

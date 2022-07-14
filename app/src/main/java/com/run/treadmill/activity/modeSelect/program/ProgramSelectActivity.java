@@ -128,6 +128,8 @@ public class ProgramSelectActivity extends BaseSelectActivity<ProgramSelectView,
                 return;
             }
 
+            BuzzerManager.getInstance().buzzerRingOnce();
+
             if (lastPosition >= 0) {
                 pModeAdapter.getDrawableSelects()[lastPosition] = false;
             }
@@ -301,6 +303,8 @@ public class ProgramSelectActivity extends BaseSelectActivity<ProgramSelectView,
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+        BuzzerManager.getInstance().buzzerRingOnce();
+
         switch (checkedId) {
             default:
                 break;

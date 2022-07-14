@@ -578,6 +578,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             hideMediaPopWin();
         }
         switch (view.getId()) {
+            case R.id.btn_line_chart_incline:
+            case R.id.btn_line_chart_speed:
+                BuzzerManager.getInstance().buzzerRingOnce();
+                break;
             case R.id.btn_start_stop_skip:
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
                     rl_mask.setVisibility(View.GONE);
