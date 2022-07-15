@@ -202,6 +202,8 @@ public class HrcSelectActivity extends BaseSelectActivity<HrcSelectView, HrcSele
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+        BuzzerManager.getInstance().buzzerRingOnce();
+
         switch (checkedId) {
             default:
                 break;

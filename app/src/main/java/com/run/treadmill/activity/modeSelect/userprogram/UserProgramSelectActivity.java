@@ -3,7 +3,6 @@ package com.run.treadmill.activity.modeSelect.userprogram;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -25,6 +24,7 @@ import com.run.treadmill.db.UserDB;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.widget.HistogramListView;
 import com.run.treadmill.widget.calculator.BaseCalculator;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
@@ -107,12 +107,14 @@ public class UserProgramSelectActivity extends BaseSelectActivity<UserProgramSel
         init();
     }
 
+    private boolean firstBuzzer = false;
+
     @Override
     protected void onResume() {
         super.onResume();
-
-//        getPresenter().getUserInfo();
-        rg_user.check(R.id.rb_user_1);
+        firstBuzzer = true;
+        // rg_user.check(R.id.rb_user_1);
+        ((RadioButton) (findViewById(R.id.rb_user_1))).setChecked(true);
     }
 
     private void init() {
@@ -139,14 +141,11 @@ public class UserProgramSelectActivity extends BaseSelectActivity<UserProgramSel
             return true;
         });
 
-        et_name.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (mCalcBuilder.isPopShowing()) {
-                    mCalcBuilder.stopPopWin();
-                }
-                return false;
+        et_name.setOnTouchListener((v, event) -> {
+            if (mCalcBuilder.isPopShowing()) {
+                mCalcBuilder.stopPopWin();
             }
+            return false;
         });
 
         rg_gender_info.setOnCheckedChangeListener(this);
@@ -270,7 +269,11 @@ public class UserProgramSelectActivity extends BaseSelectActivity<UserProgramSel
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        BuzzerManager.getInstance().buzzerRingOnce();
+        if (!firstBuzzer) {
+            BuzzerManager.getInstance().buzzerRingOnce();
+        } else {
+            firstBuzzer = false;
+        }
         switch (checkedId) {
             case R.id.rb_user_1:
                 currInx = 1;

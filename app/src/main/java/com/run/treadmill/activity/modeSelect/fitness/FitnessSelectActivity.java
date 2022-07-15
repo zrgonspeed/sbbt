@@ -128,6 +128,8 @@ public class FitnessSelectActivity extends BaseSelectActivity<FitnessSelectView,
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+        BuzzerManager.getInstance().buzzerRingOnce();
+
         switch (checkedId) {
             default:
                 break;
