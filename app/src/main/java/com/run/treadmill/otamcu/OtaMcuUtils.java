@@ -22,7 +22,8 @@ public class OtaMcuUtils {
 
     private static void installOtaMcu2(Context context) {
         // 1.从assets中复制出来  ->   storage/emulated/sdcard/otamcu/
-        String targetDirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/otamcu";
+        // String targetDirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/otamcu";
+        String targetDirPath = context.getFilesDir() + "/otamcu";
         String assetsDirPath = "otamcu";
 
         // 检测assets中的apk名称与SP中的名称是否一致
