@@ -494,11 +494,7 @@ public class BtUtil {
             return;
         }
         for (BluetoothDevice device : bondedDevices) {
-            if (BtUtil.isBTEarphone(device)) {
-                BtUtil.unpair(context, device);
-            } else if (BtUtil.isPhone(device)) {
-                BtUtil.unpair(context, device);
-            }
+            BtUtil.unpair(context, device);
         }
     }
 

@@ -710,10 +710,7 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
     }
 
     // ---------------------------------------------------------------------------------------------
-    private AlertDialog switchDialog1 = null;
-    private ProgressDialog swapDialog1 = null;
-    private AlertDialog switchDialog2 = null;
-    private ProgressDialog swapDialog2 = null;
+    private ProgressDialog swapDialog = null;
 
     private void showDialogIsEar() {
         AlertDialog.Builder normalDialog = new AlertDialog.Builder(activity);
@@ -721,68 +718,13 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         normalDialog.setTitle(activity.getString(R.string.workout_head_ble_sink_hint_5));
         normalDialog.setMessage(activity.getString(R.string.workout_head_ble_sink_hint_6));
         normalDialog.setPositiveButton("Yes",
-                (dialog, which) -> switchBleToPrincipal1());
+                (dialog, which) -> disCurConEar());
         normalDialog.setNegativeButton("No",
                 (dialog, which) -> {
 
                 });
         // 显示
-        switchDialog1 = normalDialog.show();
-    }
-
-    public void hideSwapDialog() {
-        Logger.d("=====hideSwapDialog=======11");
-        if (swapDialog1 != null && swapDialog1.isShowing()) {
-            Logger.d("=====hideSwapDialog=======22");
-            swapDialog1.dismiss();
-            swapDialog1 = null;
-        }
-    }
-
-    public void showSwapDialog(String title, String message) {
-        if (swapDialog1 == null) {
-            swapDialog1 = ProgressDialog.show(activity, title, message, true, false);
-            swapDialog1.setCancelable(false);
-        } else if (swapDialog1.isShowing()) {
-            swapDialog1.setTitle(title);
-            swapDialog1.setMessage(message);
-        }
-        swapDialog1.show();
-    }
-
-    private void switchBleToPrincipal1() {
-        activity.runOnUiThread(() -> {
-            try {
-                showSwapDialog(
-                        activity.getString(R.string.workout_head_ble_sink_hint_3),
-                        activity.getString(R.string.workout_ble_connect_state_5));
-
-                Set<BluetoothDevice> bondedDevices = bleAdapter.getBondedDevices();
-                for (BluetoothDevice device : bondedDevices) {
-                    if (BtUtil.isConnectClassicBT(device.getAddress())) {
-                        BtUtil.disConnectDevice(context, device);
-                        blePairedAdapter.notifyDataSetChanged();
-                    }
-                }
-
-                ThreadUtils.postOnMainThread(() -> {
-                    hideSwapDialog();
-                }, 3000);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-
-    // ---------------------
-    public void hideSwapDialogs() {
-        Logger.d("=====hideSwapDialog=======11");
-        if (swapDialog2 != null && swapDialog2.isShowing()) {
-            Logger.d("=====hideSwapDialog=======22");
-            swapDialog2.dismiss();
-            swapDialog2 = null;
-        }
+        normalDialog.show();
     }
 
     private void showDialogIsPhone() {
@@ -792,49 +734,74 @@ public class BluetoothActivity extends BaseActivity<BluetoothView, BluetoothPres
         normalDialog.setTitle(activity.getString(R.string.workout_head_ble_sink_hint_1));
         normalDialog.setMessage(activity.getString(R.string.workout_head_ble_sink_hint_2));
         normalDialog.setPositiveButton("Yes",
-                (dialog, which) -> switchBleToPrincipal2());
+                (dialog, which) -> switchBleToPrincipal());
         normalDialog.setNegativeButton("No",
                 (dialog, which) -> {
 
                 });
         // 显示
-        switchDialog2 = normalDialog.show();
+        normalDialog.show();
     }
 
-    public void showSwapDialogs(String title, String message) {
-        if (swapDialog2 == null) {
-            swapDialog2 = ProgressDialog.show(activity, title, message, true, false);
-            swapDialog2.setCancelable(false);
-        } else if (swapDialog2.isShowing()) {
-            swapDialog2.setTitle(title);
-            swapDialog2.setMessage(message);
+    public void hideSwapDialog() {
+        Logger.d("=====hideSwapDialog=======11");
+        if (swapDialog != null && swapDialog.isShowing()) {
+            Logger.d("=====hideSwapDialog=======22");
+            swapDialog.dismiss();
+            swapDialog = null;
         }
-        swapDialog2.show();
     }
 
-    private void switchBleToPrincipal2() {
-        activity.runOnUiThread(() -> {
-            try {
-                showSwapDialogs(
-                        activity.getString(R.string.workout_head_ble_sink_hint_3),
-                        activity.getString(R.string.workout_head_ble_sink_hint_4));
+    public void showSwapDialog(String title, String message) {
+        if (swapDialog == null) {
+            swapDialog = ProgressDialog.show(activity, title, message, true, false);
+            swapDialog.setCancelable(false);
+        } else if (swapDialog.isShowing()) {
+            swapDialog.setTitle(title);
+            swapDialog.setMessage(message);
+        }
+        swapDialog.show();
+    }
 
-                Set<BluetoothDevice> bondedDevices = bleAdapter.getBondedDevices();
-                for (BluetoothDevice device : bondedDevices) {
-                    if (BtUtil.isPhone(device)) {
-                        BtUtil.unpair(activity, device);
-                    }
+    private void disCurConEar() {
+        activity.runOnUiThread(() -> {
+            showSwapDialog(
+                    activity.getString(R.string.workout_head_ble_sink_hint_3),
+                    activity.getString(R.string.workout_ble_connect_state_5));
+
+            Set<BluetoothDevice> bondedDevices = bleAdapter.getBondedDevices();
+            for (BluetoothDevice device : bondedDevices) {
+                if (BtUtil.isConnectClassicBT(device.getAddress())) {
+                    BtUtil.disConnectDevice(context, device);
+                    blePairedAdapter.notifyDataSetChanged();
                 }
-                //1.在搜索界面 切换为主
-                if (!BtSwapUtil.isPrincipal(BLE_PRINCIPAL)) {
-                    BtSwapUtil.setPrincipal(this);
-                }
-                ThreadUtils.postOnMainThread(() -> {
-                    hideSwapDialogs();
-                }, 3000);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+
+            ThreadUtils.postOnMainThread(() -> {
+                hideSwapDialog();
+            }, 3000);
+        });
+    }
+
+    private void switchBleToPrincipal() {
+        activity.runOnUiThread(() -> {
+            showSwapDialog(
+                    activity.getString(R.string.workout_head_ble_sink_hint_3),
+                    activity.getString(R.string.workout_head_ble_sink_hint_4));
+
+            Set<BluetoothDevice> bondedDevices = bleAdapter.getBondedDevices();
+            for (BluetoothDevice device : bondedDevices) {
+                if (BtUtil.isPhone(device)) {
+                    BtUtil.unpair(activity, device);
+                }
+            }
+            //1.在搜索界面 切换为主
+            if (!BtSwapUtil.isPrincipal(BLE_PRINCIPAL)) {
+                BtSwapUtil.setPrincipal(this);
+            }
+            ThreadUtils.postOnMainThread(() -> {
+                hideSwapDialog();
+            }, 3000);
         });
     }
 }
