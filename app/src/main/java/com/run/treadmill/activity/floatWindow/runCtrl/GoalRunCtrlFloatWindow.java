@@ -229,6 +229,7 @@ public class GoalRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
 
     @Override
     public void cmdKeyValue(int keyValue) {
+        super.cmdKeyValue(keyValue);
         switch (keyValue) {
             case SerialKeyValue.STOP_CLICK:
                 if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING

@@ -512,7 +512,7 @@ public class BtUtil {
 
         unBondBleMission(context);
         // 默认上电是从模式
-        ThreadUtils.runInThread(() -> BtSwapUtil.setSubordinate(context));
+        BtSwapUtil.setSubordinate(context);
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);//蓝牙搜索结束
@@ -546,7 +546,7 @@ public class BtUtil {
                 Logger.i("BTscanMode ==  " + scanMode + " isConnect " + hasConnected);
                 if (!hasConnected && BluetoothReceiver.isNotInBtActivity() && scanMode != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
                     BtSwapUtil.openDiscoverable();
-                    Logger.i("BTscanMode 1==  " + scanMode + " isConnect " + hasConnected);
+                    Logger.i("openDiscoverable 23 ==  " + scanMode + " isConnect " + false);
                 }
                 SystemClock.sleep(2000);
             }

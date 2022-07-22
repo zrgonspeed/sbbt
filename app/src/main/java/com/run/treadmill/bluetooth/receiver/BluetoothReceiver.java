@@ -104,7 +104,7 @@ public class BluetoothReceiver extends BroadcastReceiver {
                             ThreadUtils.runInThread(() -> {
                                         BtUtil.rebootDisconnectBT(context);
                                     },
-                                    2000);
+                                    1000);
                             firstOpen = false;
                         }
                         break;

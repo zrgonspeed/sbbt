@@ -10,10 +10,7 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.base.BaseActivity;
-import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
@@ -112,7 +109,7 @@ public abstract class BaseSelectActivity<V extends BaseSelectView, P extends Bas
                 }
                 break;
             case SerialKeyValue.HOME_KEY_CLICK:
-BuzzerManager.getInstance().buzzerRingOnce();
+                BuzzerManager.getInstance().buzzerRingOnce();
                 btn_home.performClick();
                 break;
         }
