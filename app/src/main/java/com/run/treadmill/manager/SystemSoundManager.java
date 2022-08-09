@@ -48,9 +48,11 @@ public class SystemSoundManager {
         return currentPro;
     }
 
+    public final static int maxVolume = 11;
+
     // 获取多媒体声音大小(小心这个有时候很耗时间， 可能是kill mp4的时候)
     public int getCurrentPro(int max) {
-        currentPro = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC) * max / mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        currentPro = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC) * max / maxVolume;
         return currentPro;
     }
 
@@ -60,7 +62,7 @@ public class SystemSoundManager {
             return;
         }
         currentPro = progress;
-        int toset = (progress * mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / max);
+        int toset = (progress * maxVolume / max);
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, toset, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
     }

@@ -1,12 +1,9 @@
 package com.run.treadmill.base;
 
 import android.Manifest;
-import android.bluetooth.BluetoothA2dp;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
-import android.content.IntentFilter;
+import android.media.AudioManager;
+import android.os.SystemClock;
 import android.provider.Settings;
 
 import com.run.android.ShellCmdUtils;
@@ -30,11 +27,11 @@ import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.LanguageUtil;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.ThreadUtils;
 
 import org.litepal.LitePalApplication;
 
 import java.util.Locale;
-import java.util.Set;
 
 /**
  * @Description 衍生此项目需要注意改动点（在不更改通信协议的情况下）：
@@ -148,9 +145,25 @@ public class MyApplication extends LitePalApplication {
 
             // 第一次开机启动，安装otamcu
             OtaMcuUtils.installOtaMcu(this);
+
+            changeVolume();
         }
     }
 
+    private void changeVolume() {
+        AudioManager mAudioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        ThreadUtils.runInThread(() -> {
+            while (true) {
+                int volume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                // Logger.i("volume == " + volume);
+                int maxVolume = SystemSoundManager.maxVolume;
+                if (volume > maxVolume) {
+                    mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                }
+                SystemClock.sleep(100);
+            }
+        });
+    }
 
     @Override
     public void onTerminate() {
