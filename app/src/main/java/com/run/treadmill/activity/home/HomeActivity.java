@@ -3,6 +3,7 @@ package com.run.treadmill.activity.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -111,6 +112,9 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         onCreateMission();
         init();
         GpIoUtils.setScreen_1();
+
+        // 延迟3秒
+        new Handler().postDelayed(() -> FitShowTreadmillManager.getInstance().sendRestartFS(), 3 * 1000);
     }
 
     @Override
