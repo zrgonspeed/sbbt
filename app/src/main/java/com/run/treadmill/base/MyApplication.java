@@ -154,8 +154,17 @@ public class MyApplication extends LitePalApplication {
         AudioManager mAudioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
         ThreadUtils.runInThread(() -> {
             while (true) {
+                boolean isHeadSetOn = mAudioManager.isWiredHeadsetOn();
                 int volume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                // Logger.i("isHeadSetOn == " + isHeadSetOn);
                 // Logger.i("volume == " + volume);
+
+                if (isHeadSetOn) {
+                    SystemSoundManager.maxVolume = 13;
+                    // 插入耳机
+                } else {
+                    SystemSoundManager.maxVolume = 10;
+                }
                 int maxVolume = SystemSoundManager.maxVolume;
                 if (volume > maxVolume) {
                     mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
