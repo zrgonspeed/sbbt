@@ -200,7 +200,7 @@
     <string name="ota_update">更新......</string>
     <string name="no__update_files">没有检测到OTA更新文件</string>
     <string name="incorrect_signature">签名不正确</string>
-    <string name="server_hint">当前的服务器是\n</string>
+    <string name="server_hint">当前的服务器是</string>
 
     <!--蓝牙-->
     <string name="ble_bluetooth_devices">蓝牙设备</string>
