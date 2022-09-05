@@ -114,8 +114,8 @@ public class LineGraphicView extends View {
 //            blwidh = dip2px(30);
             blwidh = 0;
             isMeasure = false;
-            Log.d("onSizeChanged", "canvasHeight = " + canvasHeight + "canvasWidth = " + canvasWidth + "bheight = "
-                    + bheight + "blwidh = " + blwidh);
+            /*Log.d("onSizeChanged", "canvasHeight = " + canvasHeight + "canvasWidth = " + canvasWidth + "bheight = "
+                    + bheight + "blwidh = " + blwidh);*/
         }
     }
 
@@ -134,7 +134,7 @@ public class LineGraphicView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.d(TAG, "START mPoints LENGTH :" + mPoints.length);
+        // Log.d(TAG, "START mPoints LENGTH :" + mPoints.length);
 //        mPaint.setColor(res.getColor(R.color.color_f2f2f2));
 
 //        drawAllXLine(canvas);
@@ -161,7 +161,7 @@ public class LineGraphicView extends View {
         for (int i = 0; i < mPoints.length; i++) {
 //            canvas.drawCircle(mPoints[i].x, mPoints[i].y, CIRCLE_SIZE / 2, mPaint);
         }
-        Log.d(TAG, "END mPoints LENGTH :" + mPoints.length);
+        // Log.d(TAG, "END mPoints LENGTH :" + mPoints.length);
     }
 
     /**

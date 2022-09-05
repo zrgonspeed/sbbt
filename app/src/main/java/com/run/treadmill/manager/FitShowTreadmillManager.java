@@ -11,6 +11,7 @@ import com.fitShow.treadmill.FsTreadmillCommand;
 import com.fitShow.treadmill.FsTreadmillParam;
 import com.fitShow.treadmill.FsTreadmillSerialUtils;
 import com.run.treadmill.activity.CustomTimer;
+import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.util.Logger;
@@ -105,6 +106,14 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
                     break;
                 case FsTreadmillCommand.CONTROL_TARGET:
                     if (fitShowRunningCallBack != null) {
+                        if (msg.arg2 == 1) {
+                            // kinomap执行退出运动   0x53 0x02 0x01 0x00   速度会发0.1到电子表
+                            // fitShowRunningCallBack.fitShowStopRunning();
+                            fitShowRunningCallBack.fitShowSetIncline(msg.arg1 - InitParam.MIN_INCLINE);
+                            fitShowRunningCallBack.fitShowSetSpeed(SpManager.getMinSpeed(SpManager.getIsMetric()));
+                            return;
+                        }
+
                         fitShowRunningCallBack.fitShowSetIncline(msg.arg1 - InitParam.MIN_INCLINE);
                         fitShowRunningCallBack.fitShowSetSpeed(msg.arg2 / 10f);
                     }
@@ -553,7 +562,7 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
     /**
      * 暂停的时候发一次，让速度和扬升显示0，运行状态为运行中
      */
-    public synchronized void sendPauseSpeedAndIncline(int minSpeed) {
+    public synchronized void sendPauseSpeedAndIncline(int speed, int incline) {
         FsTreadmillParam runParam = fitShowTreadmillParamBuilder.build();
         if (runParam == null) {
             return;
@@ -565,8 +574,8 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
         byte[] sendData = new byte[128];
         sendData[0] = FsTreadmillCommand.CMD_SYS_STATUS;
         sendData[1] = FsTreadmillCommand.STATUS_RUNNING;
-        sendData[2] = DataTypeConversion.intLowToByte(minSpeed);
-        sendData[3] = DataTypeConversion.intLowToByte(0);
+        sendData[2] = DataTypeConversion.intLowToByte(speed);
+        sendData[3] = DataTypeConversion.intLowToByte(incline);
         System.arraycopy(DataTypeConversion.shortToBytes((short) ((int) runParam.getWorkTime())), 0, sendData, 4, 2);
         System.arraycopy(DataTypeConversion.shortToBytes((short) ((int) runParam.getDistance())), 0, sendData, 6, 2);
         System.arraycopy(DataTypeConversion.shortToBytes((short) ((int) runParam.getCalorie())), 0, sendData, 8, 2);

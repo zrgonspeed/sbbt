@@ -266,7 +266,13 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
             getPresenter().setSpeedValue(0, minSpeed, false);
             getPresenter().setInclineValue(0, 0, false);
             if (FitShowTreadmillManager.getInstance().isConnect()) {
-                FitShowTreadmillManager.getInstance().sendPauseSpeedAndIncline((int) (SpManager.getMinSpeed(isMetric) * 10));
+                int incline = 0;
+                try {
+                    incline = (int) mFloatWindowManager.mRunningParam.getCurrIncline();
+                }catch (Exception e) {
+                    incline = 0;
+                }
+                FitShowTreadmillManager.getInstance().sendPauseSpeedAndIncline(0, incline);
             }
             FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_PAUSED);
         }
