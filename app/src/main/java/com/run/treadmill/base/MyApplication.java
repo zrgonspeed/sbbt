@@ -147,6 +147,11 @@ public class MyApplication extends LitePalApplication {
             OtaMcuUtils.installOtaMcu(this);
 
             changeVolume();
+
+            new Thread(() -> {
+                SystemClock.sleep(5000);
+                WhiteListUtils.WhiteListAppFilter(this);
+            }).start();
         }
     }
 
@@ -203,13 +208,10 @@ public class MyApplication extends LitePalApplication {
     }
 
     private void deleteQQmusicData() {
-        new Thread() {
-            @Override
-            public void run() {
-                //删除QQ音乐下载的数据
-                ShellCmdUtils.getInstance().execCommand("rm -rf /sdcard/qqmusicpad/song");
-            }
-        }.start();
+        new Thread(() -> {
+            //删除QQ音乐下载的数据
+            ShellCmdUtils.getInstance().execCommand("rm -rf /sdcard/qqmusicpad/song");
+        }).start();
     }
 
     private boolean readTouchesOptions() {

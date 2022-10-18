@@ -169,4 +169,34 @@
         <item>@string/string_movie_name_3</item>
         <item>@string/string_movie_name_4</item>
     </string-array>
+    <string-array name="WhiteListAppFilter">
+        <item>com.run.treadmill</item>
+
+        <item>com.run.dotars</item>
+        <item>com.anplus.bluetooth</item>
+        <item>top.cnzrg.otamcu</item>
+
+        <item>com.kinomap.training</item>
+        <item>com.anplus.tft</item>
+        <item>me.wcy.music</item>
+        <item>com.hpplay.happyplay.aw</item>
+        <item>com.baidu.searchbox.pad</item>
+
+        <item>com.google.android.youtube</item>
+        <item>com.android.chrome</item>
+        <item>com.twitter.android</item>
+        <item>com.facebook.katana</item>
+        <item>com.instagram.android</item>
+        <item>com.spotify.music</item>
+        <item>com.netflix.mediaclient</item>
+        <item>com.android.music</item>
+        <item>com.softwinner.fireplayer</item>
+        <item>org.mozilla.firefox</item>
+        <item>com.sina.weibo</item>
+        <item>com.qiyi.video.pad</item>
+        <item>com.yahoo.mobile.client.android.flickr</item>
+        <item>com.tencent.qqmusicpad</item>
+        <item>com.amazon.avod.thirdpartyclient</item>
+        <item>com.amazon.mShop.android.shopping</item>
+    </string-array>
 </resources>

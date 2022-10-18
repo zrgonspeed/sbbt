@@ -161,14 +161,21 @@ public class FileUtil {
      * @param apkfile
      */
     public static void installApk(Context mContext, File apkfile) {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        // 7.0+以上版本
-        Uri apkUri = FileProvider.getUriForFile(mContext,
-                mContext.getApplicationContext().getPackageName() + ".provider", apkfile);
-        i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        i.setDataAndType(apkUri, "application/vnd.android.package-archive");
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        mContext.startActivity(i);
+        Intent apkIntent = new Intent();
+        apkIntent.setAction(Intent.ACTION_VIEW);
+        Uri apkUri;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {//7.0+版本
+            apkIntent.setAction(Intent.ACTION_INSTALL_PACKAGE);
+            apkUri = FileProvider.getUriForFile(mContext,
+                    mContext.getApplicationContext().getPackageName() + ".provider", apkfile);
+            apkIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        } else {
+            apkUri = Uri.parse("file://" + apkfile.toString());
+        }
+        apkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        apkIntent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+
+        mContext.startActivity(apkIntent);
     }
 
     public static String getStoragePath(Context context, boolean isUsb) {
