@@ -22,7 +22,6 @@ import com.run.treadmill.manager.PermissionManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.control.ParamCons;
-import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.LanguageUtil;
@@ -139,12 +138,13 @@ public class MyApplication extends LitePalApplication {
             deleteQQmusicData();
             closeAnimation();
 
-            // OTA更新APK相关
+            // 空中更新APK相关
             SpManager.setAlterUpdatePath(false);
             SpManager.setChangedServer(false);
 
+            // 包在img。第三方更新列表加？
             // 第一次开机启动，安装otamcu
-            OtaMcuUtils.installOtaMcu(this);
+            // OtaMcuUtils.installOtaMcu(this);
 
             changeVolume();
 
