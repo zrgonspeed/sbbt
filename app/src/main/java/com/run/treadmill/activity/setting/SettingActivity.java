@@ -1,12 +1,10 @@
 package com.run.treadmill.activity.setting;
 
 import android.app.ProgressDialog;
-import android.app.backup.BackupManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -30,15 +28,9 @@ import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.appStore.AppStoreActivity;
 import com.run.treadmill.activity.floatWindow.SettingBackFloatWindow;
 import com.run.treadmill.base.BaseActivity;
-import com.run.treadmill.bluetooth.BleSwap.BtSwapUtil;
-import com.run.treadmill.bluetooth.BleSwap.BtUtil;
-import com.run.treadmill.bluetooth.activity.BluetoothActivity;
-import com.run.treadmill.bluetooth.receiver.BluetoothReceiver;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemBrightManager;
@@ -56,8 +48,6 @@ import com.run.treadmill.widget.calculator.BaseCalculator;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
 import com.run.treadmill.widget.calculator.CalculatorOfSetting;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -171,7 +161,6 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bleAdapter = ((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter();
         init();
     }
 
@@ -243,16 +232,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                 } else {
                     layout_setting_1.setVisibility(View.GONE);
                     // 进入自定义蓝牙
-                    if (!BtSwapUtil.isPrincipal(BtSwapUtil.BLE_PRINCIPAL)
-                            && BtUtil.curConnectedDeviceIsPhone(this, bleAdapter)) {
-                        // 如果不是主，并且已经配对了手机
-                        // 显示蓝牙切换对话框
-                        showNormalDialog();
-                        return;
-                    } else {
-                        type = R.id.rb_setting_type1;
-                        startActivity(new Intent(SettingActivity.this, BluetoothActivity.class));
-                    }
+
                 }
                 break;
             case R.id.rb_setting_type3:
@@ -717,10 +697,6 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
         if (mCalcBuilder.isPopShowing()) {
             mCalcBuilder.stopPopWin();
         }
-
-        if (switchPrincipalDialog != null && switchPrincipalDialog.isShowing()) {
-            switchPrincipalDialog.dismiss();
-        }
     }
 
     /**
@@ -747,67 +723,4 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
         }, 1000);
     }
 
-    // 蓝牙相关-------------------------------------------------------------------------------------
-    private BluetoothAdapter bleAdapter;
-    private ProgressDialog swapDialog;
-    private AlertDialog switchPrincipalDialog = null;
-
-    private void switchBleToPrincipal() {
-        runOnUiThread(() -> {
-            try {
-                showSwapDialog(
-                        getString(R.string.workout_head_ble_sink_hint_3),
-                        getString(R.string.workout_head_ble_sink_hint_4));
-
-                BtUtil.unPairPhones(this, bleAdapter);
-                BluetoothReceiver.canChange = false;
-                new Thread(() -> {
-                    SystemClock.sleep(3000);
-                    runOnUiThread(() -> {
-                        hideSwapDialog();
-                        type = R.id.rb_setting_type1;
-                        startActivity(new Intent(SettingActivity.this, BluetoothActivity.class));
-                        BluetoothReceiver.canChange = true;
-                    });
-                }).start();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    private void hideSwapDialog() {
-        if (swapDialog != null && swapDialog.isShowing()) {
-            swapDialog.dismiss();
-            swapDialog = null;
-        }
-    }
-
-    private void showNormalDialog() {
-        AlertDialog.Builder normalDialog =
-                new AlertDialog.Builder(this);
-        normalDialog.setCancelable(false);
-        normalDialog.setTitle(getString(R.string.workout_head_ble_sink_hint_1));
-        normalDialog.setMessage(getString(R.string.workout_head_ble_sink_hint_2));
-        normalDialog.setPositiveButton("Yes",
-                (dialog, which) -> switchBleToPrincipal());
-        normalDialog.setNegativeButton("No",
-                (dialog, which) -> {
-                    rb_setting_type1.performClick();
-                });
-        // 显示
-        switchPrincipalDialog = normalDialog.show();
-    }
-
-    private void showSwapDialog(String title, String message) {
-        if (swapDialog == null) {
-            swapDialog = ProgressDialog.show(this, title, message, true, false);
-            swapDialog.setCancelable(false);
-        } else if (swapDialog.isShowing()) {
-            swapDialog.setTitle(title);
-            swapDialog.setMessage(message);
-        }
-        swapDialog.show();
-    }
 }

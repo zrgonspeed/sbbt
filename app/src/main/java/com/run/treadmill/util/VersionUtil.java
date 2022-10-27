@@ -205,9 +205,9 @@ public class VersionUtil {
             Class<?> classType = Class.forName("android.os.SystemProperties");
             Method getMethod = classType.getDeclaredMethod("get", new Class<?>[]{String.class});
             value = (String) getMethod.invoke(classType, new Object[]{"ro.anplus.version"});
-            Log.i("===", "---" + value);
+            Logger.i("固件版本号 " + value);
         } catch (Exception e) {
-            Log.e("===", "---" + e.getMessage(), e);
+            Logger.e(e.getMessage());
         }
         return value;
     }

@@ -9,8 +9,6 @@ import android.provider.Settings;
 import com.run.android.ShellCmdUtils;
 import com.run.serial.SerialCommand;
 import com.run.treadmill.bluetooth.BleDebug;
-import com.run.treadmill.bluetooth.BleSwap.BtUtil;
-import com.run.treadmill.bluetooth.receiver.BluetoothReceiver;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
@@ -50,8 +48,6 @@ public class MyApplication extends LitePalApplication {
 
     public static final int DEFAULT_DEVICE_TYPE = CTConstant.DEVICE_TYPE_DC;
 
-    private BluetoothReceiver receiver = new BluetoothReceiver();
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -77,8 +73,6 @@ public class MyApplication extends LitePalApplication {
                 return;
             }
         }
-
-        BtUtil.initBT(this, receiver);
 
         // Gpio
         {
@@ -182,7 +176,6 @@ public class MyApplication extends LitePalApplication {
     @Override
     public void onTerminate() {
         super.onTerminate();
-        BtUtil.unregisterReceiver(this, receiver);
         Logger.d("==================app 被销毁了一次=====================");
     }
 
