@@ -7,7 +7,6 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import com.fitShow.treadmill.FsTreadmillCommand;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.activity.summary.SummaryActivity;
@@ -16,8 +15,6 @@ import com.run.treadmill.common.MsgWhat;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
-import com.run.treadmill.manager.FitShowTreadmillManager;
-import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.StringUtil;
@@ -355,9 +352,9 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
                     getPresenter().setInclineValue(0, SerialKeyValue.getKeyRepresentValue(keyValue), false);
                 }
                 break;
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_3_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_4_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_6_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_9_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_8_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_12_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_15_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_16_CLICK:

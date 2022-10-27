@@ -19,7 +19,6 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
-import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.StringUtil;
@@ -412,9 +411,9 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
                     getPresenter().setInclineValue(0, SerialKeyValue.getKeyRepresentValue(keyValue), false);
                 }
                 break;
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_3_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_4_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_6_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_9_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_8_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_12_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_15_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_16_CLICK:

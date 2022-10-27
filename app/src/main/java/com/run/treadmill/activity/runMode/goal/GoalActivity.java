@@ -304,9 +304,9 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
                     getPresenter().setInclineValue(0, SerialKeyValue.getKeyRepresentValue(keyValue), false);
                 }
                 break;
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_3_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_4_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_6_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_9_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_8_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_12_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_15_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_16_CLICK:
