@@ -28,6 +28,7 @@ import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.appStore.AppStoreActivity;
 import com.run.treadmill.activity.floatWindow.SettingBackFloatWindow;
 import com.run.treadmill.base.BaseActivity;
+import com.run.treadmill.bluetooth.BtAppUtils;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
@@ -232,7 +233,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                 } else {
                     layout_setting_1.setVisibility(View.GONE);
                     // 进入自定义蓝牙
-
+                    BtAppUtils.enterBluetooth(this);
                 }
                 break;
             case R.id.rb_setting_type3:

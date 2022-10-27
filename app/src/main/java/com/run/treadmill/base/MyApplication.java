@@ -8,7 +8,8 @@ import android.provider.Settings;
 
 import com.run.android.ShellCmdUtils;
 import com.run.serial.SerialCommand;
-import com.run.treadmill.bluetooth.BleDebug;
+import com.run.treadmill.AppDebug;
+import com.run.treadmill.bluetooth.BtAppReboot;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
@@ -95,7 +96,7 @@ public class MyApplication extends LitePalApplication {
         // 串口
         {
             ControlManager.getInstance().setMetric(SpManager.getIsMetric());
-            if (!BleDebug.disableSerial) {
+            if (!AppDebug.disableSerial) {
                 boolean result = ControlManager.getInstance().initSerial(getApplicationContext(), 38400, "/dev/ttyS2");
                 if (result) {
                     ControlManager.getInstance().startSerial(SerialCommand.TX_RD_SOME, ParamCons.NORMAL_PACKAGE_PARAM, new byte[]{});
@@ -104,7 +105,7 @@ public class MyApplication extends LitePalApplication {
             }
 
             boolean resultFitShow = FitShowTreadmillManager.getInstance().initSerial(getApplicationContext(), 9600, "/dev/ttyS3");
-            Logger.e("resultFitShow == " + resultFitShow);
+            Logger.i("resultFitShow == " + resultFitShow);
             if (resultFitShow) {
                 FitShowTreadmillManager.getInstance().startThread();
             }
@@ -142,6 +143,8 @@ public class MyApplication extends LitePalApplication {
 
             changeVolume();
 
+            BtAppReboot.initBt(getApplicationContext());
+
             new Thread(() -> {
                 SystemClock.sleep(5000);
                 WhiteListUtils.WhiteListAppFilter(this);
@@ -176,6 +179,7 @@ public class MyApplication extends LitePalApplication {
     @Override
     public void onTerminate() {
         super.onTerminate();
+        BtAppReboot.stopService();
         Logger.d("==================app 被销毁了一次=====================");
     }
 

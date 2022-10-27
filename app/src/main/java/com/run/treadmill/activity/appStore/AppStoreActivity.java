@@ -22,6 +22,7 @@ import com.run.treadmill.R;
 import com.run.treadmill.adapter.AppStoreAdapter;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.base.EventMessage;
+import com.run.treadmill.bluetooth.BtAppUtils;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.http.DownloadListener;
@@ -558,6 +559,11 @@ public class AppStoreActivity extends BaseActivity<AppStoreView, AppStorePresent
                     mActivity.hasInstallApk = true;
                     mActivity.getPresenter().deleteApkFile(mActivity.getPresenter().downloadPath + "/" + mActivity.mApps.get(mActivity.currInstallInx).getName() + ".apk");
                     mActivity.mApps.get(mActivity.currInstallInx).isUpdate = AppBean.NO_UPDATE;
+
+                    if(mActivity.mApps.get(mActivity.currInstallInx).getName().equals(BtAppUtils.BT_SERVICE_NAME)){
+                        Logger.d("-- 重启服务--");
+                        BtAppUtils.reStartServer();//安装后重启蓝牙服务
+                    }
                 } else {
                     //安装失败
                     Toast.makeText(mActivity, R.string.string_app_store_install_fail, Toast.LENGTH_LONG).show();

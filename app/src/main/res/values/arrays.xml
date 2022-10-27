@@ -121,6 +121,7 @@
         <item>Spotify</item>
         <item>NETFLIX</item>
         <item>ponymusic</item>
+        <item>com.anplus.bluetooth</item>
         <!--        <item>AnplusMirroring</item>-->
     </string-array>
 
@@ -133,6 +134,7 @@
         <item>@string/string_app_pk_name_6</item>
         <item>@string/string_app_pk_name_7</item>
         <item>@string/string_app_pk_name_8</item>
+        <item>@string/string_app_pk_name_bt</item>
 <!--        <item>@string/string_app_pk_name_9</item>-->
 <!--        <item>@string/string_app_pk_name_10</item>-->
     </string-array>
@@ -146,6 +148,7 @@
         <item>@drawable/btn_media_spotify_1</item>
         <item>@drawable/btn_media_netflix_1</item>
         <item>@drawable/btn_media_mp3_1</item>
+        <item>@drawable/btn_app_bluetooth_1</item>
         <!--        <item>@drawable/btn_media_screen_mirroring_1</item>-->
     </integer-array>
 

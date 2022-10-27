@@ -208,6 +208,7 @@
     <string name="string_app_pk_name_7">com.netflix.mediaclient</string>
     <string name="string_app_pk_name_8">me.wcy.music</string>
     <string name="string_app_pk_name_9">com.softwinner.fireplayer</string>
+    <string name="string_app_pk_name_bt">com.anplus.bluetooth</string>
 <!--    <string name="string_app_pk_name_10">com.anplus.tft</string>-->
 
     <!--OTA更新MCU-->

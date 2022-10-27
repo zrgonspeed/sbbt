@@ -18,12 +18,10 @@ import com.run.treadmill.activity.runMode.quickStart.QuickStartActivity;
 import com.run.treadmill.adapter.MediaSelectAppAdapter;
 import com.run.treadmill.adapter.MediaSelectPagerAdapter;
 import com.run.treadmill.base.BaseActivity;
-import com.run.treadmill.bluetooth.BleDebug;
+import com.run.treadmill.AppDebug;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
@@ -157,7 +155,7 @@ public class MediaSelectActivity extends BaseActivity<MediaSelectView, MediaSele
         MediaSelectAppAdapter adapter1 = new MediaSelectAppAdapter(context, drawable1);
         page1RV.setAdapter(adapter1);
         adapter1.setOnItemClick(position -> {
-            if (!isCanStart && !BleDebug.disableSerial) {
+            if (!isCanStart && !AppDebug.disableSerial) {
                 return;
             }
             mediaPkName = pkgName[position];

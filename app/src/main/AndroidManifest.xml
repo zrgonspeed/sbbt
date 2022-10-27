@@ -204,11 +204,6 @@
         <activity
             android:name=".activity.appStore.AppStoreActivity"
             android:configChanges="locale|touchscreen|keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|mcc|mnc|navigation|fontScale" />
-
-        <activity
-            android:name="com.run.treadmill.bluetooth.activity.BluetoothActivity"
-            android:configChanges="locale|touchscreen|keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|mcc|mnc|navigation|fontScale" />
-
         <service
             android:name="com.run.treadmill.otamcu.OtaMcuService"
             android:enabled="true"
