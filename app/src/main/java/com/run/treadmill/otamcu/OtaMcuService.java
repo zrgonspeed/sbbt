@@ -8,7 +8,7 @@ import com.run.serial.SerialUtils;
 import com.run.treadmill.common.InitParam;
 
 public class OtaMcuService extends Service {
-    public static final String PROJECT_NAME = "AC00553-54T-08";
+    public static final String PROJECT_NAME = "AC00553-54T-18";
     public static final String PLATFORM = "A133";
     public static final String PLATFORM_PORT = "/dev/ttyS2";
 
