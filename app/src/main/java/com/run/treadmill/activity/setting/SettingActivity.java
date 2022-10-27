@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import com.run.android.ShellCmdUtils;
+import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.appStore.AppStoreActivity;
@@ -158,6 +159,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
 
     private SettingBackFloatWindow settingBackFloatWindow;
     private int type = 0;
+    private boolean canBuzzer = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -175,6 +177,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
         btn_home.setEnabled(true);
 
         if (type == R.id.rb_setting_type1) {
+            canBuzzer = false;
             rb_setting_type1.performClick();
             type = 0;
         }
@@ -188,7 +191,11 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
         if (isChangeLanguage) {
             return;
         }
-        BuzzerManager.getInstance().buzzerRingOnce();
+        if (canBuzzer) {
+            BuzzerManager.getInstance().buzzerRingOnce();
+        } else {
+            canBuzzer = true;
+        }
         switch (view.getId()) {
             case R.id.btn_back:
                 if (mCalcBuilder.isPopShowing()) {
@@ -231,8 +238,10 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                     layout_setting_2_1.setVisibility(View.GONE);
                     mCalcBuilder.stopPopWin();
                 } else {
-                    layout_setting_1.setVisibility(View.GONE);
+                    // rb_setting_type1.setChecked(true);
+                    // layout_setting_1.setVisibility(View.GONE);
                     // 进入自定义蓝牙
+                    type = R.id.rb_setting_type1;
                     BtAppUtils.enterBluetooth(this);
                 }
                 break;
@@ -562,11 +571,11 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
         sp_language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!SafeKeyTimer.getInstance().getIsSafe()) {
+                if (!SafeKeyTimer.getInstance().getIsSafe() && !AppDebug.disableSerial) {
                     sp_language.setSelection(currLanguagePos, true);
                     return;
                 }
-                if (!isCanChange) {
+                if (!isCanChange && !AppDebug.disableSerial) {
                     sp_language.setSelection(currLanguagePos, true);
                     return;
                 }
