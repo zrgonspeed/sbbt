@@ -298,6 +298,25 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             wakeUpSleep();
             return;
         }
+        // 到这里已经唤醒屏幕
+        if (keyValue == SerialKeyValue.HIDE_OR_SHOW_SCREEN_CLICK) {
+            if (GpIoUtils.checkScreenState() == GpIoUtils.IO_STATE_0) {
+                // 不会进来这里
+                // Logger.i("sssssssssssssss");
+                // wakeUpSleep();
+            } else {
+                // 假休眠，安全key和按键要能唤醒, 点击屏幕也能唤醒
+                GpIoUtils.setScreen_0();
+                runOnUiThread(() -> tv_sleep.setVisibility(View.VISIBLE));
+                getPresenter().inOnSleep = true;
+                if (mSleepTimer != null) {
+                    mSleepTimer.closeTimer();
+                }
+            }
+        }
+
+
+
         if (keyValue == SerialKeyValue.START_CLICK ||
                 keyValue == SerialKeyValue.HAND_START_CLICK
         ) {
@@ -310,15 +329,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 BuzzerManager.getInstance().buzzerRingOnce();
             }
         }
-//        if (keyValue == SerialKeyValue.STOP_CLICK) {
-//            if (!tipsPop.isShowLockError() || ((MyApplication) getApplication()).isFirst) {
-//                return;
-//            }
-//            //进入setting界面的lock
-//            if (getPresenter() != null) {
-//                getPresenter().enterSettingLock();
-//            }
-//        }
     }
 
     @Override
@@ -409,6 +419,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @Override
     public void timerComply(long lastTime, String tag) {
+        Logger.i("lastTime == " + lastTime);
         if (tag.equals(sleepTag)) {
             if (lastTime < InitParam.SLEEP_TIME) {
                 return;
