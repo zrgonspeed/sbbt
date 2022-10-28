@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.SystemClock;
 
 import com.fitShow.ConvertData;
 import com.fitShow.treadmill.DataTypeConversion;
@@ -11,7 +12,6 @@ import com.fitShow.treadmill.FsTreadmillCommand;
 import com.fitShow.treadmill.FsTreadmillParam;
 import com.fitShow.treadmill.FsTreadmillSerialUtils;
 import com.run.treadmill.activity.CustomTimer;
-import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.util.Logger;
@@ -379,12 +379,10 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
 //                        Logger.d("isConnect=" + isConnect + ",isConnectTimer=" + isConnectTimer + "  fitShowTreadmillParamBuilder.build().getIncline() == " + fitShowTreadmillParamBuilder.build().getIncline());
                         if (isConnect && isConnectTimer != null) {
                             //isConnectTimer.setmAllTime(0L);
-                            if (isConnect) {
-                                if (fitShowTreadmillParamBuilder.build().getIncline() != null) {
-                                    sendRunParamToFsTreadmill(fitShowTreadmillParamBuilder.build());
-                                } else {
-                                    sendData(new byte[]{FsTreadmillCommand.CMD_SYS_STATUS, runStart}, 2);
-                                }
+                            if (fitShowTreadmillParamBuilder.build().getIncline() != null) {
+                                sendRunParamToFsTreadmill(fitShowTreadmillParamBuilder.build());
+                            } else {
+                                sendData(new byte[]{FsTreadmillCommand.CMD_SYS_STATUS, runStart}, 2);
                             }
                         } else {
                             mHandler.sendEmptyMessage(IS_FIT_SHOW_CONNECT);
@@ -675,18 +673,7 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
                             fsTreadmillSerialUtils.sendData(txData, txSize);
                         }
 
-                    } /*else {
-
-                        if (isConnect) {
-                            if (fitShowTreadmillParamBuilder.build().getIncline() != null) {
-                                sendRunParamToFsTreadmill(fitShowTreadmillParamBuilder.build());
-                            } else {
-
-                                sendData(new byte[]{FsTreadmillCommand.CMD_SYS_STATUS, runStart}, 2);
-
-                            }
-                        }
-                    }*/
+                    }
                     Thread.sleep(10);
                 }
             } catch (Exception e) {
@@ -707,6 +694,7 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
                         Logger.d("FsTreadmill Read", ConvertData.byteArrayToHexString(result, len));
                         parseData(result, len);
                     }
+                    SystemClock.sleep(100);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
