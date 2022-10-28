@@ -43,7 +43,7 @@ public class InitParam {
     /**
      * 公制最大速度预设值
      */
-    public static final float DEFAULT_MAX_SPEED_METRIC = 20.0f;//24.0f;
+    public static final float DEFAULT_MAX_SPEED_METRIC = 22.0f;
 
     /**
      * 公制最小速度最大值
@@ -69,7 +69,7 @@ public class InitParam {
     /**
      * 英制最大速度预设值
      */
-    public static final float DEFAULT_MAX_SPEED_IMPERIAL = 12.5f;//15.0f;
+    public static final float DEFAULT_MAX_SPEED_IMPERIAL = 13.6f;//15.0f;
 
     /**
      * 英制最小速度最大值
@@ -95,7 +95,7 @@ public class InitParam {
     /**
      * 最大扬升预设值
      */
-    public static final int DEFAULT_MAX_INCLINE = 15;//20;
+    public static final int DEFAULT_MAX_INCLINE = 18;
 
     /**
      * 最大轮径

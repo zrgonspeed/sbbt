@@ -1,11 +1,5 @@
 package com.fitShow.treadmill;
 
-import android.util.Log;
-
-import com.fitShow.ConvertData;
-
-import java.util.logging.Logger;
-
 /**
  * waHoo数据组装与校验
  */
