@@ -298,7 +298,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             wakeUpSleep();
             return;
         }
-        // 到这里已经唤醒屏幕
+        // 到这里已经处于亮屏幕
         if (keyValue == SerialKeyValue.HIDE_OR_SHOW_SCREEN_CLICK) {
             if (GpIoUtils.checkScreenState() == GpIoUtils.IO_STATE_0) {
                 // 不会进来这里
@@ -419,7 +419,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @Override
     public void timerComply(long lastTime, String tag) {
-        Logger.i("lastTime == " + lastTime);
+        Logger.d("lastTime == " + lastTime);
         if (tag.equals(sleepTag)) {
             if (lastTime < InitParam.SLEEP_TIME) {
                 return;

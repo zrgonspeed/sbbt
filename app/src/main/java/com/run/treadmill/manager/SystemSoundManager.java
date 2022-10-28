@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.provider.Settings;
 
+import com.run.treadmill.util.Logger;
+
 
 /**
  * 封装系统声音
@@ -37,9 +39,14 @@ public class SystemSoundManager {
         return ourInstance;
     }
 
+    public static int maxVolume = 15;
+
     public void init(Context context) {
         mContext = context;
         mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
+        maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        Logger.i("系统最大音量 " + maxVolume);
         getCurrentPro(100);
     }
 
@@ -48,7 +55,6 @@ public class SystemSoundManager {
         return currentPro;
     }
 
-    public static int maxVolume = 10;
 
     // 获取多媒体声音大小(小心这个有时候很耗时间， 可能是kill mp4的时候)
     public int getCurrentPro(int max) {
