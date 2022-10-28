@@ -145,6 +145,8 @@ public class MyApplication extends LitePalApplication {
 
             BtAppReboot.initBt(getApplicationContext());
 
+            closeNotificationAndWifiNoIcon();
+
             new Thread(() -> {
                 SystemClock.sleep(5000);
                 WhiteListUtils.WhiteListAppFilter(this);
@@ -236,5 +238,19 @@ public class MyApplication extends LitePalApplication {
         PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE);
         PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.MEDIA_CONTENT_CONTROL);
         PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.RECORD_AUDIO);
+    }
+
+    /**
+     * 1.链接wifi后，显示没链接上网路问题
+     * 2.关闭通知渠道显示
+     */
+    private void closeNotificationAndWifiNoIcon() {
+        new Thread() {
+            @Override
+            public void run() {
+                ShellCmdUtils.getInstance().execCommand("settings put global captive_portal_detection_enabled " + 0);
+                ShellCmdUtils.getInstance().execCommand("settings put global show_notification_channel_warnings " + 0);
+            }
+        }.start();
     }
 }
