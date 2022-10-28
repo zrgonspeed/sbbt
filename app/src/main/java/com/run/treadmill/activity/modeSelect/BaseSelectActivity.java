@@ -109,6 +109,7 @@ public abstract class BaseSelectActivity<V extends BaseSelectView, P extends Bas
                     BuzzerManager.getInstance().buzzerRingOnce();
                 }
                 break;
+            case SerialKeyValue.BACK_KEY_CLICK:
             case SerialKeyValue.HOME_KEY_CLICK:
                 BuzzerManager.getInstance().buzzerRingOnce();
                 btn_home.performClick();

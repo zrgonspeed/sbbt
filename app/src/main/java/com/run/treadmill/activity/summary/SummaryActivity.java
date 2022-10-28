@@ -144,6 +144,7 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
     @Override
     public void cmdKeyValue(int keyValue) {
         switch (keyValue) {
+            case SerialKeyValue.BACK_KEY_CLICK:
             case SerialKeyValue.HOME_KEY_CLICK:
             case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:

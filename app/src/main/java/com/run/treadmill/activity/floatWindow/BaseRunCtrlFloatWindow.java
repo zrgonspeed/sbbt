@@ -162,8 +162,6 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                     BuzzerManager.getInstance().buzzerRingOnce();
                     btn_back.performClick();
                 }
-                break;
-            case SerialKeyValue.HOME_KEY_CLICK:
                 if (btn_home.getVisibility() == View.VISIBLE && btn_home.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     btn_home.performClick();

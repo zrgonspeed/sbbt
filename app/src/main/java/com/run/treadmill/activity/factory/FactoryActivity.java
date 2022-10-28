@@ -716,6 +716,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
             return;
         }
         switch (keyValue) {
+            case SerialKeyValue.BACK_KEY_CLICK:
             case SerialKeyValue.HOME_KEY_CLICK:
                 BuzzerManager.getInstance().buzzerRingOnce();
                 btn_home.performClick();

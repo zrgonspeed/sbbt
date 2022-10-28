@@ -408,16 +408,11 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                     sb_setting_sound.postInvalidate();
                 }
                 break;
+            case SerialKeyValue.BACK_KEY_CLICK:
             case SerialKeyValue.HOME_KEY_CLICK:
                 if (btn_home.isEnabled() && btn_home.getVisibility() == View.VISIBLE) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     btn_home.performClick();
-                }
-                break;
-            case SerialKeyValue.BACK_KEY_CLICK:
-                if (btn_back.isEnabled() && btn_back.getVisibility() == View.VISIBLE) {
-                    BuzzerManager.getInstance().buzzerRingOnce();
-                    btn_back.performClick();
                 }
                 break;
         }
