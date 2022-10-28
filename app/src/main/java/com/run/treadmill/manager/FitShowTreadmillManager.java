@@ -460,6 +460,11 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
                             this.targetIncline = DataTypeConversion.byteToInt(rxData[4]);
                             this.targetSpeed = DataTypeConversion.byteToInt(rxData[3]) / 10f;
 
+                            //  0         0.5 0.8
+                            if (this.targetSpeed < SpManager.getMinSpeed(SpManager.getIsMetric())) {
+                                this.targetSpeed = SpManager.getMinSpeed(SpManager.getIsMetric());
+                            }
+
                             Logger.e("程序模式 targetIncline == " + targetIncline + "  targetSpeed == " + targetSpeed);
                         } else {
                             Message targetMessage = new Message();
