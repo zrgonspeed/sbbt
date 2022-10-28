@@ -1,6 +1,5 @@
 package com.run.treadmill.activity.home;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -299,7 +298,9 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             wakeUpSleep();
             return;
         }
-        if (keyValue == SerialKeyValue.START_CLICK) {
+        if (keyValue == SerialKeyValue.START_CLICK ||
+                keyValue == SerialKeyValue.HAND_START_CLICK
+        ) {
             if (tipsPop.isShowTips() || ((MyApplication) getApplication()).isFirst) {
                 return;
             }

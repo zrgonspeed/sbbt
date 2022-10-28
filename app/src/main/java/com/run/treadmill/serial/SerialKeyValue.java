@@ -2,11 +2,7 @@ package com.run.treadmill.serial;
 
 public class SerialKeyValue {
     public static final int START_CLICK = 0x3c;
-    public static final int START_CLICK_LONG_1 = START_CLICK + 1;
-    public static final int START_CLICK_LONG_2 = START_CLICK + 2;
-
     public static final int STOP_CLICK = 0x40;
-    public static final int STOP_CLICK_LONG_1 = STOP_CLICK + 1;
     public static final int STOP_CLICK_LONG_2 = STOP_CLICK + 2;
 
     // 扬升
@@ -65,8 +61,8 @@ public class SerialKeyValue {
     public static final int BACK_KEY_CLICK = 0x2c;
 
     // 手扶
-    public static final int HAND_START_CLICK = 0x65;
-    public static final int HAND_STOP_CLICK = 0x66;
+    public static final int HAND_START_CLICK = 0x98;
+    public static final int HAND_STOP_CLICK = 0x94;
 
     // 手扶速度
     public static final int SPEED_DOWN_HAND_CLICK = 0x90;
