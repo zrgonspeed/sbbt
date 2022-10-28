@@ -65,8 +65,8 @@ public class SerialKeyValue {
     public static final int BACK_KEY_CLICK = 0x2c;
 
     // 手扶
-    public static final int HAND_START_CLICK = -150;
-    public static final int HAND_STOP_CLICK = -150;
+    public static final int HAND_START_CLICK = 0x65;
+    public static final int HAND_STOP_CLICK = 0x66;
 
     // 手扶速度
     public static final int SPEED_DOWN_HAND_CLICK = 0x90;
@@ -243,11 +243,7 @@ public class SerialKeyValue {
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_12_CLICK_LONG_2:
                 result = 12f;
                 break;
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_15_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_15_CLICK_LONG_1:
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_15_CLICK_LONG_2:
-                result = 15f;
-                break;
+
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK_LONG_1:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK_LONG_2:

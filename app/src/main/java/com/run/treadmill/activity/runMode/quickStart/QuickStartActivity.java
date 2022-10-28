@@ -327,6 +327,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     @Override
     protected void runCmdKeyValue(int keyValue) {
         switch (keyValue) {
+            case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL
                         && btn_start_stop_skip.isEnabled()) {
@@ -339,6 +340,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
                     BuzzerManager.getInstance().buzzerRingOnce();
                 }
                 break;
+            case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
                         && btn_pause_quit.isEnabled()) {

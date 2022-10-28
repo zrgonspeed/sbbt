@@ -267,6 +267,7 @@ public class HrcRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
     public void cmdKeyValue(int keyValue) {
         super.cmdKeyValue(keyValue);
         switch (keyValue) {
+            case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:
                 if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
                         && btn_start_stop_skip.isEnabled()) {

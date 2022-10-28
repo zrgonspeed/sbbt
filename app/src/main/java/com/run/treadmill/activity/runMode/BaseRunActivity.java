@@ -551,7 +551,12 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             return;
         }
         if (mRunningParam.runStatus != CTConstant.RUN_STATUS_RUNNING
-                && keyValue != SerialKeyValue.START_CLICK && keyValue != SerialKeyValue.STOP_CLICK) {
+                && keyValue != SerialKeyValue.START_CLICK
+                && keyValue != SerialKeyValue.STOP_CLICK
+                && keyValue != SerialKeyValue.HAND_START_CLICK
+                && keyValue != SerialKeyValue.HAND_STOP_CLICK
+        ) {
+            // 不在运动状态的时候，只能接收Start和Stop按键
             return;
         }
         if (isGoMedia) {

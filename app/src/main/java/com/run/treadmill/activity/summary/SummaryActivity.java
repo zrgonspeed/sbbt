@@ -145,6 +145,7 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
     public void cmdKeyValue(int keyValue) {
         switch (keyValue) {
             case SerialKeyValue.HOME_KEY_CLICK:
+            case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:
                 BuzzerManager.getInstance().buzzerRingOnce();
                 if (waiteTimer != null) {

@@ -219,6 +219,7 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
     @Override
     protected void runCmdKeyValue(int keyValue) {
         switch (keyValue) {
+            case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:
                 if ((mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP)
                         && btn_pause_continue.isEnabled()) {
@@ -226,6 +227,7 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
                     BuzzerManager.getInstance().buzzerRingOnce();
                 }
                 break;
+            case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN
                         && btn_start_stop_skip.isEnabled()) {

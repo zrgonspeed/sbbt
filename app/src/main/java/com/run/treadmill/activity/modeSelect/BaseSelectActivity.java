@@ -102,6 +102,7 @@ public abstract class BaseSelectActivity<V extends BaseSelectView, P extends Bas
     @Override
     public void cmdKeyValue(int keyValue) {
         switch (keyValue) {
+            case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:
                 if (btn_start.isEnabled()) {
                     btn_start.performClick();
