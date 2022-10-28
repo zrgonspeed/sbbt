@@ -498,7 +498,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             @Override
             public void run() {
                 super.run();
-                SystemSoundManager.getInstance().setAudioVolume(currentPro, 100);
+                SystemSoundManager.getInstance().setAudioVolume(currentPro, SystemSoundManager.maxVolume);
             }
         }.start();
     }
@@ -840,7 +840,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         tv_prepare.setVisibility(View.VISIBLE);
         mCountdownTask = new EmptyMessageTask(myHandler, MsgWhat.MSG_PREPARE_TIME);
         currentPro = SystemSoundManager.getInstance().getCurrentPro();
-        SystemSoundManager.getInstance().setAudioVolume(70, 100);
+        SystemSoundManager.getInstance().setAudioVolume(12, SystemSoundManager.maxVolume);
         try {
             mTimer.schedule(mCountdownTask, delay, 1000);
         } catch (Exception e) {
@@ -1109,7 +1109,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                         //防止go声音没结束就修改回原来的声音
                         postDelayed(() -> {
                             //音量恢复
-                            SystemSoundManager.getInstance().setAudioVolume(mActivity.currentPro, 100);
+                            SystemSoundManager.getInstance().setAudioVolume(mActivity.currentPro, SystemSoundManager.maxVolume);
                         }, 1000);
                         if (!ErrorManager.getInstance().isHasInclineError()) {
                             mActivity.tv_incline.setText(

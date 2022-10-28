@@ -47,7 +47,7 @@ public class SystemSoundManager {
 
         maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         Logger.i("系统最大音量 " + maxVolume);
-        getCurrentPro(100);
+        getCurrentPro(maxVolume);
     }
 
     // 获取记录的音量，这个值在每次设置的时候会更新

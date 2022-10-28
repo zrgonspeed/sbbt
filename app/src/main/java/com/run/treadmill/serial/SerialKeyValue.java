@@ -48,12 +48,12 @@ public class SerialKeyValue {
     public static final int HOME_KEY_LONG_2 = HOME_KEY_CLICK + 2;
 
     // 音量
-    public static final int VOLUME_UP_CLICK = 0x38;
-    public static final int VOLUME_UP_CLICK_LONG_1 = VOLUME_UP_CLICK + 1;
-    public static final int VOLUME_UP_CLICK_LONG_2 = VOLUME_UP_CLICK + 2;
-    public static final int VOLUME_DOWN_CLICK = 0x34;
-    public static final int VOLUME_DOWN_CLICK_LONG_1 = VOLUME_DOWN_CLICK + 1;
-    public static final int VOLUME_DOWN_CLICK_LONG_2 = VOLUME_DOWN_CLICK + 2;
+    public static final int VOICE_UP_CLICK = 0x38;
+    public static final int VOICE_UP_CLICK_LONG_1 = VOICE_UP_CLICK + 1;
+    public static final int VOICE_UP_CLICK_LONG_2 = VOICE_UP_CLICK + 2;
+    public static final int VOICE_DOWN_CLICK = 0x34;
+    public static final int VOICE_DOWN_CLICK_LONG_1 = VOICE_DOWN_CLICK + 1;
+    public static final int VOICE_DOWN_CLICK_LONG_2 = VOICE_DOWN_CLICK + 2;
 
     // 屏幕
     public static final int HIDE_OR_SHOW_SCREEN_CLICK = 0x30;
@@ -159,10 +159,10 @@ public class SerialKeyValue {
                 || keyValue == SPEED_DOWN_HAND_CLICK_LONG_1
                 || keyValue == SPEED_DOWN_HAND_CLICK_LONG_2
 
-                || keyValue == VOLUME_DOWN_CLICK_LONG_1
-                || keyValue == VOLUME_DOWN_CLICK_LONG_2
-                || keyValue == VOLUME_UP_CLICK_LONG_1
-                || keyValue == VOLUME_UP_CLICK_LONG_2
+                || keyValue == VOICE_DOWN_CLICK_LONG_1
+                || keyValue == VOICE_DOWN_CLICK_LONG_2
+                || keyValue == VOICE_UP_CLICK_LONG_1
+                || keyValue == VOICE_UP_CLICK_LONG_2
         );
     }
 
@@ -196,8 +196,8 @@ public class SerialKeyValue {
 
                 || keyValue == BACK_KEY_CLICK
                 || keyValue == HIDE_OR_SHOW_SCREEN_CLICK
-                || keyValue == VOLUME_UP_CLICK
-                || keyValue == VOLUME_DOWN_CLICK
+                || keyValue == VOICE_UP_CLICK
+                || keyValue == VOICE_DOWN_CLICK
         ) {
             return true;
         }

@@ -390,10 +390,10 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
             return;
         }
         switch (keyValue) {
-      /*      case SerialKeyValue.VOICE_UP_CLICK:
+            case SerialKeyValue.VOICE_UP_CLICK:
             case SerialKeyValue.VOICE_UP_CLICK_LONG_1:
             case SerialKeyValue.VOICE_UP_CLICK_LONG_2:
-                if (sb_setting_sound != null && SystemSoundManager.getInstance().getCurrentPro() < 100) {
+                if (sb_setting_sound != null && SystemSoundManager.getInstance().getCurrentPro() < SystemSoundManager.maxVolume) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     sb_setting_sound.setProgress(SystemSoundManager.getInstance().getCurrentPro() + 1);
                     sb_setting_sound.postInvalidate();
@@ -407,7 +407,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                     sb_setting_sound.setProgress(SystemSoundManager.getInstance().getCurrentPro() - 1);
                     sb_setting_sound.postInvalidate();
                 }
-                break;*/
+                break;
             case SerialKeyValue.HOME_KEY_CLICK:
                 if (btn_home.isEnabled() && btn_home.getVisibility() == View.VISIBLE) {
                     BuzzerManager.getInstance().buzzerRingOnce();
@@ -638,14 +638,14 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                 SystemBrightManager.setBrightness(SettingActivity.this, seekBar.getProgress() + minBright);
             }
         });
-        sb_setting_sound.setMax(100);
-        SystemSoundManager.getInstance().getCurrentPro(100);
+        sb_setting_sound.setMax(SystemSoundManager.maxVolume);
+        SystemSoundManager.getInstance().getCurrentPro(SystemSoundManager.maxVolume);
         sb_setting_sound.setProgress(SystemSoundManager.getInstance().getCurrentPro());
         sb_setting_sound.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                SystemSoundManager.getInstance().setAudioVolume(seekBar.getProgress(), 100);
+                SystemSoundManager.getInstance().setAudioVolume(seekBar.getProgress(), SystemSoundManager.maxVolume);
             }
 
             @Override
@@ -654,7 +654,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                SystemSoundManager.getInstance().setAudioVolume(progress, 100);
+                SystemSoundManager.getInstance().setAudioVolume(progress, SystemSoundManager.maxVolume);
             }
         });
 
