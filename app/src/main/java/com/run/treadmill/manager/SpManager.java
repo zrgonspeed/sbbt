@@ -256,51 +256,91 @@ public class SpManager {
 
         if (getRunLubeDis() < getMaxLubeDis()) {
             if ((getRunLubeDis() + runLube) > getMaxLubeDis()) {
-//            StorageParam.setParam(SET_RUN_LUBE, getIsMetric()?(float)getMaxLubeDis():UnitUtil.getMileToKm((float)getMaxLubeDis()));
-//            StorageParam.setParam(SET_RUN_LUBE_IMPERIAL, getIsMetric()?UnitUtil.getKmToMile((float)getMaxLubeDis()):(float)getMaxLubeDis());
 
                 ed.putFloat(SET_RUN_LUBE, getIsMetric() ? (float) getMaxLubeDis() : UnitUtil.getMileToKm((float) getMaxLubeDis()));
                 ed.putFloat(SET_RUN_LUBE_IMPERIAL, getIsMetric() ? UnitUtil.getKmToMile((float) getMaxLubeDis()) : (float) getMaxLubeDis());
             } else {
-//            StorageParam.setParam(SET_RUN_LUBE, getIsMetric()?(getRunLubeDis() + runLube):UnitUtil.getMileToKm(getRunLubeDis() + runLube));
-//            StorageParam.setParam(SET_RUN_LUBE_IMPERIAL, getIsMetric()?UnitUtil.getKmToMile(getRunLubeDis() + runLube):(getRunLubeDis() + runLube));
-
                 ed.putFloat(SET_RUN_LUBE, getIsMetric() ? (getRunLubeDis() + runLube) : UnitUtil.getMileToKm(getRunLubeDis() + runLube));
                 ed.putFloat(SET_RUN_LUBE_IMPERIAL, getIsMetric() ? UnitUtil.getKmToMile(getRunLubeDis() + runLube) : (getRunLubeDis() + runLube));
             }
         }
-
-//        StorageParam.setParam(SET_RUN_TOTAL_DIS, getRunTotalDis() + (getIsMetric()?dis:UnitUtil.getMileToKm(dis)));
-//        StorageParam.setParam(SET_RUN_TOTAL_DIS_IMPERIAL, getRunTotalDis() + (getIsMetric()?UnitUtil.getMileToKm(dis):dis));
         ed.putFloat(SET_RUN_TOTAL_DIS, getRunTotalDis() + (getIsMetric() ? dis : UnitUtil.getMileToKm(dis)));
         ed.putFloat(SET_RUN_TOTAL_DIS_IMPERIAL, getRunTotalDis() + (getIsMetric() ? UnitUtil.getMileToKm(dis) : dis));
 
         if (getBackUpRunDis() < getBackUpTotalRunDis()) {
             if ((getBackUpRunDis() + dis) > getBackUpTotalRunDis()) {
-//            StorageParam.setParam(SET_BAK_RUN_DIS, getIsMetric()?getBackUpTotalRunDis():UnitUtil.getMileToKm(getBackUpTotalRunDis()));
-//            StorageParam.setParam(SET_BAK_RUN_DIS_IMPERIAL, getIsMetric()?UnitUtil.getKmToMile(getBackUpTotalRunDis()):getBackUpTotalRunDis());
-
                 ed.putFloat(SET_BAK_RUN_DIS, getIsMetric() ? getBackUpTotalRunDis() : UnitUtil.getMileToKm(getBackUpTotalRunDis()));
                 ed.putFloat(SET_BAK_RUN_DIS_IMPERIAL, getIsMetric() ? UnitUtil.getKmToMile(getBackUpTotalRunDis()) : getBackUpTotalRunDis());
             } else {
-//            StorageParam.setParam(SET_BAK_RUN_DIS, getIsMetric()?(getBackUpRunDis() + dis):UnitUtil.getMileToKm(getBackUpRunDis() + dis));
-//            StorageParam.setParam(SET_BAK_RUN_DIS_IMPERIAL, getIsMetric()?UnitUtil.getKmToMile(getBackUpRunDis() + dis):(getBackUpRunDis() + dis));
-
                 ed.putFloat(SET_BAK_RUN_DIS, getIsMetric() ? (getBackUpRunDis() + dis) : UnitUtil.getMileToKm(getBackUpRunDis() + dis));
                 ed.putFloat(SET_BAK_RUN_DIS_IMPERIAL, getIsMetric() ? UnitUtil.getKmToMile(getBackUpRunDis() + dis) : (getBackUpRunDis() + dis));
             }
         }
-
-//        StorageParam.setParam(SET_RUN_TOTAL_TIME, getRunTotalTime() + 1L);
         ed.putLong(SET_RUN_TOTAL_TIME, getRunTotalTime() + 1L);
-
         if (getBackUpRunTime() < getBackUpRunTotalTime()) {
             if ((getBackUpRunTime() + 1L) > getBackUpRunTotalTime()) {
-//            StorageParam.setParam(SET_BAK_RUN_TIME, getBackUpRunTotalTime());
                 ed.putLong(SET_BAK_RUN_TIME, getBackUpRunTotalTime());
             } else {
-//            StorageParam.setParam(SET_BAK_RUN_TIME, getBackUpRunTime() + 1L);
                 ed.putLong(SET_BAK_RUN_TIME, getBackUpRunTime() + 1L);
+            }
+        }
+
+        ed.commit();
+    }
+
+    /**
+     * @param dis  某一时间段内记录距离
+     * @param time 时长(单位:秒)
+     */
+    public static void setRunData(float dis, long time) {
+        SharedPreferences.Editor ed = StorageParam.getEditor();
+
+        if (getRunLubeDis() < getMaxLubeDis()) {
+            if ((getRunLubeDis() + dis) > getMaxLubeDis()) {
+
+                ed.putFloat(SET_RUN_LUBE, getIsMetric() ?
+                        (float) getMaxLubeDis() : UnitUtil.getMileToKm((float) getMaxLubeDis()));
+                ed.putFloat(SET_RUN_LUBE_IMPERIAL, getIsMetric() ?
+                        UnitUtil.getKmToMile((float) getMaxLubeDis()) : (float) getMaxLubeDis());
+
+            } else {
+
+                ed.putFloat(SET_RUN_LUBE, getIsMetric() ?
+                        (getRunLubeDis() + dis) : UnitUtil.getMileToKm(getRunLubeDis() + dis));
+                ed.putFloat(SET_RUN_LUBE_IMPERIAL, getIsMetric() ?
+                        UnitUtil.getKmToMile(getRunLubeDis() + dis) : (getRunLubeDis() + dis));
+
+            }
+        }
+        ed.putFloat(SET_RUN_TOTAL_DIS, getRunTotalDis() + (getIsMetric() ? dis : UnitUtil.getMileToKm(dis)));
+        ed.putFloat(SET_RUN_TOTAL_DIS_IMPERIAL, getRunTotalDis() + (getIsMetric() ? UnitUtil.getMileToKm(dis) : dis));
+
+        if (getBackUpRunDis() < getBackUpTotalRunDis()) {
+
+            if ((getBackUpRunDis() + dis) > getBackUpTotalRunDis()) {
+
+                ed.putFloat(SET_BAK_RUN_DIS, getIsMetric() ?
+                        getBackUpTotalRunDis() : UnitUtil.getMileToKm(getBackUpTotalRunDis()));
+                ed.putFloat(SET_BAK_RUN_DIS_IMPERIAL, getIsMetric() ?
+                        UnitUtil.getKmToMile(getBackUpTotalRunDis()) : getBackUpTotalRunDis());
+
+            } else {
+
+                ed.putFloat(SET_BAK_RUN_DIS, getIsMetric() ?
+                        (getBackUpRunDis() + dis) : UnitUtil.getMileToKm(getBackUpRunDis() + dis));
+                ed.putFloat(SET_BAK_RUN_DIS_IMPERIAL, getIsMetric() ?
+                        UnitUtil.getKmToMile(getBackUpRunDis() + dis) : (getBackUpRunDis() + dis));
+
+            }
+        }
+
+        ed.putLong(SET_RUN_TOTAL_TIME, getRunTotalTime() + time);
+
+        if (getBackUpRunTime() < getBackUpRunTotalTime()) {
+            if ((getBackUpRunTime() + time) > getBackUpRunTotalTime()) {
+                ed.putLong(SET_BAK_RUN_TIME, getBackUpRunTotalTime());
+            } else {
+                ed.putLong(SET_BAK_RUN_TIME, getBackUpRunTime() + time);
             }
         }
 

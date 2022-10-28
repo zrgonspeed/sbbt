@@ -3,6 +3,7 @@ package com.run.treadmill.activity.runMode;
 import android.os.Handler;
 import android.os.Message;
 
+import com.run.android.ShellCmdUtils;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.common.MsgWhat;
@@ -11,6 +12,7 @@ import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.util.FormulaUtil;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.TimeStringUtil;
 import com.run.treadmill.util.UnitUtil;
 
@@ -549,6 +551,12 @@ public class RunningParam {
                     }
                     Thread.sleep(waiteTime, waiteNanosTime);
                     if (runStatus == CTConstant.RUN_STATUS_WARM_UP) {
+
+                        float curRunDistance = FormulaUtil.getRunDistances(currSpeed, (1 / 60.0f / 60.0f));
+                        pre_recode++;
+                        pre_recode_time++;
+                        pre_recode_dis += curRunDistance;
+
                         warmUpTime--;
                         showTime = TimeStringUtil.getMsToMinSecValue(warmUpTime * 1000f);
 
@@ -561,6 +569,11 @@ public class RunningParam {
                         alreadyWarmUpMet += FormulaUtil.getMETs(currSpeed, currIncline, isMetric);
                         showMets = String.valueOf(UnitUtil.getFloatBy1f(FormulaUtil.getMETs(currSpeed, currIncline, isMetric)));
                     } else if (runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+                        float curRunDistance = FormulaUtil.getRunDistances(currSpeed, (1 / 60.0f / 60.0f));
+                        pre_recode_time++;
+                        pre_recode_dis += curRunDistance;
+                        pre_recode++;
+
                         coolDownTime--;
                         if ((coolDownTime % 10) == 0) {
                             if (UnitUtil.getFloatBy1f(currSpeed * 0.8f) >= SpManager.getMinSpeed(isMetric)) {
@@ -581,6 +594,11 @@ public class RunningParam {
                         alreadyCoolDownMet += FormulaUtil.getMETs(currSpeed, currIncline, isMetric);
                         showMets = String.valueOf(UnitUtil.getFloatBy1f(FormulaUtil.getMETs(currSpeed, currIncline, isMetric)));
                     } else if (runStatus == CTConstant.RUN_STATUS_RUNNING) {
+                        float curRunDistance = FormulaUtil.getRunDistances(currSpeed, (1 / 60.0f / 60.0f));
+                        pre_recode_time++;
+                        pre_recode_dis += curRunDistance;
+                        pre_recode++;
+
                         recordRunData(-1);
                         alreadyRunTime++;
                         showTime = TimeStringUtil.getMsToMinSecValueHasUp(((targetTime >= alreadyRunTime) ? (targetTime - alreadyRunTime) : alreadyRunTime) * 1000f);
@@ -602,7 +620,15 @@ public class RunningParam {
                         }
                     }
                     mRunParamHandler.sendEmptyMessage(MsgWhat.MSG_REFRESH_DATA);
-                    reFlashDate = true;
+
+                    // Logger.d("运动中 pre_recode == " + pre_recode);
+                    // Logger.d("getRunTotalDis == " + UnitUtil.getFloatToInt(SpManager.getRunTotalDis()));
+                    // Logger.d("getRunTotalTime == " + TimeStringUtil.getSecToHrMin(SpManager.getRunTotalTime()));
+                    if (pre_recode % 120 == 0) {
+                        Logger.i("达到2分钟，准备保存数据");
+                        reFlashDate = true;
+                        pre_recode = 0;
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     break;
@@ -610,6 +636,10 @@ public class RunningParam {
             }
         }
     }
+
+    private int pre_recode = 0;
+    private float pre_recode_dis = 0f;
+    private int pre_recode_time = 0;
 
     /**
      * 记录和计算运动数据,防止不足时间，采取前120s每一秒都记录
@@ -673,7 +703,7 @@ public class RunningParam {
                     }
                     Thread.sleep(200);
                     if (reFlashDate) {
-                        SpManager.setRunData(FormulaUtil.getRunDistances(currSpeed, (1 / 60.0f / 60.0f)), FormulaUtil.getRunDistances(currSpeed, (1 / 60.0f / 60.0f)));
+                        recodePreRunData();
                         reFlashDate = false;
                     }
                     if (runStatus == CTConstant.RUN_STATUS_STOP || runStatus == CTConstant.RUN_STATUS_CONTINUE) {
@@ -709,6 +739,21 @@ public class RunningParam {
         }
     }
 
+    /**
+     * 每调用一次 将记录一次数据
+     */
+    public void recodePreRunData() {
+        Logger.i("recodePreRunData()");
+        if (pre_recode_dis > 0f &&
+                pre_recode_time > 0) {
+            SpManager.setRunData(pre_recode_dis, pre_recode_time);
+            ShellCmdUtils.getInstance().execCommand("sync");
+
+            Logger.i("保存数据()");
+        }
+        pre_recode_dis = 0;
+        pre_recode_time = 0;
+    }
 
     public float getCurrSpeed() {
         return currSpeed;
