@@ -1,6 +1,8 @@
 package com.run.treadmill.activity.runMode;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -248,7 +250,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     @Override
     protected void onResume() {
         super.onResume();
-
+        if (!getTopActivity(this).contains(getPackageName())) {
+            Logger.d("!getTopActivity(this).contains(getPackageName())   -> return");
+            return;
+        }
         long start = System.currentTimeMillis();
         {
             if (ErrorManager.getInstance().exitError) {
@@ -1237,4 +1242,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
     }
 
+    public String getTopActivity(Context context){
+        ActivityManager am = (ActivityManager) context.getSystemService(context.ACTIVITY_SERVICE);
+        ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
+        Logger.d("cn.getPackageName() == " + cn.getPackageName());
+        return cn.getPackageName();
+    }
 }
