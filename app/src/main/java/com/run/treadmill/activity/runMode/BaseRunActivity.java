@@ -266,6 +266,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                     }else {
                         mFloatWindowManager.stopFloatWindow();
                     }
+                    isGoMedia = false;
                 }
                 mRunningParam.setCallback(this);
                 rl_main.setVisibility(View.VISIBLE);
