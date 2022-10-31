@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -36,7 +37,8 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
         mRunningParam.runStatus = CTConstant.RUN_STATUS_PREPARE;
 
         btn_media = findViewById(R.id.btn_media);
-
+        btn_line_chart_incline = (TextView) findViewById(R.id.btn_line_chart_incline);
+        btn_line_chart_speed = (TextView) findViewById(R.id.btn_line_chart_speed);
     }
 
     @Override
