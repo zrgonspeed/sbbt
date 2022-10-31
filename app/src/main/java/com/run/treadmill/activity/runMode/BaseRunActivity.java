@@ -250,10 +250,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     @Override
     protected void onResume() {
         super.onResume();
-        if (!getTopActivity(this).contains(getPackageName())) {
-            Logger.d("!getTopActivity(this).contains(getPackageName())   -> return");
-            return;
-        }
         long start = System.currentTimeMillis();
         {
             if (ErrorManager.getInstance().exitError) {
@@ -265,7 +261,11 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             if (!quickToMedia && rl_main.getVisibility() == View.GONE) {
                 //关闭悬浮窗
                 if (mFloatWindowManager != null) {
-                    mFloatWindowManager.stopFloatWindow();
+                    if (!getTopActivity(this).contains(getPackageName())) {
+                        Logger.d("!getTopActivity(this).contains(getPackageName())   -> 不关闭悬浮窗");
+                    }else {
+                        mFloatWindowManager.stopFloatWindow();
+                    }
                 }
                 mRunningParam.setCallback(this);
                 rl_main.setVisibility(View.VISIBLE);
