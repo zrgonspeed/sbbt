@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.fitShow.treadmill.FsTreadmillCommand;
 import com.run.treadmill.R;
 import com.run.treadmill.common.CTConstant;
@@ -23,6 +25,7 @@ import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FormulaUtil;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.widget.LongClickImage;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
 
@@ -105,6 +108,13 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         btn_speed_roller = (ImageView) mFloatWindow.findViewById(R.id.btn_speed_roller);
         btn_back = (ImageView) mFloatWindow.findViewById(R.id.btn_back);
         btn_home = (ImageView) mFloatWindow.findViewById(R.id.btn_home);
+
+        layout_float_pause = (ConstraintLayout) mFloatWindow.findViewById(R.id.layout_float_pause);
+        btn_float_pause_quit = (ImageView) mFloatWindow.findViewById(R.id.btn_float_pause_quit);
+        btn_float_pause_continue = (ImageView) mFloatWindow.findViewById(R.id.btn_float_pause_continue);
+        btn_float_pause_quit.setOnClickListener(this);
+        btn_float_pause_continue.setOnClickListener(this);
+
         init();
 
         floatWindowManager.addView(mFloatWindow, wmParams);
@@ -312,18 +322,75 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                     return;
                 }
                 BuzzerManager.getInstance().buzzerRingOnce();
-                mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_STOP;
-                // gsMode默认false
-                // 客户要求修改扬升机制
-                ControlManager.getInstance().stopRun(false);
-                ControlManager.getInstance().resetIncline();
-                if (FitShowTreadmillManager.getInstance().isConnect()) {
-                    FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_PAUSED);
+                enterPause();
+                break;
+            case R.id.btn_float_pause_quit:
+                BuzzerManager.getInstance().buzzerRingOnce();
+                mFloatWindowManager.goBackMyAppToSummary();
+                break;
+            case R.id.btn_float_pause_continue:
+                Logger.d("--data-- runStatus="+mFloatWindowManager.mRunningParam.runStatus);
+                BuzzerManager.getInstance().buzzerRingOnce();
+                if (mFloatWindowManager.mRunningParam.isRunningEnd()) {
+                    return;
                 }
-                mFloatWindowManager.mRunningParam.recodePreRunData();
-                mFloatWindowManager.goBackMyApp();
+                if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+                    layout_float_pause.setVisibility(View.GONE);
+                    btn_float_pause_continue.setEnabled(false);
+                    btn_float_pause_quit.setEnabled(false);
+
+                    btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
+                    btn_start_stop_skip.setEnabled(false);
+                    btn_start_stop_skip.setVisibility(View.VISIBLE);
+                    btn_back.setEnabled(false);
+                    btn_home.setEnabled(false);
+                    setControlEnable(false);
+
+                    btn_back.setVisibility(View.VISIBLE);
+                    btn_home.setVisibility(View.GONE);
+                    mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_CONTINUE;
+                    mFloatWindowManager.startPrepare();
+                }
                 break;
         }
+    }
+
+    protected void enterPause() {
+        mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_STOP;
+        // gsMode默认false
+        // 客户要求修改扬升机制
+        ControlManager.getInstance().stopRun(false);
+        ControlManager.getInstance().resetIncline();
+        if (FitShowTreadmillManager.getInstance().isConnect()) {
+            FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_PAUSED);
+        }
+        mFloatWindowManager.mRunningParam.recodePreRunData();
+        mFloatWindowManager.paramEnterPauseState();
+        showPause();
+    }
+
+    public ConstraintLayout layout_float_pause;
+    protected ImageView btn_float_pause_quit;
+    protected ImageView btn_float_pause_continue;
+    protected void showPause() {
+        btn_start_stop_skip.setVisibility(View.GONE);
+
+        layout_float_pause.setVisibility(View.VISIBLE);
+
+        btn_back.setVisibility(View.VISIBLE);
+        btn_back.setEnabled(true);
+
+        btn_float_pause_quit.setEnabled(true);
+        btn_float_pause_continue.setEnabled(false);
+
+        btn_incline_down.setEnabled(false);
+        btn_incline_up.setEnabled(false);
+
+        btn_speed_down.setEnabled(false);
+        btn_speed_up.setEnabled(false);
+
+        btn_incline_roller.setEnabled(false);
+        btn_speed_roller.setEnabled(false);
     }
 
     void showOrHideFloatWindow(boolean isShow) {

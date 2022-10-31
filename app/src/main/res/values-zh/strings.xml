@@ -238,4 +238,5 @@
     <string name="string_movie_name_4">山脉</string>
 
     <string name="string_factory_img_reset">系统恢复</string>
+    <string name="string_running_media_pause">暂停</string>
 </resources>

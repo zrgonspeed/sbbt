@@ -206,4 +206,5 @@
     <string name="string_movie_name_4">Mountains</string>
 
     <string name="string_factory_img_reset">System Reset</string>
+    <string name="string_running_media_pause">PAUSE</string>
 </resources>

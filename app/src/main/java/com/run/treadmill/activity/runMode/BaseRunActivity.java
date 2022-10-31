@@ -868,7 +868,18 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
             mCalcBuilder.stopPopWin();
         }
-
+        if (mRunningParam.isQuickToSummary) {
+            rl_main.setVisibility(View.GONE);
+            setControlEnable(false);
+            btn_pause_continue.setEnabled(false);
+            btn_pause_quit.setEnabled(false);
+            if (mVideoPlayerSelf != null) {
+                mVideoPlayerSelf.onRelease();
+            }
+            stopPauseTimer();
+            finishRunning();
+            return;
+        }
         mRunningParam.recodePreRunData();
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
             tv_speed.setText(getSpeedValue(String.valueOf(0.0f)));

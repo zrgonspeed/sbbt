@@ -9,6 +9,7 @@ import com.run.treadmill.activity.floatWindow.BaseRunCtrlFloatWindow;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
+import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.serial.SerialKeyValue;
 
@@ -169,7 +170,23 @@ public class UserProgramRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
 
     @Override
     public void afterPrepare() {
+        if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
+            mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+            mFloatWindowManager.mRunningParam.notifyRefreshData();
+            btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
+            btn_speed_roller.setEnabled(true);
+        }
+        ControlManager.getInstance().startRun();
+        btn_back.setEnabled(true);
+        btn_home.setEnabled(false);
+        btn_back.setVisibility(View.VISIBLE);
+        btn_home.setVisibility(View.GONE);
 
+        setInclineValue(0, mFloatWindowManager.mRunningParam.mInclineArray[mFloatWindowManager.mRunningParam.getLcCurStageNum()], true);
+        setSpeedValue(0, mFloatWindowManager.mRunningParam.mSpeedArray[mFloatWindowManager.mRunningParam.getLcCurStageNum()], true);
+        //为了更新倒数后按钮的点击状态
+        afterSpeedChanged(mFloatWindowManager.mRunningParam.getCurrSpeed());
+        afterInclineChanged(mFloatWindowManager.mRunningParam.getCurrIncline());
     }
 
     @Override

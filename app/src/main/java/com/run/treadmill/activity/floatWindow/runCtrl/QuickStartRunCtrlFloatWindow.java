@@ -161,7 +161,12 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
             mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
             mFloatWindowManager.mRunningParam.notifyRefreshData();
         }
-
+        if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
+            mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+            mFloatWindowManager.mRunningParam.notifyRefreshData();
+            btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
+            btn_speed_roller.setEnabled(true);
+        }
         ControlManager.getInstance().startRun();
         btn_back.setEnabled(true);
         btn_home.setEnabled(false);

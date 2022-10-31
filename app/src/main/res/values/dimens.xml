@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="font_size_run_media_pause">50sp</dimen>
+
     <dimen name="font_size_15pt">30sp</dimen>
     <dimen name="font_size_16pt">34sp</dimen>
     <dimen name="font_size_18pt">38sp</dimen>

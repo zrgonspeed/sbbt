@@ -228,4 +228,13 @@ public abstract class BaseRunParamFloatWindow {
             mFloatWindowManager.afterSpeedChanged(Float.valueOf(StringUtil.removeUnit(s.toString())));
         }
     }
+
+    public void enterPauseState() {
+        if (img_pulse.getAnimation() != null) {
+            img_pulse.clearAnimation();
+        }
+        if (tv_speed != null) {
+            tv_speed.setText(mFloatWindowManager.getSpeedValue("0.0"));
+        }
+    }
 }

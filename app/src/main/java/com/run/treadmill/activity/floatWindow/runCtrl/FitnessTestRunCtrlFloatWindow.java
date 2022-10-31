@@ -10,6 +10,8 @@ import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.common.RunModeTable;
 import com.run.treadmill.manager.BuzzerManager;
+import com.run.treadmill.manager.ControlManager;
+import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FormulaUtil;
 
@@ -114,7 +116,25 @@ public class FitnessTestRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
 
     @Override
     public void afterPrepare() {
+        if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
+            mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+            mFloatWindowManager.mRunningParam.notifyRefreshData();
+            btn_incline_roller.setEnabled(false);
+            btn_speed_roller.setEnabled(false);
+        }
+        ControlManager.getInstance().startRun();
+        btn_back.setEnabled(true);
+        btn_home.setEnabled(false);
+        btn_back.setVisibility(View.VISIBLE);
+        btn_home.setVisibility(View.GONE);
 
+        setInclineValue(0, mFloatWindowManager.mRunningParam.mInclineArray[mFloatWindowManager.mRunningParam.getLcCurStageNum()], false);
+        setSpeedValue(0, mFloatWindowManager.mRunningParam.mSpeedArray[mFloatWindowManager.mRunningParam.getLcCurStageNum()], false);
+
+        mFloatWindowManager.setSpeedValue();
+        if (!ErrorManager.getInstance().isHasInclineError()) {
+            mFloatWindowManager.setInclineValue();
+        }
     }
 
     @Override

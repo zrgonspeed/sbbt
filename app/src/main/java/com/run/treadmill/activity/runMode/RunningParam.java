@@ -29,6 +29,8 @@ public class RunningParam {
     private volatile static RunningParam instance;
     private RunParamCallback mCallback;
     private RunParamHandler mRunParamHandler;
+    public boolean isQuickToSummary = false;
+
     /**
      * prepare时间,预防像mp4这样的app自己退出
      */
@@ -543,6 +545,7 @@ public class RunningParam {
         public void run() {
             while (isRunning) {
                 try {
+                    // Logger.i("runStatus == " + runStatus);
                     if (runStatus == CTConstant.RUN_STATUS_STOP) {
                         synchronized (instance) {
                             instance.wait();
@@ -743,7 +746,7 @@ public class RunningParam {
      * 每调用一次 将记录一次数据
      */
     public void recodePreRunData() {
-        Logger.i("recodePreRunData()");
+        // Logger.i("recodePreRunData()");
         if (pre_recode_dis > 0f &&
                 pre_recode_time > 0) {
             SpManager.setRunData(pre_recode_dis, pre_recode_time);
