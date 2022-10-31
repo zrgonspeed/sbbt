@@ -61,7 +61,7 @@ public class SerialTxData {
             outputBuffer.clear();
             outputBuffer.put(bytes);
             serialPort.write(outputBuffer, length);
-            Log.v("send", ">>  " + ConvertData.byteArrayToHexString(bytes, length));
+            // Log.v("send", ">>  " + ConvertData.byteArrayToHexString(bytes, length));
         } catch (Exception e) {
             e.printStackTrace();
         }

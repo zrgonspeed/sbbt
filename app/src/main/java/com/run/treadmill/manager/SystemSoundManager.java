@@ -39,7 +39,7 @@ public class SystemSoundManager {
         return ourInstance;
     }
 
-    public static int maxVolume = 15;
+    public static int maxVolume = 10;
 
     public void init(Context context) {
         mContext = context;
