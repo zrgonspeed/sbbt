@@ -111,15 +111,9 @@ public class MyApplication extends LitePalApplication {
             }
         }
 
-        // 触摸测试
+        // 触摸测试 重启关闭
         {
-            boolean touchesOption = readTouchesOptions();
-            if (!SpManager.getDisplay() && touchesOption) {
-                writeShowTouchesOptions(0);
-            } else if (SpManager.getDisplay() && !touchesOption) {
-                writeShowTouchesOptions(1);
-            }
-            writeCaptivePortalDetection(0);
+            writeShowTouchesOptions(0);
         }
 
         // 其它
@@ -191,16 +185,6 @@ public class MyApplication extends LitePalApplication {
                 ShellCmdUtils.getInstance().execCommand("settings put global window_animation_scale 0");
                 ShellCmdUtils.getInstance().execCommand("settings put global transition_animation_scale 0");
                 ShellCmdUtils.getInstance().execCommand("settings put global animator_duration_scale 0");
-            }
-        }.start();
-    }
-
-    private void writeCaptivePortalDetection(final int param) {
-        new Thread() {
-            @Override
-            public void run() {
-                ShellCmdUtils.getInstance()
-                        .execCommand("settings put global captive_portal_detection_enabled " + param);
             }
         }.start();
     }
