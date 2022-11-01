@@ -149,6 +149,10 @@ public class MyApplication extends LitePalApplication {
             changeVolume();
 
             new Thread(() -> {
+                ShellCmdUtils.getInstance().execCommand("sync");
+            });
+
+            new Thread(() -> {
                 SystemClock.sleep(5000);
                 WhiteListUtils.WhiteListAppFilter(this);
             }).start();

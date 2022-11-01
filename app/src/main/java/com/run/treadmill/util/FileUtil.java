@@ -17,6 +17,7 @@ import androidx.core.os.EnvironmentCompat;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.run.android.ShellCmdUtils;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.SpManager;
@@ -176,6 +177,7 @@ public class FileUtil {
         apkIntent.setDataAndType(apkUri, "application/vnd.android.package-archive");
 
         mContext.startActivity(apkIntent);
+        ShellCmdUtils.getInstance().execCommand("sync");
     }
 
     public static String getStoragePath(Context context, boolean isUsb) {
