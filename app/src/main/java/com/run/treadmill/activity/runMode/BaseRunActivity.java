@@ -426,6 +426,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         ControlManager.getInstance().stopRun(gsMode);
         if (mRunningParam != null) {
             mRunningParam.interrupted();
+            mRunningParam.recodePreRunData();
         }
         //如果速度感应线从一开始就没插好，常态包速度一直返回0，并且处于非stop状态，则取最后下发的速度
         getPresenter().checkLastSpeedOnRunning(isMetric);
@@ -446,6 +447,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
         if (mRunningParam != null) {
             mRunningParam.interrupted();
+            mRunningParam.recodePreRunData();
         }
         //如果速度感应线从一开始就没插好，常态包速度一直返回0，并且处于非stop状态，则取最后下发的速度
         getPresenter().checkLastSpeedOnRunning(isMetric);
@@ -477,6 +479,11 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         if (mCountdownTask != null) {
             mCountdownTask.cancel();
         }
+
+        if (mRunningParam != null) {
+            mRunningParam.recodePreRunData();
+        }
+
         //如果速度感应线从一开始就没插好，常态包速度一直返回0，并且处于非stop状态，则取最后下发的速度
         getPresenter().checkLastSpeedOnRunning(isMetric);
         super.showError(errCode);
@@ -702,6 +709,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
         ControlManager.getInstance().stopRun(gsMode);
         mRunningParam.end();
+        mRunningParam.recodePreRunData();
         shortDownThirtyApk();
         mRunningParam.saveHasRunData();
     }
@@ -855,6 +863,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
             mCalcBuilder.stopPopWin();
         }
+
+        mRunningParam.recodePreRunData();
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
             tv_speed.setText(getSpeedValue(String.valueOf(0.0f)));
             img_run_pop_tip.setImageResource(R.drawable.img_pop_pause);

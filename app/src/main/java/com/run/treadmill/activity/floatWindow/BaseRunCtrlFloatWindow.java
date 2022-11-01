@@ -322,6 +322,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 if (FitShowTreadmillManager.getInstance().isConnect()) {
                     FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_PAUSED);
                 }
+                mFloatWindowManager.mRunningParam.recodePreRunData();
                 mFloatWindowManager.goBackMyApp();
                 break;
         }
