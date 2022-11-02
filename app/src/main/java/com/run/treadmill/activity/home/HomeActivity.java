@@ -350,21 +350,21 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         }
         if (beltStatus != 0) {
             if (btn_quick_start.isEnabled()) {
-
                 btn_quick_start.setEnabled(false);
             }
+
+            FitShowTreadmillManager.getInstance().beltStopping = true;
+
             if (isFirst) {
-                if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-                    ControlManager.getInstance().stopRun(false);
-                } else {
-                    ControlManager.getInstance().stopRun(false);
-//                    ControlManager.getInstance().resetIncline();
-                }
+                ControlManager.getInstance().stopRun(false);
                 isFirst = false;
             }
             FitShowTreadmillManager.getInstance().setNOtConnect(true);
             return;
         }
+
+        FitShowTreadmillManager.getInstance().beltStopping = false;
+
         //TODO:如果扬升状态跟跑带状态均为停止状态,
         // 但是这个时候出现拉安全key导致错误清除,
         // 这个时候是否需要额外处理快速启动是否允许亮起

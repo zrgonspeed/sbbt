@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.SystemClock;
 
 import com.fitShow.ConvertData;
 import com.fitShow.treadmill.DataTypeConversion;
@@ -11,7 +12,6 @@ import com.fitShow.treadmill.FsTreadmillCommand;
 import com.fitShow.treadmill.FsTreadmillParam;
 import com.fitShow.treadmill.FsTreadmillSerialUtils;
 import com.run.treadmill.activity.CustomTimer;
-import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.util.Logger;
@@ -25,6 +25,7 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
     public float targetSpeed;
     public float targetIncline;
     private int countDown = 3;
+    public boolean beltStopping = false;
 
     public void setCountDown(int countDown) {
         this.countDown = countDown;
@@ -300,13 +301,13 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
         if (isConnect && isConnectTimer != null) {
             isConnectTimer.setmAllTime(0L);
         }
-        if (isNOtConnect && runStart == FsTreadmillCommand.STATUS_NORMAL && rxData[1] != FsTreadmillCommand.CMD_SYS_INFO) {
-           /* if (rxData[2]==FsTreadmillCommand.CMD_SYS_STATUS){
+/*        if (isNOtConnect && runStart == FsTreadmillCommand.STATUS_NORMAL && rxData[1] != FsTreadmillCommand.CMD_SYS_INFO) {
+           *//* if (rxData[2]==FsTreadmillCommand.CMD_SYS_STATUS){
                 sendData(new byte[]{FsTreadmillCommand.CMD_SYS_STATUS, FsTreadmillCommand.STATUS_END}, 2);
-            }*/
+            }*//*
             Logger.d("isNOtConnect=" + isNOtConnect + ",runStart=" + runStart + ",rxData[1]=" + rxData[1]);
             return;
-        }
+        }*/
         switch (rxData[1]) {
             case FsTreadmillCommand.CMD_SYS_INFO:
                 switch (rxData[2]) {
@@ -378,12 +379,10 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
 //                        Logger.d("isConnect=" + isConnect + ",isConnectTimer=" + isConnectTimer + "  fitShowTreadmillParamBuilder.build().getIncline() == " + fitShowTreadmillParamBuilder.build().getIncline());
                         if (isConnect && isConnectTimer != null) {
                             //isConnectTimer.setmAllTime(0L);
-                            if (isConnect) {
-                                if (fitShowTreadmillParamBuilder.build().getIncline() != null) {
-                                    sendRunParamToFsTreadmill(fitShowTreadmillParamBuilder.build());
-                                } else {
-                                    sendData(new byte[]{FsTreadmillCommand.CMD_SYS_STATUS, runStart}, 2);
-                                }
+                            if (fitShowTreadmillParamBuilder.build().getIncline() != null) {
+                                sendRunParamToFsTreadmill(fitShowTreadmillParamBuilder.build());
+                            } else {
+                                sendData(new byte[]{FsTreadmillCommand.CMD_SYS_STATUS, runStart}, 2);
                             }
                         } else {
                             mHandler.sendEmptyMessage(IS_FIT_SHOW_CONNECT);
@@ -440,11 +439,21 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
                     case FsTreadmillCommand.CONTROL_STOP:
                         runStart = FsTreadmillCommand.STATUS_PAUSED;
                         // 正常发下0x0a 16长度
-                        sendRunParamToFsTreadmill(fitShowTreadmillParamBuilder.build());
-                        Thread.sleep(80);
+                        /*sendRunParamToFsTreadmill(fitShowTreadmillParamBuilder.build());
+                        Thread.sleep(80);*/
 
 //                        this.runStart = FsTreadmillCommand.STATUS_NORMAL;
                         // 可能导致APP没有退出，电子表退出了。
+
+                        //不在识别范围内的数据
+                        byte[] bytes = new byte[5];
+                        bytes[0] = FsTreadmillCommand.PKG_HEAD;
+                        bytes[1] = rxData[1];
+                        bytes[2] = FsTreadmillCommand.CONTROL_STOP;
+                        bytes[3] = calc(new byte[]{rxData[1]}, 2);
+                        bytes[4] = FsTreadmillCommand.PKG_END;
+                        responseNothing(bytes, bytes.length);
+
                         mHandler.sendEmptyMessage(FsTreadmillCommand.CONTROL_STOP);
                         break;
                     case FsTreadmillCommand.CONTROL_TARGET:
@@ -459,6 +468,11 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
                             this.isProgramMode = true;
                             this.targetIncline = DataTypeConversion.byteToInt(rxData[4]);
                             this.targetSpeed = DataTypeConversion.byteToInt(rxData[3]) / 10f;
+
+                            //  0         0.5 0.8
+                            if (this.targetSpeed < SpManager.getMinSpeed(SpManager.getIsMetric())) {
+                                this.targetSpeed = SpManager.getMinSpeed(SpManager.getIsMetric());
+                            }
 
                             Logger.e("程序模式 targetIncline == " + targetIncline + "  targetSpeed == " + targetSpeed);
                         } else {
@@ -600,7 +614,20 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
         }
         byte[] sendData = new byte[128];
         sendData[0] = FsTreadmillCommand.CMD_SYS_STATUS;
-        sendData[1] = runStart;
+
+        /*
+        02 53 03 50 03
+        02 53 03 50 03
+         */
+        // if stop  0x04
+        // sendData[1] = FsTreadmillCommand.STATUS_STOPPING;
+
+        if (beltStopping) {
+            sendData[1] = FsTreadmillCommand.STATUS_STOPPING;;
+        } else {
+            sendData[1] = runStart;
+        }
+
         if (runStart == FsTreadmillCommand.CONTROL_PAUSE) {
             sendData[2] = DataTypeConversion.intLowToByte(0);
             sendData[3] = DataTypeConversion.intLowToByte(0);
@@ -646,18 +673,7 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
                             fsTreadmillSerialUtils.sendData(txData, txSize);
                         }
 
-                    } /*else {
-
-                        if (isConnect) {
-                            if (fitShowTreadmillParamBuilder.build().getIncline() != null) {
-                                sendRunParamToFsTreadmill(fitShowTreadmillParamBuilder.build());
-                            } else {
-
-                                sendData(new byte[]{FsTreadmillCommand.CMD_SYS_STATUS, runStart}, 2);
-
-                            }
-                        }
-                    }*/
+                    }
                     Thread.sleep(10);
                 }
             } catch (Exception e) {
@@ -678,6 +694,7 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
                         Logger.d("FsTreadmill Read", ConvertData.byteArrayToHexString(result, len));
                         parseData(result, len);
                     }
+                    SystemClock.sleep(100);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -744,7 +761,7 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
             }
             this.runStart = runStart;
             if (fitShowTreadmillParamBuilder.build().getIncline() != null && runStart == FsTreadmillCommand.STATUS_NORMAL) {
-                sendRunParamToFsTreadmill(fitShowTreadmillParamBuilder.build());
+                // sendRunParamToFsTreadmill(fitShowTreadmillParamBuilder.build());
             }
         } catch (Exception e) {
             e.printStackTrace();

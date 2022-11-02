@@ -164,6 +164,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     public void finishRunning() {
         super.finishRunning();
         FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_NORMAL);
+        FitShowTreadmillManager.getInstance().beltStopping = true;
         startActivity(new Intent(this, SummaryActivity.class));
         finish();
     }
@@ -272,7 +273,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
                 }catch (Exception e) {
                     incline = 0;
                 }
-                FitShowTreadmillManager.getInstance().sendPauseSpeedAndIncline(0, incline);
+                // FitShowTreadmillManager.getInstance().sendPauseSpeedAndIncline(0, incline);
             }
             FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_PAUSED);
         }
