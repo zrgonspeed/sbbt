@@ -524,6 +524,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                 //显示数字键盘
                 mCalcBuilder.reset()
                         .editType(CTConstant.TYPE_SETTING_LOCK)
+                        .editTypeName(R.string.string_setting_psw)
                         .callBack(SettingActivity.this)
                         .maxLength(4)
                         .mainView(rl_main)
