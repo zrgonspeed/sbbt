@@ -117,17 +117,6 @@ public class MyApplication extends LitePalApplication {
             }
         }
 
-        // 触摸测试
-        {
-            boolean touchesOption = readTouchesOptions();
-            if (!SpManager.getDisplay() && touchesOption) {
-                writeShowTouchesOptions(0);
-            } else if (SpManager.getDisplay() && !touchesOption) {
-                writeShowTouchesOptions(1);
-            }
-            writeCaptivePortalDetection(0);
-        }
-
         // 其它
         {
             CrashHandler myc = new CrashHandler(getApplicationContext());
@@ -147,6 +136,8 @@ public class MyApplication extends LitePalApplication {
             OtaMcuUtils.installOtaMcu(this);
 
             changeVolume();
+
+            closeSomeSystemSetting();
 
             new Thread(() -> {
                 ShellCmdUtils.getInstance().execCommand("sync");
@@ -201,34 +192,11 @@ public class MyApplication extends LitePalApplication {
         }.start();
     }
 
-    private void writeCaptivePortalDetection(final int param) {
-        new Thread() {
-            @Override
-            public void run() {
-                ShellCmdUtils.getInstance()
-                        .execCommand("settings put global captive_portal_detection_enabled " + param);
-            }
-        }.start();
-    }
-
     private void deleteQQmusicData() {
         new Thread(() -> {
             //删除QQ音乐下载的数据
             ShellCmdUtils.getInstance().execCommand("rm -rf /sdcard/qqmusicpad/song");
         }).start();
-    }
-
-    private boolean readTouchesOptions() {
-        return Settings.System.getInt(getContentResolver(), "pointer_location", 0) != 0;
-    }
-
-    private void writeShowTouchesOptions(final int param) {
-        new Thread() {
-            @Override
-            public void run() {
-                ShellCmdUtils.getInstance().execCommand("settings put system pointer_location " + param);
-            }
-        }.start();
     }
 
     /**
@@ -243,5 +211,21 @@ public class MyApplication extends LitePalApplication {
         PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE);
         PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.MEDIA_CONTENT_CONTROL);
         PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.RECORD_AUDIO);
+    }
+
+    /**
+     * 1.链接wifi后，显示没链接上网路问题
+     * 2.关闭通知渠道显示
+     * 3.关闭触摸十字线
+     */
+    private void closeSomeSystemSetting() {
+        new Thread() {
+            @Override
+            public void run() {
+                ShellCmdUtils.getInstance().execCommand("settings put global captive_portal_detection_enabled " + 0);
+                ShellCmdUtils.getInstance().execCommand("settings put global show_notification_channel_warnings " + 0);
+                ShellCmdUtils.getInstance().execCommand("settings put system pointer_location " + 0);
+            }
+        }.start();
     }
 }
