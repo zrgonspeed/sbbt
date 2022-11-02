@@ -1,6 +1,8 @@
 package com.run.treadmill.activity.runMode;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -260,7 +262,12 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             if (!quickToMedia && rl_main.getVisibility() == View.GONE) {
                 //关闭悬浮窗
                 if (mFloatWindowManager != null) {
-                    mFloatWindowManager.stopFloatWindow();
+                    if (!getTopActivity(this).contains(getPackageName())) {
+                        Logger.d("!getTopActivity(this).contains(getPackageName())   -> 不关闭悬浮窗");
+                    }else {
+                        mFloatWindowManager.stopFloatWindow();
+                    }
+                    isGoMedia = false;
                 }
                 mRunningParam.setCallback(this);
                 rl_main.setVisibility(View.VISIBLE);
@@ -1221,4 +1228,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
     }
 
+    public String getTopActivity(Context context){
+        ActivityManager am = (ActivityManager) context.getSystemService(context.ACTIVITY_SERVICE);
+        ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
+        Logger.d("cn.getPackageName() == " + cn.getPackageName());
+        return cn.getPackageName();
+    }
 }
