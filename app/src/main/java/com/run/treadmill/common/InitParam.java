@@ -270,7 +270,7 @@ public class InitParam {
     /**
      * 是否是测试服务器
      */
-    private final static boolean isTestServer = true;
+    private final static boolean isTestServer = false;
     /**
      * 国外服务器
      */
