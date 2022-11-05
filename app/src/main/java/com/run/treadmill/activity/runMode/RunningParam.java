@@ -342,6 +342,9 @@ public class RunningParam {
         showTime = TimeStringUtil.getMsToMinSecValue(targetTime * 1000f);
         showCalories = String.valueOf(UnitUtil.getFloatToInt(targetCalories));
         showDistance = String.valueOf(UnitUtil.getFloatToInt(targetDistance));
+        if ("0".equals(showDistance)) {
+            showDistance = "0.0";
+        }
         if (runStatus == CTConstant.RUN_STATUS_WARM_UP) {
             showTime = TimeStringUtil.getMsToMinSecValue(warmUpTime * 1000f);
         }
