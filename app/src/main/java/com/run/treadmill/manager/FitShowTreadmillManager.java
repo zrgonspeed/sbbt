@@ -554,34 +554,6 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
         txSize = len + 3;
     }
 
-
-    public synchronized void sendRunParamToFsTreadmill2() {
-        Logger.d("sendRunParamToFsTreadmill2()");
-
-        FsTreadmillParam runParam = fitShowTreadmillParamBuilder.build();
-        if (runParam == null) {
-            Logger.d("runParam == null");
-            return;
-        }
-
-        byte[] sendData = new byte[128];
-        sendData[0] = FsTreadmillCommand.CMD_SYS_STATUS;
-        sendData[1] = FsTreadmillCommand.STATUS_NORMAL;
-        sendData[2] = DataTypeConversion.intLowToByte(0);
-        sendData[3] = DataTypeConversion.intLowToByte(0);
-        System.arraycopy(DataTypeConversion.shortToBytes((short) (0)), 0, sendData, 4, 2);
-        System.arraycopy(DataTypeConversion.shortToBytes((short) (0)), 0, sendData, 6, 2);
-        System.arraycopy(DataTypeConversion.shortToBytes((short) (0)), 0, sendData, 8, 2);
-        System.arraycopy(DataTypeConversion.shortToBytes((short) (0)), 0, sendData, 10, 2);
-        sendData[12] = DataTypeConversion.intLowToByte(0);
-        sendData[13] = DataTypeConversion.intLowToByte(0);
-        sendData[14] = DataTypeConversion.intLowToByte(0);
-        sendData[15] = 0x02;
-        sendData(sendData, 16);
-        isSendData = true;
-    }
-
-
     public boolean isBeforePauseSendZero = false;
 
     /**
@@ -621,7 +593,6 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
             // 3 2 1
             sendData[2] = (byte) countDown;
         }
-
 
         System.arraycopy(DataTypeConversion.shortToBytes((short) ((int) runParam.getWorkTime())), 0, sendData, 4, 2);
         System.arraycopy(DataTypeConversion.shortToBytes((short) ((int) runParam.getDistance())), 0, sendData, 6, 2);
