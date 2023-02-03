@@ -111,11 +111,6 @@ public class MyApplication extends LitePalApplication {
             }
         }
 
-        // 触摸测试 重启关闭
-        {
-            writeShowTouchesOptions(0);
-        }
-
         // 其它
         {
             CrashHandler myc = new CrashHandler(getApplicationContext());
@@ -139,7 +134,11 @@ public class MyApplication extends LitePalApplication {
 
             BtAppReboot.initBt(getApplicationContext());
 
-            closeNotificationAndWifiNoIcon();
+            closeSomeSystemSetting();
+
+            new Thread(() -> {
+                ShellCmdUtils.getInstance().execCommand("sync");
+            });
 
             new Thread(() -> {
                 SystemClock.sleep(5000);
@@ -196,19 +195,6 @@ public class MyApplication extends LitePalApplication {
         }).start();
     }
 
-    private boolean readTouchesOptions() {
-        return Settings.System.getInt(getContentResolver(), "pointer_location", 0) != 0;
-    }
-
-    private void writeShowTouchesOptions(final int param) {
-        new Thread() {
-            @Override
-            public void run() {
-                ShellCmdUtils.getInstance().execCommand("settings put system pointer_location " + param);
-            }
-        }.start();
-    }
-
     /**
      * A133申请权限
      */
@@ -226,13 +212,15 @@ public class MyApplication extends LitePalApplication {
     /**
      * 1.链接wifi后，显示没链接上网路问题
      * 2.关闭通知渠道显示
+     * 3.关闭触摸十字线
      */
-    private void closeNotificationAndWifiNoIcon() {
+    private void closeSomeSystemSetting() {
         new Thread() {
             @Override
             public void run() {
                 ShellCmdUtils.getInstance().execCommand("settings put global captive_portal_detection_enabled " + 0);
                 ShellCmdUtils.getInstance().execCommand("settings put global show_notification_channel_warnings " + 0);
+                ShellCmdUtils.getInstance().execCommand("settings put system pointer_location " + 0);
             }
         }.start();
     }
