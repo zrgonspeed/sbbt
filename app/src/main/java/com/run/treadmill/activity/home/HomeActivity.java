@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.bumptech.glide.Glide;
 import com.fitShow.treadmill.FsTreadmillCommand;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
@@ -84,17 +82,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @BindView(R.id.btn_logo)
     ImageView btn_logo;
 
-    @BindView(R.id.btn_program_gif)
-    ImageView btn_program_gif;
-    @BindView(R.id.btn_userprogram_gif)
-    ImageView btn_userprogram_gif;
-    @BindView(R.id.btn_vision_gif)
-    ImageView btn_vision_gif;
-    @BindView(R.id.btn_media_gif)
-    ImageView btn_media_gif;
-    @BindView(R.id.btn_fitness_gif)
-    ImageView btn_fitness_gif;
-
     @BindView(R.id.btn_machine_lube)
     LongPressView btn_machine_lube;
 
@@ -127,88 +114,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
         // 延迟3秒
         new Handler().postDelayed(() -> FitShowTreadmillManager.getInstance().sendRestartFS(), 3 * 1000);
-
-
-        btn_program.setOnTouchListener((v, m) -> {
-            if (m.getAction() == 0) {
-                // 按下
-                ViewGroup.LayoutParams layoutParams = btn_program_gif.getLayoutParams();
-                btn_program_gif.setLayoutParams(layoutParams);
-                btn_program_gif.setPadding(65,26,65,26);
-            } else if (m.getAction() == 1) {
-                // 放开
-                ViewGroup.LayoutParams layoutParams = btn_program_gif.getLayoutParams();
-                btn_program_gif.setLayoutParams(layoutParams);
-                btn_program_gif.setPadding(0,0,0,0);
-            }
-            return false;
-        });
-
-        btn_userprogram.setOnTouchListener((v, m) -> {
-            if (m.getAction() == 0) {
-                // 按下
-                ViewGroup.LayoutParams layoutParams = btn_userprogram_gif.getLayoutParams();
-                btn_userprogram_gif.setLayoutParams(layoutParams);
-                btn_userprogram_gif.setPadding(65,26,65,26);
-            } else if (m.getAction() == 1) {
-                // 放开
-                ViewGroup.LayoutParams layoutParams = btn_userprogram_gif.getLayoutParams();
-                btn_userprogram_gif.setLayoutParams(layoutParams);
-                btn_userprogram_gif.setPadding(0,0,0,0);
-            }
-            return false;
-        });
-
-        btn_vision.setOnTouchListener((v, m) -> {
-            if (m.getAction() == 0) {
-                // 按下
-                ViewGroup.LayoutParams layoutParams = btn_vision_gif.getLayoutParams();
-                btn_vision_gif.setLayoutParams(layoutParams);
-                btn_vision_gif.setPadding(35,26,35,26);
-            } else if (m.getAction() == 1) {
-                // 放开
-                ViewGroup.LayoutParams layoutParams = btn_vision_gif.getLayoutParams();
-                btn_vision_gif.setLayoutParams(layoutParams);
-                btn_vision_gif.setPadding(0,0,0,0);
-            }
-            return false;
-        });
-
-        btn_media.setOnTouchListener((v, m) -> {
-            if (m.getAction() == 0) {
-                // 按下
-                ViewGroup.LayoutParams layoutParams = btn_media_gif.getLayoutParams();
-                btn_media_gif.setLayoutParams(layoutParams);
-                btn_media_gif.setPadding(35,65,35,65);
-            } else if (m.getAction() == 1) {
-                // 放开
-                ViewGroup.LayoutParams layoutParams = btn_media_gif.getLayoutParams();
-                btn_media_gif.setLayoutParams(layoutParams);
-                btn_media_gif.setPadding(0,0,0,0);
-            }
-            return false;
-        });
-
-        btn_fitness.setOnTouchListener((v, m) -> {
-            if (m.getAction() == 0) {
-                // 按下
-                ViewGroup.LayoutParams layoutParams = btn_fitness_gif.getLayoutParams();
-                btn_fitness_gif.setLayoutParams(layoutParams);
-                btn_fitness_gif.setPadding(35,26,35,26);
-            } else if (m.getAction() == 1) {
-                // 放开
-                ViewGroup.LayoutParams layoutParams = btn_fitness_gif.getLayoutParams();
-                btn_fitness_gif.setLayoutParams(layoutParams);
-                btn_fitness_gif.setPadding(0,0,0,0);
-            }
-            return false;
-        });
-
-        Glide.with(this).load(getDrawable(R.drawable.btn_home_program_1_gif)).into(btn_program_gif);
-        Glide.with(this).load(getDrawable(R.drawable.btn_home_userprogram_1_gif)).into(btn_userprogram_gif);
-        Glide.with(this).load(getDrawable(R.drawable.btn_home_virtual_1_gif)).into(btn_vision_gif);
-        Glide.with(this).load(getDrawable(R.drawable.btn_home_media_1_gif)).into(btn_media_gif);
-        Glide.with(this).load(getDrawable(R.drawable.btn_home_fitness_1_gif)).into(btn_fitness_gif);
     }
 
     @Override

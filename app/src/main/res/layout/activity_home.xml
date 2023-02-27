@@ -14,32 +14,12 @@
         android:src="@drawable/btn_home_quickstart" />
 
     <ImageView
-        android:id="@+id/btn_fitness_gif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/btn_fitness"
-        android:layout_alignTop="@id/btn_fitness"
-        android:layout_alignEnd="@id/btn_fitness"
-        android:layout_alignBottom="@id/btn_fitness"
-        android:textAlignment="center" />
-
-    <ImageView
         android:id="@+id/btn_fitness"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_1144_x"
         android:layout_marginTop="@dimen/dp_px_680_y"
         android:src="@drawable/btn_home_fitness" />
-
-    <ImageView
-        android:id="@+id/btn_userprogram_gif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/btn_userprogram"
-        android:layout_alignTop="@id/btn_userprogram"
-        android:layout_alignEnd="@id/btn_userprogram"
-        android:layout_alignBottom="@id/btn_userprogram"
-        android:textAlignment="center" />
 
     <ImageView
         android:id="@+id/btn_userprogram"
@@ -83,17 +63,6 @@
         android:src="@drawable/btn_home_interval"
         android:visibility="gone" />
 
-
-    <ImageView
-        android:id="@+id/btn_vision_gif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/btn_vision"
-        android:layout_alignTop="@id/btn_vision"
-        android:layout_alignEnd="@id/btn_vision"
-        android:layout_alignBottom="@id/btn_vision"
-        android:textAlignment="center" />
-
     <ImageView
         android:id="@+id/btn_vision"
         android:layout_width="wrap_content"
@@ -111,17 +80,6 @@
         android:layout_marginTop="@dimen/dp_px_160_y"
         android:src="@drawable/btn_home_setting" />
 
-
-    <ImageView
-        android:id="@+id/btn_media_gif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/btn_media"
-        android:layout_alignTop="@id/btn_media"
-        android:layout_alignEnd="@id/btn_media"
-        android:layout_alignBottom="@id/btn_media"
-        android:textAlignment="center" />
-
     <ImageView
         android:id="@+id/btn_media"
         android:layout_width="wrap_content"
@@ -129,17 +87,6 @@
         android:layout_marginStart="@dimen/dp_px_1480_x"
         android:layout_marginTop="@dimen/dp_px_160_y"
         android:src="@drawable/btn_home_media" />
-
-
-    <ImageView
-        android:id="@+id/btn_program_gif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/btn_program"
-        android:layout_alignTop="@id/btn_program"
-        android:layout_alignEnd="@id/btn_program"
-        android:layout_alignBottom="@id/btn_program"
-        android:textAlignment="center" />
 
     <ImageView
         android:id="@+id/btn_program"
