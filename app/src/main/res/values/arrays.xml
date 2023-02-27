@@ -7,6 +7,7 @@
         <item>Español</item>
         <item>Português</item>
         <item>中文</item>
+        <item>Italian</item>
     </string-array>
 
     <string-array name="ignore_thirdAPK_send_message">

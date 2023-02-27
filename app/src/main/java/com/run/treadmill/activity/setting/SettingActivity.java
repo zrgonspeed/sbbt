@@ -1,13 +1,8 @@
 package com.run.treadmill.activity.setting;
 
-import android.app.ProgressDialog;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,7 +15,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 
 import com.run.android.ShellCmdUtils;
 import com.run.treadmill.AppDebug;
@@ -558,6 +552,9 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
         } else if (locale.getLanguage().endsWith("zh")) {
             sp_language.setSelection(5, true);
             currLanguagePos = 5;
+        } else if (locale.getLanguage().endsWith("it")) {
+            sp_language.setSelection(6, true);
+            currLanguagePos = 6;
         } else {
             sp_language.setSelection(0, true);
             currLanguagePos = 0;
@@ -597,6 +594,9 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                     case 5:
 //                        changeSystemLanguage60(new Locale("zh", "ZH")); //这个会使地区变为台湾  ZH不对，CN才是大陆
                         changeSystemLanguage60(Locale.SIMPLIFIED_CHINESE);
+                        break;
+                    case 6:
+                        changeSystemLanguage60(Locale.ITALIAN);
                         break;
                 }
             }
