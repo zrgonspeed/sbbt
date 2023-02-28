@@ -1,6 +1,8 @@
 package com.run.android;
 
 
+import android.util.Log;
+
 public class ShellCmdUtils {
     private final String TAG = "ShellCmdUtils";
     private static ShellCmdUtils mInstance = null;
@@ -22,6 +24,7 @@ public class ShellCmdUtils {
     }
 
     public int execCommand(String cmd) {
+        Log.v("shell", "执行 " + cmd);
         return nativeExecShellCmd(cmd);
     }
 

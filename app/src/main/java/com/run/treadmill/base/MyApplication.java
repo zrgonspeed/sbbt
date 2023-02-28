@@ -25,6 +25,7 @@ import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.LanguageUtil;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.ShellUtils;
 import com.run.treadmill.util.ThreadUtils;
 
 import org.litepal.LitePalApplication;
@@ -52,6 +53,8 @@ public class MyApplication extends LitePalApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        ShellCmdUtils.getInstance().execCommand("wm density 240");
 
         // Manager
         {
