@@ -195,8 +195,6 @@
     <string name="string_calibration_failure">校正错误</string>
     <string name="string_u_disk_no_file">找不到U盘更新</string>
 
-    <string name="string_app_pk_name_8">com.android.cameraSelf</string>
-    <string name="string_app_pk_name_9">com.yahoo.mobile.client.android.flickr</string>
     <string name="ota_update">更新......</string>
     <string name="no__update_files">没有检测到OTA更新文件</string>
     <string name="incorrect_signature">签名不正确</string>
@@ -226,6 +224,12 @@
     <string name="workout_ble_connect_state_3">设备名未找到</string>
     <string name="workout_ble_connect_state_4">连接中</string>
 
+    <string name="string_movie_name_3">森林</string>
+    <string name="string_movie_name_4">山脉</string>
+
+    <string name="string_factory_img_reset">系统恢复</string>
+    <string name="string_running_media_pause">暂停</string>
+
     <!-- 第三方媒体app包名，类名 -->
     <string name="string_app_pk_name_1">org.mozilla.firefox</string>
     <string name="string_app_pk_name_2">com.sina.weibo</string>
@@ -234,9 +238,6 @@
     <string name="string_app_pk_name_5">com.softwinner.fireplayer</string>
     <string name="string_app_pk_name_6">com.anplus.tft</string>
     <string name="string_app_pk_name_7">com.tencent.qqmusicpad</string>
-    <string name="string_movie_name_3">森林</string>
-    <string name="string_movie_name_4">山脉</string>
-
-    <string name="string_factory_img_reset">系统恢复</string>
-    <string name="string_running_media_pause">暂停</string>
+    <string name="string_app_pk_name_8">com.android.cameraSelf</string>
+    <string name="string_app_pk_name_9">com.yahoo.mobile.client.android.flickr</string>
 </resources>

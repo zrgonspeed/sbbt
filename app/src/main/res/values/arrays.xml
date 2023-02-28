@@ -24,6 +24,7 @@
         <item>com.sina.weibo</item>
         <item>com.qiyi.video.pad</item>
         <item>com.yahoo.mobile.client.android.flickr</item>
+        <item>com.kinomap.training</item>
     </string-array>
     <!--要删除账户数据的APP-->
     <string-array name="delete_thirdAPK_accounts">
@@ -43,6 +44,7 @@
         <item>com.yahoo.mobile.client.android.flickr</item>
         <item>com.tencent.qqmusicpad</item>
         <item>com.hpplay.happyplay.aw</item>
+        <item>com.kinomap.training</item>
     </string-array>
 
     <!--回到Home需要关闭的的APP-->
@@ -83,7 +85,7 @@
         <item>@string/string_app_pk_name_7</item>
         <item>@string/string_app_pk_name_8</item>
         <item>@string/string_app_pk_name_9</item>
-<!--        <item>@string/string_app_pk_name_10</item>-->
+        <item>@string/string_app_pk_name_kinomap</item>
     </string-array>
 
     <integer-array name="thirdApk_drawable">
@@ -96,7 +98,7 @@
         <item>@drawable/btn_home_netflix</item>
         <item>@drawable/btn_home_mp3</item>
         <item>@drawable/btn_home_mp4</item>
-<!--        <item>@drawable/btn_home_screen_mirroring</item>-->
+        <item>@drawable/btn_home_kinomap</item>
     </integer-array>
 
     <integer-array name="thirdApk_drawable_running">
@@ -109,7 +111,7 @@
         <item>@drawable/btn_media_netflix</item>
         <item>@drawable/btn_media_mp3</item>
         <item>@drawable/btn_media_mp4</item>
-<!--        <item>@drawable/btn_media_screen_mirroring</item>-->
+        <item>@drawable/btn_media_kinomap</item>
     </integer-array>
 
     <!--    下面三个主要用于app更新列表-->
@@ -123,6 +125,7 @@
         <item>NETFLIX</item>
         <item>ponymusic</item>
         <item>Anplus_A133Bluetooth</item>
+        <item>Kinomap</item>
         <!--        <item>AnplusMirroring</item>-->
     </string-array>
 
@@ -136,6 +139,7 @@
         <item>@string/string_app_pk_name_7</item>
         <item>@string/string_app_pk_name_8</item>
         <item>@string/string_app_pk_name_bt</item>
+        <item>@string/string_app_pk_name_kinomap</item>
 <!--        <item>@string/string_app_pk_name_9</item>-->
 <!--        <item>@string/string_app_pk_name_10</item>-->
     </string-array>
@@ -150,6 +154,7 @@
         <item>@drawable/btn_media_netflix_1</item>
         <item>@drawable/btn_media_mp3_1</item>
         <item>@drawable/btn_app_bluetooth_1</item>
+        <item>@drawable/btn_media_kinomap_1</item>
         <!--        <item>@drawable/btn_media_screen_mirroring_1</item>-->
     </integer-array>
 
