@@ -42,8 +42,7 @@ public class SerialKeyValue {
     public static final int QUICK_KEY_EVENT_SPEED_12_CLICK_LONG_1 = QUICK_KEY_EVENT_SPEED_12_CLICK + 1;
     public static final int QUICK_KEY_EVENT_SPEED_12_CLICK_LONG_2 = QUICK_KEY_EVENT_SPEED_12_CLICK + 2;
 
-    // HOME键无实体键
-    public static final int HOME_KEY_CLICK = -119;
+    public static final int HOME_KEY_CLICK = 0x30;
     public static final int HOME_KEY_LONG_1 = HOME_KEY_CLICK + 1;
     public static final int HOME_KEY_LONG_2 = HOME_KEY_CLICK + 2;
 
@@ -56,7 +55,7 @@ public class SerialKeyValue {
     public static final int VOICE_DOWN_CLICK_LONG_2 = VOICE_DOWN_CLICK + 2;
 
     // 屏幕
-    public static final int HIDE_OR_SHOW_SCREEN_CLICK = 0x30;
+    public static final int HIDE_OR_SHOW_SCREEN_CLICK = -119;
     // 返回
     public static final int BACK_KEY_CLICK = 0x2c;
 
@@ -196,6 +195,7 @@ public class SerialKeyValue {
 
                 || keyValue == BACK_KEY_CLICK
                 || keyValue == HIDE_OR_SHOW_SCREEN_CLICK
+                || keyValue == HOME_KEY_CLICK
                 || keyValue == VOICE_UP_CLICK
                 || keyValue == VOICE_DOWN_CLICK
         ) {
