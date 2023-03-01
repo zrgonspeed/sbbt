@@ -216,7 +216,9 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         mRunningParam = RunningParam.getInstance();
         mFloatWindowManager = new FloatWindowManager(this);
 
-        runParamUnitTextSize = getResources().getDimensionPixelSize(R.dimen.font_size_15pt);
+        runParamUnitTextSize = getResources().getDimensionPixelSize(R.dimen.font_size_run_param_unit);
+/*        Logger.i("runParamUnitTextSize == " + runParamUnitTextSize);
+        Logger.i("tv_speed.getTextSize() == " + tv_speed.getTextSize());*/
 
         maxSpeed = SpManager.getMaxSpeed(isMetric);
         minSpeed = SpManager.getMinSpeed(isMetric);
