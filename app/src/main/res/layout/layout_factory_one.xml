@@ -69,6 +69,7 @@
     </RadioGroup>
 
     <TextView
+        android:id="@+id/tv_tip_speed_cal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_347_x"
@@ -103,7 +104,7 @@
         android:id="@+id/tv_maxspeed_unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_940_x"
+        android:layout_marginStart="@dimen/dp_px_920_x"
         android:layout_marginTop="@dimen/dp_px_494_y"
         android:text="@string/string_unit_kph"
         android:textColor="@color/white"
@@ -134,35 +135,12 @@
         android:id="@+id/tv_minspeed_unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_940_x"
+        android:layout_marginStart="@dimen/dp_px_920_x"
         android:layout_marginTop="@dimen/dp_px_626_y"
         android:text="@string/string_unit_kph"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_21pt" />
 
-    <TextView
-        android:id="@+id/tv_wheel_size"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_347_x"
-        android:layout_marginTop="@dimen/dp_px_758_y"
-        android:text="@string/string_factory_wheel"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_size_factory_one_wheel_size"
-        android:visibility="visible" />
-
-    <TextView
-        android:id="@+id/edit_wheel_size"
-        android:layout_width="@dimen/dp_px_210_x"
-        android:layout_height="@dimen/dp_px_90_y"
-        android:layout_marginStart="@dimen/dp_px_678_x"
-        android:layout_marginTop="@dimen/dp_px_730_y"
-        android:background="@color/gray"
-        android:gravity="center"
-        android:textColor="@color/textView_black"
-        android:textSize="@dimen/font_size_36pt"
-        android:textStyle="bold"
-        android:visibility="visible" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -175,8 +153,8 @@
         android:id="@+id/tv_incline_cal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/rg_metric"
         android:layout_marginStart="@dimen/dp_px_1111_x"
-        android:layout_marginTop="@dimen/dp_px_362_y"
         android:text="@string/string_factory_incline_calibration"
         android:textColor="@color/yellow"
         android:textSize="@dimen/font_size_21pt" />
@@ -185,8 +163,10 @@
         android:id="@+id/tv_max_incline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@id/edit_max_incline"
+        android:layout_alignBottom="@id/edit_max_incline"
         android:layout_marginStart="@dimen/dp_px_1111_x"
-        android:layout_marginTop="@dimen/dp_px_494_y"
+        android:gravity="center"
         android:text="@string/string_factory_max_incline"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_21pt" />
@@ -195,6 +175,7 @@
         android:id="@+id/edit_max_incline"
         android:layout_width="@dimen/dp_px_210_x"
         android:layout_height="@dimen/dp_px_90_y"
+        android:layout_alignBaseline="@+id/tv_tip_speed_cal"
         android:layout_marginStart="@dimen/dp_px_1480_x"
         android:layout_marginTop="@dimen/dp_px_468_y"
         android:background="@color/gray"
@@ -208,8 +189,10 @@
         android:id="@+id/tv_max_incline_per"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/edit_max_incline"
+        android:layout_alignBottom="@+id/edit_max_incline"
         android:layout_marginStart="@dimen/dp_px_1720_x"
-        android:layout_marginTop="@dimen/dp_px_494_y"
+        android:gravity="center"
         android:text="@string/string_unit_percent"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_21pt" />
@@ -218,61 +201,74 @@
         android:id="@+id/btn_calibrate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/edit_max_speed"
         android:layout_marginStart="@dimen/dp_px_1188_x"
-        android:layout_marginTop="@dimen/dp_px_713_y"
         android:src="@drawable/btn_factory_calibrate" />
 
     <TextView
         android:id="@+id/tv_rpm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_738_x"
-        android:layout_marginTop="@dimen/dp_px_415_y"
+        android:layout_alignTop="@+id/edit_min_speed"
+        android:layout_alignBottom="@+id/edit_min_speed"
+        android:layout_marginStart="@dimen/dp_px_1100_x"
+        android:gravity="center"
         android:text="@string/string_factory_rpm"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_21pt"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
-    <TextView
-        android:id="@+id/edit_rpm"
-        android:layout_width="@dimen/dp_px_130_x"
-        android:layout_height="@dimen/dp_px_60_y"
-        android:layout_marginStart="@dimen/dp_px_920_x"
-        android:layout_marginTop="@dimen/dp_px_405_y"
-        android:background="@color/gray"
-        android:gravity="center"
-        android:textColor="@color/textView_black"
-        android:textSize="@dimen/font_size_36pt"
-        android:textStyle="bold"
-        android:visibility="gone" />
+    <LinearLayout
+        android:id="@+id/ll_edit_rpm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/btn_calibrate"
+        android:layout_alignEnd="@id/btn_calibrate"
+        android:layout_alignBottom="@+id/edit_min_speed"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/edit_rpm"
+            android:layout_width="@dimen/dp_px_210_x"
+            android:layout_height="@dimen/dp_px_90_y"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:textColor="@color/textView_black"
+            android:textSize="@dimen/font_size_36pt"
+            android:textStyle="bold"
+            android:visibility="visible" />
+    </LinearLayout>
+
 
     <com.run.treadmill.widget.LongClickImage
         android:id="@+id/btn_rpm_up"
         android:layout_width="@dimen/dp_px_69_x"
         android:layout_height="@dimen/dp_px_69_y"
-        android:layout_marginStart="@dimen/dp_px_830_x"
-        android:layout_marginTop="@dimen/dp_px_403_y"
+        android:layout_alignTop="@id/ll_edit_rpm"
+        android:layout_alignBottom="@id/ll_edit_rpm"
+        android:layout_marginStart="@dimen/dp_px_1220_x"
         android:src="@drawable/btn_factory_rpm_up"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 
     <com.run.treadmill.widget.LongClickImage
         android:id="@+id/btn_rpm_down"
         android:layout_width="@dimen/dp_px_69_x"
         android:layout_height="@dimen/dp_px_69_y"
-        android:layout_marginStart="@dimen/dp_px_1072_x"
-        android:layout_marginTop="@dimen/dp_px_403_y"
+        android:layout_alignTop="@id/ll_edit_rpm"
+        android:layout_alignBottom="@id/ll_edit_rpm"
+        android:layout_marginStart="@dimen/dp_px_1600_x"
         android:src="@drawable/btn_factory_rpm_down"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <ImageView
         android:id="@+id/btn_rpm_start_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_796_x"
-        android:layout_marginTop="@dimen/dp_px_490_y"
+        android:layout_alignStart="@id/btn_calibrate"
+        android:layout_marginTop="@dimen/dp_px_720_y"
         android:src="@drawable/btn_factory_rpm_start_stop"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <TextView
         android:id="@+id/tip_mark"

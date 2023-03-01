@@ -88,8 +88,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
     private RadioGroup rg_metric;
     private View include_calibrate;
     private ImageView btn_calibrate;
-    private TextView tv_wheel_size;
-    private TextView edit_max_speed, edit_min_speed, edit_wheel_size, edit_max_incline, tv_minspeed_unit, tv_maxspeed_unit;
+    private TextView edit_max_speed, edit_min_speed, edit_max_incline, tv_minspeed_unit, tv_maxspeed_unit;
     private ImageView img_loading;
     private TextView tv_ad_max, tv_ad_min;
 
@@ -211,8 +210,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         btn_calibrate = (ImageView) findViewById(R.id.btn_calibrate);
         edit_max_speed = (TextView) findViewById(R.id.edit_max_speed);
         edit_min_speed = (TextView) findViewById(R.id.edit_min_speed);
-        tv_wheel_size = (TextView) findViewById(R.id.tv_wheel_size);
-        edit_wheel_size = (TextView) findViewById(R.id.edit_wheel_size);
         edit_max_incline = (TextView) findViewById(R.id.edit_max_incline);
         tv_minspeed_unit = (TextView) findViewById(R.id.tv_minspeed_unit);
         tv_maxspeed_unit = (TextView) findViewById(R.id.tv_maxspeed_unit);
@@ -229,18 +226,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         btn_rpm_down = (LongClickImage) findViewById(R.id.btn_rpm_down);
         btn_rpm_start_stop = (ImageView) findViewById(R.id.btn_rpm_start_stop);
 
-        if (MyApplication.DEFAULT_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
-            tv_rpm.setVisibility(View.GONE);
-            edit_rpm.setVisibility(View.GONE);
-            btn_rpm_up.setVisibility(View.GONE);
-            btn_rpm_down.setVisibility(View.GONE);
-            btn_rpm_start_stop.setVisibility(View.GONE);
-            setViewTop(tv_incline_cal, R.dimen.dp_px_362_y);
-            setViewTop(tv_max_incline_per, R.dimen.dp_px_494_y);
-            setViewTop(tv_max_incline, R.dimen.dp_px_494_y);
-            setViewTop(edit_max_incline, R.dimen.dp_px_468_y);
-            setViewTop(btn_calibrate, R.dimen.dp_px_713_y);
-        } else if (MyApplication.DEFAULT_DEVICE_TYPE == CTConstant.DEVICE_TYPE_AA) {
+        /*if (MyApplication.DEFAULT_DEVICE_TYPE == CTConstant.DEVICE_TYPE_AA) {
             tv_rpm.setVisibility(View.VISIBLE);
             edit_rpm.setVisibility(View.VISIBLE);
             btn_rpm_up.setVisibility(View.VISIBLE);
@@ -251,7 +237,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
             setViewTop(tv_max_incline, R.dimen.dp_px_228_y);
             setViewTop(edit_max_incline, R.dimen.dp_px_218_y);
             setViewTop(btn_calibrate, R.dimen.dp_px_300_y);
-        }
+        }*/
 
         tv_minspeed_unit.setText(getString(isMetric ? R.string.string_unit_kmh : R.string.string_unit_mileh));
         tv_maxspeed_unit.setText(getString(isMetric ? R.string.string_unit_kmh : R.string.string_unit_mileh));
@@ -281,27 +267,17 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
             }
         });
 
-        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-            tv_wheel_size.setText(R.string.string_factory_speed_rate);
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
+        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
 
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-            tv_wheel_size.setText(R.string.string_factory_wheel);
         }
 
-        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-            edit_wheel_size.setText(String.valueOf(SpManager.getSpeedRate()));
-
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
+        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
             isCalcRpm = false;
             curRPM = SpManager.getRpmRate();
             curRPM = getPresenter().changeRPM(curRPM, 0);
             edit_rpm.setText(curRPM + "");
-
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-            edit_wheel_size.setText(String.valueOf(SpManager.getWheelSize()));
-
         }
+
         edit_max_incline.setText(String.valueOf(SpManager.getMaxIncline()));
 
         btn_rpm_up.setTag(-1);
@@ -309,7 +285,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
 
         edit_max_speed.setOnClickListener(this);
         edit_min_speed.setOnClickListener(this);
-        edit_wheel_size.setOnClickListener(this);
         edit_max_incline.setOnClickListener(this);
         btn_calibrate.setOnClickListener(this);
 
@@ -601,34 +576,21 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         SpManager.setMaxSpeed(Float.valueOf(edit_max_speed.getText().toString()), SpManager.getIsMetric());
         SpManager.setMinSpeed(Float.valueOf(edit_min_speed.getText().toString()), SpManager.getIsMetric());
 
-        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-            SpManager.setSpeedRate(Float.valueOf(edit_wheel_size.getText().toString()));
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
+       if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
 
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-            SpManager.setWheelSize(Float.valueOf(edit_wheel_size.getText().toString()));
         }
 
         SpManager.setMaxIncline(Integer.valueOf(edit_max_incline.getText().toString()));
         SpManager.resetRunTotalTime(0L);
         SpManager.resetRunTotalDis(0f);
 
-        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-            //内缩+/-10
-            SpManager.setMaxAd(Integer.valueOf(tv_ad_max.getText().toString()) - 10);
-            SpManager.setMinAd(Integer.valueOf(tv_ad_min.getText().toString()) + 10);
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
+        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
             //内缩+/-10
             SpManager.setMaxAd(Integer.valueOf(tv_ad_max.getText().toString()) - 2);
             SpManager.setMinAd(Integer.valueOf(tv_ad_min.getText().toString()) + 2);
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-            SpManager.setMaxAd(Integer.valueOf(tv_ad_max.getText().toString()));
-            SpManager.setMinAd(Integer.valueOf(tv_ad_min.getText().toString()));
         }
 
-        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-            getPresenter().setParam();
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
+        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
             getPresenter().setParam();
         }
     }
@@ -731,7 +693,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
             return;
         }
         BuzzerManager.getInstance().buzzerRingOnce();
-        if (v.getId() == R.id.edit_max_speed || v.getId() == R.id.edit_min_speed || v.getId() == R.id.edit_wheel_size
+        if (v.getId() == R.id.edit_max_speed || v.getId() == R.id.edit_min_speed
                 || v.getId() == R.id.edit_max_incline
                 || v.getId() == R.id.edit_rpm) {
             tip_mark.setVisibility(View.VISIBLE);
@@ -769,26 +731,9 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
                 break;
             case R.id.btn_calibrate:
                 setRpmEnable(2);
-                if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-                    if (checkCalcView()) {
-                        break;
-                    }
-                }
                 inflateLoading();
-                int checkedRadioButtonId = rg_metric.getCheckedRadioButtonId();
-                if ((ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC)
-                        || (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC)) {
-                    getPresenter().calibrate(checkedRadioButtonId == R.id.rb_metric,
-                            Float.valueOf(edit_max_speed.getText().toString()),
-                            Float.valueOf(edit_min_speed.getText().toString()),
-                            Float.valueOf(edit_wheel_size.getText().toString()),
-                            Integer.valueOf(edit_max_incline.getText().toString()));
-                } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-                    getPresenter().calibrate(checkedRadioButtonId == R.id.rb_metric,
-                            Float.valueOf(edit_max_speed.getText().toString()),
-                            Float.valueOf(edit_min_speed.getText().toString()),
-                            0,
-                            Integer.valueOf(edit_max_incline.getText().toString()));
+                if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
+                    ControlManager.getInstance().calibrate();
                 }
                 break;
             case R.id.edit_max_speed:
@@ -800,19 +745,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
                 selectTv(edit_min_speed, true);
                 showCalculator(CTConstant.TYPE_FACTORY_LOW_SPEED, edit_min_speed, R.string.string_keybord_min_speed, 1, this, rl_main_one,
                         getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
-                break;
-            case R.id.edit_wheel_size:
-                selectTv(edit_wheel_size, true);
-                if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-                    showCalculator(CTConstant.TYPE_FACTORY_SPEED_RATE, edit_wheel_size, R.string.string_keybord_speed_rate, 1, this, rl_main_one,
-                            getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
-                } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-                    showCalculator(CTConstant.TYPE_FACTORY_SPEED_RATE, edit_wheel_size, R.string.string_keybord_speed_rate, 1, this, rl_main_one,
-                            getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
-                } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-                    showCalculator(CTConstant.TYPE_FACTORY_WHEEL_SIZE, edit_wheel_size, R.string.string_keybord_wheel_size, 2, this, rl_main_one,
-                            getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
-                }
                 break;
             case R.id.edit_max_incline:
                 selectTv(edit_max_incline, true);
@@ -892,51 +824,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
             default:
                 break;
         }
-    }
-
-    private boolean checkCalcView() {
-        int curIncline = Integer.valueOf(edit_max_incline.getText().toString());
-        float cutMaxSpeed = Float.valueOf(edit_max_speed.getText().toString());
-        float curMinSpeed = Float.valueOf(edit_min_speed.getText().toString());
-        float curWheel = Float.valueOf(edit_wheel_size.getText().toString());
-        boolean hasChange = false;
-
-        if (curIncline > InitParam.MAX_INCLINE_MAX || curIncline < InitParam.MAX_INCLINE_MIN) {
-            curIncline = InitParam.DEFAULT_MAX_INCLINE;
-            hasChange = true;
-        }
-
-        if (isMetric) {
-            if (cutMaxSpeed > InitParam.MAX_SPEED_MAX_METRIC || cutMaxSpeed < InitParam.MAX_SPEED_MIN_METRIC) {
-                cutMaxSpeed = InitParam.DEFAULT_MAX_SPEED_METRIC;
-                hasChange = true;
-            }
-            if (curMinSpeed > InitParam.MIN_SPEED_MAX_METRIC || curMinSpeed < InitParam.MIN_SPEED_MIN_METRIC) {
-                curMinSpeed = InitParam.DEFAULT_MIN_SPEED_METRIC;
-                hasChange = true;
-            }
-
-        } else {
-            if (cutMaxSpeed > InitParam.MAX_SPEED_MAX_IMPERIAL || cutMaxSpeed < InitParam.MAX_SPEED_MIN_IMPERIAL) {
-                cutMaxSpeed = InitParam.DEFAULT_MAX_SPEED_IMPERIAL;
-                hasChange = true;
-            }
-            if (curMinSpeed > InitParam.MIN_SPEED_MAX_IMPERIAL || curMinSpeed < InitParam.MIN_SPEED_MIN_IMPERIAL) {
-                curMinSpeed = InitParam.DEFAULT_MIN_SPEED_IMPERIAL;
-                hasChange = true;
-            }
-        }
-        if (curWheel > InitParam.MAX_WHEEL_SIZE || curWheel < InitParam.MIN_WHEEL_SIZE) {
-            curWheel = InitParam.DEFAULT_WHEEL_SIZE;
-            hasChange = true;
-        }
-
-        edit_max_incline.setText(curIncline + "");
-        edit_max_speed.setText(cutMaxSpeed + "");
-        edit_min_speed.setText(curMinSpeed + "");
-        edit_wheel_size.setText(curWheel + "");
-        return hasChange;
-
     }
 
     public void goHome(View view) {
@@ -1098,8 +985,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
                 selectTv(edit_max_speed, false);
             } else if (edit_min_speed.isSelected()) {
                 selectTv(edit_min_speed, false);
-            } else if (edit_wheel_size.isSelected()) {
-                selectTv(edit_wheel_size, false);
             } else if (edit_max_incline.isSelected()) {
                 selectTv(edit_max_incline, false);
             } else if (edit_rpm.isSelected()) {
