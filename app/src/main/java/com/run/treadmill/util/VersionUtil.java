@@ -66,7 +66,7 @@ public class VersionUtil {
                     return oldVs[0];
                 }
             }
-            if (name.equals("com.run.treadmill")) {
+            if (name.equals("com.run.treadmill") || name.equals("com.anplus.bluetooth")) {
                 versionName = versionName.replace("V", ".");
             }
             return getNumAndPoint(versionName);

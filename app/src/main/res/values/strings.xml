@@ -198,20 +198,6 @@
     <string name="string_calibration_failure">CALIBRATION FAILURE</string>
     <string name="string_u_disk_no_file">Cannot find U disk update</string>
 
-    <!-- 第三方媒体app包名，类名 -->
-    <string name="string_app_pk_name_1">com.google.android.youtube</string>
-    <string name="string_app_pk_name_2">com.android.chrome</string>
-    <string name="string_app_pk_name_3">com.twitter.android</string>
-    <string name="string_app_pk_name_4">com.facebook.katana</string>
-    <string name="string_app_pk_name_5">com.instagram.android</string>
-    <string name="string_app_pk_name_6">com.spotify.music</string>
-    <string name="string_app_pk_name_7">com.netflix.mediaclient</string>
-    <string name="string_app_pk_name_8">me.wcy.music</string>
-    <string name="string_app_pk_name_9">com.softwinner.fireplayer</string>
-    <string name="string_app_pk_name_bt">com.anplus.bluetooth</string>
-    <string name="string_app_pk_name_kinomap">com.kinomap.training</string>
-<!--    <string name="string_app_pk_name_10">com.anplus.tft</string>-->
-
     <!--OTA更新MCU-->
     <string name="ota_update">Update......</string>
     <string name="no__update_files">No OTA update files were detected</string>

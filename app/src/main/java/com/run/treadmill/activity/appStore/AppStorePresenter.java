@@ -1,7 +1,6 @@
 package com.run.treadmill.activity.appStore;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.ArrayMap;
 
 import com.google.gson.Gson;
@@ -10,6 +9,7 @@ import com.run.treadmill.base.BasePresenter;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.http.OkHttpCallBack;
 import com.run.treadmill.http.OkHttpHelper;
+import com.run.treadmill.thirdapp.main.UpdateUtils;
 import com.run.treadmill.util.Logger;
 
 import java.io.File;
@@ -41,9 +41,11 @@ public class AppStorePresenter extends BasePresenter<AppStoreView> implements Ok
         this.downloadPath = InitParam.getDownloadPath(reqUrl.toString());
 
         //TODO:名字可能没写好
-        String[] apkNames = context.getResources().getStringArray(R.array.thirdApk_update_name);
-        String[] apkPacknames = context.getResources().getStringArray(R.array.thirdApk_update_packagename);
-        TypedArray taImgId = context.getResources().obtainTypedArray(R.array.thirdApk_update_img);
+        String[] apkNames = UpdateUtils.getNames();
+        String[] apkPacknames = UpdateUtils.getPkgNames();
+        int[] drawables = UpdateUtils.getUpdateDrawables();
+
+        // Logger.i("apkNames == " + Arrays.toString(apkNames));
         if (apkNames.length <= 0 || apkPacknames.length <= 0) {
             Logger.e("apk名字或者包名为空！");
             getView().showFailure();
@@ -58,9 +60,8 @@ public class AppStorePresenter extends BasePresenter<AppStoreView> implements Ok
         for (int i = 0; i < apkNames.length; i++) {
             reqUrl.append(apkNames[i]).append(",");
             mAppPacknames.put(apkNames[i], apkPacknames[i]);
-            mAppImgs.put(apkNames[i], taImgId.getResourceId(i, 0));
+            mAppImgs.put(apkNames[i], drawables[i]);
         }
-        taImgId.recycle();
         reqUrl.deleteCharAt(reqUrl.length() - 1);
 
         Logger.d("请求的url：" + reqUrl.toString());

@@ -36,12 +36,11 @@ import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.thirdapp.other.IgnoreSendMessageUtils;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
-import com.run.treadmill.util.NotificationBackend;
 import com.run.treadmill.util.PermissionUtil;
-import com.run.treadmill.util.ThirdApkSupport;
 import com.run.treadmill.widget.LongPressView;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
 
@@ -108,7 +107,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        onCreateMission();
+        IgnoreSendMessageUtils.onCreateMission();
         init();
         GpIoUtils.setScreen_1();
 
@@ -544,23 +543,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 startActivity(new Intent(HomeActivity.this, ProgramSelectActivity.class));
                 break;
         }
-    }
-
-    /**
-     * 屏蔽第三方通知
-     */
-    private void onCreateMission() {
-        new Thread(() -> {
-            try {
-                Thread.sleep(1000);
-                String[] pkNames = getApplicationContext().getResources().getStringArray(R.array.ignore_thirdAPK_send_message);
-                for (String pkName : pkNames) {
-                    NotificationBackend.setNotificationsBanned(getApplicationContext(), pkName, false);
-                    ThirdApkSupport.killCommonApp(getApplicationContext(), pkName);
-                }
-            } catch (Exception ignore) {
-            }
-        }).start();
     }
 
     private void init() {

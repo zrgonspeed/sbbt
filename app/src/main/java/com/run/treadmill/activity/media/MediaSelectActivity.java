@@ -25,6 +25,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.util.FileUtil;
 
 import java.util.ArrayList;
@@ -134,9 +135,9 @@ public class MediaSelectActivity extends BaseActivity<MediaSelectView, MediaSele
 
     private void init() {
         Context context = MediaSelectActivity.this;
-        final String[] pkgName = getPresenter().getThirdApk(context, R.array.thirdApk_packageName);
-        int[] drawable = getPresenter().getThirdApkDrawable(context, R.array.thirdApk_drawable);
-
+        final String[] pkgName = HomeAndRunAppUtils.getPkgNames();
+        int[] drawable = HomeAndRunAppUtils.getHomeDrawables();
+        // Logger.i("pkgName == " + Arrays.toString(pkgName));
         btn_back.setOnClickListener(this);
 
         FileUtil.setLogoIcon(this, btn_logo);

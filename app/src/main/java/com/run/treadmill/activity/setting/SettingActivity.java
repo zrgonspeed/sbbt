@@ -1,7 +1,6 @@
 package com.run.treadmill.activity.setting;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.run.android.ShellCmdUtils;
 import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;
@@ -32,6 +30,8 @@ import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemBrightManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.thirdapp.main.HomeAndRunAppUtils;
+import com.run.treadmill.thirdapp.other.DeleteAccountsUtils;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.LanguageUtil;
 import com.run.treadmill.util.Logger;
@@ -308,33 +308,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                 btn_delete_accounts_no.setEnabled(false);
                 btn_delete_accounts_yes.setVisibility(View.GONE);
                 btn_delete_accounts_no.setVisibility(View.GONE);
-                new Thread(() -> {
-                    try {
-                        // android9以后 的账户数据路径不同
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                            ShellCmdUtils.getInstance().execCommand("rm -rf /data/system_de/0/*");
-                        } else {
-                            ShellCmdUtils.getInstance().execCommand("rm -rf /data/system/users/0/accounts.db");
-                            ShellCmdUtils.getInstance().execCommand("rm -rf /data/system/users/0/accounts.db-journal");
-                        }
-                        String[] pkNames = getResources().getStringArray(R.array.delete_thirdAPK_accounts);
-                        for (String pkName : pkNames) {
-                            ThirdApkSupport.killCommonApp(getApplicationContext(), pkName);
-                        }
-                        for (String pkName : pkNames) {
-                            if (pkName.contains("youtube")) {
-                                ShellCmdUtils.getInstance().execCommand("rm -rf /data/data/" + pkName + "/databases/*");
-                            } else {
-                                ShellCmdUtils.getInstance().execCommand("rm -rf /data/data/" + pkName + "/*");
-                            }
-                        }
-
-                        Thread.sleep(3000);
-                        ShellCmdUtils.getInstance().execCommand("reboot");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }).start();
+                DeleteAccountsUtils.delete();
                 break;
             case R.id.btn_delete_accounts_no:
                 rl_delete_accounts.setVisibility(View.GONE);
@@ -717,6 +691,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
     private synchronized void changeSystemLanguage60(final Locale locale) {
         Logger.i(TAG, "切换语言为 " + locale.getLanguage());
         SpManager.setLanguage(locale.getLanguage());
+        HomeAndRunAppUtils.changeLanguage = true;
 
         isChangeLanguage = true;
         sp_language.setClickable(false);

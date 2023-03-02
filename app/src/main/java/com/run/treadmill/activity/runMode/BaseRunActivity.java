@@ -45,6 +45,7 @@ import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.WifiBTStateManager;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.FormulaUtil;
 import com.run.treadmill.util.Logger;
@@ -231,8 +232,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         pulseAnimation.setInterpolator(new AccelerateInterpolator());
 
         iconList = new ArrayList<>();
-        pkgName = getPresenter().getThirdApk(getApplicationContext(), R.array.thirdApk_packageName);
-        int[] drawable = getPresenter().getThirdApkDrawable(getApplicationContext(), R.array.thirdApk_drawable_running);
+        pkgName = HomeAndRunAppUtils.getPkgNames();;
+        int[] drawable = HomeAndRunAppUtils.getRunDrawables();
+        // Logger.i("pkgName == " + Arrays.toString(pkgName));
+
         for (int id : drawable) {
             iconList.add(id);
         }

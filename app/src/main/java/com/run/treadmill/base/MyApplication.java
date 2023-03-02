@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.SystemClock;
-import android.provider.Settings;
 
 import com.run.android.ShellCmdUtils;
 import com.run.serial.SerialCommand;
@@ -21,11 +20,11 @@ import com.run.treadmill.manager.PermissionManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.control.ParamCons;
+import com.run.treadmill.thirdapp.other.WhiteListUtils;
 import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.LanguageUtil;
 import com.run.treadmill.util.Logger;
-import com.run.treadmill.util.ShellUtils;
 import com.run.treadmill.util.ThreadUtils;
 
 import org.litepal.LitePalApplication;
@@ -145,7 +144,7 @@ public class MyApplication extends LitePalApplication {
 
             new Thread(() -> {
                 SystemClock.sleep(5000);
-                WhiteListUtils.WhiteListAppFilter(this);
+                WhiteListUtils.WhiteListAppFilter();
             }).start();
         }
     }
