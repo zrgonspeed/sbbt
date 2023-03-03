@@ -167,6 +167,35 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
     public void cmdKeyValue(int keyValue) {
         switch (keyValue) {
+            case SerialKeyValue.START_CLICK:
+            case SerialKeyValue.HAND_START_CLICK:
+                if ((mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP)
+                        && btn_float_pause_continue.isEnabled()) {
+                    btn_float_pause_continue.performClick();
+                    BuzzerManager.getInstance().buzzerRingOnce();
+                }
+                break;
+
+            case SerialKeyValue.STOP_CLICK:
+            case SerialKeyValue.HAND_STOP_CLICK:
+                if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
+                        && btn_float_pause_quit.isEnabled()) {
+                    btn_float_pause_quit.performClick();
+//                    BuzzerManager.getInstance().buzzerRingOnce();
+                    break;
+                }
+                if (btn_home.getVisibility() == View.VISIBLE && btn_home.isEnabled()) {
+                    BuzzerManager.getInstance().buzzerRingOnce();
+                    btn_home.performClick();
+                }
+                break;
+
+            case SerialKeyValue.HOME_KEY_CLICK:
+                if (btn_home.getVisibility() == View.VISIBLE && btn_home.isEnabled()) {
+                    BuzzerManager.getInstance().buzzerRingOnce();
+                    btn_home.performClick();
+                }
+                break;
             case SerialKeyValue.BACK_KEY_CLICK:
                 if (btn_back.getVisibility() == View.VISIBLE && btn_back.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
@@ -329,7 +358,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 mFloatWindowManager.goBackMyAppToSummary();
                 break;
             case R.id.btn_float_pause_continue:
-                Logger.d("--data-- runStatus="+mFloatWindowManager.mRunningParam.runStatus);
+                Logger.d("--data-- runStatus=" + mFloatWindowManager.mRunningParam.runStatus);
                 BuzzerManager.getInstance().buzzerRingOnce();
                 if (mFloatWindowManager.mRunningParam.isRunningEnd()) {
                     return;
@@ -372,6 +401,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
     public ConstraintLayout layout_float_pause;
     protected ImageView btn_float_pause_quit;
     protected ImageView btn_float_pause_continue;
+
     protected void showPause() {
         btn_start_stop_skip.setVisibility(View.GONE);
 
@@ -403,7 +433,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
     public void longClickBuzzer(LongClickImage btn) {
         // if ((Integer) btn.getTag() != 1) {
-            BuzzerManager.getInstance().buzzerRingOnce();
+        BuzzerManager.getInstance().buzzerRingOnce();
         // } else {
         //     btn.setTag(-1);
         // }

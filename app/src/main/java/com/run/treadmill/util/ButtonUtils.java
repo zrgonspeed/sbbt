@@ -1,25 +1,14 @@
 package com.run.treadmill.util;
 
-import android.os.SystemClock;
-
 public class ButtonUtils {
-    private static boolean isOk = false;
+    private static long lastBuzzOnceTime;
 
     public static boolean canResponse() {
-        if (isOk) {
+        long curTime = System.currentTimeMillis();
+        if (Math.abs(curTime - lastBuzzOnceTime) < 60 + 140) {
             return false;
         }
-
-        isOk = true;
+        lastBuzzOnceTime = System.currentTimeMillis();
         return true;
-    }
-
-    static {
-        ThreadUtils.runInThread(() -> {
-            while (true) {
-                SystemClock.sleep(200);
-                isOk = false;
-            }
-        });
     }
 }
