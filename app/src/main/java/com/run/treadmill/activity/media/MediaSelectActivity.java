@@ -84,6 +84,10 @@ public class MediaSelectActivity extends BaseActivity<MediaSelectView, MediaSele
             case SerialKeyValue.BACK_KEY_CLICK:
                 btn_back.performClick();
                 break;
+            case SerialKeyValue.HOME_KEY_CLICK:
+                BuzzerManager.getInstance().buzzerRingOnce();
+                btn_back.performClick();
+                break;
         }
     }
 
