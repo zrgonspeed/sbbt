@@ -17,6 +17,8 @@ import com.run.treadmill.manager.control.DcControl;
 import com.run.treadmill.manager.control.NormalParam;
 import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.util.DataTypeConversion;
+import com.run.treadmill.util.FormulaUtil;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.UnitUtil;
 
 /**
@@ -236,9 +238,15 @@ public class ControlManager {
      * @param speed 速度
      */
     public void setSpeed(float speed) {
+        // Logger.d("传入 speed=" + speed);
         if (!isMetric) {
             speed = UnitUtil.getMileToKmByFloat1(speed);
         }
+        // Logger.d("公英制转换后 speed=" + speed);
+
+        speed = FormulaUtil.computeSpeed(speed);
+        // Logger.d("实际下发 speed=" + speed);
+
         mStrategy.setSpeed(speed);
     }
 

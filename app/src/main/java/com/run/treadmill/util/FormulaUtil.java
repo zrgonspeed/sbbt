@@ -106,4 +106,38 @@ public class FormulaUtil {
     public static int getTHR(int age, int p) {
         return Math.round((220 - age) * (p / 100f));
     }
+
+    /**
+     * 计算实际下发速度
+     * 显示1-22， 实际0.9-19.8
+     */
+    public static float computeSpeed(float speed) {
+        float resultSpeed = UnitUtil.getFloatBy1f(speed * 0.9f);
+        return resultSpeed;
+    }
+
+    private float computeSpeedxxxx(float speed, boolean isMetric) {
+        //        Logger.d("getMaxSpeed=" + SpManager.getMaxSpeed(isMetric) + ",isMetric=" + isMetric);
+        float realSpeedMax = 20f;
+
+        // 大于这个速度点开始按比例下发
+        float changePoint = 12.0f;
+        if (!isMetric) {
+            changePoint = UnitUtil.getKmToMileByFloat1(changePoint);
+            realSpeedMax = UnitUtil.getKmToMileByFloat1(realSpeedMax);
+        }
+
+        if (speed > changePoint) {
+            float p = 0.8f;
+            float a = (speed - changePoint) * p + changePoint;
+
+            speed = a;
+            // speed = UnitUtil.getFloatToPoint((speed - changePoint) * ((realSpeedMax - changePoint) / (viewSpeedMax - changePoint)), 1) + changePoint;
+            if (speed > realSpeedMax) {
+                speed = realSpeedMax;
+            }
+        }
+
+        return speed;
+    }
 }
