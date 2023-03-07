@@ -215,6 +215,7 @@ public class MyApplication extends LitePalApplication {
      * 1.链接wifi后，显示没链接上网路问题
      * 2.关闭通知渠道显示
      * 3.关闭触摸十字线
+     * 4.关闭触摸点
      */
     private void closeSomeSystemSetting() {
         new Thread() {
@@ -223,6 +224,7 @@ public class MyApplication extends LitePalApplication {
                 ShellCmdUtils.getInstance().execCommand("settings put global captive_portal_detection_enabled " + 0);
                 ShellCmdUtils.getInstance().execCommand("settings put global show_notification_channel_warnings " + 0);
                 ShellCmdUtils.getInstance().execCommand("settings put system pointer_location " + 0);
+                ShellCmdUtils.getInstance().execCommand("settings put system show_touches " + 0);
             }
         }.start();
     }
