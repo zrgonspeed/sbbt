@@ -175,7 +175,7 @@ public class InitParam {
     /**
      * 默认rpm
      */
-    public static final int DEFAULT_RPM_RATE = 150;
+    public static final int DEFAULT_RPM_RATE = 105;
 
 
     /**
