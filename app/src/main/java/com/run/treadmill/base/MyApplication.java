@@ -1,10 +1,5 @@
 package com.run.treadmill.base;
 
-import android.Manifest;
-import android.content.Context;
-import android.media.AudioManager;
-import android.os.SystemClock;
-
 import com.run.android.ShellCmdUtils;
 import com.run.serial.SerialCommand;
 import com.run.treadmill.AppDebug;
@@ -13,19 +8,17 @@ import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.manager.GpsMockManager;
 import com.run.treadmill.manager.HardwareSoundManager;
-import com.run.treadmill.manager.PermissionManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.control.ParamCons;
-import com.run.treadmill.thirdapp.other.WhiteListUtils;
+import com.run.treadmill.util.BtHelperUtils;
 import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.LanguageUtil;
 import com.run.treadmill.util.Logger;
-import com.run.treadmill.util.ThreadUtils;
+import com.run.treadmill.util.SystemUtils;
 
 import org.litepal.LitePalApplication;
 
@@ -61,7 +54,7 @@ public class MyApplication extends LitePalApplication {
             ErrorManager.init(DEFAULT_DEVICE_TYPE);
             SpManager.init(getApplicationContext());
         }
-        grantPermission();
+        SystemUtils.grantPermission(this);
         // 语言
         {
             // 当前系统语言
@@ -106,11 +99,13 @@ public class MyApplication extends LitePalApplication {
                 }
             }
 
-            boolean resultFitShow = FitShowTreadmillManager.getInstance().initSerial(getApplicationContext(), 9600, "/dev/ttyS3");
+            /*boolean resultFitShow = FitShowTreadmillManager.getInstance().initSerial(getApplicationContext(), 9600, "/dev/ttyS3");
             Logger.i("resultFitShow == " + resultFitShow);
             if (resultFitShow) {
                 FitShowTreadmillManager.getInstance().startThread();
-            }
+            }*/
+
+            BtHelperUtils.initBtHelper(this);
         }
 
         // 其它
@@ -121,111 +116,32 @@ public class MyApplication extends LitePalApplication {
             //附件类模拟GPS位置类初始化
             GpsMockManager.getInstance().init(this);
 
-            deleteQQmusicData();
-            closeAnimation();
+            SystemUtils.deleteQQmusicData();
+            SystemUtils.closeAnimation();
 
             // 空中更新APK相关
             SpManager.setAlterUpdatePath(false);
             SpManager.setChangedServer(false);
 
-            // 包在img。第三方更新列表加？
-            // 第一次开机启动，安装otamcu
-            // OtaMcuUtils.installOtaMcu(this);
-
-            changeVolume();
+            SystemUtils.changeVolume(this);
 
             BtAppReboot.initBt(getApplicationContext());
 
-            closeSomeSystemSetting();
+            SystemUtils.closeSomeSystemSetting();
 
             new Thread(() -> {
                 ShellCmdUtils.getInstance().execCommand("sync");
             });
 
-            new Thread(() -> {
-                SystemClock.sleep(5000);
-                WhiteListUtils.WhiteListAppFilter();
-            }).start();
+            SystemUtils.setAppWhiteList();
         }
     }
 
-    private void changeVolume() {
-        AudioManager mAudioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-        ThreadUtils.runInThread(() -> {
-            while (true) {
-                boolean isHeadSetOn = mAudioManager.isWiredHeadsetOn();
-                int volume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-                // Logger.i("isHeadSetOn == " + isHeadSetOn);
-                // Logger.i("volume == " + volume);
-                if (isHeadSetOn) {
-                    SystemSoundManager.maxVolume = 13;
-                    // 插入耳机
-                } else {
-                    SystemSoundManager.maxVolume = 10;
-                }
-                int maxVolume = SystemSoundManager.maxVolume;
-                if (volume > maxVolume) {
-                    mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                }
-                SystemClock.sleep(100);
-            }
-        });
-    }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
         BtAppReboot.stopService();
         Logger.d("==================app 被销毁了一次=====================");
-    }
-
-    private void closeAnimation() {
-        new Thread() {
-            @Override
-            public void run() {
-                ShellCmdUtils.getInstance().execCommand("settings put global window_animation_scale 0");
-                ShellCmdUtils.getInstance().execCommand("settings put global transition_animation_scale 0");
-                ShellCmdUtils.getInstance().execCommand("settings put global animator_duration_scale 0");
-            }
-        }.start();
-    }
-
-    private void deleteQQmusicData() {
-        new Thread(() -> {
-            //删除QQ音乐下载的数据
-            ShellCmdUtils.getInstance().execCommand("rm -rf /sdcard/qqmusicpad/song");
-        }).start();
-    }
-
-    /**
-     * A133申请权限
-     */
-    private void grantPermission() {
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_FINE_LOCATION);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_COARSE_LOCATION);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.READ_CONTACTS);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.MEDIA_CONTENT_CONTROL);
-        PermissionManager.grantPermission(getApplicationContext(), getPackageName(), Manifest.permission.RECORD_AUDIO);
-    }
-
-    /**
-     * 1.链接wifi后，显示没链接上网路问题
-     * 2.关闭通知渠道显示
-     * 3.关闭触摸十字线
-     * 4.关闭触摸点
-     */
-    private void closeSomeSystemSetting() {
-        new Thread() {
-            @Override
-            public void run() {
-                ShellCmdUtils.getInstance().execCommand("settings put global captive_portal_detection_enabled " + 0);
-                ShellCmdUtils.getInstance().execCommand("settings put global show_notification_channel_warnings " + 0);
-                ShellCmdUtils.getInstance().execCommand("settings put system pointer_location " + 0);
-                ShellCmdUtils.getInstance().execCommand("settings put system show_touches " + 0);
-            }
-        }.start();
     }
 }

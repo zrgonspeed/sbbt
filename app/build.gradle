@@ -90,4 +90,5 @@ dependencies {
 
     implementation project(':serial')
     implementation project(':fitShow')
+    implementation project(':zybt')
 }

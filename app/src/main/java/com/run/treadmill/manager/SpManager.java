@@ -390,6 +390,15 @@ public class SpManager {
     }
 
     /**
+     * 根据公英制获取总运动距离
+     * @param isMetric
+     * @return
+     */
+    public static float getRunTotalDisByMetric(boolean isMetric){
+        return StorageParam.getParam(isMetric ? SET_RUN_TOTAL_DIS : SET_RUN_TOTAL_DIS_IMPERIAL, 0f);
+    }
+
+    /**
      * 重设 设置界面最大运动时间（hr）
      *
      * @param time

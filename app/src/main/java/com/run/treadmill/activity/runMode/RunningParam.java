@@ -3,6 +3,8 @@ package com.run.treadmill.activity.runMode;
 import android.os.Handler;
 import android.os.Message;
 
+import com.chuhui.btcontrol.BtHelper;
+import com.chuhui.btcontrol.bean.RunParam;
 import com.run.android.ShellCmdUtils;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
@@ -372,6 +374,11 @@ public class RunningParam {
         this.mCallback = null;
         FitShowTreadmillManager.getInstance().clean();
         interrupted();
+
+        BtHelper.isOnRunning = false;
+        BtHelper.getInstance().stopSport();
+        BtHelper.getInstance().getRunParamBuilder()
+                .runStatus(RunParam.RUN_STOP_STATUS);
     }
 
     /**
@@ -545,9 +552,14 @@ public class RunningParam {
         public void run() {
             while (isRunning) {
                 try {
+                    BtHelper.isOnRunning = true;
+
                     // Logger.i("runStatus == " + runStatus);
                     if (runStatus == CTConstant.RUN_STATUS_STOP) {
                         synchronized (instance) {
+                            BtHelper.getInstance().getRunParamBuilder()
+                                    .speed(0.0f)
+                                    .runStatus(RunParam.RUN_PAUSE_STATUS);
                             instance.wait();
                         }
                         continue;
@@ -700,6 +712,9 @@ public class RunningParam {
                 try {
                     if (runStatus == CTConstant.RUN_STATUS_STOP) {
                         synchronized (instance) {
+                            BtHelper.getInstance().getRunParamBuilder()
+                                    .speed(0f)
+                                    .runStatus(RunParam.RUN_PAUSE_STATUS);
                             instance.wait();
                         }
                         continue;
@@ -728,6 +743,8 @@ public class RunningParam {
                                 runLccurStageNum,
                                 runStatus);
                     }
+
+                    setZyBtAndCsafeData();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1011,4 +1028,57 @@ public class RunningParam {
         }
     }
 
+    private void setZyBtAndCsafeData() {
+        if (BtHelper.currBtConnected != 0) {
+            if (runStatus == CTConstant.RUN_STATUS_WARM_UP) {
+                BtHelper.getInstance().getRunParamBuilder().remainingTime(warmUpTime);
+            } else if (runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+                BtHelper.getInstance().getRunParamBuilder().remainingTime(coolDownTime);
+            } else {
+                BtHelper.getInstance().getRunParamBuilder().remainingTime(0);
+            }
+            if (targetTime > 0) {
+                if (runStatus == CTConstant.RUN_STATUS_RUNNING) {
+                    BtHelper.getInstance().getRunParamBuilder().remainingTime(targetTime - alreadyRunTime);
+                }
+            }
+            BtHelper.getInstance().getRunParamBuilder()
+                    .time(getAllTime())
+                    .speed(isMetric ? currSpeed : UnitUtil.getMileToKm(currSpeed))
+                    .incline(currIncline)
+                    .distance(isMetric ? getAllDistance() : UnitUtil.getMileToKm(getAllDistance()))
+                    .hr(getCurPulse())
+                    .kCal(UnitUtil.getFloatToInt(getAllCalories()))
+                    .runStatus(RunParam.RUN_START_STATUS)
+                    .runStage(RunParam.RUN_GENERAL_STAGE)
+                    .atRest(false);
+        }
+    }
+
+    /**
+     * 获取总时间
+     *
+     * @return
+     */
+    public long getAllTime() {
+        return ((InitParam.WARM_UP_TIME - warmUpTime) + alreadyRunTime + (InitParam.COOL_DOWN_TIME - coolDownTime));
+    }
+
+    /**
+     * 获取总距离
+     *
+     * @return
+     */
+    public float getAllDistance() {
+        return UnitUtil.addFloat(UnitUtil.addFloat(alreadyWarmUpDistance, alreadyCoolDownDistance), alreadyRunDistance);
+    }
+
+    /**
+     * 获取总卡路里
+     *
+     * @return
+     */
+    public int getAllCalories() {
+        return Math.round(UnitUtil.addFloat(UnitUtil.addFloat(alreadyWarmUpCalories, alreadyCoolDownCalories), alreadyRunCalories)) % 9999;
+    }
 }

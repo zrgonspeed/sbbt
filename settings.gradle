@@ -1,2 +1,2 @@
 rootProject.name='AC00553-54T-24'
-include ':app', ':serial','fitShow'
+include ':app', ':serial',':fitShow',':zybt'

@@ -7,6 +7,9 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.chuhui.btcontrol.BtCallBack;
+import com.chuhui.btcontrol.BtHelper;
+import com.chuhui.btcontrol.CbData;
 import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.factory.PresenterFactory;
 import com.run.treadmill.factory.PresenterFactoryImpl;
@@ -17,6 +20,7 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.util.BtHelperUtils;
 import com.run.treadmill.util.Logger;
 
 import butterknife.ButterKnife;
@@ -29,7 +33,8 @@ import butterknife.ButterKnife;
  * @Author GaleLiu
  * @Time 2019/05/29
  */
-public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V>> extends Activity implements BaseView, PresenterProxy<V, P>, FitShowTreadmillManager.FitShowStatusCallBack {
+public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V>> extends Activity implements
+        BaseView, PresenterProxy<V, P>, FitShowTreadmillManager.FitShowStatusCallBack, BtCallBack {
     public String TAG;
     private static final String PRESENTER_SAVE_KEY = "presenter_save_key";
 
@@ -79,6 +84,8 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
             } else {
                 FitShowTreadmillManager.getInstance().setNOtConnect(true);
             }
+
+            BtHelper.getInstance().setCallback(this);
         }
         long end = System.currentTimeMillis();
         Logger.i("BaseActivity onResume() time == " + (end - start));
@@ -172,5 +179,21 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
        /* if (isConnect) {
            // finish();
         }*/
+    }
+
+    /**********************************  外接蓝牙模块部分  ***********************************/
+    @Override
+    public void onRequestConnect(int btType) {
+        BtHelperUtils.onRequestConnect(btType);
+    }
+
+    @Override
+    public void onLastConnect(int btType) {
+
+    }
+
+    @Override
+    public void onDataCallback(CbData data) {
+
     }
 }
