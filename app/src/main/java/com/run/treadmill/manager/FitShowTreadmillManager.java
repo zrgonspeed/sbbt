@@ -741,6 +741,9 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
     }
 
     public void setRunStart(byte runStart) {
+        if (!isConnect) {
+            return;
+        }
         Logger.e("setRunStart() runStart == " + runStart);
         Logger.e("setRunStart() this.runStart == " + this.runStart);
         try {
