@@ -4,7 +4,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.chuhui.btcontrol.BtHelper;
 import com.chuhui.btcontrol.util.ConvertData;
 import com.run.serial.SerialPort;
 
@@ -61,12 +60,10 @@ public class ZyRxDataTask implements Runnable {
     @Override
     public void run() {
         try {
-            while ((BtHelper.currBtConnected == 0 || BtHelper.currBtConnected == BtHelper.BT_ZY)
-                    && mZybt != null && mZybt.isReadData) {
+            while (mZybt != null && mZybt.isReadData) {
                 iDataLen = mInputStream.read(buff);
 
-//                Log.d("sss",">>>>>>>    " + ConvertData.byteArrayToHexString(buff,iDataLen));
-                Log.d("zy read raw <<< ", ConvertData.byteArrayToHexString(buff,iDataLen));
+                Log.d("zy read raw <<< ", ConvertData.byteArrayToHexString(buff, iDataLen));
 
                 for (int i = 0; i < iDataLen; i++) {
                     switch (c_state) {
@@ -108,14 +105,14 @@ public class ZyRxDataTask implements Runnable {
                             byte sum = ZyBt.checkSum(readDataBuffer, offset);
                             // Log.v("zy","sum == " + sum + "  buff[i] == " + buff[i]);
                             if (sum != buff[i]) {
-                                Log.i("zy","sum == " + sum + "  buff[i] == " + buff[i] + " eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                                Log.i("zy", "sum == " + sum + "  buff[i] == " + buff[i] + " eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
                             }
                             if (sum == buff[i]) {
                                 readDataBuffer[offset] = buff[i];
                                 offset++;
                                 c_state = DATA_BEGIN;
-                                if(mZybt != null){
-                                    mZybt.rxDataPackage(readDataBuffer,offset);
+                                if (mZybt != null) {
+                                    mZybt.rxDataPackage(readDataBuffer, offset);
                                 }
                             }
 
@@ -128,7 +125,7 @@ public class ZyRxDataTask implements Runnable {
                     }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

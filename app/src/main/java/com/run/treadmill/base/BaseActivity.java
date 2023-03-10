@@ -183,12 +183,12 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
 
     /**********************************  外接蓝牙模块部分  ***********************************/
     @Override
-    public void onRequestConnect(int btType) {
-        BtHelperUtils.onRequestConnect(btType);
+    public void onRequestConnect() {
+        BtHelperUtils.onRequestConnect();
     }
 
     @Override
-    public void onLastConnect(int btType) {
+    public void onLastConnect() {
 
     }
 

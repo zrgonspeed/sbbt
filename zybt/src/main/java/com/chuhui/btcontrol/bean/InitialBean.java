@@ -2,7 +2,6 @@ package com.chuhui.btcontrol.bean;
 
 import android.util.Log;
 
-
 import com.chuhui.btcontrol.BtHelper;
 
 import java.util.Arrays;
@@ -14,23 +13,32 @@ import java.util.List;
  * @Time 2022/7/26
  */
 public class InitialBean {
-    /**
-     * 设备类型
-     * @see com.chuhui.btcontrol.BtHelper.BtHandler#setMachineType(int)
-     * */
+
     private int machineType;
-    /** 扬升范围*/
+    /**
+     * 扬升范围
+     */
     private float minIncline, maxIncline, inclineSchg;
-    /** 速度范围*/
+    /**
+     * 速度范围
+     */
     private float minSpeed, maxSpeed, speedSchg;
 
-    /** 总时间*/
+    /**
+     * 总时间
+     */
     public int totalHours;
-    /** 总距离*/
+    /**
+     * 总距离
+     */
     public int totalDistance;
-    /** 总步数*/
+    /**
+     * 总步数
+     */
     public int totalSteps;
-    /** 错误集合*/
+    /**
+     * 错误集合
+     */
     public byte[] errs = new byte[BtHelper.errLogCount];
 
     public int getMachineType() {
@@ -89,13 +97,13 @@ public class InitialBean {
         this.speedSchg = speedSchg;
     }
 
-    public void setRangeIncline(float minIncline, float maxIncline, float inclineSchg){
+    public void setRangeIncline(float minIncline, float maxIncline, float inclineSchg) {
         this.minIncline = minIncline;
         this.maxIncline = maxIncline;
         this.inclineSchg = inclineSchg;
     }
 
-    public void setRangeSpeed(float minSpeed, float maxSpeed, float SpeedSchg){
+    public void setRangeSpeed(float minSpeed, float maxSpeed, float SpeedSchg) {
         this.minSpeed = minSpeed;
         this.maxSpeed = maxSpeed;
         this.speedSchg = SpeedSchg;
@@ -103,15 +111,16 @@ public class InitialBean {
 
     public static final int DEVICE_TYPE_AC = 0x57;
     public static final int DEVICE_TYPE_DC = 0x5A;
-    public void setErrCodes(List<String> codes, int deviceType){
+
+    public void setErrCodes(List<String> codes, int deviceType) {
         Arrays.fill(errs, (byte) 0x00);
-        if(codes == null || codes.size() <= 0){
+        if (codes == null || codes.size() <= 0) {
             return;
         }
         byte curErrCode;
 
         if (deviceType == DEVICE_TYPE_AC) {
-            Log.i("sss","codes.size() == " + codes.size() + "   errs.length == " + errs.length);
+            Log.i("sss", "codes.size() == " + codes.size() + "   errs.length == " + errs.length);
 
             // AC
             for (int i = 0; i < Math.min(codes.size(), errs.length); i++) {

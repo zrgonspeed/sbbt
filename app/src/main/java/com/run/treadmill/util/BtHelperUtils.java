@@ -10,7 +10,7 @@ import com.run.treadmill.manager.SpManager;
 
 public class BtHelperUtils {
     public static void initBtHelper(Context context) {
-        BtHelper.getInstance().openPort(context, BtHelper.BT_ZY, "/dev/ttyS3");
+        BtHelper.getInstance().openPort(context, "/dev/ttyS3");
         BtHelper.getInstance().setInitData(initAndGetBean());
     }
 
@@ -24,9 +24,7 @@ public class BtHelperUtils {
         return bean;
     }
 
-    public static void onRequestConnect(int btType) {
-        BtHelper.getInstance().replyConnect(btType);
-
+    public static void onRequestConnect() {
         InitialBean bean = BtHelper.getInstance().getInitBean();
         if (bean != null) {
             bean.totalHours = (int) (SpManager.getRunTotalTime() / 3600);

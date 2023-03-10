@@ -6,9 +6,9 @@ import android.util.Log;
 import com.chuhui.btcontrol.BaseBtControl;
 import com.chuhui.btcontrol.BtHelper;
 import com.chuhui.btcontrol.CbData;
-import com.chuhui.btcontrol.util.ConvertData;
 import com.chuhui.btcontrol.bean.InitialBean;
 import com.chuhui.btcontrol.bean.RunParam;
+import com.chuhui.btcontrol.util.ConvertData;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -21,24 +21,33 @@ import java.util.Arrays;
  */
 public class ZyBt extends BaseBtControl {
 
-    boolean isFirst = true;
-    /** 需要唤醒*/
+    /**
+     * 需要唤醒
+     */
     boolean needWake;
-    /** 是否处于休眠状态*/
+    /**
+     * 是否处于休眠状态
+     */
     boolean isSleep;
 
     private byte[] txData = new byte[64];
-    /** 组装好的数据*/
+    /**
+     * 组装好的数据
+     */
     private byte[] sendData;
     private ByteBuffer outPutBuffer;
 
-    /** 获取设备已连接返回的某个数值？71 后面的第二个值*/
+    /**
+     * 获取设备已连接返回的某个数值？71 后面的第二个值
+     */
     private byte connectData;
 
-    /** 预设的初始化数据*/
+    /**
+     * 预设的初始化数据
+     */
     protected InitialBean mInitialBean;
 
-//    public static final int ACTION_SET_NAME = 20;
+    //    public static final int ACTION_SET_NAME = 20;
     public static final int ACTION_SET_MACHINE_TYPE = 21;
     public static final int ACTION_SET_RANGE_INCLINE = 22;
     public static final int ACTION_SET_RANGE_SPEED = 23;
@@ -46,12 +55,18 @@ public class ZyBt extends BaseBtControl {
     private byte currMachineStatus = ZyCommand.FTMS_RESET;
     private byte currTrainingStatus = ZyCommand.TRAINING_IDLE;
 
-    /** 模块名称和版本*/
-    private String deviceName,deviceVer,deviceMac;
+    /**
+     * 模块名称和版本
+     */
+    private String deviceName, deviceVer, deviceMac;
 
-    /** 是否是通过第三方app 经过蓝牙更改名字*/
+    /**
+     * 是否是通过第三方app 经过蓝牙更改名字
+     */
     private boolean isBtResetName;
-    /** 通过第三方app改名字*/
+    /**
+     * 通过第三方app改名字
+     */
     private byte[] nickName = new byte[6];
 
     public ZyBt(String port) {
@@ -88,22 +103,22 @@ public class ZyBt extends BaseBtControl {
     }
 
     @Override
-    protected void btSleep() {
-        if(!isSleep){
+    public void btSleep() {
+        if (!isSleep) {
             sendReboot();
         }
     }
 
     @Override
-    protected void btWake() {
+    public void btWake() {
         needWake = true;
-        if(isSleep){
+        if (isSleep) {
             sendModeSetting();
         }
     }
 
     @Override
-    protected void initDate(InitialBean bean) {
+    public void initDate(InitialBean bean) {
         mInitialBean = bean;
 
         msgWhats.add(ACTION_SET_MACHINE_TYPE);
@@ -112,7 +127,7 @@ public class ZyBt extends BaseBtControl {
     }
 
     @Override
-    protected InitialBean getInitDate() {
+    public InitialBean getInitDate() {
         return mInitialBean;
     }
 
@@ -132,30 +147,30 @@ public class ZyBt extends BaseBtControl {
     }
 
     @Override
-    protected void preSport() {
+    public void preSport() {
         upLoadTrainingStatus(ZyCommand.TRAINING_PRE_WORKOUT);
         upLoadMachineStatus(ZyCommand.CTRL_CMD_START_RESUME);
     }
 
     @Override
-    protected void startSport(byte sportMode) {
+    public void startSport(byte sportMode) {
         upLoadTrainingStatus(ZyCommand.TRAINING_MANUAL_MODE);
     }
 
     @Override
-    protected void pauseSport() {
+    public void pauseSport() {
 //        upLoadTrainingStatus(ZyCommand.TRAINING_PRE_WORKOUT);
         upLoadMachineStatus(ZyCommand.CTRL_CMD_STOP_PAUSE);
     }
 
     @Override
-    protected void stopSport() {
+    public void stopSport() {
         upLoadTrainingStatus(ZyCommand.TRAINING_POST_WORKOUT);
         upLoadMachineStatus(ZyCommand.CTRL_CMD_STOP_PAUSE);
     }
 
     @Override
-    protected void goIdle() {
+    public void goIdle() {
         upLoadTrainingStatus(ZyCommand.TRAINING_IDLE);
 //        upLoadMachineStatus(ZyCommand.STOP_OR_PAUSE);
 
@@ -165,26 +180,26 @@ public class ZyBt extends BaseBtControl {
     }
 
     @Override
-    protected void safeErr() {
+    public void safeErr() {
         getRunParam().reset();
         upLoadTrainingStatus(ZyCommand.TRAINING_POST_WORKOUT);
         upLoadMachineStatus(ZyCommand.CTRL_CMD_STOP_SAFETY_KEY);
     }
 
     @Override
-    protected void hideErr() {
+    public void hideErr() {
         upLoadMachineStatus(ZyCommand.CTRL_CMD_RESET);
         upLoadTrainingStatus(ZyCommand.TRAINING_IDLE);
     }
 
     @Override
-    protected void setSpeed(int speed) {
+    public void setSpeed(int speed) {
         setValueByMachineStatus(ZyCommand.CTRL_CMD_SPEED_CHANGE, speed);
     }
 
     @Override
-    protected void setIncline(int incline) {
-        setValueByMachineStatus(ZyCommand.CTRL_CMD_INCLINE_CHANGE,incline);
+    public void setIncline(int incline) {
+        setValueByMachineStatus(ZyCommand.CTRL_CMD_INCLINE_CHANGE, incline);
     }
 
     @Override
@@ -200,7 +215,7 @@ public class ZyBt extends BaseBtControl {
     }
 
     @Override
-    protected void setMachineType(int machineType) {
+    public void setMachineType(int machineType) {
         txData[1] = 0x00;
         txData[2] = 0x03;
         txData[3] = (byte) 0x0A;
@@ -211,7 +226,7 @@ public class ZyBt extends BaseBtControl {
     }
 
     @Override
-    protected void resetName(String name) {
+    public void resetName(String name) {
         Log.i("zy", "resetName电子表改蓝牙名称 " + name);
         deviceName = name;
 
@@ -225,7 +240,7 @@ public class ZyBt extends BaseBtControl {
         sendData(txData, len + 3);
     }
 
-    private synchronized void resetName(byte[] name){
+    private synchronized void resetName(byte[] name) {
         Log.i("zy", "name == " + Arrays.toString(name));
         Log.i("zy", "收到手机修改名称resetName " + ConvertData.bytesToAsciiHasZero(name));
         deviceName = ConvertData.bytesToAsciiHasZero(name);
@@ -270,9 +285,10 @@ public class ZyBt extends BaseBtControl {
 
     /**
      * 上传运动状态
+     *
      * @param status
      */
-    synchronized void upLoadTrainingStatus(byte status){
+    synchronized void upLoadTrainingStatus(byte status) {
         currTrainingStatus = status;
         txData[1] = 0x00;
         txData[2] = 0x06;
@@ -288,9 +304,10 @@ public class ZyBt extends BaseBtControl {
 
     /**
      * 上传机台状态
+     *
      * @param status
      */
-    synchronized void upLoadMachineStatus(byte status){
+    synchronized void upLoadMachineStatus(byte status) {
         currMachineStatus = status;
         txData[1] = 0x00;
         txData[3] = 0x38;
@@ -298,12 +315,12 @@ public class ZyBt extends BaseBtControl {
         txData[5] = (byte) 0x80;
         txData[6] = 0x26;
         txData[7] = status;
-        if(status == ZyCommand.CTRL_CMD_STOP_PAUSE){
+        if (status == ZyCommand.CTRL_CMD_STOP_PAUSE) {
             txData[2] = 0x06;
-            txData[8] = (byte) (currTrainingStatus == ZyCommand.TRAINING_POST_WORKOUT?0x01:0x02);
+            txData[8] = (byte) (currTrainingStatus == ZyCommand.TRAINING_POST_WORKOUT ? 0x01 : 0x02);
 
             sendData(txData, 9);
-        }else{
+        } else {
             txData[2] = 0x05;
             sendData(txData, 8);
         }
@@ -311,10 +328,11 @@ public class ZyBt extends BaseBtControl {
 
     /**
      * 根据机台状态发送对应的值
+     *
      * @param status
      * @param value
      */
-    synchronized void setValueByMachineStatus(byte status, int value){
+    synchronized void setValueByMachineStatus(byte status, int value) {
         txData[1] = 0x00;
         txData[2] = 0x07;
         txData[3] = 0x38;
@@ -331,7 +349,7 @@ public class ZyBt extends BaseBtControl {
     /**
      * 蓝牙模块开机复位（复位和休眠）
      */
-    synchronized void sendReboot(){
+    synchronized void sendReboot() {
         txData[1] = 0x00;
         txData[2] = 0x01;
         txData[3] = 0x02;
@@ -342,7 +360,7 @@ public class ZyBt extends BaseBtControl {
     /**
      * 蓝牙模式设置(广播和唤醒休眠)
      */
-    synchronized void sendModeSetting(){
+    synchronized void sendModeSetting() {
         txData[1] = 0x00;
         txData[2] = 0x02;
         txData[3] = 0x1C;
@@ -353,7 +371,7 @@ public class ZyBt extends BaseBtControl {
     /**
      * 读取设备名字
      */
-    synchronized void sendGetDeviceName(){
+    synchronized void sendGetDeviceName() {
         txData[1] = 0x00;
         txData[2] = 0x01;
         txData[3] = 0x07;
@@ -363,7 +381,7 @@ public class ZyBt extends BaseBtControl {
     /**
      * 读取设备版本
      */
-    synchronized void sendGetDeviceVer(){
+    synchronized void sendGetDeviceVer() {
         txData[1] = 0x00;
         txData[2] = 0x01;
         txData[3] = 0x09;
@@ -373,7 +391,7 @@ public class ZyBt extends BaseBtControl {
     /**
      * 获取设备MAC
      */
-    synchronized void sendGetDeviceMac(){
+    synchronized void sendGetDeviceMac() {
         txData[1] = 0x00;
         txData[2] = 0x01;
         txData[3] = 0x01;
@@ -383,18 +401,18 @@ public class ZyBt extends BaseBtControl {
     /**
      * 发送运动数据到蓝牙
      */
-    synchronized void sendRunParamToBT(){
+    synchronized void sendRunParamToBT() {
         RunParam mRunParam = getRunParam();
-        if(!BtHelper.isOnRunning){
+        if (!BtHelper.isOnRunning) {
             mRunParam.goSummary();
         }
-        int curSpeed = (int)Math.ceil(mRunParam.getSpeed() * 100);
+        int curSpeed = (int) Math.ceil(mRunParam.getSpeed() * 100);
         int curDis = (int) (mRunParam.getDistance() * 1000);
         int curIncline = (int) (mRunParam.getIncline() * 10);
-        int curKCal = Math.min((int)mRunParam.getkCal(), 65535);
+        int curKCal = Math.min((int) mRunParam.getkCal(), 65535);
         int curHr = Math.min(mRunParam.getHr(), 255);
         int curTime = Math.min((int) mRunParam.getTime(), 65535);
-        int remainingTime = Math.max((int)mRunParam.getRemainingTime(), 0);
+        int remainingTime = Math.max((int) mRunParam.getRemainingTime(), 0);
 
         txData[1] = 0x00;
         //数据长度
@@ -445,11 +463,13 @@ public class ZyBt extends BaseBtControl {
         txData[31] = (byte) (remainingTime & 0xFF);
         txData[32] = (byte) (remainingTime >> 8 & 0xFF);
 
-        sendData(txData,33);
+        sendData(txData, 33);
     }
 
-    /** 回复支持 Fitness Machine Control Point */
-    private synchronized void replySupportFMachineContrilPoint(){
+    /**
+     * 回复支持 Fitness Machine Control Point
+     */
+    private synchronized void replySupportFMachineContrilPoint() {
         txData[1] = 0x00;
         txData[2] = 0x07;
         txData[3] = 0x38;
@@ -463,17 +483,17 @@ public class ZyBt extends BaseBtControl {
         sendData(txData, 10);
     }
 
-    private synchronized void replyNickName(byte[] names){
+    private synchronized void replyNickName(byte[] names) {
         Log.i("zy", "replyNickName");
         byte[] txData2 = new byte[64];
-        txData2[0] = (byte)0xaa;
+        txData2[0] = (byte) 0xaa;
         txData2[1] = 0x00;
-        txData2[2] = (byte)0x05;
+        txData2[2] = (byte) 0x05;
         txData2[3] = 0x38;
         txData2[4] = connectData;
-        txData2[5] = (byte)0x80;
+        txData2[5] = (byte) 0x80;
         txData2[6] = 0x26;
-        txData2[7] = (byte)0xF0;
+        txData2[7] = (byte) 0xF0;
         //name
 /*        txData2[8] = names[0];
         txData2[9] = names[1];
@@ -485,65 +505,41 @@ public class ZyBt extends BaseBtControl {
         sendData(txData2, 8);
     }
 
-    private synchronized void replySportNews(){
+    private synchronized void replySportNews() {
         byte[] txData2 = new byte[64];
-        txData2[0] = (byte)0xaa;
+        txData2[0] = (byte) 0xaa;
         txData2[1] = 0x00;
-        txData2[2] = (byte)0x0B;
+        txData2[2] = (byte) 0x0B;
         txData2[3] = 0x38;
         txData2[4] = connectData;
-        txData2[5] = (byte)0x80;
+        txData2[5] = (byte) 0x80;
         txData2[6] = 0x26;
-        txData2[7] = (byte)0xF1;
+        txData2[7] = (byte) 0xF1;
         //Total Hours
-        txData2[8] = (byte)(mInitialBean.totalHours & 0xFF);
-        txData2[9] = (byte)(mInitialBean.totalHours >> 8 & 0xFF);
+        txData2[8] = (byte) (mInitialBean.totalHours & 0xFF);
+        txData2[9] = (byte) (mInitialBean.totalHours >> 8 & 0xFF);
         //Total Distance
-        txData2[10] = (byte)(mInitialBean.totalDistance & 0xFF);
-        txData2[11] = (byte)(mInitialBean.totalDistance >> 8 & 0xFF);
-        txData2[12] = (byte)(mInitialBean.totalDistance >> 16 & 0xFF);
-        txData2[13] = (byte)(mInitialBean.totalDistance >> 24 & 0xFF);
+        txData2[10] = (byte) (mInitialBean.totalDistance & 0xFF);
+        txData2[11] = (byte) (mInitialBean.totalDistance >> 8 & 0xFF);
+        txData2[12] = (byte) (mInitialBean.totalDistance >> 16 & 0xFF);
+        txData2[13] = (byte) (mInitialBean.totalDistance >> 24 & 0xFF);
         //Total Steps: UINT32
 
         sendData(txData2, 14);
     }
 
-    private synchronized void replyErrLog(){
-        BtHelper.getInstance().setErrorLog(() -> {
-            byte[] txData3 = new byte[64];
-            txData3[0] = (byte)0xaa;
-            txData3[1] = 0x00;
-            txData3[2] = (byte)0x16;
-            txData3[3] = 0x38;
-            txData3[4] = connectData;
-            txData3[5] = (byte)0x80;
-            txData3[6] = 0x26;
-            txData3[7] = (byte)0xF2;
-
-            // 最后一位要是0
-            // byte[] errrs = new byte[]{0x0F, 0x0D, 0x0C ,0x0B,  0x0A,0x09,0x08,0x07,  0x06,0x05,0x04,0x41,  0x02,0x01,0x01,0x00,};
-            // System.arraycopy(errrs, 0, txData3, 8, 16);
-
-            System.arraycopy(mInitialBean.errs, 0, txData3, 8, BtHelper.errLogCount);
-            txData3[24] = 0x00;
-
-            sendData(txData3, 25);
-            BtHelper.getInstance().resetErrorIndex();
-        });
-    }
-
-    private synchronized void replySuccess(byte ctrl){
+    private synchronized void replySuccess(byte ctrl) {
         // Log.i("zy", "replySuccess " + ctrl);
 
         byte[] txData1 = new byte[64];
-        txData1[0] = (byte)0xAA;
+        txData1[0] = (byte) 0xAA;
         txData1[1] = 0x00;
         txData1[2] = 0x07;
         txData1[3] = 0x38;
         txData1[4] = connectData;
-        txData1[5] = (byte)0x80;
+        txData1[5] = (byte) 0x80;
         txData1[6] = 0x23;
-        txData1[7] = (byte)0x80;
+        txData1[7] = (byte) 0x80;
         txData1[8] = ctrl;
         txData1[9] = 0x01;
 
@@ -552,24 +548,24 @@ public class ZyBt extends BaseBtControl {
 
     @Override
     protected void rxDataPackage(byte[] data, int len) {
-        Log.d("zy read <<< ", ConvertData.byteArrayToHexString(data,len));
+        Log.d("zy read <<< ", ConvertData.byteArrayToHexString(data, len));
 
         // 机型设置完成  0xaa 0x00 0x03 0x80 0x0a 0x00 0x73
-        if (data[2] == 0x03 && data[3] == (byte)0x80 && data[4] == (byte)0x0a) {
-            Log.i("zy reboot","ACTION_SET_MACHINE_TYPE 6");
+        if (data[2] == 0x03 && data[3] == (byte) 0x80 && data[4] == (byte) 0x0a) {
+            Log.i("zy reboot", "ACTION_SET_MACHINE_TYPE 6");
         }
         // 扬升范围设置完成   0xaa 0x00 0x03 0x80 0xc1 0x00 0xbc
-        if (data[2] == 0x03 && data[3] == (byte)0x80 && data[4] == (byte)0xc1) {
-            Log.i("zy reboot","ACTION_SET_RANGE_INCLINE 7");
+        if (data[2] == 0x03 && data[3] == (byte) 0x80 && data[4] == (byte) 0xc1) {
+            Log.i("zy reboot", "ACTION_SET_RANGE_INCLINE 7");
         }
         // 速度范围设置完成   0xaa 0x00 0x03 0x80 0xc0 0x00 0xbd
-        if (data[2] == 0x03 && data[3] == (byte)0x80 && data[4] == (byte)0xc0) {
-            Log.i("zy reboot","ACTION_SET_RANGE_SPEED 8");
+        if (data[2] == 0x03 && data[3] == (byte) 0x80 && data[4] == (byte) 0xc0) {
+            Log.i("zy reboot", "ACTION_SET_RANGE_SPEED 8");
         }
 
         // 蓝牙名称设置成功
-        if(data[2] == 0x03 && data[3] == (byte) 0x80 && data[4] == 0x08 && data[5] == 0x00){
-            if(isBtResetName){
+        if (data[2] == 0x03 && data[3] == (byte) 0x80 && data[4] == 0x08 && data[5] == 0x00) {
+            if (isBtResetName) {
                 isBtResetName = false;
                 replyNickName(nickName);
 
@@ -579,51 +575,52 @@ public class ZyBt extends BaseBtControl {
                 }).start();
 
                 // 存储状态，手机app改的蓝牙名称
-                BtHelper.getInstance().setBleNameByApp();
+                BtHelper.getInstance().setBleNameWhenRead();
             }
             return;
         }
 
-        if(data[2] == (byte) 0x02
+        if (data[2] == (byte) 0x02
                 && data[3] == (byte) 0x81
-                && data[4] == (byte) 0x09){ //回复复位AA  00  02  81  09  74
-            if(currMsg == ACTION_REBOOT){
+                && data[4] == (byte) 0x09) { //回复复位AA  00  02  81  09  74
+            if (currMsg == ACTION_REBOOT) {
                 //去掉任务
                 pollFirstAndNext();
                 currMsg = -1;
-                Log.i("zy reboot","ACTION_REBOOT 1");
+                Log.i("zy reboot", "ACTION_REBOOT 1");
             }
             return;
         }
-        if(data[2] == (byte) 0x03
+        if (data[2] == (byte) 0x03
                 && data[3] == (byte) 0x80
                 && data[4] == (byte) 0x1C
-                && data[5] == (byte) 0x00){ //从机命令执行成功 AA  00  03  80  1C  00  61
-            if(currMsg == ACTION_WAKE){
+                && data[5] == (byte) 0x00) { //从机命令执行成功 AA  00  03  80  1C  00  61
+            if (currMsg == ACTION_WAKE) {
                 //去掉任务
                 pollFirstAndNext();
                 currMsg = -1;
-                Log.i("zy reboot","ACTION_WAKE 2");
+                Log.i("zy reboot", "ACTION_WAKE 2");
             }
             return;
         }
-        if(data[3] == (byte) 0x71
-                && data[4] == 0x00){ //连上设备
+        if (data[3] == (byte) 0x71
+                && data[4] == 0x00) { //连上设备
             Log.i("zy", "连上设备");
             connectData = data[5];
-            btConnect(BtHelper.BT_ZY);
+            BtHelper.getInstance().btConnect();
             return;
         }
 
         if (data[3] == (byte) 0x72) {//断开设备
             connectData = 0;
-            btLostConnect();
+            BtHelper.getInstance().btLostConnect();
+            // 如果手机直接关掉全局蓝牙，就不会发出断开命令，所以电子表会一直发运动数据
             Log.e("zy", "断开设备");
             return;
         }
 
         //名字
-        if(data[3] == (byte)0x80 && data[4] == 0x07){
+        if (data[3] == (byte) 0x80 && data[4] == 0x07) {
             //名称长度
             int l = (data[2] & 0xFF) - 3;
             byte[] nameArr = new byte[l];
@@ -636,19 +633,19 @@ public class ZyBt extends BaseBtControl {
                 }
                 // deviceName = cur.toString();
                 deviceName = ConvertData.bytesToAsciiHasZero(nameArr);
-                Log.d("sss",">>>>> 名字串口的 》》》 " + deviceName);
+                Log.d("sss", ">>>>> 名字串口的 》》》 " + deviceName);
             }
 
-            if(currMsg == ACTION_GET_NAME){
+            if (currMsg == ACTION_GET_NAME) {
                 pollFirstAndNext();
                 currMsg = -1;
-                Log.i("zy reboot","ACTION_GET_NAME 3");
+                Log.i("zy reboot", "ACTION_GET_NAME 3");
             }
             return;
         }
 
         //版本
-        if(data[3] == (byte) 0x80 && data[4] == 0x09){
+        if (data[3] == (byte) 0x80 && data[4] == 0x09) {
             isGetVer = false;
             isGetMac = true;
             int l = (data[2] & 0xFF) - 3;
@@ -657,29 +654,29 @@ public class ZyBt extends BaseBtControl {
                 cur.append((char) (data[6 + j] & 0xFF));
             }
             deviceVer = cur.toString();
-            Log.d("sss",">>>>> 版本串口的 》》》 " + deviceVer);
-            if(currMsg == ACTION_GET_VER){
+            Log.d("sss", ">>>>> 版本串口的 》》》 " + deviceVer);
+            if (currMsg == ACTION_GET_VER) {
                 pollFirstAndNext();
                 currMsg = -1;
-                Log.i("zy reboot","ACTION_GET_VER 4");
+                Log.i("zy reboot", "ACTION_GET_VER 4");
             }
             return;
         }
 
         //mac
-        if(data[3] == (byte)0x80 && data[4] == 0x01 && data[5] == 0x00){
+        if (data[3] == (byte) 0x80 && data[4] == 0x01 && data[5] == 0x00) {
             isGetMac = false;
 
             StringBuilder mac = new StringBuilder();
-            for(int i = len - 2;i>len-8;i--){
+            for (int i = len - 2; i > len - 8; i--) {
                 mac.append(ConvertData.toHexString(data[i]));
             }
             deviceMac = mac.toString().toUpperCase();
-            Log.d("sss",">>>>> MAC 地址 串口的 》》》 " + deviceMac);
-            if(currMsg == ACTION_GET_MAC){
+            Log.d("sss", ">>>>> MAC 地址 串口的 》》》 " + deviceMac);
+            if (currMsg == ACTION_GET_MAC) {
                 pollFirstAndNext();
                 currMsg = -1;
-                Log.i("zy reboot","ACTION_GET_MAC 5");
+                Log.i("zy reboot", "ACTION_GET_MAC 5");
             }
             // 获取到mac 为初始化成功
             onInitFinish();
@@ -687,8 +684,8 @@ public class ZyBt extends BaseBtControl {
         }
 
         //电子表问 是否支持 Fitness Machine Control Point
-        if(data[3] == (byte)0x98 && data[4] == (byte)0x81 && data[6] == (byte)0x23){
-            switch (data[7]){
+        if (data[3] == (byte) 0x98 && data[4] == (byte) 0x81 && data[6] == (byte) 0x23) {
+            switch (data[7]) {
                 case ZyCommand.REQUEST_CONTROL:
                     //aa 00 07 38 81 80 23 80 00 01 1C
                     replySupportFMachineContrilPoint();
@@ -698,10 +695,10 @@ public class ZyBt extends BaseBtControl {
                     dataCallBack(mCbData);
                     break;
                 case ZyCommand.STOP_OR_PAUSE:
-                    if(data[8] == 0x01){//完成
+                    if (data[8] == 0x01) {//完成
                         mCbData.dataType = CbData.TYPE_FINISH_RUN;
                         dataCallBack(mCbData);
-                    }else if(data[8] == 0x02){//暂停
+                    } else if (data[8] == 0x02) {//暂停
                         mCbData.dataType = CbData.TYPE_STOP_RUN;
                         dataCallBack(mCbData);
                     }
@@ -711,17 +708,17 @@ public class ZyBt extends BaseBtControl {
             }
         }
 
-        if(data[2] == 0x06 && data[3] == (byte) 0x98){
+        if (data[2] == 0x06 && data[3] == (byte) 0x98) {
             //模块问电子表training status 状态
-            if(data[4] == (byte)0x81 && data[6] == 0x17 && data[7] == 0x01){
+            if (data[4] == (byte) 0x81 && data[6] == 0x17 && data[7] == 0x01) {
                 // aa 00 06 38 81 80 16 00 01
                 upLoadTrainingStatus(currTrainingStatus);
             }
 
             //模块问 电子表 Fitness Machine Status
-            if(data[4] == (byte)0x81 && data[6] == 0x27 && data[7] == 0x01){
+            if (data[4] == (byte) 0x81 && data[6] == 0x27 && data[7] == 0x01) {
                 // aa 00 05 38 81 80 26 01 9B
-               // upLoadMachineStatus(currMachineStatus);
+                // upLoadMachineStatus(currMachineStatus);
             }
         }
         // AA 00 07 98 80 80 23 03 14 00 扬升
@@ -732,92 +729,83 @@ public class ZyBt extends BaseBtControl {
             mCbData.dataType = CbData.TYPE_INCLINE;
             float incline = ConvertData.bytesToShortLiterEnd(data, 8);
 
-            if(incline < 0){
+            if (incline < 0) {
                 mCbData.inclien = 0;
-            }else if(incline % 5 == 0){
+            } else if (incline % 5 == 0) {
                 mCbData.inclien = incline / 10f;
-            }else{
-                mCbData.inclien = (incline - (incline  % 5)) / 10f;
+            } else {
+                mCbData.inclien = (incline - (incline % 5)) / 10f;
             }
 
             dataCallBack(mCbData);
         }
 
-        if(data[3] == (byte)0x98 && data[4] == (byte) 0x81 && data[5] == (byte) 0x80 && data[6] == (byte) 0x23){
+        if (data[3] == (byte) 0x98 && data[4] == (byte) 0x81 && data[5] == (byte) 0x80 && data[6] == (byte) 0x23) {
 //            replySuccess(data[7]);
-                if(data[7] == (byte) 0xF1){//設定 machine nick name 的 control point 命令
-                    replySuccess(data[7]);
-                    Log.i("zy", "回复蓝牙名称修改");
+            if (data[7] == (byte) 0xF1) {//設定 machine nick name 的 control point 命令
+                replySuccess(data[7]);
+                Log.i("zy", "回复蓝牙名称修改");
 
-                    int nameLen = data[2] & 0xFF;
-                    Arrays.fill(nickName, (byte) 0x00);
-                    System.arraycopy(data, 8, nickName, 0, nameLen - 5);
-                    isBtResetName = true;
+                int nameLen = data[2] & 0xFF;
+                Arrays.fill(nickName, (byte) 0x00);
+                System.arraycopy(data, 8, nickName, 0, nameLen - 5);
+                isBtResetName = true;
 
-                    new Thread(() -> {
-                        SystemClock.sleep(100);
-                        resetName(nickName);
-                    }).start();
+                new Thread(() -> {
+                    SystemClock.sleep(100);
+                    resetName(nickName);
+                }).start();
 
-                    new Thread(() -> {
-                        SystemClock.sleep(400);
+                new Thread(() -> {
+                    SystemClock.sleep(400);
 
-                        {
-                            // 如果串口先收到数据，这个就不执行
-                            if (isBtResetName) {
-                                isBtResetName = false;
-                                replyNickName(nickName);
+                    {
+                        // 如果串口先收到数据，这个就不执行
+                        if (isBtResetName) {
+                            isBtResetName = false;
+                            replyNickName(nickName);
 
-                                new Thread(() -> {
-                                    SystemClock.sleep(500);
-                                    sendReboot();
-                                }).start();
+                            new Thread(() -> {
+                                SystemClock.sleep(500);
+                                sendReboot();
+                            }).start();
 
-                                // 存储状态，手机app改的蓝牙名称
-                                BtHelper.getInstance().setBleNameByApp();
-                            }
-                            return;
+                            // 存储状态，手机app改的蓝牙名称
+                            BtHelper.getInstance().setBleNameWhenRead();
                         }
-                    }).start();
+                        return;
+                    }
+                }).start();
 
-                } else if (data[7] == (byte) 0xF2) {//Return ODO Info.
-                    replySuccess(data[7]);
-                    Log.i("zy", "回复SportNews");
+            } else if (data[7] == (byte) 0xF2) {//Return ODO Info.
+                replySuccess(data[7]);
+                Log.i("zy", "回复SportNews");
 
-                    new Thread(() -> {
-                        SystemClock.sleep(100);
-                        replySportNews();
-                    }).start();
-                } else if (data[7] == (byte) 0xF3) {//回复 错误码 记录
-                    replySuccess(data[7]);
-                    Log.i("zy", "回复错误码记录");
+                new Thread(() -> {
+                    SystemClock.sleep(100);
+                    replySportNews();
+                }).start();
+            } else if (data[7] == (byte) 0xF3) {//回复 错误码 记录
+                replySuccess(data[7]);
+                Log.i("zy", "回复错误码记录");
 
-                    new Thread(() -> {
-                        SystemClock.sleep(100);
-                        replyErrLog();
-                    }).start();
-                }
+                new Thread(() -> {
+                    SystemClock.sleep(100);
+                    // replyErrLog();
+                }).start();
+            }
         }
     }
 
-    private synchronized void sendData(byte[] setData, int len){
+    private synchronized void sendData(byte[] setData, int len) {
         sendData = getBuildUpData(setData, len);
-        sendDataToTx(sendData,sendData.length);
+        sendDataToTx(sendData, sendData.length);
     }
 
-    private synchronized void sendDataToTx(byte[] data, int len)  {
-/*        try {
-            outPutBuffer.clear();
-            outPutBuffer.put(data);
-            serialPort.write(outPutBuffer, len);
-            Log.d("zy send >>> ",ConvertData.byteArrayToHexString(data, len));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
+    private synchronized void sendDataToTx(byte[] data, int len) {
         try {
             mOutputStream.write(data);
-            Log.d("zy send >>> ",ConvertData.byteArrayToHexString(data, len));
+            Log.d("zy send >>> ", ConvertData.byteArrayToHexString(data, len));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -826,6 +814,7 @@ public class ZyBt extends BaseBtControl {
 
     /**
      * 获取组装后的数据
+     *
      * @param pSrc 源数据
      * @param len  源数据长度
      * @return 组装好的数据
@@ -842,6 +831,7 @@ public class ZyBt extends BaseBtControl {
 
     /**
      * 计算校验和
+     *
      * @param pSrc
      * @param len
      * @return
@@ -854,23 +844,5 @@ public class ZyBt extends BaseBtControl {
         checkSum = (byte) ~checkSum;
         checkSum += 1;
         return checkSum;
-    }
-
-    /**
-     * 0.24舍0.25入
-     * @param value
-     * @return
-     */
-    private float fiveRound(float value){
-        int newValue = (int) (value * 100 % 100);
-        if(newValue < 25){
-            newValue = 0;
-        }else if(newValue < 75){
-            newValue = 50;
-        }else{
-            value += 1;
-            newValue = 0;
-        }
-        return (int)value + (newValue / 100f);
     }
 }

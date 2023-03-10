@@ -3,9 +3,10 @@ package com.chuhui.btcontrol;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import androidx.annotation.IntDef;
 import android.util.ArrayMap;
 import android.util.Log;
+
+import androidx.annotation.IntDef;
 
 import com.chuhui.btcontrol.bean.InitialBean;
 import com.chuhui.btcontrol.bean.RunParam;
@@ -30,27 +31,16 @@ public class BtHelper {
      * 没有连上任何蓝牙
      */
     public static final int BT_NON = 0;
-    public static final int BT_ZY = 10;
-
-    @IntDef({BT_ZY})
-    @Retention(RetentionPolicy.SOURCE)
-    @interface BTType {
-    }
-
     /**
      * 跑步机
      */
     public static final int MACHINE_TYPE_TREADMILL = 1;
-    /**
-     * 椭圆机
-     */
-    public static final int MACHINE_TYPE_ELLIP = 2;
-    /**
-     * 车类
-     */
-    public static final int MACHINE_TYPE_BIKE = 3;
 
-    @IntDef({MACHINE_TYPE_TREADMILL, MACHINE_TYPE_ELLIP, MACHINE_TYPE_BIKE})
+    public boolean connected() {
+        return connected;
+    }
+
+    @IntDef({MACHINE_TYPE_TREADMILL})
     @Retention(RetentionPolicy.SOURCE)
     @interface MachineType {
     }
@@ -70,16 +60,9 @@ public class BtHelper {
     private static final int MSG_WHAT_SET_ERROR_LOG = 1007;
 
     /**
-     * 当前连上的蓝牙类型
-     */
-    public static int currBtConnected;
-    /**
      * 是否在运动阶段
      */
     public static boolean isOnRunning;
-
-    private Map<Integer, BaseBtControl> map;
-
     private RunParam.Builder mRunParamBuilder;
 
     private BtCallBack mBtCallBack;
@@ -89,12 +72,13 @@ public class BtHelper {
     private Message msg;
     public int bleHr;
 
-    /** 这两个参数为运动中途连上ftms 下发最后的状态*/
+    /**
+     * 这两个参数为运动中途连上ftms 下发最后的状态
+     */
     private byte lastModel = 0;
     private int lastStatus = -1;
 
     private BtHelper() {
-        map = new ArrayMap<>();
         ThreadPoolManager.getInstance().createThreadPool();
         mRunParamBuilder = new RunParam.Builder();
         mBtHandler = new BtHandler(this);
@@ -118,55 +102,35 @@ public class BtHelper {
      */
     public void setMachineType(@MachineType int machineType) {
         this.mMachineType = machineType;
-        if(map.get(BT_ZY) != null){
-            if(machineType == MACHINE_TYPE_TREADMILL){
-                map.get(BT_ZY).setMachineType(0x0001);
+        if (openPortSuccess) {
+            if (machineType == MACHINE_TYPE_TREADMILL) {
+                zyBt.setMachineType(0x0001);
             }
         }
     }
 
-    public int getmMachineType() {
-        return mMachineType;
-    }
+    private boolean openPortSuccess = false;
+    private ZyBt zyBt;
 
-    /**
-     * 打开串口，如需打开多个，则执行多次此方法
-     *
-     * @param context
-     * @param type
-     * @param port
-     * @return
-     */
-    public synchronized void openPort(Context context, @BTType int type, String port) {
-        switch (type) {
-            case BT_ZY:
-                ZyBt zyBt = new ZyBt(port);
-                if (zyBt.openPort(context)) {
-                    map.put(type, zyBt);
-                }
-                break;
-            default:
-                break;
-        }
+    public synchronized void openPort(Context context, String port) {
+        this.zyBt = new ZyBt(port);
+        this.openPortSuccess = zyBt.openPort(context);
+        Log.i("zybt", "串口" + port + "打开状态: " + openPortSuccess);
     }
 
     /**
      * 暂停广播
      */
     public void pauseBroadcast() {
-        for (Integer i : map.keySet()) {
-            map.get(i / 10 * 10).btSleep();
-        }
+        zyBt.btSleep();
     }
 
     /**
      * 重新广播
      */
     public void reBroadcast() {
-        if (currBtConnected == 0) {
-            for (Integer i : map.keySet()) {
-                map.get(i / 10 * 10).btWake();
-            }
+        if (!connected) {
+            zyBt.btWake();
         }
     }
 
@@ -181,13 +145,14 @@ public class BtHelper {
 
     /**
      * 设置初始化回调
+     *
      * @param callBack
      */
-    public void btInitFinishCallback(BtInitCallBack callBack){
+    public void btInitFinishCallback(BtInitCallBack callBack) {
         mInitCallback = callBack;
     }
 
-    public interface BtInitCallBack{
+    public interface BtInitCallBack {
         /**
          * 初始化完成
          */
@@ -197,12 +162,6 @@ public class BtHelper {
 
         void resetErrorIndex();
 
-        void setErrorLog(ErrorLogCallBack callBack);
-
-    }
-
-    public interface ErrorLogCallBack {
-        void perform();
     }
 
     /**
@@ -214,137 +173,117 @@ public class BtHelper {
         return mRunParamBuilder;
     }
 
-    /**
-     * 回复连接
-     *
-     * @param btType
-     */
-    public void replyConnect(@BTType int btType) {
-        currBtConnected = btType;
-        //关闭其他蓝牙
-        for (Integer i : map.keySet()) {
-            if ((i / 10) != (btType / 10)) {//兼容同一个模块不同协议
-                map.get(i / 10 * 10).btSleep();
-            }
-        }
-        map.get(btType / 10 * 10).sendConnect();
-    }
+    private boolean connected = false;
 
     /**
      * 预设初始化数据，reboot之后自动下发初始化的数据
+     *
      * @param bean
      */
-    public void setInitData(InitialBean bean){
-        if(map.get(BT_ZY) == null){
+    public void setInitData(InitialBean bean) {
+        if (!openPortSuccess) {
             return;
         }
-        map.get(BT_ZY).initDate(bean);
+        zyBt.initDate(bean);
     }
 
-    public InitialBean getInitBean(){
-        if(map.get(BT_ZY) == null){
+    public InitialBean getInitBean() {
+        if (!openPortSuccess) {
             return null;
         }
-        return map.get(BT_ZY).getInitDate();
+        return zyBt.getInitDate();
     }
 
     /**
      * 获取设备名称
+     *
      * @return
      */
-    public String getDeviceName(){
-        if(map.get(BT_ZY) == null){
+    public String getDeviceName() {
+        if (!openPortSuccess) {
             return null;
         }
-        return map.get(BT_ZY).getDeviceName();
+        return zyBt.getDeviceName();
     }
 
     /**
      * 获取设备版本
+     *
      * @return
      */
-    public String getDeviceVer(){
-        if(map.get(BT_ZY) == null){
+    public String getDeviceVer() {
+        if (!openPortSuccess) {
             return null;
         }
-        return map.get(BT_ZY).getDeviceVer();
+        return zyBt.getDeviceVer();
     }
 
-    /**
-     * 获取设备mac
-     * @return
-     */
-    public String getDeviceMac(){
-        if(map.get(BT_ZY) == null){
+    public String getDeviceMac() {
+        if (!openPortSuccess) {
             return null;
         }
-        return map.get(BT_ZY).getDeviceMac();
+        return zyBt.getDeviceMac();
     }
 
-    public void preSport(){
+    public void preSport() {
         lastStatus = 0;
-        if(currBtConnected == BT_ZY){
-            map.get(currBtConnected / 10 * 10).preSport();
+        if (connected) {
+            zyBt.preSport();
         }
     }
 
-    /**
-     * 设置运动模式
-     * @see com.chuhui.btcontrol.zybt.ZyCommand
-     * @param sportMode
-     */
-    public void startSport(byte sportMode){
+    public void startSport(byte sportMode) {
         lastModel = sportMode;
-        if(currBtConnected == BT_ZY){
-            map.get(currBtConnected / 10 * 10).startSport(sportMode);
+        if (connected) {
+            zyBt.startSport(sportMode);
         }
     }
 
-    public void pauseSport(){
+    public void pauseSport() {
         lastStatus = 1;
-        if(currBtConnected == BT_ZY){
-            map.get(currBtConnected / 10 * 10).pauseSport();
+        if (connected) {
+            zyBt.pauseSport();
         }
     }
 
-    public void stopSport(){
+    public void stopSport() {
         lastStatus = 2;
-        if(currBtConnected == BT_ZY){
-            map.get(currBtConnected / 10 * 10).stopSport();
+        if (connected) {
+            zyBt.stopSport();
         }
     }
 
-    public void goIdle(){
+    public void goIdle() {
         lastModel = 0;
         lastStatus = -1;
-        if(currBtConnected == BT_ZY){
-            map.get(currBtConnected / 10 * 10).goIdle();
+        if (connected) {
+            zyBt.goIdle();
         }
     }
 
-    public void safeErr(){
-        if(currBtConnected == BT_ZY){
-            map.get(currBtConnected / 10 * 10).safeErr();
+    public void safeErr() {
+        if (connected) {
+            zyBt.safeErr();
         }
     }
 
-    public void hideErr(){
-        if(currBtConnected == BT_ZY){
-            map.get(currBtConnected / 10 * 10).hideErr();
+    public void hideErr() {
+        if (connected) {
+            zyBt.hideErr();
         }
     }
 
     /**
      * 运动中连接，发送最后的状态
      */
-    public void setCurrRunStatus(){
-        if(lastStatus == -1){
+    public void setCurrRunStatus() {
+        if (lastStatus == -1) {
             return;
         }
-        if(lastModel != 0){
+        if (lastModel != 0) {
             startSport(lastModel);
         }
-        switch (lastStatus){
+        switch (lastStatus) {
             case 0:
                 preSport();
                 break;
@@ -361,94 +300,40 @@ public class BtHelper {
 
     /**
      * 公制速度
+     *
      * @param speed
      */
-    public void setSpeed(float speed){
-        if(currBtConnected == BT_ZY){
-            map.get(currBtConnected / 10 * 10).setSpeed(Math.round (speed * 100));
+    public void setSpeed(float speed) {
+        if (connected) {
+            zyBt.setSpeed(Math.round(speed * 100));
         }
     }
 
-    public void setIncline(float incline){
-        if(currBtConnected == BT_ZY){
-            map.get(currBtConnected / 10 * 10).setIncline((int) (incline * 10));
+    public void setIncline(float incline) {
+        if (connected) {
+            zyBt.setIncline((int) (incline * 10));
         }
-    }
-
-    /**
-     * 回复速度扬升范围
-     *
-     * @param minSpeed     最小速度
-     * @param maxSpeed     最大速度
-     * @param isHasIncline 是否有扬升
-     * @param minInclien   最小扬升
-     * @param maxIncline   最大扬升
-     */
-    public void replySpeedInclineRange(float minSpeed, float maxSpeed, boolean isHasIncline, int minInclien, int maxIncline) {
-        map.get(currBtConnected / 10 * 10).replySpeedInclineRange(minSpeed, maxSpeed, isHasIncline, minInclien, maxIncline);
-    }
-
-    /**
-     * 回复FTMS的范围
-     *
-     * @param minSpeed
-     * @param maxSpeed
-     * @param minIncline
-     * @param maxIncline
-     * @param minLevel
-     * @param maxLevel
-     */
-    public void replayFTMSRageInfo(float minSpeed, float maxSpeed, int minIncline, int maxIncline, int minLevel, int maxLevel) {
-        //这里还未连接就会询问范围
-        // map.get(BT_CY).replayFTMSRageInfo(minSpeed, maxSpeed, minIncline, maxIncline, minLevel, maxLevel);
     }
 
     /**
      * 设置蓝牙名字
+     *
      * @param name
      */
-    public void setName(String name){
+    public void setName(String name) {
         Log.i(BtHelper.class.getSimpleName(), "setName == " + name);
 
-        if(map.get(BT_ZY) != null){
-            map.get(BT_ZY).resetName(name);
+        if (openPortSuccess) {
+            zyBt.resetName(name);
         }
     }
 
-    /**
-     * 设置speed 范围 （放大100倍）
-     * @param minSpeed
-     * @param maxSpeed
-     * @param schg       每次加的值
-     */
-    public void setSpeedRange(float minSpeed, float maxSpeed, float schg){
-        if(map.get(BT_ZY) != null){
-            map.get(BT_ZY).setSpeedRange((int)(minSpeed * 100), (int)(maxSpeed * 100), (int)(schg * 100));
-        }
-    }
+    public void btConnect() {
+        connected = true;
 
-    /**
-     * 设置incline 范围 （放大10倍）
-     * @param minIncline
-     * @param maxIncline
-     * @param schg       每次加的值
-     */
-    public void setInclineRange(float minIncline, float maxIncline, float schg){
-        if(map.get(BT_ZY) != null){
-            map.get(BT_ZY).setInclineRange((int)(minIncline * 10), (int)(maxIncline * 10), (int)(schg * 10));
-        }
-    }
-
-    /**
-     * 请求连接
-     *
-     * @param btType
-     */
-    void btConnect(@BTType int btType) {
         if (mBtCallBack != null && mBtHandler != null) {
             Message msg2 = Message.obtain();
             msg2.what = MSG_WHAT_REQUEST_CONNECT;
-            msg2.arg1 = btType;
             mBtHandler.sendMessage(msg2);
         }
     }
@@ -456,21 +341,15 @@ public class BtHelper {
     /**
      * 断开连接
      */
-    void btLostConnect() {
+    public void btLostConnect() {
         getRunParam().reset();
-        //启动其他蓝牙
-        for (Integer i : map.keySet()) {
-            if (i != (currBtConnected / 10 * 10)) {
-                map.get(i / 10 * 10).btWake();
-            }
-        }
+
         if (mBtCallBack != null && mBtHandler != null) {
             Message msg1 = Message.obtain();
             msg1.what = MSG_WHAT_LOST_CONNECT;
-            msg1.arg1 = currBtConnected;
             mBtHandler.sendMessage(msg1);
         }
-        currBtConnected = 0;
+        connected = false;
     }
 
     /**
@@ -490,29 +369,15 @@ public class BtHelper {
     /**
      * 初始化完成回调
      */
-    void btInitFinishCallback(){
-        if(mInitCallback != null && mBtHandler != null){
+    void btInitFinishCallback() {
+        if (mInitCallback != null && mBtHandler != null) {
             mBtHandler.sendEmptyMessage(MSG_WHAT_INIT_FINISH_CALLBACK);
         }
     }
 
-    public void setBleNameByApp() {
-        if(mInitCallback != null && mBtHandler != null){
+    public void setBleNameWhenRead() {
+        if (mInitCallback != null && mBtHandler != null) {
             mBtHandler.sendEmptyMessage(MSG_WHAT_APP_SET_BLE_NAME);
-        }
-    }
-
-    public void resetErrorIndex() {
-        if(mInitCallback != null && mBtHandler != null){
-            mBtHandler.sendEmptyMessage(MSG_WHAT_SET_ERROR_INDEX);
-        }
-    }
-    public void setErrorLog(ErrorLogCallBack callBack) {
-        if(mInitCallback != null && mBtHandler != null){
-            Message msg1 = Message.obtain();
-            msg1.what = MSG_WHAT_SET_ERROR_LOG;
-            msg1.obj = callBack;
-            mBtHandler.sendMessage(msg1);
         }
     }
 
@@ -535,10 +400,10 @@ public class BtHelper {
             }
             switch (msg.what) {
                 case MSG_WHAT_REQUEST_CONNECT:
-                    btHelper.mBtCallBack.onRequestConnect(msg.arg1);
+                    btHelper.mBtCallBack.onRequestConnect();
                     break;
                 case MSG_WHAT_LOST_CONNECT:
-                    btHelper.mBtCallBack.onLastConnect(msg.arg1);
+                    btHelper.mBtCallBack.onLastConnect();
                     break;
                 case MSG_WHAT_DATA_CALLBACK:
                     if (((CbData) msg.obj).dataType == CbData.BLE_HR) {
@@ -547,7 +412,7 @@ public class BtHelper {
                     btHelper.mBtCallBack.onDataCallback((CbData) msg.obj);
                     break;
                 case MSG_WHAT_INIT_FINISH_CALLBACK:
-                     btHelper.mInitCallback.onInitFinish();
+                    btHelper.mInitCallback.onInitFinish();
                     break;
                 case MSG_WHAT_APP_SET_BLE_NAME:
                     btHelper.mInitCallback.setBleNameByApp();
@@ -556,7 +421,7 @@ public class BtHelper {
                     btHelper.mInitCallback.resetErrorIndex();
                     break;
                 case MSG_WHAT_SET_ERROR_LOG:
-                    btHelper.mInitCallback.setErrorLog((ErrorLogCallBack) msg.obj);
+                    // btHelper.mInitCallback.setErrorLog((ErrorLogCallBack) msg.obj);
                     break;
                 default:
                     break;

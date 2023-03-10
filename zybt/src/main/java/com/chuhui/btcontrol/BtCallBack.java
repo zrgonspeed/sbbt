@@ -7,9 +7,9 @@ package com.chuhui.btcontrol;
  */
 public interface BtCallBack {
 
-    void onRequestConnect(@BtHelper.BTType int btType);
+    void onRequestConnect();
 
-    void onLastConnect(@BtHelper.BTType int btType);
+    void onLastConnect();
 
     void onDataCallback(CbData data);
 }

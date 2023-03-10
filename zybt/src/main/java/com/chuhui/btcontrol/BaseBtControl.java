@@ -249,12 +249,10 @@ public abstract class BaseBtControl {
 
     protected abstract void setSpeedRange(int minSpeed, int maxSpeed, int schg);
 
-    protected void btConnect(@BtHelper.BTType int btType) {
-        BtHelper.getInstance().btConnect(btType);
+    protected void btConnect() {
     }
 
     protected void btLostConnect() {
-        BtHelper.getInstance().btLostConnect();
     }
 
     protected void dataCallBack(CbData cbData) {

@@ -33,12 +33,12 @@ public class ZyTxDataTask implements Runnable {
                     mZyBt.currMsg = mZyBt.msgWhats.getFirst();
                     switch (mZyBt.currMsg){
                         case BaseBtControl.ACTION_REBOOT:
-                            if(BtHelper.currBtConnected == BtHelper.BT_NON){
+                            if(!BtHelper.getInstance().connected()){
                                 mZyBt.sendReboot();
                             }
                             break;
                         case BaseBtControl.ACTION_WAKE:
-                            if(BtHelper.currBtConnected == BtHelper.BT_NON){
+                            if(!BtHelper.getInstance().connected()){
                                 mZyBt.sendModeSetting();
                             }
                             break;
@@ -75,7 +75,7 @@ public class ZyTxDataTask implements Runnable {
                     Thread.sleep(400);
                 }
 
-                while (BtHelper.currBtConnected == BtHelper.BT_ZY) {
+                while (BtHelper.getInstance().connected()) {
                     mZyBt.sendRunParamToBT();
                     Thread.sleep(500);
                 }

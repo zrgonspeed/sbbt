@@ -1029,7 +1029,7 @@ public class RunningParam {
     }
 
     private void setZyBtAndCsafeData() {
-        if (BtHelper.currBtConnected != 0) {
+        if (BtHelper.getInstance().connected()) {
             if (runStatus == CTConstant.RUN_STATUS_WARM_UP) {
                 BtHelper.getInstance().getRunParamBuilder().remainingTime(warmUpTime);
             } else if (runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
