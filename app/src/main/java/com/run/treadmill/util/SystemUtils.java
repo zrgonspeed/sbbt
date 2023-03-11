@@ -73,7 +73,7 @@ public class SystemUtils {
                     SystemSoundManager.maxVolume = 13;
                     // 插入耳机
                 } else {
-                    SystemSoundManager.maxVolume = 10;
+                    SystemSoundManager.maxVolume = 12;
                 }
                 int maxVolume = SystemSoundManager.maxVolume;
                 if (volume > maxVolume) {
