@@ -11,6 +11,7 @@ import com.run.treadmill.common.InitParam;
 import com.run.treadmill.http.OkHttpCallBack;
 import com.run.treadmill.http.OkHttpHelper;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.ThreadUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,7 +65,10 @@ public class AppStorePresenter extends BasePresenter<AppStoreView> implements Ok
         reqUrl.deleteCharAt(reqUrl.length() - 1);
 
         Logger.d("请求的url：" + reqUrl.toString());
-        OkHttpHelper.get(reqUrl.toString(), "AppStoreActivity", this);
+
+        ThreadUtils.runInThread(() -> {
+            OkHttpHelper.get(reqUrl.toString(), "AppStoreActivity", AppStorePresenter.this);
+        });
         getView().showLoading();
     }
 

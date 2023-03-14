@@ -135,18 +135,22 @@ public class OkHttpHelper {
                         if (call.isCanceled()) {
                             return;
                         }
-                        mHandler.post(() -> {
-                            try {
-                                if (response.code() != 200) {
+                        try {
+                            int code = response.code();
+                            if (code != 200) {
+                                mHandler.post(() -> {
                                     callBack.onFailure(call, new IOException());
-                                } else {
-                                    callBack.onSuccess(call, response.body().string());
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                callBack.onFailure(call, new IOException());
+                                });
+                            } else {
+                                String body = response.body().string();
+                                mHandler.post(() -> {
+                                    callBack.onSuccess(call, body);
+                                });
                             }
-                        });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            callBack.onFailure(call, new IOException());
+                        }
                     }
                 });
     }
