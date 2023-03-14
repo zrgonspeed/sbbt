@@ -48,6 +48,7 @@ public class SystemUtils {
      * 2.关闭通知渠道显示
      * 3.关闭触摸十字线
      * 4.关闭触摸点
+     * 5.关闭救援模式：系统进程或者长存程序，在5分钟出错重启5次。则会进入android救援模式
      */
     public static void closeSomeSystemSetting() {
         new Thread() {
@@ -57,6 +58,7 @@ public class SystemUtils {
                 ShellCmdUtils.getInstance().execCommand("settings put global show_notification_channel_warnings " + 0);
                 ShellCmdUtils.getInstance().execCommand("settings put system pointer_location " + 0);
                 ShellCmdUtils.getInstance().execCommand("settings put system show_touches " + 0);
+                ShellCmdUtils.getInstance().execCommand("setprop persist.sys.disable_rescue true");
             }
         }.start();
     }
