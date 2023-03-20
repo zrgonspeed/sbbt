@@ -101,6 +101,8 @@ public class HrcSelectActivity extends BaseSelectActivity<HrcSelectView, HrcSele
         rg_gender_info.setOnCheckedChangeListener(this);
         rg_gender_info.check(rg_gender_info.getChildAt(userInfo.getGender()).getId());
         rg_hrc.setOnCheckedChangeListener(this);
+
+        tv_next.setText(getString(R.string.string_select_next_hrc_hint));
     }
 
     @Override
@@ -243,5 +245,16 @@ public class HrcSelectActivity extends BaseSelectActivity<HrcSelectView, HrcSele
     @Override
     public void onCalculatorDismiss() {
         rg_info.clearCheck();
+    }
+
+    protected void clickBack() {
+        if (rl_two.getVisibility() == View.VISIBLE) {
+            rl_one.setVisibility(View.VISIBLE);
+            rl_two.setVisibility(View.GONE);
+            btn_next_or_back.setImageResource(R.drawable.btn_next);
+            tv_next.setText(getString(R.string.string_select_next_hrc_hint));
+        } else {
+            goHome(null);
+        }
     }
 }

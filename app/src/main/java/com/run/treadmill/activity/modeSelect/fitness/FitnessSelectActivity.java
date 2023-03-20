@@ -162,4 +162,8 @@ public class FitnessSelectActivity extends BaseSelectActivity<FitnessSelectView,
     public void onCalculatorDismiss() {
         rg_info.clearCheck();
     }
+
+    protected void clickBack() {
+        goHome(null);
+    }
 }

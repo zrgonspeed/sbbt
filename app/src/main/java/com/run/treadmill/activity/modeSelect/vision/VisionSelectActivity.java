@@ -256,4 +256,19 @@ public class VisionSelectActivity extends BaseSelectActivity<VisionSelectView, V
         rl_vision_p2_path2.setVisibility(View.VISIBLE);
 
     }
+
+    @Override
+    protected void clickBack() {
+        if (rl_vision_p2.getVisibility() == View.VISIBLE) {
+            // 处于详情页时
+            if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
+                mCalcBuilder.stopPopWin();
+            }
+            vp_movie.setVisibility(View.VISIBLE);
+            rl_vision_p2.setVisibility(View.GONE);
+            rl_vision_p2_path2.setVisibility(View.VISIBLE);
+        } else {
+            goHome(null);
+        }
+    }
 }

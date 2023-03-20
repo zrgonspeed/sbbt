@@ -165,4 +165,13 @@ public class GoalSelectActivity extends BaseSelectActivity<GoalSelectView, GoalS
                 break;
         }
     }
+
+    @Override
+    protected void clickBack() {
+        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
+            mCalcBuilder.stopPopWin();
+        } else {
+            goHome(null);
+        }
+    }
 }

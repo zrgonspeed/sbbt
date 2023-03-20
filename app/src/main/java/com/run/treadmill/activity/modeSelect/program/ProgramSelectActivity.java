@@ -318,4 +318,16 @@ public class ProgramSelectActivity extends BaseSelectActivity<ProgramSelectView,
                 break;
         }
     }
+
+    protected void clickBack() {
+        if (rl_two.getVisibility() == View.VISIBLE) {
+            rl_one.setVisibility(View.VISIBLE);
+            rl_two.setVisibility(View.GONE);
+            gridView.setVisibility(View.GONE);
+            btn_next_or_back.setImageResource(R.drawable.btn_next);
+            tv_next.setText(getString(R.string.string_select_next_hint));
+        } else {
+            goHome(null);
+        }
+    }
 }

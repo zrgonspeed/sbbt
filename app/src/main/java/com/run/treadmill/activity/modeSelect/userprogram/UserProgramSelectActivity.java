@@ -399,4 +399,15 @@ public class UserProgramSelectActivity extends BaseSelectActivity<UserProgramSel
         lineChartView.setMaxDrawValue(isLineChartIncline ? SpManager.getMaxIncline() : SpManager.getMaxSpeed(isMetric));
         lineChartView.setMinDrawValue(isLineChartIncline ? InitParam.DEFAULT_INCLINE : SpManager.getMinSpeed(isMetric));
     }
+
+    protected void clickBack() {
+        if (rl_two.getVisibility() == View.VISIBLE) {
+            rl_one.setVisibility(View.VISIBLE);
+            rl_two.setVisibility(View.GONE);
+            btn_next_or_back.setImageResource(R.drawable.btn_next);
+            tv_next.setText(getString(R.string.string_select_next_chart_hint));
+        } else {
+            goHome(null);
+        }
+    }
 }
