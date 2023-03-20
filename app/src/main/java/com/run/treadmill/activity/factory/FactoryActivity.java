@@ -31,7 +31,6 @@ import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.base.BaseActivity;
-import com.run.treadmill.base.MyApplication;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
@@ -679,12 +678,31 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         }
         switch (keyValue) {
             case SerialKeyValue.BACK_KEY_CLICK:
+                BuzzerManager.getInstance().buzzerRingOnce();
+                if (rl_main_two != null || rl_main_one != null) {
+                    // 返回到选择工厂模式1、2界面
+                    // 报错不给返回
+                    if (isNoShowErr) {
+                        return;
+                    }
+                    reStartActivity();
+                } else {
+                    // 处于选择界面
+                    btn_home.performClick();
+                }
+                break;
             case SerialKeyValue.HOME_KEY_CLICK:
                 BuzzerManager.getInstance().buzzerRingOnce();
                 btn_home.performClick();
                 break;
         }
 
+    }
+
+    private void reStartActivity() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
     @Override
