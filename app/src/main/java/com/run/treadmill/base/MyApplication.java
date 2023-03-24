@@ -131,7 +131,7 @@ public class MyApplication extends LitePalApplication {
 
             new Thread(() -> {
                 ShellCmdUtils.getInstance().execCommand("sync");
-            });
+            }).start();
 
             SystemUtils.setAppWhiteList();
         }
