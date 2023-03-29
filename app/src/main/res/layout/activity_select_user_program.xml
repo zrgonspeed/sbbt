@@ -260,7 +260,7 @@
             android:id="@+id/img_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_343_x"
+            android:layout_marginStart="@dimen/dp_px_300_x"
             android:layout_marginTop="@dimen/dp_px_238_y"
             android:src="@drawable/img_sportmode_profile_incline_calibration_1" />
 

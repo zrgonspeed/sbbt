@@ -115,6 +115,7 @@ public class UserProgramSelectActivity extends BaseSelectActivity<UserProgramSel
         firstBuzzer = true;
         // rg_user.check(R.id.rb_user_1);
         ((RadioButton) (findViewById(R.id.rb_user_1))).setChecked(true);
+        settingLineChart();
     }
 
     private void init() {

@@ -315,6 +315,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
             }
 
+            settingLineChart();
         }
         long end = System.currentTimeMillis();
         Logger.i("BaseRunActivity onResume() time == " + (end - start));
