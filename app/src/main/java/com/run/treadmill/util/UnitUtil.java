@@ -14,7 +14,7 @@ public class UnitUtil {
     /**
      * 速度,距离的单位转换倍率1mil=1.609km
      */
-    private static final float k1 = 1.6093f;
+    public static final float k1 = 1.6093f;
 
     /**
      * 重量单位转换: 1Kg=2.2046lb

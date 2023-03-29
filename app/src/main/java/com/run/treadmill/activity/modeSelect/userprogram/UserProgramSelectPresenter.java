@@ -8,6 +8,8 @@ import com.run.treadmill.common.InitParam;
 import com.run.treadmill.db.UserCustomDataDB;
 import com.run.treadmill.db.UserDB;
 import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.UnitUtil;
 
 import org.litepal.LitePal;
 
@@ -61,8 +63,8 @@ public class UserProgramSelectPresenter extends BaseSelectPresenter<UserProgramS
             List<UserCustomDataDB> userCustomDataDBS = LitePal.where("user_id = ?", String.valueOf(user.getInx())).find(UserCustomDataDB.class);
             if (userCustomDataDBS.size() > 0) {
                 for (int i = 0; i < userCustomDataDBS.size(); i++) {
-                    inclineArray[i] = (float) userCustomDataDBS.get(i).getIncline();
-                    speedArray[i] = (float) userCustomDataDBS.get(i).getSpeed();
+                    inclineArray[i] = getRealIncline(userCustomDataDBS.get(i));
+                    speedArray[i] = getRealSpeed(userCustomDataDBS.get(i));
                 }
             } else {
                 Arrays.fill(inclineArray, 0.0f);
@@ -72,6 +74,7 @@ public class UserProgramSelectPresenter extends BaseSelectPresenter<UserProgramS
             Arrays.fill(inclineArray, 0.0f);
             Arrays.fill(speedArray, SpManager.getMinSpeed(SpManager.getIsMetric()));
         }
+        // Logger.i("speedArray == " +  Arrays.toString(speedArray));
         getView().setUserCustomLineData(inclineArray, speedArray);
     }
 
@@ -93,13 +96,65 @@ public class UserProgramSelectPresenter extends BaseSelectPresenter<UserProgramS
         user.saveOrUpdate("inx = ?", String.valueOf(user.getInx()));
         List<UserCustomDataDB> runDatas = new ArrayList<>();
         UserCustomDataDB runData;
+        boolean isMetric = SpManager.getIsMetric();
         for (int i = 0; i < InitParam.TOTAL_RUN_STAGE_NUM; i++) {
             runData = new UserCustomDataDB(user.getInx());
             runData.setIncline(inclineArray[i]);
-            runData.setSpeed(speedArray[i]);
+            if (isMetric) {
+                runData.setSpeed(speedArray[i]);
+            } else {
+                runData.setSpeed(speedArray[i] * UnitUtil.k1);
+            }
             runDatas.add(runData);
         }
         LitePal.deleteAll(UserCustomDataDB.class, "user_id = ?", String.valueOf(user.getInx()));
         LitePal.saveAll(runDatas);
+    }
+
+    private float getRealIncline(UserCustomDataDB db) {
+        float incline = (float) db.getIncline();
+
+        float maxIncline = SpManager.getMaxIncline();
+        if (incline > maxIncline) {
+            incline = maxIncline;
+        }
+        return incline;
+    }
+
+    private float getRealSpeed(UserCustomDataDB db) {
+        float speed = (float) db.getSpeed();
+
+        boolean isMetric = SpManager.getIsMetric();
+        float maxSpeed = SpManager.getMaxSpeed(isMetric);
+        float minSpeed = SpManager.getMinSpeed(isMetric);
+
+        if (isMetric) {
+            speed = getOneFloatNum(speed);
+        } else {
+            speed = getKmToMileByFloat1_no(speed);
+        }
+
+        if (speed > maxSpeed){
+            speed = maxSpeed;
+        }
+        if (speed < minSpeed) {
+            speed = minSpeed;
+        }
+
+        return speed;
+    }
+
+    /**
+     * km转mile，保留一位小数
+     */
+    private static float getKmToMileByFloat1_no(float km) {
+        return (float) ((int)((km / UnitUtil.k1) * 10) / 10.0f);
+    }
+
+    /**
+     * 保留1位小数
+     */
+    private static float getOneFloatNum(float value) {
+        return (int)(value * 10) / 10.0f;
     }
 }
