@@ -23,6 +23,8 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.UserInfoManager;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.widget.HistogramListView;
+import com.run.treadmill.widget.MyYaxisViewManager;
+import com.run.treadmill.widget.YaxisView;
 import com.run.treadmill.widget.calculator.BaseCalculator;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
 import com.run.treadmill.widget.calculator.CalculatorOfSelectMode;
@@ -187,7 +189,8 @@ public class ProgramSelectActivity extends BaseSelectActivity<ProgramSelectView,
             inclineParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_400_x);
             btn_line_chart_incline.setLayoutParams(inclineParams);
         }
-        img_unit.setImageResource(isLineChartIncline ? R.drawable.img_sportmode_profile_incline_calibration_1 : (isMetric ? R.drawable.img_sportmode_profile_speed_calibration_km_1 : R.drawable.img_sportmode_profile_speed_calibration_mile_1));
+        MyYaxisViewManager.selectYaxis(isLineChartIncline, yv_unit);
+        // img_unit.setImageResource(isLineChartIncline ? R.drawable.img_sportmode_profile_incline_calibration_1 : (isMetric ? R.drawable.img_sportmode_profile_speed_calibration_km_1 : R.drawable.img_sportmode_profile_speed_calibration_mile_1));
         lineChartView.setMaxValue(isLineChartIncline ? InitParam.MAX_INCLINE_MAX : (isMetric ? InitParam.MAX_SPEED_MAX_METRIC : InitParam.MAX_SPEED_MAX_IMPERIAL));
 
         getPresenter().changeHistogramListView();
@@ -330,4 +333,7 @@ public class ProgramSelectActivity extends BaseSelectActivity<ProgramSelectView,
             goHome(null);
         }
     }
+
+    @BindView(R.id.yv_unit)
+    public YaxisView yv_unit;
 }

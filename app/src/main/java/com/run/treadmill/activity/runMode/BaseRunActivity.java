@@ -54,7 +54,9 @@ import com.run.treadmill.util.ThirdApkSupport;
 import com.run.treadmill.util.TimeStringUtil;
 import com.run.treadmill.widget.HistogramListView;
 import com.run.treadmill.widget.LongClickImage;
+import com.run.treadmill.widget.MyYaxisViewManager;
 import com.run.treadmill.widget.VideoPlayerSelf;
+import com.run.treadmill.widget.YaxisView;
 import com.run.treadmill.widget.calculator.BaseCalculator;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
 import com.run.treadmill.widget.calculator.CalculatorOfRun;
@@ -138,6 +140,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @BindView(R.id.rl_chart_view)
     public RelativeLayout rl_chart_view;
+    @BindView(R.id.yv_unit)
+    public YaxisView yv_unit;
 
     public TextView btn_media;
     public HistogramListView lineChartView;
@@ -1020,7 +1024,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             btn_line_chart_incline.setLayoutParams(inclineParams);
         }
 
-        img_unit.setImageResource(isLineChartIncline ? R.drawable.img_sportmode_profile_incline_calibration_1 : (isMetric ? R.drawable.img_sportmode_profile_speed_calibration_km_1 : R.drawable.img_sportmode_profile_speed_calibration_mile_1));
+        MyYaxisViewManager.selectYaxis(isLineChartIncline, yv_unit);
+        // img_unit.setImageResource(isLineChartIncline ? R.drawable.img_sportmode_profile_incline_calibration_1 : (isMetric ? R.drawable.img_sportmode_profile_speed_calibration_km_1 : R.drawable.img_sportmode_profile_speed_calibration_mile_1));
         lineChartView.setMaxValue(isLineChartIncline ? InitParam.MAX_INCLINE_MAX : (isMetric ? InitParam.MAX_SPEED_MAX_METRIC : InitParam.MAX_SPEED_MAX_IMPERIAL));
     }
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_main"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -14,14 +13,21 @@
         android:layout_height="match_parent"
         android:visibility="visible">
 
+        <com.run.treadmill.widget.YaxisView
+            android:id="@+id/yv_unit"
+            android:layout_width="@dimen/dp_px_100_x"
+            android:layout_height="@dimen/dp_px_450_y"
+            android:layout_marginStart="@dimen/dp_px_300_x"
+            android:layout_marginTop="@dimen/dp_px_292_y" />
+
         <ImageView
             android:id="@+id/img_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_300_x"
+            android:layout_marginStart="@dimen/dp_px_250_x"
             android:layout_marginTop="@dimen/dp_px_238_y"
-            android:src="@drawable/img_sportmode_profile_incline_calibration_1"
-            android:visibility="visible" />
+            android:src="@drawable/img_sportmode_profile_speed_calibration_km_1"
+            android:visibility="gone" />
 
         <com.run.treadmill.widget.HistogramListView
             android:id="@+id/lineChartView"

@@ -220,12 +220,20 @@
             android:stretchMode="columnWidth"
             android:visibility="visible" />
 
+        <com.run.treadmill.widget.YaxisView
+            android:id="@+id/yv_unit"
+            android:layout_width="@dimen/dp_px_100_x"
+            android:layout_height="@dimen/dp_px_450_y"
+            android:layout_marginStart="@dimen/dp_px_300_x"
+            android:layout_marginTop="@dimen/dp_px_292_y" />
+
         <ImageView
             android:id="@+id/img_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_px_300_x"
             android:layout_marginTop="@dimen/dp_px_238_y"
+            android:visibility="gone"
             android:src="@drawable/img_sportmode_profile_incline_calibration_1" />
 
         <com.run.treadmill.widget.HistogramListView

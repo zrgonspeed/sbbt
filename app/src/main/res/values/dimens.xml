@@ -3,6 +3,7 @@
     <dimen name="font_size_run_media_pause">33.34sp</dimen>
 
     <dimen name="font_size_run_param_unit">15.0sp</dimen>
+    <dimen name="font_size_yaxis">21.0sp</dimen>
 
     <dimen name="font_size_15pt">20.0sp</dimen>
     <dimen name="font_size_16pt">22.67sp</dimen>
