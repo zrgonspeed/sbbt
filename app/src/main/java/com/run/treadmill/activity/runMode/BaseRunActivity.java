@@ -31,6 +31,7 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.EmptyMessageTask;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
+import com.run.treadmill.activity.runMode.vision.VisionActivity;
 import com.run.treadmill.adapter.MediaRunAppAdapter;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.base.MyApplication;
@@ -319,7 +320,9 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
             }
 
-            settingLineChart();
+            if (!(this instanceof VisionActivity)) {
+                settingLineChart();
+            }
         }
         long end = System.currentTimeMillis();
         Logger.i("BaseRunActivity onResume() time == " + (end - start));
