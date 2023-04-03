@@ -16,7 +16,7 @@
     <string name="string_unit_mph">mph</string>
     <string name="string_unit_kcal">kcal</string>
     <string name="string_unit_bpm">bpm</string>
-    <string name="string_unit_percent">%</string>
+    <string name="string_unit_percent"></string>
     <string name="string_unit_kg">kg</string>
     <string name="string_unit_lb">lb</string>
     <string name="string_unit_hr">hr</string>

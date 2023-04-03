@@ -112,7 +112,7 @@ public abstract class BaseRunParamFloatWindow {
 
         if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
             tv_speed.setText(mFloatWindowManager.getSpeedValue(String.valueOf(0.0f)));
-            tv_incline.setText(StringUtil.valueAndUnit("0", "%", mFloatWindowManager.runParamUnitTextSize));
+            tv_incline.setText(StringUtil.valueAndUnit("0", mContext.getString(R.string.string_unit_percent), mFloatWindowManager.runParamUnitTextSize));
         } else {
             tv_speed.setText(mFloatWindowManager.getSpeedValue(String.valueOf(mFloatWindowManager.mRunningParam.getCurrSpeed())));
             tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) mFloatWindowManager.mRunningParam.getCurrIncline()), mContext.getString(R.string.string_unit_percent), mFloatWindowManager.runParamUnitTextSize));
@@ -235,6 +235,7 @@ public abstract class BaseRunParamFloatWindow {
         }
         if (tv_speed != null) {
             tv_speed.setText(mFloatWindowManager.getSpeedValue("0.0"));
+            tv_incline.setText(StringUtil.valueAndUnit("0", mContext.getString(R.string.string_unit_percent), mFloatWindowManager.runParamUnitTextSize));
         }
     }
 }
