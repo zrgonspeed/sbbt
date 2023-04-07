@@ -75,7 +75,7 @@
             android:layout_marginTop="@dimen/dp_px_500_y"
             android:text="@string/string_emergency_stop"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_60pt"
+            android:textSize="@dimen/font_size_55pt"
             android:textStyle="bold" />
     </RelativeLayout>
 

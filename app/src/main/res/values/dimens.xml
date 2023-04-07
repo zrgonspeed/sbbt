@@ -16,6 +16,7 @@
     <dimen name="font_size_36pt">45.34sp</dimen>
     <dimen name="font_size_42pt">48.0sp</dimen>
     <dimen name="font_size_47pt">54.67sp</dimen>
+    <dimen name="font_size_55pt">60.00sp</dimen>
     <dimen name="font_size_60pt">74.67sp</dimen>
     <dimen name="font_size_80pt">100.0sp</dimen>
     <dimen name="font_size_90pt">200.0sp</dimen>

@@ -434,7 +434,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
             case CTConstant.SHOW_TIPS_SAFE_ERROR:
                 img_err_bk.setVisibility(View.GONE);
                 tv_err.setTextColor(context.getResources().getColor(R.color.white, null));
-                tv_err.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.font_size_60pt));
+                tv_err.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.font_size_55pt));
                 tv_err.setText(R.string.string_emergency_stop);
                 tv_err.setVisibility(View.VISIBLE);
                 break;
