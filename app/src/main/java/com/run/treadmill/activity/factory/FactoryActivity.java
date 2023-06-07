@@ -463,22 +463,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         tv_total_distance.setText(UnitUtil.getFloatToInt(SpManager.getRunTotalDis()) + " " + getString(isMetric ? R.string.string_unit_km : R.string.string_unit_mile));
     }
 
-    private void showErrPop(RelativeLayout rl_main) {
-        if (ErrorManager.getInstance().errStatus != ErrorManager.ERR_INCLINE_CALIBRATE) {
-            return;
-        }
-        if (errView == null) {
-            errView = View.inflate(this, R.layout.layout_error, null);
-            img_err_bk = (ImageView) errView.findViewById(R.id.img_err_bk);
-            tv_err = (TextView) errView.findViewById(R.id.tv_err);
-        }
-        tv_err.setTextColor(getResources().getColor(R.color.textView_black, null));
-        tv_err.setTextSize(getResources().getDimensionPixelSize(R.dimen.font_size_36pt));
-        img_err_bk.setVisibility(View.VISIBLE);
-        tv_err.setText(R.string.string_calibration_failure);
-        rl_main.addView(errView);
-    }
-
     private boolean isSetMaxAd = false;//防止没有上升过程
 
     @Override
