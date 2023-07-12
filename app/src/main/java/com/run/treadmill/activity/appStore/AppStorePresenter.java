@@ -9,7 +9,7 @@ import com.run.treadmill.base.BasePresenter;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.http.OkHttpCallBack;
 import com.run.treadmill.http.OkHttpHelper;
-import com.run.treadmill.thirdapp.main.UpdateUtils;
+import com.run.treadmill.thirdapp.main.ThirdUpdateUtils;
 import com.run.treadmill.util.Logger;
 
 import java.io.File;
@@ -41,9 +41,9 @@ public class AppStorePresenter extends BasePresenter<AppStoreView> implements Ok
         this.downloadPath = InitParam.getDownloadPath(reqUrl.toString());
 
         //TODO:名字可能没写好
-        String[] apkNames = UpdateUtils.getNames();
-        String[] apkPacknames = UpdateUtils.getPkgNames();
-        int[] drawables = UpdateUtils.getUpdateDrawables();
+        String[] apkNames = ThirdUpdateUtils.getNames();
+        String[] apkPacknames = ThirdUpdateUtils.getPkgNames();
+        int[] drawables = ThirdUpdateUtils.getUpdateDrawables();
 
         // Logger.i("apkNames == " + Arrays.toString(apkNames));
         if (apkNames.length <= 0 || apkPacknames.length <= 0) {

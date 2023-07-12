@@ -6,7 +6,7 @@ import com.run.treadmill.thirdapp.bean.ThirdApp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpdateUtils {
+public class ThirdUpdateUtils {
     private static List<ThirdApp> list;
 
     private static synchronized void initList() {
