@@ -30,6 +30,7 @@ import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.appStore.AppStoreActivity;
 import com.run.treadmill.activity.floatWindow.SettingBackFloatWindow;
 import com.run.treadmill.base.BaseActivity;
+import com.run.treadmill.bluetooth.BleDebug;
 import com.run.treadmill.bluetooth.BleSwap.BtSwapUtil;
 import com.run.treadmill.bluetooth.BleSwap.BtUtil;
 import com.run.treadmill.bluetooth.activity.BluetoothActivity;
@@ -586,7 +587,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                     sp_language.setSelection(currLanguagePos, true);
                     return;
                 }
-                if (!isCanChange) {
+                if (!isCanChange && !BleDebug.disableSerial) {
                     sp_language.setSelection(currLanguagePos, true);
                     return;
                 }

@@ -141,7 +141,7 @@ public class MyApplication extends LitePalApplication {
 
             new Thread(() -> {
                 ShellCmdUtils.getInstance().execCommand("sync");
-            });
+            }).start();
 
             new Thread(() -> {
                 SystemClock.sleep(5000);
