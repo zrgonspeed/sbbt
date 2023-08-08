@@ -219,7 +219,7 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
         tv_avg_mets.setText(String.valueOf(mRunningParam.getAvgMets()));
         tv_avg_pulse.setText(String.valueOf((int) mRunningParam.getAvgPulse()));
 
-        tv_unit_time.setText(getString(mRunningParam.alreadyRunTime > (60 * 60) ? R.string.string_summary_unit_hr_min : R.string.string_summary_unit_min_sec));
+        tv_unit_time.setText(getString(mRunningParam.alreadyRunTime >= (60 * 60) ? R.string.string_summary_unit_hr_min : R.string.string_summary_unit_min_sec));
         tv_unit_dis.setText(getString(isMetric ? R.string.string_unit_km : R.string.string_unit_mile));
         tv_unit_speed.setText(getString(isMetric ? R.string.string_unit_kmh : R.string.string_unit_mileh));
 
