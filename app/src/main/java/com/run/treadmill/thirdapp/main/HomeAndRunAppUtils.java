@@ -75,11 +75,10 @@ public class HomeAndRunAppUtils {
                 .runDrawable(R.drawable.btn_media_mp4)
                 .build();
 
-        /*ThirdApp kinomap = new ThirdApp.Builder("Kinomap", "com.kinomap.training")
+        ThirdApp kinomap = new ThirdApp.Builder("Kinomap", "com.kinomap.training")
                 .homeDrawable(R.drawable.btn_home_kinomap)
                 .runDrawable(R.drawable.btn_media_kinomap)
                 .build();
-*/
 
         ThirdApp AnplusMirroring = new ThirdApp.Builder("AnplusMirroring", "com.anplus.tft")
                 .homeDrawable(R.drawable.btn_home_screen_mirroring)
@@ -96,8 +95,8 @@ public class HomeAndRunAppUtils {
         list.add(netflix);
         list.add(ponymusic);
         list.add(mp4);
-        list.add(AnplusMirroring);
-        // list.add(kinomap);
+        // list.add(AnplusMirroring);
+        list.add(kinomap);
     }
 
     private static synchronized void initListChina() {

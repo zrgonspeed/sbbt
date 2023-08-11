@@ -74,6 +74,10 @@ public class ThirdUpdateUtils {
                 .updateDrawable(R.drawable.btn_media_google_serive_1)
                 .build();
 
+        ThirdApp kinomap = new ThirdApp.Builder("Kinomap", "com.kinomap.training")
+                .updateDrawable(R.drawable.btn_media_kinomap_1)
+                .build();
+
         list = new ArrayList<>();
         list.add(youtube);
         list.add(chrome);
@@ -84,7 +88,10 @@ public class ThirdUpdateUtils {
         list.add(netflix);
         list.add(ponymusic);
         list.add(anplus_A133Bluetooth);
-        list.add(anplusMirroring);
+
+        // list.add(anplusMirroring);
+        list.add(kinomap);
+
         list.add(gms);
     }
 

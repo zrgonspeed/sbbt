@@ -663,11 +663,6 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
             enterLockResult(true);
         }
 
-        if (locale.getLanguage().endsWith("zh")) {
-            btn_setting_update.setEnabled(false);
-            txt_setting_update.setVisibility(View.GONE);
-            btn_setting_update.setVisibility(View.GONE);
-        }
     }
 
     public void goHome(View view) {
