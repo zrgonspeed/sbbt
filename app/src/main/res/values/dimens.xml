@@ -4,6 +4,7 @@
 
     <dimen name="font_size_run_param_unit">15.0sp</dimen>
     <dimen name="font_size_yaxis">21.0sp</dimen>
+    <dimen name="font_size_movie">@dimen/font_size_28pt</dimen>
 
     <dimen name="font_size_15pt">20.0sp</dimen>
     <dimen name="font_size_16pt">22.67sp</dimen>
@@ -3032,20 +3033,5 @@
     <dimen name="dp_px_1078_y">718.67dp</dimen>
     <dimen name="dp_px_1079_y">719.34dp</dimen>
     <dimen name="dp_px_1080_y">720.0dp</dimen>
-
-
-    <dimen name="pop_layout_main_w">666.67dp</dimen>
-    <dimen name="pop_layout_main_h">400.0dp</dimen>
-
-    <dimen name="pop_layout_ble_hr_view_bg_radio">17.78dp</dimen>
-    <dimen name="pop_layout_ble_hr_view_bg_h">344.89dp</dimen>
-
-    <dimen name="pop_layout_ble_hr_txt_font_size">16.89sp</dimen>
-    <dimen name="summary_layout_txt_hint_font_size">7.12sp</dimen>
-
-    <dimen name="pop_layout_ble_hr_line_h">0.45dp</dimen>
-    <dimen name="home_layout_list_txt_font_size">11.56sp</dimen>
-    <dimen name="txt_time_font_size">7.12sp</dimen>
-
-    <dimen name="ble_title_size">23.34sp</dimen>
+    <dimen name="summary_avg_speed">@dimen/font_size_25pt</dimen>
 </resources>

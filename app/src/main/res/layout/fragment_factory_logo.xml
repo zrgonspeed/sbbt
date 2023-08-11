@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_370_x"
         android:layout_marginTop="@dimen/dp_px_328_y"
-        android:background="@drawable/btn_logo_1"
+        android:src="@drawable/btn_logo_1"
         android:scaleType="centerInside" />
 
     <ImageView

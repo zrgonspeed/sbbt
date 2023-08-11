@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="font_size_factory_one_wheel_size">25sp</dimen>
+    <dimen name="summary_avg_speed">@dimen/font_size_20pt</dimen>
 
 </resources>

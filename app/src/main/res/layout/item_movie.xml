@@ -20,5 +20,5 @@
         android:layout_marginLeft="@dimen/dp_px_30_x"
         android:layout_toEndOf="@+id/img_movie"
         android:textColor="@color/textView_white"
-        android:textSize="@dimen/font_size_28pt" />
+        android:textSize="@dimen/font_size_movie" />
 </RelativeLayout>

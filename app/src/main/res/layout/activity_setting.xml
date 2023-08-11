@@ -355,13 +355,13 @@
 
         <TextView
             android:id="@+id/txt_setting_distance_2"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_px_250_x"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@id/txt_setting_distance_1"
-            android:layout_marginStart="@dimen/dp_px_1338_x"
+            android:layout_marginStart="@dimen/dp_px_1250_x"
             android:layout_marginTop="@dimen/dp_px_214_y"
             android:gravity="center|right"
-            android:text="8025 km"
+            android:text="10000 km"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_18pt" />
 

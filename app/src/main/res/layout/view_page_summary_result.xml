@@ -116,7 +116,7 @@
         android:gravity="start|center"
         android:text="@string/string_avg_speed"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_25pt" />
+        android:textSize="@dimen/summary_avg_speed" />
 
     <TextView
         android:id="@+id/tv_avg_speed"
