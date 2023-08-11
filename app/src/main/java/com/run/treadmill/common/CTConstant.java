@@ -261,9 +261,4 @@ public class CTConstant {
     @Retention(RetentionPolicy.SOURCE)
     public @interface TipPopType {
     }
-
-    public static final String DOWNLOAD_PATH_CN = Environment.getExternalStorageDirectory().getAbsolutePath() + "/treadmill" + "/cn";
-    public static final String DOWNLOAD_PATH_OTHER = Environment.getExternalStorageDirectory().getAbsolutePath() + "/treadmill" + "/other";
-
-
 }

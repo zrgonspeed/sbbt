@@ -69,7 +69,11 @@ public class VersionUtil {
             if (name.equals("com.run.treadmill") || name.equals("com.anplus.bluetooth")) {
                 versionName = versionName.replace("V", ".");
             }
-            return getNumAndPoint(versionName);
+
+            String nn = getNumAndPoint(versionName);
+            Logger.i("name == " + name + "  versionName == " + versionName + "    resultVersion == " + nn);
+
+            return nn;
         }
     }
 

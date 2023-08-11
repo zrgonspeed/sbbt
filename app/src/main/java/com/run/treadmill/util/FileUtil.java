@@ -1,24 +1,18 @@
 package com.run.treadmill.util;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
-import android.os.StatFs;
 import android.os.storage.StorageManager;
-
-import androidx.core.content.FileProvider;
-import androidx.core.os.EnvironmentCompat;
-
 import android.util.Log;
 import android.widget.ImageView;
 
+import androidx.core.content.FileProvider;
+
 import com.run.android.ShellCmdUtils;
-import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.SpManager;
 
@@ -26,8 +20,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.channels.FileChannel;
 import java.util.List;
@@ -39,10 +31,6 @@ import java.util.List;
  */
 public class FileUtil {
     private static final String TAG = "FileUtil";
-    private static final long UNAVAILABLE = -1L;
-
-    public static String uPath = "/storage/udiskh";
-    public static String sdPath = "/storage/extsd";
 
     /**
      * 检测文件是否存在
@@ -74,14 +62,6 @@ public class FileUtil {
             if (file.exists() && file.isFile()) {
                 file.delete();
             }
-        }
-    }
-
-    public static String getUdiskPath(Context context, String path) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return getStoragePath(context, true);
-        } else {
-            return path;
         }
     }
 
@@ -138,20 +118,6 @@ public class FileUtil {
             return null;
         }
         return BitmapFactory.decodeFile(imgPath, null);
-    }
-
-    public static long getUDiskTotalSpace(Context mContext) {
-        String path = getStoragePath(mContext, true) + "test";
-
-        File dirPath = new File(path);
-        dirPath.mkdirs();
-
-        if (!dirPath.isDirectory() || !dirPath.canWrite()) {
-            Log.d(TAG, dirPath.canWrite() + "=" + dirPath.isDirectory());
-            return UNAVAILABLE;
-        } else {
-            return 1;
-        }
     }
 
     /**
@@ -218,108 +184,48 @@ public class FileUtil {
         return path;
     }
 
-    private static long getTotalSize(String path) {
-        try {
-            final StatFs statFs = new StatFs(path);
-            long blockSize = 0;
-            long blockCountLong = 0;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                blockSize = statFs.getBlockSizeLong();
-                blockCountLong = statFs.getBlockCountLong();
-            } else {
-                blockSize = statFs.getBlockSize();
-                blockCountLong = statFs.getBlockCount();
-            }
-            return blockSize * blockCountLong;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    private static long getAvailableSize(String path) {
-        try {
-            final StatFs statFs = new StatFs(path);
-            long blockSize = 0;
-            long availableBlocks = 0;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                blockSize = statFs.getBlockSizeLong();
-                availableBlocks = statFs.getAvailableBlocksLong();
-            } else {
-                blockSize = statFs.getBlockSize();
-                availableBlocks = statFs.getAvailableBlocks();
-            }
-            return availableBlocks * blockSize;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    private static final long A_GB = 1073741824;
-    private static final long A_MB = 1048576;
-    private static final int A_KB = 1024;
-
-    private static String fmtSpace(long space) {
-        if (space <= 0) {
-            return "0";
-        }
-        double gbValue = (double) space / A_GB;
-        if (gbValue >= 1) {
-            return String.format("%.2fGB", gbValue);
-        } else {
-            double mbValue = (double) space / A_MB;
-            Logger.e("GB", "gbvalue=" + mbValue);
-            if (mbValue >= 1) {
-                return String.format("%.2fMB", mbValue);
-            } else {
-                final double kbValue = space / A_KB;
-                return String.format("%.2fKB", kbValue);
-            }
-        }
-    }
-
     /**
      * 6.0获取外置sdcard和U盘路径，并区分
+     *
      * @param context
-     * @param keyword  SD = "内部存储"; EXT = "SD卡"; USB = "U盘"
+     * @param keyword SD = "内部存储"; EXT = "SD卡"; USB = "U盘"
      * @return
      */
-    public static String getStoragePath(Context context, String keyword){
+    public static String getStoragePath(Context context, String keyword) {
         boolean isUsb = keyword.contains("usb") ? true : false;
-        String path="";
+        String path = "";
         StorageManager mStorageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
         Class<?> volumeInfoClazz;
         Class<?> diskInfoClaszz;
         try {
             volumeInfoClazz = Class.forName("android.os.storage.VolumeInfo");
             diskInfoClaszz = Class.forName("android.os.storage.DiskInfo");
-            Method StorageManager_getVolumes=Class.forName("android.os.storage.StorageManager").getMethod("getVolumes");
+            Method StorageManager_getVolumes = Class.forName("android.os.storage.StorageManager").getMethod("getVolumes");
             Method VolumeInfo_GetDisk = volumeInfoClazz.getMethod("getDisk");
             Method VolumeInfo_GetPath = volumeInfoClazz.getMethod("getPath");
             Method DiskInfo_IsUsb = diskInfoClaszz.getMethod("isUsb");
             Method DiskInfo_IsSd = diskInfoClaszz.getMethod("isSd");
             List<Object> List_VolumeInfo = (List<Object>) StorageManager_getVolumes.invoke(mStorageManager);
             assert List_VolumeInfo != null;
-            for(int i=0; i<List_VolumeInfo.size(); i++){
+            for (int i = 0; i < List_VolumeInfo.size(); i++) {
                 Object volumeInfo = List_VolumeInfo.get(i);
                 Object diskInfo = VolumeInfo_GetDisk.invoke(volumeInfo);
-                if(diskInfo==null)continue;
-                boolean sd= (boolean) DiskInfo_IsSd.invoke(diskInfo);
-                boolean usb= (boolean) DiskInfo_IsUsb.invoke(diskInfo);
-                File file= (File) VolumeInfo_GetPath.invoke(volumeInfo);
+                if (diskInfo == null) continue;
+                boolean sd = (boolean) DiskInfo_IsSd.invoke(diskInfo);
+                boolean usb = (boolean) DiskInfo_IsUsb.invoke(diskInfo);
+                File file = (File) VolumeInfo_GetPath.invoke(volumeInfo);
                 //if (file !=null) {
-                Log.d("assert","USB4");
+                Log.d("assert", "USB4");
                 if (isUsb == usb) {//usb
-                    Log.d("assert","USB");
-                    if (file!=null) {
-                        Log.d("assert","USB2");
+                    Log.d("assert", "USB");
+                    if (file != null) {
+                        Log.d("assert", "USB2");
                         assert (file != null);
-                        Log.d("assert","USB1");
+                        Log.d("assert", "USB1");
                         path = file.getAbsolutePath();
                     }
                 } else if (!isUsb == sd) {//sd
-                    if (file!=null) {
+                    if (file != null) {
                         assert (file != null);
                         path = file.getAbsolutePath();
                     }
@@ -327,7 +233,7 @@ public class FileUtil {
                 //}
             }
         } catch (Exception e) {
-            Log.d(TAG, "[——————— ——————— Exception:"+e.getMessage()+"]");
+            Log.d(TAG, "[——————— ——————— Exception:" + e.getMessage() + "]");
             e.printStackTrace();
         }
         Log.d(TAG, " path " + path);

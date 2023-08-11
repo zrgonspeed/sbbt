@@ -138,23 +138,6 @@ public class InitParam {
     public static final int MIN_AD = 16;
 
     /**
-     * AC最小AD值得绝对差距范围
-     */
-    public static final int ABS_AC_AD = 15;
-    /**
-     * AA最小AD值得绝对差距范围
-     */
-    public static final int ABS_AA_AD = 15;
-
-    /**
-     * DC最小AD值得绝对差距范围
-     */
-    public static final int ABS_DC_AD = 5;
-
-    public static final int SLEEP_TIME = 60 * 10;
-    public static final int MACHINE_LUBE_TIME = 20;
-
-    /**
      * 最小加油里程
      */
     public static final int MIN_LUBE_DISTANCE = 0;
@@ -266,64 +249,4 @@ public class InitParam {
     public static final String CUSTOM_PASS = "0000";
 
     public static final int MIN_INCLINE = 0;
-
-    /**
-     * 是否是测试服务器
-     */
-    private final static boolean isTestServer = false;
-    /**
-     * 国外服务器
-     */
-    public static String NOT_CN_HOST;
-    /**
-     * 国内服务器
-     */
-    public static String CN_HOST;
-
-    public static final String UPDATE_THIRD_A133_END = "/restapi/apk/A133/update/treadmill?apkNames=";
-    public static final String UPDATE_TREADMILL_END = "/restapi/apk/A133/update/treadmill?apkNames=";
-
-    static {
-        if (isTestServer) {
-            NOT_CN_HOST = "http://apk-test.anplus-tech.com";
-            CN_HOST = "http://apkchina-test.anplus-tech.com";
-        } else {
-            NOT_CN_HOST = "http://apk.anplus-tech.com";
-            CN_HOST = "http://apkchina.anplus-tech.com";
-        }
-    }
-
-    /*
-     *  if (A && B || !A && !B) {
-     *       test
-     *   } else {
-     *       official
-     *   }
-     *
-     * */
-    public static String getUpdateHost(Context mContext) {
-        String reqUrl;
-        if (mContext.getResources().getConfiguration().locale.getCountry().equals("CN")) {
-            if (SpManager.getAlterUpdatePath()) {
-                reqUrl = NOT_CN_HOST;
-            } else {
-                reqUrl = CN_HOST;
-            }
-        } else {
-            if (SpManager.getAlterUpdatePath()) {
-                reqUrl = CN_HOST;
-            } else {
-                reqUrl = NOT_CN_HOST;
-            }
-        }
-        return reqUrl;
-    }
-
-    public static String getDownloadPath(String url) {
-        if (url.contains(InitParam.NOT_CN_HOST)) {
-            return CTConstant.DOWNLOAD_PATH_OTHER;
-        }
-
-        return CTConstant.DOWNLOAD_PATH_CN;
-    }
 }

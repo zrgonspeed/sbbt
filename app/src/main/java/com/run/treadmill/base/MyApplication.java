@@ -5,6 +5,7 @@ import com.run.serial.SerialCommand;
 import com.run.treadmill.AppDebug;
 import com.run.treadmill.bluetooth.BtAppReboot;
 import com.run.treadmill.common.CTConstant;
+import com.run.treadmill.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
@@ -135,6 +136,8 @@ public class MyApplication extends LitePalApplication {
 
             SystemUtils.setAppWhiteList();
         }
+
+        HomeThirdAppUpdateManager.getInstance().setNewCheck(true);
     }
 
 

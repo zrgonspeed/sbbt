@@ -16,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.fitShow.treadmill.FsTreadmillCommand;
 import com.run.treadmill.R;
+import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
@@ -26,6 +27,7 @@ import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FormulaUtil;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.ThreadUtils;
 import com.run.treadmill.widget.LongClickImage;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
 
@@ -140,6 +142,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
     }
 
     public void stopFloat() {
+        stopPauseTimer();
         mFloatWindowManager.removeView(mFloatWindow);
     }
 
@@ -328,6 +331,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 break;
             case R.id.btn_back:
                 BuzzerManager.getInstance().buzzerRingOnce();
+                stopPauseTimer();
                 mFloatWindowManager.goBackMyApp();
                 break;
             case R.id.btn_start_stop_skip:
@@ -339,6 +343,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                     btn_back.setVisibility(View.GONE);
                     btn_home.setVisibility(View.GONE);
                     mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_PREPARE;
+                    stopPauseTimer();
                     mFloatWindowManager.startPrepare();
                     return;
                 } else if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
@@ -355,11 +360,13 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 break;
             case R.id.btn_float_pause_quit:
                 BuzzerManager.getInstance().buzzerRingOnce();
+                stopPauseTimer();
                 mFloatWindowManager.goBackMyAppToSummary();
                 break;
             case R.id.btn_float_pause_continue:
                 Logger.d("--data-- runStatus=" + mFloatWindowManager.mRunningParam.runStatus);
                 BuzzerManager.getInstance().buzzerRingOnce();
+                stopPauseTimer();
                 if (mFloatWindowManager.mRunningParam.isRunningEnd()) {
                     return;
                 }
@@ -396,6 +403,41 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         mFloatWindowManager.mRunningParam.recodePreRunData();
         mFloatWindowManager.paramEnterPauseState();
         showPause();
+
+        startPauseTimer();
+    }
+
+    private final String pauseTimerTag = "pauseTimerTag";
+    private long PAUSE_TIME = 3 * 60;
+
+    private CustomTimer pauseTimer;
+
+    private void startPauseTimer() {
+        if (pauseTimer == null) {
+            pauseTimer = new CustomTimer();
+            pauseTimer.setTag(pauseTimerTag);
+        }
+        pauseTimer.closeTimer();
+        pauseTimer.startTimer(1000,1000, (lastTime, tag) -> {
+            Logger.d(tag + "=== float pause定时器回调 ===>   " + lastTime);
+            if (lastTime < PAUSE_TIME) {
+                return;
+            }
+            if (tag.equals(pauseTimerTag)) {
+                if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+                    ThreadUtils.postOnMainThread(() -> {
+                        btn_float_pause_quit.performClick();
+                        stopPauseTimer();
+                    });
+                }
+            }
+        });
+    }
+
+    private void stopPauseTimer() {
+        if (pauseTimer != null) {
+            pauseTimer.closeTimer();
+        }
     }
 
     public ConstraintLayout layout_float_pause;

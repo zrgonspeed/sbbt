@@ -75,9 +75,15 @@ public class HomeAndRunAppUtils {
                 .runDrawable(R.drawable.btn_media_mp4)
                 .build();
 
-        ThirdApp kinomap = new ThirdApp.Builder("Kinomap", "com.kinomap.training")
+        /*ThirdApp kinomap = new ThirdApp.Builder("Kinomap", "com.kinomap.training")
                 .homeDrawable(R.drawable.btn_home_kinomap)
                 .runDrawable(R.drawable.btn_media_kinomap)
+                .build();
+*/
+
+        ThirdApp AnplusMirroring = new ThirdApp.Builder("AnplusMirroring", "com.anplus.tft")
+                .homeDrawable(R.drawable.btn_home_screen_mirroring)
+                .runDrawable(R.drawable.btn_media_screen_mirroring)
                 .build();
 
         list = new ArrayList<>();
@@ -90,7 +96,8 @@ public class HomeAndRunAppUtils {
         list.add(netflix);
         list.add(ponymusic);
         list.add(mp4);
-        list.add(kinomap);
+        list.add(AnplusMirroring);
+        // list.add(kinomap);
     }
 
     private static synchronized void initListChina() {
@@ -118,6 +125,10 @@ public class HomeAndRunAppUtils {
                 .homeDrawable(R.drawable.btn_home_qq_music)
                 .runDrawable(R.drawable.btn_media_qq_music)
                 .build();
+        ThirdApp lebo = new ThirdApp.Builder("lebo", "com.hpplay.happyplay.aw")
+                .homeDrawable(R.drawable.btn_home_happycast)
+                .runDrawable(R.drawable.btn_media_happycast)
+                .build();
 
         list = new ArrayList<>();
         list.add(fireFox);
@@ -126,6 +137,7 @@ public class HomeAndRunAppUtils {
         list.add(ponymusic);
         list.add(mp4);
         list.add(qqmusicpad);
+        list.add(lebo);
     }
 
     public static List<ThirdApp> getAppList() {

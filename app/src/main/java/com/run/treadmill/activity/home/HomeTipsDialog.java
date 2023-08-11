@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.factory.FactoryActivity;
+import com.run.treadmill.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
@@ -91,7 +92,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
         }
         switch (view.getId()) {
             case R.id.btn_update_pop_yes:
-                presenter.installApk();
+                HomeApkUpdateManager.getInstance().installApk();
                 btn_update_pop_yes.setVisibility(View.GONE);
                 btn_update_pop_no.setVisibility(View.GONE);
                 break;
@@ -112,7 +113,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
                     showTipPop(CTConstant.SHOW_TIPS_MACHINE_LUBE_NULL);
                     break;
                 }
-                if (presenter.isNewVersion && SpManager.getUpdateIsNetwork()) {
+                if (HomeApkUpdateManager.getInstance().isNewVersion && SpManager.getUpdateIsNetwork()) {
                     showTipPop(CTConstant.SHOW_TIPS_POINT);
                     break;
                 }
@@ -193,7 +194,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
                 }
                 break;
             case R.id.img_point:
-                presenter.isNewVersion = false;
+                HomeApkUpdateManager.getInstance().isNewVersion = false;
                 stopTipsPop();
                 break;
             case R.id.txt_lock_key_0:
@@ -394,7 +395,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
                 reSet(errorTip);
                 return;
             }
-            if (presenter.isNewVersion && SpManager.getUpdateIsNetwork()) {
+            if (HomeApkUpdateManager.getInstance().isNewVersion && SpManager.getUpdateIsNetwork()) {
                 reSet(CTConstant.SHOW_TIPS_POINT);
                 return;
             }

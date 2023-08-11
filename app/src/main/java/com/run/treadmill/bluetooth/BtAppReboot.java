@@ -17,6 +17,7 @@ public class BtAppReboot {
     private static Intent btIntent;
 
     private static void initBtServerListener() {
+        Logger.i("initBtServerListener()");
         btIntent = new Intent();
         btIntent.setAction(BtAppUtils.BT_SERVICE_URL);
         btIntent.setPackage(BtAppUtils.BT_SERVICE_PB);
@@ -57,11 +58,7 @@ public class BtAppReboot {
     public static void initBt(Context context) {
         mContext = context;
         new Thread(() -> {
-            long beginTime = SystemClock.elapsedRealtime();
-            if (beginTime < 70 * 1000) {
-                Logger.d(TAG, "applicationMission begin,sleep...");
-                SystemClock.sleep(5000);
-            }
+            SystemClock.sleep(5000);
             initBtServerListener();
         }).start();
     }

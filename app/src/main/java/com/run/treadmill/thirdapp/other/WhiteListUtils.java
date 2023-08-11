@@ -39,6 +39,8 @@ public class WhiteListUtils {
             "com.baidu.searchbox.pad",
 
             "com.kinomap.training",
+
+            "com.google.android.gms",
     };
 
     private static final String whiteListFilePath = "/data/WhiteListAppFilter.properties";
@@ -57,18 +59,23 @@ public class WhiteListUtils {
 
     private static void writePropertiesFile() throws IOException {
         ShellCmdUtils.getInstance().execCommand("chmod -R 777 " + "/data/");
+        ShellCmdUtils.getInstance().execCommand("chmod -R 777 " + "/data/WhiteListAppFilter.properties");
         File debug = new File(whiteListFilePath);
 
         byte[] va;
         byte[] ee = "\r\n".getBytes();
-        FileOutputStream fos = new FileOutputStream(debug);
-        for (String s : arr) {
-            va = s.getBytes();
-            fos.write(va, 0, va.length);
-            fos.write(ee, 0, ee.length);
+        try (
+                FileOutputStream fos = new FileOutputStream(debug);
+        ) {
+            for (String s : arr) {
+                va = s.getBytes();
+                fos.write(va, 0, va.length);
+                fos.write(ee, 0, ee.length);
+            }
+            fos.flush();
         }
-        fos.flush();
-        fos.close();
+
+        ShellCmdUtils.getInstance().execCommand("chmod -R 777 " + "/data/WhiteListAppFilter.properties");
     }
 
     private static String setProp(String key, String defaultValue) {

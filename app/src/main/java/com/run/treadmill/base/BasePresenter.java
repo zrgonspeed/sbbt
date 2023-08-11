@@ -18,6 +18,7 @@ import com.run.treadmill.interceptor.SerialInterceptor;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.control.NormalParam;
 import com.run.treadmill.manager.control.ParamCons;
+import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.Logger;
 
@@ -36,7 +37,6 @@ public abstract class BasePresenter<V extends BaseView> implements RxDataCallBac
     protected CmdHandler mCmdHandler;
     private Message msg, msgNomal;
 
-    private int oldKeyValue = -1;
     public boolean inOnSleep = false;
 
     private List<SerialInterceptor> mInterceptors;
@@ -165,6 +165,9 @@ public abstract class BasePresenter<V extends BaseView> implements RxDataCallBac
             if (inOnSleep) {
                 int curKeyValue = msg.arg1;
                 if (curKeyValue != 0) {
+                    if (OtaMcuUtils.curIsOtamcu) {
+                        return;
+                    }
                     getView().cmdKeyValue(curKeyValue);
                 }
             }
@@ -188,6 +191,9 @@ public abstract class BasePresenter<V extends BaseView> implements RxDataCallBac
                 if (inOnSleep) {
                     int curKeyValue2 = msg.arg2;
                     if (curKeyValue2 != 0) {
+                        if (OtaMcuUtils.curIsOtamcu) {
+                            return;
+                        }
                         getView().cmdKeyValue(curKeyValue2);
                     }
                 }
@@ -195,6 +201,10 @@ public abstract class BasePresenter<V extends BaseView> implements RxDataCallBac
             case MsgWhat.MSG_DATA_KEY_EVENT:
                 int curKeyValue = msg.arg1;
                 if (curKeyValue != -1) {
+                    if (OtaMcuUtils.curIsOtamcu) {
+                        Logger.i("当前是otamcu界面，不响应按键");
+                        return;
+                    }
                     getView().cmdKeyValue(curKeyValue);
                 }
                 break;

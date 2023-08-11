@@ -24,6 +24,7 @@ import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.bluetooth.BtAppUtils;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.factory.CreatePresenter;
+import com.run.treadmill.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
@@ -31,6 +32,7 @@ import com.run.treadmill.manager.SystemBrightManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.thirdapp.main.HomeAndRunAppUtils;
+import com.run.treadmill.thirdapp.main.ThirdUpdateUtils;
 import com.run.treadmill.thirdapp.other.DeleteAccountsUtils;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.LanguageUtil;
@@ -159,6 +161,11 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
+
+        if (HomeThirdAppUpdateManager.toThirdAppUI) {
+            HomeThirdAppUpdateManager.toThirdAppUI = false;
+            startActivity(new Intent(this, AppStoreActivity.class));
+        }
     }
 
     @Override
@@ -477,6 +484,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                 //显示数字键盘
                 mCalcBuilder.reset()
                         .editType(CTConstant.TYPE_SETTING_LOCK)
+                        .editTypeName(R.string.string_setting_psw)
                         .callBack(SettingActivity.this)
                         .maxLength(4)
                         .mainView(rl_main)
@@ -692,6 +700,8 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
         Logger.i(TAG, "切换语言为 " + locale.getLanguage());
         SpManager.setLanguage(locale.getLanguage());
         HomeAndRunAppUtils.changeLanguage = true;
+        ThirdUpdateUtils.changeLanguage = true;
+        HomeThirdAppUpdateManager.getInstance().setNewCheck(true);
 
         isChangeLanguage = true;
         sp_language.setClickable(false);

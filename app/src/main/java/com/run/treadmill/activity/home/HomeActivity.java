@@ -30,11 +30,14 @@ import com.run.treadmill.base.ReBootTask;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
+import com.run.treadmill.homeupdate.main.HomeApkUpdateManager;
+import com.run.treadmill.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.thirdapp.other.IgnoreSendMessageUtils;
 import com.run.treadmill.util.FileUtil;
@@ -44,6 +47,8 @@ import com.run.treadmill.util.PermissionUtil;
 import com.run.treadmill.widget.LongPressView;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 
 /**
@@ -52,7 +57,7 @@ import butterknife.BindView;
  * @Time 2019/05/29
  */
 @CreatePresenter(HomePresenter.class)
-public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implements HomeView, View.OnClickListener, SafeKeyTimer.SafeTimerCallBack, CustomTimer.TimerCallBack, HomeTipsDialog.OnTipDialogStatusChange {
+public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implements HomeView, View.OnClickListener, SafeKeyTimer.SafeTimerCallBack,  HomeTipsDialog.OnTipDialogStatusChange {
     @BindView(R.id.rl_main)
     RelativeLayout rl_main;
     @BindView(R.id.btn_quick_start)
@@ -89,11 +94,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @BindView(R.id.tv_sleep)
     TextView tv_sleep;
 
-    private final String sleepTag = "sleep";
-    private final String machineLubeTag = "machineLube";
-    private CustomTimer mSleepTimer;
-    private CustomTimer machineLubeTimer;
-
     private HomeTipsDialog tipsPop;
 
     private boolean isOnClicking = true;
@@ -103,6 +103,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     private boolean isFirst = true;
     private boolean isOnPause = false;
 
+    private HomeSleepManager homeSleepManager = new HomeSleepManager(this);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -123,6 +124,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @Override
     protected void onResume() {
         super.onResume();
+        OtaMcuUtils.curIsOtamcu = false;
+
         isOnPause = false;
         //跟启动模式相关
         loadSpManager();
@@ -137,8 +140,22 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         tipsPop.setPresent(getPresenter());
         tipsPop.setOnTipDialogStatusChange(this);
 
-        startTimerOfSleep();
-        getPresenter().obtainUpdate();
+        homeSleepManager.startTimerOfSleep();
+
+        HomeApkUpdateManager.getInstance().obtainUpdate(MyApplication.getContext(), new HomeApkUpdateManager.UpdateViewCallBack() {
+            @Override
+            public void showTipsPoint() {
+                HomeActivity.this.showTipsPoint();
+            }
+
+            @Override
+            public void showUpdateApk() {
+                HomeActivity.this.showUpdateApk();
+            }
+        });
+
+        HomeThirdAppUpdateManager.getInstance().checkOnResume(this);
+
         if (!((MyApplication) getApplication()).isFirst) {
             //TODO:后续需要再添加
             int errorTip = ErrorManager.getInstance().getErrorTip();
@@ -183,9 +200,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     protected void onPause() {
         super.onPause();
         isOnPause = true;
-        if (mSleepTimer != null) {
-            mSleepTimer.closeTimer();
-        }
+        homeSleepManager.closeTimer();
+
         isFirst = false;
         FitShowTreadmillManager.getInstance().setFitShowStatusCallBack(null);
     }
@@ -298,7 +314,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             return;
         }
         // 到这里已经处于亮屏幕
-        if (keyValue == SerialKeyValue.HIDE_OR_SHOW_SCREEN_CLICK) {
+/*        if (keyValue == SerialKeyValue.HIDE_OR_SHOW_SCREEN_CLICK) {
             if (GpIoUtils.checkScreenState() == GpIoUtils.IO_STATE_0) {
                 // 不会进来这里
                 // Logger.i("sssssssssssssss");
@@ -312,7 +328,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                     mSleepTimer.closeTimer();
                 }
             }
-        }
+        }*/
 
 
 
@@ -409,42 +425,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @Override
     public void setSafeState() {
         ErrorManager.getInstance().lastSpeed = 0;
-//        runOnUiThread(() -> {
-//            if (!btn_quick_start.isEnabled() && ErrorManager.getInstance().isNoInclineError()) {
-//                btn_quick_start.setEnabled(true);
-//            }
-//        });
-    }
-
-    @Override
-    public void timerComply(long lastTime, String tag) {
-        Logger.d("lastTime == " + lastTime);
-        if (tag.equals(sleepTag)) {
-            if (lastTime < InitParam.SLEEP_TIME) {
-                return;
-            }
-            if (getPresenter().isUpDateYes()) {
-                return;
-            }
-            Logger.d("==========     睡眠     ==========");
-            getPresenter().inOnSleep = true;
-            if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-                GpIoUtils.setScreen_0();
-                runOnUiThread(() -> tv_sleep.setVisibility(View.VISIBLE));
-
-            } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-                GpIoUtils.setScreen_0();
-                runOnUiThread(() -> tv_sleep.setVisibility(View.VISIBLE));
-
-            } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-//                ControlManager.getInstance().setSleep(1);
-
-                // 假休眠，安全key和按键要能唤醒，不用触摸屏幕唤醒
-                GpIoUtils.setScreen_0();
-                runOnUiThread(() -> tv_sleep.setVisibility(View.VISIBLE));
-            }
-            mSleepTimer.closeTimer();
-        }
     }
 
     @Override
@@ -462,9 +442,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @Override
     public void reSetSleepTime() {
-        if (mSleepTimer != null) {
-            mSleepTimer.setmAllTime(0L);
-        }
+        homeSleepManager.resetTime();
     }
 
     @Override
@@ -474,12 +452,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @Override
     public void wakeUpSleep() {
-        if (GpIoUtils.checkScreenState() == GpIoUtils.IO_STATE_0) {
-            GpIoUtils.setScreen_1();
-            getPresenter().inOnSleep = false;
-            tv_sleep.setVisibility(View.GONE);
-        }
-        startTimerOfSleep();
+        homeSleepManager.wakeUpSleep();
     }
 
     @Override
@@ -583,18 +556,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         });
     }
 
-    private void startTimerOfSleep() {
-        if (SpManager.getSleep()) {
-            if (mSleepTimer == null) {
-                mSleepTimer = new CustomTimer();
-                mSleepTimer.setTag(sleepTag);
-            }
-            mSleepTimer.closeTimer();
-            mSleepTimer.setTag(sleepTag);
-            mSleepTimer.startTimer(1000, 1000, this);
-        }
-    }
-
     private void startTimerOfSafe() {
         btn_quick_start.setEnabled(false);
         FitShowTreadmillManager.getInstance().setNOtConnect(true);
@@ -618,21 +579,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
      */
     private boolean checkADValueIsInSafe(int curAD) {
         return true;
-//        if (isOpenGSMode) {
-//            return true;
-//        }
-//        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-//            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AC_AD);
-//
-//        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA ){
-//            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AA_AD);
-//
-//        }  else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-//            return (Math.abs(curAD - curMinAD) < InitParam.ABS_DC_AD);
-//
-//        } else {
-//            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AC_AD);
-//        }
     }
 
     @Override
@@ -683,5 +629,9 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public boolean isSafeKeyTips() {
+        return tipsPop.getLastTips() == CTConstant.SHOW_TIPS_SAFE_ERROR;
     }
 }

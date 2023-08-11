@@ -34,12 +34,15 @@ import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
+import com.run.treadmill.homeupdate.main.ApkUpdateParam;
+import com.run.treadmill.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.http.OkHttpHelper;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
+import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.receiver.USBBroadcastReceiver;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FileUtil;
@@ -189,6 +192,8 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         }
         btn_home.setEnabled(true);
         SystemSoundManager.MusicPause(this);
+
+        OtaMcuUtils.curIsOtamcu = false;
     }
 
     @Override
@@ -361,13 +366,15 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         btn_alter_update_path.setOnMultiClickListener(new MultiClickAndLongPressView.OnMultiClickListener() {
             @Override
             public void onMultiClick() {
+                HomeThirdAppUpdateManager.getInstance().setNewCheck(true);
+
                 if (!SpManager.getAlterUpdatePath()) {
                     SpManager.setAlterUpdatePath(true);
                     SpManager.setChangedServer(true);
                     OkHttpHelper.cancel("HomeActivity");
                 }
 
-                tv_hint.setText(getString(R.string.server_hint) + "\n" + InitParam.getUpdateHost(FactoryActivity.this));
+                tv_hint.setText(getString(R.string.server_hint) + "\n" + ApkUpdateParam.getUpdateHost(FactoryActivity.this));
                 cl_hint.setVisibility(View.VISIBLE);
                 startTimerOfHint();
 
@@ -384,6 +391,9 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
                 intent.addCategory(Intent.CATEGORY_LAUNCHER);
                 ComponentName cn = new ComponentName("top.cnzrg.otamcu", "top.cnzrg.otamcu.MainActivity");
                 intent.setComponent(cn);
+
+                intent.putExtra("mcu_version", SpManager.getNcuVer());
+
                 startActivity(intent);
             } catch (ActivityNotFoundException exception) {
                 Logger.e(exception.getMessage());
@@ -1160,6 +1170,8 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
             unregisterReceiver(mUsbBroadcastReceiver);
             mUsbBroadcastReceiver = null;
         }
+
+        OtaMcuUtils.checkCurIsOtamcu();
     }
 
     @Override

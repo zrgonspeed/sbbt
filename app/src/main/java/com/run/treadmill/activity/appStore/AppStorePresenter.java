@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.run.treadmill.R;
 import com.run.treadmill.base.BasePresenter;
 import com.run.treadmill.common.InitParam;
+import com.run.treadmill.homeupdate.main.ApkUpdateParam;
 import com.run.treadmill.http.OkHttpCallBack;
 import com.run.treadmill.http.OkHttpHelper;
 import com.run.treadmill.thirdapp.main.ThirdUpdateUtils;
@@ -37,8 +38,8 @@ public class AppStorePresenter extends BasePresenter<AppStoreView> implements Ok
     public String downloadPath = null;
 
     void getAppList(Context context) {
-        this.reqUrl = new StringBuilder(InitParam.getUpdateHost(mContext) + InitParam.UPDATE_THIRD_A133_END);
-        this.downloadPath = InitParam.getDownloadPath(reqUrl.toString());
+        this.reqUrl = new StringBuilder(ApkUpdateParam.getUpdateHost(mContext) + ApkUpdateParam.UPDATE_THIRD_A133_END);
+        this.downloadPath = ApkUpdateParam.getDownloadPath(reqUrl.toString());
 
         //TODO:名字可能没写好
         String[] apkNames = ThirdUpdateUtils.getNames();
