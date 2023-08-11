@@ -1,8 +1,5 @@
 package com.run.treadmill.activity.factory;
 
-import static org.litepal.LitePalApplication.getContext;
-
-import android.content.Intent;
 import android.os.Message;
 
 import com.run.serial.SerialCommand;
@@ -21,11 +18,6 @@ import com.run.treadmill.util.DataTypeConversion;
 
 import org.litepal.LitePal;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/06/24
- */
 public class FactoryPresenter extends BasePresenter<FactoryView> {
 
     private final int msg_calibration_ad = 7000;
@@ -36,7 +28,7 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
     private boolean hasCalibrating;
     private int inclienStatus;
     private int beltStatus;
-    protected boolean isRpmStart = false;
+    public boolean isRpmStart = false;
 
 
     /**
@@ -44,22 +36,11 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
      */
     private int delayCount = 70;
 
-    void calibrate(boolean isMetric, float maxSpeed, float minSpeed, float wheelSize, int maxIncline) {
-        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-            ControlManager.getInstance().setCalcMetric(isMetric);
-            ControlManager.getInstance().setMaxSpeed(DataTypeConversion.shortToBytes((short) (maxSpeed * 10)));//扩大10倍下发
-            ControlManager.getInstance().setMinSpeed(DataTypeConversion.shortToBytes((short) (minSpeed * 10)));//扩大10倍下发
-            ControlManager.getInstance().setWheelSize(DataTypeConversion.shortToBytes((short) (wheelSize * 100)));//扩大100倍下发
-            ControlManager.getInstance().setMaxIncline(DataTypeConversion.shortToBytes((short) maxIncline));//扬升段数
-        }
-        ControlManager.getInstance().calibrate();
-    }
-
-    void setParam() {
+    public void setParam() {
         ControlManager.getInstance().write02Normal(buildDeviceInfoData());
     }
 
-    void stopGetAd() {
+    public void stopGetAd() {
         if (isCalibrating) {
             isCalibrating = false;
         }
@@ -81,7 +62,7 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
         return data;
     }
 
-    protected int changeRPM(int curRpm, int upRrDown) {
+    public int changeRPM(int curRpm, int upRrDown) {
         if (upRrDown == 1) {
             curRpm = curRpm + 1;
         } else if (upRrDown == -1) {
@@ -113,54 +94,15 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
             return;
         }
         if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
-            int state = 0;
-            if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-                state = (data[NormalParam.INCLINE_STATE_INX] & 0x03);
-            } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-                state = (data[NormalParam.INCLINE_STATE_INX] & 0x03);
-            } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-                state = resolveDate(data, NormalParam.INCLINE_STATE_INX, NormalParam.INCLINE_STATE_LEN);
-            }
-            if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-                if (state == ParamCons.CMD_INCLINE_UP) {
-                    //主扬升状态(上升)
-                    hasCalibrating = true;
-                    inclienStatus = 1;
-                } else if (state == ParamCons.CMD_INCLINE_DOWN) {
-                    inclienStatus = 2;
-                } else if (state == 0x00) {
-                    inclienStatus = 0;
-                }
-            } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-                if (state == ParamCons.CMD_INCLINE_UP) {
-                    //主扬升状态(上升)
-                    inclienStatus = 1;
-                } else if (state == ParamCons.CMD_INCLINE_DOWN) {
-                    inclienStatus = 2;
-                } else if (state == 0x00) {
-                    inclienStatus = 0;
-                }
-            } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-                if (state == ParamCons.CMD_INCLINE_UP) {
-                    //主扬升状态(上升)
-                    hasCalibrating = true;
-                    inclienStatus = 1;
-                } else if (state == ParamCons.CMD_INCLINE_DOWN) {
-                    inclienStatus = 2;
-                } else if (state == 0x00) {
-                    inclienStatus = 0;
-                }
-            }
+            int state = (data[NormalParam.INCLINE_STATE_INX] & 0x03);
 
-            if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-                state = resolveDate(data, NormalParam.BELT_STATE_INX, NormalParam.BELT_STATE_LEN);
-                if (state == 0x04) {//跑带矫正中
-                    beltStatus = 1;
-                } else if (state == 0x06) {
-                    beltStatus = 2;
-                } else if (state == 0x00) {
-                    beltStatus = 0;
-                }
+            if (state == ParamCons.CMD_INCLINE_UP) {
+                //主扬升状态(上升)
+                inclienStatus = 1;
+            } else if (state == ParamCons.CMD_INCLINE_DOWN) {
+                inclienStatus = 2;
+            } else if (state == 0x00) {
+                inclienStatus = 0;
             }
         } else if (data[2] == SerialCommand.TX_WR_CTR_CMD && data[3] == ParamCons.CONTROL_CMD_CALIBRATE) {
             isCalibrating = true;
@@ -175,19 +117,11 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
                 }
             }).start();
         } else if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM_03) {
-            if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-                sendMsg(msg_calibration_ad, DataTypeConversion.bytesToShortLiterEnd(data, 4));
-
-            } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
+            if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
                 sendMsg(msg_calibration_ad, DataTypeConversion.byteToInt(data[4]));
                 int state = resolveDate(data, 9, 1);
                 if (state == 2) {
                     hasCalibrating = true;
-                }
-            } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-                sendMsg(msg_calibration_ad, DataTypeConversion.byteToInt(data[4]));
-                if (resolveDate(data, NormalParam.CURR_SPEED_INX, NormalParam.CURR_SPEED_LEN) != 0) {
-                    ErrorManager.getInstance().lastSpeed = resolveDate(data, NormalParam.CURR_SPEED_INX, NormalParam.CURR_SPEED_LEN);
                 }
             }
         }
@@ -239,14 +173,5 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
                 getView().onCalibrationSuccessGoBackHome();
                 break;
         }
-    }
-
-    public void doMasterClear() {
-        Intent intent = new Intent("android.intent.action.MASTER_CLEAR");
-        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-        intent.putExtra("android.intent.extra.REASON", "MasterClearConfirm");
-        intent.putExtra("android.intent.extra.WIPE_EXTERNAL_STORAGE", false);
-        intent.addFlags((int) 0x01000000);
-        getContext().sendBroadcast(intent);
     }
 }

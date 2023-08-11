@@ -4,8 +4,10 @@ import android.Manifest;
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.SystemClock;
+import android.provider.Settings;
 
 import com.run.android.ShellCmdUtils;
+import com.run.treadmill.base.MyApplication;
 import com.run.treadmill.manager.PermissionManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.thirdapp.other.WhiteListUtils;
@@ -91,5 +93,19 @@ public class SystemUtils {
             SystemClock.sleep(5000);
             WhiteListUtils.WhiteListAppFilter();
         }).start();
+    }
+
+    public static synchronized void writeShowTouchesOptions(final int param) {
+        new Thread() {
+            @Override
+            public void run() {
+                ShellCmdUtils.getInstance().execCommand("settings put system pointer_location " + param);
+            }
+        }.start();
+
+    }
+
+    public static boolean readTouchesOptions() {
+        return Settings.System.getInt(MyApplication.getContext().getContentResolver(), "pointer_location", 0) != 0;
     }
 }
