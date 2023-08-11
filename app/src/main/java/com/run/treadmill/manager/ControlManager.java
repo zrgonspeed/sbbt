@@ -11,14 +11,11 @@ import com.run.serial.TxData;
 import com.run.treadmill.base.MyApplication;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.control.AaControl;
-import com.run.treadmill.manager.control.AcControl;
 import com.run.treadmill.manager.control.ControlStrategy;
-import com.run.treadmill.manager.control.DcControl;
 import com.run.treadmill.manager.control.NormalParam;
 import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.FormulaUtil;
-import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.UnitUtil;
 
 /**
@@ -49,22 +46,8 @@ public class ControlManager {
     }
 
     public void init(int type) {
-        switch (type) {
-            case CTConstant.DEVICE_TYPE_AC:
-                mStrategy = new AcControl();
-                break;
-            case CTConstant.DEVICE_TYPE_AA:
-                mStrategy = new AaControl();
-                break;
-            case CTConstant.DEVICE_TYPE_DC:
-                mStrategy = new DcControl();
-                break;
-            default:
-                type = CTConstant.DEVICE_TYPE_DC;
-                mStrategy = new DcControl();
-                break;
-        }
-        deviceType = type;
+        mStrategy = new AaControl();
+        deviceType = CTConstant.DEVICE_TYPE_AA;
         ParamCons.reset(deviceType);
         NormalParam.reset(deviceType);
     }

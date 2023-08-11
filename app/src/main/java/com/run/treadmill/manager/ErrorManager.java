@@ -87,43 +87,12 @@ public class ErrorManager {
     }
 
     public static void init(int type) {
-        switch (type) {
-            default:
-                resetDC();
-                break;
-            case CTConstant.DEVICE_TYPE_AC:
-                resetAC();
-                break;
-            case CTConstant.DEVICE_TYPE_AA:
-                resetAA();
-                break;
-            case CTConstant.DEVICE_TYPE_DC:
-                resetDC();
-                break;
-        }
-    }
-
-    private static void resetAC() {
-        ERR_INCLINE_ADJUST = 0x85;
-        ERR_INCLINE_CALIBRATE = 0x87;
-
-        ERR_TIME_OUT = 0xDE;
-
-        ERR_CMD_FAIL = 0x17;
+        resetAA();
     }
 
     private static void resetAA() {
         ERR_INCLINE_ADJUST = 0x85;
         ERR_INCLINE_CALIBRATE = 0x87;
-
-        ERR_TIME_OUT = 0xDE;
-
-        ERR_CMD_FAIL = 0x17;
-    }
-
-    private static void resetDC() {
-        ERR_INCLINE_ADJUST = 0x10;
-        ERR_INCLINE_CALIBRATE = 0x11;
 
         ERR_TIME_OUT = 0xDE;
 
