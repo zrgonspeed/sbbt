@@ -196,13 +196,6 @@
 
     <string name="server_hint">Le serveur actuel est</string>
 
-    <string name="ble_bluetooth_devices">Appareils Bluetooth</string>
-    <string name="ble_connect">Relier</string>
-    <string name="ble_disonnect">Déconnecter</string>
-    <string name="ble_text1">Lorsque Bluetooth est activé, votre appareil peut communiquer avec d\'autres appareils Bluetooth à proximité.</string>
-    <string name="ble_no_devices_found">Aucun périphérique trouvé.</string>
-    <string name="paired_devices">Appareils jumelés</string>
-    <string name="bt_available">Appareils disponibles</string>
     <string name="string_movie_name_3">Forêts</string>
     <string name="string_movie_name_4">Montagnes</string>
 

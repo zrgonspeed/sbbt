@@ -206,35 +206,6 @@
     <!--OTA更新APK-->
     <string name="server_hint">The current server is</string>
 
-    <!--蓝牙-->
-    <string name="ble_bluetooth_devices">Bluetooth Devices</string>
-    <string name="ble_connect">Connect</string>
-    <string name="ble_disonnect">Disonnect</string>
-    <string name="ble_text1">When Bluetooth is turned on, your device can communicate with other nearby Bluetooth devices.</string>
-    <string name="ble_no_devices_found">No devices found.</string>
-    <string name="paired_devices">Paired devices</string>
-    <string name="bt_available">Available devices</string>
-
-    <string name="workout_ble_connect_state_1">CONNECT</string>
-    <string name="workout_ble_connect_state_2">DISCONNECT</string>
-    <string name="workout_ble_connect_state_3">Name Not Found</string>
-    <string name="workout_ble_connect_state_4">CONNECTING</string>
-
-    <string name="workout_head_ble_sink">Bluetooth Device</string>
-    <string name="workout_head_ble_sink_hint_1">The console bluetooth is connected to a smartphone!</string>
-    <string name="workout_head_ble_sink_hint_2">Would you like to switch the searching mode?</string>
-    <string name="workout_head_ble_sink_hint_3">Please wait!</string>
-    <string name="workout_head_ble_sink_hint_4">Switching to the searching mode…</string>
-    <string name="workout_head_ble_sink_hint_back_main">Please go back to the main interface to connect Bluetooth!</string>
-    <string name="workout_head_ble_sink_hint_exitlink">Exit existing link!</string>
-    <string name="workout_head_ble_sink_hint_timeout">time out, try again!</string>
-    <string name="workout_head_ble_sink_hint_5">Already connected to a Bluetooth</string>
-    <string name="workout_head_ble_sink_hint_6">Whether to disconnect the current Bluetooth connection</string>
-    <string name="workout_ble_connect_state_5">Disconnect the</string>
-
-    <string name="pop_hr_count">%1$d DEVICES FOUND</string>
-    <string name="ble_devices_count">%1$d DEVICES FOUND</string>
-
     <string name="string_movie_name_3">Forests</string>
     <string name="string_movie_name_4">Mountains</string>
 
