@@ -89,6 +89,13 @@ public class MyApplication extends LitePalApplication {
             SystemSoundManager.getInstance().setEffectsEnabled(buzzer ? 1 : 0);
         }
 
+        // 上电或更新apk，清空下位机版本，避免通讯超时的时候返回旧的，otamcu用
+        {
+            SpManager.setNcuYear("");
+            SpManager.setNcuNum("");
+            SpManager.setNcuMonthDay("");
+        }
+
         // 串口
         {
             ControlManager.getInstance().setMetric(SpManager.getIsMetric());
