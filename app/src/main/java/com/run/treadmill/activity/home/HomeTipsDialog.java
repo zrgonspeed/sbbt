@@ -14,6 +14,7 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.factory.FactoryActivity;
 import com.run.treadmill.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.common.CTConstant;
+import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
@@ -92,11 +93,13 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
         }
         switch (view.getId()) {
             case R.id.btn_update_pop_yes:
+                BuzzerManager.getInstance().buzzerRingOnce();
                 HomeApkUpdateManager.getInstance().installApk();
                 btn_update_pop_yes.setVisibility(View.GONE);
                 btn_update_pop_no.setVisibility(View.GONE);
                 break;
             case R.id.btn_update_pop_no:
+                BuzzerManager.getInstance().buzzerRingOnce();
                 lastTips = CTConstant.NO_SHOW_TIPS;
                 int errorTip = ErrorManager.getInstance().getErrorTip();
                 if (errorTip != CTConstant.NO_SHOW_TIPS) {
@@ -131,6 +134,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
                 }
                 break;
             case R.id.btn_lube_pop_yes:
+                BuzzerManager.getInstance().buzzerRingOnce();
                 img_tip_lube_bg.setBackground(null);
                 img_tip_lube_bg.setImageDrawable(context.getDrawable(R.drawable.img_pop_lube_message_2));
                 btn_lube_pop_yes.setVisibility(View.GONE);
@@ -138,6 +142,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
                 btn_lube_pop_reset.setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_lube_pop_no:
+                BuzzerManager.getInstance().buzzerRingOnce();
                 //检测当前是否需要重新提示其他内容
                 int curType2 = checkLock();
                 if (curType2 != CTConstant.NO_SHOW_TIPS) {
@@ -149,6 +154,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
 //                presenter.enterFactoryTwo();
                 break;
             case R.id.btn_lube_pop_reset:
+                BuzzerManager.getInstance().buzzerRingOnce();
                 SpManager.reSetRunLubeDis(0f);
                 //检测当前是否需要重新提示其他内容
                 int curType3 = checkLock();
@@ -165,6 +171,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
                 }
                 break;
             case R.id.btn_machine_lube_pop_yes:
+                BuzzerManager.getInstance().buzzerRingOnce();
                 //进行加油提示
                 if (presenter != null) {
                     btn_machine_lube_pop_yes.setVisibility(View.GONE);
@@ -174,6 +181,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
                 }
                 break;
             case R.id.btn_machine_lube_pop_no:
+                BuzzerManager.getInstance().buzzerRingOnce();
                 //  检测当前是否需要重新提示其他内容
                 int curType4 = checkLock();
                 if (curType4 == CTConstant.NO_SHOW_TIPS) {
@@ -184,6 +192,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
                 stopTipsPop();
                 break;
             case R.id.et_password:
+                BuzzerManager.getInstance().buzzerRingOnce();
                 rl_lock_key.setVisibility(View.VISIBLE);
                 break;
             case R.id.img_tip_lock_bg:
