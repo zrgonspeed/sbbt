@@ -338,6 +338,12 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             if (tipsPop.isShowTips() || ((MyApplication) getApplication()).isFirst) {
                 return;
             }
+            // 第三方更新弹窗，不给进入start
+            if (HomeThirdAppUpdateManager.getInstance().isShow()) {
+                Logger.i("return; 第三方更新弹窗，不给进入start");
+                return;
+            }
+
             if (!ErrorManager.getInstance().exitError
                     && btn_quick_start.isEnabled()) {
                 btn_quick_start.performClick();
