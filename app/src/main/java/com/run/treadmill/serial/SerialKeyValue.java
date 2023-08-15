@@ -64,18 +64,18 @@ public class SerialKeyValue {
     public static final int HAND_STOP_CLICK = 0x94;
 
     // 手扶速度
-    public static final int SPEED_DOWN_HAND_CLICK = 0x88;
+    public static final int SPEED_DOWN_HAND_CLICK = 0x84;
     public static final int SPEED_DOWN_HAND_CLICK_LONG_1 = SPEED_DOWN_HAND_CLICK + 1;
     public static final int SPEED_DOWN_HAND_CLICK_LONG_2 = SPEED_DOWN_HAND_CLICK + 2;
-    public static final int SPEED_UP_HAND_CLICK = 0x84;
+    public static final int SPEED_UP_HAND_CLICK = 0x88;
     public static final int SPEED_UP_HAND_CLICK_LONG_1 = SPEED_UP_HAND_CLICK + 1;
     public static final int SPEED_UP_HAND_CLICK_LONG_2 = SPEED_UP_HAND_CLICK + 2;
 
     // 手扶扬升
-    public static final int INCLINE_DOWN_HAND_CLICK = 0x90;
+    public static final int INCLINE_DOWN_HAND_CLICK = 0x8c;
     public static final int INCLINE_DOWN_HAND_CLICK_LONG_1 = INCLINE_DOWN_HAND_CLICK + 1;
     public static final int INCLINE_DOWN_HAND_CLICK_LONG_2 = INCLINE_DOWN_HAND_CLICK + 2;
-    public static final int INCLINE_UP_HAND_CLICK = 0x8c;
+    public static final int INCLINE_UP_HAND_CLICK = 0x90;
     public static final int INCLINE_UP_HAND_CLICK_LONG_1 = INCLINE_UP_HAND_CLICK + 1;
     public static final int INCLINE_UP_HAND_CLICK_LONG_2 = INCLINE_UP_HAND_CLICK + 2;
 
