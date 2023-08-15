@@ -18,6 +18,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FileUtil;
+import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.util.UnitUtil;
 import com.run.treadmill.widget.VideoPlayerSelf;
@@ -268,6 +269,9 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
 
     @Override
     protected void runCmdKeyValue(int keyValue) {
+        if (KeyUtils.isStopSetSpeed(keyValue) || KeyUtils.isStopSetIncline(keyValue)) {
+            return;
+        }
         switch (keyValue) {
             case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:

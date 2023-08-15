@@ -12,6 +12,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.util.KeyUtils;
 
 /**
  * @Description 这里用一句话描述
@@ -241,6 +242,9 @@ public class UserProgramRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
     @Override
     public void cmdKeyValue(int keyValue) {
         super.cmdKeyValue(keyValue);
+        if (KeyUtils.isStopSetSpeed(keyValue) || KeyUtils.isStopSetIncline(keyValue)) {
+            return;
+        }
         switch (keyValue) {
             case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:

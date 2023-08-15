@@ -17,6 +17,7 @@ import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.widget.HistogramListView;
 
@@ -236,6 +237,9 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
 
     @Override
     protected void runCmdKeyValue(int keyValue) {
+        if (KeyUtils.isStopSetSpeed(keyValue) || KeyUtils.isStopSetIncline(keyValue)) {
+            return;
+        }
         switch (keyValue) {
             case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:

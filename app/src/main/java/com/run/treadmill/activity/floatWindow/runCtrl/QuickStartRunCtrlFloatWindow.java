@@ -13,6 +13,7 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.util.KeyUtils;
 
 import java.util.Arrays;
 
@@ -271,6 +272,9 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
     @Override
     public void cmdKeyValue(int keyValue) {
         super.cmdKeyValue(keyValue);
+        if (KeyUtils.isStopSetSpeed(keyValue) || KeyUtils.isStopSetIncline(keyValue)) {
+            return;
+        }
         switch (keyValue) {
             case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:
