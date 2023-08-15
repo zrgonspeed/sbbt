@@ -453,7 +453,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
                 img_err_bk.setImageResource(R.drawable.img_pop_bk);
                 img_err_bk.setVisibility(View.VISIBLE);
                 tv_err.setTextColor(context.getResources().getColor(R.color.textView_black, null));
-                tv_err.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.font_size_36pt));
+                tv_err.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.font_size_30pt));
                 if (ErrorManager.getInstance().errStatus == ErrorManager.ERR_INCLINE_CALIBRATE) {
                     tv_err.setText(R.string.string_calibration_failure);
                 } else {

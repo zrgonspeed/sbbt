@@ -406,6 +406,7 @@ public class UserProgramSelectActivity extends BaseSelectActivity<UserProgramSel
 
     protected void clickBack() {
         if (rl_two.getVisibility() == View.VISIBLE) {
+            BuzzerManager.getInstance().buzzerRingOnce();
             rl_one.setVisibility(View.VISIBLE);
             rl_two.setVisibility(View.GONE);
             btn_next_or_back.setImageResource(R.drawable.btn_next);

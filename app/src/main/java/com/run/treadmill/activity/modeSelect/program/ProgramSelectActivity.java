@@ -304,10 +304,16 @@ public class ProgramSelectActivity extends BaseSelectActivity<ProgramSelectView,
         rg_info.clearCheck();
     }
 
+    @BindView(R.id.rb_male)
+    RadioButton rb_male;
+    @BindView(R.id.rb_female)
+    RadioButton rb_female;
+
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        BuzzerManager.getInstance().buzzerRingOnce();
-
+        if(rb_male.isPressed() || rb_female.isPressed()) {
+            BuzzerManager.getInstance().buzzerRingOnce();
+        }
         switch (checkedId) {
             default:
                 break;
@@ -324,6 +330,7 @@ public class ProgramSelectActivity extends BaseSelectActivity<ProgramSelectView,
 
     protected void clickBack() {
         if (rl_two.getVisibility() == View.VISIBLE) {
+            BuzzerManager.getInstance().buzzerRingOnce();
             rl_one.setVisibility(View.VISIBLE);
             rl_two.setVisibility(View.GONE);
             gridView.setVisibility(View.GONE);
