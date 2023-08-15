@@ -6,12 +6,15 @@ import com.chuhui.btcontrol.BtHelper;
 import com.chuhui.btcontrol.bean.InitialBean;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.manager.zyftms.ZyLight;
 
 
 public class BtHelperUtils {
     public static void initBtHelper(Context context) {
         BtHelper.getInstance().openPort(context, "/dev/ttyS3");
         BtHelper.getInstance().setInitData(initAndGetBean());
+
+        ZyLight.startThread();
     }
 
     public static InitialBean initAndGetBean() {

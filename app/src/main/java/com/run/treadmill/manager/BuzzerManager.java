@@ -132,6 +132,13 @@ public class BuzzerManager {
     }
 
     /**
+     * 蜂鸣一声 强制
+     */
+    public synchronized void buzzerRingOnceMust() {
+        mStrategy.buzzerRingOnce();
+    }
+
+    /**
      * 响多久
      *
      * @param time
