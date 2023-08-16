@@ -130,7 +130,7 @@ public class SerialTxData {
     }
 
     protected synchronized void reMoveQueuePackage() {
-        Log.d(TAG, "reMoveQueuePackage");
+        // Log.d(TAG, "reMoveQueuePackage");
         hasReSendCount = 0;
         if (!isEmptyQueue()) {
             reSendPackageQueue.poll();

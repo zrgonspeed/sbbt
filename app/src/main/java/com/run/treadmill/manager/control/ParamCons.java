@@ -130,12 +130,12 @@ public class ParamCons {
     /**
      * 扬升上升
      */
-    public static byte CMD_INCLINE_UP = 0x02;
+    public static byte CMD_INCLINE_UP = 0x01;
 
     /**
      * 扬升下降
      */
-    public static byte CMD_INCLINE_DOWN = 0x03;
+    public static byte CMD_INCLINE_DOWN = 0x02;
 
     /**
      * 休眠命令
@@ -210,10 +210,6 @@ public class ParamCons {
         CMD_SET_SPEED = 0x4F;
 
         CMD_SET_INCLINE = 0x2A;
-
-        CMD_INCLINE_AD = 0x2B;
-        CMD_INCLINE_UP = 0x01;
-        CMD_INCLINE_DOWN = 0x02;
 
         CMD_SLEEP = 0x7A;
 
