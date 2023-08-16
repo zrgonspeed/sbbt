@@ -85,6 +85,16 @@ public class HomeAndRunAppUtils {
                 .runDrawable(R.drawable.btn_media_screen_mirroring)
                 .build();
 
+        ThirdApp disney = new ThirdApp.Builder("Disneyplus", "com.disney.disneyplus")
+                .homeDrawable(R.drawable.btn_home_disney)
+                .runDrawable(R.drawable.btn_media_disney)
+                .build();
+
+        ThirdApp vod = new ThirdApp.Builder("Vod12", "com.keshet.mako.VOD.intl")
+                .homeDrawable(R.drawable.btn_home_vod)
+                .runDrawable(R.drawable.btn_media_vod)
+                .build();
+
         list = new ArrayList<>();
         list.add(youtube);
         list.add(chrome);
@@ -97,6 +107,8 @@ public class HomeAndRunAppUtils {
         list.add(mp4);
         // list.add(AnplusMirroring);
         list.add(kinomap);
+        list.add(disney);
+        list.add(vod);
     }
 
     private static synchronized void initListChina() {

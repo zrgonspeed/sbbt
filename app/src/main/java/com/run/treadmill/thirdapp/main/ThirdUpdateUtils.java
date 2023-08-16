@@ -78,6 +78,14 @@ public class ThirdUpdateUtils {
                 .updateDrawable(R.drawable.btn_media_kinomap_1)
                 .build();
 
+        ThirdApp disney = new ThirdApp.Builder("Disneyplus", "com.disney.disneyplus")
+                .updateDrawable(R.drawable.btn_media_disney_1)
+                .build();
+
+        ThirdApp vod = new ThirdApp.Builder("Vod12", "com.keshet.mako.VOD.intl")
+                .updateDrawable(R.drawable.btn_media_12_1)
+                .build();
+
         list = new ArrayList<>();
         list.add(youtube);
         list.add(chrome);
@@ -91,6 +99,9 @@ public class ThirdUpdateUtils {
 
         // list.add(anplusMirroring);
         list.add(kinomap);
+
+        list.add(disney);
+        list.add(vod);
 
         list.add(gms);
     }

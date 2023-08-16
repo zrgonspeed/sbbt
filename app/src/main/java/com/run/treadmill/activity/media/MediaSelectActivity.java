@@ -152,7 +152,7 @@ public class MediaSelectActivity extends BaseActivity<MediaSelectView, MediaSele
         vp_movie.addView(page1);
 
         page1RV = (RecyclerView) page1.findViewById(R.id.rv_item_movie);
-        GridLayoutManager glm1 = new GridLayoutManager(this, 5);
+        GridLayoutManager glm1 = new GridLayoutManager(this, 6);
         glm1.setOrientation(GridLayoutManager.VERTICAL);
         page1RV.setLayoutManager(glm1);
         int[] drawable1 = new int[drawable.length];
@@ -172,7 +172,7 @@ public class MediaSelectActivity extends BaseActivity<MediaSelectView, MediaSele
 
         vp_movie.addView(page2);
         page2RV = (RecyclerView) page2.findViewById(R.id.rv_item_movie);
-        GridLayoutManager glm2 = new GridLayoutManager(this, 5);
+        GridLayoutManager glm2 = new GridLayoutManager(this, 6);
         glm2.setOrientation(GridLayoutManager.VERTICAL);
         page2RV.setLayoutManager(glm2);
         int[] drawable2 = new int[drawable.length - drawable1.length];

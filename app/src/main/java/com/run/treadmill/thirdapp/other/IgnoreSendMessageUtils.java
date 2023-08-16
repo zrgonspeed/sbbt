@@ -28,6 +28,9 @@ public class IgnoreSendMessageUtils {
             "com.qiyi.video.pad",
             "com.yahoo.mobile.client.android.flickr",
             "com.kinomap.training",
+
+            "com.keshet.mako.VOD.intl",
+            "com.disney.disneyplus",
     };
 
     public static void onCreateMission() {

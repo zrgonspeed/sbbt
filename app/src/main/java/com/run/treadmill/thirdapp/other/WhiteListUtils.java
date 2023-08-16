@@ -40,6 +40,9 @@ public class WhiteListUtils {
 
             "com.kinomap.training",
 
+            "com.keshet.mako.VOD.intl",
+            "com.disney.disneyplus",
+
             "com.google.android.gms",
     };
 

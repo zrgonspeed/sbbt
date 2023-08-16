@@ -28,6 +28,9 @@ public class DeleteAccountsUtils {
             "com.tencent.qqmusicpad",
             "com.hpplay.happyplay.aw",
             "com.kinomap.training",
+
+            "com.keshet.mako.VOD.intl",
+            "com.disney.disneyplus",
     };
 
     public static void delete() {
