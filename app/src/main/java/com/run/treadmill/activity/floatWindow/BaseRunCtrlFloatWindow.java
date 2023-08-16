@@ -393,6 +393,22 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
     protected void enterPause() {
         mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_STOP;
+
+        if (mFloatWindowManager.runMode == CTConstant.QUICKSTART ||
+                mFloatWindowManager.runMode == CTConstant.GOAL ||
+                mFloatWindowManager.runMode == CTConstant.HRC ||
+                mFloatWindowManager.runMode == CTConstant.VISION
+        ) {
+            setSpeedValue(0, minSpeed, false);
+            setInclineValue(0, 0, false);
+        }
+        if (mFloatWindowManager.runMode == CTConstant.PROGRAM ||
+                mFloatWindowManager.runMode == CTConstant.USER_PROGRAM
+        ) {
+            setSpeedValue(0, minSpeed, true);
+            setInclineValue(0, 0, true);
+        }
+
         // gsMode默认false
         // 客户要求修改扬升机制
         ControlManager.getInstance().stopRun(false);
