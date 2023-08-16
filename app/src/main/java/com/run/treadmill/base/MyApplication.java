@@ -14,6 +14,8 @@ import com.run.treadmill.manager.HardwareSoundManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.control.ParamCons;
+import com.run.treadmill.manager.musiclight.MusicReceiverManager;
+import com.run.treadmill.manager.musiclight.MusicLight;
 import com.run.treadmill.util.BtHelperUtils;
 import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
@@ -145,13 +147,17 @@ public class MyApplication extends LitePalApplication {
         }
 
         HomeThirdAppUpdateManager.getInstance().setNewCheck(true);
-    }
+
+        // MusicLight.startThread();
+        // MusicReceiverManager.register();
+    };
 
 
     @Override
     public void onTerminate() {
         super.onTerminate();
         BtAppReboot.stopService();
+        // MusicReceiverManager.unRegister();
         Logger.d("==================app 被销毁了一次=====================");
     }
 }

@@ -37,6 +37,7 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.manager.musiclight.MusicLight;
 import com.run.treadmill.manager.zyftms.ZyLight;
 import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.serial.SerialKeyValue;
@@ -258,6 +259,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             tipsPop.stopTipsPop();
 
             ZyLight.safeKeyResume();
+            MusicLight.safeKeyResume();
         }
     }
 
