@@ -120,6 +120,8 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
 
         btn_calibrate.setEnabled(false);
         btn_rpm_start_stop.setEnabled(false);
+
+        ControlManager.getInstance().setIncline(0);
     }
 
     @Override
