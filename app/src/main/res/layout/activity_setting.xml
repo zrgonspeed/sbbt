@@ -132,7 +132,7 @@
             android:background="@drawable/btn_setting_language_bar"
             android:divider="@color/background_black"
             android:dropDownWidth="wrap_content"
-            android:dropDownSelector="@color/textView_black"
+            android:dropDownSelector="#1371CF"
             android:entries="@array/spinner_language"
             android:gravity="center"
             android:popupBackground="@color/white"
