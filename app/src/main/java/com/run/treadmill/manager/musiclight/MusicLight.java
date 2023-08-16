@@ -60,7 +60,7 @@ public class MusicLight {
         closeBtLight();
     }
 
-    private static byte CMD_BT_LIGHT = 0x78;
+    private static byte CMD_BT_LIGHT = (byte) 0x83;
 
     private static void cmdOpenBtLight() {
         sendWriteOneData(CMD_BT_LIGHT, new byte[]{(byte) 0x64, 0x00});

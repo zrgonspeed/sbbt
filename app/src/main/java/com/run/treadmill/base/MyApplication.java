@@ -148,8 +148,8 @@ public class MyApplication extends LitePalApplication {
 
         HomeThirdAppUpdateManager.getInstance().setNewCheck(true);
 
-        // MusicLight.startThread();
-        // MusicReceiverManager.register();
+        MusicLight.startThread();
+        MusicReceiverManager.register();
     };
 
 
@@ -157,7 +157,7 @@ public class MyApplication extends LitePalApplication {
     public void onTerminate() {
         super.onTerminate();
         BtAppReboot.stopService();
-        // MusicReceiverManager.unRegister();
+        MusicReceiverManager.unRegister();
         Logger.d("==================app 被销毁了一次=====================");
     }
 }
