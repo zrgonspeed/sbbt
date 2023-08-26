@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_px_895_x"
+        android:layout_marginStart="@dimen/dp_px_895_x"
         android:layout_marginTop="@dimen/dp_px_230_y"
         android:text="@string/string_max"
         android:textColor="@color/white"
@@ -44,7 +44,7 @@
         android:id="@+id/tv_ad_min"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_px_737_x"
+        android:layout_marginStart="@dimen/dp_px_737_x"
         android:layout_marginTop="@dimen/dp_px_325_y"
         android:text="150"
         android:textColor="@color/white"
@@ -54,7 +54,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_px_895_x"
+        android:layout_marginStart="@dimen/dp_px_895_x"
         android:layout_marginTop="@dimen/dp_px_347_y"
         android:text="@string/string_min"
         android:textColor="@color/white"

@@ -173,7 +173,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="508dp"
+            android:layout_marginStart="508dp"
             android:layout_marginTop="150dp"
             android:src="@null" />
 
