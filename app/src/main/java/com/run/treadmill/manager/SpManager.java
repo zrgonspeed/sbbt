@@ -792,12 +792,9 @@ public class SpManager {
 
     /**
      * zh de en fr es pt
-     * 默认英文
-     *
-     * @return
      */
     public static String getLanguage() {
-        return StorageParam.getParam(SET_LANGUAGE, "en");
+        return StorageParam.getParam(SET_LANGUAGE, "iw");
     }
 
     /**
