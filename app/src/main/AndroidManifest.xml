@@ -70,7 +70,7 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:screenOrientation="landscape"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
         android:theme="@style/NoTitle_FullScreen_NoTrans"
         android:usesCleartextTraffic="true"
         androidprv:systemUserOnly="true">
