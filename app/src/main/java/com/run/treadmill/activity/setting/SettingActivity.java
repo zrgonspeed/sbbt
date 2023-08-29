@@ -386,14 +386,19 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                 }
                 break;
             case SerialKeyValue.BACK_KEY_CLICK:
-                // if当前是蓝牙界面，关闭
                 if (ActivityUtils.getTopActivity().contains("com.anplus.bluetooth")) {
+                    // if当前是蓝牙界面，关闭
                     BuzzerManager.getInstance().buzzerRingOnce();
                     ActivityUtils.simulateKey(KeyEvent.KEYCODE_BACK);
                 } else {
                     if (btn_home.isEnabled() && btn_home.getVisibility() == View.VISIBLE) {
                         BuzzerManager.getInstance().buzzerRingOnce();
                         btn_home.performClick();
+                    } else {
+                        // lock时是显示返回键
+                        if (btn_back.isEnabled() && btn_back.getVisibility() == View.VISIBLE) {
+                            btn_back.performClick();
+                        }
                     }
                 }
                 break;
