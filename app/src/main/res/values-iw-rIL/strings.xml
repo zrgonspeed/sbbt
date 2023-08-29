@@ -136,7 +136,7 @@
     <string name="string_factory_information">מידע</string>
     <string name="string_factory_update">עדכון</string>
     <string name="string_factory_logo">סמל</string>
-    <string name="string_factory_calibration">כיול</string>
+    <string name="string_factory_calibration">מבצע כיול</string>
     <string name="string_factory_unit">יחידות מדידה</string>
     <string name="string_factory_speed_calibration">כיול מהירות</string>
     <string name="string_factory_max_speed">מהירות מרבית</string>
