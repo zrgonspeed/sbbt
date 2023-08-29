@@ -260,6 +260,7 @@ public class VisionSelectActivity extends BaseSelectActivity<VisionSelectView, V
     @Override
     protected void clickBack() {
         if (rl_vision_p2.getVisibility() == View.VISIBLE) {
+            BuzzerManager.getInstance().buzzerRingOnce();
             // 处于详情页时
             if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
                 mCalcBuilder.stopPopWin();
