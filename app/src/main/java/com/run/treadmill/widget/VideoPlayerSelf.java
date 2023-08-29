@@ -13,6 +13,10 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.run.treadmill.activity.runMode.RunningParam;
+import com.run.treadmill.common.CTConstant;
+import com.run.treadmill.util.Logger;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.concurrent.locks.Condition;
@@ -92,6 +96,11 @@ public class VideoPlayerSelf implements SurfaceHolder.Callback {
     }
 
     public void setSpeedCtrl(float amount) {
+        if (RunningParam.getInstance().runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+            Logger.i("当前是Cool Down 停止播放视频");
+            videoPlayerStartPause();
+            return;
+        }
 //		Log.d(TAG,"onAmountChange " + amount  );
 //        if (amount >= 10) {
 //            waitTime = TIME - TIME / 10 * (amount - 10);
