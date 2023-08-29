@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
-        android:paddingLeft="@dimen/dp_px_300_x"
+        android:paddingStart="@dimen/dp_px_300_x"
         android:paddingTop="@dimen/dp_px_60_x"
-        android:paddingRight="@dimen/dp_px_86_x" />
+        android:paddingEnd="@dimen/dp_px_86_x" />
 </LinearLayout>

@@ -21,8 +21,8 @@
         android:inputType="text"
         android:lines="1"
         android:maxLength="12"
-        android:paddingLeft="@dimen/dp_px_40_x"
-        android:paddingRight="@dimen/dp_px_10_x"
+        android:paddingStart="@dimen/dp_px_40_x"
+        android:paddingEnd="@dimen/dp_px_10_x"
         android:textColor="@color/textView_white"
         android:textSize="@dimen/font_size_30pt"
         android:textStyle="bold" />

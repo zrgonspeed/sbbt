@@ -22,8 +22,8 @@
         android:layout_marginTop="@dimen/dp_px_148_y"
         android:background="@drawable/img_factory_select_1"
         android:gravity="center"
-        android:paddingLeft="@dimen/dp_px_5_x"
-        android:paddingRight="@dimen/dp_px_5_x"
+        android:paddingStart="@dimen/dp_px_5_x"
+        android:paddingEnd="@dimen/dp_px_5_x"
         android:text="@string/string_factory_calibration"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_factory_one_cali" />

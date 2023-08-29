@@ -17,7 +17,7 @@
         android:layout_height="@dimen/dp_px_120_y"
         android:layout_marginStart="@dimen/dp_px_270_x"
         android:layout_marginTop="@dimen/dp_px_608_y"
-        android:gravity="center|right"
+        android:gravity="center|end"
         android:text="15.0"
         android:textColor="@color/yellow"
         android:textSize="@dimen/font_size_47pt" />
@@ -37,7 +37,7 @@
         android:layout_height="@dimen/dp_px_120_y"
         android:layout_marginStart="@dimen/dp_px_980_x"
         android:layout_marginTop="@dimen/dp_px_608_y"
-        android:gravity="center|right"
+        android:gravity="center|end"
         android:text="15.0"
         android:textColor="@color/yellow"
         android:textSize="@dimen/font_size_47pt" />

@@ -183,7 +183,7 @@
         android:layout_height="@dimen/dp_px_77_y"
         android:layout_marginStart="@dimen/dp_px_590_x"
         android:layout_marginTop="@dimen/dp_px_538_y"
-        android:gravity="center|right"
+        android:gravity="center|end"
         android:text="@string/string_select_start_hint"
         android:textColor="@color/textView_white"
         android:textSize="@dimen/font_size_18pt" />

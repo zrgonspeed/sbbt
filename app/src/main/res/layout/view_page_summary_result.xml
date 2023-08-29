@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_70_x"
         android:layout_marginTop="@dimen/dp_px_220_y"
-        android:gravity="center|left"
+        android:gravity="center|start"
         android:text="@string/string_common_time"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_25pt" />
@@ -30,7 +30,7 @@
         android:layout_height="@dimen/dp_px_120_y"
         android:layout_marginStart="@dimen/dp_px_325_x"
         android:layout_marginTop="@dimen/dp_px_200_y"
-        android:gravity="center|right"
+        android:gravity="center|end"
         android:text="130:00"
         android:textColor="@color/yellow"
         android:textSize="@dimen/font_size_47pt" />
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_70_x"
         android:layout_marginTop="@dimen/dp_px_350_y"
-        android:gravity="center|left"
+        android:gravity="center|start"
         android:text="@string/string_common_distance"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_25pt" />
@@ -62,7 +62,7 @@
         android:layout_height="@dimen/dp_px_120_y"
         android:layout_marginStart="@dimen/dp_px_325_x"
         android:layout_marginTop="@dimen/dp_px_330_y"
-        android:gravity="center|right"
+        android:gravity="center|end"
         android:text="10.5"
         android:textColor="@color/yellow"
         android:textSize="@dimen/font_size_47pt" />
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_70_x"
         android:layout_marginTop="@dimen/dp_px_500_y"
-        android:gravity="center|left"
+        android:gravity="center|start"
         android:text="@string/string_common_calories"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_25pt" />
@@ -93,7 +93,7 @@
         android:layout_height="@dimen/dp_px_120_y"
         android:layout_marginStart="@dimen/dp_px_325_x"
         android:layout_marginTop="@dimen/dp_px_480_y"
-        android:gravity="center|right"
+        android:gravity="center|end"
         android:text="1239.1"
         android:textColor="@color/yellow"
         android:textSize="@dimen/font_size_47pt" />
@@ -233,7 +233,7 @@
         <TextView
             android:layout_width="@dimen/dp_px_250_x"
             android:layout_height="match_parent"
-            android:gravity="center|left"
+            android:gravity="center|start"
             android:text="@string/string_co2_max"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_21pt" />
