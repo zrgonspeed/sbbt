@@ -76,6 +76,7 @@
         android:layout_marginTop="@dimen/dp_px_744_y"
         android:text="@string/string_factory_calibration"
         android:textAlignment="center"
+        android:gravity="center"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_18pt" />
 </RelativeLayout>

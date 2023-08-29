@@ -26,6 +26,7 @@
         android:layout_marginTop="@dimen/dp_px_67_y"
         android:text="@string/string_incline"
         android:textAlignment="center"
+        android:gravity="center"
         android:textColor="@color/running_text_orange"
         android:textSize="@dimen/font_size_18pt" />
 
@@ -36,6 +37,7 @@
         android:layout_marginTop="@dimen/dp_px_67_y"
         android:text="@string/string_speed"
         android:textAlignment="center"
+        android:gravity="center"
         android:textColor="@color/running_text_orange"
         android:textSize="@dimen/font_size_18pt" />
 
