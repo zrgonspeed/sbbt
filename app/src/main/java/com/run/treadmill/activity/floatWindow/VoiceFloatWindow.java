@@ -19,6 +19,7 @@ import com.run.treadmill.R;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.SystemSoundManager;
+import com.run.treadmill.util.VolumeUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.widget.VerticalSeekBar;
 
@@ -154,22 +155,38 @@ public class VoiceFloatWindow {
         mFloatWindowManager.removeView(mFloatWindow);
     }
 
+    private int tempVolume = -1;
+    private int tempStatus = -1;
+
     public void setProgress(int status) {
+        if (!VolumeUtils.canResponse()) {
+            // Logger.e("!VolumeUtils.canResponse()");
+            return;
+        }
+
         if (float_window_seek_bar_voice == null || mFloatWindow == null) {
             return;
         }
         showOrHideFloatWindow(false);
 
-        Logger.d("getProgress == " + float_window_seek_bar_voice.getProgress());
+        int pro = float_window_seek_bar_voice.getProgress();
+        Logger.d("getProgress == " + pro);
+        if (tempVolume == pro && tempStatus == status) {
+            Logger.d("return");
+            return;
+        }
+        tempVolume = pro;
+        tempStatus = status;
+
         if (status == 1) {
             if (SystemSoundManager.getInstance().getCurrentPro() < SystemSoundManager.maxVolume) {
                 BuzzerManager.getInstance().buzzerRingOnce();
-                float_window_seek_bar_voice.setProgress(float_window_seek_bar_voice.getProgress() + 1);
+                float_window_seek_bar_voice.setProgress(pro + 1);
             }
         } else {
             if (SystemSoundManager.getInstance().getCurrentPro() > 0) {
                 BuzzerManager.getInstance().buzzerRingOnce();
-                float_window_seek_bar_voice.setProgress(float_window_seek_bar_voice.getProgress() - 1);
+                float_window_seek_bar_voice.setProgress(pro - 1);
             }
         }
     }
