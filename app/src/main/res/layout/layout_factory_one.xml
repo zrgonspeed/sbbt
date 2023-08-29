@@ -38,11 +38,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_347_x"
+        android:layout_marginStart="@dimen/fact_one_1"
         android:layout_marginTop="@dimen/dp_px_220_y"
         android:text="@string/string_factory_unit"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_21pt" />
+        android:textSize="@dimen/fact_one_1_size" />
 
     <RadioGroup
         android:id="@+id/rg_metric"
@@ -72,20 +72,20 @@
         android:id="@+id/tv_tip_speed_cal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_347_x"
+        android:layout_marginStart="@dimen/fact_one_1"
         android:layout_marginTop="@dimen/dp_px_362_y"
         android:text="@string/string_factory_speed_calibration"
         android:textColor="@color/yellow"
-        android:textSize="@dimen/font_size_21pt" />
+        android:textSize="@dimen/fact_one_1_size" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_347_x"
+        android:layout_marginStart="@dimen/fact_one_1"
         android:layout_marginTop="@dimen/dp_px_494_y"
         android:text="@string/string_factory_max_speed"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_21pt" />
+        android:textSize="@dimen/fact_one_1_size" />
 
     <TextView
         android:id="@+id/edit_max_speed"
@@ -108,16 +108,16 @@
         android:layout_marginTop="@dimen/dp_px_494_y"
         android:text="@string/string_unit_kph"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_21pt" />
+        android:textSize="@dimen/font_size_factory_one_cali" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_347_x"
+        android:layout_marginStart="@dimen/fact_one_1"
         android:layout_marginTop="@dimen/dp_px_626_y"
         android:text="@string/string_factory_min_speed"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_21pt" />
+        android:textSize="@dimen/fact_one_1_size" />
 
     <TextView
         android:id="@+id/edit_min_speed"
@@ -139,7 +139,7 @@
         android:layout_marginTop="@dimen/dp_px_626_y"
         android:text="@string/string_unit_kph"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_21pt" />
+        android:textSize="@dimen/font_size_factory_one_cali" />
 
 
     <ImageView
@@ -157,7 +157,7 @@
         android:layout_marginStart="@dimen/dp_px_1111_x"
         android:text="@string/string_factory_incline_calibration"
         android:textColor="@color/yellow"
-        android:textSize="@dimen/font_size_21pt" />
+        android:textSize="@dimen/font_size_factory_one_cali" />
 
     <TextView
         android:id="@+id/tv_max_incline"
@@ -169,7 +169,7 @@
         android:gravity="center"
         android:text="@string/string_factory_max_incline"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_21pt" />
+        android:textSize="@dimen/font_size_factory_one_cali" />
 
     <TextView
         android:id="@+id/edit_max_incline"
@@ -215,7 +215,7 @@
         android:gravity="center"
         android:text="@string/string_factory_rpm"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_21pt"
+        android:textSize="@dimen/font_size_factory_one_cali"
         android:visibility="visible" />
 
     <LinearLayout

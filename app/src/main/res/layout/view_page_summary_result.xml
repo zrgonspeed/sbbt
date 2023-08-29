@@ -111,7 +111,7 @@
     <TextView
         android:layout_width="@dimen/dp_px_350_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_900_x"
+        android:layout_marginStart="@dimen/summary_1"
         android:layout_marginTop="@dimen/dp_px_220_y"
         android:gravity="start|center"
         android:text="@string/string_avg_speed"
@@ -122,10 +122,10 @@
         android:id="@+id/tv_avg_speed"
         android:layout_width="@dimen/dp_px_200_x"
         android:layout_height="@dimen/dp_px_120_y"
-        android:layout_marginStart="@dimen/dp_px_1170_x"
+        android:layout_marginStart="@dimen/dp_px_1200_x"
         android:layout_marginTop="@dimen/dp_px_200_y"
         android:gravity="right"
-        android:text="10.0"
+        android:text="24.9"
         android:textColor="@color/yellow"
         android:textSize="@dimen/font_size_47pt" />
 
@@ -133,7 +133,7 @@
         android:id="@+id/tv_unit_speed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_1400_x"
+        android:layout_marginStart="@dimen/dp_px_1430_x"
         android:layout_marginTop="@dimen/dp_px_230_y"
         android:text="@string/string_unit_kmh"
         android:textColor="@color/white"
@@ -142,7 +142,7 @@
     <TextView
         android:layout_width="@dimen/dp_px_350_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_900_x"
+        android:layout_marginStart="@dimen/summary_1"
         android:layout_marginTop="@dimen/dp_px_350_y"
         android:gravity="start|center"
         android:text="@string/string_avg_incline"
@@ -163,7 +163,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_1400_x"
+        android:layout_marginStart="@dimen/dp_px_1500_x"
         android:layout_marginTop="@dimen/dp_px_370_y"
         android:text="@string/string_unit_percent"
         android:textColor="@color/white"
@@ -172,7 +172,7 @@
     <TextView
         android:layout_width="@dimen/dp_px_350_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_900_x"
+        android:layout_marginStart="@dimen/summary_1"
         android:layout_marginTop="@dimen/dp_px_500_y"
         android:gravity="start|center"
         android:text="@string/string_avg_mets"
@@ -193,7 +193,7 @@
     <TextView
         android:layout_width="@dimen/dp_px_350_x"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_900_x"
+        android:layout_marginStart="@dimen/summary_1"
         android:layout_marginTop="@dimen/dp_px_640_y"
         android:gravity="start|center"
         android:text="@string/string_avg_pulse"
@@ -214,7 +214,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_1400_x"
+        android:layout_marginStart="@dimen/dp_px_1430_x"
         android:layout_marginTop="@dimen/dp_px_650_y"
         android:text="@string/string_unit_bpm"
         android:textColor="@color/white"
