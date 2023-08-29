@@ -2,6 +2,7 @@ package com.run.treadmill.activity.setting;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,6 +35,7 @@ import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.thirdapp.main.ThirdUpdateUtils;
 import com.run.treadmill.thirdapp.other.DeleteAccountsUtils;
+import com.run.treadmill.util.ActivityUtils;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.LanguageUtil;
 import com.run.treadmill.util.Logger;
@@ -384,6 +386,17 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                 }
                 break;
             case SerialKeyValue.BACK_KEY_CLICK:
+                // if当前是蓝牙界面，关闭
+                if (ActivityUtils.getTopActivity().contains("com.anplus.bluetooth")) {
+                    BuzzerManager.getInstance().buzzerRingOnce();
+                    ActivityUtils.simulateKey(KeyEvent.KEYCODE_BACK);
+                } else {
+                    if (btn_home.isEnabled() && btn_home.getVisibility() == View.VISIBLE) {
+                        BuzzerManager.getInstance().buzzerRingOnce();
+                        btn_home.performClick();
+                    }
+                }
+                break;
             case SerialKeyValue.HOME_KEY_CLICK:
                 if (btn_home.isEnabled() && btn_home.getVisibility() == View.VISIBLE) {
                     BuzzerManager.getInstance().buzzerRingOnce();
