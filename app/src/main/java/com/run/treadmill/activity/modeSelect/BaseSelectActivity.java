@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
+import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.runMode.RunningParam;
@@ -48,6 +49,12 @@ public abstract class BaseSelectActivity<V extends BaseSelectView, P extends Bas
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        btn_start.setEnabled(false);
+
+        if (AppDebug.disableSerial) {
+            btn_start.setEnabled(true);
+        }
+
         RunningParam.reset();
         FileUtil.setLogoIcon(this, btn_logo);
 
