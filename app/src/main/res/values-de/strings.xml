@@ -147,7 +147,7 @@
     <string name="string_factory_max_incline">Max. Steigung</string>
     <string name="string_factory_calibra_ad">Kalibrierung AD</string>
     <string name="string_factory_rpm">RPM</string>
-    <string name="string_factory_usb_update">aktualisierte Software enthält, in den USB-Port eingesteckt ist\"</string>
+    <string name="string_factory_usb_update">Bitte sicherstellen, dass das USB-Gerät, das die aktualisierte Software enthält, in die USB-Port eingesteckt ist</string>
     <string name="string_factory_total_time">Gesamtzeit</string>
     <string name="string_factory_total_distance">Gesamtentfernung</string>
     <string name="string_factory_sdk">SDK-Ver.</string>
