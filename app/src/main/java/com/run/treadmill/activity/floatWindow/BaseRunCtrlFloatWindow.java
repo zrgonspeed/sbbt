@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.fitShow.treadmill.FsTreadmillCommand;
+import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.common.CTConstant;
@@ -373,6 +374,9 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
                     layout_float_pause.setVisibility(View.GONE);
                     btn_float_pause_continue.setEnabled(false);
+                    if (AppDebug.disableSerial) {
+                        btn_float_pause_continue.setEnabled(true);
+                    }
                     btn_float_pause_quit.setEnabled(false);
 
                     btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
@@ -392,6 +396,8 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
     }
 
     protected void enterPause() {
+        mFloatWindowManager.hideCalc();
+
         mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_STOP;
 
         if (mFloatWindowManager.runMode == CTConstant.QUICKSTART ||
@@ -470,6 +476,9 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
         btn_float_pause_quit.setEnabled(true);
         btn_float_pause_continue.setEnabled(false);
+        if (AppDebug.disableSerial) {
+            btn_float_pause_continue.setEnabled(true);
+        }
 
         btn_incline_down.setEnabled(false);
         btn_incline_up.setEnabled(false);
