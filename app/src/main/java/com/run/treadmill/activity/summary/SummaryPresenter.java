@@ -207,7 +207,7 @@ public class SummaryPresenter extends BasePresenter<SummaryView> {
                 grade = R.string.string_summary_grade_4;
             } else if (score < 30.3f) {
                 grade = R.string.string_summary_grade_3;
-            } else if (score <= 31f) {
+            } else if (score <= 31.4f) {
                 grade = R.string.string_summary_grade_2;
             } else {
                 grade = R.string.string_summary_grade_1;
