@@ -258,8 +258,10 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             wakeUpSleep();
             tipsPop.stopTipsPop();
 
-            ZyLight.safeKeyResume();
-            MusicLight.safeKeyResume();
+            if (tipsPop.getLastTips() == CTConstant.SHOW_TIPS_SAFE_ERROR) {
+                ZyLight.safeKeyResume();
+                MusicLight.safeKeyResume();
+            }
         }
     }
 
