@@ -195,7 +195,7 @@ public class RecordPlayManager {
     private short SHRT_MAX = (short) 0x7F00;
     private short SHRT_MIN = (short)-0x7F00;
     //db为0表示保持音量不变，db为负数表示较低音量，为正数表示提高音量
-    private int db = 0;
+    private int db = 2;
     private double factor = Math.pow(10, (double)db / 20);
 
     private short getShort(byte[] data, int start) {
