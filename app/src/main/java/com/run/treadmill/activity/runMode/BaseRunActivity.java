@@ -625,8 +625,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                         || mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
                     break;
                 } else if (mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     warmUpToRunning();
                 } else if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     btn_start_stop_skip.setEnabled(false);
                     finishRunning();
                 } else {
