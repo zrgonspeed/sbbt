@@ -152,7 +152,7 @@ public class MediaSelectActivity extends BaseActivity<MediaSelectView, MediaSele
         vp_movie.addView(page1);
 
         page1RV = (RecyclerView) page1.findViewById(R.id.rv_item_movie);
-        GridLayoutManager glm1 = new GridLayoutManager(this, 6);
+        GridLayoutManager glm1 = new GridLayoutManager(this, 7);
         glm1.setOrientation(GridLayoutManager.VERTICAL);
         page1RV.setLayoutManager(glm1);
         int[] drawable1 = new int[drawable.length];
@@ -172,7 +172,7 @@ public class MediaSelectActivity extends BaseActivity<MediaSelectView, MediaSele
 
         vp_movie.addView(page2);
         page2RV = (RecyclerView) page2.findViewById(R.id.rv_item_movie);
-        GridLayoutManager glm2 = new GridLayoutManager(this, 6);
+        GridLayoutManager glm2 = new GridLayoutManager(this, 7);
         glm2.setOrientation(GridLayoutManager.VERTICAL);
         page2RV.setLayoutManager(glm2);
         int[] drawable2 = new int[drawable.length - drawable1.length];
@@ -180,11 +180,12 @@ public class MediaSelectActivity extends BaseActivity<MediaSelectView, MediaSele
         MediaSelectAppAdapter adapter2 = new MediaSelectAppAdapter(context, drawable2);
         page2RV.setAdapter(adapter2);
         adapter2.setOnItemClick(position -> {
+            if (!isCanStart && !AppDebug.disableSerial) {
+                return;
+            }
             mediaPkName = pkgName[drawable1.length + position];
             enterThirdApp();
         });
-//        mViews.add(page2);
-//        btn_vision_page.setVisibility(View.VISIBLE);
 
         vp_movie.setAdapter(new MediaSelectPagerAdapter(mViews));
         vp_movie.setOffscreenPageLimit(1);
@@ -214,35 +215,7 @@ public class MediaSelectActivity extends BaseActivity<MediaSelectView, MediaSele
         curMinAD = SpManager.getMinAd();
     }
 
-    /**
-     * 检测当前AD值是否在正常范围
-     *
-     * @param curAD
-     * @return
-     */
-    private boolean checkADValueIsInSafe(int curAD) {
-        return true;
-//        if (isOpenGSMode) {
-//            return true;
-//        }
-//        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-//            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AC_AD);
-//
-//        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA ){
-//            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AA_AD);
-//
-//        }  else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-//            return (Math.abs(curAD - curMinAD) < InitParam.ABS_DC_AD);
-//
-//        } else {
-//            return (Math.abs(curAD - curMinAD) < InitParam.ABS_AC_AD);
-//        }
-    }
-
     private void enterThirdApp() {
-      /*  if (!isCanStart) {
-            return;
-        }*/
         BuzzerManager.getInstance().buzzerRingOnce();
         getPresenter().setUpRunningParam(isMetric);
         //进入QuickStart模式再进入第三方媒体

@@ -105,7 +105,7 @@ public class HomeAndRunAppUtils {
         list.add(netflix);
         list.add(ponymusic);
         list.add(mp4);
-        // list.add(AnplusMirroring);
+        list.add(AnplusMirroring);
         list.add(kinomap);
         list.add(disney);
         list.add(vod);

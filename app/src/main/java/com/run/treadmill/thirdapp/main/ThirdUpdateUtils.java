@@ -97,7 +97,7 @@ public class ThirdUpdateUtils {
         list.add(ponymusic);
         list.add(anplus_A133Bluetooth);
 
-        // list.add(anplusMirroring);
+        list.add(anplusMirroring);
         list.add(kinomap);
 
         list.add(disney);
