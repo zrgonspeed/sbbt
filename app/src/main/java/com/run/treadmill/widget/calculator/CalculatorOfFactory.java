@@ -5,6 +5,7 @@ import android.content.Context;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.UnitUtil;
 
 public class CalculatorOfFactory extends BaseCalculator {
@@ -71,10 +72,20 @@ public class CalculatorOfFactory extends BaseCalculator {
                 }
                 break;
             case CTConstant.TYPE_FACTORY_LUBE:
-                if (InitParam.MAX_LUBE_DISTANCE <= result) {
-                    result = InitParam.MAX_LUBE_DISTANCE;
-                } else if (InitParam.MIN_LUBE_DISTANCE >= result) {
-                    result = InitParam.MIN_LUBE_DISTANCE;
+                if (SpManager.getIsMetric()) {
+                    if (InitParam.MAX_LUBE_DISTANCE <= result) {
+                        result = InitParam.MAX_LUBE_DISTANCE;
+                    } else if (InitParam.MIN_LUBE_DISTANCE >= result) {
+                        result = InitParam.MIN_LUBE_DISTANCE;
+                    }
+                } else {
+                    float kmToMile = UnitUtil.getKmToMile(InitParam.MAX_LUBE_DISTANCE);
+                    Logger.i("lube kmToMile == " + kmToMile);
+                    if (kmToMile <= result) {
+                        result = kmToMile;
+                    } else if (InitParam.MIN_LUBE_DISTANCE >= result) {
+                        result = InitParam.MIN_LUBE_DISTANCE;
+                    }
                 }
                 break;
             case CTConstant.TYPE_FACTORY_RPM:
