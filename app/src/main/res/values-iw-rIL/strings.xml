@@ -193,7 +193,7 @@
     <string name="string_calibration_failure">הכיול נכשל</string>
     <string name="string_u_disk_no_file">Cannot find U disk update</string>
 
-    <string name="server_hint">The current server is</string>
+    <string name="server_hint">השרת הנוכחי הוא</string>
 
     <string name="string_movie_name_3">Forests</string>
     <string name="string_movie_name_4">Mountains</string>
