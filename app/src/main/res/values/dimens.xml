@@ -9,6 +9,8 @@
     <dimen name="fact_one_1">@dimen/dp_px_347_x</dimen>
     <dimen name="fact_one_1_size">@dimen/font_size_21pt</dimen>
     <dimen name="summary_1">@dimen/dp_px_900_x</dimen>
+    <dimen name="summary_avg_speed">@dimen/font_size_25pt</dimen>
+    <dimen name="media_1">@dimen/dp_px_0_x</dimen>
 
     <dimen name="font_size_15pt">20.0sp</dimen>
     <dimen name="font_size_16pt">22.67sp</dimen>
@@ -3037,5 +3039,4 @@
     <dimen name="dp_px_1078_y">718.67dp</dimen>
     <dimen name="dp_px_1079_y">719.34dp</dimen>
     <dimen name="dp_px_1080_y">720.0dp</dimen>
-    <dimen name="summary_avg_speed">@dimen/font_size_25pt</dimen>
 </resources>

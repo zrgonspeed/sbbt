@@ -22,6 +22,7 @@
         android:layout_marginStart="@dimen/dp_px_600_x"
         android:layout_marginTop="@dimen/dp_px_50_y"
         android:gravity="end|center"
+        android:paddingStart="@dimen/media_1"
         android:text="@string/media_select_title"
         android:textColor="@color/textView_white"
         android:textSize="@dimen/font_size_30pt" />

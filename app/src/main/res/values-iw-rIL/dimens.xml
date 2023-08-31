@@ -3,4 +3,5 @@
     <dimen name="fact_one_1">@dimen/dp_px_310_x</dimen>
     <dimen name="fact_one_1_size">@dimen/font_size_16pt</dimen>
     <dimen name="summary_1">@dimen/dp_px_850_x</dimen>
+    <dimen name="media_1">@dimen/dp_px_250_x</dimen>
 </resources>
