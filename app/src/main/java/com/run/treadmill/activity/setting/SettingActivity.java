@@ -600,6 +600,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                         break;
                     case 6:
                         changeSystemLanguage60(Locale.ITALIAN);
+                        break;
                     case 7:
                         changeSystemLanguage60(new Locale("he", "HE"));
                         break;
