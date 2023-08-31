@@ -359,6 +359,7 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
         intentFilter.addDataScheme("file");
         mUsbBroadcastReceiver = new USBBroadcastReceiver();
         mUsbBroadcastReceiver.setUSBCallBack(this);
+        Logger.i("initFactoryTwo()->regisBroadcastReceiver()  mUsbBroadcastReceiver == " + mUsbBroadcastReceiver);
         activity.registerReceiver(mUsbBroadcastReceiver, intentFilter);
     }
 
@@ -417,6 +418,7 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
     }
 
     public void onDestroy() {
+        Logger.i("onDestroy()  mUsbBroadcastReceiver == " + mUsbBroadcastReceiver);
         if (mUsbBroadcastReceiver != null) {
             activity.unregisterReceiver(mUsbBroadcastReceiver);
             mUsbBroadcastReceiver = null;
@@ -480,10 +482,6 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
     public void onPause() {
         if (mHintTimer != null) {
             mHintTimer.closeTimer();
-        }
-        if (mUsbBroadcastReceiver != null) {
-            activity.unregisterReceiver(mUsbBroadcastReceiver);
-            mUsbBroadcastReceiver = null;
         }
 
         OtaMcuUtils.checkCurIsOtamcu();
