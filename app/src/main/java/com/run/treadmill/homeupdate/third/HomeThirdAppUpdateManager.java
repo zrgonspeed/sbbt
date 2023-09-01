@@ -151,8 +151,10 @@ public class HomeThirdAppUpdateManager implements OkHttpCallBack {
     }
 
     public void hideDialog() {
-        if (dialog != null) {
-            dialog.hidePopUpDialog();
+        if (isShow()) {
+            if (dialog != null) {
+                dialog.hidePopUpDialog();
+            }
         }
     }
 

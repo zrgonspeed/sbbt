@@ -225,6 +225,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             FitShowTreadmillManager.getInstance().setNOtConnect(true);
         }
         showTipPop(CTConstant.SHOW_TIPS_OTHER_ERROR);
+        HomeThirdAppUpdateManager.getInstance().hideDialog();
     }
 
     @Override
@@ -242,6 +243,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @Override
     public void commOutError() {
+        HomeThirdAppUpdateManager.getInstance().hideDialog();
         showTipPop(CTConstant.SHOW_TIPS_COMM_ERROR);
         if (btn_quick_start.isEnabled()) {
             btn_quick_start.setEnabled(false);

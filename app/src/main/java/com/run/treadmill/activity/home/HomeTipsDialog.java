@@ -1,5 +1,6 @@
 package com.run.treadmill.activity.home;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.factory.FactoryActivity;
+import com.run.treadmill.activity.floatWindow.SettingBackFloatWindow;
+import com.run.treadmill.base.MyApplication;
 import com.run.treadmill.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
@@ -19,6 +22,8 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.ThirdApkSupport;
+import com.run.treadmill.util.WifiBackFloatWindow;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
 
 public class HomeTipsDialog extends Dialog implements View.OnClickListener {
@@ -27,6 +32,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
 
     private RelativeLayout rl_error;
     private MultiClickAndLongPressView lpv_update;
+    private MultiClickAndLongPressView lpv_wifi;
     private ImageView img_err_bk;
     private ImageView img_err_icon;
     private TextView tv_err;
@@ -268,6 +274,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
     private void onCreate() {
         rl_error = (RelativeLayout) findViewById(R.id.rl_error);
         lpv_update = (MultiClickAndLongPressView) findViewById(R.id.lpv_update);
+        lpv_wifi = (MultiClickAndLongPressView) findViewById(R.id.lpv_wifi);
         img_err_bk = (ImageView) findViewById(R.id.img_err_bk);
         img_err_icon = (ImageView) findViewById(R.id.img_err_icon);
         tv_err = (TextView) findViewById(R.id.tv_err);
@@ -338,6 +345,21 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
                 intent.putExtra(CTConstant.FACTORY_NUM, 2);
                 intent.putExtra(CTConstant.FACTORY_NO_SHOW_ERR, true);
                 context.startActivity(intent);
+            }
+        });
+
+        lpv_wifi.setOnMultiClickListener(new MultiClickAndLongPressView.OnMultiClickListener() {
+            private WifiBackFloatWindow wifiBackFloatWindow;
+
+            @Override
+            public void onMultiClick() {
+                if (wifiBackFloatWindow != null) {
+                    wifiBackFloatWindow.stopFloat1();
+                    wifiBackFloatWindow = null;
+                }
+                wifiBackFloatWindow = new WifiBackFloatWindow(MyApplication.getContext(), (Activity) context);
+                wifiBackFloatWindow.startFloat();
+                WifiBackFloatWindow.enterSystemSetting2(context, "com.android.settings.wifi.WifiSettings");
             }
         });
 

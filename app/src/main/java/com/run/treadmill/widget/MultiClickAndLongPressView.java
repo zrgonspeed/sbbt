@@ -109,7 +109,7 @@ public class MultiClickAndLongPressView extends ImageView {
                 mCounter++;
                 isReleased = false;
                 isMoved = false;
-                postDelayed(mLongPressRunnable, pressTime);// 按下pressTime后调用线程
+                // postDelayed(mLongPressRunnable, pressTime);// 按下pressTime后调用线程
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (!(x >= getLeft() && x <= getRight() &&
