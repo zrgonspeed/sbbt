@@ -357,10 +357,12 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
         intentFilter.addAction(Intent.ACTION_MEDIA_BAD_REMOVAL);
 
         intentFilter.addDataScheme("file");
-        mUsbBroadcastReceiver = new USBBroadcastReceiver();
-        mUsbBroadcastReceiver.setUSBCallBack(this);
-        Logger.i("initFactoryTwo()->regisBroadcastReceiver()  mUsbBroadcastReceiver == " + mUsbBroadcastReceiver);
-        activity.registerReceiver(mUsbBroadcastReceiver, intentFilter);
+        if (mUsbBroadcastReceiver == null) {
+            mUsbBroadcastReceiver = new USBBroadcastReceiver();
+            mUsbBroadcastReceiver.setUSBCallBack(this);
+            Logger.i("initFactoryTwo()->regisBroadcastReceiver()  mUsbBroadcastReceiver == " + mUsbBroadcastReceiver);
+            activity.registerReceiver(mUsbBroadcastReceiver, intentFilter);
+        }
     }
 
 
