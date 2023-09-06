@@ -1,10 +1,14 @@
 package com.run.treadmill.homeupdate.main;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 
 import com.google.gson.Gson;
 import com.run.android.ShellCmdUtils;
 import com.run.treadmill.activity.appStore.AppBean;
+import com.run.treadmill.base.MyApplication;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.http.DownloadListener;
@@ -13,11 +17,10 @@ import com.run.treadmill.http.OkHttpHelper;
 import com.run.treadmill.manager.Md5Manager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.WifiBTStateManager;
+import com.run.treadmill.util.DownloadTimeUtils;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.VersionUtil;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
@@ -196,6 +199,23 @@ public class HomeApkUpdateManager implements DownloadListener, OkHttpCallBack {
             time = cur;
             Logger.e(InitParam.APK_NAME + " 下载进度: %" + progress, "剩余: " + lave + " 字节");
         }
+
+        if (DownloadTimeUtils.canResponse()) {
+            // 间隔1秒执行
+            String topActivity = getTopActivity();
+            if (!topActivity.contains("com.run.treadmill")) {
+                // 此时点进了wifi界面，连接其它wifi时会停止下载
+                isHasRequestNewApk = false;
+                SpManager.setChangedServer(true);
+            }
+        }
+    }
+
+    private static String getTopActivity() {
+        ActivityManager am = (ActivityManager) MyApplication.getContext().getSystemService(Activity.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+        ComponentName componentInfo = taskInfo.get(0).topActivity;
+        return componentInfo.getClassName();
     }
 
     @Override
