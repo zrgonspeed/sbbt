@@ -37,7 +37,7 @@ public class HomeApkUpdateManager implements DownloadListener, OkHttpCallBack {
     /**
      * 是否成功请求过检测新版apk
      */
-    private boolean isHasRequestNewApk = false;
+    public boolean isHasRequestNewApk = false;
     /**
      * 是否为切换路径后成功请求过检测新版apk
      */
