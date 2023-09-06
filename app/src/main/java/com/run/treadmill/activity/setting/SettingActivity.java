@@ -25,6 +25,7 @@ import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.bluetooth.BtAppUtils;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.factory.CreatePresenter;
+import com.run.treadmill.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ErrorManager;
@@ -577,6 +578,9 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
 
                 SpManager.setAlterUpdatePath(false);
                 SpManager.setChangedServer(false);
+
+                HomeApkUpdateManager.getInstance().isHasRequestNewApk = false;
+                SpManager.setChangedServer(true);
 
                 switch (position) {
                     case 0:
