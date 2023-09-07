@@ -40,6 +40,7 @@ public class SystemSoundManager {
     }
 
     public static int maxVolume = 12;
+    public static int Go321Volume = 3;
 
     public void init(Context context) {
         mContext = context;

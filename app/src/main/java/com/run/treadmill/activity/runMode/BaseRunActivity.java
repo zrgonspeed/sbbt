@@ -869,7 +869,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         tv_prepare.setVisibility(View.VISIBLE);
         mCountdownTask = new EmptyMessageTask(myHandler, MsgWhat.MSG_PREPARE_TIME);
         currentPro = SystemSoundManager.getInstance().getCurrentPro();
-        SystemSoundManager.getInstance().setAudioVolume((int) (0.8 * SystemSoundManager.maxVolume), SystemSoundManager.maxVolume);
+        SystemSoundManager.getInstance().setAudioVolume(SystemSoundManager.Go321Volume, SystemSoundManager.maxVolume);
         try {
             mTimer.schedule(mCountdownTask, delay, 1000);
         } catch (Exception e) {
