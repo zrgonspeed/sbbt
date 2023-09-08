@@ -107,8 +107,8 @@ public class HomeAndRunAppUtils {
         list.add(mp4);
         list.add(AnplusMirroring);
         list.add(kinomap);
-        list.add(disney);
-        list.add(vod);
+        // list.add(disney);
+        // list.add(vod);
     }
 
     private static synchronized void initListChina() {

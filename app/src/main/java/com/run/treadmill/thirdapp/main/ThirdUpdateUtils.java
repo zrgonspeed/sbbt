@@ -100,8 +100,8 @@ public class ThirdUpdateUtils {
         list.add(anplusMirroring);
         list.add(kinomap);
 
-        list.add(disney);
-        list.add(vod);
+        // list.add(disney);
+        // list.add(vod);
 
         list.add(gms);
     }
