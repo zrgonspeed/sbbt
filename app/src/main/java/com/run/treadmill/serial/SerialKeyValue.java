@@ -2,52 +2,52 @@ package com.run.treadmill.serial;
 
 public class SerialKeyValue {
     public static final int START_CLICK = 0x3c;
-    public static final int STOP_CLICK = 0x40;
+    public static final int STOP_CLICK = 0x18;
     public static final int STOP_CLICK_LONG_2 = STOP_CLICK + 2;
 
     // 扬升
-    public static final int INCLINE_UP_CLICK = 0x20;
+    public static final int INCLINE_UP_CLICK = 0x04;
     public static final int INCLINE_UP_CLICK_LONG_1 = INCLINE_UP_CLICK + 1;
     public static final int INCLINE_UP_CLICK_LONG_2 = INCLINE_UP_CLICK + 2;
-    public static final int INCLINE_DOWN_CLICK = 0x28;
+    public static final int INCLINE_DOWN_CLICK = 0x1c;
     public static final int INCLINE_DOWN_CLICK_LONG_1 = INCLINE_DOWN_CLICK + 1;
     public static final int INCLINE_DOWN_CLICK_LONG_2 = INCLINE_DOWN_CLICK + 2;
 
     // 速度
-    public static final int SPEED_UP_CLICK = 0x1c;
+    public static final int SPEED_UP_CLICK = 0x50;
     public static final int SPEED_UP_CLICK_LONG_1 = SPEED_UP_CLICK + 1;
     public static final int SPEED_UP_CLICK_LONG_2 = SPEED_UP_CLICK + 2;
-    public static final int SPEED_DOWN_CLICK = 0x24;
+    public static final int SPEED_DOWN_CLICK = 0x38;
     public static final int SPEED_DOWN_CLICK_LONG_1 = SPEED_DOWN_CLICK + 1;
     public static final int SPEED_DOWN_CLICK_LONG_2 = SPEED_DOWN_CLICK + 2;
 
     // 速度扬升快捷键
-    public static final int QUICK_KEY_EVENT_INCLINE_4_CLICK = 0x18;
+    public static final int QUICK_KEY_EVENT_INCLINE_4_CLICK = 0x10;
     public static final int QUICK_KEY_EVENT_INCLINE_4_CLICK_LONG_1 = QUICK_KEY_EVENT_INCLINE_4_CLICK + 1;
     public static final int QUICK_KEY_EVENT_INCLINE_4_CLICK_LONG_2 = QUICK_KEY_EVENT_INCLINE_4_CLICK + 2;
-    public static final int QUICK_KEY_EVENT_INCLINE_8_CLICK = 0x10;
+    public static final int QUICK_KEY_EVENT_INCLINE_8_CLICK = 0x0c;
     public static final int QUICK_KEY_EVENT_INCLINE_8_CLICK_LONG_1 = QUICK_KEY_EVENT_INCLINE_8_CLICK + 1;
     public static final int QUICK_KEY_EVENT_INCLINE_8_CLICK_LONG_2 = QUICK_KEY_EVENT_INCLINE_8_CLICK + 2;
     public static final int QUICK_KEY_EVENT_INCLINE_12_CLICK = 0x08;
     public static final int QUICK_KEY_EVENT_INCLINE_12_CLICK_LONG_1 = QUICK_KEY_EVENT_INCLINE_12_CLICK + 1;
     public static final int QUICK_KEY_EVENT_INCLINE_12_CLICK_LONG_2 = QUICK_KEY_EVENT_INCLINE_12_CLICK + 2;
 
-    public static final int QUICK_KEY_EVENT_SPEED_4_CLICK = 0x14;
+    public static final int QUICK_KEY_EVENT_SPEED_4_CLICK = 0x44;
     public static final int QUICK_KEY_EVENT_SPEED_4_CLICK_LONG_1 = QUICK_KEY_EVENT_SPEED_4_CLICK + 1;
     public static final int QUICK_KEY_EVENT_SPEED_4_CLICK_LONG_2 = QUICK_KEY_EVENT_SPEED_4_CLICK + 2;
-    public static final int QUICK_KEY_EVENT_SPEED_8_CLICK = 0x0c;
+    public static final int QUICK_KEY_EVENT_SPEED_8_CLICK = 0x48;
     public static final int QUICK_KEY_EVENT_SPEED_8_CLICK_LONG_1 = QUICK_KEY_EVENT_SPEED_8_CLICK + 1;
     public static final int QUICK_KEY_EVENT_SPEED_8_CLICK_LONG_2 = QUICK_KEY_EVENT_SPEED_8_CLICK + 2;
-    public static final int QUICK_KEY_EVENT_SPEED_12_CLICK = 0x04;
+    public static final int QUICK_KEY_EVENT_SPEED_12_CLICK = 0x4c;
     public static final int QUICK_KEY_EVENT_SPEED_12_CLICK_LONG_1 = QUICK_KEY_EVENT_SPEED_12_CLICK + 1;
     public static final int QUICK_KEY_EVENT_SPEED_12_CLICK_LONG_2 = QUICK_KEY_EVENT_SPEED_12_CLICK + 2;
 
-    public static final int HOME_KEY_CLICK = 0x30;
+    public static final int HOME_KEY_CLICK = 0x14;
     public static final int HOME_KEY_LONG_1 = HOME_KEY_CLICK + 1;
     public static final int HOME_KEY_LONG_2 = HOME_KEY_CLICK + 2;
 
     // 音量
-    public static final int VOICE_UP_CLICK = 0x38;
+    public static final int VOICE_UP_CLICK = 0x20;
     public static final int VOICE_UP_CLICK_LONG_1 = VOICE_UP_CLICK + 1;
     public static final int VOICE_UP_CLICK_LONG_2 = VOICE_UP_CLICK + 2;
     public static final int VOICE_DOWN_CLICK = 0x34;
@@ -57,31 +57,10 @@ public class SerialKeyValue {
     // 屏幕
     public static final int HIDE_OR_SHOW_SCREEN_CLICK = -119;
     // 返回
-    public static final int BACK_KEY_CLICK = 0x2c;
-
-    // 手扶
-    public static final int HAND_START_CLICK = 0x98;
-    public static final int HAND_STOP_CLICK = 0x94;
-
-    // 手扶速度
-    public static final int SPEED_DOWN_HAND_CLICK = 0x84;
-    public static final int SPEED_DOWN_HAND_CLICK_LONG_1 = SPEED_DOWN_HAND_CLICK + 1;
-    public static final int SPEED_DOWN_HAND_CLICK_LONG_2 = SPEED_DOWN_HAND_CLICK + 2;
-    public static final int SPEED_UP_HAND_CLICK = 0x88;
-    public static final int SPEED_UP_HAND_CLICK_LONG_1 = SPEED_UP_HAND_CLICK + 1;
-    public static final int SPEED_UP_HAND_CLICK_LONG_2 = SPEED_UP_HAND_CLICK + 2;
-
-    // 手扶扬升
-    public static final int INCLINE_DOWN_HAND_CLICK = 0x8c;
-    public static final int INCLINE_DOWN_HAND_CLICK_LONG_1 = INCLINE_DOWN_HAND_CLICK + 1;
-    public static final int INCLINE_DOWN_HAND_CLICK_LONG_2 = INCLINE_DOWN_HAND_CLICK + 2;
-    public static final int INCLINE_UP_HAND_CLICK = 0x90;
-    public static final int INCLINE_UP_HAND_CLICK_LONG_1 = INCLINE_UP_HAND_CLICK + 1;
-    public static final int INCLINE_UP_HAND_CLICK_LONG_2 = INCLINE_UP_HAND_CLICK + 2;
+    public static final int BACK_KEY_CLICK = 0x40;
 
     private static int oldKeyValue = -1;
     public final static int KEY_EVEN_CANCEL = -3;
-
 
     // 无用---------------
     public static final int QUICK_KEY_EVENT_INCLINE_2_CLICK = -100;
@@ -99,6 +78,26 @@ public class SerialKeyValue {
     public static final int QUICK_KEY_EVENT_SPEED_16_CLICK = -113;
     public static final int QUICK_KEY_EVENT_SPEED_16_CLICK_LONG_1 = -114;
     public static final int QUICK_KEY_EVENT_SPEED_16_CLICK_LONG_2 = -115;
+
+    // 手扶
+    public static final int HAND_START_CLICK = -0x98;
+    public static final int HAND_STOP_CLICK = -0x94;
+
+    // 手扶速度
+    public static final int SPEED_DOWN_HAND_CLICK = -0x84;
+    public static final int SPEED_DOWN_HAND_CLICK_LONG_1 = SPEED_DOWN_HAND_CLICK + 1;
+    public static final int SPEED_DOWN_HAND_CLICK_LONG_2 = SPEED_DOWN_HAND_CLICK + 2;
+    public static final int SPEED_UP_HAND_CLICK = -0x88;
+    public static final int SPEED_UP_HAND_CLICK_LONG_1 = SPEED_UP_HAND_CLICK + 1;
+    public static final int SPEED_UP_HAND_CLICK_LONG_2 = SPEED_UP_HAND_CLICK + 2;
+
+    // 手扶扬升
+    public static final int INCLINE_DOWN_HAND_CLICK = -0x8c;
+    public static final int INCLINE_DOWN_HAND_CLICK_LONG_1 = INCLINE_DOWN_HAND_CLICK + 1;
+    public static final int INCLINE_DOWN_HAND_CLICK_LONG_2 = INCLINE_DOWN_HAND_CLICK + 2;
+    public static final int INCLINE_UP_HAND_CLICK = -0x90;
+    public static final int INCLINE_UP_HAND_CLICK_LONG_1 = INCLINE_UP_HAND_CLICK + 1;
+    public static final int INCLINE_UP_HAND_CLICK_LONG_2 = INCLINE_UP_HAND_CLICK + 2;
 
     public static int isNeedSendMsg(int keyValue) {
         if (isResponseForAways(keyValue)) {
