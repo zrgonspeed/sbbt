@@ -434,7 +434,7 @@ public class AppStoreActivity extends BaseActivity<AppStoreView, AppStorePresent
             return;
         }
         Toast.makeText(this, R.string.string_app_store_md5_fail, Toast.LENGTH_LONG).show();
-        installApkNext();
+        // installApkNext();
 
         mApps.get(inx).isUpdate = AppBean.UPDATE;
         adapter.notifyItemChanged(inx);
