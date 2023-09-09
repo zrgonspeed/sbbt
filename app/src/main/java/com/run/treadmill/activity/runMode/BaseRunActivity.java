@@ -820,7 +820,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     public synchronized void enterThirdApk(@CTConstant.RunMode int runMode, String pkgName) {
-        ControlManager.getInstance().setSendWaiteTime(33);
+        ControlManager.getInstance().setSendWaiteTime(70);
         mRunningParam.waiteTime = 955;
         mRunningParam.waiteNanosTime = 14000;
         Logger.d("enterThirdApk pkgName =" + pkgName);
