@@ -75,6 +75,8 @@ public class ZyTxDataTask implements Runnable {
                     Thread.sleep(400);
                 }
 
+                Thread.sleep(100);
+
                 while (BtHelper.getInstance().connected()) {
                     mZyBt.sendRunParamToBT();
                     Thread.sleep(500);
