@@ -264,7 +264,9 @@ public class AppStoreActivity extends BaseActivity<AppStoreView, AppStorePresent
     public void cmdKeyValue(int keyValue) {
         switch (keyValue) {
             case SerialKeyValue.BACK_KEY_CLICK:
-                btn_back.performClick();
+                if (btn_back.isEnabled()) {
+                    btn_back.performClick();
+                }
                 break;
         }
     }
