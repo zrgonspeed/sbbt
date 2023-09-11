@@ -258,12 +258,12 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 || tipsPop.getLastTips() == CTConstant.SHOW_TIPS_OTHER_ERROR) {
             ErrorManager.getInstance().exitError = false;
             wakeUpSleep();
-            tipsPop.stopTipsPop();
 
             if (tipsPop.getLastTips() == CTConstant.SHOW_TIPS_SAFE_ERROR) {
                 ZyLight.safeKeyResume();
                 MusicLight.safeKeyResume();
             }
+            tipsPop.stopTipsPop();
         }
     }
 
