@@ -371,6 +371,11 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
             case SerialKeyValue.VOICE_UP_CLICK:
             case SerialKeyValue.VOICE_UP_CLICK_LONG_1:
             case SerialKeyValue.VOICE_UP_CLICK_LONG_2:
+                if (layout_setting_1.getVisibility() == View.GONE || type == R.id.rb_setting_type1) {
+                    // 处于非system页面就不能响应音量按键
+                    return;
+                }
+
                 if (sb_setting_sound != null && SystemSoundManager.getInstance().getCurrentPro() < SystemSoundManager.maxVolume) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     sb_setting_sound.setProgress(SystemSoundManager.getInstance().getCurrentPro() + 1);
@@ -380,6 +385,10 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
             case SerialKeyValue.VOICE_DOWN_CLICK:
             case SerialKeyValue.VOICE_DOWN_CLICK_LONG_1:
             case SerialKeyValue.VOICE_DOWN_CLICK_LONG_2:
+                if (layout_setting_1.getVisibility() == View.GONE || type == R.id.rb_setting_type1) {
+                    return;
+                }
+
                 if (sb_setting_sound != null && SystemSoundManager.getInstance().getCurrentPro() > 0) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     sb_setting_sound.setProgress(SystemSoundManager.getInstance().getCurrentPro() - 1);
