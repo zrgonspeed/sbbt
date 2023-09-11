@@ -59,6 +59,26 @@ public class SerialKeyValue {
     // 返回
     public static final int BACK_KEY_CLICK = 0x40;
 
+    // 手扶
+    public static final int HAND_START_CLICK = 0x6c;
+    public static final int HAND_STOP_CLICK = 0x8c;
+
+    // 手扶速度
+    public static final int SPEED_DOWN_HAND_CLICK = 0x84;
+    public static final int SPEED_DOWN_HAND_CLICK_LONG_1 = SPEED_DOWN_HAND_CLICK + 1;
+    public static final int SPEED_DOWN_HAND_CLICK_LONG_2 = SPEED_DOWN_HAND_CLICK + 2;
+    public static final int SPEED_UP_HAND_CLICK = 0x88;
+    public static final int SPEED_UP_HAND_CLICK_LONG_1 = SPEED_UP_HAND_CLICK + 1;
+    public static final int SPEED_UP_HAND_CLICK_LONG_2 = SPEED_UP_HAND_CLICK + 2;
+
+    // 手扶扬升
+    public static final int INCLINE_DOWN_HAND_CLICK = 0x64;
+    public static final int INCLINE_DOWN_HAND_CLICK_LONG_1 = INCLINE_DOWN_HAND_CLICK + 1;
+    public static final int INCLINE_DOWN_HAND_CLICK_LONG_2 = INCLINE_DOWN_HAND_CLICK + 2;
+    public static final int INCLINE_UP_HAND_CLICK = 0x68;
+    public static final int INCLINE_UP_HAND_CLICK_LONG_1 = INCLINE_UP_HAND_CLICK + 1;
+    public static final int INCLINE_UP_HAND_CLICK_LONG_2 = INCLINE_UP_HAND_CLICK + 2;
+
     private static int oldKeyValue = -1;
     public final static int KEY_EVEN_CANCEL = -3;
 
@@ -78,26 +98,6 @@ public class SerialKeyValue {
     public static final int QUICK_KEY_EVENT_SPEED_16_CLICK = -113;
     public static final int QUICK_KEY_EVENT_SPEED_16_CLICK_LONG_1 = -114;
     public static final int QUICK_KEY_EVENT_SPEED_16_CLICK_LONG_2 = -115;
-
-    // 手扶
-    public static final int HAND_START_CLICK = -0x98;
-    public static final int HAND_STOP_CLICK = -0x94;
-
-    // 手扶速度
-    public static final int SPEED_DOWN_HAND_CLICK = -0x84;
-    public static final int SPEED_DOWN_HAND_CLICK_LONG_1 = SPEED_DOWN_HAND_CLICK + 1;
-    public static final int SPEED_DOWN_HAND_CLICK_LONG_2 = SPEED_DOWN_HAND_CLICK + 2;
-    public static final int SPEED_UP_HAND_CLICK = -0x88;
-    public static final int SPEED_UP_HAND_CLICK_LONG_1 = SPEED_UP_HAND_CLICK + 1;
-    public static final int SPEED_UP_HAND_CLICK_LONG_2 = SPEED_UP_HAND_CLICK + 2;
-
-    // 手扶扬升
-    public static final int INCLINE_DOWN_HAND_CLICK = -0x8c;
-    public static final int INCLINE_DOWN_HAND_CLICK_LONG_1 = INCLINE_DOWN_HAND_CLICK + 1;
-    public static final int INCLINE_DOWN_HAND_CLICK_LONG_2 = INCLINE_DOWN_HAND_CLICK + 2;
-    public static final int INCLINE_UP_HAND_CLICK = -0x90;
-    public static final int INCLINE_UP_HAND_CLICK_LONG_1 = INCLINE_UP_HAND_CLICK + 1;
-    public static final int INCLINE_UP_HAND_CLICK_LONG_2 = INCLINE_UP_HAND_CLICK + 2;
 
     public static int isNeedSendMsg(int keyValue) {
         if (isResponseForAways(keyValue)) {
