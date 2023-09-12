@@ -52,6 +52,7 @@ import com.run.treadmill.util.FormulaUtil;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.util.ThirdApkSupport;
+import com.run.treadmill.util.ThreadUtils;
 import com.run.treadmill.util.TimeStringUtil;
 import com.run.treadmill.widget.HistogramListView;
 import com.run.treadmill.widget.LongClickImage;
@@ -335,6 +336,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     private void initRunParam() {
+        btn_pause_continue.setEnabled(false);
+
         btn_incline_down.setIntervalTime(110);
         btn_incline_up.setIntervalTime(110);
         btn_speed_down.setIntervalTime(110);
@@ -529,8 +532,18 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }.start();
     }
 
+    private boolean disFlag = false;
+
     @Override
     public void beltAndInclineStatus(int beltStatus, int inclineStatus, int curInclineAd) {
+        // 每次进入暂停页面, 保持1秒禁用continue
+        if (disFlag) {
+            if (btn_pause_continue.isEnabled()) {
+                btn_pause_continue.setEnabled(false);
+            }
+            return;
+        }
+
         if (beltStatus != 0) {
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL && btn_start_stop_skip.isEnabled()) {
                 Logger.e("runStatus == " + mRunningParam.runStatus);
@@ -632,6 +645,13 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                     btn_start_stop_skip.setEnabled(false);
                     finishRunning();
                 } else {
+                    disFlag = true;
+                    Logger.i("disFlag = true");
+                    ThreadUtils.runInThread(() -> {
+                        disFlag = false;
+                        Logger.i("disFlag = false");
+                    }, 1000);
+
                     BuzzerManager.getInstance().buzzerRingOnce();
                     mRunningParam.runStatus = CTConstant.RUN_STATUS_STOP;
                     btn_pause_continue.setEnabled(false);
@@ -903,6 +923,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
         mRunningParam.recodePreRunData();
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+            btn_pause_continue.setEnabled(false);
             tv_speed.setText(getSpeedValue(String.valueOf(0.0f)));
             img_run_pop_tip.setImageResource(R.drawable.img_pop_pause);
             rl_mask.setVisibility(View.VISIBLE);

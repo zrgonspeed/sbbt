@@ -357,6 +357,14 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                     return;
                 }
                 BuzzerManager.getInstance().buzzerRingOnce();
+
+                mFloatWindowManager.disFlag = true;
+                Logger.i("float disFlag = true");
+                ThreadUtils.runInThread(() -> {
+                    mFloatWindowManager.disFlag = false;
+                    Logger.i("float disFlag = false");
+                }, 1000);
+
                 enterPause();
                 break;
             case R.id.btn_float_pause_quit:
