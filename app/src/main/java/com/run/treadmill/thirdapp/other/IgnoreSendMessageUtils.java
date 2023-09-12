@@ -31,6 +31,7 @@ public class IgnoreSendMessageUtils {
 
             "com.keshet.mako.VOD.intl",
             "com.disney.disneyplus",
+            "in.startv.hotstar.dplus.tv",
     };
 
     public static void onCreateMission() {

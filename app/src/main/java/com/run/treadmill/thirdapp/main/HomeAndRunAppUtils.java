@@ -90,6 +90,11 @@ public class HomeAndRunAppUtils {
                 .runDrawable(R.drawable.btn_media_disney)
                 .build();
 
+        ThirdApp disney2 = new ThirdApp.Builder("Disneyplus2", "in.startv.hotstar.dplus.tv")
+                .homeDrawable(R.drawable.btn_home_disney)
+                .runDrawable(R.drawable.btn_media_disney)
+                .build();
+
         ThirdApp vod = new ThirdApp.Builder("Vod12", "com.keshet.mako.VOD.intl")
                 .homeDrawable(R.drawable.btn_home_vod)
                 .runDrawable(R.drawable.btn_media_vod)
@@ -112,7 +117,7 @@ public class HomeAndRunAppUtils {
         list.add(mp4);
         list.add(AnplusMirroring);
         list.add(kinomap);
-        list.add(disney);
+        list.add(disney2);
         list.add(amazonVideo);
         // list.add(vod);
     }
