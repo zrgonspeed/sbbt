@@ -7,6 +7,7 @@ import com.run.treadmill.common.InitParam;
 import com.run.treadmill.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.manager.keylight.KeyLight;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
 
@@ -64,6 +65,7 @@ public class HomeSleepManager implements CustomTimer.TimerCallBack {
             });
 
             mSleepTimer.closeTimer();
+            KeyLight.closeLight();
         }
     }
 
@@ -78,6 +80,7 @@ public class HomeSleepManager implements CustomTimer.TimerCallBack {
             GpIoUtils.setScreen_1();
             homeActivity.getPresenter().inOnSleep = false;
             homeActivity.tv_sleep.setVisibility(View.GONE);
+            KeyLight.openLight();
         }
         startTimerOfSleep();
     }
