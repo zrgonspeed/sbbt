@@ -242,6 +242,9 @@ public class UserProgramRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
     @Override
     public void cmdKeyValue(int keyValue) {
         super.cmdKeyValue(keyValue);
+        if (KeyUtils.isInclineKeyAndHasInclineError(keyValue)) {
+            return;
+        }
         if (KeyUtils.isStopSetSpeed(keyValue) || KeyUtils.isStopSetIncline(keyValue)) {
             return;
         }

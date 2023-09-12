@@ -36,7 +36,11 @@ public class ErrorInterceptor implements SerialInterceptor {
 
         if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {//暂时屏蔽不报扬升出错
             int curInclineError = ((RealChain) chain).resolveDate(data, NormalParam.INCLINE_ERROR_INX, NormalParam.INCLINE_ERROR_LEN);
-            // int curInclineError=ErrorManager.ERR_NO_ERROR;
+            if (curInclineError == 0) {
+                InclineError.hasInError = false;
+            } else {
+                InclineError.hasInError = true;
+            }
             //扬升校正错误,5是扬升校正错误码
             if (ErrorManager.getInstance().errStatus == ErrorManager.ERR_NO_ERROR && curInclineError == 5) {
                 ErrorManager.getInstance().errStatus = ErrorManager.ERR_INCLINE_CALIBRATE;

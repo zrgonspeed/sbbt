@@ -187,6 +187,9 @@ public class ProgramActivity extends BaseRunActivity<ProgramView, ProgramPresent
 
     @Override
     protected void runCmdKeyValue(int keyValue) {
+        if (KeyUtils.isInclineKeyAndHasInclineError(keyValue)) {
+            return;
+        }
         if (KeyUtils.isStopSetSpeed(keyValue) || KeyUtils.isStopSetIncline(keyValue)) {
             return;
         }

@@ -1,6 +1,8 @@
 package com.run.treadmill.util;
 
 import com.run.treadmill.activity.runMode.RunningParam;
+import com.run.treadmill.interceptor.InclineError;
+import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
 
@@ -90,6 +92,55 @@ public class KeyUtils {
         ) {
             // Logger.e("速度已经达到12");
             return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * 是扬升相关按键，并且有扬升错误，不给调扬升，不响应按键音
+     */
+    public static boolean isInclineKeyAndHasInclineError(int keyValue) {
+        if (keyValue == SerialKeyValue.INCLINE_UP_CLICK ||
+                keyValue == SerialKeyValue.INCLINE_UP_CLICK_LONG_1 ||
+                keyValue == SerialKeyValue.INCLINE_UP_CLICK_LONG_2 ||
+                keyValue == SerialKeyValue.INCLINE_DOWN_CLICK ||
+                keyValue == SerialKeyValue.INCLINE_DOWN_CLICK_LONG_1 ||
+                keyValue == SerialKeyValue.INCLINE_DOWN_CLICK_LONG_2 ||
+
+                keyValue == SerialKeyValue.INCLINE_UP_HAND_CLICK ||
+                keyValue == SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_1 ||
+                keyValue == SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_2 ||
+                keyValue == SerialKeyValue.INCLINE_DOWN_HAND_CLICK ||
+                keyValue == SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_1 ||
+                keyValue == SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_2 ||
+
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK ||
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK_LONG_1 ||
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK_LONG_2 ||
+
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK ||
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK_LONG_1 ||
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK_LONG_2 ||
+
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_6_CLICK ||
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_6_CLICK_LONG_1 ||
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_6_CLICK_LONG_2 ||
+
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_8_CLICK ||
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_8_CLICK_LONG_1 ||
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_8_CLICK_LONG_2 ||
+
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_12_CLICK ||
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_12_CLICK_LONG_1 ||
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_12_CLICK_LONG_2
+
+        ) {
+            if (ErrorManager.getInstance().isHasInclineError() || ErrorManager.getInstance().isInclineError() ||
+                    InclineError.hasInError
+            ) {
+                return true;
+            }
         }
 
         return false;

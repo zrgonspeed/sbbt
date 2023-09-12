@@ -244,6 +244,9 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
         if (rl_tip.getVisibility() == View.VISIBLE) {
             return;
         }
+        if (KeyUtils.isInclineKeyAndHasInclineError(keyValue)) {
+            return;
+        }
         if (KeyUtils.isStopSetSpeed(keyValue) || KeyUtils.isStopSetIncline(keyValue)) {
             return;
         }

@@ -328,6 +328,9 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
 
     @Override
     protected void runCmdKeyValue(int keyValue) {
+        if (KeyUtils.isInclineKeyAndHasInclineError(keyValue)) {
+            return;
+        }
         if (KeyUtils.isStopSetSpeed(keyValue) || KeyUtils.isStopSetIncline(keyValue)) {
             return;
         }
