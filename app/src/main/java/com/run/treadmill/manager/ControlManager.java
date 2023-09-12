@@ -227,7 +227,7 @@ public class ControlManager {
         }
         // Logger.d("公英制转换后 speed=" + speed);
 
-        speed = FormulaUtil.computeSpeed(speed);
+        // speed = FormulaUtil.computeSpeed(speed);
         // Logger.d("实际下发 speed=" + speed);
 
         mStrategy.setSpeed(speed);
