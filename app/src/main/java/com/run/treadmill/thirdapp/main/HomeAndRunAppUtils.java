@@ -95,6 +95,11 @@ public class HomeAndRunAppUtils {
                 .runDrawable(R.drawable.btn_media_vod)
                 .build();
 
+        ThirdApp amazonVideo = new ThirdApp.Builder("AmazonVideo", "com.amazon.avod.thirdpartyclient")
+                .homeDrawable(R.drawable.btn_home_prime)
+                .runDrawable(R.drawable.btn_media_prime)
+                .build();
+
         list = new ArrayList<>();
         list.add(youtube);
         list.add(chrome);
@@ -107,7 +112,8 @@ public class HomeAndRunAppUtils {
         list.add(mp4);
         list.add(AnplusMirroring);
         list.add(kinomap);
-        // list.add(disney);
+        list.add(disney);
+        list.add(amazonVideo);
         // list.add(vod);
     }
 

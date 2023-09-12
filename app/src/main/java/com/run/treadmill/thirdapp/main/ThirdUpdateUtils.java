@@ -86,6 +86,10 @@ public class ThirdUpdateUtils {
                 .updateDrawable(R.drawable.btn_media_12_1)
                 .build();
 
+        ThirdApp amazonVideo = new ThirdApp.Builder("AmazonVideo", "com.amazon.avod.thirdpartyclient")
+                .updateDrawable(R.drawable.btn_media_prime_video_1)
+                .build();
+
         list = new ArrayList<>();
         list.add(youtube);
         list.add(chrome);
@@ -100,7 +104,8 @@ public class ThirdUpdateUtils {
         list.add(anplusMirroring);
         list.add(kinomap);
 
-        // list.add(disney);
+        list.add(disney);
+        list.add(amazonVideo);
         // list.add(vod);
 
         list.add(gms);
