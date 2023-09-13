@@ -139,7 +139,7 @@ public class KeyUtils {
             if (ErrorManager.getInstance().isHasInclineError() || ErrorManager.getInstance().isInclineError() ||
                     InclineError.hasInError
             ) {
-                return true;
+                return false;
             }
         }
 
