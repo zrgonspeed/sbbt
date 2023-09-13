@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.run.android.ShellCmdUtils;
+import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.EmptyMessageTask;
@@ -543,6 +544,12 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             }
             return;
         }
+        if (disPauseBtn) {
+            if (btn_start_stop_skip.isEnabled()) {
+                btn_start_stop_skip.setEnabled(false);
+            }
+            return;
+        }
 
         if (beltStatus != 0) {
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL && btn_start_stop_skip.isEnabled()) {
@@ -650,6 +657,14 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                     ThreadUtils.runInThread(() -> {
                         disFlag = false;
                         Logger.i("disFlag = false");
+
+                        if (AppDebug.disableSerial){
+                            if (!isDestroyed()) {
+                                runOnUiThread(() -> {
+                                    btn_pause_continue.setEnabled(true);
+                                });
+                            }
+                        }
                     }, 1000);
 
                     BuzzerManager.getInstance().buzzerRingOnce();
@@ -1184,6 +1199,22 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                         }
                         mActivity.tv_speed.setText(mActivity.getSpeedValue(String.valueOf(mActivity.mRunningParam.getCurrSpeed())));
                         mActivity.tv_prepare.setVisibility(View.GONE);
+
+                        // 321GO之后，禁用1秒暂停键
+                        mActivity.disPauseBtn = true;
+                        mActivity.btn_start_stop_skip.setEnabled(false);
+                        Logger.i("disPauseBtn = true");
+                        ThreadUtils.runInThread(() -> {
+                            mActivity.disPauseBtn = false;
+                            Logger.i("disPauseBtn = false");
+
+                            if (!mActivity.isDestroyed()) {
+                                mActivity.runOnUiThread(() -> {
+                                    mActivity.btn_start_stop_skip.setEnabled(true);
+                                });
+                            }
+                        }, 1000);
+
                         return;
                     } else {
                         if (MyApplication.DEFAULT_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
@@ -1218,6 +1249,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             }
         }
     }
+
+    private boolean disPauseBtn = false;
 
     @Override
     public void isFitShowConnect(boolean isConnect) {
