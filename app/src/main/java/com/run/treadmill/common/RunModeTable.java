@@ -10,22 +10,23 @@ public final class RunModeTable {
 
     }
 
+    // 0是speed， 1是incline, 单数incline, 双数speed
     public static float PModeTable[][] = {
-            {2f, 2f, 4f, 4f, 3f, 3f, 4f, 3f, 5f, 4f, 2f, 2f, 5f, 5f, 3f, 3f, 2f, 2f, 4f, 4f, 5f, 5f, 5f, 6f, 5f, 6f, 3f, 3f, 3f, 3f},
+            {2f, 2f, 4f, 4f, 6f, 6f, 8f, 8f, 10f, 10f, 12f, 12f, 14f, 14f, 16f, 16f, 16f, 14f, 14f, 12f, 12f, 10f, 10f, 8f, 8f, 6f, 4f, 4f, 2f, 2f},
             {1f, 1f, 2f, 2f, 3f, 3f, 3f, 1f, 2f, 2f, 3f, 3f, 2f, 2f, 2f, 2f, 3f, 3f, 5f, 5f, 3f, 3f, 4f, 2f, 3f, 4f, 2f, 2f, 3f, 3f},
-            {2f, 2f, 5f, 5f, 4f, 4f, 6f, 4f, 6f, 4f, 2f, 2f, 4f, 4f, 2f, 2f, 2f, 2f, 4f, 4f, 6f, 6f, 8f, 7f, 8f, 6f, 2f, 2f, 3f, 3f},
+            {2f, 2f, 4f, 4f, 4f, 4f, 6f, 6f, 6f, 6f, 6f, 6f, 8f, 8f, 10f, 10f, 10f, 8f, 8f, 8f, 8f, 6f, 6f, 6f, 6f, 4f, 4f, 4f, 2f, 2f},
             {1f, 1f, 2f, 2f, 3f, 3f, 3f, 2f, 2f, 3f, 4f, 4f, 2f, 2f, 2f, 2f, 3f, 3f, 5f, 5f, 4f, 4f, 4f, 3f, 4f, 4f, 3f, 3f, 1f, 1f},
-            {2f, 2f, 5f, 5f, 4f, 4f, 5f, 4f, 5f, 4f, 2f, 2f, 3f, 3f, 2f, 2f, 2f, 2f, 4f, 4f, 5f, 5f, 5f, 6f, 5f, 6f, 3f, 3f, 3f, 3f},
+            {2f, 2f, 4f, 4f, 6f, 6f, 8f, 8f, 10f, 10f, 6f, 4f, 6f, 8f, 10f, 10f, 8f, 6f, 6f, 4f, 4f, 8f, 8f, 6f, 6f, 6f, 4f, 4f, 2f, 2f},
             {1f, 1f, 2f, 2f, 2f, 2f, 3f, 1f, 2f, 2f, 2f, 2f, 2f, 2f, 1f, 1f, 3f, 3f, 5f, 5f, 3f, 3f, 4f, 2f, 3f, 4f, 2f, 2f, 3f, 3f},
-            {3f, 3f, 6f, 6f, 7f, 7f, 5f, 8f, 5f, 9f, 6f, 6f, 4f, 4f, 3f, 3f, 4f, 4f, 2f, 2f, 6f, 6f, 8f, 6f, 3f, 2f, 6f, 6f, 2f, 2f},
+            {2f, 2f, 4f, 4f, 6f, 6f, 8f, 8f, 8f, 8f, 10f, 10f, 10f, 12f, 12f, 12f, 12f, 10f, 10f, 8f, 8f, 8f, 8f, 8f, 8f, 6f, 4f, 4f, 2f, 2f},
             {2f, 2f, 2f, 2f, 3f, 3f, 3f, 2f, 2f, 4f, 6f, 6f, 2f, 2f, 2f, 2f, 3f, 3f, 4f, 4f, 6f, 6f, 2f, 3f, 7f, 9f, 5f, 5f, 2f, 2f},
-            {3f, 3f, 6f, 6f, 7f, 7f, 5f, 8f, 6f, 7f, 6f, 6f, 4f, 4f, 3f, 3f, 2f, 2f, 5f, 5f, 5f, 5f, 4f, 4f, 6f, 4f, 2f, 2f, 3f, 3f},
+            {2f, 2f, 4f, 4f, 8f, 8f, 8f, 8f, 12f, 12f, 6f, 12f, 6f, 12f, 12f, 12f, 6f, 6f, 6f, 12f, 12f, 12f, 12f, 6f, 6f, 12f, 6f, 6f, 6f, 6f},
             {1f, 1f, 2f, 2f, 4f, 4f, 3f, 2f, 2f, 4f, 5f, 5f, 2f, 2f, 1f, 1f, 3f, 3f, 5f, 5f, 6f, 6f, 7f, 8f, 9f, 10f, 10f, 8f, 2f, 2f},
-            {2f, 2f, 8f, 8f, 6f, 6f, 4f, 5f, 9f, 7f, 5f, 5f, 4f, 4f, 3f, 3f, 4f, 4f, 2f, 2f, 4f, 4f, 6f, 8f, 7f, 8f, 6f, 6f, 2f, 2f},
+            {4f, 4f, 6f, 6f, 10f, 10f, 10f, 10f, 8f, 8f, 8f, 8f, 8f, 10f, 10f, 10f, 6f, 4f, 4f, 4f, 4f, 6f, 6f, 10f, 10f, 10f, 6f, 6f, 4f, 4f},
             {2f, 2f, 2f, 2f, 6f, 6f, 2f, 3f, 4f, 2f, 2f, 2f, 2f, 2f, 1f, 1f, 4f, 4f, 3f, 3f, 4f, 4f, 4f, 3f, 4f, 2f, 3f, 3f, 2f, 2f},
-            {2f, 2f, 6f, 6f, 7f, 7f, 4f, 4f, 7f, 4f, 2f, 2f, 4f, 4f, 2f, 2f, 3f, 3f, 5f, 5f, 4f, 4f, 4f, 3f, 4f, 3f, 2f, 2f, 2f, 2f},
+            {4f, 4f, 4f, 4f, 6f, 6f, 6f, 6f, 8f, 8f, 8f, 8f, 10f, 10f, 8f, 8f, 8f, 8f, 8f, 6f, 6f, 6f, 6f, 6f, 6f, 4f, 4f, 4f, 4f, 4f},
             {4f, 4f, 5f, 5f, 6f, 6f, 6f, 9f, 9f, 10f, 7f, 7f, 6f, 6f, 3f, 3f, 4f, 4f, 2f, 2f, 4f, 4f, 6f, 8f, 7f, 8f, 6f, 6f, 2f, 2f},
-            {2f, 2f, 4f, 4f, 6f, 6f, 8f, 7f, 8f, 6f, 2f, 2f, 3f, 3f, 2f, 2f, 3f, 3f, 5f, 5f, 4f, 4f, 4f, 3f, 4f, 3f, 2f, 2f, 2f, 2f},
+            {2f, 2f, 4f, 4f, 6f, 6f, 6f, 6f, 6f, 6f, 6f, 8f, 8f, 8f, 10f, 10f, 10f, 12f, 12f, 14f, 14f, 12f, 12f, 10f, 10f, 8f, 6f, 6f, 4f, 4f},
             {3f, 3f, 5f, 5f, 4f, 4f, 4f, 3f, 4f, 4f, 3f, 3f, 3f, 3f, 2f, 2f, 4f, 4f, 2f, 2f, 4f, 4f, 6f, 8f, 7f, 8f, 6f, 6f, 2f, 2f},
             {2f, 2f, 4f, 4f, 5f, 5f, 5f, 6f, 5f, 6f, 3f, 3f, 3f, 3f, 2f, 2f, 3f, 3f, 4f, 4f, 4f, 4f, 3f, 5f, 5f, 6f, 3f, 3f, 3f, 3f},
             {3f, 3f, 5f, 5f, 3f, 3f, 4f, 2f, 3f, 4f, 2f, 2f, 3f, 3f, 2f, 2f, 3f, 3f, 5f, 5f, 4f, 4f, 4f, 3f, 4f, 3f, 2f, 2f, 2f, 2f},
