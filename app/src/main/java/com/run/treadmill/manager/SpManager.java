@@ -82,10 +82,6 @@ public class SpManager {
     private static final String SET_UNIT = "set_unit";
 
     /**
-     * 设置ncu版本信息
-     */
-    private static final String SET_NCU_VER = "set_ncu_ver";
-    /**
      * 设置ncu版本信息 年
      */
     private static final String SET_NCU_YEAR = "set_ncu_year";
@@ -391,10 +387,11 @@ public class SpManager {
 
     /**
      * 根据公英制获取总运动距离
+     *
      * @param isMetric
      * @return
      */
-    public static float getRunTotalDisByMetric(boolean isMetric){
+    public static float getRunTotalDisByMetric(boolean isMetric) {
         return StorageParam.getParam(isMetric ? SET_RUN_TOTAL_DIS : SET_RUN_TOTAL_DIS_IMPERIAL, 0f);
     }
 
@@ -508,10 +505,6 @@ public class SpManager {
      */
     public static void setIsMetric(boolean isMetric) {
         StorageParam.setParam(SET_UNIT, isMetric);
-    }
-
-    public static void setNcuVer(String ncuVer) {
-        StorageParam.setParam(SET_NCU_VER, ncuVer);
     }
 
     public static String getNcuVer() {
@@ -763,29 +756,6 @@ public class SpManager {
         return StorageParam.getParam(SET_CHANGED_LANGUAGE, false);
     }
 
-    /**
-     * 设置是否升级
-     */
-    private static final String SET_BIN_UPDATE = "set_bin_update";
-
-    /**
-     * 获取是否升级
-     *
-     * @return
-     */
-    public static boolean getBinUpdate() {
-        return StorageParam.getParam(SET_BIN_UPDATE, false);
-    }
-
-    /**
-     * 设置是否升级
-     *
-     * @param isUpdate
-     */
-    public static void setBinUpdate(boolean isUpdate) {
-        StorageParam.setParam(SET_BIN_UPDATE, isUpdate);
-    }
-
     public static void setLanguage(String language) {
         StorageParam.setParam(SET_LANGUAGE, language);
     }
@@ -797,17 +767,4 @@ public class SpManager {
         return StorageParam.getParam(SET_LANGUAGE, "en");
     }
 
-    /**
-     * 保存OtaMcu应用的文件名，通过判断与assets里的apk名称是否一样来决定安装
-     * OtaMcu-220609_V10.apk
-     */
-    private static final String SET_OTA_MCU_NAME = "set_ota_mcu_name";
-
-    public static void setOtaMcuName(String fileName) {
-        StorageParam.setParam(SET_OTA_MCU_NAME, fileName);
-    }
-
-    public static String getOtaMcuName() {
-        return StorageParam.getParam(SET_OTA_MCU_NAME, "");
-    }
 }
