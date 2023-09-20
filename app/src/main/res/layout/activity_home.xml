@@ -70,7 +70,7 @@
         android:layout_marginStart="@dimen/dp_px_1144_x"
         android:layout_marginTop="@dimen/dp_px_420_y"
         android:src="@drawable/btn_home_vision"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/btn_setting"
