@@ -764,7 +764,7 @@ public class SpManager {
      * zh de en fr es pt
      */
     public static String getLanguage() {
-        return StorageParam.getParam(SET_LANGUAGE, "en");
+        return StorageParam.getParam(SET_LANGUAGE, "zh");
     }
 
 }
