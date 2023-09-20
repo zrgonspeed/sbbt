@@ -317,8 +317,8 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
                         sendData[1] = FsTreadmillCommand.INFO_MODEL;
                         sendData[2] = 0x13;
                         sendData[3] = 0x00;
-                        sendData[4] = (byte) 0x9C;
-                        sendData[5] = (byte) 0x00;
+                        sendData[4] = (byte) 0x82;
+                        sendData[5] = (byte) 0x02;
                         sendData(sendData, sendData.length);
                         break;
                     case FsTreadmillCommand.INFO_SPEED://最大最小速度
