@@ -305,9 +305,9 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
                     getPresenter().setInclineValue(-1, 0, false);
                 }
                 break;
-            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_3_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_8_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_9_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_6_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_12_CLICK:
 

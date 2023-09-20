@@ -344,9 +344,9 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
                     setSpeedValue(-1, 0, false);
                 }
                 break;
-            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_3_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_8_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_9_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_6_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_12_CLICK:
 
@@ -359,8 +359,8 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_6_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_8_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_12_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_15_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_16_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_3_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_9_CLICK:
                 if (btn_speed_up.isEnabled() || btn_speed_down.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setSpeedValue(0, SerialKeyValue.getKeyRepresentValue(keyValue), false);
@@ -381,6 +381,9 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
     @Override
     public void fitShowStopRunning() {
         mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_STOP;
+        // 客户要求修改扬升机制
+        ControlManager.getInstance().stopRun(false);
+        ControlManager.getInstance().resetIncline();
         mFloatWindowManager.fitShowStopRunning();
     }
 

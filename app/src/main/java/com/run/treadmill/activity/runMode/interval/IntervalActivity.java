@@ -300,9 +300,9 @@ public class IntervalActivity extends BaseRunActivity<IntervalView, IntervalPres
                     BuzzerManager.getInstance().buzzerRingOnce();
                 }
                 break;
-            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_3_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_8_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_9_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_6_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_12_CLICK:
 
@@ -315,8 +315,8 @@ public class IntervalActivity extends BaseRunActivity<IntervalView, IntervalPres
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_6_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_8_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_12_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_15_CLICK:
-            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_16_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_3_CLICK:
+            case SerialKeyValue.QUICK_KEY_EVENT_SPEED_9_CLICK:
                 if (btn_speed_up.isEnabled() || btn_speed_down.isEnabled()) {
                     myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                     getPresenter().setSpeedValue(0, SerialKeyValue.getKeyRepresentValue(keyValue), true);

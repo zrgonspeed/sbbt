@@ -11,27 +11,33 @@ public class KeyUtils {
     public static int curKey = -1;
 
     public static boolean isStopSetIncline(int keyValue) {
-        if (keyValue != SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK &&
-                keyValue != SerialKeyValue.QUICK_KEY_EVENT_INCLINE_8_CLICK &&
+        /*if (keyValue != SerialKeyValue.QUICK_KEY_EVENT_INCLINE_3_CLICK &&
+                keyValue != SerialKeyValue.QUICK_KEY_EVENT_INCLINE_6_CLICK &&
+                keyValue != SerialKeyValue.QUICK_KEY_EVENT_INCLINE_9_CLICK &&
                 keyValue != SerialKeyValue.QUICK_KEY_EVENT_INCLINE_12_CLICK
         ) {
             return false;
         }
 
         int currIncline = (int) RunningParam.getInstance().getCurrIncline();
-        return isIncline(keyValue, String.valueOf(currIncline));
+        return isIncline(keyValue, String.valueOf(currIncline));*/
+
+        return false;
     }
 
     public static boolean isStopSetSpeed(int keyValue) {
-        if (keyValue != SerialKeyValue.QUICK_KEY_EVENT_SPEED_4_CLICK &&
-                keyValue != SerialKeyValue.QUICK_KEY_EVENT_SPEED_8_CLICK &&
+       /* if (keyValue != SerialKeyValue.QUICK_KEY_EVENT_SPEED_3_CLICK &&
+                keyValue != SerialKeyValue.QUICK_KEY_EVENT_SPEED_6_CLICK &&
+                keyValue != SerialKeyValue.QUICK_KEY_EVENT_SPEED_9_CLICK &&
                 keyValue != SerialKeyValue.QUICK_KEY_EVENT_SPEED_12_CLICK
         ) {
             return false;
         }
 
         float currSpeed = RunningParam.getInstance().getCurrSpeed();
-        return isSpeed(keyValue, String.valueOf(currSpeed));
+        return isSpeed(keyValue, String.valueOf(currSpeed));*/
+
+        return false;
     }
 
     private static boolean isIncline(int keyValue, String valueStr) {
@@ -43,7 +49,7 @@ public class KeyUtils {
             return true;
         }
 
-        if (keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_8_CLICK &&
+        if (keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_9_CLICK &&
                 valueStr.equals("8")
         ) {
             // Logger.e("扬升已经达到8");
@@ -115,9 +121,9 @@ public class KeyUtils {
                 keyValue == SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_1 ||
                 keyValue == SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_2 ||
 
-                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK ||
-                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK_LONG_1 ||
-                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK_LONG_2 ||
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_3_CLICK ||
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_3_CLICK_LONG_1 ||
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_3_CLICK_LONG_2 ||
 
                 keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK ||
                 keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK_LONG_1 ||
@@ -127,7 +133,7 @@ public class KeyUtils {
                 keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_6_CLICK_LONG_1 ||
                 keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_6_CLICK_LONG_2 ||
 
-                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_8_CLICK ||
+                keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_9_CLICK ||
                 keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_8_CLICK_LONG_1 ||
                 keyValue == SerialKeyValue.QUICK_KEY_EVENT_INCLINE_8_CLICK_LONG_2 ||
 
