@@ -966,7 +966,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 mediaPopWin.dismiss();
             }
 
-            mRunningParam.setCurrIncline(InitParam.WARM_UP_INCLIEN);
+            mRunningParam.setCurrIncline(InitParam.WARM_UP_INCLINE);
             mRunningParam.setCurrSpeed(isMetric ? InitParam.WARM_UP_SPEED_METRIC : InitParam.WARM_UP_SPEED_IMPERIAL);
             onSpeedChange(mRunningParam.getCurrSpeed());
             if (ErrorManager.getInstance().isHasInclineError()) {

@@ -1,10 +1,16 @@
 package com.run.treadmill.common;
 
-import android.content.Context;
-
-import com.run.treadmill.manager.SpManager;
-
 public class InitParam {
+    /**
+     * 扬升最小值, 负扬升   0 - 20
+     */
+    public static final int MY_MIN_INCLINE = -5;
+
+    /**
+     * 实际机台最小扬升 0
+     */
+    public static final int MCU_MIN_INCLINE = 0;
+
     public static final String APK = "551-55T-01";
     public static final String PROJECT_NAME = "AC00" + APK;
     public static final String APK_NAME = "AC00" + APK + ".apk";
@@ -35,7 +41,7 @@ public class InitParam {
     /**
      * 公制最大速度最大值
      */
-    public static final float MAX_SPEED_MAX_METRIC = 22.0f;
+    public static final float MAX_SPEED_MAX_METRIC = 24.0f;
     /**
      * 公制最大速度最小值
      */
@@ -52,7 +58,7 @@ public class InitParam {
     /**
      * 公制最小速度最小值
      */
-    public static final float MIN_SPEED_MIN_METRIC = 0.5f;
+    public static final float MIN_SPEED_MIN_METRIC = 1.0f;
     /**
      * 公制最小速度预设值
      */
@@ -61,7 +67,7 @@ public class InitParam {
     /**
      * 英制最大速度最大值
      */
-    public static final float MAX_SPEED_MAX_IMPERIAL = 13.6f;
+    public static final float MAX_SPEED_MAX_IMPERIAL = 15.0f;
     /**
      * 英制最大速度最小值
      */
@@ -69,7 +75,7 @@ public class InitParam {
     /**
      * 英制最大速度预设值
      */
-    public static final float DEFAULT_MAX_SPEED_IMPERIAL = 13.6f;//15.0f;
+    public static final float DEFAULT_MAX_SPEED_IMPERIAL = 13.7f;
 
     /**
      * 英制最小速度最大值
@@ -82,7 +88,7 @@ public class InitParam {
     /**
      * 英制最小速度预设值
      */
-    public static final float DEFAULT_MIN_SPEED_IMPERIAL = 0.6f;//0.3f;
+    public static final float DEFAULT_MIN_SPEED_IMPERIAL = 0.3f;
 
     /**
      * 最大扬升最大值
@@ -95,7 +101,7 @@ public class InitParam {
     /**
      * 最大扬升预设值
      */
-    public static final int DEFAULT_MAX_INCLINE = 20;
+    public static final int DEFAULT_MAX_INCLINE = 20;//显示-5  --  15  对应  0 - 20
 
     /**
      * 最大轮径
@@ -128,14 +134,14 @@ public class InitParam {
     public static final int MAX_AGE = 99;
     public static final int MIN_AGE = 10;
 
-    public static final int MAX_WEIGHT_METRIC = 227;
+    public static final int MAX_WEIGHT_METRIC = 200;
     public static final int MIN_WEIGHT_METRIC = 20;
 
-    public static final int MAX_WEIGHT_IMPERIAL = 500;
+    public static final int MAX_WEIGHT_IMPERIAL = 441;
     public static final int MIN_WEIGHT_IMPERIAL = 44;
 
     public static final int MAX_AD = 230;
-    public static final int MIN_AD = 16;
+    public static final int MIN_AD = 15;
 
     /**
      * 最小加油里程
@@ -149,7 +155,7 @@ public class InitParam {
     /**
      * 默认轮径（英制）
      */
-    public static final float DEFAULT_WHEEL_SIZE = 2.33f;
+    public static final float DEFAULT_WHEEL_SIZE = 3.3f;
     /**
      * 默认速率
      */
@@ -177,7 +183,7 @@ public class InitParam {
     /**
      * 默认扬升
      */
-    public static final int DEFAULT_INCLINE = 0;
+    public static final int DEFAULT_INCLINE = 5;
     /**
      * 默认速度
      */
@@ -185,7 +191,7 @@ public class InitParam {
     /**
      * warm up 扬升
      */
-    public static final float WARM_UP_INCLIEN = 0f;
+    public static final float WARM_UP_INCLINE = 5f;
     /**
      * warm up 速度（公制）
      */
