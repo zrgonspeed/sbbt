@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 
 import com.fitShow.treadmill.FsTreadmillCommand;
 import com.run.treadmill.R;
-import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.factory.FactoryActivity;
 import com.run.treadmill.activity.media.MediaSelectActivity;
@@ -28,7 +27,6 @@ import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.base.MyApplication;
 import com.run.treadmill.base.ReBootTask;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.homeupdate.third.HomeThirdAppUpdateManager;
@@ -37,8 +35,6 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.manager.SpManager;
-import com.run.treadmill.manager.musiclight.MusicLight;
-import com.run.treadmill.manager.zyftms.ZyLight;
 import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.thirdapp.other.IgnoreSendMessageUtils;
@@ -49,8 +45,6 @@ import com.run.treadmill.util.PermissionUtil;
 import com.run.treadmill.widget.LongPressView;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
 
-import java.util.Locale;
-
 import butterknife.BindView;
 
 /**
@@ -59,7 +53,7 @@ import butterknife.BindView;
  * @Time 2019/05/29
  */
 @CreatePresenter(HomePresenter.class)
-public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implements HomeView, View.OnClickListener, SafeKeyTimer.SafeTimerCallBack,  HomeTipsDialog.OnTipDialogStatusChange {
+public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implements HomeView, View.OnClickListener, SafeKeyTimer.SafeTimerCallBack, HomeTipsDialog.OnTipDialogStatusChange {
     @BindView(R.id.rl_main)
     RelativeLayout rl_main;
     @BindView(R.id.btn_quick_start)
@@ -259,10 +253,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             ErrorManager.getInstance().exitError = false;
             wakeUpSleep();
 
-            if (tipsPop.getLastTips() == CTConstant.SHOW_TIPS_SAFE_ERROR) {
-                ZyLight.safeKeyResume();
-                MusicLight.safeKeyResume();
-            }
             tipsPop.stopTipsPop();
         }
     }
@@ -338,7 +328,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 }
             }
         }*/
-
 
 
         if (keyValue == SerialKeyValue.START_CLICK ||
@@ -519,7 +508,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 startActivity(new Intent(HomeActivity.this, FitnessSelectActivity.class));
                 break;
             case R.id.btn_vision:
-               startActivity(new Intent(HomeActivity.this, VisionSelectActivity.class));
+                startActivity(new Intent(HomeActivity.this, VisionSelectActivity.class));
                 break;
             case R.id.btn_interval:
 //                startActivity(new Intent(HomeActivity.this, IntervalSelectActivity.class));
