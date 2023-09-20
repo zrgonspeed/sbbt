@@ -116,9 +116,9 @@ public class HomeAndRunAppUtils {
         list.add(ponymusic);
         list.add(mp4);
         list.add(AnplusMirroring);
-        list.add(kinomap);
-        list.add(disney2);
-        list.add(amazonVideo);
+        // list.add(kinomap);
+        // list.add(disney2);
+        // list.add(amazonVideo);
         // list.add(vod);
     }
 

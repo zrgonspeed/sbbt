@@ -106,10 +106,10 @@ public class ThirdUpdateUtils {
         list.add(anplus_A133Bluetooth);
 
         list.add(anplusMirroring);
-        list.add(kinomap);
+        // list.add(kinomap);
 
-        list.add(disney2);
-        list.add(amazonVideo);
+        // list.add(disney2);
+        // list.add(amazonVideo);
         // list.add(vod);
 
         list.add(gms);
