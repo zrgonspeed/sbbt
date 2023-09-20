@@ -11,10 +11,10 @@ import com.run.treadmill.manager.zyftms.ZyLight;
 
 public class BtHelperUtils {
     public static void initBtHelper(Context context) {
-        BtHelper.getInstance().openPort(context, "/dev/ttyS3");
+/*        BtHelper.getInstance().openPort(context, "/dev/ttyS3");
         BtHelper.getInstance().setInitData(initAndGetBean());
 
-        ZyLight.startThread();
+        ZyLight.startThread();*/
     }
 
     public static InitialBean initAndGetBean() {
@@ -28,11 +28,11 @@ public class BtHelperUtils {
     }
 
     public static void onRequestConnect() {
-        InitialBean bean = BtHelper.getInstance().getInitBean();
+      /*  InitialBean bean = BtHelper.getInstance().getInitBean();
         if (bean != null) {
             bean.totalHours = (int) (SpManager.getRunTotalTime() / 3600);
             bean.totalDistance = (int) SpManager.getRunTotalDisByMetric(true);
             // bean.setErrCodes(ErrorManager.getInstance().getErrCodes(BtHelper.errLogCount, String.valueOf(SpManager.getLastBtErrLogId())), SpManager.getMachineType());
-        }
+        }*/
     }
 }
