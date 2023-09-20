@@ -152,7 +152,7 @@ public class MyApplication extends LitePalApplication {
         MusicLight.startThread();
         MusicReceiverManager.register();
 
-        OtaMcuUtils.installOtaMcu(this);
+        // OtaMcuUtils.installOtaMcu(this);
     };
 
 
