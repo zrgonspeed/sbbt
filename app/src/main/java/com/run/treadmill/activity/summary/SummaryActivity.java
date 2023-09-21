@@ -16,6 +16,7 @@ import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.adapter.SummaryPagerAdapter;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.common.CTConstant;
+import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
@@ -240,8 +241,8 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
         tv_max_incline = (TextView) views.get(2).findViewById(R.id.tv_max_incline);
         tv_min_incline = (TextView) views.get(2).findViewById(R.id.tv_min_incline);
         lgv_incline = (LineGraphicView) views.get(2).findViewById(R.id.lgv_incline);
-        tv_max_incline.setText(String.valueOf((int) mRunningParam.getMaxIncline()));
-        tv_min_incline.setText(String.valueOf((int) mRunningParam.getMinIncline()));
+        tv_max_incline.setText(String.valueOf((int) mRunningParam.getMaxIncline() + InitParam.MY_MIN_INCLINE));
+        tv_min_incline.setText(String.valueOf((int) mRunningParam.getMinIncline() + InitParam.MY_MIN_INCLINE));
         lgv_incline.setColor(getColor(R.color.deepGreen));
         lgv_incline.setData(getReplacePointTap(mRunningParam.getInclineList(), mRunningParam.getMaxInclineInx(), mRunningParam.getMinInclineInx()),
                 getPointTap(mRunningParam.getTimeList()),
