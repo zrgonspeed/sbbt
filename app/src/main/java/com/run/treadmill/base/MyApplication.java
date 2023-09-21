@@ -47,6 +47,7 @@ public class MyApplication extends LitePalApplication {
     public void onCreate() {
         super.onCreate();
 
+        ShellCmdUtils.getInstance().execCommand("wm size 1920x1080");
         ShellCmdUtils.getInstance().execCommand("wm density 240");
 
         // Manager
