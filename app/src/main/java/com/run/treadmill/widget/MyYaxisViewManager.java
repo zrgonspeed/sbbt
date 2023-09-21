@@ -8,7 +8,7 @@ import com.run.treadmill.manager.SpManager;
 public class MyYaxisViewManager {
     // 最大值和最小值之间的值
     private static float[] inclineArr = new float[]{5, 10, 15};
-    private static float[] speedMetricArr = new float[]{4, 8, 12, 16};
+    private static float[] speedMetricArr = new float[]{4, 8, 12, 16, 20};
     private static float[] speedImperialArr = new float[]{5, 10};
 
     public static void selectYaxis(boolean isLineChartIncline, YaxisView yv_unit) {
