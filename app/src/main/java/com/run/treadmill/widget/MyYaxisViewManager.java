@@ -18,7 +18,9 @@ public class MyYaxisViewManager {
             yv_unit.setDrawMaxValue(String.valueOf(InitParam.MAX_INCLINE_MAX));
             yv_unit.setMinValue(0);
             yv_unit.setOtherValue(inclineArr);
+            yv_unit.setIsIncline(true);
         } else {
+            yv_unit.setIsIncline(false);
             if (SpManager.getIsMetric()) {
                 yv_unit.setyLineHeight(getDimen(R.dimen.dp_px_360_y));
                 yv_unit.setMaxValue(InitParam.MAX_SPEED_MAX_METRIC);

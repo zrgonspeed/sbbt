@@ -144,6 +144,11 @@ public class YaxisView extends View {
 
     private void drawText(Canvas canvas, float value, float x, float y) {
         setDrawTextPaint();
+        if (isIncline) {
+            // 画负扬升
+            canvas.drawText(String.valueOf((int) value - 5), x - getDimen(R.dimen.dp_px_7_x), y + getDimen(R.dimen.dp_px_10_x), mPaint);
+            return;
+        }
         canvas.drawText(String.valueOf((int) value), x - getDimen(R.dimen.dp_px_7_x), y + getDimen(R.dimen.dp_px_10_x), mPaint);
     }
 
@@ -157,6 +162,10 @@ public class YaxisView extends View {
 
     private void drawMaxValueText(Canvas canvas, float x, float y) {
         setDrawTextPaint();
+        if (isIncline) {
+            canvas.drawText("15", x - getDimen(R.dimen.dp_px_7_x), y + getDimen(R.dimen.dp_px_10_x), mPaint);
+            return;
+        }
         canvas.drawText(viewMaxValue, x - getDimen(R.dimen.dp_px_7_x), y + getDimen(R.dimen.dp_px_10_x), mPaint);
     }
 
@@ -171,5 +180,11 @@ public class YaxisView extends View {
 
     public void setDrawMaxValue(String value) {
         viewMaxValue = value;
+    }
+
+    private boolean isIncline;
+
+    public void setIsIncline(boolean b) {
+        this.isIncline = b;
     }
 }
