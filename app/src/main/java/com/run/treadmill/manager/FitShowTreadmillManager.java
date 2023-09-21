@@ -110,12 +110,12 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
                         if (msg.arg2 == 1) {
                             // kinomap执行退出运动   0x53 0x02 0x01 0x00   速度会发0.1到电子表
                             // fitShowRunningCallBack.fitShowStopRunning();
-                            fitShowRunningCallBack.fitShowSetIncline(msg.arg1 - InitParam.MIN_INCLINE);
+                            fitShowRunningCallBack.fitShowSetIncline(msg.arg1 - InitParam.MY_MIN_INCLINE);
                             fitShowRunningCallBack.fitShowSetSpeed(SpManager.getMinSpeed(SpManager.getIsMetric()));
                             return;
                         }
 
-                        fitShowRunningCallBack.fitShowSetIncline(msg.arg1 - InitParam.MIN_INCLINE);
+                        fitShowRunningCallBack.fitShowSetIncline(msg.arg1 - InitParam.MY_MIN_INCLINE);
                         fitShowRunningCallBack.fitShowSetSpeed(msg.arg2 / 10f);
                     }
                     break;
@@ -335,9 +335,13 @@ public class FitShowTreadmillManager implements CustomTimer.TimerCallBack {
                         fsTreadmillSerialUtils.sendData(txData, txSize);
                         break;
                     case FsTreadmillCommand.INFO_INCLINE://最大最小扬升
-                        byte[] inData = new byte[]{FsTreadmillCommand.CMD_SYS_INFO, FsTreadmillCommand.INFO_INCLINE, ErrorManager.getInstance().isHasInclineError()
-                                ? 0 : DataTypeConversion.intLowToByte(SpManager.getMaxIncline() + InitParam.MIN_INCLINE), DataTypeConversion.intLowToByte(InitParam.MIN_INCLINE)
-                                , (byte) ((SpManager.getIsMetric() ? FsTreadmillCommand.CONFIGURATION_KILOMETRE
+                        byte[] inData = new byte[]{FsTreadmillCommand.CMD_SYS_INFO, FsTreadmillCommand.INFO_INCLINE,
+
+                                ErrorManager.getInstance().isHasInclineError()
+                                ? 0 : DataTypeConversion.intLowToByte(SpManager.getMaxIncline() + InitParam.MY_MIN_INCLINE), DataTypeConversion.intLowToByte(InitParam.MY_MIN_INCLINE)
+                                ,
+
+                                (byte) ((SpManager.getIsMetric() ? FsTreadmillCommand.CONFIGURATION_KILOMETRE
                                 : FsTreadmillCommand.CONFIGURATION_MILE) + FsTreadmillCommand.CONFIGURATION_PAUSE)};
                         sendData2(inData, inData.length);
 

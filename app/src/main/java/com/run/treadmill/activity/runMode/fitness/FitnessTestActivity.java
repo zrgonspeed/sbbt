@@ -151,7 +151,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
 
     @Override
     public void onInclineChange(float incline) {
-        tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) incline), getString(R.string.string_unit_percent), runParamUnitTextSize));
+        tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) incline + InitParam.MY_MIN_INCLINE), getString(R.string.string_unit_percent), runParamUnitTextSize));
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING) {
             refreshLineChart();
         }

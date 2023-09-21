@@ -3,6 +3,7 @@ package com.run.treadmill.widget.calculator;
 import android.content.Context;
 
 import com.run.treadmill.common.CTConstant;
+import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.SpManager;
 
 /**
@@ -31,11 +32,12 @@ public class CalculatorOfRun extends BaseCalculator {
                 }
                 break;
             case CTConstant.TYPE_INCLINE:
-                if (value >= SpManager.getMaxIncline()) {
+                if (value >= SpManager.getMaxIncline() + InitParam.MY_MIN_INCLINE) {
                     value = SpManager.getMaxIncline();
                 } else if (value <= 0) {
                     value = 0f;
                 }
+                value = value - InitParam.MY_MIN_INCLINE;
                 break;
         }
         return String.valueOf(value);

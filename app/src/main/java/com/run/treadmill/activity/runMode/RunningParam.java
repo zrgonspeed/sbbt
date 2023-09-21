@@ -739,7 +739,7 @@ public class RunningParam {
                                 alreadyRunTime,
                                 getCurPulse(),
                                 currSpeed,
-                                currIncline,
+                                currIncline + InitParam.MY_MIN_INCLINE,
                                 stepNumber - initialStepNumber,
                                 alreadyRunDistance,
                                 alreadyRunCalories,
@@ -830,7 +830,7 @@ public class RunningParam {
             recordRunData(1);
             return;
         }
-        if (incline >= maxIncline) {
+        if (incline >= maxIncline + minIncline) {
             maxIncline = incline;
             maxInclineInx = inclineList.size();
             recordRunData(1);

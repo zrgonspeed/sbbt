@@ -412,7 +412,7 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
         if (SpManager.getGSMode() != oldGSMode) {
             if (oldGSMode) {
                 ControlManager.getInstance().reset();
-                ControlManager.getInstance().setIncline(0.0f);
+                ControlManager.getInstance().setIncline(-InitParam.MY_MIN_INCLINE);
             } else {
                 ControlManager.getInstance().stopIncline();
             }

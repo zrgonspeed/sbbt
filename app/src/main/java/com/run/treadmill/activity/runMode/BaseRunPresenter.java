@@ -134,9 +134,8 @@ public abstract class BaseRunPresenter<V extends BaseRunView> extends BasePresen
             }
 
             mRunningParam.setCurrAD(resolveDate(data, NormalParam.CURR_AD_INX, NormalParam.CURR_AD_LEN));
+            mRunningParam.setStepNumber(resolveDate(data, NormalParam.Step_Number_VALUE_INX, NormalParam.Step_Number_VALUE_LEN));
         }
-        mRunningParam.setStepNumber(resolveDate(data, NormalParam.Step_Number_VALUE_INX, NormalParam.Step_Number_VALUE_LEN));
-
     }
 
     @Override
@@ -179,14 +178,5 @@ public abstract class BaseRunPresenter<V extends BaseRunView> extends BasePresen
     @Override
     public void onFail(byte[] data, int len, int count) {
         super.onFail(data, len, count);
-
-        if (MyApplication.DEFAULT_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
-            // DC光感下控，发最小速度失败时
-            if ((mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE
-                    || mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE)
-                    && data[3] == ParamCons.CMD_SET_SPEED) {
-                SerialUtils.getInstance().reMoveReSendPackage();
-            }
-        }
     }
 }

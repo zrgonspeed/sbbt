@@ -112,14 +112,15 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
         if (mFloatWindowManager.isShowingCalculator()) {
             return;
         }
-        if (incline <= 0) {
+
+        if (incline <= minIncline) {
             if (btn_incline_down.isEnabled()) {
                 btn_incline_down.setEnabled(false);
             }
             if (!btn_incline_up.isEnabled()) {
                 btn_incline_up.setEnabled(true);
             }
-        } else if (incline >= maxIncline) {
+        } else if (incline >= maxIncline + minIncline) {
             if (!btn_incline_down.isEnabled()) {
                 btn_incline_down.setEnabled(true);
             }
@@ -179,7 +180,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
 
         //为了更新倒数后按钮的点击状态
         afterSpeedChanged(mFloatWindowManager.mRunningParam.getCurrSpeed());
-        afterInclineChanged(mFloatWindowManager.mRunningParam.getCurrIncline());
+        afterInclineChanged(mFloatWindowManager.mRunningParam.getCurrIncline() + InitParam.MY_MIN_INCLINE);
     }
 
     @Override

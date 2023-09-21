@@ -1,16 +1,6 @@
 package com.run.treadmill.common;
 
 public class InitParam {
-    /**
-     * 扬升最小值, 负扬升   0 - 20
-     */
-    public static final int MY_MIN_INCLINE = -5;
-
-    /**
-     * 实际机台最小扬升 0
-     */
-    public static final int MCU_MIN_INCLINE = 0;
-
     public static final String APK = "551-55T-01";
     public static final String PROJECT_NAME = "AC00" + APK;
     public static final String APK_NAME = "AC00" + APK + ".apk";
@@ -255,4 +245,8 @@ public class InitParam {
     public static final String CUSTOM_PASS = "0000";
 
     public static final int MIN_INCLINE = 0;
+    /**
+     * 扬升最小值, 负扬升   0 - 20
+     */
+    public static final int MY_MIN_INCLINE = -5;
 }

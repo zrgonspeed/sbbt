@@ -1,5 +1,7 @@
 package com.run.treadmill.common;
 
+import com.run.treadmill.util.Logger;
+
 /**
  * @Description 公制的数值表
  * @Author GaleLiu
@@ -10,23 +12,22 @@ public final class RunModeTable {
 
     }
 
-    // 0是speed， 1是incline, 单数incline, 双数speed
-    public static float PModeTable[][] = {
-            {2f, 2f, 4f, 4f, 6f, 6f, 8f, 8f, 10f, 10f, 12f, 12f, 14f, 14f, 16f, 16f, 16f, 14f, 14f, 12f, 12f, 10f, 10f, 8f, 8f, 6f, 4f, 4f, 2f, 2f},
+    public static float[][] PModeTable = {
+            {2f, 2f, 4f, 4f, 3f, 3f, 4f, 3f, 5f, 4f, 2f, 2f, 5f, 5f, 3f, 3f, 2f, 2f, 4f, 4f, 5f, 5f, 5f, 6f, 5f, 6f, 3f, 3f, 3f, 3f},
             {1f, 1f, 2f, 2f, 3f, 3f, 3f, 1f, 2f, 2f, 3f, 3f, 2f, 2f, 2f, 2f, 3f, 3f, 5f, 5f, 3f, 3f, 4f, 2f, 3f, 4f, 2f, 2f, 3f, 3f},
-            {2f, 2f, 4f, 4f, 4f, 4f, 6f, 6f, 6f, 6f, 6f, 6f, 8f, 8f, 10f, 10f, 10f, 8f, 8f, 8f, 8f, 6f, 6f, 6f, 6f, 4f, 4f, 4f, 2f, 2f},
+            {2f, 2f, 5f, 5f, 4f, 4f, 6f, 4f, 6f, 4f, 2f, 2f, 4f, 4f, 2f, 2f, 2f, 2f, 4f, 4f, 6f, 6f, 8f, 7f, 8f, 6f, 2f, 2f, 3f, 3f},
             {1f, 1f, 2f, 2f, 3f, 3f, 3f, 2f, 2f, 3f, 4f, 4f, 2f, 2f, 2f, 2f, 3f, 3f, 5f, 5f, 4f, 4f, 4f, 3f, 4f, 4f, 3f, 3f, 1f, 1f},
-            {2f, 2f, 4f, 4f, 6f, 6f, 8f, 8f, 10f, 10f, 6f, 4f, 6f, 8f, 10f, 10f, 8f, 6f, 6f, 4f, 4f, 8f, 8f, 6f, 6f, 6f, 4f, 4f, 2f, 2f},
+            {2f, 2f, 5f, 5f, 4f, 4f, 5f, 4f, 5f, 4f, 2f, 2f, 3f, 3f, 2f, 2f, 2f, 2f, 4f, 4f, 5f, 5f, 5f, 6f, 5f, 6f, 3f, 3f, 3f, 3f},
             {1f, 1f, 2f, 2f, 2f, 2f, 3f, 1f, 2f, 2f, 2f, 2f, 2f, 2f, 1f, 1f, 3f, 3f, 5f, 5f, 3f, 3f, 4f, 2f, 3f, 4f, 2f, 2f, 3f, 3f},
-            {2f, 2f, 4f, 4f, 6f, 6f, 8f, 8f, 8f, 8f, 10f, 10f, 10f, 12f, 12f, 12f, 12f, 10f, 10f, 8f, 8f, 8f, 8f, 8f, 8f, 6f, 4f, 4f, 2f, 2f},
+            {3f, 3f, 6f, 6f, 7f, 7f, 5f, 8f, 5f, 9f, 6f, 6f, 4f, 4f, 3f, 3f, 4f, 4f, 2f, 2f, 6f, 6f, 8f, 6f, 3f, 2f, 6f, 6f, 2f, 2f},
             {2f, 2f, 2f, 2f, 3f, 3f, 3f, 2f, 2f, 4f, 6f, 6f, 2f, 2f, 2f, 2f, 3f, 3f, 4f, 4f, 6f, 6f, 2f, 3f, 7f, 9f, 5f, 5f, 2f, 2f},
-            {2f, 2f, 4f, 4f, 8f, 8f, 8f, 8f, 12f, 12f, 6f, 12f, 6f, 12f, 12f, 12f, 6f, 6f, 6f, 12f, 12f, 12f, 12f, 6f, 6f, 12f, 6f, 6f, 6f, 6f},
+            {3f, 3f, 6f, 6f, 7f, 7f, 5f, 8f, 6f, 7f, 6f, 6f, 4f, 4f, 3f, 3f, 2f, 2f, 5f, 5f, 5f, 5f, 4f, 4f, 6f, 4f, 2f, 2f, 3f, 3f},
             {1f, 1f, 2f, 2f, 4f, 4f, 3f, 2f, 2f, 4f, 5f, 5f, 2f, 2f, 1f, 1f, 3f, 3f, 5f, 5f, 6f, 6f, 7f, 8f, 9f, 10f, 10f, 8f, 2f, 2f},
-            {4f, 4f, 6f, 6f, 10f, 10f, 10f, 10f, 8f, 8f, 8f, 8f, 8f, 10f, 10f, 10f, 6f, 4f, 4f, 4f, 4f, 6f, 6f, 10f, 10f, 10f, 6f, 6f, 4f, 4f},
+            {2f, 2f, 8f, 8f, 6f, 6f, 4f, 5f, 9f, 7f, 5f, 5f, 4f, 4f, 3f, 3f, 4f, 4f, 2f, 2f, 4f, 4f, 6f, 8f, 7f, 8f, 6f, 6f, 2f, 2f},
             {2f, 2f, 2f, 2f, 6f, 6f, 2f, 3f, 4f, 2f, 2f, 2f, 2f, 2f, 1f, 1f, 4f, 4f, 3f, 3f, 4f, 4f, 4f, 3f, 4f, 2f, 3f, 3f, 2f, 2f},
-            {4f, 4f, 4f, 4f, 6f, 6f, 6f, 6f, 8f, 8f, 8f, 8f, 10f, 10f, 8f, 8f, 8f, 8f, 8f, 6f, 6f, 6f, 6f, 6f, 6f, 4f, 4f, 4f, 4f, 4f},
+            {2f, 2f, 6f, 6f, 7f, 7f, 4f, 4f, 7f, 4f, 2f, 2f, 4f, 4f, 2f, 2f, 3f, 3f, 5f, 5f, 4f, 4f, 4f, 3f, 4f, 3f, 2f, 2f, 2f, 2f},
             {4f, 4f, 5f, 5f, 6f, 6f, 6f, 9f, 9f, 10f, 7f, 7f, 6f, 6f, 3f, 3f, 4f, 4f, 2f, 2f, 4f, 4f, 6f, 8f, 7f, 8f, 6f, 6f, 2f, 2f},
-            {2f, 2f, 4f, 4f, 6f, 6f, 6f, 6f, 6f, 6f, 6f, 8f, 8f, 8f, 10f, 10f, 10f, 12f, 12f, 14f, 14f, 12f, 12f, 10f, 10f, 8f, 6f, 6f, 4f, 4f},
+            {2f, 2f, 4f, 4f, 6f, 6f, 8f, 7f, 8f, 6f, 2f, 2f, 3f, 3f, 2f, 2f, 3f, 3f, 5f, 5f, 4f, 4f, 4f, 3f, 4f, 3f, 2f, 2f, 2f, 2f},
             {3f, 3f, 5f, 5f, 4f, 4f, 4f, 3f, 4f, 4f, 3f, 3f, 3f, 3f, 2f, 2f, 4f, 4f, 2f, 2f, 4f, 4f, 6f, 8f, 7f, 8f, 6f, 6f, 2f, 2f},
             {2f, 2f, 4f, 4f, 5f, 5f, 5f, 6f, 5f, 6f, 3f, 3f, 3f, 3f, 2f, 2f, 3f, 3f, 4f, 4f, 4f, 4f, 3f, 5f, 5f, 6f, 3f, 3f, 3f, 3f},
             {3f, 3f, 5f, 5f, 3f, 3f, 4f, 2f, 3f, 4f, 2f, 2f, 3f, 3f, 2f, 2f, 3f, 3f, 5f, 5f, 4f, 4f, 4f, 3f, 4f, 3f, 2f, 2f, 2f, 2f},
@@ -80,6 +81,23 @@ public final class RunModeTable {
     };
 
     /**
+     * 负扬升需要
+     */
+    static {
+        for (int i = 0; i < PModeTable.length; i++) {
+            if (i % 2 == 0) {
+                continue;
+            }
+            Logger.e("i == " + i);
+            for (int j = 0; j < PModeTable[i].length; j++) {
+                Logger.e("PModeTable[i][j] == " + PModeTable[i][j]);
+                PModeTable[i][j] = PModeTable[i][j] - InitParam.MY_MIN_INCLINE;
+                Logger.e("PModeTable[i][j] == " + PModeTable[i][j] + "----------------------|");
+            }
+        }
+    }
+
+    /**
      * fitness test 模式的速度表
      * ftModeTableSpeed[0]是公制
      * ftModeTableSpeed[1]是英制
@@ -102,4 +120,14 @@ public final class RunModeTable {
             0f, 2f, 2f, 2f, 2f, 2f, 2f, 2f, 2f, 4f, 4f, 4f, 4f, 4f, 4f, 4f, 4f, 6f, 6f, 6f, 6f, 6f, 6f, 6f, 6f, 8f, 8f, 8f, 8f, 8f,
             8f, 8f, 8f, 10f, 10f, 10f, 10f, 10f, 10f, 10f, 10f, 4f, 4f, 4f, 4f, 4f, 4f, 6f, 6f, 6f, 6f, 6f, 6f, 6f, 6f, 8f, 8f, 8f, 8f, 8f
     };
+
+    /**
+     * 负扬升需要。加5
+     */
+    static {
+        // 只执行1次
+        for (int i = 0; i < ftModeTableIncline.length; i++) {
+            ftModeTableIncline[i] = ftModeTableIncline[i] - InitParam.MY_MIN_INCLINE;
+        }
+    }
 }

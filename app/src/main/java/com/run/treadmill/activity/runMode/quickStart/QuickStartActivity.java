@@ -13,6 +13,7 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.activity.summary.SummaryActivity;
 import com.run.treadmill.common.CTConstant;
+import com.run.treadmill.common.InitParam;
 import com.run.treadmill.common.MsgWhat;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
@@ -24,6 +25,8 @@ import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.widget.HistogramListView;
+
+import java.util.Arrays;
 
 /**
  * @Description 这里用一句话描述
@@ -173,6 +176,8 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     public void afterPrepare() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
             mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+            Logger.e(TAG, Arrays.toString(mRunningParam.mInclineArray));
+
             mRunningParam.setLcCurStageNum(0);
             mRunningParam.startRefreshData();
 
@@ -199,7 +204,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
 
     @Override
     public void onInclineChange(float incline) {
-        tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) incline), getString(R.string.string_unit_percent), runParamUnitTextSize));
+        tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) incline + InitParam.MY_MIN_INCLINE), getString(R.string.string_unit_percent), runParamUnitTextSize));
         refreshLineChart();
     }
 
@@ -208,14 +213,14 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
         if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
             return;
         }
-        if (incline <= 0) {
+        if (incline <= -5) {
             if (btn_incline_down.isEnabled()) {
                 btn_incline_down.setEnabled(false);
             }
             if (!btn_incline_up.isEnabled()) {
                 btn_incline_up.setEnabled(true);
             }
-        } else if (incline >= maxIncline) {
+        } else if (incline >= maxIncline + minIncline) {
             if (!btn_incline_down.isEnabled()) {
                 btn_incline_down.setEnabled(true);
             }
@@ -265,7 +270,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     protected void showPopTip() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
             getPresenter().setSpeedValue(0, minSpeed, false);
-            getPresenter().setInclineValue(0, 0, false);
+            getPresenter().setInclineValue(0, -InitParam.MY_MIN_INCLINE, false);
             if (FitShowTreadmillManager.getInstance().isConnect()) {
                 int incline = 0;
                 try {
@@ -320,6 +325,14 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
         if (mRunningParam.getCurrIncline() == incline) {
             return;
         }
+
+        if (incline > maxIncline || incline < InitParam.MY_MIN_INCLINE) {
+            return;
+        }
+        if (ErrorManager.getInstance().isHasInclineError()) {
+            return;
+        }
+
         if (!isLineChartIncline) {
             btn_line_chart_incline.performClick();
         }

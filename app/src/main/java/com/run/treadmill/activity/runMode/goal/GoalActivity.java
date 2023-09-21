@@ -12,6 +12,7 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.activity.summary.SummaryActivity;
 import com.run.treadmill.common.CTConstant;
+import com.run.treadmill.common.InitParam;
 import com.run.treadmill.common.MsgWhat;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
@@ -20,6 +21,8 @@ import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.widget.HistogramListView;
+
+import java.util.Arrays;
 
 /**
  * @Description 这里用一句话描述
@@ -40,6 +43,8 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
         img_unit = (ImageView) findViewById(R.id.img_unit);
         lineChartView = (HistogramListView) findViewById(R.id.lineChartView);
         lineChartView.setModeName(getString(R.string.string_mode_goal));
+
+        Arrays.fill(mRunningParam.mInclineArray, -InitParam.MY_MIN_INCLINE);
     }
 
     @Override
@@ -54,7 +59,7 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
     protected void showPopTip() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
             getPresenter().setSpeedValue(0, minSpeed, false);
-            getPresenter().setInclineValue(0, 0, false);
+            getPresenter().setInclineValue(0, -InitParam.MY_MIN_INCLINE, false);
         }
         super.showPopTip();
     }
@@ -146,7 +151,7 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
 
     @Override
     public void onInclineChange(float incline) {
-        tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) incline), getString(R.string.string_unit_percent), runParamUnitTextSize));
+        tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) incline + InitParam.MY_MIN_INCLINE), getString(R.string.string_unit_percent), runParamUnitTextSize));
         refreshLineChart();
     }
 
@@ -157,14 +162,14 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
                 || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
             return;
         }
-        if (incline <= 0) {
+        if (incline <= minIncline) {
             if (btn_incline_down.isEnabled()) {
                 btn_incline_down.setEnabled(false);
             }
             if (!btn_incline_up.isEnabled()) {
                 btn_incline_up.setEnabled(true);
             }
-        } else if (incline >= maxIncline) {
+        } else if (incline >= maxIncline + minIncline) {
             if (!btn_incline_down.isEnabled()) {
                 btn_incline_down.setEnabled(true);
             }

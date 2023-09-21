@@ -67,11 +67,11 @@ public class UserProgramSelectPresenter extends BaseSelectPresenter<UserProgramS
                     speedArray[i] = getRealSpeed(userCustomDataDBS.get(i));
                 }
             } else {
-                Arrays.fill(inclineArray, 0.0f);
+                Arrays.fill(inclineArray, -InitParam.MY_MIN_INCLINE);
                 Arrays.fill(speedArray, SpManager.getMinSpeed(SpManager.getIsMetric()));
             }
         } else {
-            Arrays.fill(inclineArray, 0.0f);
+            Arrays.fill(inclineArray, -InitParam.MY_MIN_INCLINE);
             Arrays.fill(speedArray, SpManager.getMinSpeed(SpManager.getIsMetric()));
         }
         // Logger.i("speedArray == " +  Arrays.toString(speedArray));

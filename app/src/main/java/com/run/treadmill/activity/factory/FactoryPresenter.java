@@ -171,6 +171,8 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
                 break;
             case msg_calibration_success_back_home:
                 getView().onCalibrationSuccessGoBackHome();
+                ControlManager.getInstance().reset();
+                ControlManager.getInstance().resetIncline();
                 break;
         }
     }

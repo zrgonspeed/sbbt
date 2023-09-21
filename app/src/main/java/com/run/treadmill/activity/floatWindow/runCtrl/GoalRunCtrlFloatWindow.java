@@ -95,14 +95,14 @@ public class GoalRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
         if (mFloatWindowManager.isShowingCalculator()) {
             return;
         }
-        if (incline <= 0) {
+        if (incline <= minIncline) {
             if (btn_incline_down.isEnabled()) {
                 btn_incline_down.setEnabled(false);
             }
             if (!btn_incline_up.isEnabled()) {
                 btn_incline_up.setEnabled(true);
             }
-        } else if (incline >= maxIncline) {
+        } else if (incline >= maxIncline + minIncline) {
             if (!btn_incline_down.isEnabled()) {
                 btn_incline_down.setEnabled(true);
             }

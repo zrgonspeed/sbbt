@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.run.treadmill.R;
 import com.run.treadmill.common.CTConstant;
+import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.util.StringUtil;
@@ -253,7 +254,9 @@ public abstract class BaseCalculator implements View.OnClickListener {
         if (type == CTConstant.TYPE_SPEED) {
             setCalcMax(SpManager.getMaxSpeed(isMetric));
         } else if (type == CTConstant.TYPE_INCLINE) {
-            setCalcMax(SpManager.getMaxIncline());
+            setCalcMax(SpManager.getMaxIncline() + InitParam.MY_MIN_INCLINE);
+//            txt_calc_max.setText(R.string.string_max);
+//            txt_calc_max.append(" " + SpManager.getMaxIncline());
         } else {
             txt_calc_max.setText("");
         }

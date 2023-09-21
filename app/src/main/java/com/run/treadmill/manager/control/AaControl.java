@@ -8,6 +8,7 @@ import com.run.serial.TxData;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.util.DataTypeConversion;
+import com.run.treadmill.util.Logger;
 
 /**
  * @Description Ac 的控制指令
@@ -119,6 +120,7 @@ public class AaControl extends BaseControl {
     public void setIncline(float incline) {
         if (incline != lastIncline) {
             lastIncline = incline;
+            Logger.e("xxx", "TO MCU incline == " + incline);
             sendWriteOneData(ParamCons.CMD_SET_INCLINE, DataTypeConversion.shortToBytes((short) (incline)));
         }
     }

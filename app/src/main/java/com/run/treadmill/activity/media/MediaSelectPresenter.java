@@ -34,7 +34,7 @@ public class MediaSelectPresenter extends BasePresenter<MediaSelectView> {
 
     public void setUpRunningParam(boolean isMetric) {
         RunningParam.reset();
-        Arrays.fill(RunningParam.getInstance().mInclineArray, 0.0f);
+        Arrays.fill(RunningParam.getInstance().mInclineArray, 5.0f);
         Arrays.fill(RunningParam.getInstance().mSpeedArray, SpManager.getMinSpeed(isMetric));
     }
 }

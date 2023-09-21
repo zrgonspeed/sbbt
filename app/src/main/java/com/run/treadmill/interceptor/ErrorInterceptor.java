@@ -14,13 +14,6 @@ public class ErrorInterceptor implements SerialInterceptor {
     public Message intercept(Chain chain) {
         byte[] data = ((RealChain) chain).getmData();
         int curSysError = ((RealChain) chain).resolveDate(data, NormalParam.SYS_ERROR_INX, NormalParam.SYS_ERROR_LEN);
-        //curSysError = 0;
-        //TODO: 注意--> CTConstant.DEVICE_TYPE_AA 强制屏蔽部分错误,后面是否删除,待议
-//        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-//            if (curSysError == 0x0C) {
-//                curSysError = 0;
-//            }
-//        }
 
         if (curSysError != ErrorManager.getInstance().errStatus) {
             //TODO:处理安全key清除错误问题

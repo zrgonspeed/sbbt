@@ -10,6 +10,7 @@ import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
 import com.run.treadmill.base.MyApplication;
 import com.run.treadmill.common.CTConstant;
+import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.control.AaControl;
 import com.run.treadmill.manager.control.ControlStrategy;
 import com.run.treadmill.manager.control.NormalParam;
@@ -204,7 +205,7 @@ public class ControlManager {
      * 扬升归零
      */
     public void resetIncline() {
-        mStrategy.resetIncline();
+        setIncline(-InitParam.MY_MIN_INCLINE);
     }
 
     /**

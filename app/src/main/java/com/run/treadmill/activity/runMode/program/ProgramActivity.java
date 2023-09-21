@@ -10,6 +10,7 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.activity.summary.SummaryActivity;
 import com.run.treadmill.common.CTConstant;
+import com.run.treadmill.common.InitParam;
 import com.run.treadmill.common.MsgWhat;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
@@ -94,7 +95,7 @@ public class ProgramActivity extends BaseRunActivity<ProgramView, ProgramPresent
 
     @Override
     public void onInclineChange(float incline) {
-        tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) incline), getString(R.string.string_unit_percent), runParamUnitTextSize));
+        tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) incline + InitParam.MY_MIN_INCLINE), getString(R.string.string_unit_percent), runParamUnitTextSize));
         refreshLineChart();
     }
 
@@ -116,14 +117,14 @@ public class ProgramActivity extends BaseRunActivity<ProgramView, ProgramPresent
                 || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
             return;
         }
-        if (incline <= 0) {
+        if (incline <= minIncline) {
             if (btn_incline_down.isEnabled()) {
                 btn_incline_down.setEnabled(false);
             }
             if (!btn_incline_up.isEnabled()) {
                 btn_incline_up.setEnabled(true);
             }
-        } else if (incline >= maxIncline) {
+        } else if (incline >= maxIncline + minIncline) {
             if (!btn_incline_down.isEnabled()) {
                 btn_incline_down.setEnabled(true);
             }
@@ -175,7 +176,7 @@ public class ProgramActivity extends BaseRunActivity<ProgramView, ProgramPresent
     protected void showPopTip() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
             getPresenter().setSpeedValue(0, minSpeed, true);
-            getPresenter().setInclineValue(0, 0, true);
+            getPresenter().setInclineValue(0, -InitParam.MY_MIN_INCLINE, true);
         }
         super.showPopTip();
     }

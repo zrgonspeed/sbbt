@@ -60,7 +60,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
      * 最大最小速度
      */
     public float maxSpeed, minSpeed;
-    public float maxIncline;
+    public float maxIncline, minIncline;
 
     private boolean gsMode;
 
@@ -95,6 +95,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         maxSpeed = SpManager.getMaxSpeed(mFloatWindowManager.isMetric);
         minSpeed = SpManager.getMinSpeed(mFloatWindowManager.isMetric);
         maxIncline = SpManager.getMaxIncline();
+        minIncline = -5;
         gsMode = SpManager.getGSMode();
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -317,7 +318,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
             btn_speed_down.setEnabled(enable);
             btn_speed_up.setEnabled(enable);
         } else {
-            afterInclineChanged(mFloatWindowManager.mRunningParam.getCurrIncline());
+            afterInclineChanged(mFloatWindowManager.mRunningParam.getCurrIncline() + InitParam.MY_MIN_INCLINE);
             afterSpeedChanged(mFloatWindowManager.mRunningParam.getCurrSpeed());
         }
     }
@@ -507,11 +508,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
     }
 
     public void longClickBuzzer(LongClickImage btn) {
-        // if ((Integer) btn.getTag() != 1) {
         BuzzerManager.getInstance().buzzerRingOnce();
-        // } else {
-        //     btn.setTag(-1);
-        // }
     }
 
 

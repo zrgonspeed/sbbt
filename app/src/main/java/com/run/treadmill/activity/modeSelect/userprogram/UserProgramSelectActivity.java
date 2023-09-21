@@ -128,7 +128,7 @@ public class UserProgramSelectActivity extends BaseSelectActivity<UserProgramSel
         rl_main.setFocusableInTouchMode(true);
 
         lineChartView.setMaxDrawValue(isLineChartIncline ? SpManager.getMaxIncline() : SpManager.getMaxSpeed(isMetric));
-        lineChartView.setMinDrawValue(isLineChartIncline ? InitParam.DEFAULT_INCLINE : SpManager.getMinSpeed(isMetric));
+        lineChartView.setMinDrawValue(isLineChartIncline ? 0 : SpManager.getMinSpeed(isMetric));
         lineChartView.setClickAble(true);
         lineChartView.invalidate();
 
@@ -401,7 +401,7 @@ public class UserProgramSelectActivity extends BaseSelectActivity<UserProgramSel
         lineChartView.setMaxValue(isLineChartIncline ? InitParam.MAX_INCLINE_MAX : (isMetric ? InitParam.MAX_SPEED_MAX_METRIC : InitParam.MAX_SPEED_MAX_IMPERIAL));
 
         lineChartView.setMaxDrawValue(isLineChartIncline ? SpManager.getMaxIncline() : SpManager.getMaxSpeed(isMetric));
-        lineChartView.setMinDrawValue(isLineChartIncline ? InitParam.DEFAULT_INCLINE : SpManager.getMinSpeed(isMetric));
+        lineChartView.setMinDrawValue(isLineChartIncline ? 0 : SpManager.getMinSpeed(isMetric));
     }
 
     protected void clickBack() {

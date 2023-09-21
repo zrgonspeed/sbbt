@@ -115,7 +115,7 @@ public abstract class BaseRunParamFloatWindow {
             tv_incline.setText(StringUtil.valueAndUnit("0", mContext.getString(R.string.string_unit_percent), mFloatWindowManager.runParamUnitTextSize));
         } else {
             tv_speed.setText(mFloatWindowManager.getSpeedValue(String.valueOf(mFloatWindowManager.mRunningParam.getCurrSpeed())));
-            tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) mFloatWindowManager.mRunningParam.getCurrIncline()), mContext.getString(R.string.string_unit_percent), mFloatWindowManager.runParamUnitTextSize));
+            tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) mFloatWindowManager.mRunningParam.getCurrIncline() + InitParam.MY_MIN_INCLINE), mContext.getString(R.string.string_unit_percent), mFloatWindowManager.runParamUnitTextSize));
         }
 
         img_voice.setOnClickListener(v ->

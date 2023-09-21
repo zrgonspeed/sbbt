@@ -66,6 +66,7 @@ import com.run.treadmill.widget.calculator.CalculatorOfRun;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 
@@ -173,6 +174,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     /*** 最大最小速度*/
     public float maxSpeed, minSpeed;
     public float maxIncline;
+    public float minIncline;
     /*** 扬升的数值监听*/
     public InclineTextWatcher mInclineTextWatcher;
     /*** 速度的数值监听*/
@@ -231,6 +233,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         maxSpeed = SpManager.getMaxSpeed(isMetric);
         minSpeed = SpManager.getMinSpeed(isMetric);
         maxIncline = SpManager.getMaxIncline();
+        minIncline = InitParam.MY_MIN_INCLINE;
         Logger.d("最大速度：【" + maxSpeed + "】  最小速度：【" + minSpeed + "】   最大扬升：【" + maxIncline + "】");
 
         gsMode = SpManager.getGSMode();
@@ -379,7 +382,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             if (ErrorManager.getInstance().isHasInclineError()) {
                 showInclineError();
             } else if (mRunningParam.runStatus != CTConstant.RUN_STATUS_COOL_DOWN) {
-                tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) mRunningParam.getCurrIncline()), getString(R.string.string_unit_percent), runParamUnitTextSize));
+                // 热身状态？// 运动状态  从悬浮窗返回quick
+                tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) mRunningParam.getCurrIncline() + InitParam.MY_MIN_INCLINE), getString(R.string.string_unit_percent), runParamUnitTextSize));
             }
             tv_speed.setText(getSpeedValue(String.valueOf(mRunningParam.getCurrSpeed())));
         }
@@ -398,6 +402,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public void onCurStageNumChange() {
         onSpeedChange(mRunningParam.mSpeedArray[mRunningParam.getLcCurStageNum()]);
         if (!ErrorManager.getInstance().isHasInclineError()) {
+            Logger.e(TAG, Arrays.toString(mRunningParam.mInclineArray));
             onInclineChange(mRunningParam.mInclineArray[mRunningParam.getLcCurStageNum()]);
         }
     }
@@ -1022,7 +1027,9 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             btn_speed_up.setEnabled(enable);
         } else {
             if (!ErrorManager.getInstance().isHasInclineError()) {
-                afterInclineChanged(mRunningParam.getCurrIncline());
+                float currIncline = mRunningParam.getCurrIncline();
+                Logger.e("currIncline == " + currIncline);
+                afterInclineChanged(currIncline);
             }
             afterSpeedChanged(mRunningParam.getCurrSpeed());
         }
@@ -1192,7 +1199,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                         }, 1000);
                         if (!ErrorManager.getInstance().isHasInclineError()) {
                             mActivity.tv_incline.setText(
-                                    StringUtil.valueAndUnit(String.valueOf((int) mActivity.mRunningParam.getCurrIncline()),
+                                    StringUtil.valueAndUnit(String.valueOf((int) mActivity.mRunningParam.getCurrIncline() + InitParam.MY_MIN_INCLINE),
                                             mActivity.getString(R.string.string_unit_percent),
                                             mActivity.runParamUnitTextSize)
                             );
