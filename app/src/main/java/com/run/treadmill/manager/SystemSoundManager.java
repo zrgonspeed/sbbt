@@ -73,9 +73,9 @@ public class SystemSoundManager {
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, toset, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
     }
 
-    //关闭按键音
+    // 强制关闭系统默认按键音
     public void setEffectsEnabled(int value) {
-        Settings.System.putInt(mContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, value);
+        Settings.System.putInt(mContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 0);
     }
 
     /*//按键音
