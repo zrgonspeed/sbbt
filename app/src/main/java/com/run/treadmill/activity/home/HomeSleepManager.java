@@ -11,7 +11,7 @@ import com.run.treadmill.util.Logger;
 
 public class HomeSleepManager implements CustomTimer.TimerCallBack {
     private HomeActivity homeActivity;
-    public static final int SLEEP_TIME = 60 * 10;
+    public static final int SLEEP_TIME = 60 * 5;
 
     private final String sleepTag = "sleep";
     private CustomTimer mSleepTimer;
