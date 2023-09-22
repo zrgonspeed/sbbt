@@ -151,13 +151,46 @@ public class UserProgramSelectActivity extends BaseSelectActivity<UserProgramSel
             return false;
         });
 
-        rg_gender_info.setOnCheckedChangeListener(this);
+        rg_gender_info.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.rb_male:
+                    img_gender_select.setImageResource(R.drawable.btn_male_2);
+                    img_gender_draw.setImageResource(R.drawable.img_gender_draw_1);
+                    currUser.setGender(InitParam.DEFAULT_GENDER_MALE);
+                    break;
+                case R.id.rb_female:
+                    img_gender_select.setImageResource(R.drawable.btn_female_2);
+                    img_gender_draw.setImageResource(R.drawable.img_gender_draw_2);
+                    currUser.setGender(InitParam.DEFAULT_GENDER_FEMALE);
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        rb_female.setOnClickListener(rbGenderClickListener);
+        rb_male.setOnClickListener(rbGenderClickListener);
+
         rg_user.setOnCheckedChangeListener(this);
 
         ActionModeCallbackInterceptor interceptor = new ActionModeCallbackInterceptor();
 
         et_name.setCustomSelectionActionModeCallback(interceptor);
         et_name.setCustomInsertionActionModeCallback(interceptor);
+    }
+
+    private RbGenderClickListener rbGenderClickListener = new RbGenderClickListener();
+
+    private class RbGenderClickListener implements View.OnClickListener {
+         private boolean rbGenderBuzzer = true;
+
+        @Override
+        public void onClick(View v) {
+            if (rbGenderBuzzer) {
+                BuzzerManager.getInstance().buzzerRingOnce();
+            }
+            rbGenderBuzzer = true;
+        }
     }
 
     @Override
@@ -298,16 +331,6 @@ public class UserProgramSelectActivity extends BaseSelectActivity<UserProgramSel
                 currInx = 5;
                 getPresenter().getUserInfo(currInx);
                 break;
-            case R.id.rb_male:
-                img_gender_select.setImageResource(R.drawable.btn_male_2);
-                img_gender_draw.setImageResource(R.drawable.img_gender_draw_1);
-                currUser.setGender(InitParam.DEFAULT_GENDER_MALE);
-                break;
-            case R.id.rb_female:
-                img_gender_select.setImageResource(R.drawable.btn_female_2);
-                img_gender_draw.setImageResource(R.drawable.img_gender_draw_2);
-                currUser.setGender(InitParam.DEFAULT_GENDER_FEMALE);
-                break;
             default:
                 break;
         }
@@ -343,8 +366,10 @@ public class UserProgramSelectActivity extends BaseSelectActivity<UserProgramSel
         rb_weight.setText(String.valueOf(user.getWeight()));
         rb_time.setText(String.valueOf(user.getTime()));
         if (user.getGender() == InitParam.DEFAULT_GENDER_MALE) {
+            rbGenderClickListener.rbGenderBuzzer = false;
             rb_male.performClick();
         } else {
+            rbGenderClickListener.rbGenderBuzzer = false;
             rb_female.performClick();
         }
     }
