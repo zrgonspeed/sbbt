@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="font_size_factory_one_cali">22sp</dimen>
-    <dimen name="font_size_setting_psw">22sp</dimen>
+    <dimen name="font_size_factory_one_cali">15.64sp</dimen>
+    <dimen name="font_size_setting_psw">15.64sp</dimen>
 </resources>
