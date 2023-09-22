@@ -39,7 +39,7 @@ public class HistogramListView extends View {
     /**
      * 柱状宽度
      */
-    private float chartWidth = 35.3f;
+    private float chartWidth = 24.5f;
     /**
      * 包括间隔柱宽
      */
@@ -48,7 +48,7 @@ public class HistogramListView extends View {
     /**
      * 柱状宽度
      */
-    private float chartHeight = 360f;
+    private float chartHeight = 255f;
 
     /**
      * 每一条柱的间隔
@@ -58,7 +58,7 @@ public class HistogramListView extends View {
     /**
      * 底部背景色高度
      */
-    private int bottomHeight = 50;
+    private int bottomHeight = 35;
 
     /**
      * 当前正在运动的位置
