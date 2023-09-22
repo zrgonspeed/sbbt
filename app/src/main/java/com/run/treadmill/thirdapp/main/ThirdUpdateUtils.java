@@ -149,7 +149,7 @@ public class ThirdUpdateUtils {
         list.add(qqmusicpad);
         list.add(lebo);
         list.add(anplus_A133Bluetooth);
-        list.add(gms);
+        // list.add(gms);
     }
 
     public static List<ThirdApp> getAppList() {
