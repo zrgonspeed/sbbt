@@ -39,9 +39,9 @@
     <string name="string_select_time">Tempo</string>
     <string name="string_select_target_hr">FC alvo</string>
     <string name="string_select_start_hint">Pressione Iniciar para começar o treino</string>
-    <string name="string_select_next_hint">Press Next to select profile</string>
-    <string name="string_select_back_hint">Prima Voltar para voltar à configuração / Prima Iniciar para iniciar o exercício</string>
-    <string name="string_select_next_chart_hint">Prima Seguinte para avançar para o gráfico de perfil / Prima Iniciar para iniciar o exercício</string>
+    <string name="string_select_next_hint">Prima Seguinte para avançar para o gráfico de perfil</string>
+    <string name="string_select_back_hint">Prima Voltar para voltar à configuração</string>
+    <string name="string_select_next_chart_hint">Prima Seguinte para avançar para o gráfico de perfil</string>
     <string name="string_select_next_hrc_hint">Pressione Avançar para selecionar um HRC</string>
 
     <string name="string_goal">OBJETIVO</string>
