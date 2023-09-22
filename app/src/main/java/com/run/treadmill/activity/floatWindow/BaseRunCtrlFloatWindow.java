@@ -415,13 +415,13 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 mFloatWindowManager.runMode == CTConstant.VISION
         ) {
             setSpeedValue(0, minSpeed, false);
-            setInclineValue(0, 0, false);
+            setInclineValue(0, -InitParam.MY_MIN_INCLINE, false);
         }
         if (mFloatWindowManager.runMode == CTConstant.PROGRAM ||
                 mFloatWindowManager.runMode == CTConstant.USER_PROGRAM
         ) {
             setSpeedValue(0, minSpeed, true);
-            setInclineValue(0, 0, true);
+            setInclineValue(0, -InitParam.MY_MIN_INCLINE, true);
         }
 
         // gsMode默认false
