@@ -412,7 +412,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_px_667_x"
-            android:layout_marginTop="@dimen/dp_px_830_y"
+            android:layout_marginTop="@dimen/dp_px_775_x"
             android:src="@drawable/btn_pause_quit" />
 
         <ImageView
@@ -420,7 +420,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_px_983_x"
-            android:layout_marginTop="@dimen/dp_px_830_y"
+            android:layout_marginTop="@dimen/dp_px_775_x"
             android:src="@drawable/btn_pause_continue" />
     </RelativeLayout>
 
