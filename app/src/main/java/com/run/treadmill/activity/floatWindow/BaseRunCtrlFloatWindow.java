@@ -100,7 +100,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
         DisplayMetrics dm = new DisplayMetrics();
         mWindowManager.getDefaultDisplay().getMetrics(dm);
-        mFloatWindow = createFloatWindow(dm.widthPixels, mContext.getResources().getDimensionPixelSize(R.dimen.dp_px_250_y));
+        mFloatWindow = createFloatWindow(dm.widthPixels, mContext.getResources().getDimensionPixelSize(R.dimen.dp_px_249_y));
 
         btn_start_stop_skip = (ImageView) mFloatWindow.findViewById(R.id.btn_start_stop_skip);
         btn_incline_up = (LongClickImage) mFloatWindow.findViewById(R.id.btn_incline_up);
