@@ -844,8 +844,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             rv_media.setLayoutManager(new GridLayoutManager(this, 2));
             rv_media.setAdapter(mMediaRunAppAdapter);
             mediaPopWin = new PopupWindow(mediaView,
-                    getResources().getDimensionPixelSize(R.dimen.dp_px_300_x),
-                    getResources().getDimensionPixelSize(R.dimen.dp_px_715_y));
+                    getResources().getDimensionPixelSize(R.dimen.dp_px_255_x),
+                    getResources().getDimensionPixelSize(R.dimen.dp_px_646_y));
         }
 
         if (mediaPopWin.isShowing()) {
@@ -854,7 +854,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             mediaPopWin.showAtLocation(btn_media,
                     Gravity.NO_GRAVITY,
                     (getResources().getDimensionPixelSize(R.dimen.dp_px_0_x)),
-                    getResources().getDimensionPixelSize(R.dimen.dp_px_147_y));
+                    getResources().getDimensionPixelSize(R.dimen.dp_px_170_y));
             btn_media.setSelected(true);
         }
     }

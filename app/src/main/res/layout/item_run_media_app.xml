@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/dp_px_10_x"
     android:gravity="center"
-    android:paddingStart="@dimen/dp_px_33_x"
-    android:paddingTop="@dimen/dp_px_40_x">
+    android:paddingStart="@dimen/dp_px_15_x"
+    android:paddingTop="@dimen/dp_px_15_x">
 
     <ImageView
         android:id="@+id/img_media_app"
