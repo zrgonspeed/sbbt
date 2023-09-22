@@ -294,6 +294,7 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
             case R.id.btn_setting_reset_customer_psw:
                 mCalcBuilder.reset()
                         .editType(CTConstant.TYPE_SETTING_LOCK_RESET)
+                        .editTypeName(R.string.string_setting_psw)
                         .callBack(this)
                         .maxLength(4)
                         .mainView(rl_main)
