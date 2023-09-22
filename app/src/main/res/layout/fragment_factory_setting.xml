@@ -15,8 +15,8 @@
 
     <ToggleButton
         android:id="@+id/tb_sleep"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dp_px_200_x"
+        android:layout_height="@dimen/dp_px_70_x"
         android:layout_marginStart="@dimen/dp_px_476_x"
         android:layout_marginTop="@dimen/dp_px_80_y"
         android:background="@drawable/btn_on_off"
@@ -34,8 +34,8 @@
 
     <ToggleButton
         android:id="@+id/tb_display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dp_px_200_x"
+        android:layout_height="@dimen/dp_px_70_x"
         android:layout_marginStart="@dimen/dp_px_476_x"
         android:layout_marginTop="@dimen/dp_px_212_y"
         android:background="@drawable/btn_on_off"
@@ -54,8 +54,8 @@
 
     <ToggleButton
         android:id="@+id/tb_incline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dp_px_200_x"
+        android:layout_height="@dimen/dp_px_70_x"
         android:layout_marginStart="@dimen/dp_px_476_x"
         android:layout_marginTop="@dimen/dp_px_344_y"
         android:background="@drawable/btn_on_off"
@@ -73,8 +73,8 @@
 
     <ToggleButton
         android:id="@+id/tb_touch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dp_px_200_x"
+        android:layout_height="@dimen/dp_px_70_x"
         android:layout_marginStart="@dimen/dp_px_476_x"
         android:layout_marginTop="@dimen/dp_px_476_y"
         android:background="@drawable/btn_on_off"
@@ -100,8 +100,8 @@
 
     <ToggleButton
         android:id="@+id/tb_buzzer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dp_px_200_x"
+        android:layout_height="@dimen/dp_px_70_x"
         android:layout_marginStart="@dimen/dp_px_1235_x"
         android:layout_marginTop="@dimen/dp_px_80_y"
         android:background="@drawable/btn_on_off"
