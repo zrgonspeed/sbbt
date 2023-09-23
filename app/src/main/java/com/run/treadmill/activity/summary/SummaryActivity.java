@@ -216,7 +216,7 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
         tv_distance.setText(String.valueOf(UnitUtil.getFloatBy1f(mRunningParam.alreadyRunDistance)));
         tv_calories.setText(String.valueOf((int) mRunningParam.alreadyRunCalories));
         tv_avg_speed.setText(String.valueOf(mRunningParam.getAvgSpeed()));
-        tv_avg_incline.setText(String.valueOf((int) mRunningParam.getAvgIncline()));
+        tv_avg_incline.setText(String.valueOf((int) mRunningParam.getAvgIncline() + InitParam.MY_MIN_INCLINE));
         tv_avg_mets.setText(String.valueOf(mRunningParam.getAvgMets()));
         tv_avg_pulse.setText(String.valueOf((int) mRunningParam.getAvgPulse()));
 
