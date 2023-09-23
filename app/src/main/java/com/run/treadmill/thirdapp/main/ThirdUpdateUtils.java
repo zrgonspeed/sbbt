@@ -140,6 +140,9 @@ public class ThirdUpdateUtils {
         ThirdApp gms = new ThirdApp.Builder("GooglePlayServices", "com.google.android.gms")
                 .updateDrawable(R.drawable.btn_media_google_serive_1)
                 .build();
+        ThirdApp anplusMirroring = new ThirdApp.Builder("AnplusMirroring", "com.anplus.tft")
+                .updateDrawable(R.drawable.btn_media_screen_mirroring_1)
+                .build();
 
         list = new ArrayList<>();
         list.add(fireFox);
@@ -147,7 +150,8 @@ public class ThirdUpdateUtils {
         list.add(iqiyi);
         list.add(ponymusic);
         list.add(qqmusicpad);
-        list.add(lebo);
+        // list.add(lebo);
+        list.add(anplusMirroring);
         list.add(anplus_A133Bluetooth);
         // list.add(gms);
     }

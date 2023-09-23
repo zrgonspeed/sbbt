@@ -151,6 +151,10 @@ public class HomeAndRunAppUtils {
                 .homeDrawable(R.drawable.btn_home_happycast)
                 .runDrawable(R.drawable.btn_media_happycast)
                 .build();
+        ThirdApp AnplusMirroring = new ThirdApp.Builder("AnplusMirroring", "com.anplus.tft")
+                .homeDrawable(R.drawable.btn_home_screen_mirroring)
+                .runDrawable(R.drawable.btn_media_screen_mirroring)
+                .build();
 
         list = new ArrayList<>();
         list.add(fireFox);
@@ -159,7 +163,7 @@ public class HomeAndRunAppUtils {
         list.add(ponymusic);
         list.add(mp4);
         list.add(qqmusicpad);
-        list.add(lebo);
+        list.add(AnplusMirroring);
     }
 
     public static List<ThirdApp> getAppList() {
