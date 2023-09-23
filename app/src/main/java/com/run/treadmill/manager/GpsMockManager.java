@@ -59,11 +59,12 @@ public class GpsMockManager implements LocationUtils.PosCallBack {
 
     public void init(Context context) {
         mContext = context;
+        mbUpdate = false;
         initGps();
         getLocation();
 
-        LocationUtils.setPosCallBack(this);
-        LocationUtils.sartGetGpsPos(300);
+        /*LocationUtils.setPosCallBack(this);
+        LocationUtils.sartGetGpsPos(300);*/
     }
 
     private LocationManager locationManager;
