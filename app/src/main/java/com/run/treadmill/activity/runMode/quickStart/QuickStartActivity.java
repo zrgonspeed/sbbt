@@ -297,6 +297,8 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
         }
         if (isLineChartIncline) {
             btn_line_chart_speed.performClick();
+        } else {
+            BuzzerManager.getInstance().buzzerRingOnce();
         }
 
         getPresenter().setSpeedValue(0, speed, false);
@@ -335,6 +337,8 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
 
         if (!isLineChartIncline) {
             btn_line_chart_incline.performClick();
+        } else {
+            BuzzerManager.getInstance().buzzerRingOnce();
         }
         getPresenter().setInclineValue(0, incline, false);
     }
