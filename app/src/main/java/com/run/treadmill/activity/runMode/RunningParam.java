@@ -830,7 +830,7 @@ public class RunningParam {
             recordRunData(1);
             return;
         }
-        if (incline >= maxIncline + minIncline) {
+        if (incline >= maxIncline) {
             maxIncline = incline;
             maxInclineInx = inclineList.size();
             recordRunData(1);
