@@ -91,8 +91,8 @@ public class HomeAndRunAppUtils {
                 .build();
 
         ThirdApp disney2 = new ThirdApp.Builder("Disneyplus2", "in.startv.hotstar.dplus.tv")
-                .homeDrawable(R.drawable.btn_home_disney)
-                .runDrawable(R.drawable.btn_media_disney)
+                .homeDrawable(R.drawable.btn_home_disney_hotstar)
+                .runDrawable(R.drawable.btn_media_disney_hotstar)
                 .build();
 
         ThirdApp vod = new ThirdApp.Builder("Vod12", "com.keshet.mako.VOD.intl")

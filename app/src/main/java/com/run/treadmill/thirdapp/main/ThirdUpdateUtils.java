@@ -83,7 +83,7 @@ public class ThirdUpdateUtils {
                 .build();
 
         ThirdApp disney2 = new ThirdApp.Builder("Disneyplus2", "in.startv.hotstar.dplus.tv")
-                .updateDrawable(R.drawable.btn_media_disney_1)
+                .updateDrawable(R.drawable.btn_media_disney_hotstar_1)
                 .build();
 
         ThirdApp vod = new ThirdApp.Builder("Vod12", "com.keshet.mako.VOD.intl")
