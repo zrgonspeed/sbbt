@@ -76,4 +76,8 @@ public class MusicLight {
         TxData.getInstance().setData(data);
         SerialUtils.getInstance().sendPackage();
     }
+
+    public static void deleteAccountCloseLight() {
+        cmdCloseBtLight();
+    }
 }

@@ -75,4 +75,8 @@ public class ZyLight {
         TxData.getInstance().setData(data);
         SerialUtils.getInstance().sendPackage();
     }
+
+    public static void deleteAccountCloseLight() {
+        cmdCloseBtLight();
+    }
 }
