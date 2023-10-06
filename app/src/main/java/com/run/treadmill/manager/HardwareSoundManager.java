@@ -6,16 +6,9 @@ import com.run.treadmill.util.Logger;
 public class HardwareSoundManager implements Runnable {
     public final String TAG = "HardwareSoundManager";
 
-    public static final int HARDWARE_A33_1 = 11;
-    public static final int HARDWARE_A33_2 = 12;
-
     public static final int HARDWARE_A133_1 = 51;
 
-    public static final int HARDWARE_T3_1 = 21;
-
-
     private static HardwareSoundManager ourInstance = null;
-
 
     private Thread mCheckThread = null;
 
@@ -49,16 +42,7 @@ public class HardwareSoundManager implements Runnable {
      */
     public void init(int hardwareType) {
         if (mCheckThread == null && mission == null) {
-            if (hardwareType == HARDWARE_T3_1) {
-                mission = new Hardware_T3_1();
-
-            } else if (hardwareType == HARDWARE_A33_1) {
-                mission = new Hardware_A33_1();
-
-            } else if (hardwareType == HARDWARE_A33_2) {
-                mission = new Hardware_A33_2();
-
-            } else if (hardwareType == HARDWARE_A133_1) {
+            if (hardwareType == HARDWARE_A133_1) {
                 mission = new Hardware_A133_1();
             }
             if (mission != null) {
@@ -90,18 +74,6 @@ public class HardwareSoundManager implements Runnable {
         }
         GpIoUtils.setSystemSound_A_1();
         GpIoUtils.setSystemSound_B_1();
-    }
-
-    /**
-     * 播放hdmi in声源
-     */
-    public static void setVoiceFromHdmi_in() {
-        if (ourInstance != null && ourInstance.mission != null) {
-            ourInstance.mission.setVoiceFromHdmi_in();
-            return;
-        }
-        GpIoUtils.setSystemSound_A_1();
-        GpIoUtils.setSystemSound_B_0();
     }
 
     private interface HardwareMission {
@@ -193,143 +165,6 @@ public class HardwareSoundManager implements Runnable {
         }
     }
 
-    private class Hardware_T3_1 extends BaseHardwareMission {
-        @Override
-        public synchronized void loopMissionStart() {
-
-        }
-
-        @Override
-        public void setVoiceFromOutSide() {
-            GpIoUtils.setSystemSound_A_1();
-            GpIoUtils.setSystemSound_B_0();
-        }
-
-        @Override
-        public void setVoiceFromSystem() {
-            GpIoUtils.setSystemSound_A_1();
-            GpIoUtils.setSystemSound_B_1();
-        }
-
-        @Override
-        public void setVoiceFromHdmi_in() {
-
-        }
-
-    }
-
-
-    /**
-     * A33控制任务类型1: 根据耳机线的接入,控制喇叭声音
-     */
-    private class Hardware_A33_1 extends BaseHardwareMission {
-        @Override
-        public synchronized void loopMissionStart() {
-            while (true) {
-                try {
-                    Thread.sleep(1000);
-
-                    earPhoneState = GpIoUtils.checkEarPhoneState();
-                    loudspeakerState = GpIoUtils.checkLoudspeakerState();
-
-                    if (earPhoneState == GpIoUtils.IO_STATE_0) {
-                        //TODO:耳机接入,关闭外接喇叭
-                        setLoudspeakerState(GpIoUtils.IO_STATE_0);
-
-                    } else if (earPhoneState == GpIoUtils.IO_STATE_1) {
-                        //TODO:耳机拔出,打开外接喇叭
-                        setLoudspeakerState(GpIoUtils.IO_STATE_1);
-                    }
-                } catch (Exception ignore) {
-
-                }
-            }
-        }
-
-        @Override
-        public void setVoiceFromOutSide() {
-            GpIoUtils.setSystemSound_A_1();
-            GpIoUtils.setSystemSound_B_0();
-        }
-
-        @Override
-        public void setVoiceFromSystem() {
-            GpIoUtils.setSystemSound_A_1();
-            GpIoUtils.setSystemSound_B_1();
-        }
-
-        @Override
-        public void setVoiceFromHdmi_in() {
-
-        }
-
-    }
-
-    /**
-     * A33控制任务类型2: 根据耳机线与外接音源的接入,控制当前喇叭开关与声音来源
-     */
-    private class Hardware_A33_2 extends BaseHardwareMission {
-        @Override
-        public synchronized void loopMissionStart() {
-            while (true) {
-                try {
-                    Thread.sleep(1000);
-
-                    earPhoneState = GpIoUtils.checkEarPhoneState();
-                    loudspeakerState = GpIoUtils.checkLoudspeakerState();
-
-                    systemVoiceState = GpIoUtils.checkSystemVoiceFrom();
-
-                    ioOutSideState = GpIoUtils.checkOutSideSoundState();
-
-                    if (ioOutSideState == GpIoUtils.IO_STATE_0) {
-                        //TODO:外部音源接入,播放外部音源
-                        setSystemVoiceFrom(GpIoUtils.IO_STATE_1, GpIoUtils.IO_STATE_0);
-
-                        if (earPhoneState == GpIoUtils.IO_STATE_0) {
-                            //TODO:耳机接入,关闭外接喇叭
-                            setLoudspeakerState(GpIoUtils.IO_STATE_0);
-                        } else if (earPhoneState == GpIoUtils.IO_STATE_1) {
-                            //TODO:耳机拔出,打开外接喇叭
-                            setLoudspeakerState(GpIoUtils.IO_STATE_1);
-                        }
-                    } else if (ioOutSideState == GpIoUtils.IO_STATE_1) {
-                        //TODO:外部音源拔出或者没有接入,播放系统音源
-                        setSystemVoiceFrom(GpIoUtils.IO_STATE_1, GpIoUtils.IO_STATE_1);
-
-                        if (earPhoneState == GpIoUtils.IO_STATE_0) {
-                            //TODO:耳机接入,关闭外接喇叭
-                            setLoudspeakerState(GpIoUtils.IO_STATE_0);
-                        } else if (earPhoneState == GpIoUtils.IO_STATE_1) {
-                            //TODO:耳机拔出,打开外接喇叭
-                            setLoudspeakerState(GpIoUtils.IO_STATE_1);
-                        }
-                    }
-                } catch (Exception ignore) {
-
-                }
-            }
-
-        }
-
-        @Override
-        public void setVoiceFromOutSide() {
-            GpIoUtils.setSystemSound_A_1();
-            GpIoUtils.setSystemSound_B_0();
-        }
-
-        @Override
-        public void setVoiceFromSystem() {
-            GpIoUtils.setSystemSound_A_1();
-            GpIoUtils.setSystemSound_B_1();
-        }
-
-        @Override
-        public void setVoiceFromHdmi_in() {
-
-        }
-
-    }
 
     /**
      * A133控制任务1:持续检查外接音源状态,切换系统当前播放音源
@@ -343,14 +178,28 @@ public class HardwareSoundManager implements Runnable {
                 try {
                     Thread.sleep(1000);
 
-                    ioOutSideState = GpIoUtils.checkOutSideSoundState();
+                    // 两个硬件插口
+                    int b3 = GpIoUtils.checkOutSideSoundState_B3();
+                    int b4 = GpIoUtils.checkOutSideSoundState_B4();
+                    // Logger.i("io1_B3 == " + b3 + "   io2_B4 == " + b4);
+
+                    if (b3 == 0 || b4 == 0) {
+                        ioOutSideState = 0;
+                    } else {
+                        ioOutSideState = 1;
+                    }
+
                     systemVoiceState = GpIoUtils.checkSystemVoiceFrom();
 
                     // Logger.e("ioOutSideState == " + ioOutSideState + "    systemVoiceState == " + systemVoiceState);
                     //TODO: 0是接入，1是没有接入(根据硬件设计有所改变)
                     if (ioOutSideState == GpIoUtils.IO_STATE_0) {
                         //TODO:外部音源接入,播放外部音源
-                        setSystemVoiceFrom(GpIoUtils.IO_STATE_1, GpIoUtils.IO_STATE_0);
+                        if (b3 == 0) {
+                            setSystemVoiceFrom(GpIoUtils.IO_STATE_1, GpIoUtils.IO_STATE_0);
+                        } else if (b4 == 0) {
+                            setSystemVoiceFrom(GpIoUtils.IO_STATE_0, GpIoUtils.IO_STATE_1);
+                        }
                         if (record) {
                             startOrStopRecordPlay(true);
                             record = false;

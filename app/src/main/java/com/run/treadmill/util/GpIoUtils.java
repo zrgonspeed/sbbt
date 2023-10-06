@@ -34,14 +34,20 @@ public class GpIoUtils {
     /**
      * 耳机拔出,插入状态
      */
-    private static char GROUP_EAR_PHONE = 'L';
-    private static int GROUP_EAR_PHONE_NUM = 2;
+    private static char GROUP_EAR_PHONE = 'C';
+    private static int GROUP_EAR_PHONE_NUM = 18;
 
     /**
-     * 外接音源状态
+     * 外接音源状态 1
      */
-    private static char GROUP_OUTSIDE_SOUND = 'L';
-    private static int GROUP_OUTSIDE_SOUND_NUM = 11;
+    private static char GROUP_OUTSIDE_SOUND = 'B';
+    private static int GROUP_OUTSIDE_SOUND_NUM = 3;
+
+    /**
+     * 外接音源状态 2
+     */
+    private static char GROUP_OUTSIDE_SOUND_2 = 'B';
+    private static int GROUP_OUTSIDE_SOUND_NUM_2 = 4;
 
     /**
      * 喇叭开关
@@ -49,11 +55,11 @@ public class GpIoUtils {
     private static char GROUP_LOUDSPEAKER = 'E';
     private static int GROUP_LOUDSPEAKER_NUM = 15;
 
-    private static char GROUP_SYSTEM_SOUND_A = 'E';
-    private static int GROUP_SYSTEM_SOUND_A_NUM = 16;
+    private static char GROUP_SYSTEM_SOUND_A = 'B';
+    private static int GROUP_SYSTEM_SOUND_A_NUM = 5;
 
-    private static char GROUP_SYSTEM_SOUND_B = 'E';
-    private static int GROUP_SYSTEM_SOUND_B_NUM = 17;
+    private static char GROUP_SYSTEM_SOUND_B = 'B';
+    private static int GROUP_SYSTEM_SOUND_B_NUM = 6;
 
 
     private GpIoUtils() {
@@ -67,57 +73,9 @@ public class GpIoUtils {
      */
     public synchronized static void init(int deviceType) {
         Gpio.loadLibrary();
-        if (deviceType == HARDWARE_T3) {
-            setT3_IO();
-        } else if (deviceType == HARDWARE_A33) {
-            setA33_IO();
-        } else if (deviceType == HARDWARE_A133) {
+        if (deviceType == HARDWARE_A133) {
             setA133_IO();
         }
-    }
-
-    private static void setT3_IO() {
-        GROUP_SCREEN = 'B';
-        GROUP_SCREEN_NUM = 3;
-
-        GROUP_BUZZER = 'B';
-        GROUP_BUZZER_NUM = 4;
-
-        GROUP_EAR_PHONE = 'C';
-        GROUP_EAR_PHONE_NUM = 18;
-
-        GROUP_OUTSIDE_SOUND = 'L';
-        GROUP_OUTSIDE_SOUND_NUM = 11;
-
-        GROUP_SYSTEM_SOUND_A = 'C';
-        GROUP_SYSTEM_SOUND_A_NUM = 20;
-
-        GROUP_SYSTEM_SOUND_B = 'C';
-        GROUP_SYSTEM_SOUND_B_NUM = 21;
-
-    }
-
-    private static void setA33_IO() {
-        GROUP_SCREEN = 'L';
-        GROUP_SCREEN_NUM = 8;
-
-        GROUP_BUZZER = 'B';
-        GROUP_BUZZER_NUM = 4;
-
-        GROUP_EAR_PHONE = 'L';
-        GROUP_EAR_PHONE_NUM = 11;
-
-        GROUP_OUTSIDE_SOUND = 'L';
-        GROUP_OUTSIDE_SOUND_NUM = 2;
-
-        GROUP_LOUDSPEAKER = 'E';
-        GROUP_LOUDSPEAKER_NUM = 15;
-
-        GROUP_SYSTEM_SOUND_A = 'E';
-        GROUP_SYSTEM_SOUND_A_NUM = 16;
-
-        GROUP_SYSTEM_SOUND_B = 'E';
-        GROUP_SYSTEM_SOUND_B_NUM = 17;
     }
 
     private static void setA133_IO() {
@@ -223,6 +181,14 @@ public class GpIoUtils {
      */
     public static int checkOutSideSoundState() {
         return readGPIO(GROUP_OUTSIDE_SOUND, GROUP_OUTSIDE_SOUND_NUM);
+    }
+
+    public static int checkOutSideSoundState_B3() {
+        return readGPIO(GROUP_OUTSIDE_SOUND, GROUP_OUTSIDE_SOUND_NUM);
+    }
+
+    public static int checkOutSideSoundState_B4() {
+        return readGPIO(GROUP_OUTSIDE_SOUND_2, GROUP_OUTSIDE_SOUND_NUM_2);
     }
 
     /**
