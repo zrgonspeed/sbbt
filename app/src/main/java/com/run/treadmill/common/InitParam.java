@@ -164,11 +164,11 @@ public class InitParam {
     /**
      * 默认加油里程(公制)
      */
-    public static final int DEFAULT_LUBE_DISTANCE = 300;
+    public static final int DEFAULT_LUBE_DISTANCE = 500;
     /**
      * 默认加油里程(英制)
      */
-    public static final int DEFAULT_LUBE_DISTANCE_IMPERIAL = 187;
+    public static final int DEFAULT_LUBE_DISTANCE_IMPERIAL = 311;
 
     /**
      * 最大运动段数
