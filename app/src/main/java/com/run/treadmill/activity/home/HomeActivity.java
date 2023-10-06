@@ -127,6 +127,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     protected void onResume() {
         super.onResume();
         OtaMcuUtils.curIsOtamcu = false;
+        fflag = true;
 
         isOnPause = false;
         //跟启动模式相关
@@ -252,12 +253,19 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         }
     }
 
+    private boolean fflag = true;
     @Override
     public void hideTips() {
         if (tipsPop.getLastTips() == CTConstant.SHOW_TIPS_SAFE_ERROR
                 || tipsPop.getLastTips() == CTConstant.SHOW_TIPS_OTHER_ERROR) {
             ErrorManager.getInstance().exitError = false;
-            wakeUpSleep();
+
+            if (tipsPop.getLastTips() == CTConstant.SHOW_TIPS_OTHER_ERROR) {
+                if (fflag) {
+                    wakeUpSleep();
+                    fflag = false;
+                }
+            }
 
             if (tipsPop.getLastTips() == CTConstant.SHOW_TIPS_SAFE_ERROR) {
                 ZyLight.safeKeyResume();
