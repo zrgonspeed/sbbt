@@ -50,7 +50,7 @@
             android:layout_width="@dimen/dp_px_120_x"
             android:layout_height="@dimen/dp_px_120_y" />
 
-        <com.run.treadmill.widget.MultiClickAndLongPressView
+        <com.run.treadmill.widget.WifiMultiClickAndLongPressView
             android:id="@+id/lpv_wifi"
             android:layout_alignParentEnd="true"
             android:layout_width="@dimen/dp_px_120_x"

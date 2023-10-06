@@ -4,16 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.SystemClock;
-
-import androidx.annotation.Nullable;
-
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
+
 import com.run.treadmill.R;
-import com.run.treadmill.util.Logger;
 
 /**
  * @Description 多次点击+长按
@@ -21,7 +19,7 @@ import com.run.treadmill.util.Logger;
  * @Time 2020/06/09
  */
 @SuppressLint("AppCompatCustomView")
-public class MultiClickAndLongPressView extends ImageView {
+public class WifiMultiClickAndLongPressView extends ImageView {
     /**
      * 长度决定点击的次数
      */
@@ -47,17 +45,17 @@ public class MultiClickAndLongPressView extends ImageView {
     private boolean isEnable = true;
     private OnMultiClickListener multiClickListener;
 
-    public MultiClickAndLongPressView(Context context) {
+    public WifiMultiClickAndLongPressView(Context context) {
         super(context);
         init();
     }
 
-    public MultiClickAndLongPressView(Context context, @Nullable AttributeSet attrs) {
+    public WifiMultiClickAndLongPressView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public MultiClickAndLongPressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public WifiMultiClickAndLongPressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MultiClickImageView);
         mCount = typedArray.getInt(R.styleable.MultiClickImageView_clickCount, 10);
@@ -109,7 +107,7 @@ public class MultiClickAndLongPressView extends ImageView {
                 mCounter++;
                 isReleased = false;
                 isMoved = false;
-                postDelayed(mLongPressRunnable, pressTime);// 按下pressTime后调用线程
+                // postDelayed(mLongPressRunnable, pressTime);// 按下pressTime后调用线程
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (!(x >= getLeft() && x <= getRight() &&

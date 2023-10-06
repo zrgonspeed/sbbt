@@ -25,6 +25,7 @@ import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.ThirdApkSupport;
 import com.run.treadmill.util.WifiBackFloatWindow;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
+import com.run.treadmill.widget.WifiMultiClickAndLongPressView;
 
 public class HomeTipsDialog extends Dialog implements View.OnClickListener {
     private Context context;
@@ -32,7 +33,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
 
     private RelativeLayout rl_error;
     private MultiClickAndLongPressView lpv_update;
-    private MultiClickAndLongPressView lpv_wifi;
+    private WifiMultiClickAndLongPressView lpv_wifi;
     private ImageView img_err_bk;
     private ImageView img_err_icon;
     private TextView tv_err;
@@ -274,7 +275,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
     private void onCreate() {
         rl_error = (RelativeLayout) findViewById(R.id.rl_error);
         lpv_update = (MultiClickAndLongPressView) findViewById(R.id.lpv_update);
-        lpv_wifi = (MultiClickAndLongPressView) findViewById(R.id.lpv_wifi);
+        lpv_wifi = (WifiMultiClickAndLongPressView) findViewById(R.id.lpv_wifi);
         img_err_bk = (ImageView) findViewById(R.id.img_err_bk);
         img_err_icon = (ImageView) findViewById(R.id.img_err_icon);
         tv_err = (TextView) findViewById(R.id.tv_err);
@@ -348,7 +349,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
             }
         });
 
-        lpv_wifi.setOnMultiClickListener(new MultiClickAndLongPressView.OnMultiClickListener() {
+        lpv_wifi.setOnMultiClickListener(new WifiMultiClickAndLongPressView.OnMultiClickListener() {
             private WifiBackFloatWindow wifiBackFloatWindow;
 
             @Override
