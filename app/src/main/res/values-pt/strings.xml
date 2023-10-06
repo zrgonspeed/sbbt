@@ -38,11 +38,11 @@
     <string name="string_select_weight">Peso</string>
     <string name="string_select_time">Tempo</string>
     <string name="string_select_target_hr">FC alvo</string>
-    <string name="string_select_start_hint">Pressione Iniciar para começar o treino</string>
-    <string name="string_select_next_hint">Press Next to select profile</string>
-    <string name="string_select_back_hint">Prima Voltar para voltar à configuração / Prima Iniciar para iniciar o exercício</string>
-    <string name="string_select_next_chart_hint">Prima Seguinte para avançar para o gráfico de perfil / Prima Iniciar para iniciar o exercício</string>
-    <string name="string_select_next_hrc_hint">Pressione Avançar para selecionar um HRC</string>
+    <string name="string_select_start_hint">Prima Iniciar para iniciar o exercício</string>
+    <string name="string_select_next_hint">Prima Seguinte para avançar para o gráfico de perfil</string>
+    <string name="string_select_back_hint">Prima Voltar para voltar à configuração</string>
+    <string name="string_select_next_chart_hint">Prima Seguinte para avançar para o gráfico de perfil</string>
+    <string name="string_select_next_hrc_hint">Prima Seguinte para selecionar um CFC</string>
 
     <string name="string_goal">OBJETIVO</string>
     <string name="string_goal_1">Este programa permite que o utilizador defina um objetivo para o exercício selecionando o TEMPO, a DISTÂNCIA ou as CALORIAS.</string>
@@ -147,14 +147,17 @@
     <string name="string_factory_max_incline">Inclinação máx.</string>
     <string name="string_factory_calibra_ad">Calibragem AD</string>
     <string name="string_factory_rpm">RPM</string>
-    <string name="string_factory_usb_update">software atualizado, está inserido na porta USB</string>
+    <string name="string_factory_usb_update">Certifique-se de que o dispositivo USB que contém o
+software atualizado, está inserido na porta USB
+</string>
     <string name="string_factory_total_time">Tempo total</string>
     <string name="string_factory_total_distance">Distância total</string>
     <string name="string_factory_sdk">Ver. SDK</string>
     <string name="string_factory_firmware">Ver. firmware</string>
     <string name="string_factory_soffware">Ver. software</string>
     <string name="string_factory_mcu">Ver. MCU</string>
-    <string name="string_factory_usb_logo">Certifique-se de que o dispositivo USB que contém o</string>
+    <string name="string_factory_usb_logo">Certifique-se de que o dispositivo USB que contém o
+logotipo atualizado, está inserido na porta USB</string>
     <string name="string_factory_pop_reset">É realmente necessário repor o parâmetro?</string>
     <string name="string_factory_touch">Teste de toque</string>
 
