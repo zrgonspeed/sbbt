@@ -32,6 +32,8 @@ public class DeleteAccountsUtils {
             "com.keshet.mako.VOD.intl",
             "com.disney.disneyplus",
             "in.startv.hotstar.dplus.tv",
+
+            "com.amazon.avod.thirdpartyclient",
     };
 
     public static void delete() {
