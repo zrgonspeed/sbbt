@@ -843,6 +843,10 @@ public class RunningParam {
 
     public void setCurrPulse(int pulse) {
         if (runStatus == CTConstant.RUN_STATUS_NORMAL) {
+            // 进入悬浮窗，没开始运动也要能显示心率
+            if (!this.showPulse.equals(String.valueOf(pulse))) {
+                showPulse = String.valueOf(pulse);
+            }
             return;
         }
         if (!this.showPulse.equals(String.valueOf(pulse))) {
