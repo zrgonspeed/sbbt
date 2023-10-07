@@ -398,6 +398,7 @@ public class ZyBt extends BaseBtControl {
         sendData(txData, 4);
     }
 
+    private boolean flag = false;
     /**
      * 发送运动数据到蓝牙
      */
@@ -455,6 +456,9 @@ public class ZyBt extends BaseBtControl {
         //每分钟kCal 1位,默认发0
         txData[27] = 0x00;
         //心跳数值 1位
+        if (flag) {
+            curHr = 70;
+        }
         txData[28] = (byte) (curHr & 0xFF);
         //时间  2位,低位在前,高位在后,,发送累计值
         txData[29] = (byte) (curTime & 0xFF);
@@ -608,6 +612,13 @@ public class ZyBt extends BaseBtControl {
             Log.i("zy", "连上设备");
             connectData = data[5];
             BtHelper.getInstance().btConnect();
+
+            // 发3秒，固定心跳
+            new Thread(() -> {
+                flag = true;
+                SystemClock.sleep(3000);
+                flag = false;
+            }).start();
             return;
         }
 
