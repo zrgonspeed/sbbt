@@ -29,6 +29,7 @@ public class ZyTxDataTask implements Runnable {
                 }
 
                 // 上电操作
+                // Log.i("sss", "msgWhats.size() == " + mZyBt.msgWhats.size());
                 if(mZyBt.msgWhats.size() > 0){
                     mZyBt.currMsg = mZyBt.msgWhats.getFirst();
                     switch (mZyBt.currMsg){

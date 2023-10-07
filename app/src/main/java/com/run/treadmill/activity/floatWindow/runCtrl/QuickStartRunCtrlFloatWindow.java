@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.chuhui.btcontrol.CbData;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.floatWindow.BaseRunCtrlFloatWindow;
 import com.run.treadmill.common.CTConstant;
@@ -14,6 +15,7 @@ import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.KeyUtils;
+import com.run.treadmill.util.Logger;
 
 import java.util.Arrays;
 
@@ -417,5 +419,15 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
             return;
         }
         setInclineValue(0, incline, false);
+    }
+
+    public void onDataCallback(CbData data) {
+        if (data.dataType == CbData.TYPE_INCLINE) {
+            int incline = (int) data.inclien;
+            Logger.i("float onDataCallback " + incline);
+
+            BuzzerManager.getInstance().buzzerRingOnce();
+            fitShowSetIncline(incline);
+        }
     }
 }

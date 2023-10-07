@@ -3,6 +3,7 @@ package com.chuhui.btcontrol;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.SerialManager;
+import android.util.Log;
 
 import com.chuhui.btcontrol.bean.InitialBean;
 import com.chuhui.btcontrol.bean.RunParam;
@@ -276,6 +277,7 @@ public abstract class BaseBtControl {
      * @return
      */
     public boolean pollFirstAndNext() {
+        Log.i("zybt", "pollFirstAndNext");
         Integer integer = msgWhats.pollFirst();
         if (integer == null) {
             return false;

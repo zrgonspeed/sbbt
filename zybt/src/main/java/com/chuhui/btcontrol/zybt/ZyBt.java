@@ -736,7 +736,8 @@ public class ZyBt extends BaseBtControl {
             } else {
                 mCbData.inclien = (incline - (incline % 5)) / 10f;
             }
-
+            Log.i("sss", "中颖模块收到扬升 " + mCbData.inclien);
+            // 0xaa 0x00 0x07 0x98 0x81 0x80 0x23 0x03     [8] 0x0a 0x00      0x30
             dataCallBack(mCbData);
         }
 

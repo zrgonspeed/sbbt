@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.chuhui.btcontrol.CbData;
 import com.fitShow.treadmill.FsTreadmillCommand;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
@@ -322,8 +323,19 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
         }
         if (!isLineChartIncline) {
             btn_line_chart_incline.performClick();
+        } else {
+            BuzzerManager.getInstance().buzzerRingOnce();
         }
         getPresenter().setInclineValue(0, incline, false);
+    }
+
+    @Override
+    public void onDataCallback(CbData data) {
+        if (data.dataType == CbData.TYPE_INCLINE) {
+            int incline = (int) data.inclien;
+            Logger.i("onDataCallback " + incline);
+            fitShowSetIncline(incline);
+        }
     }
 
     @Override
