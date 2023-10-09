@@ -15,12 +15,14 @@ import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
 
+import android.os.SystemClock;
 import android.util.Log;
 
 /*import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;*/
 import com.run.android.ShellCmdUtils;
+import com.run.treadmill.util.LocationUtils;
 import com.run.treadmill.util.Logger;
 
 import java.lang.reflect.Method;
@@ -32,9 +34,12 @@ import java.util.List;
  * @Author GaleLiu
  * @Time 2019/06/10
  */
-public class GpsMockManager {
+public class GpsMockManager implements LocationUtils.PosCallBack {
     private final String TAG = "GpsMockManager";
     private static volatile GpsMockManager instance;
+
+    String latitude = null;
+    String longitude = null;
 
     private GpsMockManager() {
     }
@@ -54,8 +59,12 @@ public class GpsMockManager {
 
     public void init(Context context) {
         mContext = context;
+        mbUpdate = false;
         initGps();
         getLocation();
+
+        /*LocationUtils.setPosCallBack(this);
+        LocationUtils.sartGetGpsPos(300);*/
     }
 
     private LocationManager locationManager;
@@ -76,11 +85,15 @@ public class GpsMockManager {
             Logger.d("=========isGpsEnabled=====" + isGpsEnabled);
             //定位类型：GPS
             locateType = locationManager.GPS_PROVIDER;
+            //locationManager.removeTestProvider(locateType);
             try {
-                locationManager.addTestProvider(
-                        locateType
-                        , true, true, false, false, true, true, true
-                        , Criteria.POWER_HIGH, Criteria.ACCURACY_FINE);
+                if ( locationManager.getProvider(locateType) == null ) {
+                    locationManager.addTestProvider(
+                            locateType
+                            , true, true, false, false, true, false, false
+                            , Criteria.POWER_HIGH, Criteria.ACCURACY_FINE);
+                    Logger.d("=========isGpsEnabled==000===" + isGpsEnabled);
+                }
             } catch (Exception e) {
 //                e.printStackTrace();
                 Logger.e(e.getMessage());
@@ -109,6 +122,7 @@ public class GpsMockManager {
 //                e.printStackTrace();
                 Logger.e(e.getMessage());
             }
+            Logger.d("=========isGpsEnabled=111====" + isGpsEnabled);
         } catch (Exception e) {
 //                e.printStackTrace();
             Logger.e(e.getMessage());
@@ -144,6 +158,7 @@ public class GpsMockManager {
             //locationManager.addGpsStatusListener(this);
             //locationManager.addNmeaListener((OnNmeaMessageListener) mNmeaListener);
         } catch (Exception e) {
+            Logger.d("=========getLocation==" + e.toString());
             e.printStackTrace();
         }
     }
@@ -157,39 +172,79 @@ public class GpsMockManager {
         private String[] data;
 
         public MockThread(String[] coordinates) {
+            setName("MockThread");
             data = coordinates;
         }
 
         @Override
         public void run() {
             while (mbUpdate) {
-                //Latitude,Longitude,altitude
-                //String[] parts = "22.54605355,114.02597366,50".split(",");
-                //String[] parts = "30,120,50".split(",");
-                String[] parts = "40.43,74,50".split(",");
-                Double latitude = Double.valueOf(parts[0]);
-                Double longitude = Double.valueOf(parts[1]);
-                Double altitude = Double.valueOf(parts[2]);
-                Location location = new Location(locateType);
-                location.setLatitude(latitude);
-                location.setLongitude(longitude);
-                location.setAltitude(altitude);
-                location.setAccuracy(Criteria.ACCURACY_FINE);
-                location.setElapsedRealtimeNanos(System.currentTimeMillis());
-                location.setTime(System.currentTimeMillis());
-                // show debug message in log
-                //Logger.d( "MockThread" + location.toString());
-
-                // 向GpsMockProvider提供一个位置信息
-                locationManager.setTestProviderLocation(locateType, location);
                 try {
-                    Thread.sleep(300);
-                    if (Thread.currentThread().isInterrupted())
-                        throw new InterruptedException("");
-                } catch (InterruptedException e) {
-                    break;
+                    isGpsEnabled = locationManager.isProviderEnabled(GPS_LOCATION_NAME);
+                    if ( !isGpsEnabled || latitude == null || longitude == null ) {
+                        Logger.d("=====MockThread===isGpsEnabled==" + isGpsEnabled);
+                        sleepProc(300);
+                        continue;
+                    }
+
+                    //Latitude,Longitude,altitude
+                    //String[] parts = "22.54605355,114.02597366,50".split(",");
+                    //String[] parts = "30,120,50".split(",");
+                    //String[] parts = "22,114,0".split(",");
+                    String[] parts = ( latitude + "," + longitude + ",50" ).split(",");
+                    Double latitude = Double.valueOf(parts[0]);
+                    Double longitude = Double.valueOf(parts[1]);
+                    Double altitude = Double.valueOf(parts[2]);
+                    Location location = new Location(locateType);
+                    location.setLatitude(latitude);
+                    location.setLongitude(longitude);
+                    location.setAltitude(altitude);
+                    //location.setBearing(30.f);
+                    location.setAccuracy(Criteria.ACCURACY_FINE);
+                    location.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos() - 500 * 1000000);
+                    location.setTime(System.currentTimeMillis() - 500);
+                    // show debug message in log
+                    //Logger.d( "MockThread" + location.toString());
+
+                    // 向GpsMockProvider提供一个位置信息
+                    //locationManager.setTestProviderLocation(locateType, location);
+                    try {
+                        Method method = Location.class.getMethod("makeComplete");
+                        if (method != null) {
+                            method.invoke(location);
+                        }
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    sleepProc(1500);
+                    Logger.d("=====MockThread===isGpsEnabled=latitude=" +
+                            latitude + " longitude " + longitude + isGpsEnabled);
+                    if (Thread.currentThread().isInterrupted()) {
+                        Logger.d("=====MockThread===13==");
+                        break;
+                    }
+                    /*try {
+                            //throw new InterruptedException("");
+                    } catch (InterruptedException e) {
+                        break;
+                    }*/
+
+                } catch (Exception ignore) {
+                    Logger.d("=====MockThread===111==");
                 }
             }
+            Logger.d("=====MockThread===12==");
+        }
+    }
+
+    public void sleepProc(int time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -290,5 +345,24 @@ public class GpsMockManager {
     }
 
     //private FusedLocationProviderClient fusedLocationClient;
+
+    @Override
+    public void setGpsPos(String latitude, String longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+    /*locationManager.addTestProvider(
+    provider.getName()
+    , provider.requiresNetwork() // 请求网络
+    , provider.requiresSatellite() // 请求卫星
+    , provider.requiresCell() // 基站网络
+    , provider.hasMonetaryCost() // 收费还是免费
+    , provider.supportsAltitude() // 支持高度信息
+    , provider.supportsSpeed() // 支持速度信息
+    , provider.supportsBearing() // 支持方向信息
+    , provider.getPowerRequirement() // 电源需求
+, provider.getAccuracy() // 经度
+
+);*/
 
 }
