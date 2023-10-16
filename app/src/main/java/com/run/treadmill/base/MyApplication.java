@@ -123,7 +123,7 @@ public class MyApplication extends LitePalApplication {
             Thread.setDefaultUncaughtExceptionHandler(myc);
 
             //附件类模拟GPS位置类初始化
-            GpsMockManager.getInstance().init(this);
+            // GpsMockManager.getInstance().init(this);
 
             deleteQQmusicData();
             closeAnimation();
