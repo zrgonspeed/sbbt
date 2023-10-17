@@ -115,7 +115,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         GpIoUtils.setScreen_1();
 
         // 延迟3秒
-        // new Handler().postDelayed(() -> FitShowTreadmillManager.getInstance().sendRestartFS(), 3 * 1000);
+        new Handler().postDelayed(() -> FitShowTreadmillManager.getInstance().sendRestartFS(), 3 * 1000);
     }
 
     @Override
