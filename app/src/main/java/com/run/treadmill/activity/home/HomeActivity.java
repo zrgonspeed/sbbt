@@ -37,6 +37,7 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.manager.fslight.FsLight;
 import com.run.treadmill.manager.musiclight.MusicLight;
 import com.run.treadmill.manager.zyftms.ZyLight;
 import com.run.treadmill.otamcu.OtaMcuUtils;
@@ -269,6 +270,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
             if (tipsPop.getLastTips() == CTConstant.SHOW_TIPS_SAFE_ERROR) {
                 ZyLight.safeKeyResume();
+                FsLight.safeKeyResume();
                 MusicLight.safeKeyResume();
             }
             tipsPop.stopTipsPop();

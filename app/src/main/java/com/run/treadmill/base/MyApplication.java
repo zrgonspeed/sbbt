@@ -15,6 +15,7 @@ import com.run.treadmill.manager.HardwareSoundManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.control.ParamCons;
+import com.run.treadmill.manager.fslight.FsLight;
 import com.run.treadmill.manager.musiclight.MusicReceiverManager;
 import com.run.treadmill.manager.musiclight.MusicLight;
 import com.run.treadmill.otamcu.OtaMcuUtils;
@@ -115,6 +116,7 @@ public class MyApplication extends LitePalApplication {
             Logger.i("resultFitShow == " + resultFitShow);
             if (resultFitShow) {
                 FitShowTreadmillManager.getInstance().startThread();
+                FsLight.startThread();
             }
 
             // BtHelperUtils.initBtHelper(this);

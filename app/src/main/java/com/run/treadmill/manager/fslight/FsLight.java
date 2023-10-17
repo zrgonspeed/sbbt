@@ -1,15 +1,15 @@
-package com.run.treadmill.manager.zyftms;
+package com.run.treadmill.manager.fslight;
 
 import android.os.SystemClock;
 
-import com.chuhui.btcontrol.BtHelper;
 import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
 import com.run.treadmill.manager.BuzzerManager;
+import com.run.treadmill.manager.FitShowTreadmillManager;
 import com.run.treadmill.util.Logger;
 
-public class ZyLight {
+public class FsLight {
     private static boolean lightFlag = false;
     private static boolean test = false;
 
@@ -17,7 +17,7 @@ public class ZyLight {
         new Thread(() -> {
             while (true) {
                 SystemClock.sleep(1000);
-                if (BtHelper.getInstance().connected()) {
+                if (FitShowTreadmillManager.getInstance().isConnect()) {
                     openBtLight();
                 } else {
                     closeBtLight();
@@ -25,7 +25,7 @@ public class ZyLight {
             }
         }).start();
 
-        if (test) {
+/*        if (test) {
             new Thread(() -> {
                 while (true) {
                     SystemClock.sleep(1000);
@@ -35,7 +35,7 @@ public class ZyLight {
                     SystemClock.sleep(2000);
                 }
             }).start();
-        }
+        }*/
     }
 
     private static void openBtLight() {
@@ -77,9 +77,6 @@ public class ZyLight {
     }
 
     public static void deleteAccountCloseLight() {
-        if (!BtHelper.getInstance().connected()) {
-            return;
-        }
         cmdCloseBtLight();
     }
 }

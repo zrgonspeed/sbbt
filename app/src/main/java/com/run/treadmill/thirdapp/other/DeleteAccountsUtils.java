@@ -4,6 +4,7 @@ import android.os.Build;
 
 import com.run.android.ShellCmdUtils;
 import com.run.treadmill.base.MyApplication;
+import com.run.treadmill.manager.fslight.FsLight;
 import com.run.treadmill.manager.musiclight.MusicLight;
 import com.run.treadmill.manager.zyftms.ZyLight;
 import com.run.treadmill.util.ThirdApkSupport;
@@ -62,6 +63,7 @@ public class DeleteAccountsUtils {
 
                 MusicLight.deleteAccountCloseLight();
                 ZyLight.deleteAccountCloseLight();
+                FsLight.deleteAccountCloseLight();
                 Thread.sleep(3000);
                 ShellCmdUtils.getInstance().execCommand("reboot");
             } catch (Exception e) {
