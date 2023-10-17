@@ -407,6 +407,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
         if (mFloatWindowManager.mRunningParam.getCurrSpeed() == speed) {
             return;
         }
+        BuzzerManager.getInstance().buzzerRingOnce();
         setSpeedValue(0, speed, false);
     }
 
@@ -418,6 +419,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
         if (ErrorManager.getInstance().isHasInclineError()) {
             return;
         }
+        BuzzerManager.getInstance().buzzerRingOnce();
         setInclineValue(0, incline, false);
     }
 
