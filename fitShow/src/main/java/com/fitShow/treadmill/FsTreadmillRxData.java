@@ -62,7 +62,7 @@ public final class FsTreadmillRxData {
                         nowFindHeader = false;
                     }
                 } else {
-                    if (offset > RECEIVE_PACK_LEN_MAX) {
+                    if (offset >= RECEIVE_PACK_LEN_MAX) {
                         reSet();
                         break;
                     }

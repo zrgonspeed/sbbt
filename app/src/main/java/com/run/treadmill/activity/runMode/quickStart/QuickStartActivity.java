@@ -24,6 +24,7 @@ import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.StringUtil;
+import com.run.treadmill.util.ThreadUtils;
 import com.run.treadmill.widget.HistogramListView;
 
 /**
@@ -268,15 +269,20 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
             getPresenter().setSpeedValue(0, minSpeed, false);
             getPresenter().setInclineValue(0, 0, false);
             if (FitShowTreadmillManager.getInstance().isConnect()) {
-                int incline = 0;
+                /*int incline = 0;
                 try {
                     incline = (int) mFloatWindowManager.mRunningParam.getCurrIncline();
                 }catch (Exception e) {
                     incline = 0;
-                }
+                }*/
+
                 // FitShowTreadmillManager.getInstance().sendPauseSpeedAndIncline(0, incline);
+                FitShowTreadmillManager.getInstance().isBeforePauseSendZero = true;
             }
-            FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_PAUSED);
+            ThreadUtils.runInThread(() -> {
+                FitShowTreadmillManager.getInstance().isBeforePauseSendZero = false;
+                FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_PAUSED);
+            }, 600);
         }
         super.showPopTip();
     }
