@@ -13,6 +13,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
+import com.run.treadmill.manager.fitshow.other.FitShowRunningCallBack;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.Logger;
@@ -24,7 +25,7 @@ import java.util.Arrays;
  * @Author GaleLiu
  * @Time 2019/06/14
  */
-public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow implements View.OnClickListener, FitShowManager.FitShowRunningCallBack {
+public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow implements View.OnClickListener, FitShowRunningCallBack {
 
     public QuickStartRunCtrlFloatWindow(Context context, WindowManager windowManager) {
         super(context, windowManager);

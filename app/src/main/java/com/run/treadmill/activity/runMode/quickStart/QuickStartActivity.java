@@ -20,6 +20,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
+import com.run.treadmill.manager.fitshow.other.FitShowRunningCallBack;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.Logger;
@@ -33,7 +34,7 @@ import com.run.treadmill.widget.HistogramListView;
  * @Time 2019/06/11
  */
 @CreatePresenter(QuickStartPresenter.class)
-public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickStartPresenter> implements QuickStartView, FitShowManager.FitShowRunningCallBack {
+public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickStartPresenter> implements QuickStartView, FitShowRunningCallBack {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

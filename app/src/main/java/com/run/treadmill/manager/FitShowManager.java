@@ -14,6 +14,8 @@ import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.fitshow.FsSend;
+import com.run.treadmill.manager.fitshow.other.FitShowRunningCallBack;
+import com.run.treadmill.manager.fitshow.other.FitShowStatusCallBack;
 import com.run.treadmill.manager.fitshow.other.FsThreadManager;
 import com.run.treadmill.util.Logger;
 
@@ -213,24 +215,6 @@ public class FitShowManager {
     public void stopThread() {
         // stopRxThread();
         // stopTxThread();
-    }
-
-    public interface FitShowRunningCallBack {
-        void fitShowStopRunning();
-
-        void fitShowPausedRunning();
-
-        void fitShowStartRunning();
-
-        void fitShowSetSpeed(float speed);
-
-        void fitShowSetIncline(float incline);
-    }
-
-    public interface FitShowStatusCallBack {
-        void fitShowStartRunning();
-
-        void isFitShowConnect(boolean isConnect);
     }
 
     public byte getRunStart() {

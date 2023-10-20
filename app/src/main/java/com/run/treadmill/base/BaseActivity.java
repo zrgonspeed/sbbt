@@ -20,6 +20,7 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.manager.fitshow.other.FitShowStatusCallBack;
 import com.run.treadmill.util.BtHelperUtils;
 import com.run.treadmill.util.Logger;
 
@@ -34,7 +35,7 @@ import butterknife.ButterKnife;
  * @Time 2019/05/29
  */
 public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V>> extends Activity implements
-        BaseView, PresenterProxy<V, P>, FitShowManager.FitShowStatusCallBack, BtCallBack {
+        BaseView, PresenterProxy<V, P>, FitShowStatusCallBack, BtCallBack {
     public String TAG;
     private static final String PRESENTER_SAVE_KEY = "presenter_save_key";
 
