@@ -3,8 +3,8 @@ package com.run.treadmill.manager.fitshow.other;
 import android.os.SystemClock;
 
 import com.fitShow.ConvertData;
-import com.fitShow.treadmill.FsTreadmillCommand;
-import com.run.treadmill.manager.FitShowTreadmillManager;
+import com.fitShow.treadmill.FitShowCommand;
+import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.fitshow.FsRead;
 import com.run.treadmill.manager.fitshow.FsSend;
 import com.run.treadmill.util.Logger;
@@ -73,7 +73,7 @@ public class FsThreadManager {
                     if (isSendData) {
                         isSendData = false;
                         if (FsSend.txSize >= 4) {
-                            FitShowTreadmillManager.getInstance().fsTreadmillSerialUtils.sendData(FsSend.txData, FsSend.txSize);
+                            FitShowManager.getInstance().fsSerialUtils.sendData(FsSend.txData, FsSend.txSize);
                         }
 
                     }
@@ -91,8 +91,8 @@ public class FsThreadManager {
         public void run() {
             try {
                 while (isRead) {
-                    byte[] result = new byte[FsTreadmillCommand.PKG_LEN * 2];
-                    int len = FitShowTreadmillManager.getInstance().fsTreadmillSerialUtils.readData(result);
+                    byte[] result = new byte[FitShowCommand.PKG_LEN * 2];
+                    int len = FitShowManager.getInstance().fsSerialUtils.readData(result);
                     if (len > 0) {
                         Logger.d("FsTreadmill Read", ConvertData.byteArrayToHexString(result, len));
                         FsRead.parseData(result, len);

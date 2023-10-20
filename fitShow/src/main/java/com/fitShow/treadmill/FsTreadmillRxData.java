@@ -13,7 +13,7 @@ public final class FsTreadmillRxData {
 
     private SerialPort serialPort;
     private ByteBuffer inPutBuffer;
-    private final byte[] buff = new byte[FsTreadmillCommand.PKG_LEN * 2];
+    private final byte[] buff = new byte[FitShowCommand.PKG_LEN * 2];
 
     protected static FsTreadmillRxData getInstance() {
         if (swBikeRxData == null) {
@@ -43,7 +43,7 @@ public final class FsTreadmillRxData {
 
     /**
      * 该方法为耗时动作 需要放在线程里面调用
-     * 注意:如果正常接收数据时接收到超过{@link FsTreadmillCommand#PKG_LEN }*2的长度的数据时,这个方法需要修改
+     * 注意:如果正常接收数据时接收到超过{@link FitShowCommand#PKG_LEN }*2的长度的数据时,这个方法需要修改
      */
     protected int readData(byte[] result) throws Exception {
         int resultLen = 0;
@@ -56,7 +56,7 @@ public final class FsTreadmillRxData {
 
             for (int i = 0; i < iLen; i++) {
                 if (nowFindHeader) {
-                    if ((buff[i] & 0xFF) == FsTreadmillCommand.PKG_HEAD) {
+                    if ((buff[i] & 0xFF) == FitShowCommand.PKG_HEAD) {
                         readDataBuffer[offset] = buff[i];
                         offset++;
                         nowFindHeader = false;
@@ -69,7 +69,7 @@ public final class FsTreadmillRxData {
 
                     readDataBuffer[offset] = buff[i];
                     offset++;
-                    if (buff[i] == FsTreadmillCommand.PKG_END) {
+                    if (buff[i] == FitShowCommand.PKG_END) {
                         boolean okPkg = isOkPkg(readDataBuffer, resultBuf, offset);
                         // Log.i("ddd", "okPkg == " + okPkg);
                         if (okPkg) {
@@ -88,8 +88,8 @@ public final class FsTreadmillRxData {
 
     private boolean isOkPkg(byte[] buff, byte[] resultBuf, int offset) {
         if (offset >= 4
-                /*&& (buff[0] & 0xFF) == FsTreadmillCommand.PKG_HEAD
-                && (buff[offset - 1] & 0xFF) == FsTreadmillCommand.PKG_END*/) {
+                /*&& (buff[0] & 0xFF) == FitShowCommand.PKG_HEAD
+                && (buff[offset - 1] & 0xFF) == FitShowCommand.PKG_END*/) {
 
             //这是一个数据包,进行校验
             //数据包中的校验位

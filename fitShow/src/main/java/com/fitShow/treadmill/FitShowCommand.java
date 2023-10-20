@@ -1,6 +1,6 @@
 package com.fitShow.treadmill;
 
-public class FsTreadmillCommand {
+public class FitShowCommand {
     public static final int PKG_LEN = 32;
 
     public static final int PKG_HEAD = 0x02;

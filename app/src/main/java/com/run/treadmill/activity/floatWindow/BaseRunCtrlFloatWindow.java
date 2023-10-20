@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.fitShow.treadmill.FsTreadmillCommand;
+import com.fitShow.treadmill.FitShowCommand;
 import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
@@ -23,7 +23,7 @@ import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.FitShowTreadmillManager;
+import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FormulaUtil;
@@ -427,8 +427,8 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         // 客户要求修改扬升机制
         ControlManager.getInstance().stopRun(false);
         ControlManager.getInstance().resetIncline();
-        if (FitShowTreadmillManager.getInstance().isConnect()) {
-            FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_PAUSED);
+        if (FitShowManager.getInstance().isConnect()) {
+            FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_PAUSED);
         }
         mFloatWindowManager.mRunningParam.recodePreRunData();
         mFloatWindowManager.paramEnterPauseState();

@@ -5,7 +5,7 @@ package com.fitShow.treadmill;
  * @Author YeYueHong
  * @Date 2020/8/31
  */
-public class FsTreadmillParam {
+public class FsRunParam {
 
     /**
      * 运动时间
@@ -49,7 +49,7 @@ public class FsTreadmillParam {
     private Integer runStatus = 0;
 
     public static class Builder {
-        private FsTreadmillParam fsTreadmillParam = new FsTreadmillParam();
+        private FsRunParam fsTreadmillParam = new FsRunParam();
 
         /**
          * 把RunParam数据置空
@@ -148,7 +148,7 @@ public class FsTreadmillParam {
         }
 
 
-        public FsTreadmillParam build() {
+        public FsRunParam build() {
             return fsTreadmillParam;
         }
     }

@@ -18,7 +18,7 @@ import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.FitShowTreadmillManager;
+import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.TimeStringUtil;
@@ -174,9 +174,9 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
     @Override
     public void beltAndInclineStatus(int beltStatus, int inclineStatus, int curInclineAd) {
         if (beltStatus != 0) {
-            FitShowTreadmillManager.getInstance().beltStopping = true;
+            FitShowManager.getInstance().beltStopping = true;
         } else {
-            FitShowTreadmillManager.getInstance().beltStopping = false;
+            FitShowManager.getInstance().beltStopping = false;
         }
     }
 

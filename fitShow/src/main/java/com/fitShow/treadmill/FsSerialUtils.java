@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
  * @Author GaleLiu
  * @Time 2019/12/03
  */
-public class FsTreadmillSerialUtils {
+public class FsSerialUtils {
     private final String TAG = "FsSerialUtils";
-    private static FsTreadmillSerialUtils Instance = null;
+    private static FsSerialUtils Instance = null;
     private SerialPort serialPort = null;
 
     /**
@@ -28,15 +28,15 @@ public class FsTreadmillSerialUtils {
 
 //    private SwTreadmillRunParam mRunParam;
 
-    private FsTreadmillSerialUtils() {
+    private FsSerialUtils() {
 //        mRunParam = new SwTreadmillRunParam();
     }
 
-    public static FsTreadmillSerialUtils getInstance() {
+    public static FsSerialUtils getInstance() {
         if (Instance == null) {
-            synchronized (FsTreadmillSerialUtils.class) {
+            synchronized (FsSerialUtils.class) {
                 if (Instance == null) {
-                    Instance = new FsTreadmillSerialUtils();
+                    Instance = new FsSerialUtils();
                 }
             }
         }

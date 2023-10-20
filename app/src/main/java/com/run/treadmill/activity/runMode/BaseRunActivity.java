@@ -42,7 +42,7 @@ import com.run.treadmill.common.MsgWhat;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.FitShowTreadmillManager;
+import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.WifiBTStateManager;
@@ -920,7 +920,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     protected void showPopTip() {
-        //FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_PAUSED);
+        //FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_PAUSED);
         if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
             mCalcBuilder.stopPopWin();
         }
@@ -1224,9 +1224,9 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                             }
                         }
                         mActivity.tv_prepare.setText(String.valueOf(mActivity.mRunningParam.countDown));
-                        if (FitShowTreadmillManager.getInstance().isConnect()) {
+                        if (FitShowManager.getInstance().isConnect()) {
                             // 运动秀需要
-                            FitShowTreadmillManager.getInstance().setCountDown(mActivity.mRunningParam.countDown);
+                            FitShowManager.getInstance().setCountDown(mActivity.mRunningParam.countDown);
                         }
                         BuzzerManager.getInstance().buzzRingLongObliged(200);
                     }

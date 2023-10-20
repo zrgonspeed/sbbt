@@ -39,7 +39,7 @@ public final class FsTreadmillTxData {
 
     protected void init(@NonNull SerialPort port) {
         if (serialPort == null) {
-            outPutBuffer = ByteBuffer.allocate(FsTreadmillCommand.PKG_LEN * 2);
+            outPutBuffer = ByteBuffer.allocate(FitShowCommand.PKG_LEN * 2);
             serialPort = port;
         }
     }

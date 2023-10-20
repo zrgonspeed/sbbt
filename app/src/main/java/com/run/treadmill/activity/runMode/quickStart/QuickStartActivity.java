@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.chuhui.btcontrol.CbData;
-import com.fitShow.treadmill.FsTreadmillCommand;
+import com.fitShow.treadmill.FitShowCommand;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.activity.summary.SummaryActivity;
@@ -19,7 +19,7 @@ import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.FitShowTreadmillManager;
+import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.Logger;
@@ -33,7 +33,7 @@ import com.run.treadmill.widget.HistogramListView;
  * @Time 2019/06/11
  */
 @CreatePresenter(QuickStartPresenter.class)
-public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickStartPresenter> implements QuickStartView, FitShowTreadmillManager.FitShowRunningCallBack {
+public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickStartPresenter> implements QuickStartView, FitShowManager.FitShowRunningCallBack {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,9 +82,9 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
                 quickToMedia = false;
                 mFloatWindowManager.regRxDataCallBackAgain();
             } else {
-                FitShowTreadmillManager.getInstance().setFitShowRunningCallBack(this);
+                FitShowManager.getInstance().setFitShowRunningCallBack(this);
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
-                    FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_START);
+                    FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_START);
                 }
             }
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
@@ -99,7 +99,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     protected void onPause() {
         long start = System.currentTimeMillis();
         super.onPause();
-        //FitShowTreadmillManager.getInstance().setFitShowRunningCallBack(null);
+        //FitShowManager.getInstance().setFitShowRunningCallBack(null);
         long end = System.currentTimeMillis();
         Logger.i("QuickStartActivity onPause() time == " + (end - start));
     }
@@ -165,8 +165,8 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     @Override
     public void finishRunning() {
         super.finishRunning();
-        FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_NORMAL);
-        FitShowTreadmillManager.getInstance().beltStopping = true;
+        FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_NORMAL);
+        FitShowManager.getInstance().beltStopping = true;
         startActivity(new Intent(this, SummaryActivity.class));
         finish();
     }
@@ -179,10 +179,10 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
             mRunningParam.startRefreshData();
 
             // 设置运动秀APP 的程序模式 设定的速度扬升值。
-            if (FitShowTreadmillManager.getInstance().isProgramMode) {
-                fitShowSetSpeed(FitShowTreadmillManager.getInstance().targetSpeed);
-                fitShowSetIncline(FitShowTreadmillManager.getInstance().targetIncline);
-                FitShowTreadmillManager.getInstance().isProgramMode = false;
+            if (FitShowManager.getInstance().isProgramMode) {
+                fitShowSetSpeed(FitShowManager.getInstance().targetSpeed);
+                fitShowSetIncline(FitShowManager.getInstance().targetIncline);
+                FitShowManager.getInstance().isProgramMode = false;
             }
         }
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
@@ -268,7 +268,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
             getPresenter().setSpeedValue(0, minSpeed, false);
             getPresenter().setInclineValue(0, 0, false);
-            if (FitShowTreadmillManager.getInstance().isConnect()) {
+            if (FitShowManager.getInstance().isConnect()) {
                 /*int incline = 0;
                 try {
                     incline = (int) mFloatWindowManager.mRunningParam.getCurrIncline();
@@ -276,12 +276,12 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
                     incline = 0;
                 }*/
 
-                // FitShowTreadmillManager.getInstance().sendPauseSpeedAndIncline(0, incline);
-                FitShowTreadmillManager.getInstance().isBeforePauseSendZero = true;
+                // FitShowManager.getInstance().sendPauseSpeedAndIncline(0, incline);
+                FitShowManager.getInstance().isBeforePauseSendZero = true;
             }
             ThreadUtils.runInThread(() -> {
-                FitShowTreadmillManager.getInstance().isBeforePauseSendZero = false;
-                FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_PAUSED);
+                FitShowManager.getInstance().isBeforePauseSendZero = false;
+                FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_PAUSED);
             }, 600);
         }
         super.showPopTip();
@@ -460,6 +460,6 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        FitShowTreadmillManager.getInstance().setFitShowRunningCallBack(null);
+        FitShowManager.getInstance().setFitShowRunningCallBack(null);
     }
 }

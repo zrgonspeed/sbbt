@@ -7,9 +7,9 @@ import android.os.Message;
 import android.os.SystemClock;
 
 import com.fitShow.treadmill.DataTypeConversion;
-import com.fitShow.treadmill.FsTreadmillCommand;
-import com.fitShow.treadmill.FsTreadmillParam;
-import com.fitShow.treadmill.FsTreadmillSerialUtils;
+import com.fitShow.treadmill.FitShowCommand;
+import com.fitShow.treadmill.FsRunParam;
+import com.fitShow.treadmill.FsSerialUtils;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
@@ -17,8 +17,8 @@ import com.run.treadmill.manager.fitshow.FsSend;
 import com.run.treadmill.manager.fitshow.other.FsThreadManager;
 import com.run.treadmill.util.Logger;
 
-public class FitShowTreadmillManager {
-    public byte runStart = FsTreadmillCommand.STATUS_NORMAL;
+public class FitShowManager {
+    public byte runStart = FitShowCommand.STATUS_NORMAL;
 
     public boolean isConnect = false;
     private boolean isNOtConnect = true;
@@ -46,34 +46,34 @@ public class FitShowTreadmillManager {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case FsTreadmillCommand.CONTROL_STOP:
+                case FitShowCommand.CONTROL_STOP:
                     if (fitShowRunningCallBack != null) {
                         fitShowRunningCallBack.fitShowStopRunning();
                     }
                     break;
-                case FsTreadmillCommand.CONTROL_READY:
+                case FitShowCommand.CONTROL_READY:
                     if (fitShowRunningCallBack != null) {
                         fitShowRunningCallBack.fitShowStartRunning();
                         break;
                     }
                     if (fitShowStartRunning != null) {
                         fitShowStartRunning.fitShowStartRunning();
-                    } else if (runStart == FsTreadmillCommand.STATUS_PAUSED && fitShowRunningCallBack != null) {
+                    } else if (runStart == FitShowCommand.STATUS_PAUSED && fitShowRunningCallBack != null) {
                         fitShowRunningCallBack.fitShowStartRunning();
                     } else {
-                        runStart = FsTreadmillCommand.STATUS_NORMAL;
+                        runStart = FitShowCommand.STATUS_NORMAL;
                     }
                     break;
-                case FsTreadmillCommand.CONTROL_START:
+                case FitShowCommand.CONTROL_START:
                     if (fitShowStartRunning != null) {
                         fitShowStartRunning.fitShowStartRunning();
-                    } else if (runStart == FsTreadmillCommand.STATUS_PAUSED && fitShowRunningCallBack != null) {
+                    } else if (runStart == FitShowCommand.STATUS_PAUSED && fitShowRunningCallBack != null) {
                         fitShowRunningCallBack.fitShowStartRunning();
                     } else {
-                        runStart = FsTreadmillCommand.STATUS_NORMAL;
+                        runStart = FitShowCommand.STATUS_NORMAL;
                     }
                     break;
-                case FsTreadmillCommand.CONTROL_PAUSE:
+                case FitShowCommand.CONTROL_PAUSE:
                     if (fitShowRunningCallBack != null) {
                         fitShowRunningCallBack.fitShowPausedRunning();
                     }
@@ -91,7 +91,7 @@ public class FitShowTreadmillManager {
                         fitShowStartRunning.isFitShowConnect(false);
                     }
                     break;
-                case FsTreadmillCommand.CONTROL_TARGET:
+                case FitShowCommand.CONTROL_TARGET:
                     if (fitShowRunningCallBack != null) {
                         Logger.i("msg.arg1 == " + msg.arg1 + " msg.arg2 == " + msg.arg2);
                         /*if (msg.arg2 == 1) {
@@ -116,8 +116,8 @@ public class FitShowTreadmillManager {
     };
 
     public boolean initSerial(Context context, int baud, String strPort) {
-        fsTreadmillSerialUtils = FsTreadmillSerialUtils.getInstance();
-        return fsTreadmillSerialUtils.init(context, baud, strPort);
+        fsSerialUtils = FsSerialUtils.getInstance();
+        return fsSerialUtils.init(context, baud, strPort);
     }
 
     /**
@@ -187,7 +187,7 @@ public class FitShowTreadmillManager {
 //        Logger.i("buildFsTreadmillParam()", "speed=" + speed + ",incline=" + incline + ",runStatus=" + status);
 
         this.runStart = DataTypeConversion.intLowToByte(runStatus);
-        fitShowTreadmillParamBuilder
+        paramBuilder
                 .workTime(workTime)
                 .hr(hr)
                 .speed(speed)
@@ -202,7 +202,7 @@ public class FitShowTreadmillManager {
     }
 
     public void clean() {
-        fitShowTreadmillParamBuilder.clean();
+        paramBuilder.clean();
     }
 
     public void startThread() {
@@ -246,16 +246,16 @@ public class FitShowTreadmillManager {
         if (this.runStart == runStart) {
             return;
         }
-        if (runStart == FsTreadmillCommand.STATUS_NORMAL && this.runStart != FsTreadmillCommand.STATUS_PAUSED) {//安卓运动秀需要先暂停才能结束运动
+        if (runStart == FitShowCommand.STATUS_NORMAL && this.runStart != FitShowCommand.STATUS_PAUSED) {//安卓运动秀需要先暂停才能结束运动
             // 此时应该是运行状态 0x03
             if (ErrorManager.getInstance().errStatus == ErrorManager.ERR_NO_ERROR) {
                 Logger.e("没有错，啥也不干");
                 // 没有错误就不用单独发暂停命令，如果发了可能有其它问题
             } else {
-                this.runStart = FsTreadmillCommand.STATUS_PAUSED;
+                this.runStart = FitShowCommand.STATUS_PAUSED;
                 Logger.e("有错误 先暂停后退出");
 
-                FsSend.sendData(new byte[]{FsTreadmillCommand.CMD_SYS_STATUS_0x51, this.runStart}, 2);
+                FsSend.sendData(new byte[]{FitShowCommand.CMD_SYS_STATUS_0x51, this.runStart}, 2);
                 SystemClock.sleep(80);
             }
         }
@@ -270,17 +270,17 @@ public class FitShowTreadmillManager {
         isNOtConnect = NOtConnect;
     }
 
-    private static FitShowTreadmillManager manager;
+    private static FitShowManager manager;
 
-    private FitShowTreadmillManager() {
+    private FitShowManager() {
     }
 
-    public static FitShowTreadmillManager getInstance() {
+    public static FitShowManager getInstance() {
 
         if (manager == null) {
-            synchronized (FitShowTreadmillManager.class) {
+            synchronized (FitShowManager.class) {
                 if (manager == null) {
-                    manager = new FitShowTreadmillManager();
+                    manager = new FitShowManager();
                 }
             }
         }
@@ -295,8 +295,8 @@ public class FitShowTreadmillManager {
         this.fitShowStartRunning = fitShowStartRunning;
     }
 
-    public FsTreadmillSerialUtils fsTreadmillSerialUtils;
-    public FsTreadmillParam.Builder fitShowTreadmillParamBuilder = new FsTreadmillParam.Builder();
+    public FsSerialUtils fsSerialUtils;
+    public FsRunParam.Builder paramBuilder = new FsRunParam.Builder();
 
     private FitShowRunningCallBack fitShowRunningCallBack;
     private FitShowStatusCallBack fitShowStartRunning;

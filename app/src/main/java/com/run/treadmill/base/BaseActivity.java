@@ -18,7 +18,7 @@ import com.run.treadmill.factory.PresenterProxyImpl;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.FitShowTreadmillManager;
+import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.util.BtHelperUtils;
 import com.run.treadmill.util.Logger;
@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
  * @Time 2019/05/29
  */
 public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V>> extends Activity implements
-        BaseView, PresenterProxy<V, P>, FitShowTreadmillManager.FitShowStatusCallBack, BtCallBack {
+        BaseView, PresenterProxy<V, P>, FitShowManager.FitShowStatusCallBack, BtCallBack {
     public String TAG;
     private static final String PRESENTER_SAVE_KEY = "presenter_save_key";
 
@@ -78,11 +78,11 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
             } else {
                 ReBootTask.getInstance().setPresenter(getPresenter());
             }
-            FitShowTreadmillManager.getInstance().setFitShowStatusCallBack(this);
+            FitShowManager.getInstance().setFitShowStatusCallBack(this);
             if (this.getLocalClassName().contains("HomeActivity")) {
-                FitShowTreadmillManager.getInstance().setNOtConnect(false);
+                FitShowManager.getInstance().setNOtConnect(false);
             } else {
-                FitShowTreadmillManager.getInstance().setNOtConnect(true);
+                FitShowManager.getInstance().setNOtConnect(true);
             }
 
             BtHelper.getInstance().setCallback(this);
@@ -130,7 +130,7 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
     @Override
     protected void onPause() {
         super.onPause();
-        //FitShowTreadmillManager.getInstance().setFitShowStatusCallBack(null);
+        //FitShowManager.getInstance().setFitShowStatusCallBack(null);
     }
 
     @Override

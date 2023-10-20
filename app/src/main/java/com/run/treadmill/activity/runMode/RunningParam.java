@@ -11,7 +11,7 @@ import com.run.treadmill.common.InitParam;
 import com.run.treadmill.common.MsgWhat;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.FitShowTreadmillManager;
+import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.util.FormulaUtil;
 import com.run.treadmill.util.Logger;
@@ -375,7 +375,7 @@ public class RunningParam {
             isRunning = false;
         }
         this.mCallback = null;
-        FitShowTreadmillManager.getInstance().clean();
+        FitShowManager.getInstance().clean();
         interrupted();
 
         BtHelper.isOnRunning = false;
@@ -734,8 +734,8 @@ public class RunningParam {
                     if (!ErrorManager.getInstance().isHasInclineError()) {
                         ControlManager.getInstance().setIncline(currIncline);
                     }
-                    if (FitShowTreadmillManager.getInstance().isConnect()) {
-                        FitShowTreadmillManager.getInstance().buildFsTreadmillParam(
+                    if (FitShowManager.getInstance().isConnect()) {
+                        FitShowManager.getInstance().buildFsTreadmillParam(
                                 alreadyRunTime,
                                 getCurPulse(),
                                 currSpeed,

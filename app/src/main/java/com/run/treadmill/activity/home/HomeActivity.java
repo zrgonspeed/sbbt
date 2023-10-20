@@ -10,9 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.fitShow.treadmill.FsTreadmillCommand;
+import com.fitShow.treadmill.FitShowCommand;
 import com.run.treadmill.R;
-import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.factory.FactoryActivity;
 import com.run.treadmill.activity.media.MediaSelectActivity;
@@ -28,14 +27,13 @@ import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.base.MyApplication;
 import com.run.treadmill.base.ReBootTask;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.common.InitParam;
 import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.FitShowTreadmillManager;
+import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.fslight.FsLight;
 import com.run.treadmill.manager.musiclight.MusicLight;
@@ -49,8 +47,6 @@ import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.PermissionUtil;
 import com.run.treadmill.widget.LongPressView;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
-
-import java.util.Locale;
 
 import butterknife.BindView;
 
@@ -116,7 +112,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         GpIoUtils.setScreen_1();
 
         // 延迟3秒
-        new Handler().postDelayed(() -> FitShowTreadmillManager.getInstance().sendRestartFS(), 3 * 1000);
+        new Handler().postDelayed(() -> FitShowManager.getInstance().sendRestartFS(), 3 * 1000);
     }
 
     @Override
@@ -135,7 +131,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         loadSpManager();
         btn_quick_start.setEnabled(false);
         btn_machine_lube.setEnabled(false);
-        FitShowTreadmillManager.getInstance().setNOtConnect(true);
+        FitShowManager.getInstance().setNOtConnect(true);
         FileUtil.setLogoIcon(this, btn_logo);
         getPresenter().setContext(this);
         getPresenter().setVolumeAndBrightness();
@@ -177,8 +173,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
         isOnClicking = false;
         ErrorManager.getInstance().exitError = false;
-        isFitShowConnect(FitShowTreadmillManager.getInstance().isConnect());
-        FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_NORMAL);
+        isFitShowConnect(FitShowManager.getInstance().isConnect());
+        FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_NORMAL);
 
         ControlManager.getInstance().stopRun(isOpenGSMode);
     }
@@ -207,7 +203,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         homeSleepManager.closeTimer();
 
         isFirst = false;
-        FitShowTreadmillManager.getInstance().setFitShowStatusCallBack(null);
+        FitShowManager.getInstance().setFitShowStatusCallBack(null);
     }
 
     @Override
@@ -224,7 +220,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         if (btn_quick_start.isEnabled()) {
             btn_quick_start.setEnabled(false);
 
-            FitShowTreadmillManager.getInstance().setNOtConnect(true);
+            FitShowManager.getInstance().setNOtConnect(true);
         }
         showTipPop(CTConstant.SHOW_TIPS_OTHER_ERROR);
         HomeThirdAppUpdateManager.getInstance().hideDialog();
@@ -239,7 +235,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         startTimerOfSafe();
         if (btn_quick_start.isEnabled()) {
             btn_quick_start.setEnabled(false);
-            FitShowTreadmillManager.getInstance().setNOtConnect(true);
+            FitShowManager.getInstance().setNOtConnect(true);
         }
     }
 
@@ -250,7 +246,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         if (btn_quick_start.isEnabled()) {
             btn_quick_start.setEnabled(false);
 
-            FitShowTreadmillManager.getInstance().setNOtConnect(true);
+            FitShowManager.getInstance().setNOtConnect(true);
         }
     }
 
@@ -381,14 +377,14 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             if (btn_quick_start.isEnabled()) {
                 btn_quick_start.setEnabled(false);
             }
-            FitShowTreadmillManager.getInstance().setNOtConnect(true);
+            FitShowManager.getInstance().setNOtConnect(true);
             return;
         } else {
-            if (FitShowTreadmillManager.getInstance().getRunStart() != FsTreadmillCommand.STATUS_NORMAL) {
-                if (!FitShowTreadmillManager.getInstance().clickStart) {
-                    FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_NORMAL);
+            if (FitShowManager.getInstance().getRunStart() != FitShowCommand.STATUS_NORMAL) {
+                if (!FitShowManager.getInstance().clickStart) {
+                    FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_NORMAL);
                 } else {
-                    FitShowTreadmillManager.getInstance().clickStart = false;
+                    FitShowManager.getInstance().clickStart = false;
                 }
             }
         }
@@ -396,7 +392,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             if (btn_quick_start.isEnabled()) {
                 btn_quick_start.setEnabled(false);
             }
-            FitShowTreadmillManager.getInstance().setNOtConnect(true);
+            FitShowManager.getInstance().setNOtConnect(true);
             return;
         }
         if (beltStatus != 0) {
@@ -404,17 +400,17 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 btn_quick_start.setEnabled(false);
             }
 
-            FitShowTreadmillManager.getInstance().beltStopping = true;
+            FitShowManager.getInstance().beltStopping = true;
 
             if (isFirst) {
                 ControlManager.getInstance().stopRun(false);
                 isFirst = false;
             }
-            FitShowTreadmillManager.getInstance().setNOtConnect(true);
+            FitShowManager.getInstance().setNOtConnect(true);
             return;
         }
 
-        FitShowTreadmillManager.getInstance().beltStopping = false;
+        FitShowManager.getInstance().beltStopping = false;
 
         //TODO:如果扬升状态跟跑带状态均为停止状态,
         // 但是这个时候出现拉安全key导致错误清除,
@@ -425,7 +421,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             if (!btn_quick_start.isEnabled()) {
                 btn_quick_start.setEnabled(true);
             }
-            FitShowTreadmillManager.getInstance().setNOtConnect(false);
+            FitShowManager.getInstance().setNOtConnect(false);
             return;
         }
 
@@ -435,7 +431,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 if (!btn_quick_start.isEnabled()) {
                     btn_quick_start.setEnabled(true);
                 }
-                FitShowTreadmillManager.getInstance().setNOtConnect(false);
+                FitShowManager.getInstance().setNOtConnect(false);
                 return;
             }
         }
@@ -444,7 +440,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
             btn_quick_start.setEnabled(false);
         }
-        FitShowTreadmillManager.getInstance().setNOtConnect(true);
+        FitShowManager.getInstance().setNOtConnect(true);
     }
 
     @Override
@@ -454,14 +450,14 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @Override
     public void onTipDialogShow(@CTConstant.TipPopType int tipPopType) {
-        FitShowTreadmillManager.getInstance().setNOtConnect(true);
+        FitShowManager.getInstance().setNOtConnect(true);
     }
 
     @Override
     public void onTipDialogDismiss(@CTConstant.TipPopType int tipPopType) {
         if (btn_quick_start.isEnabled()) {
             btn_quick_start.setEnabled(false);
-            FitShowTreadmillManager.getInstance().setNOtConnect(true);
+            FitShowManager.getInstance().setNOtConnect(true);
         }
     }
 
@@ -583,7 +579,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     private void startTimerOfSafe() {
         btn_quick_start.setEnabled(false);
-        FitShowTreadmillManager.getInstance().setNOtConnect(true);
+        FitShowManager.getInstance().setNOtConnect(true);
         SafeKeyTimer.getInstance().registerSafeCb(this);
         if (SafeKeyTimer.getInstance().getIsSafe()) {
             SafeKeyTimer.getInstance().startTimer(getPresenter().getSafeKeyDelayTime(ReBootTask.isReBootFinish), this);
@@ -614,7 +610,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 if (btn_quick_start.isEnabled()) {
                     btn_quick_start.performClick();
                 } else {
-                    // FitShowTreadmillManager.getInstance().setRunStart(FsTreadmillCommand.STATUS_END);
+                    // FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_END);
                 }
             }
         });

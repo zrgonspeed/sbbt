@@ -9,8 +9,7 @@ import com.run.treadmill.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.FitShowTreadmillManager;
-import com.run.treadmill.manager.GpsMockManager;
+import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.HardwareSoundManager;
 import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
@@ -18,8 +17,6 @@ import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.manager.fslight.FsLight;
 import com.run.treadmill.manager.musiclight.MusicReceiverManager;
 import com.run.treadmill.manager.musiclight.MusicLight;
-import com.run.treadmill.otamcu.OtaMcuUtils;
-import com.run.treadmill.util.BtHelperUtils;
 import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.LanguageUtil;
@@ -112,10 +109,10 @@ public class MyApplication extends LitePalApplication {
                 }
             }
 
-            boolean resultFitShow = FitShowTreadmillManager.getInstance().initSerial(getApplicationContext(), 9600, "/dev/ttyS3");
+            boolean resultFitShow = FitShowManager.getInstance().initSerial(getApplicationContext(), 9600, "/dev/ttyS3");
             Logger.i("resultFitShow == " + resultFitShow);
             if (resultFitShow) {
-                FitShowTreadmillManager.getInstance().startThread();
+                FitShowManager.getInstance().startThread();
                 FsLight.startThread();
             }
 

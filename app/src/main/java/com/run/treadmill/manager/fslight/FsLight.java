@@ -6,7 +6,7 @@ import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.FitShowTreadmillManager;
+import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.util.Logger;
 
 public class FsLight {
@@ -17,7 +17,7 @@ public class FsLight {
         new Thread(() -> {
             while (true) {
                 SystemClock.sleep(1000);
-                if (FitShowTreadmillManager.getInstance().isConnect()) {
+                if (FitShowManager.getInstance().isConnect()) {
                     openBtLight();
                 } else {
                     closeBtLight();

@@ -12,7 +12,7 @@ import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.FitShowTreadmillManager;
+import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.Logger;
@@ -24,7 +24,7 @@ import java.util.Arrays;
  * @Author GaleLiu
  * @Time 2019/06/14
  */
-public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow implements View.OnClickListener, FitShowTreadmillManager.FitShowRunningCallBack {
+public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow implements View.OnClickListener, FitShowManager.FitShowRunningCallBack {
 
     public QuickStartRunCtrlFloatWindow(Context context, WindowManager windowManager) {
         super(context, windowManager);
@@ -47,7 +47,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
             btn_home.setEnabled(false);
             btn_home.setVisibility(View.GONE);
         }
-        FitShowTreadmillManager.getInstance().setFitShowRunningCallBack(this);
+        FitShowManager.getInstance().setFitShowRunningCallBack(this);
     }
 
     @Override
@@ -377,7 +377,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
     @Override
     public void stopFloat() {
         super.stopFloat();
-        FitShowTreadmillManager.getInstance().setFitShowRunningCallBack(null);
+        FitShowManager.getInstance().setFitShowRunningCallBack(null);
     }
 
     @Override
