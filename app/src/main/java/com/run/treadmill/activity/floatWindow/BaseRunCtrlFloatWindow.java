@@ -428,7 +428,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         ControlManager.getInstance().stopRun(false);
         ControlManager.getInstance().resetIncline();
         if (FitShowManager.getInstance().isConnect()) {
-            FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_PAUSED);
+            FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_PAUSED_0x0A);
         }
         mFloatWindowManager.mRunningParam.recodePreRunData();
         mFloatWindowManager.paramEnterPauseState();

@@ -85,7 +85,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
             } else {
                 FitShowManager.getInstance().setFitShowRunningCallBack(this);
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
-                    FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_START);
+                    FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_START_0x02);
                 }
             }
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
@@ -166,7 +166,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     @Override
     public void finishRunning() {
         super.finishRunning();
-        FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_NORMAL);
+        FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_NORMAL_0x00);
         FitShowManager.getInstance().beltStopping = true;
         startActivity(new Intent(this, SummaryActivity.class));
         finish();
@@ -282,7 +282,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
             }
             ThreadUtils.runInThread(() -> {
                 FitShowManager.getInstance().isBeforePauseSendZero = false;
-                FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_PAUSED);
+                FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_PAUSED_0x0A);
             }, 600);
         }
         super.showPopTip();

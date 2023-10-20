@@ -174,7 +174,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         isOnClicking = false;
         ErrorManager.getInstance().exitError = false;
         isFitShowConnect(FitShowManager.getInstance().isConnect());
-        FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_NORMAL);
+        FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_NORMAL_0x00);
 
         ControlManager.getInstance().stopRun(isOpenGSMode);
     }
@@ -380,9 +380,9 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             FitShowManager.getInstance().setNOtConnect(true);
             return;
         } else {
-            if (FitShowManager.getInstance().getRunStart() != FitShowCommand.STATUS_NORMAL) {
+            if (FitShowManager.getInstance().getRunStart() != FitShowCommand.STATUS_NORMAL_0x00) {
                 if (!FitShowManager.getInstance().clickStart) {
-                    FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_NORMAL);
+                    FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_NORMAL_0x00);
                 } else {
                     FitShowManager.getInstance().clickStart = false;
                 }

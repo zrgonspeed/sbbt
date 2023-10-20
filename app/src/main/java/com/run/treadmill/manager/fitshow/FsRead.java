@@ -114,24 +114,6 @@ public class FsRead {
     // rxData[1] == 0x51
     private static void rxStatus(byte[] rxData) throws Exception {
         switch (rxData[2]) {
-            case FitShowCommand.STATUS_NORMAL:
-                break;
-            case FitShowCommand.STATUS_END:
-                break;
-            case FitShowCommand.STATUS_START:
-                break;
-            case FitShowCommand.STATUS_RUNNING:
-                break;
-            case FitShowCommand.STATUS_STOPPING:
-                break;
-            case FitShowCommand.STATUS_ERROR:
-                break;
-            case FitShowCommand.STATUS_DISABLE:
-                break;
-            case FitShowCommand.STATUS_READY:
-                break;
-            case FitShowCommand.STATUS_PAUSED:
-                break;
             case FitShowCommand.CMD_SYS_STATUS_0x51:
 //                        Logger.d("isConnect=" + isConnect + ",isConnectTimer=" + isConnectTimer + "  fitShowTreadmillParamBuilder.build().getIncline() == " + fitShowTreadmillParamBuilder.build().getIncline());
                 if (FitShowManager.getInstance().isConnect && FitShowManager.getInstance().isConnectTimer != null) {
@@ -145,6 +127,24 @@ public class FsRead {
                     FitShowManager.getInstance().mHandler.sendEmptyMessage(FitShowManager.getInstance().MSG_CONNECT);
                 }
                 break;
+            case FitShowCommand.STATUS_NORMAL_0x00:
+                break;
+            case FitShowCommand.STATUS_END_0x01:
+                break;
+            case FitShowCommand.STATUS_START_0x02:
+                break;
+            case FitShowCommand.STATUS_RUNNING_0x03:
+                break;
+            case FitShowCommand.STATUS_STOPPING_0x04:
+                break;
+            case FitShowCommand.STATUS_ERROR_0x05:
+                break;
+            case FitShowCommand.STATUS_DISABLE_0x06:
+                break;
+            case FitShowCommand.STATUS_READY_0x09:
+                break;
+            case FitShowCommand.STATUS_PAUSED_0x0A:
+                break;
             default:
                 response = false;
                 break;
@@ -154,13 +154,13 @@ public class FsRead {
     // rxData[1] == 0x52
     private static void rxData(byte[] rxData) throws Exception {
         switch (rxData[2]) {
-            case FitShowCommand.DATA_SPORT:
+            case FitShowCommand.DATA_SPORT_0x00:
                 break;
-            case FitShowCommand.DATA_INFO:
+            case FitShowCommand.DATA_INFO_0x01:
                 break;
-            case FitShowCommand.DATA_SPEED:
+            case FitShowCommand.DATA_SPEED_0x02:
                 break;
-            case FitShowCommand.DATA_INCLINE:
+            case FitShowCommand.DATA_INCLINE_0x03:
                 break;
             default:
                 response = false;
@@ -170,98 +170,100 @@ public class FsRead {
 
     // rxData[1] == 0x53
     private static void rxControl(byte[] rxData, int len) throws Exception {
-        switch (rxData[2]) {
-            case FitShowCommand.CONTROL_READY:
-                FitShowManager.getInstance().clickStart = true;
-                FitShowManager.getInstance().runStart = FitShowCommand.STATUS_START;
-                FitShowManager.getInstance().setCountDown(3);
-                FitShowManager.getInstance().mHandler.sendEmptyMessage(FitShowCommand.CONTROL_READY);
-                break;
-            case FitShowCommand.CONTROL_USER:
-                byte[] totleData = new byte[]{FitShowCommand.CMD_SYS_CONTROL_0x53, FitShowCommand.CONTROL_USER, 0x03, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00};
-                FsSend.sendData(totleData, totleData.length);
-                FitShowManager.getInstance().fsSerialUtils.sendData(
-                        FsSend.txData, FsSend.txSize);
-                FsThreadManager.isSendData = false;
-                break;
-            case FitShowCommand.CONTROL_SPEED:
-                break;
-            case FitShowCommand.CONTROL_HEIGHT:
-                break;
-            case FitShowCommand.CONTROL_START:
-                if (FitShowManager.getInstance().runStart != FitShowCommand.STATUS_START) {
-                    FitShowManager.getInstance().runStart = FitShowCommand.STATUS_START;
-                    FitShowManager.getInstance().mHandler.sendEmptyMessage(FitShowCommand.CONTROL_START);
-                }
-                break;
-            case FitShowCommand.CONTROL_PAUSE:
-                FitShowManager.getInstance().mHandler.sendEmptyMessage(FitShowCommand.CONTROL_PAUSE);
-                break;
-            case FitShowCommand.CONTROL_STOP:
-                FitShowManager.getInstance().runStart = FitShowCommand.STATUS_PAUSED;
-                // 正常发下0x0a 16长度
+        if (rxData[1] == FitShowCommand.CMD_SYS_CONTROL_0x53 && rxData[2] == FitShowCommand.CONTROL_READY_0x01) {
+            FitShowManager.getInstance().clickStart = true;
+            FitShowManager.getInstance().runStart = FitShowCommand.STATUS_START_0x02;
+            FitShowManager.getInstance().setCountDown(3);
+            FitShowManager.getInstance().mHandler.sendEmptyMessage(FitShowCommand.CONTROL_READY_0x01);
+            return;
+        }
+
+        if (rxData[1] == FitShowCommand.CMD_SYS_CONTROL_0x53 && rxData[2] == FitShowCommand.CONTROL_USER_0x00) {
+            byte[] totleData = new byte[]{FitShowCommand.CMD_SYS_CONTROL_0x53, FitShowCommand.CONTROL_USER_0x00, 0x03, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00};
+            FsSend.sendData(totleData, totleData.length);
+            FitShowManager.getInstance().fsSerialUtils.sendData(FsSend.txData, FsSend.txSize);
+            FsThreadManager.isSendData = false;
+            return;
+        }
+
+        if (rxData[1] == FitShowCommand.CMD_SYS_CONTROL_0x53 && rxData[2] == FitShowCommand.CONTROL_START_0x09) {
+            if (FitShowManager.getInstance().runStart != FitShowCommand.STATUS_START_0x02) {
+                FitShowManager.getInstance().runStart = FitShowCommand.STATUS_START_0x02;
+                FitShowManager.getInstance().mHandler.sendEmptyMessage(FitShowCommand.CONTROL_START_0x09);
+            }
+            return;
+        }
+
+        if (rxData[1] == FitShowCommand.CMD_SYS_CONTROL_0x53 && rxData[2] == FitShowCommand.CONTROL_PAUSE_0x0A) {
+            FitShowManager.getInstance().mHandler.sendEmptyMessage(FitShowCommand.CONTROL_PAUSE_0x0A);
+            return;
+        }
+
+        if (rxData[1] == FitShowCommand.CMD_SYS_CONTROL_0x53 && rxData[2] == FitShowCommand.CONTROL_STOP_0x03) {
+            FitShowManager.getInstance().runStart = FitShowCommand.STATUS_PAUSED_0x0A;
+            // 正常发下0x0a 16长度
                         /*sendRunParamToFitShow(fitShowTreadmillParamBuilder.build());
                         Thread.sleep(80);*/
 
 //                        this.runStart = FitShowCommand.STATUS_NORMAL;
-                // 可能导致APP没有退出，电子表退出了。
+            // 可能导致APP没有退出，电子表退出了。
 
-                //不在识别范围内的数据
-                byte[] bytes = new byte[5];
-                bytes[0] = FitShowCommand.PKG_HEAD;
-                bytes[1] = rxData[1];
-                bytes[2] = FitShowCommand.CONTROL_STOP;
-                bytes[3] = Utils.calc(new byte[]{rxData[1]}, 2);
-                bytes[4] = FitShowCommand.PKG_END;
-                responseNothing(bytes, bytes.length);
+            //不在识别范围内的数据
+            byte[] bytes = new byte[5];
+            bytes[0] = FitShowCommand.PKG_HEAD;
+            bytes[1] = rxData[1];
+            bytes[2] = FitShowCommand.CONTROL_STOP_0x03;
+            bytes[3] = Utils.calc(new byte[]{rxData[1]}, 2);
+            bytes[4] = FitShowCommand.PKG_END;
+            responseNothing(bytes, bytes.length);
 
-                FitShowManager.getInstance().mHandler.sendEmptyMessage(FitShowCommand.CONTROL_STOP);
-                break;
-            case FitShowCommand.CONTROL_TARGET:
-                // 改成倒计时时候也可以 APP设置电子表速度,用于程序模式
-                if (FitShowManager.getInstance().runStart != FitShowCommand.STATUS_RUNNING && FitShowManager.getInstance().runStart != FitShowCommand.STATUS_START) {
-                    break;
-                }
-
-                if (FitShowManager.getInstance().runStart == FitShowCommand.STATUS_START) {
-                    // 倒计时状态
-                    // 此时为程序模式
-                    FitShowManager.getInstance().isProgramMode = true;
-                    FitShowManager.getInstance().targetIncline = DataTypeConversion.byteToInt(rxData[4]);
-                    FitShowManager.getInstance().targetSpeed = DataTypeConversion.byteToInt(rxData[3]) / 10f;
-
-                    //  0         0.5 0.8
-                    if (FitShowManager.getInstance().targetSpeed < SpManager.getMinSpeed(SpManager.getIsMetric())) {
-                        FitShowManager.getInstance().targetSpeed = SpManager.getMinSpeed(SpManager.getIsMetric());
-                    }
-
-                    Logger.e("程序模式 targetIncline == " + FitShowManager.getInstance().targetIncline + "  targetSpeed == " + FitShowManager.getInstance().targetSpeed);
-                } else {
-                    Message targetMessage = new Message();
-                    targetMessage.what = FitShowCommand.CONTROL_TARGET;
-
-                    if (len == 6) {
-                        targetMessage.arg1 = 0;
-                        targetMessage.arg2 = DataTypeConversion.byteToInt(rxData[3]);
-                    } else if (len == 7) {
-                        // 扬升为负数时也要处理
-                        targetMessage.arg1 = DataTypeConversion.byteToInt(rxData[4]);
-                        if (targetMessage.arg1 > 127) {
-                            targetMessage.arg1 = targetMessage.arg1 - 256;
-                            Logger.e("targetMessage.arg1 == " + targetMessage.arg1);
-                        }
-                        targetMessage.arg2 = DataTypeConversion.byteToInt(rxData[3]);
-                    }
-                    Logger.i("len == " + len + "  targetMessage.arg1 == " + targetMessage.arg1 + "  targetMessage.arg2 == " + targetMessage.arg2);
-
-                    FitShowManager.getInstance().mHandler.sendMessage(targetMessage);
-                }
-                break;
-            default:
-                response = false;
-                break;
+            FitShowManager.getInstance().mHandler.sendEmptyMessage(FitShowCommand.CONTROL_STOP_0x03);
+            return;
         }
 
+        if (rxData[1] == FitShowCommand.CMD_SYS_CONTROL_0x53 && rxData[2] == FitShowCommand.CONTROL_TARGET_0x02) {
+            // 改成倒计时时候也可以 APP设置电子表速度,用于程序模式
+            if (FitShowManager.getInstance().runStart != FitShowCommand.STATUS_RUNNING_0x03 && FitShowManager.getInstance().runStart != FitShowCommand.STATUS_START_0x02) {
+                return;
+            }
+
+            if (FitShowManager.getInstance().runStart == FitShowCommand.STATUS_START_0x02) {
+                // 倒计时状态
+                // 此时为程序模式
+                FitShowManager.getInstance().isProgramMode = true;
+                FitShowManager.getInstance().targetIncline = DataTypeConversion.byteToInt(rxData[4]);
+                FitShowManager.getInstance().targetSpeed = DataTypeConversion.byteToInt(rxData[3]) / 10f;
+
+                //  0         0.5 0.8
+                if (FitShowManager.getInstance().targetSpeed < SpManager.getMinSpeed(SpManager.getIsMetric())) {
+                    FitShowManager.getInstance().targetSpeed = SpManager.getMinSpeed(SpManager.getIsMetric());
+                }
+
+                Logger.e("程序模式 targetIncline == " + FitShowManager.getInstance().targetIncline + "  targetSpeed == " + FitShowManager.getInstance().targetSpeed);
+            } else {
+                Message targetMessage = new Message();
+                targetMessage.what = FitShowCommand.CONTROL_TARGET_0x02;
+
+                if (len == 6) {
+                    targetMessage.arg1 = 0;
+                    targetMessage.arg2 = DataTypeConversion.byteToInt(rxData[3]);
+                } else if (len == 7) {
+                    // 扬升为负数时也要处理
+                    targetMessage.arg1 = DataTypeConversion.byteToInt(rxData[4]);
+                    if (targetMessage.arg1 > 127) {
+                        targetMessage.arg1 = targetMessage.arg1 - 256;
+                        Logger.e("targetMessage.arg1 == " + targetMessage.arg1);
+                    }
+                    targetMessage.arg2 = DataTypeConversion.byteToInt(rxData[3]);
+                }
+                Logger.i("len == " + len + "  targetMessage.arg1 == " + targetMessage.arg1 + "  targetMessage.arg2 == " + targetMessage.arg2);
+
+                FitShowManager.getInstance().mHandler.sendMessage(targetMessage);
+            }
+            return;
+        }
+
+        response = false;
     }
 
     private static void responseNothing(byte[] rxData, int len) {

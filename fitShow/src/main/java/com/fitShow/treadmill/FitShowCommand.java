@@ -40,47 +40,47 @@ public class FitShowCommand {
     /**
      * 待机状态
      */
-    public static final byte STATUS_NORMAL = 0x00;
+    public static final byte STATUS_NORMAL_0x00 = 0x00;
 
     /**
      * 已停机状态(还未返回到待机)
      */
-    public static final byte STATUS_END = 0x01;
+    public static final byte STATUS_END_0x01 = 0x01;
 
     /**
      * 倒计时启动状态
      */
-    public static final byte STATUS_START = 0x02;
+    public static final byte STATUS_START_0x02 = 0x02;
 
     /**
      * 运行中状态
      */
-    public static final byte STATUS_RUNNING = 0x03;
+    public static final byte STATUS_RUNNING_0x03 = 0x03;
 
     /**
      * 减速停止中(完全停止后变为 PAUSED 或 END 或 NORMAL)
      */
-    public static final byte STATUS_STOPPING = 0x04;
+    public static final byte STATUS_STOPPING_0x04 = 0x04;
 
     /**
      * 设备故障状态
      */
-    public static final byte STATUS_ERROR = 0x05;
+    public static final byte STATUS_ERROR_0x05 = 0x05;
 
     /**
      * 禁用（安全开关或睡眠等）（1.1 修改）
      */
-    public static final byte STATUS_DISABLE = 0x06;
+    public static final byte STATUS_DISABLE_0x06 = 0x06;
 
     /**
      * 设备就绪（1.1）CONTROL_READY 指令后应为此状态
      */
-    public static final byte STATUS_READY = 0x09;
+    public static final byte STATUS_READY_0x09 = 0x09;
 
     /**
      * 设备已暂停（1.1）
      */
-    public static final byte STATUS_PAUSED = 0x0A;
+    public static final byte STATUS_PAUSED_0x0A = 0x0A;
 
 
     /**
@@ -91,22 +91,22 @@ public class FitShowCommand {
     /**
      * 读取当前运动量
      */
-    public static final byte DATA_SPORT = 0x00;
+    public static final byte DATA_SPORT_0x00 = 0x00;
 
     /**
      * 当前运动信息
      */
-    public static final byte DATA_INFO = 0x01;
+    public static final byte DATA_INFO_0x01 = 0x01;
 
     /**
      * 速度数据(程式模式)
      */
-    public static final byte DATA_SPEED = 0x02;
+    public static final byte DATA_SPEED_0x02 = 0x02;
 
     /**
      * 坡度数据(程式模式)
      */
-    public static final byte DATA_INCLINE = 0x03;
+    public static final byte DATA_INCLINE_0x03 = 0x03;
 
 
     /**
@@ -117,7 +117,7 @@ public class FitShowCommand {
     /**
      * 准备开始（1.1）（START 前写入运动数据）
      */
-    public static final byte CONTROL_READY = 0x01;
+    public static final byte CONTROL_READY_0x01 = 0x01;
 
     /**
      * 正常模式，用于快速启动
@@ -147,37 +147,37 @@ public class FitShowCommand {
     /**
      * 写入用户信息
      */
-    public static final byte CONTROL_USER = 0x00;
+    public static final byte CONTROL_USER_0x00 = 0x00;
 
     /**
      * 速度数据(程式模式)
      */
-    public static final byte CONTROL_SPEED = 0x04;
+    public static final byte CONTROL_SPEED_0x04 = 0x04;
 
     /**
      * 坡度数据(程式模式)
      */
-    public static final byte CONTROL_HEIGHT = 0x05;
+    public static final byte CONTROL_HEIGHT_0x05 = 0x05;
 
     /**
      * 开始或恢复设备运行（1.1 正式启动）
      */
-    public static final byte CONTROL_START = 0x09;
+    public static final byte CONTROL_START_0x09 = 0x09;
 
     /**
      * 暂停设备（1.1）
      */
-    public static final byte CONTROL_PAUSE = 0x0A;
+    public static final byte CONTROL_PAUSE_0x0A = 0x0A;
 
     /**
      * 停止设备（此指令直接停止设备）
      */
-    public static final byte CONTROL_STOP = 0x03;
+    public static final byte CONTROL_STOP_0x03 = 0x03;
 
     /**
      * 控制速度、坡度（用户手动操作）
      */
-    public static final byte CONTROL_TARGET = 0x02;
+    public static final byte CONTROL_TARGET_0x02 = 0x02;
 
     /*******配置********/
     //bit0 0:公里 1:英里  bit1 1: 支持暂停

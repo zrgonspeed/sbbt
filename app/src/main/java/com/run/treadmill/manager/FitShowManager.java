@@ -20,7 +20,7 @@ import com.run.treadmill.manager.fitshow.other.FsThreadManager;
 import com.run.treadmill.util.Logger;
 
 public class FitShowManager {
-    public byte runStart = FitShowCommand.STATUS_NORMAL;
+    public byte runStart = FitShowCommand.STATUS_NORMAL_0x00;
 
     public boolean isConnect = false;
     private boolean isNOtConnect = true;
@@ -48,34 +48,34 @@ public class FitShowManager {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case FitShowCommand.CONTROL_STOP:
+                case FitShowCommand.CONTROL_STOP_0x03:
                     if (fitShowRunningCallBack != null) {
                         fitShowRunningCallBack.fitShowStopRunning();
                     }
                     break;
-                case FitShowCommand.CONTROL_READY:
+                case FitShowCommand.CONTROL_READY_0x01:
                     if (fitShowRunningCallBack != null) {
                         fitShowRunningCallBack.fitShowStartRunning();
                         break;
                     }
                     if (fitShowStartRunning != null) {
                         fitShowStartRunning.fitShowStartRunning();
-                    } else if (runStart == FitShowCommand.STATUS_PAUSED && fitShowRunningCallBack != null) {
+                    } else if (runStart == FitShowCommand.STATUS_PAUSED_0x0A && fitShowRunningCallBack != null) {
                         fitShowRunningCallBack.fitShowStartRunning();
                     } else {
-                        runStart = FitShowCommand.STATUS_NORMAL;
+                        runStart = FitShowCommand.STATUS_NORMAL_0x00;
                     }
                     break;
-                case FitShowCommand.CONTROL_START:
+                case FitShowCommand.CONTROL_START_0x09:
                     if (fitShowStartRunning != null) {
                         fitShowStartRunning.fitShowStartRunning();
-                    } else if (runStart == FitShowCommand.STATUS_PAUSED && fitShowRunningCallBack != null) {
+                    } else if (runStart == FitShowCommand.STATUS_PAUSED_0x0A && fitShowRunningCallBack != null) {
                         fitShowRunningCallBack.fitShowStartRunning();
                     } else {
-                        runStart = FitShowCommand.STATUS_NORMAL;
+                        runStart = FitShowCommand.STATUS_NORMAL_0x00;
                     }
                     break;
-                case FitShowCommand.CONTROL_PAUSE:
+                case FitShowCommand.CONTROL_PAUSE_0x0A:
                     if (fitShowRunningCallBack != null) {
                         fitShowRunningCallBack.fitShowPausedRunning();
                     }
@@ -83,17 +83,19 @@ public class FitShowManager {
                 case MSG_CONNECT:
                     startTimerOfIsConnect();
                     isConnect = true;
+                    Logger.i("连上运动秀蓝牙");
                     if (fitShowStartRunning != null) {
                         fitShowStartRunning.isFitShowConnect(true);
                     }
                     break;
                 case MSG_DISCONNECT:
                     isConnect = false;
+                    Logger.i("断开了运动秀蓝牙");
                     if (fitShowStartRunning != null) {
                         fitShowStartRunning.isFitShowConnect(false);
                     }
                     break;
-                case FitShowCommand.CONTROL_TARGET:
+                case FitShowCommand.CONTROL_TARGET_0x02:
                     if (fitShowRunningCallBack != null) {
                         Logger.i("msg.arg1 == " + msg.arg1 + " msg.arg2 == " + msg.arg2);
                         /*if (msg.arg2 == 1) {
@@ -230,13 +232,13 @@ public class FitShowManager {
         if (this.runStart == runStart) {
             return;
         }
-        if (runStart == FitShowCommand.STATUS_NORMAL && this.runStart != FitShowCommand.STATUS_PAUSED) {//安卓运动秀需要先暂停才能结束运动
+        if (runStart == FitShowCommand.STATUS_NORMAL_0x00 && this.runStart != FitShowCommand.STATUS_PAUSED_0x0A) {//安卓运动秀需要先暂停才能结束运动
             // 此时应该是运行状态 0x03
             if (ErrorManager.getInstance().errStatus == ErrorManager.ERR_NO_ERROR) {
                 Logger.e("没有错，啥也不干");
                 // 没有错误就不用单独发暂停命令，如果发了可能有其它问题
             } else {
-                this.runStart = FitShowCommand.STATUS_PAUSED;
+                this.runStart = FitShowCommand.STATUS_PAUSED_0x0A;
                 Logger.e("有错误 先暂停后退出");
 
                 FsSend.sendData(new byte[]{FitShowCommand.CMD_SYS_STATUS_0x51, this.runStart}, 2);
