@@ -65,9 +65,9 @@ public class FsRead {
             byte[] sendData = new byte[6];
             sendData[0] = FitShowCommand.CMD_SYS_INFO_0x50;
             sendData[1] = FitShowCommand.INFO_MODEL_0x00;
-            sendData[2] = 0x13;
+            sendData[2] = 0x00;
             sendData[3] = 0x00;
-            sendData[4] = (byte) 0x9C;
+            sendData[4] = (byte) 0x00;
             sendData[5] = (byte) 0x00;
             FsSend.sendData(sendData, sendData.length);
             return;
