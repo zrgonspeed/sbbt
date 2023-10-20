@@ -9,33 +9,33 @@ public class FsTreadmillCommand {
     /**
      * CMD-->设备信息
      */
-    public static final byte CMD_SYS_INFO = 0x50;
+    public static final byte CMD_SYS_INFO_0x50 = 0x50;
 
     /**
      * 获取设备机型 (必需实现)
      */
-    public static final byte INFO_MODEL = 0x00;
+    public static final byte INFO_MODEL_0x00 = 0x00;
 
     /**
      * 获取设备速度参数 (必需实现)
      */
-    public static final byte INFO_SPEED = 0x02;
+    public static final byte INFO_SPEED_0x02 = 0x02;
 
     /**
      * 获取设备坡度参数
      */
-    public static final byte INFO_INCLINE = 0x03;
+    public static final byte INFO_INCLINE_0x03 = 0x03;
 
     /**
      * 获取设备累计里程
      */
-    public static final byte INFO_TOTAL = 0x04;
+    public static final byte INFO_TOTAL_0x04 = 0x04;
 
 
     /**
      * CMD-->设备状态
      */
-    public static final byte CMD_SYS_STATUS = 0x51;
+    public static final byte CMD_SYS_STATUS_0x51 = 0x51;
 
     /**
      * 待机状态
@@ -86,7 +86,7 @@ public class FsTreadmillCommand {
     /**
      * CMD-->设备数据
      */
-    public static final byte CMD_SYS_DATA = 0x52;
+    public static final byte CMD_SYS_DATA_0x52 = 0x52;
 
     /**
      * 读取当前运动量
@@ -112,7 +112,7 @@ public class FsTreadmillCommand {
     /**
      * 设备控制
      */
-    public static final byte CMD_SYS_CONTROL = 0x53;
+    public static final byte CMD_SYS_CONTROL_0x53 = 0x53;
 
     /**
      * 准备开始（1.1）（START 前写入运动数据）
