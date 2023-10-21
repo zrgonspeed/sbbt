@@ -119,7 +119,12 @@ public class ReBootTask implements Runnable, RxDataCallBack {
                 if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
                     //AA
                     ControlManager.getInstance().write02Normal(buildDeviceInfoData());
-                    // ControlManager.getInstance().resetIncline();
+
+                    if (SpManager.getGSMode()) {
+                        ControlManager.getInstance().stopIncline();
+                    } else {
+                        ControlManager.getInstance().resetIncline();
+                    }
                     getInfoCount += 1;
                 }
 
