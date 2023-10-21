@@ -564,7 +564,7 @@ public class SpManager {
     }
 
     public static boolean getGSMode() {
-        return StorageParam.getParam(SET_GS_INCLINE, false);
+        return StorageParam.getParam(SET_GS_INCLINE, true);
     }
 
     /**

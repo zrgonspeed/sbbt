@@ -224,8 +224,8 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
 
     private void initNeedResetSetting() {
         tb_sleep.setChecked(SpManager.getSleep());
-        tb_incline.setChecked(false);
-        tb_incline.setEnabled(false);
+        tb_incline.setChecked(SpManager.getGSMode());
+        tb_incline.setEnabled(true);
         tb_buzzer.setChecked(SpManager.getBuzzer());
         tv_lube.setText(String.format("%s %s"
                 , UnitUtil.getFloatToIntClear(SpManager.getMaxLubeDis() - SpManager.getRunLubeDis() <= 0 ? 0 : SpManager.getMaxLubeDis() - SpManager.getRunLubeDis())
