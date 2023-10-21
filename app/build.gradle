@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    def ver = "V10"
+    def ver = "V30"
 
     compileSdkVersion 29
     buildToolsVersion '30.0.3'
