@@ -184,16 +184,6 @@ public class ControlManager {
     }
 
     /**
-     * 进入暂停界面 这个时为了14T-09的AA机台特别制作
-     * 进入暂停界面,同时扬升归零
-     */
-    public void stopRunOnPause() {
-        mStrategy.stopRun(false);
-        mStrategy.resetIncline();
-    }
-
-
-    /**
      * 扬升停止动作
      */
     public void stopIncline() {

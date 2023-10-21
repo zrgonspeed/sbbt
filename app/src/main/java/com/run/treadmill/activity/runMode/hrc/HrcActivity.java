@@ -155,7 +155,7 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
     @Override
     public void finishRunning() {
         super.finishRunning();
-        ControlManager.getInstance().resetIncline();
+        // ControlManager.getInstance().resetIncline();
         startActivity(new Intent(this, SummaryActivity.class));
         finish();
     }
@@ -223,8 +223,8 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
     @Override
     protected void showPopTip() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
-            getPresenter().setSpeedValue(0, minSpeed, false);
-            getPresenter().setInclineValue(0, 0, false);
+            // getPresenter().setSpeedValue(0, minSpeed, false);
+            // getPresenter().setInclineValue(0, 0, false);
         }
         super.showPopTip();
     }

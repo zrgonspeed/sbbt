@@ -68,7 +68,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
         if (ErrorManager.getInstance().isHasInclineError()) {
             showInclineError();
         } else {
-            tv_incline.setText(StringUtil.valueAndUnit("0", getString(R.string.string_unit_percent), runParamUnitTextSize));
+           // tv_incline.setText(StringUtil.valueAndUnit("0", getString(R.string.string_unit_percent), runParamUnitTextSize));
         }
         super.showPopTip();
     }
@@ -117,7 +117,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
     @Override
     public void finishRunning() {
         super.finishRunning();
-        ControlManager.getInstance().resetIncline();
+        // ControlManager.getInstance().resetIncline();
         Intent intent = new Intent(this, SummaryActivity.class);
         intent.putExtra(CTConstant.NEED_VO2, true);
         startActivity(intent);

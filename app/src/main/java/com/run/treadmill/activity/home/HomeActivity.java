@@ -405,7 +405,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             FitShowManager.getInstance().beltStopping = true;
 
             if (isFirst) {
-                ControlManager.getInstance().stopRun(false);
+                ControlManager.getInstance().stopRun(isOpenGSMode);
                 isFirst = false;
             }
             FitShowManager.getInstance().setNOtConnect(true);

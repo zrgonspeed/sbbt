@@ -15,7 +15,9 @@ import com.run.treadmill.interceptor.NormalInterceptor;
 import com.run.treadmill.interceptor.RealChain;
 import com.run.treadmill.interceptor.SafeKeyInterceptor;
 import com.run.treadmill.interceptor.SerialInterceptor;
+import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
+import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.control.NormalParam;
 import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.otamcu.OtaMcuUtils;
@@ -176,6 +178,12 @@ public abstract class BasePresenter<V extends BaseView> implements RxDataCallBac
         if (ErrorManager.getInstance().isSafeError && ErrorManager.getInstance().errorDelayTime <= 0) {
             ErrorManager.getInstance().isSafeError = false;
             getView().hideTips();
+
+            if (SpManager.getGSMode()) {
+                ControlManager.getInstance().stopIncline();
+            } else {
+                ControlManager.getInstance().resetIncline();
+            }
         }
         if (msg.what == MsgWhat.MSG_DATA_BELT_AND_INCLINE) {
             getView().hideTips();

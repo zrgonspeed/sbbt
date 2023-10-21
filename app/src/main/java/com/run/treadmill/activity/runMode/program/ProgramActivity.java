@@ -174,8 +174,8 @@ public class ProgramActivity extends BaseRunActivity<ProgramView, ProgramPresent
     @Override
     protected void showPopTip() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
-            getPresenter().setSpeedValue(0, minSpeed, true);
-            getPresenter().setInclineValue(0, 0, true);
+           // getPresenter().setSpeedValue(0, minSpeed, true);
+           // getPresenter().setInclineValue(0, 0, true);
         }
         super.showPopTip();
     }

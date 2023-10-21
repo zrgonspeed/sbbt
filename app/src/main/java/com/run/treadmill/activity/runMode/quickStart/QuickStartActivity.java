@@ -267,17 +267,9 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     @Override
     protected void showPopTip() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
-            getPresenter().setSpeedValue(0, minSpeed, false);
-            getPresenter().setInclineValue(0, 0, false);
+            // getPresenter().setSpeedValue(0, minSpeed, false);
+            // getPresenter().setInclineValue(0, 0, false);
             if (FitShowManager.getInstance().isConnect()) {
-                /*int incline = 0;
-                try {
-                    incline = (int) mFloatWindowManager.mRunningParam.getCurrIncline();
-                }catch (Exception e) {
-                    incline = 0;
-                }*/
-
-                // FitShowManager.getInstance().sendPauseSpeedAndIncline(0, incline);
                 FitShowManager.getInstance().isBeforePauseSendZero = true;
             }
             ThreadUtils.runInThread(() -> {

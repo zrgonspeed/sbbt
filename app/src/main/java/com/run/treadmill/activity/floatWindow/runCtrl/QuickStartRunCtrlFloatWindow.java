@@ -13,6 +13,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
+import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.fitshow.other.FitShowRunningCallBack;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.KeyUtils;
@@ -384,6 +385,10 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
     @Override
     public void fitShowStopRunning() {
         mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_STOP;
+        ControlManager.getInstance().stopRun(SpManager.getGSMode());
+        if (!SpManager.getGSMode()) {
+            ControlManager.getInstance().resetIncline();
+        }
         mFloatWindowManager.fitShowStopRunning();
     }
 

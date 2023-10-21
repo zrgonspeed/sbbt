@@ -878,7 +878,7 @@ public class RunningParam {
      * 扬升出错的时候记录
      */
     public void setInclineError() {
-        ControlManager.getInstance().stopIncline();
+        // ControlManager.getInstance().stopIncline();
         minIncline = 0;
         minInclineInx = inclineList.size();
         recordRunData(1);

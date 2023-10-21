@@ -413,20 +413,20 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 mFloatWindowManager.runMode == CTConstant.HRC ||
                 mFloatWindowManager.runMode == CTConstant.VISION
         ) {
-            setSpeedValue(0, minSpeed, false);
-            setInclineValue(0, 0, false);
+            // setSpeedValue(0, minSpeed, false);
+            // setInclineValue(0, 0, false);
         }
         if (mFloatWindowManager.runMode == CTConstant.PROGRAM ||
                 mFloatWindowManager.runMode == CTConstant.USER_PROGRAM
         ) {
-            setSpeedValue(0, minSpeed, true);
-            setInclineValue(0, 0, true);
+            // setSpeedValue(0, minSpeed, true);
+            // setInclineValue(0, 0, true);
         }
 
         // gsMode默认false
         // 客户要求修改扬升机制
-        ControlManager.getInstance().stopRun(false);
-        ControlManager.getInstance().resetIncline();
+        ControlManager.getInstance().stopRun(gsMode);
+        // ControlManager.getInstance().resetIncline();
         if (FitShowManager.getInstance().isConnect()) {
             FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_PAUSED_0x0A);
         }

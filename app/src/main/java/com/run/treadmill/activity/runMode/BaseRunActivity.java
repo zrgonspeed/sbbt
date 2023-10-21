@@ -672,8 +672,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                     btn_pause_continue.setEnabled(false);
                     // gsMode默认false
                     // 客户要求修改扬升机制
-                    ControlManager.getInstance().stopRun(false);
-                    ControlManager.getInstance().resetIncline();
+                    ControlManager.getInstance().stopRun(gsMode);
+                    // ControlManager.getInstance().resetIncline();
 
                     if (mVideoPlayerSelf != null) {
                         mVideoPlayerSelf.videoPlayerStartPause();
@@ -769,6 +769,13 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
 
         ControlManager.getInstance().stopRun(gsMode);
+
+        if (gsMode) {
+            ControlManager.getInstance().stopIncline();
+        } else {
+            ControlManager.getInstance().resetIncline();
+        }
+
         mRunningParam.end();
         mRunningParam.recodePreRunData();
         shortDownThirtyApk();
