@@ -120,6 +120,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_px_955_y" />
 
+    <com.run.treadmill.widget.MultiClickAndLongPressView
+        android:id="@+id/btn_show_step"
+        android:layout_width="@dimen/dp_px_100_x"
+        android:layout_height="@dimen/dp_px_80_x"
+        android:layout_marginStart="@dimen/dp_px_1600_x"
+        android:layout_marginTop="@dimen/dp_px_955_y" />
+
     <TextView
         android:id="@+id/tv_sleep"
         android:layout_width="match_parent"

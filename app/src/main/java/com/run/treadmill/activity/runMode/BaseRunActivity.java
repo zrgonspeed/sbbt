@@ -337,6 +337,11 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     private void initRunParam() {
+        if (StepManager.showStep){
+            tv_setnum.setVisibility(View.VISIBLE);
+        } else {
+            tv_setnum.setVisibility(View.GONE);
+        }
         btn_pause_continue.setEnabled(false);
 
         btn_incline_down.setIntervalTime(110);
@@ -407,12 +412,32 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         onSpeedChange(mRunningParam.getCurrSpeed());
     }
 
+    private void checkStop() {
+        if (mRunningParam.stepManager.isStopRunning){
+            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP){
+                BuzzerManager.getInstance().buzzerRingOnce();
+                btn_pause_quit.setEnabled(false);
+                if (mVideoPlayerSelf != null) {
+                    mVideoPlayerSelf.onRelease();
+                }
+                stopPauseTimer();
+                finishRunning();
+            }else {
+                btn_start_stop_skip.performClick();
+                mRunningParam.stepManager.clean();
+            }
+        }
+    }
+
     private void setRunParam() {
+        checkStop();
+
         tv_time.setText(mRunningParam.getShowTime());
         tv_distance.setText(getDistanceValue(mRunningParam.getShowDistance()));
         tv_calories.setText(StringUtil.valueAndUnit(mRunningParam.getShowCalories(), getString(R.string.string_unit_kcal), runParamUnitTextSize));
         tv_pulse.setText(mRunningParam.getShowPulse());
         tv_mets.setText(mRunningParam.getShowMets());
+        tv_setnum.setText(String.valueOf(mRunningParam.stepManager.getCurStep()));
 
         if (lineChartView != null) {
             refreshLineChart();
@@ -1326,4 +1351,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         Logger.d("cn.getPackageName() == " + cn.getPackageName());
         return cn.getPackageName();
     }
+
+    @BindView(R.id.tv_setnum)
+    public TextView tv_setnum;
 }

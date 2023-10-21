@@ -21,6 +21,8 @@ import com.run.treadmill.activity.modeSelect.hrc.HrcSelectActivity;
 import com.run.treadmill.activity.modeSelect.program.ProgramSelectActivity;
 import com.run.treadmill.activity.modeSelect.userprogram.UserProgramSelectActivity;
 import com.run.treadmill.activity.modeSelect.vision.VisionSelectActivity;
+import com.run.treadmill.activity.runMode.RunningParam;
+import com.run.treadmill.activity.runMode.StepManager;
 import com.run.treadmill.activity.runMode.quickStart.QuickStartActivity;
 import com.run.treadmill.activity.setting.SettingActivity;
 import com.run.treadmill.base.BaseActivity;
@@ -126,6 +128,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         OtaMcuUtils.curIsOtamcu = false;
         fflag = true;
         FitShowManager.isHome = true;
+        RunningParam.getInstance().stepManager.clean();
 
         isOnPause = false;
         //跟启动模式相关
@@ -566,6 +569,14 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             startActivity(new Intent(HomeActivity.this, FactoryActivity.class));
         });
 
+        // 点10次显示步数
+        btn_show_step.setOnMultiClickListener(() -> {
+            if (getPresenter().inOnSleep) {
+                return;
+            }
+            StepManager.showStep = !StepManager.showStep;
+        });
+
         PermissionUtil.hasReadExternalStoragePermission(this);
         PermissionUtil.hasAlertWindowPermission(this);
 
@@ -657,4 +668,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     public boolean isSafeKeyTips() {
         return tipsPop.getLastTips() == CTConstant.SHOW_TIPS_SAFE_ERROR;
     }
+
+    @BindView(R.id.btn_show_step)
+    MultiClickAndLongPressView btn_show_step;
 }

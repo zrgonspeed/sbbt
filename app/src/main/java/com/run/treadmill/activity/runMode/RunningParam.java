@@ -287,12 +287,6 @@ public class RunningParam {
     public int waiteNanosTime = 14000;
     private Thread timeThread, dateThread;
 
-    public int stepNumber = 0;
-    /**
-     * 机台不会清空步数。记录初始步数使时机台步数减去初始步数
-     */
-    public int initialStepNumber = -1;
-
     /**
      * 防止在悬浮窗秒按安全key，卡顿造成回到运动界面没有报错误，而停留在运动界面
      */
@@ -639,6 +633,8 @@ public class RunningParam {
                     }
                     mRunParamHandler.sendEmptyMessage(MsgWhat.MSG_REFRESH_DATA);
 
+                    stepManager.refreshSecond();
+
                     // Logger.d("运动中 pre_recode == " + pre_recode);
                     // Logger.d("getRunTotalDis == " + UnitUtil.getFloatToInt(SpManager.getRunTotalDis()));
                     // Logger.d("getRunTotalTime == " + TimeStringUtil.getSecToHrMin(SpManager.getRunTotalTime()));
@@ -740,7 +736,7 @@ public class RunningParam {
                                 getCurPulse(),
                                 currSpeed,
                                 currIncline,
-                                stepNumber - initialStepNumber,
+                                stepManager.getStepToFitShow(),
                                 alreadyRunDistance,
                                 alreadyRunCalories,
                                 runLccurStageNum,
@@ -1024,17 +1020,6 @@ public class RunningParam {
         return minPulseInx;
     }
 
-    public int getStepNumber() {
-        return stepNumber;
-    }
-
-    public void setStepNumber(int stepNumber) {
-        this.stepNumber = stepNumber;
-        if (initialStepNumber == -1) {
-            initialStepNumber = stepNumber;
-        }
-    }
-
     private void setZyBtAndCsafeData() {
         if (BtHelper.getInstance().connected()) {
             if (runStatus == CTConstant.RUN_STATUS_WARM_UP) {
@@ -1087,5 +1072,12 @@ public class RunningParam {
      */
     public int getAllCalories() {
         return Math.round(UnitUtil.addFloat(UnitUtil.addFloat(alreadyWarmUpCalories, alreadyCoolDownCalories), alreadyRunCalories)) % 9999;
+    }
+
+    public StepManager stepManager = new StepManager(this);
+
+    public void setStepNumber(int stepNumber) {
+        // Logger.d("stepNumber == " + stepNumber);
+       stepManager.setStepFromMCU(stepNumber);
     }
 }
