@@ -125,6 +125,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         super.onResume();
         OtaMcuUtils.curIsOtamcu = false;
         fflag = true;
+        FitShowManager.isHome = true;
 
         isOnPause = false;
         //跟启动模式相关
@@ -202,6 +203,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         isOnPause = true;
         homeSleepManager.closeTimer();
 
+        FitShowManager.isHome = false;
         isFirst = false;
         FitShowManager.getInstance().setFitShowStatusCallBack(null);
     }

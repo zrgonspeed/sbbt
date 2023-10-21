@@ -20,6 +20,7 @@ import com.run.treadmill.manager.fitshow.other.FsThreadManager;
 import com.run.treadmill.util.Logger;
 
 public class FitShowManager {
+    public static boolean isHome = false;
     public byte runStart = FitShowCommand.STATUS_NORMAL_0x00;
 
     public boolean isConnect = false;
