@@ -134,9 +134,8 @@ public abstract class BaseRunPresenter<V extends BaseRunView> extends BasePresen
             }
 
             mRunningParam.setCurrAD(resolveDate(data, NormalParam.CURR_AD_INX, NormalParam.CURR_AD_LEN));
+            mRunningParam.setStepNumber(resolveDate(data, NormalParam.Step_Number_VALUE_INX, NormalParam.Step_Number_VALUE_LEN));
         }
-        mRunningParam.setStepNumber(resolveDate(data, NormalParam.Step_Number_VALUE_INX, NormalParam.Step_Number_VALUE_LEN));
-
     }
 
     @Override
