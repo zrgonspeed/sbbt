@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -22,6 +23,8 @@ import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.util.UnitUtil;
 import com.run.treadmill.widget.VideoPlayerSelf;
+
+import butterknife.BindView;
 
 /**
  * @Description 这里用一句话描述
@@ -82,7 +85,15 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
                 rl_bottom.setVisibility(View.VISIBLE);
             }
         });
+
+        iv_running_bottom.setClickable(true);
+        iv_running_top.setClickable(true);
     }
+
+    @BindView(R.id.iv_running_bottom)
+    public ImageView iv_running_bottom;
+    @BindView(R.id.iv_running_top)
+    public ImageView iv_running_top;
 
     @Override
     public void enterCoolDown() {
@@ -249,8 +260,8 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
     @Override
     protected void showPopTip() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
-           // getPresenter().setSpeedValue(0, minSpeed, false);
-           // getPresenter().setInclineValue(0, 0, false);
+            // getPresenter().setSpeedValue(0, minSpeed, false);
+            // getPresenter().setInclineValue(0, 0, false);
         }
         super.showPopTip();
     }

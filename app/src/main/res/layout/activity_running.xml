@@ -93,6 +93,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/iv_running_bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_px_867_y"
@@ -112,9 +113,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_px_320_x"
             android:layout_marginTop="@dimen/dp_px_897_y"
+            android:gravity="center"
             android:text="@string/string_incline"
             android:textAlignment="center"
-            android:gravity="center"
             android:textColor="@color/running_text_orange"
             android:textSize="@dimen/font_size_18pt" />
 
@@ -123,9 +124,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_px_1335_x"
             android:layout_marginTop="@dimen/dp_px_897_y"
+            android:gravity="center"
             android:text="@string/string_speed"
             android:textAlignment="center"
-            android:gravity="center"
             android:textColor="@color/running_text_orange"
             android:textSize="@dimen/font_size_18pt" />
 
@@ -201,6 +202,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/iv_running_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/img_sportmode_top_bar" />
