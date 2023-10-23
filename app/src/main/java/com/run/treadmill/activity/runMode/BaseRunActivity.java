@@ -397,6 +397,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             getPresenter().calcJump();
         }
         setRunParam();
+        mRunningParam.isFloat = false;
+        // Logger.i("isFloat " + false);
     }
 
     @Override
@@ -887,6 +889,9 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     public synchronized void enterThirdApk(@CTConstant.RunMode int runMode, String pkgName) {
+        mRunningParam.isFloat = true;
+        Logger.i("isFloat " + true);
+
         ControlManager.getInstance().setSendWaiteTime(70);
         mRunningParam.waiteTime = 955;
         mRunningParam.waiteNanosTime = 14000;

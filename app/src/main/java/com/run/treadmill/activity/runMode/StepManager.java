@@ -1,10 +1,15 @@
 package com.run.treadmill.activity.runMode;
 
+import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.util.Logger;
 
 public class StepManager {
     public static boolean showStep = false;
-    public static final int countTime = 59;
+
+    public static int countTime_Run = 59;
+    public static int countTime_Float = 60;
+
+    public static int countTime;
 
     public StepManager(RunningParam runningParam) {
     }
@@ -41,11 +46,20 @@ public class StepManager {
             time = 0;
             return;
         }
+        if (RunningParam.getInstance().runStatus == CTConstant.RUN_STATUS_STOP) {
+            Logger.i("runStatus == CTConstant.RUN_STATUS_STOP ");
+            return;
+        }
         // 步数没有改变，计时1分钟后停机
         time++;
         Logger.i("time++ " + time);
+        if (RunningParam.getInstance().isFloat) {
+            countTime = countTime_Float;
+        } else {
+            countTime = countTime_Run;
+        }
         if (time == countTime) {
-            Logger.i("time == 59      isStopRunning = true;");
+            Logger.i("time == " + countTime + "      isStopRunning = true;");
             isStopRunning = true;
             time = 0;
         }

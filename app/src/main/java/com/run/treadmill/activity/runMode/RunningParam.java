@@ -1080,4 +1080,7 @@ public class RunningParam {
         // Logger.d("stepNumber == " + stepNumber);
        stepManager.setStepFromMCU(stepNumber);
     }
+
+    public boolean isFloat = false;
+
 }
