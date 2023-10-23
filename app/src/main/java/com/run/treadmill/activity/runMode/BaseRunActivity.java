@@ -428,6 +428,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 btn_start_stop_skip.performClick();
                 mRunningParam.stepManager.clean();
             }
+            ControlManager.getInstance().resetIncline();
         }
     }
 
