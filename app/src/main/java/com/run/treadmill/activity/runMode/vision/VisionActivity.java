@@ -18,6 +18,7 @@ import com.run.treadmill.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.util.ButtonUtilsVision;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.StringUtil;
@@ -77,6 +78,10 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
         rl_chart_view.setVisibility(View.GONE);
         rl_main.addView(surfaceView, 0);
         surfaceView.setOnClickListener(v -> {
+            if (!ButtonUtilsVision.canResponse()) {
+                return;
+            }
+
             if (rl_top.getVisibility() == View.VISIBLE) {
                 rl_top.setVisibility(View.GONE);
                 rl_bottom.setVisibility(View.GONE);
