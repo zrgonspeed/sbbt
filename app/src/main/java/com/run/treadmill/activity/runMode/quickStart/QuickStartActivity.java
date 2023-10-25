@@ -79,6 +79,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
         super.onResume();
         long start = System.currentTimeMillis();
         {
+            Logger.i("quickToMedia == " + quickToMedia);
             if (quickToMedia) {
                 quickToMedia = false;
                 mFloatWindowManager.regRxDataCallBackAgain();
@@ -90,6 +91,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
             }
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
                 btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_start);
+                btn_home.setVisibility(View.VISIBLE);
             }
         }
         long end = System.currentTimeMillis();

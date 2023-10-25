@@ -174,7 +174,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_1758_x"
-        android:layout_marginTop="@dimen/dp_px_97_y"
+        android:layout_marginTop="@dimen/dp_px_122_y"
         android:src="@drawable/btn_home"
         android:visibility="gone" />
 </RelativeLayout>

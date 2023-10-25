@@ -193,6 +193,15 @@
             android:layout_marginTop="@dimen/dp_px_695_y"
             android:src="@drawable/btn_back"
             android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/btn_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_1758_x"
+            android:layout_marginTop="@dimen/dp_px_952_y"
+            android:src="@drawable/btn_home"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <!-- 顶部资讯栏 -->

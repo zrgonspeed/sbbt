@@ -141,6 +141,9 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     @BindView(R.id.btn_incline_roller)
     public ImageView btn_incline_roller;
 
+    @BindView(R.id.btn_home)
+    public ImageView btn_home;
+
     @BindView(R.id.rl_chart_view)
     public RelativeLayout rl_chart_view;
     @BindView(R.id.yv_unit)
@@ -651,17 +654,25 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @OnClick({R.id.btn_start_stop_skip, R.id.btn_pause_continue, R.id.btn_pause_quit, R.id.btn_incline_up, R.id.btn_incline_down,
             R.id.btn_speed_up, R.id.btn_speed_down, R.id.btn_media, R.id.btn_line_chart_incline, R.id.btn_line_chart_speed,
-            R.id.btn_speed_roller, R.id.btn_incline_roller})
+            R.id.btn_speed_roller, R.id.btn_incline_roller,
+            R.id.btn_home
+    })
     public synchronized void click(View view) {
         if (view.getId() == R.id.btn_start_stop_skip && mediaPopWin != null && mediaPopWin.isShowing()) {
             hideMediaPopWin();
         }
         switch (view.getId()) {
+            case R.id.btn_home:
+                safeError();
+                break;
             case R.id.btn_line_chart_incline:
             case R.id.btn_line_chart_speed:
                 BuzzerManager.getInstance().buzzerRingOnce();
                 break;
             case R.id.btn_start_stop_skip:
+                if (btn_home.getVisibility() == View.VISIBLE) {
+                    btn_home.setVisibility(View.GONE);
+                }
                 if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
                     rl_mask.setVisibility(View.GONE);
 
