@@ -73,6 +73,7 @@
         android:supportsRtl="false"
         android:theme="@style/NoTitle_FullScreen_NoTrans"
         android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         androidprv:systemUserOnly="true">
         <activity
             android:name=".activity.home.HomeActivity"
