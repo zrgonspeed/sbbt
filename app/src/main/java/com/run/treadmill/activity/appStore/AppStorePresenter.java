@@ -66,7 +66,9 @@ public class AppStorePresenter extends BasePresenter<AppStoreView> implements Ok
         reqUrl.deleteCharAt(reqUrl.length() - 1);
 
         Logger.d("请求的url：" + reqUrl.toString());
-        OkHttpHelper.get(reqUrl.toString(), "AppStoreActivity", this);
+        new Thread(() -> {
+            OkHttpHelper.get(reqUrl.toString(), "AppStoreActivity", this);
+        }).start();
         getView().showLoading();
     }
 
