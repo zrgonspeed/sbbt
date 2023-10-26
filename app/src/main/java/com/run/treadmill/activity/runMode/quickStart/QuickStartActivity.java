@@ -92,6 +92,8 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
                 btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_start);
                 btn_home.setVisibility(View.VISIBLE);
+            } else {
+                btn_home.setVisibility(View.GONE);
             }
         }
         long end = System.currentTimeMillis();
