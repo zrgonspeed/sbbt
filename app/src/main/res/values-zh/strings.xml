@@ -205,4 +205,5 @@
 
     <string name="string_factory_img_reset">系统恢复</string>
     <string name="string_running_media_pause">暂停</string>
+    <string name="fact_img_reset_tip">恢复出厂设置</string>
 </resources>

@@ -205,4 +205,5 @@ logotipo atualizado, está inserido na porta USB</string>
 
     <string name="string_factory_img_reset">Repor Sistema</string>
     <string name="string_running_media_pause">A COLOCAR EM PAUSA</string>
+    <string name="fact_img_reset_tip">Restaurar as configurações de fábrica</string>
 </resources>

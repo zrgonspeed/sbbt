@@ -200,4 +200,5 @@
 
     <string name="string_factory_img_reset">Reimposta sistema</string>
     <string name="string_running_media_pause">pausa</string>
+    <string name="fact_img_reset_tip">Ripristino dello stabilimento franco fabbrica</string>
 </resources>

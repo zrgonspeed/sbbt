@@ -202,4 +202,5 @@
 
     <string name="string_factory_img_reset">Systemzur Rücksetzung</string>
     <string name="string_running_media_pause">UNTERBRECHUNG</string>
+    <string name="fact_img_reset_tip">Die werkseinstellungen wieder herstellen.</string>
 </resources>

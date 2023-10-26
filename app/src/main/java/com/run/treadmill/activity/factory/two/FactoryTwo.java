@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -282,7 +283,14 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
                 });
                 break;
             case R.id.btn_img_reset:
-                doMasterClear();
+                // 弹框 yes or no
+                createResetDialog2(v1 -> {
+                    BuzzerManager.getInstance().buzzerRingOnce();
+                    mResetDialog.dismiss();
+                    SystemClock.sleep(2000);
+                    Logger.i("恢复出厂设置");
+                    doMasterClear();
+                });
                 break;
             case R.id.btn_info_reset:
                 createResetDialog(v1 -> {
@@ -385,6 +393,29 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
             });
         }
         btn_pop_yes.setOnClickListener(listener);
+        TextView tv_info = mResetDialog.findViewById(R.id.tv_info);
+        tv_info.setText(R.string.string_factory_pop_reset);
+        mResetDialog.show();
+    }
+
+    // 恢复出厂设置专用弹框
+    private void createResetDialog2(View.OnClickListener listener) {
+        if (mResetDialog == null) {
+            mResetDialog = new ViewDialog.Builder(activity)
+                    .setView(activity.getLayoutInflater().inflate(R.layout.layout_yes_no_dialog, rl_main_two, false))
+                    .create();
+            mResetDialog.setCanceledOnTouchOutside(true);
+            btn_pop_yes = mResetDialog.findViewById(R.id.btn_pop_yes);
+            btn_pop_no = mResetDialog.findViewById(R.id.btn_pop_no);
+            btn_pop_no.setOnClickListener(v -> {
+                BuzzerManager.getInstance().buzzerRingOnce();
+                mResetDialog.dismiss();
+            });
+
+        }
+        btn_pop_yes.setOnClickListener(listener);
+        TextView tv_info = mResetDialog.findViewById(R.id.tv_info);
+        tv_info.setText(R.string.fact_img_reset_tip);
         mResetDialog.show();
     }
 
