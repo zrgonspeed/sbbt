@@ -7,11 +7,15 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:paddingStart="@dimen/dp_px_30_x"
+        android:paddingEnd="@dimen/dp_px_30_x"
+        android:layout_height="@dimen/dp_px_100_x"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_px_30_y"
         android:gravity="center"
+        android:drawablePadding="@dimen/dp_px_20_x"
+        android:drawableEnd="@drawable/img_program_virtual_icon"
         android:text="@string/string_mode_vision"
         android:textColor="@color/textView_white"
         android:textSize="@dimen/font_size_30pt"
@@ -21,7 +25,7 @@
         android:id="@+id/vp_movie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp_px_100_y"
+        android:layout_marginTop="@dimen/dp_px_120_y"
         android:layout_marginBottom="@dimen/dp_px_100_y"
         android:background="@color/textView_black"
         android:visibility="visible" />

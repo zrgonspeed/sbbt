@@ -87,7 +87,7 @@ public class VisionSelectActivity extends BaseSelectActivity<VisionSelectView, V
         super.onCreate(savedInstanceState);
         mContext = this;
 
-        tv_title.setText(StringUtil.valueAndIcon(this, getString(R.string.string_mode_vision), R.drawable.img_program_virtual_icon));
+        // tv_title.setText(StringUtil.valueAndIcon(this, getString(R.string.string_mode_vision), R.drawable.img_program_virtual_icon));
 
         movies = new ArrayList<>();
 
