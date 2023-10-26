@@ -224,6 +224,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             safeError();
             return;
         }
+        FitShowManager.isBaseRun = true;
         mRunningParam = RunningParam.getInstance();
         mFloatWindowManager = new FloatWindowManager(this);
 
@@ -797,6 +798,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @Override
     public void finishRunning() {
+        FitShowManager.isBaseRun = false;
+
         if (mCountdownTask != null) {
             mCountdownTask.cancel();
         }

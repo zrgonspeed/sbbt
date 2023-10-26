@@ -128,6 +128,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         OtaMcuUtils.curIsOtamcu = false;
         fflag = true;
         FitShowManager.isHome = true;
+        FitShowManager.isBaseRun = false;
         RunningParam.getInstance().stepManager.clean();
 
         isOnPause = false;

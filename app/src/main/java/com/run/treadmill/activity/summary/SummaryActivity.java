@@ -76,6 +76,7 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FitShowManager.isBaseRun = false;
 
         mRunningParam = RunningParam.getInstance();
 

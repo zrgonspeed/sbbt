@@ -24,8 +24,11 @@ public class FsRead {
             FitShowManager.getInstance().isConnectTimer.setmAllTime(0L);
         }
 
-        if (!FitShowManager.getInstance().isConnect() && !FitShowManager.isHome && rxData[1] != FitShowCommand.CMD_SYS_INFO_0x50) {
-            Logger.d("没有连接，并且不在Home界面");
+        if (!FitShowManager.getInstance().isConnect() &&
+                !FitShowManager.isHome &&
+                !FitShowManager.isBaseRun &&
+                rxData[1] != FitShowCommand.CMD_SYS_INFO_0x50) {
+            Logger.d("没有连接，并且不在Home界面, 也不在Run界面");
             FsSend.sendData(new byte[]{FitShowCommand.CMD_SYS_STATUS_0x51, FitShowCommand.STATUS_END_0x01}, 2);
             return;
         }

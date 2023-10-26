@@ -12,7 +12,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
-        versionName "2023" + "1023" + ver
+        versionName "2023" + "1026" + ver
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
