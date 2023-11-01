@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_pop_bk" />
+
+    <LinearLayout
+        android:layout_width="@dimen/dp_px_1246_x"
+        android:layout_height="@dimen/dp_px_485_y"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="@dimen/dp_px_933_x"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_px_60_x"
+            android:gravity="center"
+            android:text="@string/fact_img_reset_tip"
+            android:textAlignment="center"
+            android:textColor="@color/textView_black"
+            android:textSize="@dimen/font_size_25pt"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom|center"
+            android:paddingBottom="@dimen/dp_px_20_y">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:textAlignment="center">
+
+                <ImageView
+                    android:id="@+id/btn_pop_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_px_50_x"
+                    android:src="@drawable/btn_pop_yes" />
+
+                <ImageView
+                    android:id="@+id/btn_pop_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/btn_pop_no" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="@dimen/dp_px_1246_x"
+        android:layout_height="@dimen/dp_px_485_y">
+
+        <EditText
+            android:id="@+id/et_factory"
+            android:layout_width="@dimen/dp_px_400_x"
+            android:layout_height="@dimen/dp_px_100_y"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/img_user_name_frame"
+            android:cursorVisible="false"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLength="4"
+            android:textColor="#000000"
+            android:textSize="@dimen/font_size_30pt"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+</FrameLayout>

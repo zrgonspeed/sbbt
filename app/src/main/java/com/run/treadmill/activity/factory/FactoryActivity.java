@@ -119,6 +119,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         if (factoryTwo.isUpdatingLogo) {
             return;
         }
+        factoryTwo.safeError();
         super.safeError();
     }
 
