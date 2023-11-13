@@ -633,7 +633,7 @@ public class RunningParam {
                     }
                     mRunParamHandler.sendEmptyMessage(MsgWhat.MSG_REFRESH_DATA);
 
-                    stepManager.refreshSecond();
+                    // stepManager.refreshSecond();
 
                     // Logger.d("运动中 pre_recode == " + pre_recode);
                     // Logger.d("getRunTotalDis == " + UnitUtil.getFloatToInt(SpManager.getRunTotalDis()));
