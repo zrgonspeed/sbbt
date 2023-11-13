@@ -547,7 +547,7 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
                     return;
                 }
 
-                if ("0000".equals(text)) {
+                if ("000000".equals(text)) {
                     factResetDialog.dismiss();
                     Logger.i("恢复出厂设置");
                     doMasterClear();

@@ -73,7 +73,7 @@
             android:imeOptions="actionDone"
             android:inputType="number"
             android:lines="1"
-            android:maxLength="4"
+            android:maxLength="6"
             android:textColor="#000000"
             android:textSize="@dimen/font_size_30pt"
             android:textStyle="bold" />
