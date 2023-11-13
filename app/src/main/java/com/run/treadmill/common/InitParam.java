@@ -35,7 +35,7 @@ public class InitParam {
     /**
      * 公制最大速度最大值
      */
-    public static final float MAX_SPEED_MAX_METRIC = 22.0f;
+    public static final float MAX_SPEED_MAX_METRIC = 25.0f;
     /**
      * 公制最大速度最小值
      */
@@ -61,7 +61,7 @@ public class InitParam {
     /**
      * 英制最大速度最大值
      */
-    public static final float MAX_SPEED_MAX_IMPERIAL = 13.6f;
+    public static final float MAX_SPEED_MAX_IMPERIAL = 15.5f;
     /**
      * 英制最大速度最小值
      */
