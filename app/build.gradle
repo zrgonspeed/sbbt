@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    def ver = "V20"
+    def ver = "V10"
 
     compileSdkVersion 29
     buildToolsVersion '30.0.3'
@@ -12,7 +12,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
-        versionName "2023" + "1026" + ver
+        versionName "2023" + "1113" + ver
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
