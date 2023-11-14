@@ -7,10 +7,12 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -533,6 +535,9 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
             ImageView btn_pop_yes = factResetDialog.findViewById(R.id.btn_pop_yes);
             ImageView btn_pop_no = factResetDialog.findViewById(R.id.btn_pop_no);
             EditText et_factory = factResetDialog.findViewById(R.id.et_factory);
+            RelativeLayout rl_pass_error = factResetDialog.findViewById(R.id.rl_pass_error);
+            LinearLayout ll_center = factResetDialog.findViewById(R.id.ll_center);
+            RelativeLayout rl_et = factResetDialog.findViewById(R.id.rl_et);
 
             btn_pop_no.setOnClickListener(v -> {
                 BuzzerManager.getInstance().buzzerRingOnce();
@@ -551,6 +556,25 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
                     factResetDialog.dismiss();
                     Logger.i("恢复出厂设置");
                     doMasterClear();
+                } else {
+                    // 密码不正确，显示错误提示，2秒后恢复布局
+                    rl_pass_error.setVisibility(View.VISIBLE);
+                    ll_center.setVisibility(View.GONE);
+                    rl_et.setVisibility(View.GONE);
+
+                    new Thread(() -> {
+                        SystemClock.sleep(2000);
+                        activity.runOnUiThread(() -> {
+                            if (activity.isFinishing()) {
+                                return;
+                            }
+                            rl_pass_error.setVisibility(View.GONE);
+                            ll_center.setVisibility(View.VISIBLE);
+                            rl_et.setVisibility(View.VISIBLE);
+
+                            et_factory.requestFocus();
+                        });
+                    }).start();
                 }
             });
         }
