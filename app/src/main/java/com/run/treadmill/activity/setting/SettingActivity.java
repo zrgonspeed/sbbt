@@ -565,6 +565,9 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
         } else if (locale.getLanguage().endsWith("it")) {
             sp_language.setSelection(6, true);
             currLanguagePos = 6;
+        } else if (locale.getLanguage().endsWith("iw")) {
+            sp_language.setSelection(7, true);
+            currLanguagePos = 7;
         } else {
             sp_language.setSelection(0, true);
             currLanguagePos = 0;
@@ -610,6 +613,9 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                         break;
                     case 6:
                         changeSystemLanguage60(Locale.ITALIAN);
+                        break;
+                    case 7:
+                        changeSystemLanguage60(new Locale("he", "HE"));
                         break;
                 }
             }
