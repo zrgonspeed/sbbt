@@ -39,7 +39,7 @@
     <string name="string_select_time">שעה</string>
     <string name="string_select_target_hr">דופק מטרה</string>
     <string name="string_select_start_hint">לחצו על הפעלה כדי להתחיל באימון</string>
-    <string name="string_select_next_hint">Press Next to select profile</string>
+    <string name="string_select_next_hint">לחץ על הבא כדי לבחור פרופיל</string>
     <string name="string_select_back_hint">לחצו על \'חזור\' (BACK) כדי לחזור להגדרות </string>
     <string name="string_select_next_chart_hint">לחצו על \'הבא\' (NEXT) כדי לעבור לטבלת פרופיל האימון</string>
     <string name="string_select_next_hrc_hint">לחצו על \'הבא\' (NEXT) כדי לבחור באפשרות HRC</string>
@@ -177,16 +177,16 @@
     <string name="string_setting_sr_psw">סיסמת SR</string>
 
     <!-- app更新界面 -->
-    <string name="string_app_store_title">Application Manager</string>
+    <string name="string_app_store_title">מנהל יישומים</string>
     <string name="string_app_store_dialog_title">tip</string>
-    <string name="string_app_store_dialog_msg">Downloading</string>
-    <string name="string_app_store_fail">network anomaly</string>
+    <string name="string_app_store_dialog_msg">מוריד</string>
+    <string name="string_app_store_fail">אנומליה ברשת</string>
     <string name="string_app_store_update">עדכון</string>
-    <string name="string_app_store_update_fail">RENEW UPDATE</string>
-    <string name="string_app_store_wait_download">WAIT DOWNLOAD</string>
-    <string name="string_app_store_wait_install">WAIT INSTALL</string>
-    <string name="string_app_store_installing">INSTALLING</string>
-    <string name="string_app_store_install_fail">install fail</string>
+    <string name="string_app_store_update_fail">חידוש עדכון</string>
+    <string name="string_app_store_wait_download">המתן להורדה</string>
+    <string name="string_app_store_wait_install">המתן התקנה</string>
+    <string name="string_app_store_installing">התקנת</string>
+    <string name="string_app_store_install_fail">כשל התקנה</string>
     <!-- 错误 -->
     <string name="string_emergency_stop">עצירת חירום</string>
     <string name="string_time_out">TIME OUT</string>

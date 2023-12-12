@@ -17,6 +17,7 @@ import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.manager.fslight.FsLight;
 import com.run.treadmill.manager.musiclight.MusicReceiverManager;
 import com.run.treadmill.manager.musiclight.MusicLight;
+import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.LanguageUtil;
@@ -152,7 +153,7 @@ public class MyApplication extends LitePalApplication {
         MusicLight.startThread();
         MusicReceiverManager.register();
 
-        // OtaMcuUtils.installOtaMcu(this);
+        OtaMcuUtils.installOtaMcu(this);
     };
 
 
