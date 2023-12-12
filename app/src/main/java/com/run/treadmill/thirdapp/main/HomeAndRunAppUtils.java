@@ -119,7 +119,9 @@ public class HomeAndRunAppUtils {
         list.add(kinomap);
         list.add(disney2);
         list.add(amazonVideo);
-        // list.add(vod);
+        if (AppUtils.isHasTwo()) {
+            list.add(vod);
+        }
     }
 
     private static synchronized void initListChina() {

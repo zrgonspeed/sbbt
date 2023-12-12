@@ -212,4 +212,6 @@
     <string name="string_factory_img_reset">System Reset</string>
     <string name="string_running_media_pause">PAUSE</string>
     <string name="fact_img_reset_tip">Factory data reset</string>
+
+    <string name="add_2_app">show 12+</string>
 </resources>

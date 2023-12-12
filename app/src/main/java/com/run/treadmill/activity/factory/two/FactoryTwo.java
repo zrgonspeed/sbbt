@@ -35,6 +35,7 @@ import com.run.treadmill.manager.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.receiver.USBBroadcastReceiver;
+import com.run.treadmill.thirdapp.main.AppUtils;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.SystemUtils;
@@ -58,6 +59,7 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
     private int lastItemInx;
 
     private ToggleButton tb_sleep, tb_display, tb_incline, tb_touch, tb_buzzer, tb_login_ctrl;
+    private ToggleButton tb_has_two;
     private TextView tv_lube;
     private ImageView btn_setting_reset;
     private ImageView btn_img_reset;
@@ -107,6 +109,7 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
         viewsLeft[2] = rl_main_two.findViewById(R.id.rb_update);
         viewsLeft[3] = rl_main_two.findViewById(R.id.rb_logo);
 
+        tb_has_two = (ToggleButton) views[0].findViewById(R.id.tb_has_two);
         tb_sleep = (ToggleButton) views[0].findViewById(R.id.tb_sleep);
         tb_display = (ToggleButton) views[0].findViewById(R.id.tb_display);
         tb_incline = (ToggleButton) views[0].findViewById(R.id.tb_incline);
@@ -178,6 +181,7 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
         btn_factory_update.setOnClickListener(this);
         btn_update_logo.setOnClickListener(this);
         tb_sleep.setOnCheckedChangeListener(this);
+        tb_has_two.setOnCheckedChangeListener(this);
         tb_display.setOnCheckedChangeListener(this);
         tb_incline.setOnCheckedChangeListener(this);
         tb_touch.setOnCheckedChangeListener(this);
@@ -226,6 +230,7 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
     }
 
     private void initNeedResetSetting() {
+        tb_has_two.setChecked(AppUtils.isHasTwo());
         tb_sleep.setChecked(SpManager.getSleep());
         tb_incline.setChecked(SpManager.getGSMode());
         tb_incline.setEnabled(true);
@@ -435,6 +440,9 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         BuzzerManager.getInstance().buzzerRingOnce();
         switch (buttonView.getId()) {
+            case R.id.tb_has_two:
+                AppUtils.setHasTwo(isChecked);
+                break;
             case R.id.tb_sleep:
                 SpManager.setSleep(isChecked);
                 break;

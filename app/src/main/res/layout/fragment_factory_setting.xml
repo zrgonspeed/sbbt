@@ -81,6 +81,25 @@
         android:textOff=""
         android:textOn="" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_59_x"
+        android:layout_marginTop="@dimen/dp_px_600_y"
+        android:text="@string/add_2_app"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_21pt" />
+
+    <ToggleButton
+        android:id="@+id/tb_has_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_476_x"
+        android:layout_marginTop="@dimen/dp_px_600_y"
+        android:background="@drawable/btn_on_off"
+        android:textOff=""
+        android:textOn="" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
