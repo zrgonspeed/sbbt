@@ -3,7 +3,7 @@ package com.run.treadmill.activity.modeSelect.goal;
 import com.run.treadmill.activity.modeSelect.BaseSelectPresenter;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 
 import java.util.Arrays;
 

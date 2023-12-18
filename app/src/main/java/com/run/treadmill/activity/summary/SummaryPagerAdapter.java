@@ -1,4 +1,4 @@
-package com.run.treadmill.adapter;
+package com.run.treadmill.activity.summary;
 
 import androidx.viewpager.widget.PagerAdapter;
 

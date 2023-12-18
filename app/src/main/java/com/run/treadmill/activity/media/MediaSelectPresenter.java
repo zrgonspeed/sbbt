@@ -5,7 +5,7 @@ import android.content.res.TypedArray;
 
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.base.BasePresenter;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 
 import java.util.Arrays;
 

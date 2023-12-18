@@ -8,7 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.run.android.ShellCmdUtils;
-import com.run.treadmill.base.MyApplication;
+import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.util.Logger;
 
 import java.io.File;

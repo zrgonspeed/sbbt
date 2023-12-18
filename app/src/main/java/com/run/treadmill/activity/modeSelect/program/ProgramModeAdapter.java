@@ -1,4 +1,4 @@
-package com.run.treadmill.adapter;
+package com.run.treadmill.activity.modeSelect.program;
 
 import android.content.Context;
 import android.view.View;

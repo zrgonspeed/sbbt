@@ -3,11 +3,7 @@ package com.run.treadmill.activity.runMode.interval;
 import com.run.treadmill.activity.runMode.BaseRunPresenter;
 import com.run.treadmill.common.InitParam;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/08/21
- */
+
 public class IntervalPresenter extends BaseRunPresenter<IntervalView> {
     @Override
     public void calcJump() {

@@ -1,9 +1,9 @@
 package com.run.treadmill.widget;
 
 import com.run.treadmill.R;
-import com.run.treadmill.base.MyApplication;
+import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 
 public class MyYaxisViewManager {
     // 最大值和最小值之间的值

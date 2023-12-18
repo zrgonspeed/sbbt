@@ -6,11 +6,7 @@ import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.db.UserDB;
 import com.run.treadmill.manager.UserInfoManager;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/08/21
- */
+
 public class HillSelectPresenter extends BaseSelectPresenter<HillSelectView> {
 
     private float mSpeedItemValueArray[] = {2.4f, 3.2f, 4.0f, 4.8f, 5.6f, 6.2f, 5.6f, 6.2f, 5.6f, 6.2f, 5.6f, 6.2f, 5.6f, 6.2f, 5.6f,

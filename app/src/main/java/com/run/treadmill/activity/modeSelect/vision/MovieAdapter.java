@@ -1,6 +1,4 @@
-package com.run.treadmill.adapter;
-
-import androidx.recyclerview.widget.RecyclerView;
+package com.run.treadmill.activity.modeSelect.vision;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +7,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.run.treadmill.R;
 
 import java.util.List;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/08/21
- */
+
 public class MovieAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private List<Movie> mMovies;
     private OnItemClickListener mListener;

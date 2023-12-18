@@ -13,7 +13,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.fitshow.other.FitShowRunningCallBack;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.KeyUtils;

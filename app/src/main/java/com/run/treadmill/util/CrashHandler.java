@@ -3,7 +3,7 @@ package com.run.treadmill.util;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;

@@ -2,12 +2,9 @@ package com.run.treadmill.thirdapp.other;
 
 import android.os.SystemClock;
 
-import com.run.treadmill.base.MyApplication;
-import com.run.treadmill.util.Logger;
+import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.util.NotificationBackend;
 import com.run.treadmill.util.ThirdApkSupport;
-
-import java.util.Arrays;
 
 /**
  * 屏蔽第三方通知

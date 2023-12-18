@@ -1,6 +1,6 @@
 package com.run.treadmill.thirdapp.main;
 
-import com.run.treadmill.util.StorageParam;
+import com.run.treadmill.sp.StorageParam;
 
 public class AppUtils {
     // sp存储状态

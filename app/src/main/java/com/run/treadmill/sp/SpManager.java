@@ -1,4 +1,4 @@
-package com.run.treadmill.manager;
+package com.run.treadmill.sp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.util.StorageParam;
+import com.run.treadmill.sp.StorageParam;
 import com.run.treadmill.util.UnitUtil;
 
 /**

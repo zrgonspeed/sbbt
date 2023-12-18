@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.UnitUtil;
 

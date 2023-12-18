@@ -17,6 +17,7 @@ import com.run.treadmill.manager.fitshow.FsSend;
 import com.run.treadmill.manager.fitshow.other.FitShowRunningCallBack;
 import com.run.treadmill.manager.fitshow.other.FitShowStatusCallBack;
 import com.run.treadmill.manager.fitshow.other.FsThreadManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.Logger;
 
 public class FitShowManager {

@@ -4,9 +4,7 @@ import android.content.Context;
 import android.util.ArrayMap;
 
 import com.google.gson.Gson;
-import com.run.treadmill.R;
-import com.run.treadmill.base.MyApplication;
-import com.run.treadmill.common.InitParam;
+import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.homeupdate.main.ApkUpdateParam;
 import com.run.treadmill.thirdapp.main.ThirdUpdateUtils;
 

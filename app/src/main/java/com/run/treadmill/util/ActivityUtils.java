@@ -5,7 +5,7 @@ import android.app.ActivityManager;
 import android.app.Instrumentation;
 import android.content.ComponentName;
 
-import com.run.treadmill.base.MyApplication;
+import com.run.treadmill.reboot.MyApplication;
 
 import java.util.List;
 

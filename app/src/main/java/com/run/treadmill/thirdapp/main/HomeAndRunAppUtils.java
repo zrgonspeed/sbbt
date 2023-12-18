@@ -1,7 +1,7 @@
 package com.run.treadmill.thirdapp.main;
 
 import com.run.treadmill.R;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.thirdapp.bean.ThirdApp;
 import com.run.treadmill.util.Logger;
 

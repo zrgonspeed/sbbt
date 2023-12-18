@@ -5,11 +5,7 @@ import android.view.WindowManager;
 
 import com.run.treadmill.activity.floatWindow.BaseRunCtrlFloatWindow;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/08/21
- */
+
 public class VisionRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
     public VisionRunCtrlFloatWindow(Context context, WindowManager windowManager) {
         super(context, windowManager);

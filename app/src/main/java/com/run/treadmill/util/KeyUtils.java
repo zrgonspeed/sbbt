@@ -3,7 +3,7 @@ package com.run.treadmill.util;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.interceptor.InclineError;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
 
 public class KeyUtils {

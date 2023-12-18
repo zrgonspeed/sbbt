@@ -2,8 +2,8 @@ package com.run.treadmill.activity.runMode.fitness;
 
 import com.run.treadmill.activity.runMode.BaseRunPresenter;
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.common.RunModeTable;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.common.table.RunModeTable;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.FormulaUtil;
 
 /**

@@ -4,11 +4,10 @@ import android.os.Message;
 
 import com.run.serial.SerialUtils;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.common.MsgWhat;
+import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.control.NormalParam;
 import com.run.treadmill.serial.SerialKeyValue;
-import com.run.treadmill.util.Logger;
 
 /**
  * @Description 常态包拦截器

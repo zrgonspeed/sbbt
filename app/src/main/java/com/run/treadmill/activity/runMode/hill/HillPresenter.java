@@ -3,11 +3,7 @@ package com.run.treadmill.activity.runMode.hill;
 import com.run.treadmill.activity.runMode.BaseRunPresenter;
 import com.run.treadmill.common.InitParam;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/08/21
- */
+
 public class HillPresenter extends BaseRunPresenter<HillView> {
     @Override
     public void calcJump() {

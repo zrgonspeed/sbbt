@@ -1,4 +1,4 @@
-package com.run.treadmill.http;
+package com.run.treadmill.util.http;
 
 import android.os.Handler;
 import android.os.Looper;

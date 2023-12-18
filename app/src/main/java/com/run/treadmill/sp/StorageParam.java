@@ -1,4 +1,4 @@
-package com.run.treadmill.util;
+package com.run.treadmill.sp;
 
 import android.content.Context;
 import android.content.SharedPreferences;

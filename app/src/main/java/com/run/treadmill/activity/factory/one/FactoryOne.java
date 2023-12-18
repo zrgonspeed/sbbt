@@ -20,7 +20,7 @@ import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.widget.LongClickImage;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
 

@@ -7,7 +7,7 @@ import com.fitShow.treadmill.FitShowCommand;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.fitshow.other.FsThreadManager;
 import com.run.treadmill.manager.fitshow.other.Utils;
 import com.run.treadmill.util.Logger;

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,16 +18,13 @@ import androidx.viewpager.widget.ViewPager;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.modeSelect.BaseSelectActivity;
 import com.run.treadmill.activity.runMode.vision.VisionActivity;
-import com.run.treadmill.adapter.MediaSelectPagerAdapter;
-import com.run.treadmill.adapter.MovieAdapter;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.db.UserDB;
-import com.run.treadmill.factory.CreatePresenter;
+import com.run.treadmill.base.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.UserInfoManager;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.Logger;
-import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.widget.calculator.BaseCalculator;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
 import com.run.treadmill.widget.calculator.CalculatorOfSelectMode;
@@ -39,11 +35,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/08/21
- */
+
 @CreatePresenter(VisionSelectPresenter.class)
 public class VisionSelectActivity extends BaseSelectActivity<VisionSelectView, VisionSelectPresenter> implements VisionSelectView, MovieAdapter.OnItemClickListener, CalculatorCallBack {
 
@@ -139,7 +131,7 @@ public class VisionSelectActivity extends BaseSelectActivity<VisionSelectView, V
         //     btn_vision_page.setVisibility(View.VISIBLE);
         // }
 
-        vp_movie.setAdapter(new MediaSelectPagerAdapter(mViews));
+        vp_movie.setAdapter(new VisionSelectPagerAdapter(mViews));
         vp_movie.setOffscreenPageLimit(1);//页数
         vp_movie.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

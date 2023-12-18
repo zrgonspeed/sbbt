@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.db.UserDB;
+import com.run.treadmill.sp.SpManager;
 
 import java.util.Map;
 

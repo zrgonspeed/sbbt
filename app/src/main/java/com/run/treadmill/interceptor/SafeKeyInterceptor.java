@@ -6,9 +6,8 @@ import com.run.serial.SerialUtils;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.control.NormalParam;
-import com.run.treadmill.util.Logger;
 
 /**
  * @Description 安全key的错误拦截

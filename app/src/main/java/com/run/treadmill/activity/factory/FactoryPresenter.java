@@ -10,7 +10,7 @@ import com.run.treadmill.db.UserCustomDataDB;
 import com.run.treadmill.db.UserDB;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.UserInfoManager;
 import com.run.treadmill.manager.control.NormalParam;
 import com.run.treadmill.manager.control.ParamCons;

@@ -7,7 +7,7 @@ import android.os.SystemClock;
 import android.provider.Settings;
 
 import com.run.android.ShellCmdUtils;
-import com.run.treadmill.base.MyApplication;
+import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.manager.PermissionManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.thirdapp.other.WhiteListUtils;

@@ -1,4 +1,4 @@
-package com.run.treadmill.adapter;
+package com.run.treadmill.activity.appStore;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.run.treadmill.R;
-import com.run.treadmill.activity.appStore.AppBean;
 
 import java.util.ArrayList;
 import java.util.List;

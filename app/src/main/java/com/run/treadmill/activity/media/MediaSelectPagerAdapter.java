@@ -1,4 +1,4 @@
-package com.run.treadmill.adapter;
+package com.run.treadmill.activity.media;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;

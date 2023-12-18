@@ -3,7 +3,7 @@ package com.run.treadmill.homeupdate.main;
 import android.content.Context;
 import android.os.Environment;
 
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 
 public class ApkUpdateParam {
     public static final String DOWNLOAD_PATH_CN = Environment.getExternalStorageDirectory().getAbsolutePath() + "/treadmill" + "/cn";

@@ -1,4 +1,4 @@
-package com.run.treadmill.bluetooth;
+package com.run.treadmill.sysbt;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.run.treadmill.base.MyApplication;
+import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.util.Logger;
 
 import java.util.ArrayList;

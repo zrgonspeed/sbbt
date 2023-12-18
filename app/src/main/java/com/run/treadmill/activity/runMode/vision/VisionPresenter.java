@@ -5,15 +5,9 @@ import android.os.Message;
 import com.run.treadmill.activity.runMode.BaseRunPresenter;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.common.MsgWhat;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.util.Logger;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/08/21
- */
+
 public class VisionPresenter extends BaseRunPresenter<VisionView> {
     private int[][] inclineTable = {
             {4, 0, 3, 0, 5, 0, 12, 0, 2, 0, 8, 0, 6, 0, 4, 0, 2, 0, 0, 0,

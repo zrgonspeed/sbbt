@@ -12,11 +12,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.serial.SerialKeyValue;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/08/21
- */
+
 public class IntervalRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
     public IntervalRunCtrlFloatWindow(Context context, WindowManager windowManager) {
         super(context, windowManager);

@@ -3,7 +3,7 @@ package com.run.treadmill.widget.calculator;
 import android.content.Context;
 
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 
 /**
  * @Description 这里用一句话描述

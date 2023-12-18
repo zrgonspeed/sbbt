@@ -1,4 +1,4 @@
-package com.run.treadmill.adapter;
+package com.run.treadmill.activity.runMode;
 
 import androidx.recyclerview.widget.RecyclerView;
 

@@ -62,7 +62,7 @@
         tools:ignore="ProtectedPermissions" />
 
     <application
-        android:name=".base.MyApplication"
+        android:name=".reboot.MyApplication"
         android:allowBackup="true"
         android:defaultToDeviceProtectedStorage="true"
         android:directBootAware="true"

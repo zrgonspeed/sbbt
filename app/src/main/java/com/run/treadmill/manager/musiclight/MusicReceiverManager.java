@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import com.run.treadmill.base.MyApplication;
+import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.util.Logger;
 
 public class MusicReceiverManager {

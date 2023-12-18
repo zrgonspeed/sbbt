@@ -17,8 +17,7 @@ import android.widget.TextView;
 import com.run.treadmill.R;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.SpManager;
-import com.run.treadmill.util.StringUtil;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.UnitUtil;
 
 public abstract class BaseCalculator implements View.OnClickListener {

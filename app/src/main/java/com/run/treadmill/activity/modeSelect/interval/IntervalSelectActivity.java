@@ -17,7 +17,7 @@ import com.run.treadmill.activity.runMode.interval.IntervalActivity;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.db.UserDB;
-import com.run.treadmill.factory.CreatePresenter;
+import com.run.treadmill.base.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.UserInfoManager;
 import com.run.treadmill.util.StringUtil;
@@ -28,11 +28,7 @@ import com.run.treadmill.widget.calculator.CalculatorOfSelectMode;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/08/21
- */
+
 @CreatePresenter(IntervalSelectPresenter.class)
 public class IntervalSelectActivity extends BaseSelectActivity<IntervalSelectView, IntervalSelectPresenter> implements IntervalSelectView, CalculatorCallBack, RadioGroup.OnCheckedChangeListener {
 

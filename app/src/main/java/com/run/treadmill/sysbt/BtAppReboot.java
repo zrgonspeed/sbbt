@@ -1,4 +1,4 @@
-package com.run.treadmill.bluetooth;
+package com.run.treadmill.sysbt;
 
 import android.content.ComponentName;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.run.treadmill.common;
+package com.run.treadmill.util;
 
 /**
  * @Description 消息标识类

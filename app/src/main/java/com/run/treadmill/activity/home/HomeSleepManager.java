@@ -5,7 +5,7 @@ import android.view.View;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.homeupdate.third.HomeThirdAppUpdateManager;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
 

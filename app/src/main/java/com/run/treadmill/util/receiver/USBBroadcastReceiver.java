@@ -1,4 +1,4 @@
-package com.run.treadmill.receiver;
+package com.run.treadmill.util.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

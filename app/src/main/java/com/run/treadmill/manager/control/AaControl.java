@@ -6,7 +6,7 @@ import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.DataTypeConversion;
 
 /**

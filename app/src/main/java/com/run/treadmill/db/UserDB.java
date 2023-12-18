@@ -1,7 +1,7 @@
 package com.run.treadmill.db;
 
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 
 import org.litepal.crud.LitePalSupport;
 

@@ -14,7 +14,7 @@ import androidx.core.content.FileProvider;
 
 import com.run.android.ShellCmdUtils;
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 
 import java.io.File;
 import java.io.FileInputStream;

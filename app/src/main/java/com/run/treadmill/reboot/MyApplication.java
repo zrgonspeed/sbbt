@@ -1,9 +1,9 @@
-package com.run.treadmill.base;
+package com.run.treadmill.reboot;
 
 import com.run.android.ShellCmdUtils;
 import com.run.serial.SerialCommand;
 import com.run.treadmill.AppDebug;
-import com.run.treadmill.bluetooth.BtAppReboot;
+import com.run.treadmill.sysbt.BtAppReboot;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.manager.BuzzerManager;
@@ -11,7 +11,7 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.HardwareSoundManager;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.manager.fslight.FsLight;

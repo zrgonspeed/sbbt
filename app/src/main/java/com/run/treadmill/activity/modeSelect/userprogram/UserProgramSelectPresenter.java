@@ -7,8 +7,7 @@ import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.db.UserCustomDataDB;
 import com.run.treadmill.db.UserDB;
-import com.run.treadmill.manager.SpManager;
-import com.run.treadmill.util.Logger;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.UnitUtil;
 
 import org.litepal.LitePal;

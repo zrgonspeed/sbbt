@@ -8,8 +8,8 @@ import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.activity.setting.SettingActivity;
 import com.run.treadmill.homeupdate.third.utils.HomeUtils;
 import com.run.treadmill.homeupdate.third.utils.NetUtils;
-import com.run.treadmill.http.OkHttpCallBack;
-import com.run.treadmill.http.OkHttpHelper;
+import com.run.treadmill.util.http.OkHttpCallBack;
+import com.run.treadmill.util.http.OkHttpHelper;
 import com.run.treadmill.util.Logger;
 
 import java.io.IOException;

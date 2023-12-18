@@ -13,16 +13,14 @@ import android.widget.TextView;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.factory.FactoryActivity;
-import com.run.treadmill.activity.floatWindow.SettingBackFloatWindow;
-import com.run.treadmill.base.MyApplication;
+import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.Logger;
-import com.run.treadmill.util.ThirdApkSupport;
 import com.run.treadmill.util.WifiBackFloatWindow;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
 import com.run.treadmill.widget.WifiMultiClickAndLongPressView;

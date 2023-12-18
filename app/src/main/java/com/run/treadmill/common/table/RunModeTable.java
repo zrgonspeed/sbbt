@@ -1,4 +1,4 @@
-package com.run.treadmill.common;
+package com.run.treadmill.common.table;
 
 /**
  * @Description 公制的数值表

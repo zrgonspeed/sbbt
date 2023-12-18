@@ -3,24 +3,19 @@ package com.run.treadmill.activity.modeSelect.vision;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.media.PlaybackParams;
-import android.util.Log;
 
 import com.run.treadmill.activity.modeSelect.BaseSelectPresenter;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.db.UserDB;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.UserInfoManager;
 import com.run.treadmill.util.Logger;
 
 import java.util.Arrays;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/08/21
- */
+
 public class VisionSelectPresenter extends BaseSelectPresenter<VisionSelectView> {
 
     void setRunParam(int targetTime) {

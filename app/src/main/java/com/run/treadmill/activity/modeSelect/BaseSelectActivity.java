@@ -13,7 +13,7 @@ import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.widget.calculator.BaseCalculator;

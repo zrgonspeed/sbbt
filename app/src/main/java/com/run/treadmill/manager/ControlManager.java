@@ -8,14 +8,13 @@ import com.run.serial.RxDataCallBack;
 import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
-import com.run.treadmill.base.MyApplication;
+import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.control.AaControl;
 import com.run.treadmill.manager.control.ControlStrategy;
 import com.run.treadmill.manager.control.NormalParam;
 import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.util.DataTypeConversion;
-import com.run.treadmill.util.FormulaUtil;
 import com.run.treadmill.util.UnitUtil;
 
 /**

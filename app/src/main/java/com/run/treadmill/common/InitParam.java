@@ -1,9 +1,5 @@
 package com.run.treadmill.common;
 
-import android.content.Context;
-
-import com.run.treadmill.manager.SpManager;
-
 public class InitParam {
     public static final String APK = "553-54T-41";
     public static final String PROJECT_NAME = "AC00" + APK;

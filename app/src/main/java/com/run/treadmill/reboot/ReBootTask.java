@@ -1,13 +1,14 @@
-package com.run.treadmill.base;
+package com.run.treadmill.reboot;
 
 import com.run.serial.RxDataCallBack;
 import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
+import com.run.treadmill.base.BasePresenter;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.common.MsgWhat;
+import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.control.NormalParam;
 import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.util.DataTypeConversion;

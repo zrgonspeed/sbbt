@@ -5,7 +5,7 @@ import android.content.Context;
 import com.chuhui.btcontrol.BtHelper;
 import com.chuhui.btcontrol.bean.InitialBean;
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.manager.SpManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.zyftms.ZyLight;
 
 

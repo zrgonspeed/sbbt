@@ -10,9 +10,7 @@ import android.os.Message;
 
 import androidx.annotation.IntDef;
 
-import com.run.serial.SerialUtils;
 import com.run.treadmill.R;
-import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.ButtonUtils;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;

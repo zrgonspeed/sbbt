@@ -3,7 +3,7 @@ package com.run.treadmill.thirdapp.other;
 import android.os.Build;
 
 import com.run.android.ShellCmdUtils;
-import com.run.treadmill.base.MyApplication;
+import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.manager.fslight.FsLight;
 import com.run.treadmill.manager.musiclight.MusicLight;
 import com.run.treadmill.manager.zyftms.ZyLight;

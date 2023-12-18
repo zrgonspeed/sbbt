@@ -4,7 +4,7 @@ import com.run.treadmill.activity.modeSelect.BaseSelectPresenter;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.common.RunModeTable;
+import com.run.treadmill.common.table.RunModeTable;
 import com.run.treadmill.db.UserDB;
 import com.run.treadmill.manager.UserInfoManager;
 

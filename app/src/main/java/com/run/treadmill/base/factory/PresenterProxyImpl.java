@@ -1,4 +1,4 @@
-package com.run.treadmill.factory;
+package com.run.treadmill.base.factory;
 
 import android.os.Bundle;
 
