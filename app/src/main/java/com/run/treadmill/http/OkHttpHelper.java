@@ -131,26 +131,23 @@ public class OkHttpHelper {
                     }
 
                     @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) {
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                         if (call.isCanceled()) {
                             return;
                         }
-                        try {
-                            int code = response.code();
-                            if (code != 200) {
-                                mHandler.post(() -> {
+                        String string = response.body().string();
+                        mHandler.post(()->{
+                            try {
+                                if (response.code() != 200) {
                                     callBack.onFailure(call, new IOException());
-                                });
-                            } else {
-                                String body = response.body().string();
-                                mHandler.post(() -> {
-                                    callBack.onSuccess(call, body);
-                                });
+                                } else {
+                                    callBack.onSuccess(call, string);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                callBack.onFailure(call, new IOException());
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            callBack.onFailure(call, new IOException());
-                        }
+                        });
                     }
                 });
     }
