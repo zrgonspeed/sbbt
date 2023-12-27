@@ -121,6 +121,8 @@
         <item>Spotify</item>
         <item>NETFLIX</item>
         <item>ponymusic</item>
+
+        <item>GooglePlayServices</item>
         <!--        <item>AnplusMirroring</item>-->
     </string-array>
 
@@ -133,6 +135,8 @@
         <item>@string/string_app_pk_name_6</item>
         <item>@string/string_app_pk_name_7</item>
         <item>@string/string_app_pk_name_8</item>
+
+        <item>com.google.android.gms</item>
 <!--        <item>@string/string_app_pk_name_9</item>-->
 <!--        <item>@string/string_app_pk_name_10</item>-->
     </string-array>
@@ -146,6 +150,8 @@
         <item>@drawable/btn_media_spotify_1</item>
         <item>@drawable/btn_media_netflix_1</item>
         <item>@drawable/btn_media_mp3_1</item>
+
+        <item>@drawable/btn_media_google_serive_1</item>
         <!--        <item>@drawable/btn_media_screen_mirroring_1</item>-->
     </integer-array>
 
@@ -198,5 +204,7 @@
         <item>com.tencent.qqmusicpad</item>
         <item>com.amazon.avod.thirdpartyclient</item>
         <item>com.amazon.mShop.android.shopping</item>
+
+        <item>com.google.android.gms</item>
     </string-array>
 </resources>
