@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    def ver = "V10"
+    def ver = "V20"
 
     compileSdkVersion 29
     buildToolsVersion '30.0.3'
