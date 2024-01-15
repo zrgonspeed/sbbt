@@ -10,7 +10,7 @@ import com.run.android.ShellCmdUtils;
 import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.manager.PermissionManager;
 import com.run.treadmill.manager.SystemSoundManager;
-import com.run.treadmill.thirdapp.other.WhiteListUtils;
+import com.run.treadmill.update.thirdapp.other.WhiteListUtils;
 
 public class SystemUtils {
     public static void closeAnimation() {

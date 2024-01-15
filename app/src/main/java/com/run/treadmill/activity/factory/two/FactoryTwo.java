@@ -26,8 +26,8 @@ import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.factory.FactoryActivity;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.homeupdate.main.ApkUpdateParam;
-import com.run.treadmill.homeupdate.third.HomeThirdAppUpdateManager;
+import com.run.treadmill.update.homeupdate.main.ApkUpdateParam;
+import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.util.http.OkHttpHelper;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
@@ -35,7 +35,6 @@ import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.util.receiver.USBBroadcastReceiver;
-import com.run.treadmill.thirdapp.main.AppUtils;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.SystemUtils;
@@ -230,7 +229,7 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
     }
 
     private void initNeedResetSetting() {
-        tb_has_two.setChecked(AppUtils.isHasTwo());
+        // tb_has_two.setChecked(AppUtils.isHasTwo());
         tb_sleep.setChecked(SpManager.getSleep());
         tb_incline.setChecked(SpManager.getGSMode());
         tb_incline.setEnabled(true);
@@ -441,7 +440,6 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
         BuzzerManager.getInstance().buzzerRingOnce();
         switch (buttonView.getId()) {
             case R.id.tb_has_two:
-                AppUtils.setHasTwo(isChecked);
                 break;
             case R.id.tb_sleep:
                 SpManager.setSleep(isChecked);

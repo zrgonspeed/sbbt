@@ -23,7 +23,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
-import com.run.treadmill.thirdapp.main.HomeAndRunAppUtils;
+import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.util.FileUtil;
 
 import java.util.ArrayList;

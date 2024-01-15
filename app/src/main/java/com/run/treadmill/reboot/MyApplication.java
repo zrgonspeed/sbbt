@@ -5,7 +5,7 @@ import com.run.serial.SerialCommand;
 import com.run.treadmill.AppDebug;
 import com.run.treadmill.sysbt.BtAppReboot;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.homeupdate.third.HomeThirdAppUpdateManager;
+import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;

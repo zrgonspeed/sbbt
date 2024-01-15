@@ -1,4 +1,4 @@
-package com.run.treadmill.thirdapp.other;
+package com.run.treadmill.update.thirdapp.other;
 
 import com.run.android.ShellCmdUtils;
 import com.run.treadmill.util.Logger;

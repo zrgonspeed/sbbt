@@ -46,7 +46,7 @@ import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.WifiBTStateManager;
 import com.run.treadmill.serial.SerialKeyValue;
-import com.run.treadmill.thirdapp.main.HomeAndRunAppUtils;
+import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.FormulaUtil;
 import com.run.treadmill.util.Logger;

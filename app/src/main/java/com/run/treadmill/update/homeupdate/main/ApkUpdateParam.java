@@ -1,4 +1,4 @@
-package com.run.treadmill.homeupdate.main;
+package com.run.treadmill.update.homeupdate.main;
 
 import android.content.Context;
 import android.os.Environment;

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.factory.FactoryActivity;
 import com.run.treadmill.reboot.MyApplication;
-import com.run.treadmill.homeupdate.main.HomeApkUpdateManager;
+import com.run.treadmill.update.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;

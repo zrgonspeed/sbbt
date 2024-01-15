@@ -1,4 +1,4 @@
-package com.run.treadmill.thirdapp.bean;
+package com.run.treadmill.update.thirdapp.bean;
 
 public class ThirdApp {
     public final String name;

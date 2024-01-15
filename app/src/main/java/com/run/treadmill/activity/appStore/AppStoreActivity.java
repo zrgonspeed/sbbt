@@ -27,7 +27,7 @@ import com.run.treadmill.base.factory.CreatePresenter;
 import com.run.treadmill.util.http.DownloadListener;
 import com.run.treadmill.util.http.OkHttpHelper;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.Md5Manager;
+import com.run.treadmill.util.Md5Manager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FileUtil;

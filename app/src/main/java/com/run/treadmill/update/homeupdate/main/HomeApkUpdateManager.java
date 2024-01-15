@@ -1,4 +1,4 @@
-package com.run.treadmill.homeupdate.main;
+package com.run.treadmill.update.homeupdate.main;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -14,7 +14,7 @@ import com.run.treadmill.common.InitParam;
 import com.run.treadmill.util.http.DownloadListener;
 import com.run.treadmill.util.http.OkHttpCallBack;
 import com.run.treadmill.util.http.OkHttpHelper;
-import com.run.treadmill.manager.Md5Manager;
+import com.run.treadmill.util.Md5Manager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.WifiBTStateManager;
 import com.run.treadmill.util.DownloadTimeUtils;

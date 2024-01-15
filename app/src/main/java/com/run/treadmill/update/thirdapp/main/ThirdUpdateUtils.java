@@ -1,14 +1,14 @@
-package com.run.treadmill.thirdapp.main;
+package com.run.treadmill.update.thirdapp.main;
 
 import com.run.treadmill.R;
 import com.run.treadmill.sp.SpManager;
-import com.run.treadmill.thirdapp.bean.ThirdApp;
+import com.run.treadmill.update.thirdapp.bean.ThirdApp;
 import com.run.treadmill.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeAndRunAppUtils {
+public class ThirdUpdateUtils {
     private static List<ThirdApp> list;
 
     public static boolean changeLanguage = false;
@@ -33,76 +33,65 @@ public class HomeAndRunAppUtils {
 
     private static synchronized void initListEnglish() {
         ThirdApp youtube = new ThirdApp.Builder("YouTube", "com.google.android.youtube")
-                .homeDrawable(R.drawable.btn_home_youtube)
-                .runDrawable(R.drawable.btn_media_youtube)
+                .updateDrawable(R.drawable.btn_media_youtube_1)
                 .build();
 
         ThirdApp chrome = new ThirdApp.Builder("GoogleChrome", "com.android.chrome")
-                .homeDrawable(R.drawable.btn_home_chrome)
-                .runDrawable(R.drawable.btn_media_chrome)
+                .updateDrawable(R.drawable.btn_media_chrome_1)
                 .build();
         ThirdApp twitter = new ThirdApp.Builder("Twitter", "com.twitter.android")
-                .homeDrawable(R.drawable.btn_home_twitter)
-                .runDrawable(R.drawable.btn_media_twitter)
+                .updateDrawable(R.drawable.btn_media_twitter_1)
                 .build();
         ThirdApp facebook = new ThirdApp.Builder("Facebook", "com.facebook.katana")
-                .homeDrawable(R.drawable.btn_home_facebook)
-                .runDrawable(R.drawable.btn_media_facebook)
+                .updateDrawable(R.drawable.btn_media_facebook_1)
                 .build();
 
         ThirdApp instagram = new ThirdApp.Builder("Instagram", "com.instagram.android")
-                .homeDrawable(R.drawable.btn_home_instagram)
-                .runDrawable(R.drawable.btn_media_instagram)
+                .updateDrawable(R.drawable.btn_media_instagram_1)
                 .build();
 
         ThirdApp spotify = new ThirdApp.Builder("Spotify", "com.spotify.music")
-                .homeDrawable(R.drawable.btn_home_spotify)
-                .runDrawable(R.drawable.btn_media_spotify)
+                .updateDrawable(R.drawable.btn_media_spotify_1)
                 .build();
 
         ThirdApp netflix = new ThirdApp.Builder("NETFLIX", "com.netflix.mediaclient")
-                .homeDrawable(R.drawable.btn_home_netflix)
-                .runDrawable(R.drawable.btn_media_netflix)
+                .updateDrawable(R.drawable.btn_media_netflix_1)
                 .build();
 
         ThirdApp ponymusic = new ThirdApp.Builder("ponymusic", "me.wcy.music")
-                .homeDrawable(R.drawable.btn_home_mp3)
-                .runDrawable(R.drawable.btn_media_mp3)
+                .updateDrawable(R.drawable.btn_media_mp3_1)
                 .build();
 
-        ThirdApp mp4 = new ThirdApp.Builder("mp4", "com.softwinner.fireplayer")
-                .homeDrawable(R.drawable.btn_home_mp4)
-                .runDrawable(R.drawable.btn_media_mp4)
+        ThirdApp anplus_A133Bluetooth = new ThirdApp.Builder("Anplus_A133Bluetooth", "com.anplus.bluetooth")
+                .updateDrawable(R.drawable.btn_app_bluetooth_1)
+                .build();
+
+        ThirdApp anplusMirroring = new ThirdApp.Builder("AnplusMirroring", "com.anplus.tft")
+                .updateDrawable(R.drawable.btn_media_screen_mirroring_1)
+                .build();
+
+        ThirdApp gms = new ThirdApp.Builder("GooglePlayServices", "com.google.android.gms")
+                .updateDrawable(R.drawable.btn_media_google_serive_1)
                 .build();
 
         ThirdApp kinomap = new ThirdApp.Builder("Kinomap", "com.kinomap.training")
-                .homeDrawable(R.drawable.btn_home_kinomap)
-                .runDrawable(R.drawable.btn_media_kinomap)
-                .build();
-
-        ThirdApp AnplusMirroring = new ThirdApp.Builder("AnplusMirroring", "com.anplus.tft")
-                .homeDrawable(R.drawable.btn_home_screen_mirroring)
-                .runDrawable(R.drawable.btn_media_screen_mirroring)
+                .updateDrawable(R.drawable.btn_media_kinomap_1)
                 .build();
 
         ThirdApp disney = new ThirdApp.Builder("Disneyplus", "com.disney.disneyplus")
-                .homeDrawable(R.drawable.btn_home_disney)
-                .runDrawable(R.drawable.btn_media_disney)
+                .updateDrawable(R.drawable.btn_media_disney_1)
                 .build();
 
         ThirdApp disney2 = new ThirdApp.Builder("Disneyplus2", "in.startv.hotstar.dplus.tv")
-                .homeDrawable(R.drawable.btn_home_disney_hotstar)
-                .runDrawable(R.drawable.btn_media_disney_hotstar)
+                .updateDrawable(R.drawable.btn_media_disney_hotstar_1)
                 .build();
 
         ThirdApp vod = new ThirdApp.Builder("Vod12", "com.keshet.mako.VOD.intl")
-                .homeDrawable(R.drawable.btn_home_vod)
-                .runDrawable(R.drawable.btn_media_vod)
+                .updateDrawable(R.drawable.btn_media_12_1)
                 .build();
 
         ThirdApp amazonVideo = new ThirdApp.Builder("AmazonVideo", "com.amazon.avod.thirdpartyclient")
-                .homeDrawable(R.drawable.btn_home_prime)
-                .runDrawable(R.drawable.btn_media_prime)
+                .updateDrawable(R.drawable.btn_media_prime_video_1)
                 .build();
 
         list = new ArrayList<>();
@@ -114,44 +103,42 @@ public class HomeAndRunAppUtils {
         list.add(spotify);
         list.add(netflix);
         list.add(ponymusic);
-        list.add(mp4);
-        list.add(AnplusMirroring);
+        list.add(anplus_A133Bluetooth);
+
+        list.add(anplusMirroring);
         list.add(kinomap);
+
         list.add(disney2);
         list.add(amazonVideo);
-        if (AppUtils.isHasTwo()) {
-            list.add(vod);
-        }
+
+
+        list.add(gms);
     }
 
     private static synchronized void initListChina() {
         ThirdApp fireFox = new ThirdApp.Builder("FireFox", "org.mozilla.firefox")
-                .homeDrawable(R.drawable.btn_home_firefox)
-                .runDrawable(R.drawable.btn_media_firefox)
+                .updateDrawable(R.drawable.btn_media_firefox_1)
                 .build();
         ThirdApp weibo = new ThirdApp.Builder("weibo", "com.sina.weibo")
-                .homeDrawable(R.drawable.btn_home_weibo)
-                .runDrawable(R.drawable.btn_media_weibo)
+                .updateDrawable(R.drawable.btn_media_weibo_1)
                 .build();
         ThirdApp iqiyi = new ThirdApp.Builder("iqiyi", "com.qiyi.video.pad")
-                .homeDrawable(R.drawable.btn_home_aiqiyi)
-                .runDrawable(R.drawable.btn_media_aiqiyi)
+                .updateDrawable(R.drawable.btn_media_i71_1)
                 .build();
         ThirdApp ponymusic = new ThirdApp.Builder("ponymusic", "me.wcy.music")
-                .homeDrawable(R.drawable.btn_home_mp3)
-                .runDrawable(R.drawable.btn_media_mp3)
-                .build();
-        ThirdApp mp4 = new ThirdApp.Builder("mp4", "com.softwinner.fireplayer")
-                .homeDrawable(R.drawable.btn_home_mp4)
-                .runDrawable(R.drawable.btn_media_mp4)
+                .updateDrawable(R.drawable.btn_media_mp3_1)
                 .build();
         ThirdApp qqmusicpad = new ThirdApp.Builder("qqmusicpad", "com.tencent.qqmusicpad")
-                .homeDrawable(R.drawable.btn_home_qq_music)
-                .runDrawable(R.drawable.btn_media_qq_music)
+                .updateDrawable(R.drawable.btn_media_qq_music_1)
                 .build();
-        ThirdApp lebo = new ThirdApp.Builder("lebo", "com.hpplay.happyplay.aw")
-                .homeDrawable(R.drawable.btn_home_happycast)
-                .runDrawable(R.drawable.btn_media_happycast)
+        ThirdApp lebo = new ThirdApp.Builder("HappyCast", "com.hpplay.happyplay.aw")
+                .updateDrawable(R.drawable.btn_media_happycast_1)
+                .build();
+        ThirdApp anplus_A133Bluetooth = new ThirdApp.Builder("Anplus_A133Bluetooth", "com.anplus.bluetooth")
+                .updateDrawable(R.drawable.btn_app_bluetooth_1)
+                .build();
+        ThirdApp gms = new ThirdApp.Builder("GooglePlayServices", "com.google.android.gms")
+                .updateDrawable(R.drawable.btn_media_google_serive_1)
                 .build();
 
         list = new ArrayList<>();
@@ -159,9 +146,10 @@ public class HomeAndRunAppUtils {
         list.add(weibo);
         list.add(iqiyi);
         list.add(ponymusic);
-        list.add(mp4);
         list.add(qqmusicpad);
         list.add(lebo);
+        list.add(anplus_A133Bluetooth);
+        list.add(gms);
     }
 
     public static List<ThirdApp> getAppList() {
@@ -189,22 +177,12 @@ public class HomeAndRunAppUtils {
         return arr;
     }
 
-    public static int[] getHomeDrawables() {
+    public static int[] getUpdateDrawables() {
         initList();
 
         int[] arr = new int[list.size()];
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = list.get(i).home_drawable;
-        }
-        return arr;
-    }
-
-    public static int[] getRunDrawables() {
-        initList();
-
-        int[] arr = new int[list.size()];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = list.get(i).run_drawable;
+            arr[i] = list.get(i).update_drawable;
         }
         return arr;
     }

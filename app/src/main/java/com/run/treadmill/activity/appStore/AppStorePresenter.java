@@ -7,10 +7,10 @@ import com.google.gson.Gson;
 import com.run.treadmill.R;
 import com.run.treadmill.base.BasePresenter;
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.homeupdate.main.ApkUpdateParam;
+import com.run.treadmill.update.homeupdate.main.ApkUpdateParam;
 import com.run.treadmill.util.http.OkHttpCallBack;
 import com.run.treadmill.util.http.OkHttpHelper;
-import com.run.treadmill.thirdapp.main.ThirdUpdateUtils;
+import com.run.treadmill.update.thirdapp.main.ThirdUpdateUtils;
 import com.run.treadmill.util.Logger;
 
 import java.io.File;

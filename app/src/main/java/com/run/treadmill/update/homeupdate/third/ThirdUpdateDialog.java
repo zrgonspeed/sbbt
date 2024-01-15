@@ -1,4 +1,4 @@
-package com.run.treadmill.homeupdate.third;
+package com.run.treadmill.update.homeupdate.third;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

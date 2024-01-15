@@ -1,12 +1,12 @@
-package com.run.treadmill.homeupdate.third;
+package com.run.treadmill.update.homeupdate.third;
 
 import android.content.Context;
 import android.util.ArrayMap;
 
 import com.google.gson.Gson;
 import com.run.treadmill.reboot.MyApplication;
-import com.run.treadmill.homeupdate.main.ApkUpdateParam;
-import com.run.treadmill.thirdapp.main.ThirdUpdateUtils;
+import com.run.treadmill.update.homeupdate.main.ApkUpdateParam;
+import com.run.treadmill.update.thirdapp.main.ThirdUpdateUtils;
 
 import java.util.List;
 import java.util.Map;

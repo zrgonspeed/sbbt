@@ -1,4 +1,4 @@
-package com.run.treadmill.homeupdate.third.utils
+package com.run.treadmill.update.homeupdate.third.utils
 
 import com.run.treadmill.util.Logger
 import java.io.IOException

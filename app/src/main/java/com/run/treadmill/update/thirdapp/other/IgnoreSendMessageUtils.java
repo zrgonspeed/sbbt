@@ -1,4 +1,4 @@
-package com.run.treadmill.thirdapp.other;
+package com.run.treadmill.update.thirdapp.other;
 
 import android.os.SystemClock;
 
