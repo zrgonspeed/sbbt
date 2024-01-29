@@ -92,7 +92,7 @@ public abstract class BasePresenter<V extends BaseView> implements RxDataCallBac
      * @param outState
      */
     public void onSaveInstanceState(Bundle outState) {
-        Logger.i("P onSaveInstanceState");
+        // Logger.i("P onSaveInstanceState");
     }
 
     @Override

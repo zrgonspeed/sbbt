@@ -56,6 +56,8 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TAG = getClass().getSimpleName();
+        Logger.i(TAG, "onCreate()");
+
         hideBottomUIMenu();
         setContentView(getLayoutId());
         ButterKnife.bind(this);
@@ -71,6 +73,7 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
 
     @Override
     protected void onResume() {
+        Logger.i(TAG, "onResume()");
         long start = System.currentTimeMillis();
         {
             super.onResume();
@@ -90,7 +93,7 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
             BtHelper.getInstance().setCallback(this);
         }
         long end = System.currentTimeMillis();
-        Logger.i("BaseActivity onResume() time == " + (end - start));
+        // Logger.i("BaseActivity onResume() time == " + (end - start));
     }
 
     protected abstract int getLayoutId();
@@ -132,13 +135,14 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
     @Override
     protected void onPause() {
         super.onPause();
+        Logger.i(TAG, "onPause()");
         //FitShowManager.getInstance().setFitShowStatusCallBack(null);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Logger.e(TAG, "V onDestroy ");
+        Logger.e(TAG, "onDestroy()");
         mProxyImpl.onDestroy();
     }
 

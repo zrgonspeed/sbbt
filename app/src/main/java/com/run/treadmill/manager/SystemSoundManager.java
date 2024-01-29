@@ -56,8 +56,6 @@ public class SystemSoundManager {
         return currentPro;
     }
 
-
-    // 获取多媒体声音大小(小心这个有时候很耗时间， 可能是kill mp4的时候)
     public int getCurrentPro(int max) {
         currentPro = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC) * max / maxVolume;
         return currentPro;
@@ -71,42 +69,26 @@ public class SystemSoundManager {
         currentPro = progress;
         int toset = (progress * maxVolume / max);
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, toset, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+
+        if (volumeCallBack != null) {
+            volumeCallBack.setText(String.valueOf(toset));
+        }
+    }
+
+    private VolumeCallBack volumeCallBack;
+
+    public void setVolumeCallBack(VolumeCallBack volumeCallBack) {
+        this.volumeCallBack = volumeCallBack;
+    }
+
+    public interface VolumeCallBack {
+        void setText(String volumeStr);
     }
 
     //关闭按键音
     public void setEffectsEnabled(int value) {
         Settings.System.putInt(mContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, value);
     }
-
-    /*//按键音
-    public void playClickSound() {
-        mAudioManager.playSoundEffect(SoundEffectConstants.CLICK);
-    }
-
-    // 设置多媒体声音大小
-    public void pulsAudioVolume() {
-        int curVol = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        curVol += 1;
-        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, curVol, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-    }
-
-    // 设置多媒体声音大小
-    public void decAudioVolume() {
-        int curVol = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        curVol -= 1;
-        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, curVol, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-    }
-
-    public void startMp3Play() {
-        mAudioManager.abandonAudioFocus(null);
-    }
-
-    public void stopMp3Play() {
-        if (mAudioManager.isMusicActive()) {
-            mAudioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
-        }
-    }*/
-
 
     /**
      * 停止播放音乐
@@ -121,4 +103,22 @@ public class SystemSoundManager {
         mContext.sendBroadcast(intent);
     }
 
+    public int getCurrentSystemVolume() {
+        return mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+    }
+
+    public boolean isMute() {
+        return getCurrentSystemVolume() == 0;
+    }
+
+    private int tempVolume = 0;
+
+    public void setMute() {
+        tempVolume = currentPro;
+        setAudioVolume(0, maxVolume);
+    }
+
+    public void closeMute() {
+        setAudioVolume(tempVolume, maxVolume);
+    }
 }

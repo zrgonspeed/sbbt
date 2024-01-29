@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import com.fitShow.treadmill.FitShowCommand;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.factory.FactoryActivity;
+import com.run.treadmill.activity.floatWindow.LeftVoiceFloatWindow;
 import com.run.treadmill.activity.media.MediaSelectActivity;
 import com.run.treadmill.activity.modeSelect.fitness.FitnessSelectActivity;
 import com.run.treadmill.activity.modeSelect.goal.GoalSelectActivity;
@@ -26,31 +28,35 @@ import com.run.treadmill.activity.runMode.StepManager;
 import com.run.treadmill.activity.runMode.quickStart.QuickStartActivity;
 import com.run.treadmill.activity.setting.SettingActivity;
 import com.run.treadmill.base.BaseActivity;
-import com.run.treadmill.reboot.MyApplication;
-import com.run.treadmill.reboot.ReBootTask;
-import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.base.factory.CreatePresenter;
-import com.run.treadmill.update.homeupdate.main.HomeApkUpdateManager;
-import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
+import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
-import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.fslight.FsLight;
 import com.run.treadmill.manager.musiclight.MusicLight;
 import com.run.treadmill.manager.zyftms.ZyLight;
 import com.run.treadmill.otamcu.OtaMcuUtils;
+import com.run.treadmill.reboot.MyApplication;
+import com.run.treadmill.reboot.ReBootTask;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.sp.SpManager;
+import com.run.treadmill.sysbt.BtAppUtils;
+import com.run.treadmill.update.homeupdate.main.HomeApkUpdateManager;
+import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.update.thirdapp.other.IgnoreSendMessageUtils;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.PermissionUtil;
+import com.run.treadmill.util.SystemWifiUtils;
+import com.run.treadmill.util.WifiBackFloatWindowManager;
 import com.run.treadmill.widget.LongPressView;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @Description 这里用一句话描述
@@ -58,7 +64,7 @@ import butterknife.BindView;
  * @Time 2019/05/29
  */
 @CreatePresenter(HomePresenter.class)
-public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implements HomeView, View.OnClickListener, SafeKeyTimer.SafeTimerCallBack,  HomeTipsDialog.OnTipDialogStatusChange {
+public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implements HomeView, View.OnClickListener, SafeKeyTimer.SafeTimerCallBack, HomeTipsDialog.OnTipDialogStatusChange {
     @BindView(R.id.rl_main)
     RelativeLayout rl_main;
     @BindView(R.id.btn_quick_start)
@@ -111,6 +117,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         super.onCreate(savedInstanceState);
         IgnoreSendMessageUtils.onCreateMission();
         init();
+        onCreate2();
         GpIoUtils.setScreen_1();
 
         // 延迟3秒
@@ -257,6 +264,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     }
 
     private boolean fflag = true;
+
     @Override
     public void hideTips() {
         if (tipsPop.getLastTips() == CTConstant.SHOW_TIPS_SAFE_ERROR
@@ -350,7 +358,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 }
             }
         }*/
-
 
 
         if (keyValue == SerialKeyValue.START_CLICK ||
@@ -506,7 +513,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             case R.id.btn_quick_start:
                 //quickStart 没有设置参数界面，个别数据特殊处理（包括media）
 //                SettingBackFloatWindow backFloatWindow = new SettingBackFloatWindow(getApplicationContext(), HomeActivity.this);
-//                backFloatWindow.startFloat();
+//                backFloatWindow.initFloat();
 //                ThirdApkSupport.doStartApplicationWithPackageName(this, "com.android.settings", "com.android.settings.Settings");
 
                 getPresenter().setUpRunningParam(isMetric);
@@ -531,7 +538,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 startActivity(new Intent(HomeActivity.this, FitnessSelectActivity.class));
                 break;
             case R.id.btn_vision:
-               startActivity(new Intent(HomeActivity.this, VisionSelectActivity.class));
+                startActivity(new Intent(HomeActivity.this, VisionSelectActivity.class));
                 break;
             case R.id.btn_interval:
 //                startActivity(new Intent(HomeActivity.this, IntervalSelectActivity.class));
@@ -672,4 +679,75 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @BindView(R.id.btn_show_step)
     MultiClickAndLongPressView btn_show_step;
+
+    @BindView(R.id.tv_home_signin)
+    TextView tv_home_signin;
+    @BindView(R.id.tv_home_media)
+    TextView tv_home_media;
+    @BindView(R.id.tv_home_program)
+    TextView tv_home_program;
+    @BindView(R.id.tv_home_setting)
+    TextView tv_home_setting;
+
+    @BindView(R.id.tv_home_quickstart)
+    TextView tv_home_quickstart;
+
+    @BindView(R.id.iv_wifi)
+    ImageView iv_wifi;
+    @BindView(R.id.iv_bluetooth)
+    ImageView iv_bluetooth;
+
+    @BindView(R.id.tv_time)
+    TextClock tv_time;
+
+    @OnClick({R.id.tv_home_signin, R.id.tv_home_media, R.id.tv_home_program, R.id.tv_home_setting,
+            R.id.tv_home_quickstart,
+            R.id.iv_float_edit,
+            R.id.iv_float_wearables,
+            R.id.iv_float_volume,
+
+            R.id.iv_wifi,
+            R.id.iv_bluetooth,
+
+            R.id.iv_float_close,
+            R.id.iv_float_open
+    })
+    public void click(View view) {
+        if (getPresenter().inOnSleep) {
+            wakeUpSleep();
+            return;
+        }
+        switch (view.getId()) {
+            case R.id.iv_float_close:
+                findViewById(R.id.inclue_float_left).setVisibility(View.GONE);
+                findViewById(R.id.inclue_float_left_2).setVisibility(View.VISIBLE);
+                break;
+            case R.id.iv_float_open:
+                findViewById(R.id.inclue_float_left).setVisibility(View.VISIBLE);
+                findViewById(R.id.inclue_float_left_2).setVisibility(View.GONE);
+                break;
+
+            case R.id.iv_bluetooth:
+                BtAppUtils.enterBluetooth(this);
+                break;
+            case R.id.iv_wifi:
+                WifiBackFloatWindowManager.startWifiBackFloat();
+                SystemWifiUtils.enterWifi();
+                break;
+
+            case R.id.iv_float_volume:
+                voiceFloatWindow.showOrHide();
+                break;
+        }
+    }
+
+    private void onCreate2() {
+        tv_time.setTimeZone("GMT+8:00");
+
+        voiceFloatWindow = new LeftVoiceFloatWindow(this);
+        voiceFloatWindow.init();
+    }
+
+    private LeftVoiceFloatWindow voiceFloatWindow;
+
 }

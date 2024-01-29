@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_px_276_x"
+    android:layout_height="@dimen/dp_px_692_x"
+    android:background="@color/transparent">
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_276_x"
+        android:layout_height="@dimen/dp_px_692_x"
+        android:background="@drawable/img_left_frame_on" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_140_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_marginStart="@dimen/dp_px_32_x"
+        android:layout_marginTop="@dimen/dp_px_65_x"
+        android:background="@drawable/img_account_avatar_0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_50_x"
+        android:layout_marginTop="@dimen/dp_px_220_x"
+        android:text="username"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_30" />
+
+    <ImageView
+        android:id="@+id/iv_float_edit"
+        android:layout_width="@dimen/dp_px_48_x"
+        android:layout_height="@dimen/dp_px_48_x"
+        android:layout_marginStart="@dimen/dp_px_80_x"
+        android:layout_marginTop="@dimen/dp_px_265_x"
+        android:background="@drawable/btn_edit" />
+
+    <ImageView
+        android:id="@+id/iv_float_wearables"
+        android:layout_width="@dimen/dp_px_128_x"
+        android:layout_height="@dimen/dp_px_128_x"
+        android:layout_marginStart="@dimen/dp_px_42_x"
+        android:layout_marginTop="@dimen/dp_px_335_x"
+        android:background="@drawable/btn_wearables_on" />
+
+    <ImageView
+        android:id="@+id/iv_float_volume"
+        android:layout_width="@dimen/dp_px_128_x"
+        android:layout_height="@dimen/dp_px_128_x"
+        android:layout_marginStart="@dimen/dp_px_42_x"
+        android:layout_marginTop="@dimen/dp_px_485_x"
+        android:background="@drawable/btn_volume_on" />
+
+    <View
+        android:id="@+id/iv_float_close"
+        android:layout_width="@dimen/dp_px_70_x"
+        android:layout_height="@dimen/dp_px_100_x"
+        android:layout_marginStart="@dimen/dp_px_190_x"
+        android:layout_marginTop="@dimen/dp_px_60_x"
+        android:background="@color/transparent" />
+</RelativeLayout>

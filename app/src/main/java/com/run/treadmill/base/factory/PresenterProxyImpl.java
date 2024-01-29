@@ -64,7 +64,7 @@ public class PresenterProxyImpl<V extends BaseView, P extends BasePresenter<V>> 
      */
     public void onResume(V view) {
         getPresenter();
-        Logger.i(TAG, "ProxyImpl onResume");
+        // Logger.i(TAG, "ProxyImpl onResume");
         if (mPresenter != null && !mIsAttchView) {
             mPresenter.attachView(view);
             mIsAttchView = true;
@@ -100,7 +100,7 @@ public class PresenterProxyImpl<V extends BaseView, P extends BasePresenter<V>> 
      * @return 存入回调给Presenter的Bundle和当前Presenter的id
      */
     public Bundle onSaveInstanceState() {
-        Logger.i(TAG, "ProxyImpl onSaveInstanceState");
+        // Logger.i(TAG, "ProxyImpl onSaveInstanceState");
         Bundle bundle = new Bundle();
         getPresenter();
         if (mPresenter != null) {
