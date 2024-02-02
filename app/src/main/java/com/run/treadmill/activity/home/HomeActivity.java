@@ -41,6 +41,7 @@ import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.PermissionUtil;
 import com.run.treadmill.util.SystemWifiUtils;
+import com.run.treadmill.util.ThreadUtils;
 import com.run.treadmill.util.WifiBackFloatWindowManager;
 
 import butterknife.BindView;
@@ -98,6 +99,13 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ThreadUtils.postOnMainThread(() -> {
+            myOnCreate();
+        }, 1000);
+    }
+
+    private void myOnCreate() {
         IgnoreSendMessageUtils.onCreateMission();
         init();
         onCreate2();
@@ -115,6 +123,13 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @Override
     protected void onResume() {
         super.onResume();
+
+        ThreadUtils.postOnMainThread(() -> {
+            myOnResume();
+        }, 1100);
+    }
+
+    private void myOnResume() {
         OtaMcuUtils.curIsOtamcu = false;
         fflag = true;
         FitShowManager.isHome = true;
@@ -488,9 +503,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         PermissionUtil.hasReadExternalStoragePermission(this);
         PermissionUtil.hasAlertWindowPermission(this);
 
-        Logger.i("init() 1111111");
         tipsPop = new HomeTipsDialog(this);
-        Logger.i("init() 222222222");
 
         tv_sleep.setOnClickListener(v -> {
             if (getPresenter().inOnSleep) {
