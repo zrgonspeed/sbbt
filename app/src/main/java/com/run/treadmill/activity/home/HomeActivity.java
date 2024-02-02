@@ -16,6 +16,7 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.factory.FactoryActivity;
 import com.run.treadmill.activity.floatWindow.LeftVoiceFloatWindow;
+import com.run.treadmill.activity.login.LoginActivity;
 import com.run.treadmill.activity.media.MediaSelectActivity;
 import com.run.treadmill.activity.modeSelect.fitness.FitnessSelectActivity;
 import com.run.treadmill.activity.modeSelect.goal.GoalSelectActivity;
@@ -737,6 +738,10 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
             case R.id.iv_float_volume:
                 voiceFloatWindow.showOrHide();
+                break;
+
+            case R.id.tv_home_signin:
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
         }
     }

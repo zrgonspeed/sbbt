@@ -78,6 +78,17 @@
         <activity
             android:name=".activity.home.HomeActivity"
             android:configChanges="locale|touchscreen|keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|mcc|mnc|navigation|fontScale"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
+            androidprv:systemUserOnly="true">
+        </activity>
+
+        <activity
+            android:name=".activity.login.LoginActivity"
+            android:configChanges="locale|touchscreen|keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|mcc|mnc|navigation|fontScale"
             android:directBootAware="true"
             android:exported="true"
             android:label="@string/app_name"
@@ -94,10 +105,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity-alias
-            android:name="com.run.treadmill.activity.home.HomeActivity"
+            android:name="com.run.treadmill.activity.login.LoginActivity"
             android:exported="true"
-            android:targetActivity="com.run.treadmill.activity.home.HomeActivity">
+            android:targetActivity="com.run.treadmill.activity.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
                 <category android:name="android.intent.category.DEFAULT" />

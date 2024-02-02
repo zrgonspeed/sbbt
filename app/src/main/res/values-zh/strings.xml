@@ -206,4 +206,19 @@
     <string name="string_factory_img_reset">系统恢复</string>
     <string name="string_running_media_pause">暂停</string>
     <string name="fact_img_reset_tip">恢复出厂设置</string>
+
+    <string name="log_in">登录</string>
+    <string name="str_account">帐号</string>
+    <string name="str_pass">密码</string>
+    <string name="str_auto_login">自动登入</string>
+    <string name="str_guest">访客</string>
+    <string name="str_person_info">个人资料</string>
+    <string name="str_person_info2">若要修改个人资料，请从APP更新。</string>
+    <string name="str_sex">性别</string>
+    <string name="str_account_daxie">帐号</string>
+    <string name="str_birthday">生日</string>
+    <string name="str_height">身高</string>
+    <string name="str_weight">体重</string>
+    <string name="string_user_select_max_speed">最高速度</string>
+    <string name="string_unit_cal">cal</string>
 </resources>

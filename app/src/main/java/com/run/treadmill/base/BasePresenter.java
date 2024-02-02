@@ -81,7 +81,7 @@ public abstract class BasePresenter<V extends BaseView> implements RxDataCallBac
      * Presenter被销毁时调用
      */
     public void onDestroyPresenter() {
-        Logger.i("P onDestroyPresenter " + this);
+        // Logger.i("P onDestroyPresenter " + this);
         //销毁时机会错乱，暂时让callback直接覆盖
 //        SerialUtils.getInstance().unRegisterPresenter();
     }

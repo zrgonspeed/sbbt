@@ -214,4 +214,19 @@
     <string name="fact_img_reset_tip">Factory data reset</string>
 
     <string name="add_2_app">show 12+</string>
+
+    <string name="log_in">Log in</string>
+    <string name="str_account">account</string>
+    <string name="str_pass">password</string>
+    <string name="str_auto_login">Automatic login</string>
+    <string name="str_guest">Guest</string>
+    <string name="str_person_info">Personal Information</string>
+    <string name="str_person_info2">To modify your profile, please update from the APP.</string>
+    <string name="str_sex">Gender</string>
+    <string name="str_account_daxie">Account</string>
+    <string name="str_birthday">Birthday</string>
+    <string name="str_height">Height</string>
+    <string name="str_weight">Weight</string>
+    <string name="string_user_select_max_speed">Max Speed</string>
+    <string name="string_unit_cal">cal</string>
 </resources>

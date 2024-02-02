@@ -75,7 +75,7 @@ public class PresenterProxyImpl<V extends BaseView, P extends BasePresenter<V>> 
      * 销毁Presenter持有的View
      */
     void onDeAttachView() {
-        Logger.i(TAG, "ProxyImpl onDeAttachView");
+        // Logger.i(TAG, "ProxyImpl onDeAttachView");
         if (mPresenter != null && mIsAttchView) {
             mPresenter.deAttachView();
             mIsAttchView = false;
@@ -86,7 +86,7 @@ public class PresenterProxyImpl<V extends BaseView, P extends BasePresenter<V>> 
      * 销毁Presenter
      */
     public void onDestroy() {
-        Logger.i(TAG, "ProxyImpl onDestroy");
+        // Logger.i(TAG, "ProxyImpl onDestroy");
         if (mPresenter != null) {
             onDeAttachView();
             mPresenter.onDestroyPresenter();
