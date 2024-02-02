@@ -17,21 +17,11 @@ import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.factory.FactoryActivity;
 import com.run.treadmill.activity.floatWindow.LeftVoiceFloatWindow;
 import com.run.treadmill.activity.login.LoginActivity;
-import com.run.treadmill.activity.media.MediaSelectActivity;
-import com.run.treadmill.activity.modeSelect.fitness.FitnessSelectActivity;
-import com.run.treadmill.activity.modeSelect.goal.GoalSelectActivity;
-import com.run.treadmill.activity.modeSelect.hrc.HrcSelectActivity;
-import com.run.treadmill.activity.modeSelect.program.ProgramSelectActivity;
-import com.run.treadmill.activity.modeSelect.userprogram.UserProgramSelectActivity;
-import com.run.treadmill.activity.modeSelect.vision.VisionSelectActivity;
 import com.run.treadmill.activity.runMode.RunningParam;
-import com.run.treadmill.activity.runMode.StepManager;
-import com.run.treadmill.activity.runMode.quickStart.QuickStartActivity;
 import com.run.treadmill.activity.setting.SettingActivity;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.base.factory.CreatePresenter;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
@@ -47,14 +37,11 @@ import com.run.treadmill.sysbt.BtAppUtils;
 import com.run.treadmill.update.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.update.thirdapp.other.IgnoreSendMessageUtils;
-import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.PermissionUtil;
 import com.run.treadmill.util.SystemWifiUtils;
 import com.run.treadmill.util.WifiBackFloatWindowManager;
-import com.run.treadmill.widget.LongPressView;
-import com.run.treadmill.widget.MultiClickAndLongPressView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -68,37 +55,32 @@ import butterknife.OnClick;
 public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implements HomeView, View.OnClickListener, SafeKeyTimer.SafeTimerCallBack, HomeTipsDialog.OnTipDialogStatusChange {
     @BindView(R.id.rl_main)
     RelativeLayout rl_main;
-    @BindView(R.id.btn_quick_start)
-    ImageView btn_quick_start;
-    @BindView(R.id.btn_userprogram)
-    ImageView btn_userprogram;
-    @BindView(R.id.btn_goal)
-    ImageView btn_goal;
-    @BindView(R.id.btn_hrc)
-    ImageView btn_hrc;
-    @BindView(R.id.btn_media)
-    ImageView btn_media;
-    @BindView(R.id.btn_setting)
-    ImageView btn_setting;
-    @BindView(R.id.btn_fitness)
-    ImageView btn_fitness;
-    @BindView(R.id.btn_hill)
-    ImageView btn_hill;
-    @BindView(R.id.btn_vision)
-    ImageView btn_vision;
-    @BindView(R.id.btn_interval)
-    ImageView btn_interval;
-    @BindView(R.id.btn_program)
-    ImageView btn_program;
+    // @BindView(R.id.btn_quick_start)
+    // ImageView btn_quick_start;
+    // @BindView(R.id.btn_userprogram)
+    // ImageView btn_userprogram;
+    // @BindView(R.id.btn_goal)
+    // ImageView btn_goal;
+    // @BindView(R.id.btn_hrc)
+    // ImageView btn_hrc;
+    // @BindView(R.id.btn_media)
+    // ImageView btn_media;
+    // @BindView(R.id.btn_setting)
+    // ImageView btn_setting;
+    // @BindView(R.id.btn_fitness)
+    // ImageView btn_fitness;
+    // @BindView(R.id.btn_hill)
+    // ImageView btn_hill;
+    // @BindView(R.id.btn_vision)
+    // ImageView btn_vision;
+    // @BindView(R.id.btn_interval)
+    // ImageView btn_interval;
+    // @BindView(R.id.btn_program)
+    // ImageView btn_program;
 
-    @BindView(R.id.btn_logo)
-    ImageView btn_logo;
-
-    @BindView(R.id.btn_machine_lube)
-    LongPressView btn_machine_lube;
-
-    @BindView(R.id.btn_factory)
-    MultiClickAndLongPressView btn_factory;
+    /*
+        @BindView(R.id.btn_factory)
+        MultiClickAndLongPressView btn_factory;*/
     @BindView(R.id.tv_sleep)
     TextView tv_sleep;
 
@@ -142,10 +124,9 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         isOnPause = false;
         //跟启动模式相关
         loadSpManager();
-        btn_quick_start.setEnabled(false);
-        btn_machine_lube.setEnabled(false);
+        // btn_quick_start.setEnabled(false);
         FitShowManager.getInstance().setNOtConnect(true);
-        FileUtil.setLogoIcon(this, btn_logo);
+        // FileUtil.setLogoIcon(this, btn_logo);
         getPresenter().setContext(this);
         getPresenter().setVolumeAndBrightness();
 
@@ -231,11 +212,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         if (ErrorManager.getInstance().isInclineError()) {
             return;
         }
-        if (btn_quick_start.isEnabled()) {
-            btn_quick_start.setEnabled(false);
 
-            FitShowManager.getInstance().setNOtConnect(true);
-        }
         showTipPop(CTConstant.SHOW_TIPS_OTHER_ERROR);
         HomeThirdAppUpdateManager.getInstance().hideDialog();
     }
@@ -247,21 +224,14 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         }
         showTipPop(CTConstant.SHOW_TIPS_SAFE_ERROR);
         startTimerOfSafe();
-        if (btn_quick_start.isEnabled()) {
-            btn_quick_start.setEnabled(false);
-            FitShowManager.getInstance().setNOtConnect(true);
-        }
+
     }
 
     @Override
     public void commOutError() {
         HomeThirdAppUpdateManager.getInstance().hideDialog();
         showTipPop(CTConstant.SHOW_TIPS_COMM_ERROR);
-        if (btn_quick_start.isEnabled()) {
-            btn_quick_start.setEnabled(false);
 
-            FitShowManager.getInstance().setNOtConnect(true);
-        }
     }
 
     private boolean fflag = true;
@@ -318,7 +288,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     private void showTipPop(int tips) {
         if (!((MyApplication) getApplication()).isFirst) {
-            btn_factory.releasedLongClick();
+            // btn_factory.releasedLongClick();
             tipsPop.showTipPop(tips);
         }
     }
@@ -343,23 +313,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             wakeUpSleep();
             return;
         }
-        // 到这里已经处于亮屏幕
-/*        if (keyValue == SerialKeyValue.HIDE_OR_SHOW_SCREEN_CLICK) {
-            if (GpIoUtils.checkScreenState() == GpIoUtils.IO_STATE_0) {
-                // 不会进来这里
-                // Logger.i("sssssssssssssss");
-                // wakeUpSleep();
-            } else {
-                // 假休眠，安全key和按键要能唤醒, 点击屏幕也能唤醒
-                GpIoUtils.setScreen_0();
-                runOnUiThread(() -> tv_sleep.setVisibility(View.VISIBLE));
-                getPresenter().inOnSleep = true;
-                if (mSleepTimer != null) {
-                    mSleepTimer.closeTimer();
-                }
-            }
-        }*/
-
 
         if (keyValue == SerialKeyValue.START_CLICK ||
                 keyValue == SerialKeyValue.HAND_START_CLICK
@@ -372,12 +325,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 Logger.i("return; 第三方更新弹窗，不给进入start");
                 return;
             }
-
-            if (!ErrorManager.getInstance().exitError
-                    && btn_quick_start.isEnabled()) {
-                btn_quick_start.performClick();
-                BuzzerManager.getInstance().buzzerRingOnce();
-            }
         }
     }
 
@@ -388,9 +335,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             return;
         }
         if (!SafeKeyTimer.getInstance().getIsSafe()) {
-            if (btn_quick_start.isEnabled()) {
-                btn_quick_start.setEnabled(false);
-            }
+
             FitShowManager.getInstance().setNOtConnect(true);
             return;
         } else {
@@ -403,16 +348,12 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             }
         }
         if (tipsPop.isShowTips()) {
-            if (btn_quick_start.isEnabled()) {
-                btn_quick_start.setEnabled(false);
-            }
+
             FitShowManager.getInstance().setNOtConnect(true);
             return;
         }
         if (beltStatus != 0) {
-            if (btn_quick_start.isEnabled()) {
-                btn_quick_start.setEnabled(false);
-            }
+
 
             FitShowManager.getInstance().beltStopping = true;
 
@@ -432,9 +373,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
         //TODO:有扬升错误，不管扬升状态
         if (ErrorManager.getInstance().isHasInclineError()) {
-            if (!btn_quick_start.isEnabled()) {
-                btn_quick_start.setEnabled(true);
-            }
+
             FitShowManager.getInstance().setNOtConnect(false);
             return;
         }
@@ -442,18 +381,12 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         //TODO:扬升状态为0，扬升ad在最小ad的+/- 15内
         if (inclineStatus == 0) {
             if (checkADValueIsInSafe(curInclineAd)) {
-                if (!btn_quick_start.isEnabled()) {
-                    btn_quick_start.setEnabled(true);
-                }
+
                 FitShowManager.getInstance().setNOtConnect(false);
                 return;
             }
         }
 
-        if (btn_quick_start.isEnabled()) {
-
-            btn_quick_start.setEnabled(false);
-        }
         FitShowManager.getInstance().setNOtConnect(true);
     }
 
@@ -469,10 +402,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @Override
     public void onTipDialogDismiss(@CTConstant.TipPopType int tipPopType) {
-        if (btn_quick_start.isEnabled()) {
-            btn_quick_start.setEnabled(false);
-            FitShowManager.getInstance().setNOtConnect(true);
-        }
+
     }
 
     @Override
@@ -501,9 +431,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             wakeUpSleep();
             return;
         }
-        if (view.getId() != R.id.btn_quick_start) {
-            BuzzerManager.getInstance().buzzerRingOnce();
-        }
+
         if (isOnClicking) {
             return;
         }
@@ -511,7 +439,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         switch (view.getId()) {
             default:
                 break;
-            case R.id.btn_quick_start:
+            /*case R.id.btn_quick_start:
                 //quickStart 没有设置参数界面，个别数据特殊处理（包括media）
 //                SettingBackFloatWindow backFloatWindow = new SettingBackFloatWindow(getApplicationContext(), HomeActivity.this);
 //                backFloatWindow.initFloat();
@@ -519,8 +447,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
                 getPresenter().setUpRunningParam(isMetric);
                 startActivity(new Intent(HomeActivity.this, QuickStartActivity.class));
-                break;
-            case R.id.btn_userprogram:
+                break;*/
+           /* case R.id.btn_userprogram:
                 startActivity(new Intent(HomeActivity.this, UserProgramSelectActivity.class));
                 break;
             case R.id.btn_goal:
@@ -549,47 +477,21 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 break;
             case R.id.btn_program:
                 startActivity(new Intent(HomeActivity.this, ProgramSelectActivity.class));
-                break;
+                break;*/
         }
     }
 
     private void init() {
-        btn_quick_start.setOnClickListener(this);
-        btn_userprogram.setOnClickListener(this);
-        btn_goal.setOnClickListener(this);
-        btn_hrc.setOnClickListener(this);
-        btn_media.setOnClickListener(this);
-        btn_setting.setOnClickListener(this);
-        btn_fitness.setOnClickListener(this);
-        btn_hill.setOnClickListener(this);
-        btn_vision.setOnClickListener(this);
-        btn_interval.setOnClickListener(this);
-        btn_program.setOnClickListener(this);
         //开机上电需要reboot时间
         isNormal = false;
-
-        // 点10次进工厂模式
-        btn_factory.setOnMultiClickListener(() -> {
-            if (getPresenter().inOnSleep
-                    || isOnClicking) {
-                return;
-            }
-            isOnClicking = true;
-            startActivity(new Intent(HomeActivity.this, FactoryActivity.class));
-        });
-
-        // 点10次显示步数
-        btn_show_step.setOnMultiClickListener(() -> {
-            if (getPresenter().inOnSleep) {
-                return;
-            }
-            StepManager.showStep = !StepManager.showStep;
-        });
 
         PermissionUtil.hasReadExternalStoragePermission(this);
         PermissionUtil.hasAlertWindowPermission(this);
 
+        Logger.i("init() 1111111");
         tipsPop = new HomeTipsDialog(this);
+        Logger.i("init() 222222222");
+
         tv_sleep.setOnClickListener(v -> {
             if (getPresenter().inOnSleep) {
                 wakeUpSleep();
@@ -600,7 +502,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     }
 
     private void startTimerOfSafe() {
-        btn_quick_start.setEnabled(false);
         FitShowManager.getInstance().setNOtConnect(true);
         SafeKeyTimer.getInstance().registerSafeCb(this);
         if (SafeKeyTimer.getInstance().getIsSafe()) {
@@ -629,11 +530,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (btn_quick_start.isEnabled()) {
-                    btn_quick_start.performClick();
-                } else {
-                    // FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_END);
-                }
+
             }
         });
     }
@@ -641,31 +538,15 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @Override
     public void isFitShowConnect(boolean isConnect) {
         if (isConnect) {
-            btn_goal.setEnabled(false);
-            btn_hrc.setEnabled(false);
-            btn_program.setEnabled(false);
-            btn_userprogram.setEnabled(false);
-            btn_vision.setEnabled(false);
-            btn_fitness.setEnabled(false);
-            btn_interval.setEnabled(false);
-            btn_setting.setEnabled(false);
-            btn_media.setEnabled(false);
-            btn_factory.setEnabled(false);
+
+            // btn_factory.setEnabled(false);
             if (getPresenter().inOnSleep) {
                 wakeUpSleep();
                 return;
             }
         } else {
-            btn_goal.setEnabled(true);
-            btn_hrc.setEnabled(true);
-            btn_program.setEnabled(true);
-            btn_userprogram.setEnabled(true);
-            btn_vision.setEnabled(true);
-            btn_fitness.setEnabled(true);
-            btn_interval.setEnabled(true);
-            btn_setting.setEnabled(true);
-            btn_media.setEnabled(true);
-            btn_factory.setEnabled(true);
+
+            // btn_factory.setEnabled(true);
         }
     }
 
@@ -678,8 +559,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         return tipsPop.getLastTips() == CTConstant.SHOW_TIPS_SAFE_ERROR;
     }
 
-    @BindView(R.id.btn_show_step)
-    MultiClickAndLongPressView btn_show_step;
 
     @BindView(R.id.tv_home_signin)
     TextView tv_home_signin;

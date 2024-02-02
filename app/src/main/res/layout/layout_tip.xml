@@ -37,8 +37,8 @@
             android:layout_marginTop="@dimen/dp_px_720_y"
             android:src="@drawable/btn_pop_no" />
     </RelativeLayout>
-
-    <!-- 紧急停止   -->
+<!--
+    &lt;!&ndash; 紧急停止   &ndash;&gt;
     <RelativeLayout
         android:id="@+id/rl_error"
         android:layout_width="match_parent"
@@ -85,7 +85,7 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <!-- 提示加油   -->
+    &lt;!&ndash; 提示加油   &ndash;&gt;
     <RelativeLayout
         android:id="@+id/rl_lube"
         android:layout_width="match_parent"
@@ -128,7 +128,7 @@
             android:src="@drawable/btn_pop_no" />
     </RelativeLayout>
 
-    <!-- 提示加油   -->
+    &lt;!&ndash; 提示加油   &ndash;&gt;
     <RelativeLayout
         android:id="@+id/rl_machine_lube"
         android:layout_width="match_parent"
@@ -160,7 +160,7 @@
             android:src="@drawable/btn_cancel" />
     </RelativeLayout>
 
-    <!--上锁-->
+    &lt;!&ndash;上锁&ndash;&gt;
     <RelativeLayout
         android:id="@+id/rl_lock"
         android:layout_width="match_parent"
@@ -353,6 +353,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="gone" />
+        android:visibility="gone" />-->
 
 </RelativeLayout>

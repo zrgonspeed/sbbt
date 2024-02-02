@@ -12,7 +12,6 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.base.factory.CreatePresenter;
-import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
 
@@ -20,7 +19,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 @CreatePresenter(LoginPresenter.class)
-public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> implements LoginView, View.OnClickListener {
+public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> implements LoginView {
 
     @BindView(R.id.rl_login_1)
     RelativeLayout rl_login_1;
@@ -60,14 +59,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
 
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.btn_back) {
-            BuzzerManager.getInstance().buzzerRingOnce();
-            finish();
-        }
-    }
-
     private void init() {
         initLogin1();
     }
@@ -78,12 +69,11 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     private void initLogin1() {
         // 第1页
 
-
     }
 
     @OnClick({R.id.bt_guest})
     public void click(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.bt_guest:
                 Logger.i("click");
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
@@ -109,6 +99,4 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
             rl_login_tip.setVisibility(View.GONE);
         });*/
     }
-
-
 }

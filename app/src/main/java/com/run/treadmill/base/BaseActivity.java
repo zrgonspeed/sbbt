@@ -59,8 +59,14 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
         Logger.i(TAG, "onCreate()");
 
         hideBottomUIMenu();
+        Logger.i(TAG, "onCreate()2222");
+
         setContentView(getLayoutId());
+        Logger.i(TAG, "onCreate()3333");
+
         ButterKnife.bind(this);
+        Logger.i(TAG, "onCreate()4444");
+
         //创建被代理对象,传入默认Presenter的工厂
         mProxyImpl = new PresenterProxyImpl<>(PresenterFactoryImpl.<V, P>createFactory(getClass()));
 
@@ -69,6 +75,7 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
         }
 
         isMetric = SpManager.getIsMetric();
+        Logger.i(TAG, "onCreate()5555555");
     }
 
     @Override

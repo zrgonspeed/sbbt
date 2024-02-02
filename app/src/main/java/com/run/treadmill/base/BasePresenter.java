@@ -51,7 +51,7 @@ public abstract class BasePresenter<V extends BaseView> implements RxDataCallBac
      */
     public void onCreatePresenter(@Nullable Bundle savedState) {
         TAG = getClass().getSimpleName();
-        Logger.i("P onCreatePresenter");
+        // Logger.i("P onCreatePresenter");
         mCmdHandler = new CmdHandler(Looper.getMainLooper(), this);
         mInterceptors = new ArrayList<>();
         mInterceptors.add(new SafeKeyInterceptor());
