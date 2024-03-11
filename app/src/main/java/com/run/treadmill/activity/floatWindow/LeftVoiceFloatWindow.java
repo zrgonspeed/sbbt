@@ -200,6 +200,11 @@ public class LeftVoiceFloatWindow {
         }
     }
 
+    public void hide() {
+        mFloatWindow.setVisibility(View.GONE);
+        myFloatHandler.removeMessages(HIDE_VOICE);
+    }
+
     public void showOrHide() {
         if (mFloatWindow.getVisibility() == View.VISIBLE) {
             mFloatWindow.setVisibility(View.GONE);

@@ -614,6 +614,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             case R.id.iv_float_close:
                 findViewById(R.id.inclue_float_left).setVisibility(View.GONE);
                 findViewById(R.id.inclue_float_left_2).setVisibility(View.VISIBLE);
+                voiceFloatWindow.hide();
                 break;
             case R.id.iv_float_open:
                 findViewById(R.id.inclue_float_left).setVisibility(View.VISIBLE);
