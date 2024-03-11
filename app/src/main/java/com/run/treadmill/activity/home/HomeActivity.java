@@ -614,7 +614,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             case R.id.iv_float_close:
                 findViewById(R.id.inclue_float_left).setVisibility(View.GONE);
                 findViewById(R.id.inclue_float_left_2).setVisibility(View.VISIBLE);
-                voiceFloatWindow.hide();
+                voiceFW.hide();
                 break;
             case R.id.iv_float_open:
                 findViewById(R.id.inclue_float_left).setVisibility(View.VISIBLE);
@@ -630,7 +630,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
                 break;
 
             case R.id.iv_float_volume:
-                voiceFloatWindow.showOrHide();
+                voiceFW.showOrHide();
                 break;
 
             case R.id.tv_home_signin:
@@ -642,10 +642,10 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     private void onCreate2() {
         tv_time.setTimeZone("GMT+8:00");
 
-        voiceFloatWindow = new LeftVoiceFloatWindow(this);
-        voiceFloatWindow.init();
+        voiceFW = new LeftVoiceFloatWindow(this);
+        voiceFW.init();
     }
 
-    private LeftVoiceFloatWindow voiceFloatWindow;
+    private LeftVoiceFloatWindow voiceFW;
 
 }
