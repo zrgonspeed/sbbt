@@ -8,7 +8,7 @@ import com.run.serial.RxDataCallBack;
 import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
-import com.run.treadmill.reboot.MyApplication;
+import com.run.treadmill.Custom;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.control.AaControl;
 import com.run.treadmill.manager.control.ControlStrategy;
@@ -22,8 +22,8 @@ import com.run.treadmill.util.UnitUtil;
  * @Author GaleLiu
  * @Time 2019/06/10
  */
-public class ControlManager {
-    public static int deviceType = MyApplication.DEFAULT_DEVICE_TYPE;
+public class ControlManager implements Custom.Mcu.Control {
+    public static int deviceType = Custom.DEF_DEVICE_TYPE;
 
     private static volatile ControlManager instance;
     private ControlStrategy mStrategy;

@@ -1,6 +1,8 @@
 package com.run.treadmill.serial;
 
-public class SerialKeyValue {
+import com.run.treadmill.Custom;
+
+public class SerialKeyValue implements Custom.Mcu.Key {
     public static final int START_CLICK = 0x3c;
     public static final int STOP_CLICK = 0x40;
     public static final int STOP_CLICK_LONG_2 = STOP_CLICK + 2;

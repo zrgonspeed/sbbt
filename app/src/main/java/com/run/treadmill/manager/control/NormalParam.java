@@ -1,6 +1,8 @@
 package com.run.treadmill.manager.control;
 
-public class NormalParam {
+import com.run.treadmill.Custom;
+
+public class NormalParam implements Custom.Mcu.Normal {
 
     public static int SAFE_ERROR_INX = 0;
     public static int SAFE_ERROR_LEN = 1;

@@ -1,9 +1,10 @@
 package com.run.treadmill.common;
 
+import com.run.treadmill.Custom;
+
 public class InitParam {
-    public static final String APK = "553-54T-41";
-    public static final String PROJECT_NAME = "AC00" + APK;
-    public static final String APK_NAME = "AC00" + APK + ".apk";
+    public static final String PROJECT_NAME = Custom.PROJECT_NAME;
+    public static final String APK_NAME = PROJECT_NAME + ".apk";
     public static final String LOGO_NAME = "logo.png";
 
     /**

@@ -3,6 +3,7 @@ package com.run.treadmill.reboot;
 import com.run.serial.RxDataCallBack;
 import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
+import com.run.treadmill.Custom;
 import com.run.treadmill.base.BasePresenter;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.util.MsgWhat;
@@ -14,7 +15,7 @@ import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.Logger;
 
-public class ReBootTask implements Runnable, RxDataCallBack {
+public class ReBootTask implements Runnable, RxDataCallBack, Custom.Mcu.McuReboot {
 
     private BasePresenter presenter;
     public static boolean isReBootFinish = false;
@@ -241,8 +242,8 @@ public class ReBootTask implements Runnable, RxDataCallBack {
         if (data[2] == SerialCommand.TX_RD_ONE && data[3] == ParamCons.PARAM_DEVICE && count > 4) {
             Logger.d("reboot get deviceType fail, set default deviceType = MyApplication.DEFAULT_DEVICE_TYPE");
             isGetDeviceType = true;
-            ControlManager.getInstance().init(MyApplication.DEFAULT_DEVICE_TYPE);
-            ErrorManager.init(MyApplication.DEFAULT_DEVICE_TYPE);
+            ControlManager.getInstance().init(Custom.DEF_DEVICE_TYPE);
+            ErrorManager.init(Custom.DEF_DEVICE_TYPE);
             SerialUtils.getInstance().reMoveReSendPackage();
         }
     }

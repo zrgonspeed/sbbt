@@ -5,16 +5,12 @@ import android.content.Context;
 import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
+import com.run.treadmill.Custom;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.DataTypeConversion;
 
-/**
- * @Description Ac 的控制指令
- * @Author GaleLiu
- * @Time 2019/08/15
- */
-public class AaControl extends BaseControl {
+public class AaControl extends BaseControl implements Custom.Mcu.SubControl {
     private float lastSpeed;
     private float lastIncline = -1;
 

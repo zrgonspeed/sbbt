@@ -22,7 +22,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.util.Logger;
-import com.run.treadmill.util.VolumeUtils;
+import com.run.treadmill.util.VolumeResponseUtils;
 import com.run.treadmill.widget.LeftSeekBar;
 
 import java.lang.ref.WeakReference;
@@ -241,8 +241,8 @@ public class LeftVoiceFloatWindow {
     private int tempStatus = -1;
 
     public void setProgress(int status) {
-        if (!VolumeUtils.canResponse()) {
-            // Logger.e("!VolumeUtils.canResponse()");
+        if (!VolumeResponseUtils.canResponse()) {
+            // Logger.e("!VolumeResponseUtils.canResponse()");
             return;
         }
 

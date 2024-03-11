@@ -3,26 +3,26 @@ package com.run.treadmill.reboot;
 import com.run.android.ShellCmdUtils;
 import com.run.serial.SerialCommand;
 import com.run.treadmill.AppDebug;
-import com.run.treadmill.sysbt.BtAppReboot;
-import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
+import com.run.treadmill.Custom;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.HardwareSoundManager;
-import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.manager.fslight.FsLight;
-import com.run.treadmill.manager.musiclight.MusicReceiverManager;
 import com.run.treadmill.manager.musiclight.MusicLight;
-import com.run.treadmill.otamcu.OtaMcuUtils;
+import com.run.treadmill.manager.musiclight.MusicReceiverManager;
+import com.run.treadmill.sp.SpManager;
+import com.run.treadmill.sysbt.BtAppReboot;
+import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
+import com.run.treadmill.util.AppInit;
 import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.LanguageUtil;
 import com.run.treadmill.util.Logger;
-import com.run.treadmill.util.SystemUtils;
+import com.run.treadmill.util.VolumeUtils;
 
 import org.litepal.LitePalApplication;
 
@@ -37,14 +37,12 @@ import java.util.Locale;
  * @Author GaleLiu
  * @Time 2019/05/29
  */
-public class MyApplication extends LitePalApplication {
+public class MyApplication extends LitePalApplication implements Custom.Application {
     private static final String TAG = MyApplication.class.getSimpleName();
     /**
      * 是否第一次启动
      */
     public boolean isFirst = true;
-
-    public static final int DEFAULT_DEVICE_TYPE = CTConstant.DEVICE_TYPE_AA;
 
     @Override
     public void onCreate() {
@@ -54,11 +52,11 @@ public class MyApplication extends LitePalApplication {
 
         // Manager
         {
-            ControlManager.getInstance().init(DEFAULT_DEVICE_TYPE);
-            ErrorManager.init(DEFAULT_DEVICE_TYPE);
+            ControlManager.getInstance().init(Custom.DEF_DEVICE_TYPE);
+            ErrorManager.init(Custom.DEF_DEVICE_TYPE);
             SpManager.init(getApplicationContext());
         }
-        SystemUtils.grantPermission(this);
+        AppInit.grantPermission(this);
         // 语言
         {
             // 当前系统语言
@@ -128,24 +126,24 @@ public class MyApplication extends LitePalApplication {
             //附件类模拟GPS位置类初始化
             // GpsMockManager.getInstance().init(this);
 
-            SystemUtils.deleteQQmusicData();
-            SystemUtils.closeAnimation();
+            AppInit.deleteQQmusicData();
+            AppInit.closeAnimation();
 
             // 空中更新APK相关
             SpManager.setAlterUpdatePath(false);
             SpManager.setChangedServer(false);
 
-            SystemUtils.changeVolume(this);
+            VolumeUtils.changeVolume(this);
 
             BtAppReboot.initBt(getApplicationContext());
 
-            SystemUtils.closeSomeSystemSetting();
+            AppInit.closeSomeSystemSetting();
 
             new Thread(() -> {
                 ShellCmdUtils.getInstance().execCommand("sync");
             }).start();
 
-            SystemUtils.setAppWhiteList();
+            AppInit.setAppWhiteList();
         }
 
         HomeThirdAppUpdateManager.getInstance().setNewCheck(true);
@@ -153,9 +151,8 @@ public class MyApplication extends LitePalApplication {
         MusicLight.startThread();
         MusicReceiverManager.register();
 
-        OtaMcuUtils.installOtaMcu(this);
-    };
-
+        // OtaMcuUtils.installOtaMcu(this);
+    }
 
     @Override
     public void onTerminate() {

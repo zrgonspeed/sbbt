@@ -28,13 +28,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.run.android.ShellCmdUtils;
 import com.run.treadmill.AppDebug;
+import com.run.treadmill.Custom;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.EmptyMessageTask;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
 import com.run.treadmill.activity.runMode.vision.VisionActivity;
 import com.run.treadmill.base.BaseActivity;
-import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.util.MsgWhat;
@@ -1268,7 +1268,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
                         return;
                     } else {
-                        if (MyApplication.DEFAULT_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
+                        if (Custom.DEF_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
                             if (mActivity.mRunningParam.countDown == 1) {
                                 ControlManager.getInstance().reset();
                                 ControlManager.getInstance().setSpeed(SpManager.getMinSpeed(mActivity.isMetric));

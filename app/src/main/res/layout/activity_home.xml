@@ -10,7 +10,7 @@
         android:layout_height="@dimen/dp_px_120_x"
         android:layout_marginStart="@dimen/dp_px_40_x"
         android:layout_marginTop="@dimen/dp_px_40_x"
-        android:background="@drawable/img_logo" />
+        android:background="@drawable/btn_logo_1" />
 
     <include
         android:id="@+id/inclue_float_left"

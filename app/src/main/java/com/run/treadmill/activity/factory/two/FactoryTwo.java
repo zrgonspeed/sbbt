@@ -37,7 +37,7 @@ import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.util.receiver.USBBroadcastReceiver;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.Logger;
-import com.run.treadmill.util.SystemUtils;
+import com.run.treadmill.util.AppInit;
 import com.run.treadmill.util.TimeStringUtil;
 import com.run.treadmill.util.UnitUtil;
 import com.run.treadmill.util.VersionUtil;
@@ -132,7 +132,7 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
         img_new_logo = (ImageView) views[3].findViewById(R.id.img_new_logo);
         btn_update_logo = (ImageView) views[3].findViewById(R.id.btn_update_logo);
 
-        SpManager.setDisplay(SystemUtils.readTouchesOptions());
+        SpManager.setDisplay(AppInit.readTouchesOptions());
         tb_touch.setChecked(SpManager.getDisplay());
 
         initNeedResetSetting();
@@ -453,9 +453,9 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
             case R.id.tb_touch:
                 SpManager.setDisplay(isChecked);
                 if (isChecked) {
-                    SystemUtils.writeShowTouchesOptions(1);
+                    AppInit.writeShowTouchesOptions(1);
                 } else {
-                    SystemUtils.writeShowTouchesOptions(0);
+                    AppInit.writeShowTouchesOptions(0);
                 }
                 break;
             case R.id.tb_buzzer:

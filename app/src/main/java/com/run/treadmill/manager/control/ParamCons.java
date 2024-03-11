@@ -1,6 +1,8 @@
 package com.run.treadmill.manager.control;
 
-public class ParamCons {
+import com.run.treadmill.Custom;
+
+public class ParamCons implements Custom.Mcu.CmdParams {
 
     /**
      * 停止
