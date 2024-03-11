@@ -11,9 +11,8 @@
 
     <View
         android:id="@+id/iv_float_open"
-        android:layout_width="@dimen/dp_px_70_x"
+        android:layout_width="@dimen/dp_px_80_x"
         android:layout_height="@dimen/dp_px_100_x"
-        android:layout_marginStart="@dimen/dp_px_10_x"
         android:layout_marginTop="@dimen/dp_px_60_x"
         android:background="@color/transparent" />
 </RelativeLayout>
