@@ -37,7 +37,7 @@
         android:background="@drawable/btn_home_signin"
         android:gravity="center_horizontal"
         android:paddingTop="@dimen/dp_px_75_x"
-        android:text="Sign in"
+        android:text="Sign out"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_45" />
 

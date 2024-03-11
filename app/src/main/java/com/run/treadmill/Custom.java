@@ -17,9 +17,6 @@ public class Custom {
     public static final String PROJECT_NAME = "AC00554-54T-18";
     public static final int DEF_DEVICE_TYPE = CTConstant.DEVICE_TYPE_AA;
 
-    public interface Application {
-    }
-
     public static class Mcu {
         public interface McuReboot {
         }
@@ -68,6 +65,9 @@ public class Custom {
         }
     }
 
+    public interface Application {
+    }
+
     public interface Volume {
     }
 
@@ -78,7 +78,7 @@ public class Custom {
     }
 
     public interface Language {
-        default void lan() {
+        default void fun() {
             SpManager.getLanguage();
         }
     }
