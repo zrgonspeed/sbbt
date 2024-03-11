@@ -2,8 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_main"
     android:layout_width="@dimen/dp_px_1920_x"
-    android:layout_height="@dimen/dp_px_1080_x"
-    android:background="@drawable/bk_background_idle_mode_1">
+    android:layout_height="@dimen/dp_px_1080_x">
+
+    <ImageView
+        android:id="@+id/iv_home_bg"
+        android:layout_width="@dimen/dp_px_1920_x"
+        android:layout_height="@dimen/dp_px_1080_x"
+        android:background="@drawable/bk_background_idle_mode_1" />
 
     <ImageView
         android:layout_width="@dimen/dp_px_120_x"

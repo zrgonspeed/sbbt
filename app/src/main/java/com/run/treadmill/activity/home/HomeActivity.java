@@ -1,6 +1,7 @@
 package com.run.treadmill.activity.home;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -593,6 +594,9 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @BindView(R.id.tv_time)
     TextClock tv_time;
 
+    @BindView(R.id.iv_home_bg)
+    ImageView iv_home_bg;
+
     @OnClick({R.id.tv_home_signin, R.id.tv_home_media, R.id.tv_home_program, R.id.tv_home_setting,
             R.id.tv_home_quickstart,
             R.id.iv_float_edit,
@@ -644,6 +648,17 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
         voiceFW = new LeftVoiceFloatWindow(this);
         voiceFW.init();
+
+        initBgAnimation();
+    }
+
+    // 图片轮播图，淡入淡出
+    private void initBgAnimation() {
+        Drawable[] drawableArray = {
+                getResources().getDrawable(R.drawable.bk_background_idle_mode_1),
+                getResources().getDrawable(R.drawable.bk_background_idle_mode_1)
+        };
+        // iv_home_bg
     }
 
     private LeftVoiceFloatWindow voiceFW;
