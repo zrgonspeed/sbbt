@@ -158,7 +158,7 @@ public class MediaSelectActivity extends BaseActivity<MediaSelectView, MediaSele
         MediaSelectAppAdapter adapter1 = new MediaSelectAppAdapter(context, drawable1);
         page1RV.setAdapter(adapter1);
         adapter1.setOnItemClick(position -> {
-            if (!isCanStart && !AppDebug.disableSerial) {
+            if (!isCanStart && !AppDebug.debug) {
                 return;
             }
             mediaPkName = pkgName[position];
@@ -178,7 +178,7 @@ public class MediaSelectActivity extends BaseActivity<MediaSelectView, MediaSele
         MediaSelectAppAdapter adapter2 = new MediaSelectAppAdapter(context, drawable2);
         page2RV.setAdapter(adapter2);
         adapter2.setOnItemClick(position -> {
-            if (!isCanStart && !AppDebug.disableSerial) {
+            if (!isCanStart && !AppDebug.debug) {
                 return;
             }
             mediaPkName = pkgName[drawable1.length + position];

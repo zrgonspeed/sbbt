@@ -382,7 +382,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
                     layout_float_pause.setVisibility(View.GONE);
                     btn_float_pause_continue.setEnabled(false);
-                    if (AppDebug.disableSerial) {
+                    if (AppDebug.debug) {
                         btn_float_pause_continue.setEnabled(true);
                     }
                     btn_float_pause_quit.setEnabled(false);
@@ -484,7 +484,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
         btn_float_pause_quit.setEnabled(true);
         btn_float_pause_continue.setEnabled(false);
-        if (AppDebug.disableSerial) {
+        if (AppDebug.debug) {
             btn_float_pause_continue.setEnabled(true);
         }
 

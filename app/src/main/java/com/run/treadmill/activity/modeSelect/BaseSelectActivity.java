@@ -51,7 +51,7 @@ public abstract class BaseSelectActivity<V extends BaseSelectView, P extends Bas
         super.onCreate(savedInstanceState);
         btn_start.setEnabled(false);
 
-        if (AppDebug.disableSerial) {
+        if (AppDebug.debug) {
             btn_start.setEnabled(true);
         }
 

@@ -697,7 +697,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                         disFlag = false;
                         Logger.i("disFlag = false");
 
-                        if (AppDebug.disableSerial){
+                        if (AppDebug.debug){
                             if (!isDestroyed()) {
                                 runOnUiThread(() -> {
                                     btn_pause_continue.setEnabled(true);

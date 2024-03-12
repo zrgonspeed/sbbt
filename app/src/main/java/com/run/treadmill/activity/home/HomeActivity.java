@@ -10,11 +10,14 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.floatWindow.LeftVoiceFloatWindow;
 import com.run.treadmill.activity.home.bg.HomeAnimation;
-import com.run.treadmill.activity.login.LoginActivity;
+import com.run.treadmill.activity.home.help.HomeClick;
+import com.run.treadmill.activity.home.help.HomeError;
+import com.run.treadmill.activity.home.help.HomeMcuCallBack;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.activity.runMode.quickStart.QuickStartActivity;
 import com.run.treadmill.base.BaseActivity;
@@ -24,41 +27,55 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.reboot.MyApplication;
-import com.run.treadmill.reboot.ReBootTask;
-import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.sp.SpManager;
-import com.run.treadmill.sysbt.BtAppUtils;
 import com.run.treadmill.update.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.update.thirdapp.other.IgnoreSendMessageUtils;
 import com.run.treadmill.util.GpIoUtils;
-import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.PermissionUtil;
-import com.run.treadmill.util.SystemWifiUtils;
 import com.run.treadmill.util.ThreadUtils;
-import com.run.treadmill.util.WifiBackFloatWindowManager;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/05/29
- */
 @CreatePresenter(HomePresenter.class)
-public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implements HomeView, SafeKeyTimer.SafeTimerCallBack, HomeTipsDialog.OnTipDialogStatusChange {
+public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implements HomeView, SafeKeyTimer.SafeTimerCallBack {
     @BindView(R.id.rl_main)
     RelativeLayout rl_main;
     @BindView(R.id.tv_sleep)
     TextView tv_sleep;
 
-    private HomeTipsDialog tipsPop;
-    private boolean isFirst = true;
-    private boolean isOnClicking = true;
-    private boolean isOnPause = false;
+    @BindView(R.id.tv_home_signin)
+    TextView tv_home_signin;
+    @BindView(R.id.tv_home_media)
+    TextView tv_home_media;
+    @BindView(R.id.tv_home_program)
+    TextView tv_home_program;
+    @BindView(R.id.tv_home_setting)
+    TextView tv_home_setting;
+    @BindView(R.id.tv_home_quickstart)
+    TextView tv_home_quickstart;
+    @BindView(R.id.iv_wifi)
+    ImageView iv_wifi;
+    @BindView(R.id.iv_bluetooth)
+    ImageView iv_bluetooth;
+    @BindView(R.id.tv_time)
+    TextClock tv_time;
+    @BindView(R.id.iv_home_bg)
+    ImageView iv_home_bg;
 
-    private HomeSleepManager homeSleepManager = new HomeSleepManager(this);
+    public HomeTipsDialog tipsPop;
+    public boolean isFirst = true;
+    public boolean isOnClicking = true;
+    public boolean isOnPause = false;
+
+    public LeftVoiceFloatWindow voiceFW;
+    private HomeAnimation homeAnimation;
+
+    private HomeSleepManager homeSleep = new HomeSleepManager(this);
+    private HomeError homeError = new HomeError(this);
+    private HomeMcuCallBack homeKey = new HomeMcuCallBack(this);
+    private HomeClick homeClick = new HomeClick(this);
 
     @Override
     protected int getLayoutId() {
@@ -70,7 +87,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         super.onCreate(savedInstanceState);
 
         ThreadUtils.postOnMainThread(() -> {
-            myOnCreate();
+            onCreate2();
         }, 1000);
     }
 
@@ -79,11 +96,11 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         super.onResume();
 
         ThreadUtils.postOnMainThread(() -> {
-            myOnResume();
+            onResume2();
         }, 1100);
     }
 
-    private void myOnCreate() {
+    private void onCreate2() {
         IgnoreSendMessageUtils.onCreateMission();
 
         //开机上电需要reboot时间
@@ -113,35 +130,58 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         GpIoUtils.setScreen_1();
     }
 
-    private void enableQuickStart() {
-        if (!tv_home_quickstart.isEnabled()) {
-            tv_home_quickstart.setEnabled(true);
-        }
-    }
-
-    private void disableQuickStart() {
-        if (tv_home_quickstart.isEnabled()) {
-            tv_home_quickstart.setEnabled(false);
-        }
-    }
-
-    private void myOnResume() {
+    private void onResume2() {
         OtaMcuUtils.curIsOtamcu = false;
         sleepWakeUpFlag = true;
-
-        RunningParam.getInstance().cleanStep();
-
+        isOnClicking = false;
         isOnPause = false;
-        loadSpManager();
+        isMetric = SpManager.getIsMetric();
         disableQuickStart();
+        homeSleep.startTimerOfSleep();
+
         getPresenter().setContext(this);
         getPresenter().setVolumeAndBrightness();
 
+        setTipsPop();
+        setUpdate();
+        checkFirst();
+
+        if (!isNormal) {
+            isNormal = true;
+            homeError.startTimerOfSafe();
+        }
+        RunningParam.getInstance().cleanStep();
+        ErrorManager.getInstance().exitError = false;
+        ControlManager.getInstance().stopRun(SpManager.getGSMode());
+    }
+
+    private void setTipsPop() {
         tipsPop.setPresent(getPresenter());
-        tipsPop.setOnTipDialogStatusChange(this);
+        tipsPop.setOnTipDialogStatusChange(new HomeTipsDialog.OnTipDialogStatusChange() {
+            @Override
+            public void onTipDialogShow(int tipPopType) {
 
-        homeSleepManager.startTimerOfSleep();
+            }
 
+            @Override
+            public void onTipDialogDismiss(int tipPopType) {
+                disableQuickStart();
+            }
+        });
+    }
+
+    private void checkFirst() {
+        if (!((MyApplication) getApplication()).isFirst) {
+            int errorTip = ErrorManager.getInstance().getErrorTip();
+            if (errorTip != CTConstant.NO_SHOW_TIPS) {
+                tipsPop.showTipPop(errorTip);
+            } else {
+                getPresenter().checkLubeAndLock();
+            }
+        }
+    }
+
+    private void setUpdate() {
         HomeApkUpdateManager.getInstance().obtainUpdate(MyApplication.getContext(), new HomeApkUpdateManager.UpdateViewCallBack() {
             @Override
             public void showTipsPoint() {
@@ -155,24 +195,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         });
 
         HomeThirdAppUpdateManager.getInstance().checkOnResume(this);
-
-        if (!((MyApplication) getApplication()).isFirst) {
-            int errorTip = ErrorManager.getInstance().getErrorTip();
-            if (errorTip != CTConstant.NO_SHOW_TIPS) {
-                tipsPop.showTipPop(errorTip);
-            } else {
-                getPresenter().checkLubeAndLock();
-            }
-        }
-        if (!isNormal) {
-            isNormal = true;
-            startTimerOfSafe();
-        }
-
-        isOnClicking = false;
-        ErrorManager.getInstance().exitError = false;
-
-        ControlManager.getInstance().stopRun(SpManager.getGSMode());
     }
 
     @Override
@@ -195,7 +217,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     protected void onPause() {
         super.onPause();
         isOnPause = true;
-        homeSleepManager.closeTimer();
+        homeSleep.closeTimer();
         isFirst = false;
     }
 
@@ -206,50 +228,41 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     }
 
     @Override
-    public void showError(int errCode) {
-        if (ErrorManager.getInstance().isInclineError()) {
-            return;
-        }
+    protected void onDestroy() {
+        super.onDestroy();
+        homeAnimation.destroy();
+    }
 
-        showTipPop(CTConstant.SHOW_TIPS_OTHER_ERROR);
-        HomeThirdAppUpdateManager.getInstance().hideDialog();
+    @Override
+    public void showError(int errCode) {
+        homeError.showError(errCode);
     }
 
     @Override
     public void safeError() {
-        if (tipsPop.getLastTips() != CTConstant.SHOW_TIPS_SAFE_ERROR) {
-            wakeUpSleep();
-        }
-        showTipPop(CTConstant.SHOW_TIPS_SAFE_ERROR);
-        startTimerOfSafe();
-
+        homeError.safeError();
     }
 
     @Override
     public void commOutError() {
-        HomeThirdAppUpdateManager.getInstance().hideDialog();
-        showTipPop(CTConstant.SHOW_TIPS_COMM_ERROR);
+        homeError.commOutError();
     }
 
     private boolean sleepWakeUpFlag = true;
 
     @Override
     public void hideTips() {
-        if (tipsPop.getLastTips() == CTConstant.SHOW_TIPS_SAFE_ERROR
-                || tipsPop.getLastTips() == CTConstant.SHOW_TIPS_OTHER_ERROR) {
+        if (tipsPop.isSafeError() || tipsPop.isOtherError()) {
             ErrorManager.getInstance().exitError = false;
 
-            if (tipsPop.getLastTips() == CTConstant.SHOW_TIPS_OTHER_ERROR) {
+            if (tipsPop.isOtherError()) {
                 if (sleepWakeUpFlag) {
                     wakeUpSleep();
                     sleepWakeUpFlag = false;
                 }
             }
 
-            if (tipsPop.getLastTips() == CTConstant.SHOW_TIPS_SAFE_ERROR) {
-                // ZyLight.safeKeyResume();
-                // FsLight.safeKeyResume();
-                // MusicLight.safeKeyResume();
+            if (tipsPop.isSafeError()) {
             }
             tipsPop.stopTipsPop();
         }
@@ -275,7 +288,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         showTipPop(CTConstant.SHOW_TIPS_POINT);
     }
 
-    private void showTipPop(int tips) {
+    public void showTipPop(int tips) {
         if (!((MyApplication) getApplication()).isFirst) {
             // btn_factory.releasedLongClick();
             tipsPop.showTipPop(tips);
@@ -284,61 +297,12 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @Override
     public void cmdKeyValue(int keyValue) {
-        if (getPresenter().inOnSleep) {
-            wakeUpSleep();
-            return;
-        }
-
-        if (keyValue == SerialKeyValue.START_CLICK ||
-                keyValue == SerialKeyValue.HAND_START_CLICK
-        ) {
-            if (tipsPop.isShowTips() || ((MyApplication) getApplication()).isFirst) {
-                return;
-            }
-            // 第三方更新弹窗，不给进入start
-            if (HomeThirdAppUpdateManager.getInstance().isShow()) {
-                Logger.i("return; 第三方更新弹窗，不给进入start");
-                return;
-            }
-        }
+        homeKey.cmdKeyValue(keyValue);
     }
 
     @Override
     public void beltAndInclineStatus(int beltStatus, int inclineStatus, int curInclineAd) {
-        //Log.d("beltAndInclineStatus", ",beltStatus=" + beltStatus + ",inclineStatus=" + inclineStatus + ",curInclineAd=" + curInclineAd);
-        if (isOnPause) {//防止切换界面还调用该方法（运动秀受影响）
-            return;
-        }
-        if (!SafeKeyTimer.getInstance().getIsSafe()) {
-            disableQuickStart();
-            return;
-        }
-
-        if (tipsPop.isShowTips()) {
-            disableQuickStart();
-            return;
-        }
-        if (beltStatus != 0) {
-            disableQuickStart();
-
-            if (isFirst) {
-                ControlManager.getInstance().stopRun(SpManager.getGSMode());
-                isFirst = false;
-            }
-            return;
-        }
-
-        if (ErrorManager.getInstance().isHasInclineError()) {
-            enableQuickStart();
-            return;
-        }
-
-        if (inclineStatus == 0) {
-            enableQuickStart();
-            return;
-        }
-
-        disableQuickStart();
+        homeKey.beltAndInclineStatus(beltStatus, inclineStatus, curInclineAd);
     }
 
     @Override
@@ -347,146 +311,52 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     }
 
     @Override
-    public void onTipDialogShow(@CTConstant.TipPopType int tipPopType) {
-    }
-
-    @Override
-    public void onTipDialogDismiss(@CTConstant.TipPopType int tipPopType) {
-
-    }
-
-    @Override
     public void reSetSleepTime() {
-        homeSleepManager.resetTime();
+        homeSleep.resetTime();
     }
 
     @Override
     public void startMachineLubeTimer() {
-
     }
 
     @Override
     public void wakeUpSleep() {
-        homeSleepManager.wakeUpSleep();
+        homeSleep.wakeUpSleep();
     }
 
     @Override
     public boolean isQuickStartEnable() {
-        return false;
+        return tv_home_quickstart.isEnabled();
     }
-
-    private void startTimerOfSafe() {
-        disableQuickStart();
-        SafeKeyTimer.getInstance().registerSafeCb(this);
-        if (SafeKeyTimer.getInstance().getIsSafe()) {
-            SafeKeyTimer.getInstance().startTimer(getPresenter().getSafeKeyDelayTime(ReBootTask.isReBootFinish), this);
-        }
-    }
-
-    private void loadSpManager() {
-        isMetric = SpManager.getIsMetric();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        homeAnimation.destroy();
-    }
-
-    public boolean isSafeKeyTips() {
-        return tipsPop.getLastTips() == CTConstant.SHOW_TIPS_SAFE_ERROR;
-    }
-
-    @BindView(R.id.tv_home_signin)
-    TextView tv_home_signin;
-    @BindView(R.id.tv_home_media)
-    TextView tv_home_media;
-    @BindView(R.id.tv_home_program)
-    TextView tv_home_program;
-    @BindView(R.id.tv_home_setting)
-    TextView tv_home_setting;
-
-    @BindView(R.id.tv_home_quickstart)
-    TextView tv_home_quickstart;
-
-    @BindView(R.id.iv_wifi)
-    ImageView iv_wifi;
-    @BindView(R.id.iv_bluetooth)
-    ImageView iv_bluetooth;
-
-    @BindView(R.id.tv_time)
-    TextClock tv_time;
-
-    @BindView(R.id.iv_home_bg)
-    ImageView iv_home_bg;
 
     @OnClick({R.id.tv_home_signin, R.id.tv_home_media, R.id.tv_home_program, R.id.tv_home_setting,
             R.id.tv_home_quickstart,
             R.id.iv_float_edit,
             R.id.iv_float_wearables,
             R.id.iv_float_volume,
-
             R.id.iv_wifi,
             R.id.iv_bluetooth,
-
             R.id.iv_float_close,
             R.id.iv_float_open
     })
     public void click(View view) {
-        if (getPresenter().inOnSleep) {
-            wakeUpSleep();
-            return;
-        }
-        if (isOnClicking) {
-            return;
-        }
-        // 有些按钮要防止快速点击多次
-        if (view.getId() == R.id.iv_bluetooth ||
-                view.getId() == R.id.iv_wifi ||
-                view.getId() == R.id.tv_home_quickstart
-        ) {
-            isOnClicking = true;
-        }
+        homeClick.click(view);
+    }
 
-        switch (view.getId()) {
-            case R.id.tv_home_quickstart:
-                enterQuickStart();
+    public void enterQuickStart() {
+        getPresenter().setUpRunningParam(isMetric);
+        startActivity(new Intent(HomeActivity.this, QuickStartActivity.class));
+    }
 
-                break;
-            case R.id.iv_float_close:
-                findViewById(R.id.inclue_float_left).setVisibility(View.GONE);
-                findViewById(R.id.inclue_float_left_2).setVisibility(View.VISIBLE);
-                voiceFW.hide();
-                break;
-            case R.id.iv_float_open:
-                findViewById(R.id.inclue_float_left).setVisibility(View.VISIBLE);
-                findViewById(R.id.inclue_float_left_2).setVisibility(View.GONE);
-                break;
-
-            case R.id.iv_bluetooth:
-                BtAppUtils.enterBluetooth(this);
-                break;
-            case R.id.iv_wifi:
-                WifiBackFloatWindowManager.startWifiBackFloat();
-                SystemWifiUtils.enterWifi();
-                break;
-
-            case R.id.iv_float_volume:
-                voiceFW.showOrHide();
-                break;
-
-            case R.id.tv_home_signin:
-                startActivity(new Intent(this, LoginActivity.class));
-                break;
+    public void enableQuickStart() {
+        if (!tv_home_quickstart.isEnabled()) {
+            tv_home_quickstart.setEnabled(true);
         }
     }
 
-    private LeftVoiceFloatWindow voiceFW;
-    private HomeAnimation homeAnimation;
-
-    private void enterQuickStart() {
-        getPresenter().setUpRunningParam(isMetric);
-        startActivity(new Intent(HomeActivity.this, QuickStartActivity.class));
+    public void disableQuickStart() {
+        if (tv_home_quickstart.isEnabled()) {
+            tv_home_quickstart.setEnabled(AppDebug.debug ? true : false);
+        }
     }
 }

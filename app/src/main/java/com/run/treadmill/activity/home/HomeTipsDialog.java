@@ -140,16 +140,15 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
 
     }
 
-
     protected void setPresent(HomePresenter p) {
         presenter = p;
     }
 
-    protected boolean isShowTips() {
+    public boolean isShowTips() {
         return !(lastTips == CTConstant.NO_SHOW_TIPS);
     }
 
-    protected int getLastTips() {
+    public int getLastTips() {
         return lastTips;
     }
 
@@ -262,16 +261,16 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
         return CTConstant.NO_SHOW_TIPS;
     }
 
-    public boolean isShowLockError() {
-        return isShowLockError;
-    }
-
-    public void machineLubeFinish() {
-
-    }
-
     public void setOnTipDialogStatusChange(OnTipDialogStatusChange change) {
         this.mOnTipDialogStatusChange = change;
+    }
+
+    public boolean isSafeError() {
+        return getLastTips() == CTConstant.SHOW_TIPS_SAFE_ERROR;
+    }
+
+    public boolean isOtherError() {
+        return getLastTips() == CTConstant.SHOW_TIPS_OTHER_ERROR;
     }
 
     public interface OnTipDialogStatusChange {

@@ -100,7 +100,7 @@ public class MyApplication extends LitePalApplication implements Custom.Applicat
         // 串口
         {
             ControlManager.getInstance().setMetric(SpManager.getIsMetric());
-            if (!AppDebug.disableSerial) {
+            if (!AppDebug.debug) {
                 boolean result = ControlManager.getInstance().initSerial(getApplicationContext(), 38400, "/dev/ttyS2");
                 if (result) {
                     ControlManager.getInstance().startSerial(SerialCommand.TX_RD_SOME, ParamCons.NORMAL_PACKAGE_PARAM, new byte[]{});

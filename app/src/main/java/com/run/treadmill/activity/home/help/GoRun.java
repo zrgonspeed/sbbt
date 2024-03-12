@@ -3,13 +3,14 @@ package com.run.treadmill.activity.home.help;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
+import com.run.treadmill.reboot.ReBootTask;
 
 public class GoRun {
-    public static int getSafeKeyDelayTime(boolean isRebootFinish) {
+    public static int getSafeKeyDelayTime() {
         // 当前速度或者最后下发的速度
         int speed = ErrorManager.getInstance().lastSpeed;
         int delayTime = 0;
-        if (!isRebootFinish) {
+        if (!ReBootTask.isReBootFinish) {
             return 3000;
         }
         if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {

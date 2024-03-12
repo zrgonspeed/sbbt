@@ -137,7 +137,7 @@ public class HomeThirdAppUpdateManager implements OkHttpCallBack {
                 return;
             }
             // 安全key时不弹
-            if (((HomeActivity) activity).isSafeKeyTips()) {
+            if (((HomeActivity) activity).tipsPop.isSafeError()) {
                 Logger.d("当前安全key弹窗，不弹第三方更新");
                 HomeThirdAppUpdateManager.getInstance().setNewCheck(true);
                 return;

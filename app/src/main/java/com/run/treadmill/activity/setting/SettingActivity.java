@@ -576,11 +576,11 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
         sp_language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!SafeKeyTimer.getInstance().getIsSafe() && !AppDebug.disableSerial) {
+                if (!SafeKeyTimer.getInstance().getIsSafe() && !AppDebug.debug) {
                     sp_language.setSelection(currLanguagePos, true);
                     return;
                 }
-                if (!isCanChange && !AppDebug.disableSerial) {
+                if (!isCanChange && !AppDebug.debug) {
                     sp_language.setSelection(currLanguagePos, true);
                     return;
                 }
