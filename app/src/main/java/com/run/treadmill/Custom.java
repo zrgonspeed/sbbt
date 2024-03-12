@@ -14,7 +14,7 @@ import com.run.treadmill.sp.SpManager;
  * 方便跳转到需要修改的地方
  */
 public class Custom {
-    public static final String PROJECT_NAME = "AC00554-54T-18";
+    public static final String PROJECT_NAME = "AC00554-54T-11";
     public static final int DEF_DEVICE_TYPE = CTConstant.DEVICE_TYPE_AA;
 
     public static class Mcu {
