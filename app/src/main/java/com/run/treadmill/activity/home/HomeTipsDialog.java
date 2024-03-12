@@ -86,11 +86,11 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
                     showTipPop(errorTip);
                     break;
                 }
-                boolean machineLube1 = presenter.checkMachineLubeNull();
+               /* boolean machineLube1 = presenter.checkMachineLubeNull();
                 if (machineLube1) {
                     showTipPop(CTConstant.SHOW_TIPS_MACHINE_LUBE_NULL);
                     break;
-                }
+                }*/
                 if (HomeApkUpdateManager.getInstance().isNewVersion && SpManager.getUpdateIsNetwork()) {
                     showTipPop(CTConstant.SHOW_TIPS_POINT);
                     break;

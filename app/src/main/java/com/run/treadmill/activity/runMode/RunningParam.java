@@ -1081,6 +1081,10 @@ public class RunningParam {
        stepManager.setStepFromMCU(stepNumber);
     }
 
+    public void cleanStep() {
+        stepManager.clean();
+    }
+
     public boolean isFloat = false;
 
 }

@@ -13,8 +13,6 @@ public interface HomeView extends BaseView {
      */
     void showLube();
 
-    void showMachineLue(int type);
-
     /**
      * 显示加锁
      */
@@ -30,15 +28,6 @@ public interface HomeView extends BaseView {
      */
     void showTipsPoint();
 
-    /**
-     * 进入setting的Lock界面
-     */
-    void enterSettingLock();
-
-    /**
-     * 进入工程模式二
-     */
-    void enterFactoryTwo();
 
     void reSetSleepTime();
 
