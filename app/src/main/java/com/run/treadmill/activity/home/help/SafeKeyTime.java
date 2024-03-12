@@ -5,7 +5,7 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.reboot.ReBootTask;
 
-public class GoRun {
+public class SafeKeyTime {
     public static int getSafeKeyDelayTime() {
         // 当前速度或者最后下发的速度
         int speed = ErrorManager.getInstance().lastSpeed;
