@@ -617,6 +617,16 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             wakeUpSleep();
             return;
         }
+        if (isOnClicking) {
+            return;
+        }
+        // 有些按钮要防止快速点击多次
+        if (view.getId() == R.id.iv_bluetooth ||
+                view.getId() == R.id.iv_wifi
+        ) {
+            isOnClicking = true;
+        }
+
         switch (view.getId()) {
             case R.id.iv_float_close:
                 findViewById(R.id.inclue_float_left).setVisibility(View.GONE);
