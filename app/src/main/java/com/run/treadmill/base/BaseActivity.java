@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
  * @Time 2019/05/29
  */
 public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V>> extends Activity implements
-        BaseView, PresenterProxy<V, P>, FitShowStatusCallBack, BtCallBack {
+        BaseView, PresenterProxy<V, P>,  BtCallBack {
     public String TAG;
     private static final String PRESENTER_SAVE_KEY = "presenter_save_key";
 
@@ -88,7 +88,7 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
             } else {
                 ReBootTask.getInstance().setPresenter(getPresenter());
             }
-            FitShowManager.getInstance().setFitShowStatusCallBack(this);
+            FitShowManager.getInstance().setFitShowStatusCallBack(null);
             if (this.getLocalClassName().contains("HomeActivity")) {
                 FitShowManager.getInstance().setNOtConnect(false);
             } else {
@@ -180,17 +180,6 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
         decorView.setSystemUiVisibility(uiOptions);
     }
 
-    @Override
-    public void fitShowStartRunning() {
-
-    }
-
-    @Override
-    public void isFitShowConnect(boolean isConnect) {
-       /* if (isConnect) {
-           // finish();
-        }*/
-    }
 
     /**********************************  外接蓝牙模块部分  ***********************************/
     @Override

@@ -1303,9 +1303,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     private boolean disPauseBtn = false;
 
-    @Override
-    public void isFitShowConnect(boolean isConnect) {
-    }
 
     public class InclineTextWatcher implements TextWatcher {
 

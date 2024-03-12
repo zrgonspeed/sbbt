@@ -282,10 +282,6 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         factoryTwo.onPause();
     }
 
-    @Override
-    public void isFitShowConnect(boolean isConnect) {
-        factoryOne.isFitShowConnect(isConnect);
-    }
 
     private FactoryOne factoryOne;
     private FactoryTwo factoryTwo;

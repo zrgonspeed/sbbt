@@ -19,6 +19,7 @@ import com.run.treadmill.activity.floatWindow.LeftVoiceFloatWindow;
 import com.run.treadmill.activity.home.bg.HomeAnimation;
 import com.run.treadmill.activity.login.LoginActivity;
 import com.run.treadmill.activity.runMode.RunningParam;
+import com.run.treadmill.activity.runMode.quickStart.QuickStartActivity;
 import com.run.treadmill.activity.setting.SettingActivity;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.base.factory.CreatePresenter;
@@ -184,7 +185,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
         isOnClicking = false;
         ErrorManager.getInstance().exitError = false;
-        isFitShowConnect(FitShowManager.getInstance().isConnect());
+        // isFitShowConnect(FitShowManager.getInstance().isConnect());
         FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_NORMAL_0x00);
 
         ControlManager.getInstance().stopRun(isOpenGSMode);
@@ -397,11 +398,9 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
         //TODO:扬升状态为0，扬升ad在最小ad的+/- 15内
         if (inclineStatus == 0) {
-            if (checkADValueIsInSafe(curInclineAd)) {
 
-                FitShowManager.getInstance().setNOtConnect(false);
-                return;
-            }
+            FitShowManager.getInstance().setNOtConnect(false);
+            return;
         }
 
         FitShowManager.getInstance().setNOtConnect(true);
@@ -530,41 +529,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         curMinAD = SpManager.getMinAd();
     }
 
-    /**
-     * 检测当前AD值是否在正常范围
-     *
-     * @param curAD
-     * @return
-     */
-    private boolean checkADValueIsInSafe(int curAD) {
-        return true;
-    }
-
-    @Override
-    public void fitShowStartRunning() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
-    }
-
-    @Override
-    public void isFitShowConnect(boolean isConnect) {
-        if (isConnect) {
-
-            // btn_factory.setEnabled(false);
-            if (getPresenter().inOnSleep) {
-                wakeUpSleep();
-                return;
-            }
-        } else {
-
-            // btn_factory.setEnabled(true);
-        }
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -622,12 +586,17 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         }
         // 有些按钮要防止快速点击多次
         if (view.getId() == R.id.iv_bluetooth ||
-                view.getId() == R.id.iv_wifi
+                view.getId() == R.id.iv_wifi ||
+                view.getId() == R.id.tv_home_quickstart
         ) {
             isOnClicking = true;
         }
 
         switch (view.getId()) {
+            case R.id.tv_home_quickstart:
+                enterQuickStart();
+
+                break;
             case R.id.iv_float_close:
                 findViewById(R.id.inclue_float_left).setVisibility(View.GONE);
                 findViewById(R.id.inclue_float_left_2).setVisibility(View.VISIBLE);
@@ -674,5 +643,10 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     private void onDestroy2() {
         homeAnimation.destroy();
+    }
+
+    private void enterQuickStart() {
+        getPresenter().setUpRunningParam(isMetric);
+        startActivity(new Intent(HomeActivity.this, QuickStartActivity.class));
     }
 }
