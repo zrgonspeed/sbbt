@@ -1,6 +1,5 @@
 package com.run.treadmill.activity.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +18,6 @@ import com.run.treadmill.activity.home.help.HomeClick;
 import com.run.treadmill.activity.home.help.HomeError;
 import com.run.treadmill.activity.home.help.HomeMcuCallBack;
 import com.run.treadmill.activity.runMode.RunningParam;
-import com.run.treadmill.activity.runMode.quickStart.QuickStartActivity;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.base.factory.CreatePresenter;
 import com.run.treadmill.common.CTConstant;
@@ -337,11 +335,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     })
     public void click(View view) {
         homeClick.click(view);
-    }
-
-    public void enterQuickStart() {
-        getPresenter().setUpRunningParam(isMetric);
-        startActivity(new Intent(HomeActivity.this, QuickStartActivity.class));
     }
 
     public void enableQuickStart() {

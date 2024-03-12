@@ -34,7 +34,7 @@ public class HomeClick extends BaseHomeHelp {
 
         switch (view.getId()) {
             case R.id.tv_home_quickstart:
-                activity.enterQuickStart();
+                GoRun.quickStart(activity);
                 break;
             case R.id.iv_float_close:
                 activity.findViewById(R.id.inclue_float_left).setVisibility(View.GONE);
