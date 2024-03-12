@@ -51,7 +51,7 @@ public class HomeSleepManager implements CustomTimer.TimerCallBack {
             Logger.d("==========     睡眠     ==========");
             homeActivity.getPresenter().inOnSleep = true;
 
-            GpIoUtils.setScreen_0();
+            GpIoUtils.setCloseScreen();
             homeActivity.runOnUiThread(() -> homeActivity.tv_sleep.setVisibility(View.VISIBLE));
 
             homeActivity.runOnUiThread(() -> {
@@ -75,7 +75,7 @@ public class HomeSleepManager implements CustomTimer.TimerCallBack {
 
     public void wakeUpSleep() {
         if (GpIoUtils.checkScreenState() == GpIoUtils.IO_STATE_0) {
-            GpIoUtils.setScreen_1();
+            GpIoUtils.setOpenScreen();
             homeActivity.getPresenter().inOnSleep = false;
             homeActivity.tv_sleep.setVisibility(View.GONE);
             // KeyLight.openLight();

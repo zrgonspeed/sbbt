@@ -154,14 +154,14 @@ public class GpIoUtils {
     /**
      * 屏幕状态设为 1
      */
-    public static void setScreen_1() {
+    public static void setOpenScreen() {
         setScreen(IO_STATE_1);
     }
 
     /**
      * 屏幕状态设为 0
      */
-    public static void setScreen_0() {
+    public static void setCloseScreen() {
         setScreen(IO_STATE_0);
     }
 

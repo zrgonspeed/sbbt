@@ -127,7 +127,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         homeAnimation = new HomeAnimation(iv_home_bg);
         homeAnimation.initAndStart();
 
-        GpIoUtils.setScreen_1();
+        GpIoUtils.setOpenScreen();
     }
 
     private void onResume2() {

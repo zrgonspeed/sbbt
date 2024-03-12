@@ -31,7 +31,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
-        GpIoUtils.setScreen_1();
+        GpIoUtils.setOpenScreen();
     }
 
     @Override
