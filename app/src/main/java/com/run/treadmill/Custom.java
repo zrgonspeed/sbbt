@@ -83,6 +83,6 @@ public class Custom {
         }
     }
 
-    public static int logo = R.drawable.btn_logo_1;
+    public static int logo = R.drawable.img_logo;
 
 }
