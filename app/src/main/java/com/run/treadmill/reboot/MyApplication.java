@@ -151,8 +151,8 @@ public class MyApplication extends LitePalApplication implements Custom.Applicat
 
         HomeThirdAppUpdateManager.getInstance().setNewCheck(true);
 
-        MusicLight.startThread();
-        MusicReceiverManager.register();
+        // MusicLight.startThread();
+        // MusicReceiverManager.register();
 
         // OtaMcuUtils.installOtaMcu(this);
     }
