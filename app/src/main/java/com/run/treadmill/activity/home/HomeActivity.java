@@ -1,7 +1,6 @@
 package com.run.treadmill.activity.home;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -17,6 +16,7 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.factory.FactoryActivity;
 import com.run.treadmill.activity.floatWindow.LeftVoiceFloatWindow;
+import com.run.treadmill.activity.home.bg.HomeAnimation;
 import com.run.treadmill.activity.login.LoginActivity;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.activity.setting.SettingActivity;
@@ -131,6 +131,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     }
 
     private void myOnResume() {
+        onResume2();
         OtaMcuUtils.curIsOtamcu = false;
         fflag = true;
         FitShowManager.isHome = true;
@@ -567,6 +568,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        onDestroy2();
     }
 
     public boolean isSafeKeyTips() {
@@ -643,24 +646,23 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         }
     }
 
+    private LeftVoiceFloatWindow voiceFW;
+    private HomeAnimation homeAnimation;
+
     private void onCreate2() {
         tv_time.setTimeZone("GMT+8:00");
 
         voiceFW = new LeftVoiceFloatWindow(this);
         voiceFW.init();
 
-        initBgAnimation();
+        homeAnimation = new HomeAnimation(iv_home_bg);
+        homeAnimation.initAndStart();
     }
 
-    // 图片轮播图，淡入淡出
-    private void initBgAnimation() {
-        Drawable[] drawableArray = {
-                getResources().getDrawable(R.drawable.bk_background_idle_mode_1),
-                getResources().getDrawable(R.drawable.bk_background_idle_mode_1)
-        };
-        // iv_home_bg
+    private void onResume2() {
     }
 
-    private LeftVoiceFloatWindow voiceFW;
-
+    private void onDestroy2() {
+        homeAnimation.destroy();
+    }
 }
