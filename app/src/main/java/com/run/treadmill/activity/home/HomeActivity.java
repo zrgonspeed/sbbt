@@ -101,8 +101,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     }
 
     private void onCreate2() {
-        IgnoreSendMessageUtils.onCreateMission();
-
         //开机上电需要reboot时间
         isNormal = false;
 

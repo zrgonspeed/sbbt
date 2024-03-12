@@ -17,6 +17,7 @@ import com.run.treadmill.manager.musiclight.MusicReceiverManager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.sysbt.BtAppReboot;
 import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
+import com.run.treadmill.update.thirdapp.other.IgnoreSendMessageUtils;
 import com.run.treadmill.util.AppInit;
 import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
@@ -144,6 +145,8 @@ public class MyApplication extends LitePalApplication implements Custom.Applicat
             }).start();
 
             AppInit.setAppWhiteList();
+
+            IgnoreSendMessageUtils.onCreateMission();
         }
 
         HomeThirdAppUpdateManager.getInstance().setNewCheck(true);
