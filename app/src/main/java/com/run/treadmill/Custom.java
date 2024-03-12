@@ -4,8 +4,8 @@ package com.run.treadmill;
 import com.run.serial.RxDataCallBack;
 import com.run.treadmill.activity.factory.FactoryPresenter;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
-import com.run.treadmill.activity.home.HomePresenter;
 import com.run.treadmill.activity.home.HomeSleepManager;
+import com.run.treadmill.activity.home.help.HomeMcuCallBack;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.sp.SpManager;
@@ -48,7 +48,7 @@ public class Custom {
 
         public interface McuOnSuccess {
             default void home() {
-                new HomePresenter().onSucceed(null, 0);
+                HomeMcuCallBack.onSucceed(null, 0);
             }
 
             default void floatWindow() {

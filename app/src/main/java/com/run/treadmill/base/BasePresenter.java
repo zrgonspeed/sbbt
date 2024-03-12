@@ -98,37 +98,35 @@ public abstract class BasePresenter<V extends BaseView> implements RxDataCallBac
     @Override
     public void onSucceed(byte[] data, int len) {
 //        Logger.d("onSucceed  = " + ConvertData.byteArrayToHexString(data, len));
-//        如果常态包是包括功能码和参数位的,这个判断条件需要做改变
         if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
             realChain.changeData(0, data, inOnSleep);
             msgNomal = realChain.procced(data, inOnSleep);
 
-            if (msgNomal.what != MsgWhat.MSG_NOMAL_DATA) {
-                mCmdHandler.sendMessage(msgNomal);
+            if (msgNomal.what == MsgWhat.MSG_NOMAL_DATA) {
+                normalData(data, len);
             } else {
-                if (ErrorManager.getInstance().isInclineError()) {
-                    sendMsg(MsgWhat.MSG_ERROR, ErrorManager.getInstance().errStatus);
-                }
-                //暂停的时候速度也会0
-                if (resolveDate(data, NormalParam.CURR_SPEED_INX, NormalParam.CURR_SPEED_LEN) != 0) {
-                    ErrorManager.getInstance().lastSpeed = resolveDate(data, NormalParam.CURR_SPEED_INX, NormalParam.CURR_SPEED_LEN);
-                }
-                if (msgNomal.obj == null) {
-                    return;
-                }
-                int[] reDate = (int[]) msgNomal.obj;
-                int keyValue = reDate[0];
-//                int beltStatus = reDate[1];
-//                int inclineStatus = reDate[2];
-//                int currSpeed = reDate[3];
-//                int currAD = reDate[4];
-                if (keyValue != -1) {
-                    sendNormalMsg(MsgWhat.MSG_DATA_KEY_EVENT, keyValue);
-                }
-//                sendNormalMsg(MsgWhat.MSG_DATA_BELT_AND_INCLINE, beltStatus, inclineStatus);
-                sendNormalMsg(MsgWhat.MSG_DATA_BELT_AND_INCLINE, reDate);
+                mCmdHandler.sendMessage(msgNomal);
             }
         }
+    }
+
+    private void normalData(byte[] data, int len) {
+        if (ErrorManager.getInstance().isInclineError()) {
+            sendMsg(MsgWhat.MSG_ERROR, ErrorManager.getInstance().errStatus);
+        }
+        //暂停的时候速度也会0
+        if (resolveDate(data, NormalParam.CURR_SPEED_INX, NormalParam.CURR_SPEED_LEN) != 0) {
+            ErrorManager.getInstance().lastSpeed = resolveDate(data, NormalParam.CURR_SPEED_INX, NormalParam.CURR_SPEED_LEN);
+        }
+        if (msgNomal.obj == null) {
+            return;
+        }
+        int[] reDate = (int[]) msgNomal.obj;
+        int keyValue = reDate[0];
+        if (keyValue != -1) {
+            sendNormalMsg(MsgWhat.MSG_DATA_KEY_EVENT, keyValue);
+        }
+        sendNormalMsg(MsgWhat.MSG_DATA_BELT_AND_INCLINE, reDate);
     }
 
     @Override

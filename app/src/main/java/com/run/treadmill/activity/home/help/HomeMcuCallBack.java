@@ -1,9 +1,13 @@
 package com.run.treadmill.activity.home.help;
 
+import com.chuhui.btcontrol.BtHelper;
+import com.run.serial.SerialCommand;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
+import com.run.treadmill.manager.control.NormalParam;
+import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.sp.SpManager;
@@ -14,6 +18,24 @@ public class HomeMcuCallBack extends BaseHomeHelp {
 
     public HomeMcuCallBack(HomeActivity activity) {
         super(activity);
+    }
+
+    public static void onSucceed(byte[] data, int len) {
+        if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
+            int homeHr;
+            if (NormalParam.resolveDate(data, NormalParam.HR_VALUE1_INX, NormalParam.HR_VALUE1_LEN) == 0) {
+                homeHr = (NormalParam.resolveDate(data, NormalParam.HR_VALUE2_INX, NormalParam.HR_VALUE2_LEN));
+            } else {
+                homeHr = (NormalParam.resolveDate(data, NormalParam.HR_VALUE1_INX, NormalParam.HR_VALUE1_LEN));
+            }
+            if (homeHr >= 0) {
+                if (BtHelper.getInstance().connected()) {
+                    // 设置发到中颖蓝牙的心率, 在home界面有心跳，zwift也能搜到心率
+                    BtHelper.getInstance().getRunParamBuilder()
+                            .hr(homeHr);
+                }
+            }
+        }
     }
 
     public void cmdKeyValue(int keyValue) {

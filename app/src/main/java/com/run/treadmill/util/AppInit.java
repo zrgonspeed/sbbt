@@ -7,9 +7,11 @@ import android.os.SystemClock;
 import android.provider.Settings;
 
 import com.run.android.ShellCmdUtils;
+import com.run.treadmill.manager.SystemBrightManager;
 import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.manager.PermissionManager;
 import com.run.treadmill.manager.SystemSoundManager;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.update.thirdapp.other.WhiteListUtils;
 
 public class AppInit {
@@ -84,5 +86,16 @@ public class AppInit {
 
     public static boolean readTouchesOptions() {
         return Settings.System.getInt(MyApplication.getContext().getContentResolver(), "pointer_location", 0) != 0;
+    }
+
+    /**
+     * 设置语言、音量和亮度的预设值
+     */
+    public static void setDefVolumeAndBrightness() {
+        if (!SpManager.getInitLanguageSoundBrightness()) {
+            SpManager.setInitLanguageSoundBrightness(true);
+            SystemSoundManager.getInstance().setAudioVolume((int) (0.6 * SystemSoundManager.maxVolume), SystemSoundManager.maxVolume);
+            SystemBrightManager.setBrightness(MyApplication.getContext(), 167);
+        }
     }
 }

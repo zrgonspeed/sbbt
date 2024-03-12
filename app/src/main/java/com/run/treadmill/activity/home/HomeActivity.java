@@ -30,7 +30,6 @@ import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.update.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
-import com.run.treadmill.update.thirdapp.other.IgnoreSendMessageUtils;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.PermissionUtil;
 import com.run.treadmill.util.ThreadUtils;
@@ -138,7 +137,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         homeSleep.startTimerOfSleep();
 
         getPresenter().setContext(this);
-        getPresenter().setVolumeAndBrightness();
 
         setTipsPop();
         setUpdate();

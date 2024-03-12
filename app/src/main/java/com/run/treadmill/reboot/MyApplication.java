@@ -12,7 +12,6 @@ import com.run.treadmill.manager.HardwareSoundManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.manager.fslight.FsLight;
-import com.run.treadmill.manager.musiclight.MusicLight;
 import com.run.treadmill.manager.musiclight.MusicReceiverManager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.sysbt.BtAppReboot;
@@ -139,14 +138,13 @@ public class MyApplication extends LitePalApplication implements Custom.Applicat
             BtAppReboot.initBt(getApplicationContext());
 
             AppInit.closeSomeSystemSetting();
+            AppInit.setAppWhiteList();
+            IgnoreSendMessageUtils.onCreateMission();
+            AppInit.setDefVolumeAndBrightness();
 
             new Thread(() -> {
                 ShellCmdUtils.getInstance().execCommand("sync");
             }).start();
-
-            AppInit.setAppWhiteList();
-
-            IgnoreSendMessageUtils.onCreateMission();
         }
 
         HomeThirdAppUpdateManager.getInstance().setNewCheck(true);

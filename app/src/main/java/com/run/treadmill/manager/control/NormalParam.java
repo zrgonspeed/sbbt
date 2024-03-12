@@ -1,6 +1,7 @@
 package com.run.treadmill.manager.control;
 
 import com.run.treadmill.Custom;
+import com.run.treadmill.util.DataTypeConversion;
 
 public class NormalParam implements Custom.Mcu.Normal {
 
@@ -129,4 +130,18 @@ public class NormalParam implements Custom.Mcu.Normal {
 
     }
 
+    public static int resolveDate(byte[] date, int offSet, int len) {
+        int result;
+        if (len == 3) {
+            //3个字节 ,暂时不知道如何处理
+            result = 0;
+        } else if (len == 2) {
+            result = DataTypeConversion.bytesToShortLiterEnd(date, offSet);
+        } else if (len == 1) {
+            result = DataTypeConversion.byteToInt(date[offSet]);
+        } else {
+            result = 0;
+        }
+        return result;
+    }
 }
