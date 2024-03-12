@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/btn_idlemode_signout_4" android:state_enabled="false" />
+    <item android:drawable="@drawable/btn_idlemode_signout_3" android:state_selected="true" />
+    <item android:drawable="@drawable/btn_idlemode_signout_2" android:state_pressed="true" />
+    <item android:drawable="@drawable/btn_idlemode_signout_1" />
+</selector>

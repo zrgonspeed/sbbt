@@ -39,7 +39,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="@dimen/dp_px_72_x"
         android:layout_marginBottom="@dimen/dp_px_38_x"
-        android:background="@drawable/btn_home_signin"
+        android:background="@drawable/btn_home_sign_out"
         android:gravity="center_horizontal"
         android:paddingTop="@dimen/dp_px_75_x"
         android:text="Sign out"
