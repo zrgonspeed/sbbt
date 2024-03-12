@@ -125,7 +125,7 @@
         android:layout_marginStart="@dimen/dp_px_1200_x"
         android:layout_marginTop="@dimen/dp_px_340_y"
         android:gravity="end"
-        android:text="AC00553-54T-24 V"
+        android:text=""
         android:textColor="@color/textView_white"
         android:textSize="@dimen/font_size_16pt"
         android:textStyle="bold" />
