@@ -73,22 +73,22 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
         switch (view.getId()) {
             case R.id.btn_incline_up:
                 longClickBuzzer(btn_incline_up);
-                myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                 getPresenter().setInclineValue(1, 0, false);
                 break;
             case R.id.btn_incline_down:
                 longClickBuzzer(btn_incline_down);
-                myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                 getPresenter().setInclineValue(-1, 0, false);
                 break;
             case R.id.btn_speed_up:
                 longClickBuzzer(btn_speed_up);
-                myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
+                speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                 getPresenter().setSpeedValue(1, 0, false);
                 break;
             case R.id.btn_speed_down:
                 longClickBuzzer(btn_speed_down);
-                myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
+                speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                 getPresenter().setSpeedValue(-1, 0, false);
                 break;
             case R.id.btn_line_chart_incline:
@@ -290,7 +290,7 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
             case SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_1:
             case SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_2:
                 if (btn_incline_up.isEnabled() && rl_tip.getVisibility() == View.GONE) {
-                    myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                    speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                     getPresenter().setInclineValue(1, 0, false);
                 }
                 break;
@@ -301,7 +301,7 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
             case SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_1:
             case SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_2:
                 if (btn_incline_down.isEnabled() && rl_tip.getVisibility() == View.GONE) {
-                    myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                    speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                     getPresenter().setInclineValue(-1, 0, false);
                 }
                 break;
@@ -312,7 +312,7 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_12_CLICK:
 
                 if ((btn_incline_up.isEnabled() || btn_incline_down.isEnabled()) && rl_tip.getVisibility() == View.GONE) {
-                    myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                    speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                     getPresenter().setInclineValue(0, SerialKeyValue.getKeyRepresentValue(keyValue), false);
                 }
                 break;

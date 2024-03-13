@@ -61,22 +61,22 @@ public class IntervalActivity extends BaseRunActivity<IntervalView, IntervalPres
         switch (view.getId()) {
             case R.id.btn_incline_up:
                 longClickBuzzer(btn_incline_up);
-                myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                 getPresenter().setInclineValue(1, 0, true);
                 break;
             case R.id.btn_incline_down:
                 longClickBuzzer(btn_incline_down);
-                myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                 getPresenter().setInclineValue(-1, 0, true);
                 break;
             case R.id.btn_speed_up:
                 longClickBuzzer(btn_speed_up);
-                myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
+                speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                 getPresenter().setSpeedValue(1, 0, true);
                 break;
             case R.id.btn_speed_down:
                 longClickBuzzer(btn_speed_down);
-                myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
+                speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                 getPresenter().setSpeedValue(-1, 0, true);
                 break;
             case R.id.btn_line_chart_incline:
@@ -255,7 +255,7 @@ public class IntervalActivity extends BaseRunActivity<IntervalView, IntervalPres
             case SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_1:
             case SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_2:
                 if (btn_incline_up.isEnabled()) {
-                    myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                    speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                     getPresenter().setInclineValue(1, 0, true);
                     BuzzerManager.getInstance().buzzerRingOnce();
                 }
@@ -267,7 +267,7 @@ public class IntervalActivity extends BaseRunActivity<IntervalView, IntervalPres
             case SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_1:
             case SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_2:
                 if (btn_incline_down.isEnabled()) {
-                    myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                    speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                     getPresenter().setInclineValue(-1, 0, true);
                     BuzzerManager.getInstance().buzzerRingOnce();
                 }
@@ -279,7 +279,7 @@ public class IntervalActivity extends BaseRunActivity<IntervalView, IntervalPres
             case SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_1:
             case SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_2:
                 if (btn_speed_up.isEnabled()) {
-                    myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
+                    speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                     getPresenter().setSpeedValue(1, 0, true);
                     BuzzerManager.getInstance().buzzerRingOnce();
                 }
@@ -291,7 +291,7 @@ public class IntervalActivity extends BaseRunActivity<IntervalView, IntervalPres
             case SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_1:
             case SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_2:
                 if (btn_speed_down.isEnabled()) {
-                    myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
+                    speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                     getPresenter().setSpeedValue(-1, 0, true);
                     BuzzerManager.getInstance().buzzerRingOnce();
                 }
@@ -303,7 +303,7 @@ public class IntervalActivity extends BaseRunActivity<IntervalView, IntervalPres
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_12_CLICK:
 
                 if (btn_incline_up.isEnabled() || btn_incline_down.isEnabled()) {
-                    myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                    speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                     getPresenter().setInclineValue(0, SerialKeyValue.getKeyRepresentValue(keyValue), true);
                 }
                 break;
@@ -314,7 +314,7 @@ public class IntervalActivity extends BaseRunActivity<IntervalView, IntervalPres
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_15_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_16_CLICK:
                 if (btn_speed_up.isEnabled() || btn_speed_down.isEnabled()) {
-                    myHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
+                    speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                     getPresenter().setSpeedValue(0, SerialKeyValue.getKeyRepresentValue(keyValue), true);
                 }
                 break;

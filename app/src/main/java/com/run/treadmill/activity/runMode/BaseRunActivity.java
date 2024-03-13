@@ -160,7 +160,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     private Animation pulseAnimation;
 
-    public MyHandler myHandler;
+    public SpeedInclineClickHandler speedInclineClickHandler;
     public Timer mTimer;
     public EmptyMessageTask mCountdownTask;
 
@@ -299,8 +299,11 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             }
 
             getPresenter().setInclineAndSpeed(maxIncline, minSpeed, maxSpeed);
-            if (myHandler == null) {
-                myHandler = new MyHandler(this);
+            if (speedInclineClickHandler == null) {
+                speedInclineClickHandler = new SpeedInclineClickHandler(this);
+            }
+            if (prepareHandler == null) {
+                prepareHandler = new PrepareHandler(this);
             }
             if (mTimer == null) {
                 mTimer = new Timer();
@@ -812,8 +815,11 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         if (mTimer != null) {
             mTimer.cancel();
         }
-        if (myHandler != null) {
-            myHandler.removeCallbacksAndMessages(null);
+        if (speedInclineClickHandler != null) {
+            speedInclineClickHandler.removeCallbacksAndMessages(null);
+        }
+        if (prepareHandler != null) {
+            prepareHandler.removeCallbacksAndMessages(null);
         }
 
         ControlManager.getInstance().stopRun(gsMode);
@@ -964,7 +970,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     private void showPrepare2(long delay) {
-        mCountdownTask = new EmptyMessageTask(myHandler, MsgWhat.MSG_PREPARE_TIME);
+        mCountdownTask = new EmptyMessageTask(prepareHandler, MsgWhat.MSG_PREPARE_TIME);
         currentPro = SystemSoundManager.getInstance().getCurrentPro();
         SystemSoundManager.getInstance().setAudioVolume(SystemSoundManager.Go321Volume, SystemSoundManager.maxVolume);
         try {
@@ -1289,6 +1295,39 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     @BindView(R.id.tv_setnum)
     public TextView tv_setnum;
 
+    public static class SpeedInclineClickHandler extends Handler {
+        private WeakReference<BaseRunActivity> weakReference;
+        private BaseRunActivity mActivity;
+
+        SpeedInclineClickHandler(BaseRunActivity activity) {
+            weakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            mActivity = weakReference.get();
+            if (mActivity == null) {
+                return;
+            }
+            switch (msg.what) {
+                case MsgWhat.MSG_CLICK_INCLINE:
+                    if (mActivity.btn_line_chart_incline != null) {
+                        mActivity.btn_line_chart_incline.performClick();
+                        BuzzerManager.getInstance().buzzerRingOnce();
+                    }
+                    break;
+                case MsgWhat.MSG_CLICK_SPEED:
+                    if (mActivity.btn_line_chart_speed != null) {
+                        mActivity.btn_line_chart_speed.performClick();
+                        BuzzerManager.getInstance().buzzerRingOnce();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     public VideoView vv_go;
     private int goTime = 1500;
     private long delay = 0;
@@ -1330,11 +1369,13 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         vv_go = null;
     }
 
-    public static class MyHandler extends Handler {
+    public PrepareHandler prepareHandler;
+
+    public static class PrepareHandler extends Handler {
         private WeakReference<BaseRunActivity> weakReference;
         private BaseRunActivity mActivity;
 
-        MyHandler(BaseRunActivity activity) {
+        PrepareHandler(BaseRunActivity activity) {
             weakReference = new WeakReference<>(activity);
         }
 
@@ -1356,18 +1397,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                         go_start();
                     }
                     mActivity.mRunningParam.countDown--;
-                    break;
-                case MsgWhat.MSG_CLICK_INCLINE:
-                    if (mActivity.btn_line_chart_incline != null) {
-                        mActivity.btn_line_chart_incline.performClick();
-                        BuzzerManager.getInstance().buzzerRingOnce();
-                    }
-                    break;
-                case MsgWhat.MSG_CLICK_SPEED:
-                    if (mActivity.btn_line_chart_speed != null) {
-                        mActivity.btn_line_chart_speed.performClick();
-                        BuzzerManager.getInstance().buzzerRingOnce();
-                    }
                     break;
                 default:
                     break;
@@ -1420,7 +1449,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
 
         //防止go声音没结束就修改回原来的声音
-        myHandler.postDelayed(() -> {
+        prepareHandler.postDelayed(() -> {
             //音量恢复
             SystemSoundManager.getInstance().setAudioVolume(currentPro, SystemSoundManager.maxVolume);
         }, 1000);
