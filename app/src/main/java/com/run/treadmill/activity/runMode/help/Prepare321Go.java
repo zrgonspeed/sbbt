@@ -188,7 +188,6 @@ public class Prepare321Go {
         destoryTimerTask();
     }
 
-
     public void finishRunning() {
         destoryTimerTask();
 
