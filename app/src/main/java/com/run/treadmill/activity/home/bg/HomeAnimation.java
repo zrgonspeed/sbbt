@@ -7,6 +7,7 @@ import android.os.Message;
 import android.widget.ImageView;
 
 import com.run.treadmill.R;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.ResourceUtils;
 
 // 图片轮播图，淡入淡出
@@ -21,11 +22,6 @@ public class HomeAnimation {
         this.iv_home_bg = iv_home_bg;
     }
 
-    public void initAndStart() {
-        thread = new Thread(new MyRunnable());
-        thread.start();
-    }
-
     private Drawable[] drawables = new Drawable[]{
             ResourceUtils.getDraw(R.drawable.bk_background_idle_mode_1),
             ResourceUtils.getDraw(R.drawable.bk_background_idle_mode_2),
@@ -38,6 +34,7 @@ public class HomeAnimation {
 
     private Thread thread;
     private boolean threadRun = true;   //线程结束标志符
+    private boolean pause = false;
     private int duration = 2000;
     private int sleep = 5000;
 
@@ -60,6 +57,12 @@ public class HomeAnimation {
         public void run() {
             try {
                 while (threadRun) {
+                    if (pause) {
+                        Logger.d("当前处于暂停轮播图");
+                        Thread.sleep(sleep);
+                        continue;
+                    }
+                    Logger.d("sendHandler 轮播图");
                     Message message = mHandler.obtainMessage();
                     message.arg1 = duration;
                     mHandler.sendMessage(message);
@@ -71,11 +74,30 @@ public class HomeAnimation {
         }
     }
 
+    public void initAndStart() {
+        if (thread != null) {
+            return;
+        }
+
+        threadRun = true;
+        thread = new Thread(new MyRunnable());
+        thread.start();
+    }
+
     public void destroy() {
+        Logger.i("轮播图线程销毁");
         threadRun = false;
         if (thread != null) {
             thread.interrupt();
             thread = null;
         }
+    }
+
+    public void pause() {
+        pause = true;
+    }
+
+    public void resume() {
+        pause = false;
     }
 }

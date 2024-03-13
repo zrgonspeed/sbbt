@@ -126,6 +126,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     }
 
     private void onResume2() {
+        homeAnimation.resume();
+
         OtaMcuUtils.curIsOtamcu = false;
         sleepWakeUpFlag = true;
         isOnClicking = false;
@@ -213,6 +215,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         isOnPause = true;
         homeSleep.closeTimer();
         isFirst = false;
+        homeAnimation.pause();
     }
 
     @Override
