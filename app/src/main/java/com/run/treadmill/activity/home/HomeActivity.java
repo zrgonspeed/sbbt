@@ -16,7 +16,7 @@ import com.run.treadmill.activity.floatWindow.LeftVoiceFloatWindow;
 import com.run.treadmill.activity.home.bg.HomeAnimation;
 import com.run.treadmill.activity.home.help.HomeClick;
 import com.run.treadmill.activity.home.help.HomeError;
-import com.run.treadmill.activity.home.help.HomeMcuCallBack;
+import com.run.treadmill.activity.home.help.HomeMcu;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.base.factory.CreatePresenter;
@@ -71,7 +71,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     private HomeSleepManager homeSleep = new HomeSleepManager(this);
     private HomeError homeError = new HomeError(this);
-    private HomeMcuCallBack homeKey = new HomeMcuCallBack(this);
+    private HomeMcu homeMcu = new HomeMcu(this);
     private HomeClick homeClick = new HomeClick(this);
 
     @Override
@@ -291,12 +291,12 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @Override
     public void cmdKeyValue(int keyValue) {
-        homeKey.cmdKeyValue(keyValue);
+        homeMcu.cmdKeyValue(keyValue);
     }
 
     @Override
     public void beltAndInclineStatus(int beltStatus, int inclineStatus, int curInclineAd) {
-        homeKey.beltAndInclineStatus(beltStatus, inclineStatus, curInclineAd);
+        homeMcu.beltAndInclineStatus(beltStatus, inclineStatus, curInclineAd);
     }
 
     @Override

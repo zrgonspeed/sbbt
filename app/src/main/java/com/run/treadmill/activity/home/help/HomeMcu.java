@@ -14,9 +14,9 @@ import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.util.Logger;
 
-public class HomeMcuCallBack extends BaseHomeHelp {
+public class HomeMcu extends BaseHomeHelp {
 
-    public HomeMcuCallBack(HomeActivity activity) {
+    public HomeMcu(HomeActivity activity) {
         super(activity);
     }
 
