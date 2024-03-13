@@ -31,7 +31,14 @@ import java.util.Timer;
 
 public class Prepare321Go {
     private BaseRunActivity activity;
+    public VideoView vv_go;
+
     public PrepareHandler prepareHandler;
+    public Timer mTimer;
+    public EmptyMessageTask mCountdownTask;
+
+    private int goTime = 1500;
+    public long delay = 0;
 
     public <V extends BaseRunView> Prepare321Go(BaseRunActivity baseRunActivity) {
         this.activity = baseRunActivity;
@@ -52,7 +59,7 @@ public class Prepare321Go {
                     Logger.i("准备好321go的mp4 onPrepared " + mp);
                     Logger.i("delay == " + delay);
                     vv_go.setVisibility(View.VISIBLE);
-                    showPrepare2(delay);
+                    playMusic(delay);
                 }
         );
         vv_go.setOnCompletionListener(mp -> {
@@ -73,10 +80,7 @@ public class Prepare321Go {
         vv_go.start();
     }
 
-    public Timer mTimer;
-    public EmptyMessageTask mCountdownTask;
-
-    private void showPrepare2(long delay) {
+    private void playMusic(long delay) {
         mCountdownTask = new EmptyMessageTask(prepareHandler, MsgWhat.MSG_PREPARE_TIME);
         activity.currentPro = SystemSoundManager.getInstance().getCurrentPro();
         SystemSoundManager.getInstance().setAudioVolume(SystemSoundManager.Go321Volume, SystemSoundManager.maxVolume);
@@ -85,6 +89,50 @@ public class Prepare321Go {
         } catch (Exception e) {
             Logger.e("异常，无法倒数。或者已经取消倒数！");
         }
+    }
+
+    public void msgDeal() {
+        Logger.i("MSG_PREPARE_TIME == " + activity.mRunningParam.countDown);
+
+        if (activity.mRunningParam.countDown == 0) {
+            go_0();
+        } else if (activity.mRunningParam.countDown == -1) {
+            go_end();
+            return;
+        } else {
+            go_start();
+        }
+        activity.mRunningParam.countDown--;
+    }
+
+    private void go_start() {
+        activity.btn_start_stop_skip.setEnabled(false);
+
+        // 3 2 1
+        if (Custom.DEF_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
+            if (activity.mRunningParam.countDown == 1) {
+                ControlManager.getInstance().reset();
+                ControlManager.getInstance().setSpeed(SpManager.getMinSpeed(activity.isMetric));
+            }
+        }
+        Logger.e("buzzRingLongObliged(200)");
+        BuzzerManager.getInstance().buzzRingLongObliged(200);
+    }
+
+    private void go_0() {
+        Logger.e("buzzRingLongObliged(1000)");
+        BuzzerManager.getInstance().buzzRingLongObliged(1000);
+    }
+
+    private void go_end() {
+        // Go之后
+        activity.mRunningParam.countDown = 3;
+        mCountdownTask.cancel();
+        activity.btn_speed_roller.setEnabled(true);
+        activity.btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
+        activity.afterPrepare();
+        goEndSetViewParam();
+        // mActivity.disPauseBtn();
     }
 
     // 321GO之后，禁用1秒暂停键
@@ -104,51 +152,7 @@ public class Prepare321Go {
         }, 1000);
     }
 
-    private void go_0() {
-        Logger.e("buzzRingLongObliged(1000)");
-        BuzzerManager.getInstance().buzzRingLongObliged(1000);
-    }
-
-    private void go_start() {
-        activity.btn_start_stop_skip.setEnabled(false);
-
-        // 3 2 1
-        if (Custom.DEF_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
-            if (activity.mRunningParam.countDown == 1) {
-                ControlManager.getInstance().reset();
-                ControlManager.getInstance().setSpeed(SpManager.getMinSpeed(activity.isMetric));
-            }
-        }
-        Logger.e("buzzRingLongObliged(200)");
-        BuzzerManager.getInstance().buzzRingLongObliged(200);
-    }
-
-    private void go_end() {
-        // Go之后
-        activity.mRunningParam.countDown = 3;
-        mCountdownTask.cancel();
-        activity.btn_speed_roller.setEnabled(true);
-        activity.btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
-        activity.afterPrepare();
-        set321goViewParam();
-        // mActivity.disPauseBtn();
-    }
-
-    public void msgDeal() {
-        Logger.i("MSG_PREPARE_TIME == " + activity.mRunningParam.countDown);
-
-        if (activity.mRunningParam.countDown == 0) {
-            go_0();
-        } else if (activity.mRunningParam.countDown == -1) {
-            go_end();
-            return;
-        } else {
-            go_start();
-        }
-        activity.mRunningParam.countDown--;
-    }
-
-    private void set321goViewParam() {
+    private void goEndSetViewParam() {
         activity.tv_time.setText(activity.mRunningParam.getShowTime());
         activity.tv_distance.setText(activity.getDistanceValue(activity.mRunningParam.getShowDistance()));
         activity.tv_calories.setText(activity.mRunningParam.getShowCalories());
@@ -169,11 +173,6 @@ public class Prepare321Go {
         }, 1000);
     }
 
-    public VideoView vv_go;
-
-    private int goTime = 1500;
-    public long delay = 0;
-
     public void destoryVideoView() {
         vv_go.stopPlayback();
         vv_go.setOnCompletionListener(null);
@@ -182,47 +181,39 @@ public class Prepare321Go {
     }
 
     public void safeError() {
-        if (mTimer != null) {
-            mTimer.cancel();
-        }
-        if (mCountdownTask != null) {
-            mCountdownTask.cancel();
-        }
+        destoryTimerTask();
     }
 
     public void error() {
-        if (mTimer != null) {
-            mTimer.cancel();
-        }
-        if (mCountdownTask != null) {
-            mCountdownTask.cancel();
-        }
+        destoryTimerTask();
     }
 
     public void commOutError() {
-        if (mTimer != null) {
-            mTimer.cancel();
-        }
-        if (mCountdownTask != null) {
-            mCountdownTask.cancel();
-        }
+        destoryTimerTask();
     }
 
+
     public void finishRunning() {
-        if (mTimer != null) {
-            mTimer.cancel();
-        }
-        if (mCountdownTask != null) {
-            mCountdownTask.cancel();
-        }
+        destoryTimerTask();
 
         if (prepareHandler != null) {
             prepareHandler.removeCallbacksAndMessages(null);
         }
     }
 
+    private void destoryTimerTask() {
+        if (mTimer != null) {
+            mTimer.cancel();
+        }
+        if (mCountdownTask != null) {
+            mCountdownTask.cancel();
+        }
+    }
+
     public void newHandler() {
-        prepareHandler = new PrepareHandler(this);
+        if (prepareHandler == null) {
+            prepareHandler = new PrepareHandler(this);
+        }
     }
 
     public static class PrepareHandler extends Handler {
