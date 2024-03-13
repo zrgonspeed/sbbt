@@ -15,7 +15,7 @@ import com.run.treadmill.sp.SpManager;
  */
 public class Custom {
     public static final String PROJECT_NAME = "AC00554-54T-11";
-    public static final int DEF_DEVICE_TYPE = CTConstant.DEVICE_TYPE_AA;
+    public static final int DEF_DEVICE_TYPE = CTConstant.DEVICE_TYPE_DC;
 
     public static class Mcu {
         public interface McuReboot {

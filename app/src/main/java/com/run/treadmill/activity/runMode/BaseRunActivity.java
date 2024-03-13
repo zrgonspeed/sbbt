@@ -307,7 +307,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             }
 
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
-                showPrepare(500);
+                showPrepare(0);
             }
             if (lineChartView != null) {
                 btn_media.setVisibility(View.VISIBLE);
@@ -959,14 +959,16 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     private void showPrepare(long delay) {
+        this.delay = delay;
         play321Go();
+    }
 
-        tv_prepare.setVisibility(View.VISIBLE);
+    private void showPrepare2(long delay) {
         mCountdownTask = new EmptyMessageTask(myHandler, MsgWhat.MSG_PREPARE_TIME);
         currentPro = SystemSoundManager.getInstance().getCurrentPro();
         SystemSoundManager.getInstance().setAudioVolume(SystemSoundManager.Go321Volume, SystemSoundManager.maxVolume);
         try {
-            mTimer.schedule(mCountdownTask, delay, 1000);
+            mTimer.schedule(mCountdownTask, delay, goTime);
         } catch (Exception e) {
             Logger.e("异常，无法倒数。或者已经取消倒数！");
         }
@@ -1216,104 +1218,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         onDestroy2();
     }
 
-    public static class MyHandler extends Handler {
-        private WeakReference<BaseRunActivity> weakReference;
-        private BaseRunActivity mActivity;
-
-        MyHandler(BaseRunActivity activity) {
-            weakReference = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            mActivity = weakReference.get();
-            if (mActivity == null) {
-                return;
-            }
-            switch (msg.what) {
-                case MsgWhat.MSG_PREPARE_TIME:
-                    Logger.i("MSG_PREPARE_TIME == " + mActivity.mRunningParam.countDown);
-                    if (mActivity.mRunningParam.countDown == 0) {
-                        mActivity.tv_prepare.setText(mActivity.getResources().getString(R.string.string_count_down_go));
-                        BuzzerManager.getInstance().buzzRingLongObliged(1000);
-                    } else if (mActivity.mRunningParam.countDown == -1) {
-                        // Go之后
-                        mActivity.mRunningParam.countDown = 3;
-                        mActivity.mCountdownTask.cancel();
-                        mActivity.tv_prepare.setText(String.valueOf(mActivity.mRunningParam.countDown));
-                        mActivity.btn_speed_roller.setEnabled(true);
-                        mActivity.btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
-                        mActivity.afterPrepare();
-                        mActivity.tv_time.setText(mActivity.mRunningParam.getShowTime());
-                        mActivity.tv_distance.setText(mActivity.getDistanceValue(mActivity.mRunningParam.getShowDistance()));
-                        mActivity.tv_calories.setText(mActivity.mRunningParam.getShowCalories());
-                        mActivity.tv_calories.setText(StringUtil.valueAndUnit(mActivity.mRunningParam.getShowCalories(), mActivity.getString(R.string.string_unit_kcal),
-                                mActivity.runParamUnitTextSize));
-                        //防止go声音没结束就修改回原来的声音
-                        postDelayed(() -> {
-                            //音量恢复
-                            SystemSoundManager.getInstance().setAudioVolume(mActivity.currentPro, SystemSoundManager.maxVolume);
-                        }, 1000);
-                        if (!ErrorManager.getInstance().isHasInclineError()) {
-                            mActivity.tv_incline.setText(
-                                    StringUtil.valueAndUnit(String.valueOf((int) mActivity.mRunningParam.getCurrIncline()),
-                                            mActivity.getString(R.string.string_unit_percent),
-                                            mActivity.runParamUnitTextSize)
-                            );
-                        }
-                        mActivity.tv_speed.setText(mActivity.getSpeedValue(String.valueOf(mActivity.mRunningParam.getCurrSpeed())));
-                        mActivity.tv_prepare.setVisibility(View.GONE);
-
-                        // 321GO之后，禁用1秒暂停键
-                        mActivity.disPauseBtn = true;
-                        mActivity.btn_start_stop_skip.setEnabled(false);
-                        Logger.i("disPauseBtn = true");
-                        ThreadUtils.runInThread(() -> {
-                            mActivity.disPauseBtn = false;
-                            Logger.i("disPauseBtn = false");
-
-                            if (!mActivity.isDestroyed()) {
-                                mActivity.runOnUiThread(() -> {
-                                    mActivity.btn_start_stop_skip.setEnabled(true);
-                                });
-                            }
-                        }, 1000);
-
-                        return;
-                    } else {
-                        // 3 2 1
-                        if (Custom.DEF_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
-                            if (mActivity.mRunningParam.countDown == 1) {
-                                ControlManager.getInstance().reset();
-                                ControlManager.getInstance().setSpeed(SpManager.getMinSpeed(mActivity.isMetric));
-                            }
-                        }
-                        mActivity.tv_prepare.setText(String.valueOf(mActivity.mRunningParam.countDown));
-                        if (FitShowManager.getInstance().isConnect()) {
-                            // 运动秀需要
-                            FitShowManager.getInstance().setCountDown(mActivity.mRunningParam.countDown);
-                        }
-                        BuzzerManager.getInstance().buzzRingLongObliged(200);
-                    }
-                    mActivity.mRunningParam.countDown--;
-                    break;
-                case MsgWhat.MSG_CLICK_INCLINE:
-                    if (mActivity.btn_line_chart_incline != null) {
-                        mActivity.btn_line_chart_incline.performClick();
-                        BuzzerManager.getInstance().buzzerRingOnce();
-                    }
-                    break;
-                case MsgWhat.MSG_CLICK_SPEED:
-                    if (mActivity.btn_line_chart_speed != null) {
-                        mActivity.btn_line_chart_speed.performClick();
-                        BuzzerManager.getInstance().buzzerRingOnce();
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
 
     private boolean disPauseBtn = false;
 
@@ -1386,57 +1290,156 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public TextView tv_setnum;
 
     public VideoView vv_go;
+    private int goTime = 1500;
+    private long delay = 0;
 
     private void init321Go() {
-        Logger.i("init321Go 11111111111111111111111");
         String uri = "android.resource://" + getPackageName() + "/" + R.raw.go;
-
         vv_go = new VideoView(MyApplication.getContext());
         rl_main.addView(vv_go, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         vv_go.setClickable(true);  // 防止321go时还能点击到背面
-
         vv_go.setVideoURI(Uri.parse(uri));
         vv_go.setOnPreparedListener(mp -> {
-                    Logger.i("准备好资源 onPrepared " + mp);
+                    Logger.i("准备好321go的mp4 onPrepared " + mp);
+                    Logger.i("delay == " + delay);
                     vv_go.setVisibility(View.VISIBLE);
+                    showPrepare2(delay);
                 }
         );
         vv_go.setOnCompletionListener(mp -> {
-                    Logger.i("播放完成 onCompletion " + mp);
+                    Logger.i("321go的mp4播放完成 onCompletion " + mp);
                     vv_go.setVisibility(View.GONE);
                     vv_go.stopPlayback();
                     vv_go.suspend();
                     // rl_main.removeView(vv_go);
+                    disPauseBtn();
                 }
         );
-        Logger.i("init321Go 2222222222222222");
     }
+
     public void play321Go() {
-        Logger.i("play321Go 11111111111111111111111");
-
-        Logger.i("play321Go()");
-
-        // 代码动态加入VideoView
-        if (vv_go == null) {
-
-        }
-
+        Logger.i("play321Go");
         vv_go.setVisibility(View.VISIBLE);
         vv_go.start();
-
-        // MediaController mediaController = new MediaController(this);
-        // vv_go.setMediaController(mediaController);
-        // vv_go.requestFocus();
-
-        Logger.i("play321Go 2222222222222222");
     }
 
     private void onDestroy2() {
         vv_go.stopPlayback();
         vv_go.setOnCompletionListener(null);
         vv_go.setOnPreparedListener(null);
-        // mVideoViewContainer.removeAllViews();
         vv_go = null;
     }
 
+    public static class MyHandler extends Handler {
+        private WeakReference<BaseRunActivity> weakReference;
+        private BaseRunActivity mActivity;
+
+        MyHandler(BaseRunActivity activity) {
+            weakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            mActivity = weakReference.get();
+            if (mActivity == null) {
+                return;
+            }
+            switch (msg.what) {
+                case MsgWhat.MSG_PREPARE_TIME:
+                    Logger.i("MSG_PREPARE_TIME == " + mActivity.mRunningParam.countDown);
+                    if (mActivity.mRunningParam.countDown == 0) {
+                        go_0();
+                    } else if (mActivity.mRunningParam.countDown == -1) {
+                        go_end();
+                        return;
+                    } else {
+                        go_start();
+                    }
+                    mActivity.mRunningParam.countDown--;
+                    break;
+                case MsgWhat.MSG_CLICK_INCLINE:
+                    if (mActivity.btn_line_chart_incline != null) {
+                        mActivity.btn_line_chart_incline.performClick();
+                        BuzzerManager.getInstance().buzzerRingOnce();
+                    }
+                    break;
+                case MsgWhat.MSG_CLICK_SPEED:
+                    if (mActivity.btn_line_chart_speed != null) {
+                        mActivity.btn_line_chart_speed.performClick();
+                        BuzzerManager.getInstance().buzzerRingOnce();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void go_0() {
+            Logger.e("buzzRingLongObliged(1000)");
+            BuzzerManager.getInstance().buzzRingLongObliged(1000);
+        }
+
+        private void go_start() {
+            mActivity.btn_start_stop_skip.setEnabled(false);
+
+            // 3 2 1
+            if (Custom.DEF_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
+                if (mActivity.mRunningParam.countDown == 1) {
+                    ControlManager.getInstance().reset();
+                    ControlManager.getInstance().setSpeed(SpManager.getMinSpeed(mActivity.isMetric));
+                }
+            }
+            Logger.e("buzzRingLongObliged(200)");
+            BuzzerManager.getInstance().buzzRingLongObliged(200);
+        }
+
+        private void go_end() {
+            // Go之后
+            mActivity.mRunningParam.countDown = 3;
+            mActivity.mCountdownTask.cancel();
+            mActivity.btn_speed_roller.setEnabled(true);
+            mActivity.btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
+            mActivity.afterPrepare();
+            mActivity.set321goViewParam();
+            // mActivity.disPauseBtn();
+        }
+    }
+
+    private void set321goViewParam() {
+        tv_time.setText(mRunningParam.getShowTime());
+        tv_distance.setText(getDistanceValue(mRunningParam.getShowDistance()));
+        tv_calories.setText(mRunningParam.getShowCalories());
+        tv_calories.setText(StringUtil.valueAndUnit(mRunningParam.getShowCalories(), getString(R.string.string_unit_kcal), runParamUnitTextSize));
+        tv_speed.setText(getSpeedValue(String.valueOf(mRunningParam.getCurrSpeed())));
+        if (!ErrorManager.getInstance().isHasInclineError()) {
+            tv_incline.setText(
+                    StringUtil.valueAndUnit(String.valueOf((int) mRunningParam.getCurrIncline()),
+                            getString(R.string.string_unit_percent),
+                            runParamUnitTextSize)
+            );
+        }
+
+        //防止go声音没结束就修改回原来的声音
+        myHandler.postDelayed(() -> {
+            //音量恢复
+            SystemSoundManager.getInstance().setAudioVolume(currentPro, SystemSoundManager.maxVolume);
+        }, 1000);
+    }
+
+    // 321GO之后，禁用1秒暂停键
+    private void disPauseBtn() {
+        disPauseBtn = true;
+        btn_start_stop_skip.setEnabled(false);
+        Logger.i("disPauseBtn = true");
+        ThreadUtils.runInThread(() -> {
+            disPauseBtn = false;
+            Logger.i("disPauseBtn = false");
+
+            if (!isDestroyed()) {
+                runOnUiThread(() -> {
+                    btn_start_stop_skip.setEnabled(true);
+                });
+            }
+        }, 1000);
+    }
 }
