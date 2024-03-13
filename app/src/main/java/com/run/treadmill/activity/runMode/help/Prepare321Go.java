@@ -31,18 +31,14 @@ import java.util.Timer;
 
 public class Prepare321Go {
     private BaseRunActivity activity;
-    public VideoView vv_go;
+    private VideoView vv_go;
 
-    public PrepareHandler prepareHandler;
-    public Timer mTimer;
-    public EmptyMessageTask mCountdownTask;
+    private PrepareHandler prepareHandler;
+    private Timer mTimer;
+    private EmptyMessageTask mCountdownTask;
 
     private int goTime = 1500;
-    public long delay = 0;
-
-    public <V extends BaseRunView> Prepare321Go(BaseRunActivity baseRunActivity) {
-        this.activity = baseRunActivity;
-    }
+    private long delay = 0;
 
     public void init321Go() {
         if (mTimer == null) {
@@ -91,7 +87,7 @@ public class Prepare321Go {
         }
     }
 
-    public void msgDeal() {
+    private void msgDeal() {
         Logger.i("MSG_PREPARE_TIME == " + activity.mRunningParam.countDown);
 
         if (activity.mRunningParam.countDown == 0) {
@@ -216,7 +212,7 @@ public class Prepare321Go {
         }
     }
 
-    public static class PrepareHandler extends Handler {
+    private static class PrepareHandler extends Handler {
         private WeakReference<Prepare321Go> weakReference;
         private Prepare321Go instance;
 
@@ -238,5 +234,9 @@ public class Prepare321Go {
                     break;
             }
         }
+    }
+
+    public <V extends BaseRunView> Prepare321Go(BaseRunActivity baseRunActivity) {
+        this.activity = baseRunActivity;
     }
 }
