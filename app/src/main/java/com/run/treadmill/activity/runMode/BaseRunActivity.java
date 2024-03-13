@@ -1393,6 +1393,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
         vv_go = new VideoView(MyApplication.getContext());
         rl_main.addView(vv_go, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        vv_go.setClickable(true);  // 防止321go时还能点击到背面
 
         vv_go.setVideoURI(Uri.parse(uri));
         vv_go.setOnPreparedListener(mp -> {
