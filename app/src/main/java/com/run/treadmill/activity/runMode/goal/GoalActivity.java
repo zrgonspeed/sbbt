@@ -72,22 +72,22 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
         super.click(view);
         switch (view.getId()) {
             case R.id.btn_incline_up:
-                longClickBuzzer(btn_incline_up);
+                
                 speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                 getPresenter().setInclineValue(1, 0, false);
                 break;
             case R.id.btn_incline_down:
-                longClickBuzzer(btn_incline_down);
+                
                 speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                 getPresenter().setInclineValue(-1, 0, false);
                 break;
             case R.id.btn_speed_up:
-                longClickBuzzer(btn_speed_up);
+                
                 speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                 getPresenter().setSpeedValue(1, 0, false);
                 break;
             case R.id.btn_speed_down:
-                longClickBuzzer(btn_speed_down);
+                
                 speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                 getPresenter().setSpeedValue(-1, 0, false);
                 break;

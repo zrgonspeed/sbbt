@@ -222,11 +222,11 @@ public class HrcRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
             default:
                 break;
             case R.id.btn_incline_up:
-                longClickBuzzer(btn_incline_up);
+                
                 setInclineValue(1, 0, false);
                 break;
             case R.id.btn_incline_down:
-                longClickBuzzer(btn_incline_down);
+                
                 setInclineValue(-1, 0, false);
                 break;
             case R.id.btn_incline_roller:

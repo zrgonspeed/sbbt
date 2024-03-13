@@ -838,14 +838,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         setControlEnable(true);
     }
 
-    protected void longClickBuzzer(LongClickImage btn) {
-//        if ((Integer) btn.getTag() != 1) {
-//            BuzzerManager.getInstance().buzzerRingOnce();
-//        } else {
-//            btn.setTag(-1);
-//        }
-    }
-
     protected void showMediaPopWin(@CTConstant.RunMode int runMode) {
         if (mMediaRunAppAdapter == null) {
             mMediaRunAppAdapter = new MediaRunAppAdapter(iconList);

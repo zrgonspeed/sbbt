@@ -171,19 +171,19 @@ public class GoalRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
             default:
                 break;
             case R.id.btn_incline_up:
-                longClickBuzzer(btn_incline_up);
+                
                 setInclineValue(1, 0, false);
                 break;
             case R.id.btn_incline_down:
-                longClickBuzzer(btn_incline_down);
+                
                 setInclineValue(-1, 0, false);
                 break;
             case R.id.btn_speed_up:
-                longClickBuzzer(btn_speed_up);
+                
                 setSpeedValue(1, 0, false);
                 break;
             case R.id.btn_speed_down:
-                longClickBuzzer(btn_speed_down);
+                
                 setSpeedValue(-1, 0, false);
                 break;
             case R.id.btn_incline_roller:
