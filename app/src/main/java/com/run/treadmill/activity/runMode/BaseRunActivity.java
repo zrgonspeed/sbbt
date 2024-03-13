@@ -1,12 +1,7 @@
 package com.run.treadmill.activity.runMode;
 
-import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,7 +10,6 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -23,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -31,11 +24,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.run.android.ShellCmdUtils;
 import com.run.treadmill.AppDebug;
-import com.run.treadmill.Custom;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
-import com.run.treadmill.activity.EmptyMessageTask;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
+import com.run.treadmill.activity.runMode.help.Prepare321Go;
 import com.run.treadmill.activity.runMode.vision.VisionActivity;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.common.CTConstant;
@@ -46,10 +38,10 @@ import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.WifiBTStateManager;
-import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
+import com.run.treadmill.util.ActivityUtils;
 import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.FormulaUtil;
 import com.run.treadmill.util.Logger;
@@ -70,7 +62,6 @@ import com.run.treadmill.widget.calculator.CalculatorOfRun;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -161,10 +152,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     private Animation pulseAnimation;
 
     public SpeedInclineClickHandler speedInclineClickHandler;
-    public Timer mTimer;
-    public EmptyMessageTask mCountdownTask;
 
-    protected RunningParam mRunningParam;
+    public RunningParam mRunningParam;
     /**
      * 运动数据的单位字体大小
      */
@@ -200,7 +189,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     /**
      * 记录当前音量，321go需要固定音量，做复位音量用
      */
-    private int currentPro = -1;
+    public int currentPro = -1;
     /**
      * 针对quick start 进入媒体与媒体回来运动的逻辑差别作区分
      */
@@ -261,7 +250,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 //        filter.addAction(Intent.ACTION_LOCALE_CHANGED);
 //        registerReceiver(localeChangeReceiver, filter);
 
-        init321Go();
+        prepare321Go.init321Go();
     }
 
     @Override
@@ -283,7 +272,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             if (!quickToMedia && rl_main.getVisibility() == View.GONE) {
                 //关闭悬浮窗
                 if (mFloatWindowManager != null) {
-                    if (!getTopActivity(this).contains(getPackageName())) {
+                    if (!ActivityUtils.getTopActivity(this).contains(getPackageName())) {
                         Logger.d("!getTopActivity(this).contains(getPackageName())   -> 不关闭悬浮窗");
                     } else {
                         mFloatWindowManager.stopFloatWindow();
@@ -302,12 +291,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             if (speedInclineClickHandler == null) {
                 speedInclineClickHandler = new SpeedInclineClickHandler(this);
             }
-            if (prepareHandler == null) {
-                prepareHandler = new PrepareHandler(this);
-            }
-            if (mTimer == null) {
-                mTimer = new Timer();
-            }
+
+            prepare321Go.newHandler();
 
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
                 showPrepare(0);
@@ -480,12 +465,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @Override
     public void safeError() {
-        if (mTimer != null) {
-            mTimer.cancel();
-        }
-        if (mCountdownTask != null) {
-            mCountdownTask.cancel();
-        }
+        prepare321Go.safeError();
         //出现安全key时扬升处理动作
         ControlManager.getInstance().stopRun(gsMode);
         if (mRunningParam != null) {
@@ -503,12 +483,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @Override
     public void commOutError() {
-        if (mTimer != null) {
-            mTimer.cancel();
-        }
-        if (mCountdownTask != null) {
-            mCountdownTask.cancel();
-        }
+        prepare321Go.commOutError();
         if (mRunningParam != null) {
             mRunningParam.interrupted();
             mRunningParam.recodePreRunData();
@@ -537,12 +512,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 return;
             }
         }
-        if (mTimer != null) {
-            mTimer.cancel();
-        }
-        if (mCountdownTask != null) {
-            mCountdownTask.cancel();
-        }
+        prepare321Go.error();
 
         if (mRunningParam != null) {
             mRunningParam.recodePreRunData();
@@ -809,17 +779,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public void finishRunning() {
         FitShowManager.isBaseRun = false;
 
-        if (mCountdownTask != null) {
-            mCountdownTask.cancel();
-        }
-        if (mTimer != null) {
-            mTimer.cancel();
-        }
+        prepare321Go.finishRunning();
+
         if (speedInclineClickHandler != null) {
             speedInclineClickHandler.removeCallbacksAndMessages(null);
-        }
-        if (prepareHandler != null) {
-            prepareHandler.removeCallbacksAndMessages(null);
         }
 
         ControlManager.getInstance().stopRun(gsMode);
@@ -964,21 +927,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
     }
 
-    private void showPrepare(long delay) {
-        this.delay = delay;
-        play321Go();
-    }
-
-    private void showPrepare2(long delay) {
-        mCountdownTask = new EmptyMessageTask(prepareHandler, MsgWhat.MSG_PREPARE_TIME);
-        currentPro = SystemSoundManager.getInstance().getCurrentPro();
-        SystemSoundManager.getInstance().setAudioVolume(SystemSoundManager.Go321Volume, SystemSoundManager.maxVolume);
-        try {
-            mTimer.schedule(mCountdownTask, delay, goTime);
-        } catch (Exception e) {
-            Logger.e("异常，无法倒数。或者已经取消倒数！");
-        }
-    }
 
     protected void warmUpToRunning() {
         mRunningParam.warmUpToRunning();
@@ -1170,7 +1118,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
      * @param distance
      * @return
      */
-    protected SpannableString getDistanceValue(String distance) {
+    public SpannableString getDistanceValue(String distance) {
         return StringUtil.valueAndUnit(distance, isMetric ? getString(R.string.string_unit_km) : getString(R.string.string_unit_mile), runParamUnitTextSize);
     }
 
@@ -1180,7 +1128,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
      * @param speed
      * @return
      */
-    protected SpannableString getSpeedValue(String speed) {
+    public SpannableString getSpeedValue(String speed) {
         return StringUtil.valueAndUnit(speed, isMetric ? getString(R.string.string_unit_kph) : getString(R.string.string_unit_mph), runParamUnitTextSize);
     }
 
@@ -1221,11 +1169,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
         shortDownThirtyApk();
 
-        onDestroy2();
+        prepare321Go.destoryVideoView();
     }
 
-
-    private boolean disPauseBtn = false;
+    public boolean disPauseBtn = false;
 
 
     public class InclineTextWatcher implements TextWatcher {
@@ -1271,26 +1218,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
     }
 
-    public class LocaleChangeReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Intent.ACTION_LOCALE_CHANGED)) {
-                Logger.d("LocaleChangeReceiver", "Intent.ACTION_LOCALE_CHANGED");
-                //处于第三方的时候
-//                if (mFloatWindowManager != null) {
-//                    mFloatWindowManager.stopFloatWindow();
-//                    enterThirdApk(CTConstant.QUICKSTART, mRunningParam.mediaPkgName);
-//                }
-            }
-        }
-    }
-
-    public String getTopActivity(Context context) {
-        ActivityManager am = (ActivityManager) context.getSystemService(context.ACTIVITY_SERVICE);
-        ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
-        Logger.d("cn.getPackageName() == " + cn.getPackageName());
-        return cn.getPackageName();
-    }
 
     @BindView(R.id.tv_setnum)
     public TextView tv_setnum;
@@ -1328,147 +1255,9 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
     }
 
-    public VideoView vv_go;
-    private int goTime = 1500;
-    private long delay = 0;
+    private Prepare321Go prepare321Go = new Prepare321Go(this);
 
-    private void init321Go() {
-        String uri = "android.resource://" + getPackageName() + "/" + R.raw.go;
-        vv_go = new VideoView(MyApplication.getContext());
-        rl_main.addView(vv_go, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        vv_go.setClickable(true);  // 防止321go时还能点击到背面
-        vv_go.setVideoURI(Uri.parse(uri));
-        vv_go.setOnPreparedListener(mp -> {
-                    Logger.i("准备好321go的mp4 onPrepared " + mp);
-                    Logger.i("delay == " + delay);
-                    vv_go.setVisibility(View.VISIBLE);
-                    showPrepare2(delay);
-                }
-        );
-        vv_go.setOnCompletionListener(mp -> {
-                    Logger.i("321go的mp4播放完成 onCompletion " + mp);
-                    vv_go.setVisibility(View.GONE);
-                    vv_go.stopPlayback();
-                    vv_go.suspend();
-                    // rl_main.removeView(vv_go);
-                    disPauseBtn();
-                }
-        );
-    }
-
-    public void play321Go() {
-        Logger.i("play321Go");
-        vv_go.setVisibility(View.VISIBLE);
-        vv_go.start();
-    }
-
-    private void onDestroy2() {
-        vv_go.stopPlayback();
-        vv_go.setOnCompletionListener(null);
-        vv_go.setOnPreparedListener(null);
-        vv_go = null;
-    }
-
-    public PrepareHandler prepareHandler;
-
-    public static class PrepareHandler extends Handler {
-        private WeakReference<BaseRunActivity> weakReference;
-        private BaseRunActivity mActivity;
-
-        PrepareHandler(BaseRunActivity activity) {
-            weakReference = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            mActivity = weakReference.get();
-            if (mActivity == null) {
-                return;
-            }
-            switch (msg.what) {
-                case MsgWhat.MSG_PREPARE_TIME:
-                    Logger.i("MSG_PREPARE_TIME == " + mActivity.mRunningParam.countDown);
-                    if (mActivity.mRunningParam.countDown == 0) {
-                        go_0();
-                    } else if (mActivity.mRunningParam.countDown == -1) {
-                        go_end();
-                        return;
-                    } else {
-                        go_start();
-                    }
-                    mActivity.mRunningParam.countDown--;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void go_0() {
-            Logger.e("buzzRingLongObliged(1000)");
-            BuzzerManager.getInstance().buzzRingLongObliged(1000);
-        }
-
-        private void go_start() {
-            mActivity.btn_start_stop_skip.setEnabled(false);
-
-            // 3 2 1
-            if (Custom.DEF_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
-                if (mActivity.mRunningParam.countDown == 1) {
-                    ControlManager.getInstance().reset();
-                    ControlManager.getInstance().setSpeed(SpManager.getMinSpeed(mActivity.isMetric));
-                }
-            }
-            Logger.e("buzzRingLongObliged(200)");
-            BuzzerManager.getInstance().buzzRingLongObliged(200);
-        }
-
-        private void go_end() {
-            // Go之后
-            mActivity.mRunningParam.countDown = 3;
-            mActivity.mCountdownTask.cancel();
-            mActivity.btn_speed_roller.setEnabled(true);
-            mActivity.btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
-            mActivity.afterPrepare();
-            mActivity.set321goViewParam();
-            // mActivity.disPauseBtn();
-        }
-    }
-
-    private void set321goViewParam() {
-        tv_time.setText(mRunningParam.getShowTime());
-        tv_distance.setText(getDistanceValue(mRunningParam.getShowDistance()));
-        tv_calories.setText(mRunningParam.getShowCalories());
-        tv_calories.setText(StringUtil.valueAndUnit(mRunningParam.getShowCalories(), getString(R.string.string_unit_kcal), runParamUnitTextSize));
-        tv_speed.setText(getSpeedValue(String.valueOf(mRunningParam.getCurrSpeed())));
-        if (!ErrorManager.getInstance().isHasInclineError()) {
-            tv_incline.setText(
-                    StringUtil.valueAndUnit(String.valueOf((int) mRunningParam.getCurrIncline()),
-                            getString(R.string.string_unit_percent),
-                            runParamUnitTextSize)
-            );
-        }
-
-        //防止go声音没结束就修改回原来的声音
-        prepareHandler.postDelayed(() -> {
-            //音量恢复
-            SystemSoundManager.getInstance().setAudioVolume(currentPro, SystemSoundManager.maxVolume);
-        }, 1000);
-    }
-
-    // 321GO之后，禁用1秒暂停键
-    private void disPauseBtn() {
-        disPauseBtn = true;
-        btn_start_stop_skip.setEnabled(false);
-        Logger.i("disPauseBtn = true");
-        ThreadUtils.runInThread(() -> {
-            disPauseBtn = false;
-            Logger.i("disPauseBtn = false");
-
-            if (!isDestroyed()) {
-                runOnUiThread(() -> {
-                    btn_start_stop_skip.setEnabled(true);
-                });
-            }
-        }, 1000);
+    private void showPrepare(long delay) {
+        prepare321Go.play321Go(delay);
     }
 }

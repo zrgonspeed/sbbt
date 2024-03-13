@@ -4,12 +4,21 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Instrumentation;
 import android.content.ComponentName;
+import android.content.Context;
 
 import com.run.treadmill.reboot.MyApplication;
 
 import java.util.List;
 
 public class ActivityUtils {
+
+    public static String getTopActivity(Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(context.ACTIVITY_SERVICE);
+        ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
+        Logger.d("cn.getPackageName() == " + cn.getPackageName());
+        return cn.getPackageName();
+    }
+
     public static String getTopActivity() {
         ActivityManager am = (ActivityManager) MyApplication.getContext().getSystemService(Activity.ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
@@ -27,5 +36,9 @@ public class ActivityUtils {
                 }
             }
         }.start();
+    }
+
+    public static String getPackageName() {
+        return MyApplication.getContext().getPackageName();
     }
 }
