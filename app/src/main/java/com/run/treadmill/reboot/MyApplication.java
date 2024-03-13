@@ -108,12 +108,12 @@ public class MyApplication extends LitePalApplication implements Custom.Applicat
                 }
             }
 
-            boolean resultFitShow = FitShowManager.getInstance().initSerial(getApplicationContext(), 9600, "/dev/ttyS3");
+            /*boolean resultFitShow = FitShowManager.getInstance().initSerial(getApplicationContext(), 9600, "/dev/ttyS3");
             Logger.i("resultFitShow == " + resultFitShow);
             if (resultFitShow) {
                 FitShowManager.getInstance().startThread();
                 FsLight.startThread();
-            }
+            }*/
 
             // BtHelperUtils.initBtHelper(this);
         }
