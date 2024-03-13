@@ -49,7 +49,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
             enterThirdApk(CTConstant.QUICKSTART, pkgName);
             rl_main.setVisibility(View.GONE);
         } else {
-            mRunningParam.runStatus = CTConstant.RUN_STATUS_PREPARE;
+            mRunningParam.setToPrepare();
         }
 
         btn_media = (TextView) findViewById(R.id.btn_media);
@@ -80,7 +80,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
                 mFloatWindowManager.regRxDataCallBackAgain();
             } else {
                 FitShowManager.getInstance().setFitShowRunningCallBack(this);
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
+                if (mRunningParam.isPrepare()) {
                     FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_START_0x02);
                 }
             }
@@ -107,7 +107,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (mRunningParam.runStatus != CTConstant.RUN_STATUS_PREPARE) {
+        if (!mRunningParam.isPrepare()) {
             btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
         }
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
@@ -173,7 +173,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
 
     @Override
     public void afterPrepare() {
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
+        if (mRunningParam.isPrepare()) {
             mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
             mRunningParam.setLcCurStageNum(0);
             mRunningParam.startRefreshData();

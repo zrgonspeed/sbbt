@@ -12,7 +12,6 @@ import com.run.treadmill.Custom;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.EmptyMessageTask;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
-import com.run.treadmill.activity.runMode.BaseRunView;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
@@ -235,7 +234,7 @@ public class Prepare321Go {
         }
     }
 
-    public <V extends BaseRunView> Prepare321Go(BaseRunActivity baseRunActivity) {
+    public Prepare321Go(BaseRunActivity baseRunActivity) {
         this.activity = baseRunActivity;
     }
 }

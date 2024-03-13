@@ -1087,4 +1087,11 @@ public class RunningParam {
 
     public boolean isFloat = false;
 
+    public boolean isPrepare() {
+        return runStatus == CTConstant.RUN_STATUS_PREPARE;
+    }
+
+    public void setToPrepare() {
+        runStatus = CTConstant.RUN_STATUS_PREPARE;
+    }
 }

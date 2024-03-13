@@ -83,7 +83,7 @@ public class UserProgramRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
     @Override
     public void afterSpeedChanged(float speed) {
         if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL
-                || mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
+                || mFloatWindowManager.mRunningParam.isPrepare()) {
             return;
         }
         if (mFloatWindowManager.isShowingCalculator()) {
@@ -116,7 +116,7 @@ public class UserProgramRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
     @Override
     public void afterInclineChanged(float incline) {
         if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL
-                || mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
+                || mFloatWindowManager.mRunningParam.isPrepare()) {
             return;
         }
         if (ErrorManager.getInstance().isHasInclineError()) {

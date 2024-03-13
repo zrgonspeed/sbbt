@@ -343,12 +343,12 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                     btn_home.setEnabled(false);
                     btn_back.setVisibility(View.GONE);
                     btn_home.setVisibility(View.GONE);
-                    mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_PREPARE;
+                    mFloatWindowManager.mRunningParam.setToPrepare();
                     stopPauseTimer();
                     mFloatWindowManager.startPrepare();
                     return;
                 } else if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
-                        || mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
+                        || mFloatWindowManager.mRunningParam.isPrepare()) {
                     return;
                 } else if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
                     mFloatWindowManager.mRunningParam.warmUpToRunning();

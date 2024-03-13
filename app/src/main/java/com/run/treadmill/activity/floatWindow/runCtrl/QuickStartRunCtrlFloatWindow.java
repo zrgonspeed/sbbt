@@ -74,7 +74,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
     @Override
     public void afterSpeedChanged(float speed) {
         if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL
-                || mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
+                || mFloatWindowManager.mRunningParam.isPrepare()) {
             return;
         }
         if (mFloatWindowManager.isShowingCalculator()) {
@@ -107,7 +107,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
     @Override
     public void afterInclineChanged(float incline) {
         if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL
-                || mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
+                || mFloatWindowManager.mRunningParam.isPrepare()) {
             return;
         }
         if (ErrorManager.getInstance().isHasInclineError()) {
@@ -155,7 +155,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
 
     @Override
     public void afterPrepare() {
-        if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
+        if (mFloatWindowManager.mRunningParam.isPrepare()) {
             mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
             mFloatWindowManager.mRunningParam.setLcCurStageNum(0);
             btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());

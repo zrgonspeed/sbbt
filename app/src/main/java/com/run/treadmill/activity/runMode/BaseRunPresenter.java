@@ -181,7 +181,7 @@ public abstract class BaseRunPresenter<V extends BaseRunView> extends BasePresen
 
         if (Custom.DEF_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
             // DC光感下控，发最小速度失败时
-            if ((mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE
+            if ((mRunningParam.isPrepare()
                     || mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE)
                     && data[3] == ParamCons.CMD_SET_SPEED) {
                 SerialUtils.getInstance().reMoveReSendPackage();

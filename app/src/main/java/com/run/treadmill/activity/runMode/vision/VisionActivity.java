@@ -35,7 +35,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRunningParam.runStatus = CTConstant.RUN_STATUS_PREPARE;
+        mRunningParam.setToPrepare();
 
         btn_media = findViewById(R.id.btn_media);
         btn_line_chart_incline = (TextView) findViewById(R.id.btn_line_chart_incline);
@@ -109,7 +109,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         mRunningParam.setCallback(this);
-        if (mRunningParam.runStatus != CTConstant.RUN_STATUS_PREPARE) {
+        if (!mRunningParam.isPrepare()) {
             btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
         }
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
@@ -161,7 +161,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
 
     @Override
     public void afterPrepare() {
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
+        if (mRunningParam.isPrepare()) {
             mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
             //getPresenter().initFirstIncline(curInx);
             mRunningParam.setLcCurStageNum(0);

@@ -33,11 +33,11 @@ public class BaseRunClick {
                     activity.rl_mask.setVisibility(View.GONE);
 
                     activity.btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
-                    activity.mRunningParam.runStatus = CTConstant.RUN_STATUS_PREPARE;
+                    activity.mRunningParam.setToPrepare();
                     activity.showPrepare(0);
                     break;
                 } else if (activity.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
-                        || activity.mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
+                        || activity.mRunningParam.isPrepare()) {
                     break;
                 } else if (activity.mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
                     BuzzerManager.getInstance().buzzerRingOnce();

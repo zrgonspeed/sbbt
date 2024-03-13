@@ -23,11 +23,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.run.android.ShellCmdUtils;
-import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
 import com.run.treadmill.activity.runMode.help.BaseRunClick;
+import com.run.treadmill.activity.runMode.help.BaseRunRefresh;
 import com.run.treadmill.activity.runMode.help.Prepare321Go;
 import com.run.treadmill.activity.runMode.vision.VisionActivity;
 import com.run.treadmill.base.BaseActivity;
@@ -38,18 +38,15 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.SystemSoundManager;
-import com.run.treadmill.manager.WifiBTStateManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.util.ActivityUtils;
 import com.run.treadmill.util.DataTypeConversion;
-import com.run.treadmill.util.FormulaUtil;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.util.ThirdApkSupport;
-import com.run.treadmill.util.ThreadUtils;
 import com.run.treadmill.util.TimeStringUtil;
 import com.run.treadmill.widget.HistogramListView;
 import com.run.treadmill.widget.LongClickImage;
@@ -150,7 +147,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public ImageView img_unit;
     public VideoPlayerSelf mVideoPlayerSelf;
 
-    private Animation pulseAnimation;
+    public Animation pulseAnimation;
 
     public SpeedInclineClickHandler speedInclineClickHandler;
 
@@ -207,7 +204,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     private boolean isActionVolume;
 
     public String mediaPkgName = "";
-    private boolean isFinish = false;
 //    private LocaleChangeReceiver localeChangeReceiver;
 
     @Override
@@ -222,8 +218,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         mFloatWindowManager = new FloatWindowManager(this);
 
         runParamUnitTextSize = getResources().getDimensionPixelSize(R.dimen.font_size_run_param_unit);
-/*        Logger.i("runParamUnitTextSize == " + runParamUnitTextSize);
-        Logger.i("tv_speed.getTextSize() == " + tv_speed.getTextSize());*/
 
         maxSpeed = SpManager.getMaxSpeed(isMetric);
         minSpeed = SpManager.getMinSpeed(isMetric);
@@ -239,17 +233,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         pkgName = HomeAndRunAppUtils.getPkgNames();
 
         int[] drawable = HomeAndRunAppUtils.getRunDrawables();
-        // Logger.i("pkgName == " + Arrays.toString(pkgName));
-
         for (int id : drawable) {
             iconList.add(id);
         }
         mRunningParam.setCallback(this);
-
-//        localeChangeReceiver = new LocaleChangeReceiver();
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction(Intent.ACTION_LOCALE_CHANGED);
-//        registerReceiver(localeChangeReceiver, filter);
 
         prepare321Go.init321Go();
     }
@@ -268,26 +255,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 finish();
                 return;
             }
-            isFinish = getIntent().getBooleanExtra("isFinish", false);
-            //媒体的mp4（或者其他媒体） 自己退出回来
-            if (!quickToMedia && rl_main.getVisibility() == View.GONE) {
-                //关闭悬浮窗
-                if (mFloatWindowManager != null) {
-                    if (!ActivityUtils.getTopActivity(this).contains(getPackageName())) {
-                        Logger.d("!getTopActivity(this).contains(getPackageName())   -> 不关闭悬浮窗");
-                    } else {
-                        mFloatWindowManager.stopFloatWindow();
-                    }
-                    isGoMedia = false;
-                }
-                mRunningParam.setCallback(this);
-                rl_main.setVisibility(View.VISIBLE);
-            }
-            if (isFinish) {
-                stopPauseTimer();
-                finishRunning();
-            }
-
+            checkMediaBack();
             getPresenter().setInclineAndSpeed(maxIncline, minSpeed, maxSpeed);
             if (speedInclineClickHandler == null) {
                 speedInclineClickHandler = new SpeedInclineClickHandler(this);
@@ -295,14 +263,14 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
             prepare321Go.newHandler();
 
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
+            if (mRunningParam.isPrepare()) {
                 showPrepare(0);
             }
             if (lineChartView != null) {
                 btn_media.setVisibility(View.VISIBLE);
                 rl_chart_view.setVisibility(View.VISIBLE);
             }
-            initRunParam();
+            baseRunRefresh.onResumeInitRunParam();
             if (mCalcBuilder == null) {
                 mCalcBuilder = new BaseCalculator.Builder(new CalculatorOfRun(this));
                 mCalcBuilder.callBack(this);
@@ -311,7 +279,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
                 tv_speed.setText(getSpeedValue(String.valueOf(0.0f)));
             }
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL || mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE
+            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL || mRunningParam.isPrepare()
                     || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
                 setControlEnable(false);
                 btn_speed_roller.setEnabled(false);
@@ -329,65 +297,28 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         Logger.i("BaseRunActivity onResume() time == " + (end - start));
     }
 
+    private void checkMediaBack() {
+        //媒体的mp4（或者其他媒体） 自己退出回来
+        if (!quickToMedia && rl_main.getVisibility() == View.GONE) {
+            //关闭悬浮窗
+            if (mFloatWindowManager != null) {
+                if (!ActivityUtils.getTopActivity(this).contains(getPackageName())) {
+                    Logger.d("!getTopActivity(this).contains(getPackageName())   -> 不关闭悬浮窗");
+                } else {
+                    mFloatWindowManager.stopFloatWindow();
+                }
+                isGoMedia = false;
+            }
+            mRunningParam.setCallback(this);
+            rl_main.setVisibility(View.VISIBLE);
+        }
+
+    }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         Logger.d("Configuration", "onConfigurationChanged");
-    }
-
-    private void initRunParam() {
-        if (StepManager.showStep) {
-            tv_setnum.setVisibility(View.VISIBLE);
-        } else {
-            tv_setnum.setVisibility(View.GONE);
-        }
-        btn_pause_continue.setEnabled(false);
-
-        btn_incline_down.setIntervalTime(110);
-        btn_incline_up.setIntervalTime(110);
-        btn_speed_down.setIntervalTime(110);
-        btn_speed_up.setIntervalTime(110);
-
-        btn_incline_down.setTag(-1);
-        btn_incline_up.setTag(-1);
-        btn_speed_down.setTag(-1);
-        btn_speed_up.setTag(-1);
-
-        btn_start_stop_skip.setOnLongClickListener(v -> true);
-        btn_pause_continue.setOnLongClickListener(v -> true);
-        btn_pause_quit.setOnLongClickListener(v -> true);
-
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
-            btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_start);
-        } else if (mRunningParam.runStatus != CTConstant.RUN_STATUS_COOL_DOWN) {
-            btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
-        }
-
-        mRunningParam.currSpeedInx = FormulaUtil.getInxBySpeed(mRunningParam.getCurrSpeed(), minSpeed);
-        if (mInclineTextWatcher == null) {
-            mInclineTextWatcher = new InclineTextWatcher();
-            tv_incline.addTextChangedListener(mInclineTextWatcher);
-        }
-        if (mSpeedTextWatcher == null) {
-            mSpeedTextWatcher = new SpeedTextWatcher();
-            tv_speed.addTextChangedListener(mSpeedTextWatcher);
-        }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE || mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
-            if (ErrorManager.getInstance().isHasInclineError()) {
-                showInclineError();
-            } else {
-                tv_incline.setText(StringUtil.valueAndUnit("0", getString(R.string.string_unit_percent), runParamUnitTextSize));
-            }
-            tv_speed.setText(getSpeedValue("0.0"));
-        } else {
-            if (ErrorManager.getInstance().isHasInclineError()) {
-                showInclineError();
-            } else if (mRunningParam.runStatus != CTConstant.RUN_STATUS_COOL_DOWN) {
-                tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) mRunningParam.getCurrIncline()), getString(R.string.string_unit_percent), runParamUnitTextSize));
-            }
-            tv_speed.setText(getSpeedValue(String.valueOf(mRunningParam.getCurrSpeed())));
-        }
-        setRunParam();
     }
 
     @Override
@@ -395,7 +326,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING) {
             getPresenter().calcJump();
         }
-        setRunParam();
+        baseRunRefresh.refreshRunParam();
         mRunningParam.isFloat = false;
         // Logger.i("isFloat " + false);
     }
@@ -411,57 +342,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     @Override
     public void cooldown10Callback() {
         onSpeedChange(mRunningParam.getCurrSpeed());
-    }
-
-    private void checkStop() {
-        if (mRunningParam.stepManager.isStopRunning) {
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
-                BuzzerManager.getInstance().buzzerRingOnce();
-                btn_pause_quit.setEnabled(false);
-                if (mVideoPlayerSelf != null) {
-                    mVideoPlayerSelf.onRelease();
-                }
-                stopPauseTimer();
-                finishRunning();
-            } else {
-                btn_start_stop_skip.performClick();
-                mRunningParam.stepManager.clean();
-            }
-            ControlManager.getInstance().resetIncline();
-        }
-    }
-
-    private void setRunParam() {
-        checkStop();
-
-        tv_time.setText(mRunningParam.getShowTime());
-        tv_distance.setText(getDistanceValue(mRunningParam.getShowDistance()));
-        tv_calories.setText(StringUtil.valueAndUnit(mRunningParam.getShowCalories(), getString(R.string.string_unit_kcal), runParamUnitTextSize));
-        tv_pulse.setText(mRunningParam.getShowPulse());
-        tv_mets.setText(mRunningParam.getShowMets());
-        tv_setnum.setText(String.valueOf(mRunningParam.stepManager.getCurStep()));
-
-        if (lineChartView != null) {
-            refreshLineChart();
-        }
-        refreshWifiAndBt();
-
-        if (Integer.parseInt(mRunningParam.getShowPulse()) <= 0) {
-            if (img_pulse.getAnimation() != null && img_pulse.getAnimation().hasStarted()) {
-                img_pulse.clearAnimation();
-            }
-            return;
-        }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
-            if (img_pulse.getAnimation() == null) {
-                img_pulse.startAnimation(pulseAnimation);
-            }
-        }
-    }
-
-    private void refreshWifiAndBt() {
-        WifiBTStateManager.setBTWifiStatus(img_wifi, img_bt, this);
     }
 
     @Override
@@ -605,7 +485,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @Override
     public void cmdKeyValue(int keyValue) {
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE || mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
+        if (mRunningParam.isPrepare() || mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
             return;
         }
         if (mRunningParam.runStatus != CTConstant.RUN_STATUS_RUNNING
@@ -620,9 +500,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         if (isGoMedia) {
             return;
         }
-        if (isFinish) {
-            return;
-        }
+        
         runCmdKeyValue(keyValue);
     }
 
@@ -1041,6 +919,16 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     public boolean disPauseBtn = false;
 
+    public void setTextWatcher() {
+        if (mInclineTextWatcher == null) {
+            mInclineTextWatcher = new InclineTextWatcher();
+            tv_incline.addTextChangedListener(mInclineTextWatcher);
+        }
+        if (mSpeedTextWatcher == null) {
+            mSpeedTextWatcher = new SpeedTextWatcher();
+            tv_speed.addTextChangedListener(mSpeedTextWatcher);
+        }
+    }
 
     public class InclineTextWatcher implements TextWatcher {
 
@@ -1127,4 +1015,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public void showPrepare(long delay) {
         prepare321Go.play321Go(delay);
     }
+
+    public BaseRunRefresh baseRunRefresh = new BaseRunRefresh(this);
+
 }

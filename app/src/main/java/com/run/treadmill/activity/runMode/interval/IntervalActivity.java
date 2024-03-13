@@ -28,7 +28,7 @@ public class IntervalActivity extends BaseRunActivity<IntervalView, IntervalPres
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mRunningParam.runStatus = CTConstant.RUN_STATUS_PREPARE;
+        mRunningParam.setToPrepare();
 
         btn_media = (TextView) findViewById(R.id.btn_media);
         btn_line_chart_incline = (TextView) findViewById(R.id.btn_line_chart_incline);
@@ -111,7 +111,7 @@ public class IntervalActivity extends BaseRunActivity<IntervalView, IntervalPres
 
     @Override
     public void afterPrepare() {
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
+        if (mRunningParam.isPrepare()) {
             mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
             mRunningParam.setLcCurStageNum(0);
             mRunningParam.startRefreshData();
