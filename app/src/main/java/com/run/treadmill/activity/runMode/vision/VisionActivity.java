@@ -112,7 +112,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
         if (!mRunningParam.isPrepare()) {
             btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
         }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+        if (mRunningParam.isStopStatus()) {
             showPopTip();
         }
     }
@@ -120,7 +120,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
     @Override
     public void dataCallback() {
         super.dataCallback();
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN && mRunningParam.getCoolDownTime() == 0) {
+        if (mRunningParam.isCoolDownStatus() && mRunningParam.getCoolDownTime() == 0) {
             btn_start_stop_skip.performClick();
         }
     }
@@ -199,8 +199,8 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
     @Override
     public void afterInclineChanged(float incline) {
         if (mCalcBuilder != null && mCalcBuilder.isPopShowing()
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+                || mRunningParam.isWarmStatus()
+                || mRunningParam.isCoolDownStatus()) {
             return;
         }
         if (incline <= 0) {
@@ -230,8 +230,8 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
     @Override
     public void afterSpeedChanged(float speed) {
         if (mCalcBuilder != null && mCalcBuilder.isPopShowing()
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+                || mRunningParam.isWarmStatus()
+                || mRunningParam.isCoolDownStatus()) {
             return;
         }
         if (speed <= minSpeed) {
@@ -260,7 +260,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
 
     @Override
     public void showPopTip() {
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+        if (mRunningParam.isStopStatus()) {
             // getPresenter().setSpeedValue(0, minSpeed, false);
             // getPresenter().setInclineValue(0, 0, false);
         }
@@ -290,7 +290,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
         switch (keyValue) {
             case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
+                if (mRunningParam.isStopStatus()
                         && btn_pause_continue.isEnabled()) {
                     btn_pause_continue.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
@@ -298,13 +298,13 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
                 break;
             case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN
+                if (mRunningParam.isCoolDownStatus()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
+                if (mRunningParam.isStopStatus()
                         && btn_pause_quit.isEnabled()) {
                     btn_pause_quit.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();

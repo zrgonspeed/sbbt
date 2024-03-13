@@ -109,8 +109,8 @@ public abstract class BaseRunPresenter<V extends BaseRunView> extends BasePresen
         }
         if (ErrorManager.getInstance().lastSpeed == 0
                 && (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN)) {
+                || mRunningParam.isWarmStatus()
+                || mRunningParam.isCoolDownStatus())) {
             ErrorManager.getInstance().lastSpeed = (int) (isMetric ? (mRunningParam.getCurrSpeed() * 10) : (UnitUtil.getMileToKmByFloat1(mRunningParam.getCurrSpeed()) * 10));
             if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
                 ErrorManager.getInstance().lastSpeed = (int) (ErrorManager.getInstance().lastSpeed * SpManager.getSpeedRate());

@@ -49,7 +49,7 @@ public class BaseRunRefresh {
 
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
             activity.btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_start);
-        } else if (mRunningParam.runStatus != CTConstant.RUN_STATUS_COOL_DOWN) {
+        } else if (!mRunningParam.isCoolDownStatus()) {
             activity.btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
         }
 
@@ -67,7 +67,7 @@ public class BaseRunRefresh {
         } else {
             if (ErrorManager.getInstance().isHasInclineError()) {
                 activity.showInclineError();
-            } else if (mRunningParam.runStatus != CTConstant.RUN_STATUS_COOL_DOWN) {
+            } else if (!mRunningParam.isCoolDownStatus()) {
                 activity.tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) mRunningParam.getCurrIncline()), ResourceUtils.getString(R.string.string_unit_percent), activity.runParamUnitTextSize));
             }
             activity.tv_speed.setText(activity.getSpeedValue(String.valueOf(mRunningParam.getCurrSpeed())));
@@ -100,8 +100,8 @@ public class BaseRunRefresh {
             }
             return;
         }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING || mRunningParam.isWarmStatus()
+                || mRunningParam.isCoolDownStatus()) {
             if (activity.img_pulse.getAnimation() == null) {
                 activity.img_pulse.startAnimation(activity.pulseAnimation);
             }
@@ -112,7 +112,7 @@ public class BaseRunRefresh {
         this.mRunningParam = activity.mRunningParam;
 
         if (mRunningParam.stepManager.isStopRunning) {
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
+            if (mRunningParam.isWarmStatus()) {
                 BuzzerManager.getInstance().buzzerRingOnce();
                 activity.btn_pause_quit.setEnabled(false);
                 if (activity.mVideoPlayerSelf != null) {

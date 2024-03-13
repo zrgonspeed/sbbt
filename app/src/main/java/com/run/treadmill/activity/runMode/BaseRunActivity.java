@@ -276,11 +276,11 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 mCalcBuilder.callBack(this);
             }
 
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+            if (mRunningParam.isStopStatus()) {
                 tv_speed.setText(getSpeedValue(String.valueOf(0.0f)));
             }
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL || mRunningParam.isPrepare()
-                    || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
+                    || mRunningParam.isCoolDownStatus() || mRunningParam.isWarmStatus()) {
                 setControlEnable(false);
                 btn_speed_roller.setEnabled(false);
                 btn_incline_roller.setEnabled(false);
@@ -448,7 +448,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 Logger.e("runStatus == " + mRunningParam.runStatus);
                 btn_start_stop_skip.setEnabled(false);
             }
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP && btn_pause_continue.isEnabled()) {
+            if (mRunningParam.isStopStatus() && btn_pause_continue.isEnabled()) {
                 btn_pause_continue.setEnabled(false);
             }
             return;
@@ -459,7 +459,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL && !btn_start_stop_skip.isEnabled()) {
                 btn_start_stop_skip.setEnabled(true);
             }
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP && !btn_pause_continue.isEnabled()) {
+            if (mRunningParam.isStopStatus() && !btn_pause_continue.isEnabled()) {
                 btn_pause_continue.setEnabled(true);
             }
             return;
@@ -469,7 +469,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL && !btn_start_stop_skip.isEnabled()) {
                 btn_start_stop_skip.setEnabled(true);
             }
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP && !btn_pause_continue.isEnabled()) {
+            if (mRunningParam.isStopStatus() && !btn_pause_continue.isEnabled()) {
                 btn_pause_continue.setEnabled(true);
             }
             return;
@@ -478,7 +478,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL && btn_start_stop_skip.isEnabled()) {
             btn_start_stop_skip.setEnabled(false);
         }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP && btn_pause_continue.isEnabled()) {
+        if (mRunningParam.isStopStatus() && btn_pause_continue.isEnabled()) {
             btn_pause_continue.setEnabled(false);
         }
     }
@@ -556,7 +556,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public void timerComply(long lastTime, String tag) {
         Logger.d(tag + "=== 定时器回调 ===>   " + lastTime);
         if (tag.equals(pauseTimerTag)) {
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+            if (mRunningParam.isStopStatus()) {
                 runOnUiThread(() -> {
                     btn_pause_quit.performClick();
                     stopPauseTimer();
@@ -614,7 +614,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
         if (mediaPopWin.isShowing()) {
             hideMediaPopWin();
-        } else if (mRunningParam.runStatus != CTConstant.RUN_STATUS_STOP && mRunningParam.runStatus != CTConstant.RUN_STATUS_COOL_DOWN) {
+        } else if (!mRunningParam.isStopStatus() && !mRunningParam.isCoolDownStatus()) {
             mediaPopWin.showAtLocation(btn_media,
                     Gravity.NO_GRAVITY,
                     (getResources().getDimensionPixelSize(R.dimen.dp_px_0_x)),
@@ -698,7 +698,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             return;
         }
         mRunningParam.recodePreRunData();
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+        if (mRunningParam.isStopStatus()) {
             btn_pause_continue.setEnabled(false);
             tv_speed.setText(getSpeedValue(String.valueOf(0.0f)));
             img_run_pop_tip.setImageResource(R.drawable.img_pop_pause);
@@ -718,7 +718,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             if (mediaPopWin != null && mediaPopWin.isShowing()) {
                 mediaPopWin.dismiss();
             }
-        } else if (mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
+        } else if (mRunningParam.isWarmStatus()) {
             img_run_pop_tip.setImageResource(R.drawable.img_pop_warmup);
             btn_start_stop_skip.setImageResource(R.drawable.btn_skip_warmup);
             rl_center_tip.setVisibility(View.VISIBLE);
@@ -735,7 +735,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             } else {
                 tv_incline.setText(StringUtil.valueAndUnit("0", getString(R.string.string_unit_percent), runParamUnitTextSize));
             }
-        } else if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+        } else if (mRunningParam.isCoolDownStatus()) {
             img_run_pop_tip.setImageResource(R.drawable.img_pop_cooldown);
             btn_start_stop_skip.setImageResource(R.drawable.btn_skip_cooldown);
             rl_center_tip.setVisibility(View.VISIBLE);

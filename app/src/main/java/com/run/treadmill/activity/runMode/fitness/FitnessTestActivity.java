@@ -57,7 +57,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+        if (mRunningParam.isStopStatus() || mRunningParam.isCoolDownStatus()) {
             showPopTip();
         }
     }
@@ -75,10 +75,10 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
     @Override
     public void dataCallback() {
         super.dataCallback();
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP && mRunningParam.getWarmUpTime() == 0) {
+        if (mRunningParam.isWarmStatus() && mRunningParam.getWarmUpTime() == 0) {
             warmUpToRunning();
         }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN && mRunningParam.getCoolDownTime() == 0) {
+        if (mRunningParam.isCoolDownStatus() && mRunningParam.getCoolDownTime() == 0) {
             btn_start_stop_skip.performClick();
         }
     }
@@ -128,7 +128,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
         btn_speed_roller.setEnabled(false);
         btn_incline_roller.setEnabled(false);
         if (mRunningParam.isPrepare()) {
-            mRunningParam.runStatus = CTConstant.RUN_STATUS_WARM_UP;
+            mRunningParam.setToWarmStatus();
             showPopTip();
 
             mRunningParam.startRefreshData();
@@ -176,12 +176,12 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
         switch (keyValue) {
             case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:
-                if ((mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP)
+                if ((mRunningParam.isStopStatus())
                         && btn_pause_continue.isEnabled()) {
                     btn_pause_continue.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
                 }
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP
+                if (mRunningParam.isWarmStatus()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
@@ -189,13 +189,13 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
                 break;
             case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN
+                if (mRunningParam.isCoolDownStatus()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
+                if (mRunningParam.isStopStatus()
                         && btn_pause_quit.isEnabled()) {
                     btn_pause_quit.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();

@@ -36,13 +36,13 @@ public class BaseRunClick {
                     activity.mRunningParam.setToPrepare();
                     activity.showPrepare(0);
                     break;
-                } else if (activity.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
+                } else if (activity.mRunningParam.isStopStatus()
                         || activity.mRunningParam.isPrepare()) {
                     break;
-                } else if (activity.mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
+                } else if (activity.mRunningParam.isWarmStatus()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     activity.warmUpToRunning();
-                } else if (activity.mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+                } else if (activity.mRunningParam.isCoolDownStatus()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     activity.btn_start_stop_skip.setEnabled(false);
                     activity.finishRunning();
@@ -63,7 +63,7 @@ public class BaseRunClick {
                     }, 1000);
 
                     BuzzerManager.getInstance().buzzerRingOnce();
-                    activity.mRunningParam.runStatus = CTConstant.RUN_STATUS_STOP;
+                    activity.mRunningParam.setToStopStatus();
                     activity.btn_pause_continue.setEnabled(false);
                     // gsMode默认false
                     // 客户要求修改扬升机制
@@ -90,7 +90,7 @@ public class BaseRunClick {
                 activity.showPrepare(0);
                 break;
             case R.id.btn_pause_quit:
-                if (activity.mRunningParam.runStatus != CTConstant.RUN_STATUS_STOP) {
+                if (!activity.mRunningParam.isStopStatus()) {
                     return;
                 }
                 activity.btn_pause_quit.setEnabled(false);

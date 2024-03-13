@@ -96,7 +96,7 @@ public class VideoPlayerSelf implements SurfaceHolder.Callback {
     }
 
     public void setSpeedCtrl(float amount) {
-        if (RunningParam.getInstance().runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+        if (RunningParam.getInstance().isCoolDownStatus()) {
             Logger.i("当前是Cool Down 停止播放视频");
             videoPlayerStartPause();
             return;

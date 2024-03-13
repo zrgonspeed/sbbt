@@ -45,14 +45,14 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+        if (mRunningParam.isStopStatus() || mRunningParam.isCoolDownStatus()) {
             showPopTip();
         }
     }
 
     @Override
     public void showPopTip() {
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+        if (mRunningParam.isStopStatus()) {
             // getPresenter().setSpeedValue(0, minSpeed, false);
             // getPresenter().setInclineValue(0, 0, false);
         }
@@ -62,7 +62,7 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
     @Override
     public void dataCallback() {
         super.dataCallback();
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN && mRunningParam.getCoolDownTime() == 0) {
+        if (mRunningParam.isCoolDownStatus() && mRunningParam.getCoolDownTime() == 0) {
             btn_start_stop_skip.performClick();
         }
     }
@@ -153,8 +153,8 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
     @Override
     public void afterInclineChanged(float incline) {
         if (mCalcBuilder != null && mCalcBuilder.isPopShowing()
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+                || mRunningParam.isWarmStatus()
+                || mRunningParam.isCoolDownStatus()) {
             return;
         }
         if (incline <= 0) {
@@ -184,8 +184,8 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
     @Override
     public void afterSpeedChanged(float speed) {
         if (mCalcBuilder != null && mCalcBuilder.isPopShowing()
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+                || mRunningParam.isWarmStatus()
+                || mRunningParam.isCoolDownStatus()) {
             return;
         }
         if (speed <= minSpeed) {
@@ -228,7 +228,7 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
         switch (keyValue) {
             case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:
-                if ((mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP)
+                if ((mRunningParam.isStopStatus())
                         && btn_pause_continue.isEnabled()) {
                     btn_pause_continue.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
@@ -236,13 +236,13 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
                 break;
             case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN
+                if (mRunningParam.isCoolDownStatus()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
+                if (mRunningParam.isStopStatus()
                         && btn_pause_quit.isEnabled()) {
                     btn_pause_quit.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();

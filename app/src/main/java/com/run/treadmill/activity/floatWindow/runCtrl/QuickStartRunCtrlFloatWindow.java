@@ -162,7 +162,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
             btn_speed_roller.setEnabled(true);
             mFloatWindowManager.mRunningParam.startRefreshData();
         }
-        if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+        if (mFloatWindowManager.mRunningParam.isStopStatus()) {
             mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
             mFloatWindowManager.mRunningParam.notifyRefreshData();
         }
@@ -384,7 +384,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
 
     @Override
     public void fitShowStopRunning() {
-        mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_STOP;
+        mFloatWindowManager.mRunningParam.setToStopStatus();
         ControlManager.getInstance().stopRun(SpManager.getGSMode());
         if (!SpManager.getGSMode()) {
             ControlManager.getInstance().resetIncline();

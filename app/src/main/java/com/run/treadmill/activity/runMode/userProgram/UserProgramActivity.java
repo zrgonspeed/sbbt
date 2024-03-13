@@ -55,7 +55,7 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+        if (mRunningParam.isStopStatus() || mRunningParam.isCoolDownStatus()) {
             showPopTip();
         }
     }
@@ -63,7 +63,7 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
     @Override
     public void dataCallback() {
         super.dataCallback();
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN && mRunningParam.getCoolDownTime() == 0) {
+        if (mRunningParam.isCoolDownStatus() && mRunningParam.getCoolDownTime() == 0) {
             btn_start_stop_skip.performClick();
         }
     }
@@ -138,7 +138,7 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
 
     @Override
     public void showPopTip() {
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+        if (mRunningParam.isStopStatus()) {
             // getPresenter().setSpeedValue(0, minSpeed, true);
             // getPresenter().setInclineValue(0, 0, true);
         }
@@ -171,8 +171,8 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
     @Override
     public void afterInclineChanged(float incline) {
         if (mCalcBuilder != null && mCalcBuilder.isPopShowing()
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+                || mRunningParam.isWarmStatus()
+                || mRunningParam.isCoolDownStatus()) {
             return;
         }
         if (incline <= 0) {
@@ -202,8 +202,8 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
     @Override
     public void afterSpeedChanged(float speed) {
         if (mCalcBuilder != null && mCalcBuilder.isPopShowing()
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP
-                || mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+                || mRunningParam.isWarmStatus()
+                || mRunningParam.isCoolDownStatus()) {
             return;
         }
         if (speed <= minSpeed) {
@@ -246,7 +246,7 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
         switch (keyValue) {
             case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
+                if (mRunningParam.isStopStatus()
                         && btn_pause_continue.isEnabled()) {
                     btn_pause_continue.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
@@ -254,13 +254,13 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
                 break;
             case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN
+                if (mRunningParam.isCoolDownStatus()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
+                if (mRunningParam.isStopStatus()
                         && btn_pause_quit.isEnabled()) {
                     btn_pause_quit.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();

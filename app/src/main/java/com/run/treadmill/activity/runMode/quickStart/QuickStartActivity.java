@@ -64,7 +64,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     public void fitShowStartRunning() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL && btn_start_stop_skip.isEnabled()) {
             btn_start_stop_skip.performClick();
-        } else if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP && btn_pause_continue.isEnabled()) {
+        } else if (mRunningParam.isStopStatus() && btn_pause_continue.isEnabled()) {
             btn_pause_continue.performClick();
         }
     }
@@ -110,7 +110,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
         if (!mRunningParam.isPrepare()) {
             btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
         }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+        if (mRunningParam.isStopStatus()) {
             showPopTip();
         }
     }
@@ -265,7 +265,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
 
     @Override
     public void showPopTip() {
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+        if (mRunningParam.isStopStatus()) {
             // getPresenter().setSpeedValue(0, minSpeed, false);
             // getPresenter().setInclineValue(0, 0, false);
             if (FitShowManager.getInstance().isConnect()) {
@@ -303,7 +303,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING) {
             ControlManager.getInstance().resetIncline();
             finishRunning();
-        } else if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+        } else if (mRunningParam.isStopStatus()) {
             btn_pause_quit.performClick();
         }
 
@@ -354,7 +354,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
                 }
-                if ((mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP)
+                if ((mRunningParam.isStopStatus())
                         && btn_pause_continue.isEnabled()) {
                     btn_pause_continue.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
@@ -362,7 +362,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
                 break;
             case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
+                if (mRunningParam.isStopStatus()
                         && btn_pause_quit.isEnabled()) {
                     btn_pause_quit.performClick();
 //                    BuzzerManager.getInstance().buzzerRingOnce();

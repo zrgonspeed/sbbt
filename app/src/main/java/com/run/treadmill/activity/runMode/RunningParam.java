@@ -8,13 +8,13 @@ import com.chuhui.btcontrol.bean.RunParam;
 import com.run.android.ShellCmdUtils;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.FormulaUtil;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.TimeStringUtil;
 import com.run.treadmill.util.UnitUtil;
 
@@ -343,7 +343,7 @@ public class RunningParam {
         if ("0".equals(showDistance)) {
             showDistance = "0.0";
         }
-        if (runStatus == CTConstant.RUN_STATUS_WARM_UP) {
+        if (isWarmStatus()) {
             showTime = TimeStringUtil.getMsToMinSecValue(warmUpTime * 1000f);
         }
         isRunning = true;
@@ -426,7 +426,7 @@ public class RunningParam {
         showCalories = "0";
         showMets = "0";
 
-        runStatus = CTConstant.RUN_STATUS_COOL_DOWN;
+        setToCoolDownStatus();
         lcCurStageNum = -1;
         mRunParamHandler.sendEmptyMessage(MsgWhat.MSG_REFRESH_DATA);
 
@@ -552,7 +552,7 @@ public class RunningParam {
                     BtHelper.isOnRunning = true;
 
                     // Logger.i("runStatus == " + runStatus);
-                    if (runStatus == CTConstant.RUN_STATUS_STOP) {
+                    if (isStopStatus()) {
                         synchronized (instance) {
                             BtHelper.getInstance().getRunParamBuilder()
                                     .speed(0.0f)
@@ -562,7 +562,7 @@ public class RunningParam {
                         continue;
                     }
                     Thread.sleep(waiteTime, waiteNanosTime);
-                    if (runStatus == CTConstant.RUN_STATUS_WARM_UP) {
+                    if (isWarmStatus()) {
 
                         float curRunDistance = FormulaUtil.getRunDistances(currSpeed, (1 / 60.0f / 60.0f));
                         pre_recode++;
@@ -580,7 +580,7 @@ public class RunningParam {
 
                         alreadyWarmUpMet += FormulaUtil.getMETs(currSpeed, currIncline, isMetric);
                         showMets = String.valueOf(UnitUtil.getFloatBy1f(FormulaUtil.getMETs(currSpeed, currIncline, isMetric)));
-                    } else if (runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+                    } else if (isCoolDownStatus()) {
                         float curRunDistance = FormulaUtil.getRunDistances(currSpeed, (1 / 60.0f / 60.0f));
                         pre_recode_time++;
                         pre_recode_dis += curRunDistance;
@@ -709,7 +709,7 @@ public class RunningParam {
         public void run() {
             while (isRunning) {
                 try {
-                    if (runStatus == CTConstant.RUN_STATUS_STOP) {
+                    if (isStopStatus()) {
                         synchronized (instance) {
                             BtHelper.getInstance().getRunParamBuilder()
                                     .speed(0f)
@@ -723,7 +723,7 @@ public class RunningParam {
                         recodePreRunData();
                         reFlashDate = false;
                     }
-                    if (runStatus == CTConstant.RUN_STATUS_STOP || runStatus == CTConstant.RUN_STATUS_CONTINUE) {
+                    if (isStopStatus() || runStatus == CTConstant.RUN_STATUS_CONTINUE) {
                         continue;
                     }
                     ControlManager.getInstance().setSpeed(currSpeed);
@@ -1022,9 +1022,9 @@ public class RunningParam {
 
     private void setZyBtAndCsafeData() {
         if (BtHelper.getInstance().connected()) {
-            if (runStatus == CTConstant.RUN_STATUS_WARM_UP) {
+            if (isWarmStatus()) {
                 BtHelper.getInstance().getRunParamBuilder().remainingTime(warmUpTime);
-            } else if (runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+            } else if (isCoolDownStatus()) {
                 BtHelper.getInstance().getRunParamBuilder().remainingTime(coolDownTime);
             } else {
                 BtHelper.getInstance().getRunParamBuilder().remainingTime(0);
@@ -1078,7 +1078,7 @@ public class RunningParam {
 
     public void setStepNumber(int stepNumber) {
         // Logger.d("stepNumber == " + stepNumber);
-       stepManager.setStepFromMCU(stepNumber);
+        stepManager.setStepFromMCU(stepNumber);
     }
 
     public void cleanStep() {
@@ -1086,6 +1086,30 @@ public class RunningParam {
     }
 
     public boolean isFloat = false;
+
+    public boolean isWarmStatus() {
+        return runStatus == CTConstant.RUN_STATUS_WARM_UP;
+    }
+
+    public void setToWarmStatus() {
+        runStatus = CTConstant.RUN_STATUS_WARM_UP;
+    }
+
+    public boolean isCoolDownStatus() {
+        return runStatus == CTConstant.RUN_STATUS_COOL_DOWN;
+    }
+
+    public void setToCoolDownStatus() {
+        runStatus = CTConstant.RUN_STATUS_COOL_DOWN;
+    }
+
+    public boolean isStopStatus() {
+        return runStatus == CTConstant.RUN_STATUS_STOP;
+    }
+
+    public void setToStopStatus() {
+        runStatus = CTConstant.RUN_STATUS_STOP;
+    }
 
     public boolean isPrepare() {
         return runStatus == CTConstant.RUN_STATUS_PREPARE;

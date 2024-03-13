@@ -173,7 +173,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         switch (keyValue) {
             case SerialKeyValue.START_CLICK:
             case SerialKeyValue.HAND_START_CLICK:
-                if ((mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP)
+                if ((mFloatWindowManager.mRunningParam.isStopStatus())
                         && btn_float_pause_continue.isEnabled()) {
                     btn_float_pause_continue.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
@@ -182,7 +182,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
             case SerialKeyValue.STOP_CLICK:
             case SerialKeyValue.HAND_STOP_CLICK:
-                if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
+                if (mFloatWindowManager.mRunningParam.isStopStatus()
                         && btn_float_pause_quit.isEnabled()) {
                     btn_float_pause_quit.performClick();
 //                    BuzzerManager.getInstance().buzzerRingOnce();
@@ -347,13 +347,13 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                     stopPauseTimer();
                     mFloatWindowManager.startPrepare();
                     return;
-                } else if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
+                } else if (mFloatWindowManager.mRunningParam.isStopStatus()
                         || mFloatWindowManager.mRunningParam.isPrepare()) {
                     return;
-                } else if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
+                } else if (mFloatWindowManager.mRunningParam.isWarmStatus()) {
                     mFloatWindowManager.mRunningParam.warmUpToRunning();
                     return;
-                } else if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
+                } else if (mFloatWindowManager.mRunningParam.isCoolDownStatus()) {
                     return;
                 }
                 BuzzerManager.getInstance().buzzerRingOnce();
@@ -379,7 +379,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 if (mFloatWindowManager.mRunningParam.isRunningEnd()) {
                     return;
                 }
-                if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+                if (mFloatWindowManager.mRunningParam.isStopStatus()) {
                     layout_float_pause.setVisibility(View.GONE);
                     btn_float_pause_continue.setEnabled(false);
                     if (AppDebug.debug) {
@@ -406,7 +406,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
     protected void enterPause() {
         mFloatWindowManager.hideCalc();
 
-        mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_STOP;
+        mFloatWindowManager.mRunningParam.setToStopStatus();
 
         if (mFloatWindowManager.runMode == CTConstant.QUICKSTART ||
                 mFloatWindowManager.runMode == CTConstant.GOAL ||
@@ -454,7 +454,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 return;
             }
             if (tag.equals(pauseTimerTag)) {
-                if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
+                if (mFloatWindowManager.mRunningParam.isStopStatus()) {
                     ThreadUtils.postOnMainThread(() -> {
                         btn_float_pause_quit.performClick();
                         stopPauseTimer();

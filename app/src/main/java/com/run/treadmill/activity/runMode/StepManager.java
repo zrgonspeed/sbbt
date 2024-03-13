@@ -46,7 +46,7 @@ public class StepManager {
             time = 0;
             return;
         }
-        if (RunningParam.getInstance().runStatus == CTConstant.RUN_STATUS_STOP) {
+        if (RunningParam.getInstance().isStopStatus()) {
             Logger.i("runStatus == CTConstant.RUN_STATUS_STOP ");
             return;
         }
