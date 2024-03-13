@@ -71,7 +71,7 @@ public class VersionUtil {
             }
 
             String nn = getNumAndPoint(versionName);
-            Logger.i("name == " + name + "  versionName == " + versionName + "    resultVersion == " + nn);
+            Logger.v("name == " + name + "  versionName == " + versionName + "    resultVersion == " + nn);
 
             return nn;
         }
