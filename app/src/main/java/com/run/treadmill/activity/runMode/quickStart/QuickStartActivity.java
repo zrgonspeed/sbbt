@@ -13,9 +13,8 @@ import com.fitShow.treadmill.FitShowCommand;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.activity.summary.SummaryActivity;
-import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.base.factory.CreatePresenter;
+import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
@@ -24,15 +23,11 @@ import com.run.treadmill.manager.fitshow.other.FitShowRunningCallBack;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.util.ThreadUtils;
 import com.run.treadmill.widget.HistogramListView;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/06/11
- */
 @CreatePresenter(QuickStartPresenter.class)
 public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickStartPresenter> implements QuickStartView, FitShowRunningCallBack {
 

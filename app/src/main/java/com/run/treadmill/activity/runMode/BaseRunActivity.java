@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +15,7 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -37,19 +40,20 @@ import com.run.treadmill.activity.runMode.vision.VisionActivity;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
-import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.WifiBTStateManager;
+import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.FormulaUtil;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.util.ThirdApkSupport;
 import com.run.treadmill.util.ThreadUtils;
@@ -242,7 +246,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         pulseAnimation.setInterpolator(new AccelerateInterpolator());
 
         iconList = new ArrayList<>();
-        pkgName = HomeAndRunAppUtils.getPkgNames();;
+        pkgName = HomeAndRunAppUtils.getPkgNames();
+
         int[] drawable = HomeAndRunAppUtils.getRunDrawables();
         // Logger.i("pkgName == " + Arrays.toString(pkgName));
 
@@ -255,6 +260,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 //        IntentFilter filter = new IntentFilter();
 //        filter.addAction(Intent.ACTION_LOCALE_CHANGED);
 //        registerReceiver(localeChangeReceiver, filter);
+
+        init321Go();
     }
 
     @Override
@@ -278,7 +285,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 if (mFloatWindowManager != null) {
                     if (!getTopActivity(this).contains(getPackageName())) {
                         Logger.d("!getTopActivity(this).contains(getPackageName())   -> 不关闭悬浮窗");
-                    }else {
+                    } else {
                         mFloatWindowManager.stopFloatWindow();
                     }
                     isGoMedia = false;
@@ -340,7 +347,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     private void initRunParam() {
-        if (StepManager.showStep){
+        if (StepManager.showStep) {
             tv_setnum.setVisibility(View.VISIBLE);
         } else {
             tv_setnum.setVisibility(View.GONE);
@@ -418,8 +425,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     private void checkStop() {
-        if (mRunningParam.stepManager.isStopRunning){
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP){
+        if (mRunningParam.stepManager.isStopRunning) {
+            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
                 BuzzerManager.getInstance().buzzerRingOnce();
                 btn_pause_quit.setEnabled(false);
                 if (mVideoPlayerSelf != null) {
@@ -427,7 +434,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 }
                 stopPauseTimer();
                 finishRunning();
-            }else {
+            } else {
                 btn_start_stop_skip.performClick();
                 mRunningParam.stepManager.clean();
             }
@@ -697,7 +704,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                         disFlag = false;
                         Logger.i("disFlag = false");
 
-                        if (AppDebug.debug){
+                        if (AppDebug.debug) {
                             if (!isDestroyed()) {
                                 runOnUiThread(() -> {
                                     btn_pause_continue.setEnabled(true);
@@ -952,6 +959,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     private void showPrepare(long delay) {
+        play321Go();
+
         tv_prepare.setVisibility(View.VISIBLE);
         mCountdownTask = new EmptyMessageTask(myHandler, MsgWhat.MSG_PREPARE_TIME);
         currentPro = SystemSoundManager.getInstance().getCurrentPro();
@@ -1203,6 +1212,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
 
         shortDownThirtyApk();
+
+        onDestroy2();
     }
 
     public static class MyHandler extends Handler {
@@ -1221,10 +1232,12 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             }
             switch (msg.what) {
                 case MsgWhat.MSG_PREPARE_TIME:
+                    Logger.i("MSG_PREPARE_TIME == " + mActivity.mRunningParam.countDown);
                     if (mActivity.mRunningParam.countDown == 0) {
                         mActivity.tv_prepare.setText(mActivity.getResources().getString(R.string.string_count_down_go));
                         BuzzerManager.getInstance().buzzRingLongObliged(1000);
                     } else if (mActivity.mRunningParam.countDown == -1) {
+                        // Go之后
                         mActivity.mRunningParam.countDown = 3;
                         mActivity.mCountdownTask.cancel();
                         mActivity.tv_prepare.setText(String.valueOf(mActivity.mRunningParam.countDown));
@@ -1268,6 +1281,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
                         return;
                     } else {
+                        // 3 2 1
                         if (Custom.DEF_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
                             if (mActivity.mRunningParam.countDown == 1) {
                                 ControlManager.getInstance().reset();
@@ -1361,7 +1375,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
     }
 
-    public String getTopActivity(Context context){
+    public String getTopActivity(Context context) {
         ActivityManager am = (ActivityManager) context.getSystemService(context.ACTIVITY_SERVICE);
         ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
         Logger.d("cn.getPackageName() == " + cn.getPackageName());
@@ -1370,4 +1384,58 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @BindView(R.id.tv_setnum)
     public TextView tv_setnum;
+
+    public VideoView vv_go;
+
+    private void init321Go() {
+        Logger.i("init321Go 11111111111111111111111");
+        String uri = "android.resource://" + getPackageName() + "/" + R.raw.go;
+
+        vv_go = new VideoView(MyApplication.getContext());
+        rl_main.addView(vv_go, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        vv_go.setVideoURI(Uri.parse(uri));
+        vv_go.setOnPreparedListener(mp -> {
+                    Logger.i("准备好资源 onPrepared " + mp);
+                    vv_go.setVisibility(View.VISIBLE);
+                }
+        );
+        vv_go.setOnCompletionListener(mp -> {
+                    Logger.i("播放完成 onCompletion " + mp);
+                    vv_go.setVisibility(View.GONE);
+                    vv_go.stopPlayback();
+                    vv_go.suspend();
+                    // rl_main.removeView(vv_go);
+                }
+        );
+        Logger.i("init321Go 2222222222222222");
+    }
+    public void play321Go() {
+        Logger.i("play321Go 11111111111111111111111");
+
+        Logger.i("play321Go()");
+
+        // 代码动态加入VideoView
+        if (vv_go == null) {
+
+        }
+
+        vv_go.setVisibility(View.VISIBLE);
+        vv_go.start();
+
+        // MediaController mediaController = new MediaController(this);
+        // vv_go.setMediaController(mediaController);
+        // vv_go.requestFocus();
+
+        Logger.i("play321Go 2222222222222222");
+    }
+
+    private void onDestroy2() {
+        vv_go.stopPlayback();
+        vv_go.setOnCompletionListener(null);
+        vv_go.setOnPreparedListener(null);
+        // mVideoViewContainer.removeAllViews();
+        vv_go = null;
+    }
+
 }
