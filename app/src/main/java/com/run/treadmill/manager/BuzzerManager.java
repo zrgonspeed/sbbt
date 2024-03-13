@@ -280,9 +280,9 @@ public class BuzzerManager {
                 mSoundPool.stop(playId);
             }
             if (time == 200) {
-                playId = mSoundPool.play(poolMap.get("start_short"), 0.5f, 1.0f, 0, 0, 1.0f);
+                playId = mSoundPool.play(poolMap.get("start_short"), 1.0f, 1.0f, 1000, 0, 1.0f);
             } else if (time == 1000) {
-                playId = mSoundPool.play(poolMap.get("start_long"), 0.5f, 1.0f, 0, 0, 1.0f);
+                playId = mSoundPool.play(poolMap.get("start_long"), 1.0f, 1.0f, 1000, 0, 1.0f);
             }
         }
 
