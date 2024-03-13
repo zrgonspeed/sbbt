@@ -63,7 +63,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
     }
 
     @Override
-    protected void showPopTip() {
+    public void showPopTip() {
         if (ErrorManager.getInstance().isHasInclineError()) {
             showInclineError();
         } else {

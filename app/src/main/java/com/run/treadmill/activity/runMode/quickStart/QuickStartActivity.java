@@ -264,7 +264,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     }
 
     @Override
-    protected void showPopTip() {
+    public void showPopTip() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
             // getPresenter().setSpeedValue(0, minSpeed, false);
             // getPresenter().setInclineValue(0, 0, false);

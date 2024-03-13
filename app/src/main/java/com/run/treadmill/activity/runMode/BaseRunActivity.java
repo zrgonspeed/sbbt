@@ -27,6 +27,7 @@ import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
+import com.run.treadmill.activity.runMode.help.BaseRunClick;
 import com.run.treadmill.activity.runMode.help.Prepare321Go;
 import com.run.treadmill.activity.runMode.vision.VisionActivity;
 import com.run.treadmill.base.BaseActivity;
@@ -175,7 +176,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     public BaseCalculator.Builder mCalcBuilder;
     /*** 媒体列表*/
-    PopupWindow mediaPopWin;
+    public PopupWindow mediaPopWin;
     /*** 媒体icon*/
     private List<Integer> iconList;
     private MediaRunAppAdapter mMediaRunAppAdapter;
@@ -198,7 +199,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
      * 是否已经点了进入媒体，防止同时按按键造成数据无法同步
      */
     public boolean isGoMedia = false;
-    private boolean gsMode;
+    public boolean gsMode;
 
     /**
      * 出现错误只执行一次
@@ -544,7 +545,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }.start();
     }
 
-    private boolean disFlag = false;
+    public boolean disFlag = false;
 
     @Override
     public void beltAndInclineStatus(int beltStatus, int inclineStatus, int curInclineAd) {
@@ -638,133 +639,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             R.id.btn_home
     })
     public synchronized void click(View view) {
-        if (view.getId() == R.id.btn_start_stop_skip && mediaPopWin != null && mediaPopWin.isShowing()) {
-            hideMediaPopWin();
-        }
-        switch (view.getId()) {
-            case R.id.btn_home:
-                safeError();
-                break;
-            case R.id.btn_line_chart_incline:
-            case R.id.btn_line_chart_speed:
-                BuzzerManager.getInstance().buzzerRingOnce();
-                break;
-            case R.id.btn_start_stop_skip:
-                if (btn_home.getVisibility() == View.VISIBLE) {
-                    btn_home.setVisibility(View.GONE);
-                }
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
-                    rl_mask.setVisibility(View.GONE);
-
-                    btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
-                    mRunningParam.runStatus = CTConstant.RUN_STATUS_PREPARE;
-                    showPrepare(0);
-                    break;
-                } else if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP
-                        || mRunningParam.runStatus == CTConstant.RUN_STATUS_PREPARE) {
-                    break;
-                } else if (mRunningParam.runStatus == CTConstant.RUN_STATUS_WARM_UP) {
-                    BuzzerManager.getInstance().buzzerRingOnce();
-                    warmUpToRunning();
-                } else if (mRunningParam.runStatus == CTConstant.RUN_STATUS_COOL_DOWN) {
-                    BuzzerManager.getInstance().buzzerRingOnce();
-                    btn_start_stop_skip.setEnabled(false);
-                    finishRunning();
-                } else {
-                    disFlag = true;
-                    Logger.i("disFlag = true");
-                    ThreadUtils.runInThread(() -> {
-                        disFlag = false;
-                        Logger.i("disFlag = false");
-
-                        if (AppDebug.debug) {
-                            if (!isDestroyed()) {
-                                runOnUiThread(() -> {
-                                    btn_pause_continue.setEnabled(true);
-                                });
-                            }
-                        }
-                    }, 1000);
-
-                    BuzzerManager.getInstance().buzzerRingOnce();
-                    mRunningParam.runStatus = CTConstant.RUN_STATUS_STOP;
-                    btn_pause_continue.setEnabled(false);
-                    // gsMode默认false
-                    // 客户要求修改扬升机制
-                    ControlManager.getInstance().stopRun(gsMode);
-                    // ControlManager.getInstance().resetIncline();
-
-                    if (mVideoPlayerSelf != null) {
-                        mVideoPlayerSelf.videoPlayerStartPause();
-                    }
-                }
-                showPopTip();
-                break;
-            case R.id.btn_pause_continue:
-                if (mRunningParam.isRunningEnd()) {
-                    return;
-                }
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
-                    return;
-                }
-                mRunningParam.runStatus = CTConstant.RUN_STATUS_CONTINUE;
-                BuzzerManager.getInstance().buzzerRingOnce();
-                rl_mask.setVisibility(View.GONE);
-                stopPauseTimer();
-                showPrepare(0);
-                break;
-            case R.id.btn_pause_quit:
-                if (mRunningParam.runStatus != CTConstant.RUN_STATUS_STOP) {
-                    return;
-                }
-                btn_pause_quit.setEnabled(false);
-                BuzzerManager.getInstance().buzzerRingOnce();
-                if (mVideoPlayerSelf != null) {
-                    mVideoPlayerSelf.onRelease();
-                }
-                stopPauseTimer();
-                finishRunning();
-                break;
-            case R.id.btn_speed_roller:
-                if (btn_speed_roller.isSelected()) {
-                    return;
-                }
-                if (btn_incline_roller.isSelected()) {
-                    mCalcBuilder.stopPopWin();
-                }
-                BuzzerManager.getInstance().buzzerRingOnce();
-                mCalcBuilder.reset()
-                        .editType(CTConstant.TYPE_SPEED)
-                        .editTypeName(R.string.string_speed)
-                        .floatPoint(1)
-                        .mainView(rl_main)
-                        .setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_234_y))
-                        .startPopWindow();
-
-                setControlEnable(false);
-                btn_speed_roller.setSelected(true);
-                break;
-            case R.id.btn_incline_roller:
-                if (btn_incline_roller.isSelected()) {
-                    return;
-                }
-                if (btn_speed_roller.isSelected()) {
-                    mCalcBuilder.stopPopWin();
-                }
-                BuzzerManager.getInstance().buzzerRingOnce();
-                mCalcBuilder.reset()
-                        .editType(CTConstant.TYPE_INCLINE)
-                        .editTypeName(R.string.string_incline)
-                        .mainView(rl_main)
-                        .setXAndY(getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_234_y))
-                        .startPopWindow();
-
-                setControlEnable(false);
-                btn_incline_roller.setSelected(true);
-                break;
-            default:
-                break;
-        }
+        BaseRunClick.click(this, view);
     }
 
     @Override
@@ -907,7 +782,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
     }
 
-    protected void hideMediaPopWin() {
+    public void hideMediaPopWin() {
         if (mediaPopWin != null && mediaPopWin.isShowing()) {
             mediaPopWin.dismiss();
         }
@@ -920,14 +795,14 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
 
-    protected void warmUpToRunning() {
+    public void warmUpToRunning() {
         mRunningParam.warmUpToRunning();
         rl_center_tip.setVisibility(View.GONE);
         btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
         btn_media.setEnabled(true);
     }
 
-    protected void showPopTip() {
+    public void showPopTip() {
         //FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_PAUSED);
         if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
             mCalcBuilder.stopPopWin();
@@ -1011,7 +886,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         pauseTimer.startTimer(PAUSE_TIME, this);
     }
 
-    private void stopPauseTimer() {
+    public void stopPauseTimer() {
         if (pauseTimer != null) {
             pauseTimer.closeTimer();
         }
@@ -1022,7 +897,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
      *
      * @param enable
      */
-    protected void setControlEnable(boolean enable) {
+    public void setControlEnable(boolean enable) {
         if (!enable) {
             btn_incline_down.setEnabled(enable);
             btn_incline_up.setEnabled(enable);
@@ -1249,7 +1124,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     private Prepare321Go prepare321Go = new Prepare321Go(this);
 
-    private void showPrepare(long delay) {
+    public void showPrepare(long delay) {
         prepare321Go.play321Go(delay);
     }
 }

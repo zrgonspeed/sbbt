@@ -137,7 +137,7 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
     }
 
     @Override
-    protected void showPopTip() {
+    public void showPopTip() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
             // getPresenter().setSpeedValue(0, minSpeed, true);
             // getPresenter().setInclineValue(0, 0, true);

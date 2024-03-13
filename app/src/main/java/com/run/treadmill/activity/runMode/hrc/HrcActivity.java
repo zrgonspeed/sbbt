@@ -221,7 +221,7 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
     }
 
     @Override
-    protected void showPopTip() {
+    public void showPopTip() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
             // getPresenter().setSpeedValue(0, minSpeed, false);
             // getPresenter().setInclineValue(0, 0, false);

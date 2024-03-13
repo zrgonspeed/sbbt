@@ -51,7 +51,7 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
     }
 
     @Override
-    protected void showPopTip() {
+    public void showPopTip() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
             // getPresenter().setSpeedValue(0, minSpeed, false);
             // getPresenter().setInclineValue(0, 0, false);
@@ -87,7 +87,7 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
                 getPresenter().setSpeedValue(1, 0, false);
                 break;
             case R.id.btn_speed_down:
-                
+
                 speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                 getPresenter().setSpeedValue(-1, 0, false);
                 break;

@@ -259,7 +259,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
     }
 
     @Override
-    protected void showPopTip() {
+    public void showPopTip() {
         if (mRunningParam.runStatus == CTConstant.RUN_STATUS_STOP) {
             // getPresenter().setSpeedValue(0, minSpeed, false);
             // getPresenter().setInclineValue(0, 0, false);
