@@ -152,4 +152,8 @@ public class ErrorManager {
             return CTConstant.NO_SHOW_TIPS;
         }
     }
+
+    public boolean isNoShowTips() {
+        return getErrorTip() == CTConstant.NO_SHOW_TIPS;
+    }
 }

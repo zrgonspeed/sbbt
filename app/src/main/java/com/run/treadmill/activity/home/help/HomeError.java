@@ -22,7 +22,7 @@ public class HomeError extends BaseHomeHelp {
     }
 
     public void safeError() {
-        if (activity.tipsPop.getLastTips() != CTConstant.SHOW_TIPS_SAFE_ERROR) {
+        if (!activity.tipsPop.isSafeError()) {
             activity.wakeUpSleep();
         }
         activity.showTipPop(CTConstant.SHOW_TIPS_SAFE_ERROR);

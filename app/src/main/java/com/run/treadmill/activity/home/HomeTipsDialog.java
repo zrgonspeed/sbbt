@@ -167,7 +167,7 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
     }
 
     protected void stopTipsPop() {
-        if (lastTips == CTConstant.SHOW_TIPS_SAFE_ERROR || lastTips == CTConstant.SHOW_TIPS_OTHER_ERROR) {
+        if (isSafeError() || isOtherError()) {
             lastTips = CTConstant.NO_SHOW_TIPS;
             int errorTip = ErrorManager.getInstance().getErrorTip();
             if (errorTip != CTConstant.NO_SHOW_TIPS) {
