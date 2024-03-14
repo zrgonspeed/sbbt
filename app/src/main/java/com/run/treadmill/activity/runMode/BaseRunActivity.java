@@ -8,7 +8,6 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
@@ -19,17 +18,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.run.android.ShellCmdUtils;
 import com.run.treadmill.R;
-import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
 import com.run.treadmill.activity.runMode.help.BaseRunClick;
 import com.run.treadmill.activity.runMode.help.BaseRunError;
 import com.run.treadmill.activity.runMode.help.BaseRunKey;
 import com.run.treadmill.activity.runMode.help.BaseRunMcu;
+import com.run.treadmill.activity.runMode.help.BaseRunMedia;
 import com.run.treadmill.activity.runMode.help.BaseRunPause;
 import com.run.treadmill.activity.runMode.help.BaseRunRefresh;
 import com.run.treadmill.activity.runMode.help.Prepare321Go;
@@ -42,15 +38,12 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.SystemSoundManager;
-import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.util.ActivityUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.StringUtil;
-import com.run.treadmill.util.ThirdApkSupport;
-import com.run.treadmill.util.TimeStringUtil;
 import com.run.treadmill.widget.HistogramListView;
 import com.run.treadmill.widget.LongClickImage;
 import com.run.treadmill.widget.MyYaxisViewManager;
@@ -175,13 +168,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     private SpeedTextWatcher mSpeedTextWatcher;
 
     public BaseCalculator.Builder mCalcBuilder;
-    /*** 媒体列表*/
-    public PopupWindow mediaPopWin;
-    /*** 媒体icon*/
-    private List<Integer> iconList;
-    private MediaRunAppAdapter mMediaRunAppAdapter;
 
-    String[] pkgName;
     /**
      * 记录当前音量，321go需要固定音量，做复位音量用
      */
@@ -201,7 +188,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
      */
     private boolean isActionVolume;
 
-    public String mediaPkgName = "";
 //    private LocaleChangeReceiver localeChangeReceiver;
 
     @Override
@@ -227,13 +213,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.heart_rate);
         pulseAnimation.setInterpolator(new AccelerateInterpolator());
 
-        iconList = new ArrayList<>();
-        pkgName = HomeAndRunAppUtils.getPkgNames();
+        baseRunMedia.onCreate();
 
-        int[] drawable = HomeAndRunAppUtils.getRunDrawables();
-        for (int id : drawable) {
-            iconList.add(id);
-        }
         mRunningParam.setCallback(this);
 
         prepare321Go.init321Go();
@@ -435,7 +416,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
         mRunningParam.end();
         mRunningParam.recodePreRunData();
-        shortDownThirtyApk();
+        baseRunMedia.shortDownThirtyApk();
         mRunningParam.saveHasRunData();
     }
 
@@ -464,88 +445,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
         setControlEnable(true);
     }
-
-    protected void showMediaPopWin(@CTConstant.RunMode int runMode) {
-        if (mMediaRunAppAdapter == null) {
-            mMediaRunAppAdapter = new MediaRunAppAdapter(iconList);
-            mMediaRunAppAdapter.setOnItemClick(position -> {
-                BuzzerManager.getInstance().buzzerRingOnce();
-                isGoMedia = true;
-                enterThirdApk(runMode, pkgName[position]);
-                hideMediaPopWin();
-                rl_main.setVisibility(View.GONE);
-            });
-        }
-        if (mediaPopWin == null) {
-            View mediaView = getLayoutInflater().inflate(R.layout.pop_window_media, null);
-            RecyclerView rv_media = (RecyclerView) mediaView.findViewById(R.id.rv_media);
-            rv_media.setLayoutManager(new GridLayoutManager(this, 2));
-            rv_media.setAdapter(mMediaRunAppAdapter);
-            mediaPopWin = new PopupWindow(mediaView,
-                    getResources().getDimensionPixelSize(R.dimen.dp_px_300_x),
-                    getResources().getDimensionPixelSize(R.dimen.dp_px_715_y));
-        }
-
-        if (mediaPopWin.isShowing()) {
-            hideMediaPopWin();
-        } else if (!mRunningParam.isStopStatus() && !mRunningParam.isCoolDownStatus()) {
-            mediaPopWin.showAtLocation(btn_media,
-                    Gravity.NO_GRAVITY,
-                    (getResources().getDimensionPixelSize(R.dimen.dp_px_0_x)),
-                    getResources().getDimensionPixelSize(R.dimen.dp_px_147_y));
-            btn_media.setSelected(true);
-        }
-    }
-
-    public synchronized void enterThirdApk(@CTConstant.RunMode int runMode, String pkgName) {
-        mRunningParam.isFloat = true;
-        Logger.i("isFloat " + true);
-
-        ControlManager.getInstance().setSendWaiteTime(70);
-        mRunningParam.waiteTime = 955;
-        mRunningParam.waiteNanosTime = 14000;
-        Logger.d("enterThirdApk pkgName =" + pkgName);
-        mediaPkgName = pkgName;
-        mRunningParam.mediaPkgName = pkgName;
-        if (pkgName.contains("com.facebook.katana")) {
-            ThirdApkSupport.stopKillLoginAppTimer();
-            startActivity(getPackageManager().getLaunchIntentForPackage("com.facebook.katana"));
-        } else {
-            ThirdApkSupport.doStartApplicationWithPackageName(this, pkgName);
-        }
-        mFloatWindowManager.runningActivityStartMedia(runMode);
-    }
-
-    /**
-     * 离开关闭第三方apk
-     */
-    public void shortDownThirtyApk() {
-        SystemSoundManager.MusicPause(this);
-        ThirdApkSupport.killInputmethodPid(this, "com.google.android.inputmethod.pinyin");
-        Logger.d("shortDownThirtyApk pkgName =" + mediaPkgName);
-        if (mediaPkgName.contains("com.facebook.katana")) {
-            int facebookId = ThirdApkSupport.findPid(this, "com.facebook.katana");
-            Logger.d("kill facebookId = " + facebookId);
-            ShellCmdUtils.getInstance().execCommand("kill " + facebookId);
-            return;
-        }
-        if (!mediaPkgName.equals("")) {
-            ThirdApkSupport.killCommonApp(this, mediaPkgName);
-        }
-    }
-
-    public void hideMediaPopWin() {
-        if (mediaPopWin != null && mediaPopWin.isShowing()) {
-            mediaPopWin.dismiss();
-        }
-        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
-            mCalcBuilder.stopPopWin();
-        }
-        if (btn_media != null) {
-            btn_media.setSelected(false);
-        }
-    }
-
 
     public void warmUpToRunning() {
         mRunningParam.warmUpToRunning();
@@ -674,7 +573,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             mRunningParam.end();
         }
 
-        shortDownThirtyApk();
+        baseRunMedia.shortDownThirtyApk();
 
         prepare321Go.destoryVideoView();
     }
@@ -782,5 +681,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public BaseRunPause baseRunPause = new BaseRunPause(this);
     public BaseRunKey baseRunKey = new BaseRunKey(this);
     public BaseRunMcu baseRunMcu = new BaseRunMcu(this);
+    public BaseRunMedia baseRunMedia = new BaseRunMedia(this);
 
 }

@@ -96,7 +96,7 @@ public class HillActivity extends BaseRunActivity<HillView, HillPresenter> imple
                 refreshLineChart();
                 break;
             case R.id.btn_media:
-                showMediaPopWin(CTConstant.HILL);
+                baseRunMedia.showMediaPopWin(CTConstant.HILL);
                 break;
         }
     }

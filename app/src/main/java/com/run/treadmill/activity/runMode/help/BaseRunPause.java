@@ -91,17 +91,13 @@ public class BaseRunPause implements CustomTimer.TimerCallBack {
             if (activity.rl_tip.getVisibility() == View.VISIBLE) {
                 activity.rl_tip.setVisibility(View.GONE);
             }
-            if (activity.mediaPopWin != null && activity.mediaPopWin.isShowing()) {
-                activity.mediaPopWin.dismiss();
-            }
+            activity.baseRunMedia.dismissPopWin();
         } else if (mRunningParam.isWarmStatus()) {
             activity.img_run_pop_tip.setImageResource(R.drawable.img_pop_warmup);
             activity.btn_start_stop_skip.setImageResource(R.drawable.btn_skip_warmup);
             activity.rl_center_tip.setVisibility(View.VISIBLE);
             activity.btn_media.setEnabled(false);
-            if (activity.mediaPopWin != null && activity.mediaPopWin.isShowing()) {
-                activity.mediaPopWin.dismiss();
-            }
+            activity.baseRunMedia.dismissPopWin();
 
             mRunningParam.setCurrIncline(InitParam.WARM_UP_INCLIEN);
             mRunningParam.setCurrSpeed(activity.isMetric ? InitParam.WARM_UP_SPEED_METRIC : InitParam.WARM_UP_SPEED_IMPERIAL);
@@ -119,7 +115,7 @@ public class BaseRunPause implements CustomTimer.TimerCallBack {
             if (activity.btn_media != null) {
                 activity.btn_media.setEnabled(false);
             }
-            activity.hideMediaPopWin();
+            activity.baseRunMedia.hideMediaPopWin();
             if (activity.rl_tip.getVisibility() == View.VISIBLE) {
                 activity.rl_tip.setVisibility(View.GONE);
             }

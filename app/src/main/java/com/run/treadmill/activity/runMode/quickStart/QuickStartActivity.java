@@ -46,7 +46,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
 
         if (quickToMedia) {
             String pkgName = getIntent().getStringExtra(CTConstant.PK_NAME);
-            enterThirdApk(CTConstant.QUICKSTART, pkgName);
+            baseRunMedia.enterThirdApk(CTConstant.QUICKSTART, pkgName);
             rl_main.setVisibility(View.GONE);
         } else {
             mRunningParam.setToPrepare();
@@ -158,7 +158,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
                 refreshLineChart();
                 break;
             case R.id.btn_media:
-                showMediaPopWin(CTConstant.QUICKSTART);
+                baseRunMedia.showMediaPopWin(CTConstant.QUICKSTART);
         }
     }
 

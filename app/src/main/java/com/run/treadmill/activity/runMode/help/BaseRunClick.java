@@ -14,8 +14,8 @@ import com.run.treadmill.util.ThreadUtils;
 public class BaseRunClick {
     public static void click(BaseRunActivity activity, View view) {
         if (view.getId() == R.id.btn_start_stop_skip &&
-                activity.mediaPopWin != null && activity.mediaPopWin.isShowing()) {
-            activity.hideMediaPopWin();
+                activity.baseRunMedia.isShowing()) {
+            activity.baseRunMedia.hideMediaPopWin();
         }
         switch (view.getId()) {
             case R.id.btn_home:

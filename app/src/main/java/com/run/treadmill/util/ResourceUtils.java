@@ -16,4 +16,8 @@ public class ResourceUtils {
     public static int getColor(int id) {
         return MyApplication.getContext().getResources().getColor(id, null);
     }
+
+    public static int getDimensionPixelSize(int id) {
+        return MyApplication.getContext().getResources().getDimensionPixelSize(id);
+    }
 }
