@@ -7,7 +7,9 @@ import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
+import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.util.DataTypeConversion;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.ResourceUtils;
 
 public class BaseRunError {
@@ -63,7 +65,7 @@ public class BaseRunError {
         getPresenter().checkLastSpeedOnRunning(activity.isMetric);
         if (activity.currentPro != -1) {
             //音量恢复
-            activity.restoreVolume();
+            restoreVolume();
         }
     }
 
@@ -78,7 +80,7 @@ public class BaseRunError {
         //如果速度感应线从一开始就没插好，常态包速度一直返回0，并且处于非stop状态，则取最后下发的速度
         getPresenter().checkLastSpeedOnRunning(activity.isMetric);
         //音量恢复
-        activity.restoreVolume();
+        restoreVolume();
     }
 
     public void showError(int errCode) {
@@ -108,7 +110,30 @@ public class BaseRunError {
         //如果速度感应线从一开始就没插好，常态包速度一直返回0，并且处于非stop状态，则取最后下发的速度
         getPresenter().checkLastSpeedOnRunning(activity.isMetric);
         //音量恢复
-        activity.restoreVolume();
+        restoreVolume();
     }
 
+    /**
+     * 出现错误只执行一次
+     */
+    private boolean isActionVolume;
+
+    /**
+     * 音量恢复
+     */
+    public void restoreVolume() {
+        // zrg 打印
+        Logger.e("restoreVolume()--isActionVolume = " + isActionVolume + " currentPro = " + activity.currentPro);
+        if (isActionVolume) {
+            return;
+        }
+        isActionVolume = true;
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                SystemSoundManager.getInstance().setAudioVolume(activity.currentPro, SystemSoundManager.maxVolume);
+            }
+        }.start();
+    }
 }

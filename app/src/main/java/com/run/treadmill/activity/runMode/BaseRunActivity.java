@@ -36,7 +36,6 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
-import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.MsgWhat;
@@ -182,11 +181,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public boolean isGoMedia = false;
     public boolean gsMode;
 
-    /**
-     * 出现错误只执行一次
-     */
-    private boolean isActionVolume;
-
 //    private LocaleChangeReceiver localeChangeReceiver;
 
     @Override
@@ -324,25 +318,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public void showError(int errCode) {
         baseRunError.showError(errCode);
         super.showError(errCode);
-    }
-
-    /**
-     * 音量恢复
-     */
-    public void restoreVolume() {
-        // zrg 打印
-        Logger.e("restoreVolume()--isActionVolume = " + isActionVolume + " currentPro = " + currentPro);
-        if (isActionVolume) {
-            return;
-        }
-        isActionVolume = true;
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                SystemSoundManager.getInstance().setAudioVolume(currentPro, SystemSoundManager.maxVolume);
-            }
-        }.start();
     }
 
     public boolean disFlag = false;
