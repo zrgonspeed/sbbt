@@ -14,6 +14,6 @@ public class ResourceUtils {
     }
 
     public static int getColor(int id) {
-        return MyApplication.getContext().getColor(id);
+        return MyApplication.getContext().getResources().getColor(id, null);
     }
 }

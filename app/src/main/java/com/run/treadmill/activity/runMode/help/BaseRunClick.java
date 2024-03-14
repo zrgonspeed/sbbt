@@ -86,7 +86,7 @@ public class BaseRunClick {
                 activity.mRunningParam.setToContinue();
                 BuzzerManager.getInstance().buzzerRingOnce();
                 activity.rl_mask.setVisibility(View.GONE);
-                activity.stopPauseTimer();
+                activity.baseRunPause.stopPauseTimer();
                 activity.showPrepare(0);
                 break;
             case R.id.btn_pause_quit:
@@ -98,7 +98,7 @@ public class BaseRunClick {
                 if (activity.mVideoPlayerSelf != null) {
                     activity.mVideoPlayerSelf.onRelease();
                 }
-                activity.stopPauseTimer();
+                activity.baseRunPause.stopPauseTimer();
                 activity.finishRunning();
                 break;
             case R.id.btn_speed_roller:

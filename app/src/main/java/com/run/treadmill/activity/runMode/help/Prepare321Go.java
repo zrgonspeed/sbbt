@@ -90,12 +90,20 @@ public class Prepare321Go {
         Logger.i("MSG_PREPARE_TIME == " + activity.mRunningParam.countDown);
 
         if (activity.mRunningParam.countDown == 0) {
-            go_0();
+            prepareHandler.postDelayed(() -> {
+                go_0();
+            }, 300);
         } else if (activity.mRunningParam.countDown == -1) {
             go_end();
             return;
         } else {
-            go_start();
+            if (activity.mRunningParam.countDown == 2 || activity.mRunningParam.countDown == 1) {
+                prepareHandler.postDelayed(() -> {
+                    go_start();
+                }, 300);
+            } else {
+                go_start();
+            }
         }
         activity.mRunningParam.countDown--;
     }

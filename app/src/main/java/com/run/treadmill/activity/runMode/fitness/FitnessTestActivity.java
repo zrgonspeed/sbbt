@@ -65,7 +65,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
     @Override
     public void showPopTip() {
         if (ErrorManager.getInstance().isHasInclineError()) {
-            showInclineError();
+            baseRunError.showInclineError();
         } else {
            // tv_incline.setText(StringUtil.valueAndUnit("0", getString(R.string.string_unit_percent), runParamUnitTextSize));
         }

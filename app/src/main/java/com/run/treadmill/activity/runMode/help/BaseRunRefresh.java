@@ -59,14 +59,14 @@ public class BaseRunRefresh {
 
         if (mRunningParam.isPrepare() || mRunningParam.isNormal()) {
             if (ErrorManager.getInstance().isHasInclineError()) {
-                activity.showInclineError();
+                activity.baseRunError.showInclineError();
             } else {
                 activity.tv_incline.setText(StringUtil.valueAndUnit("0", ResourceUtils.getString(R.string.string_unit_percent), activity.runParamUnitTextSize));
             }
             activity.tv_speed.setText(activity.getSpeedValue("0.0"));
         } else {
             if (ErrorManager.getInstance().isHasInclineError()) {
-                activity.showInclineError();
+                activity.baseRunError.showInclineError();
             } else if (!mRunningParam.isCoolDownStatus()) {
                 activity.tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) mRunningParam.getCurrIncline()), ResourceUtils.getString(R.string.string_unit_percent), activity.runParamUnitTextSize));
             }
@@ -118,7 +118,7 @@ public class BaseRunRefresh {
                 if (activity.mVideoPlayerSelf != null) {
                     activity.mVideoPlayerSelf.onRelease();
                 }
-                activity.stopPauseTimer();
+                activity.baseRunPause.stopPauseTimer();
                 activity.finishRunning();
             } else {
                 activity.btn_start_stop_skip.performClick();

@@ -103,7 +103,7 @@ public abstract class BaseRunPresenter<V extends BaseRunView> extends BasePresen
      *
      * @param isMetric 是否为公制
      */
-    protected synchronized void checkLastSpeedOnRunning(boolean isMetric) {
+    public synchronized void checkLastSpeedOnRunning(boolean isMetric) {
         if (mRunningParam == null) {
             return;
         }

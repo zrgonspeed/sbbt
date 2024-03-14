@@ -27,6 +27,8 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
 import com.run.treadmill.activity.runMode.help.BaseRunClick;
+import com.run.treadmill.activity.runMode.help.BaseRunError;
+import com.run.treadmill.activity.runMode.help.BaseRunPause;
 import com.run.treadmill.activity.runMode.help.BaseRunRefresh;
 import com.run.treadmill.activity.runMode.help.Prepare321Go;
 import com.run.treadmill.activity.runMode.vision.VisionActivity;
@@ -42,7 +44,6 @@ import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.util.ActivityUtils;
-import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.StringUtil;
@@ -69,7 +70,7 @@ import butterknife.OnClick;
  * @Author GaleLiu
  * @Time 2019/06/20
  */
-public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPresenter<V>> extends BaseActivity<V, P> implements BaseRunView, RunParamCallback, CustomTimer.TimerCallBack, CalculatorCallBack {
+public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPresenter<V>> extends BaseActivity<V, P> implements BaseRunView, RunParamCallback, CalculatorCallBack {
     @BindView(R.id.rl_main)
     public RelativeLayout rl_main;
     @BindView(R.id.rl_top)
@@ -177,11 +178,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     /*** 媒体icon*/
     private List<Integer> iconList;
     private MediaRunAppAdapter mMediaRunAppAdapter;
-
-    private final String pauseTimerTag = "pauseTimerTag";
-    private CustomTimer pauseTimer;
-
-    private long PAUSE_TIME = 3 * 1000 * 60;
 
     String[] pkgName;
     /**
@@ -346,70 +342,26 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @Override
     public void safeError() {
-        prepare321Go.safeError();
-        //出现安全key时扬升处理动作
-        ControlManager.getInstance().stopRun(gsMode);
-        if (mRunningParam != null) {
-            mRunningParam.interrupted();
-            mRunningParam.recodePreRunData();
-        }
-        //如果速度感应线从一开始就没插好，常态包速度一直返回0，并且处于非stop状态，则取最后下发的速度
-        getPresenter().checkLastSpeedOnRunning(isMetric);
+        baseRunError.safeError();
         super.safeError();
-        if (currentPro != -1) {
-            //音量恢复
-            restoreVolume();
-        }
     }
 
     @Override
     public void commOutError() {
-        prepare321Go.commOutError();
-        if (mRunningParam != null) {
-            mRunningParam.interrupted();
-            mRunningParam.recodePreRunData();
-        }
-        //如果速度感应线从一开始就没插好，常态包速度一直返回0，并且处于非stop状态，则取最后下发的速度
-        getPresenter().checkLastSpeedOnRunning(isMetric);
+        baseRunError.commOutError();
         super.commOutError();
-        //音量恢复
-        restoreVolume();
     }
 
     @Override
     public void showError(int errCode) {
-        if (ErrorManager.getInstance().isHasInclineError() || ErrorManager.getInstance().isInclineError()) {
-            showInclineError();
-            if (btn_incline_down.isEnabled()) {
-                btn_incline_down.setEnabled(false);
-            }
-            if (btn_incline_up.isEnabled()) {
-                btn_incline_up.setEnabled(false);
-            }
-            if (btn_incline_roller.isEnabled()) {
-                btn_incline_roller.setEnabled(false);
-            }
-            if (ErrorManager.getInstance().isInclineError()) {
-                return;
-            }
-        }
-        prepare321Go.error();
-
-        if (mRunningParam != null) {
-            mRunningParam.recodePreRunData();
-        }
-
-        //如果速度感应线从一开始就没插好，常态包速度一直返回0，并且处于非stop状态，则取最后下发的速度
-        getPresenter().checkLastSpeedOnRunning(isMetric);
+        baseRunError.showError(errCode);
         super.showError(errCode);
-        //音量恢复
-        restoreVolume();
     }
 
     /**
      * 音量恢复
      */
-    private void restoreVolume() {
+    public void restoreVolume() {
         // zrg 打印
         Logger.e("restoreVolume()--isActionVolume = " + isActionVolume + " currentPro = " + currentPro);
         if (isActionVolume) {
@@ -500,7 +452,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         if (isGoMedia) {
             return;
         }
-        
+
         runCmdKeyValue(keyValue);
     }
 
@@ -550,19 +502,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         mRunningParam.recodePreRunData();
         shortDownThirtyApk();
         mRunningParam.saveHasRunData();
-    }
-
-    @Override
-    public void timerComply(long lastTime, String tag) {
-        Logger.d(tag + "=== 定时器回调 ===>   " + lastTime);
-        if (tag.equals(pauseTimerTag)) {
-            if (mRunningParam.isStopStatus()) {
-                runOnUiThread(() -> {
-                    btn_pause_quit.performClick();
-                    stopPauseTimer();
-                });
-            }
-        }
     }
 
     @Override
@@ -681,93 +620,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     public void showPopTip() {
-        //FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_PAUSED);
-        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
-            mCalcBuilder.stopPopWin();
-        }
-        if (mRunningParam.isQuickToSummary) {
-            rl_main.setVisibility(View.GONE);
-            setControlEnable(false);
-            btn_pause_continue.setEnabled(false);
-            btn_pause_quit.setEnabled(false);
-            if (mVideoPlayerSelf != null) {
-                mVideoPlayerSelf.onRelease();
-            }
-            stopPauseTimer();
-            finishRunning();
-            return;
-        }
-        mRunningParam.recodePreRunData();
-        if (mRunningParam.isStopStatus()) {
-            btn_pause_continue.setEnabled(false);
-            tv_speed.setText(getSpeedValue(String.valueOf(0.0f)));
-            img_run_pop_tip.setImageResource(R.drawable.img_pop_pause);
-            rl_mask.setVisibility(View.VISIBLE);
-            //暂停倒计时
-            startPauseTimer();
-            setControlEnable(false);
-            btn_incline_roller.setEnabled(false);
-            btn_speed_roller.setEnabled(false);
-            //停止心跳动画
-            if (img_pulse.getAnimation() != null && img_pulse.getAnimation().hasStarted()) {
-                img_pulse.clearAnimation();
-            }
-            if (rl_tip.getVisibility() == View.VISIBLE) {
-                rl_tip.setVisibility(View.GONE);
-            }
-            if (mediaPopWin != null && mediaPopWin.isShowing()) {
-                mediaPopWin.dismiss();
-            }
-        } else if (mRunningParam.isWarmStatus()) {
-            img_run_pop_tip.setImageResource(R.drawable.img_pop_warmup);
-            btn_start_stop_skip.setImageResource(R.drawable.btn_skip_warmup);
-            rl_center_tip.setVisibility(View.VISIBLE);
-            btn_media.setEnabled(false);
-            if (mediaPopWin != null && mediaPopWin.isShowing()) {
-                mediaPopWin.dismiss();
-            }
-
-            mRunningParam.setCurrIncline(InitParam.WARM_UP_INCLIEN);
-            mRunningParam.setCurrSpeed(isMetric ? InitParam.WARM_UP_SPEED_METRIC : InitParam.WARM_UP_SPEED_IMPERIAL);
-            onSpeedChange(mRunningParam.getCurrSpeed());
-            if (ErrorManager.getInstance().isHasInclineError()) {
-                showInclineError();
-            } else {
-                tv_incline.setText(StringUtil.valueAndUnit("0", getString(R.string.string_unit_percent), runParamUnitTextSize));
-            }
-        } else if (mRunningParam.isCoolDownStatus()) {
-            img_run_pop_tip.setImageResource(R.drawable.img_pop_cooldown);
-            btn_start_stop_skip.setImageResource(R.drawable.btn_skip_cooldown);
-            rl_center_tip.setVisibility(View.VISIBLE);
-            tv_time.setText(TimeStringUtil.getMsToMinSecValue(mRunningParam.getCoolDownTime() * 1000f));
-            if (btn_media != null) {
-                btn_media.setEnabled(false);
-            }
-            hideMediaPopWin();
-            if (rl_tip.getVisibility() == View.VISIBLE) {
-                rl_tip.setVisibility(View.GONE);
-            }
-            //进入cool down要归零
-            if (!ErrorManager.getInstance().isHasInclineError()) {
-                tv_incline.setText(StringUtil.valueAndUnit("0", getString(R.string.string_unit_percent), runParamUnitTextSize));
-                ControlManager.getInstance().resetIncline();
-            }
-        }
-    }
-
-    private void startPauseTimer() {
-        if (pauseTimer == null) {
-            pauseTimer = new CustomTimer();
-            pauseTimer.setTag(pauseTimerTag);
-        }
-        pauseTimer.closeTimer();
-        pauseTimer.startTimer(PAUSE_TIME, this);
-    }
-
-    public void stopPauseTimer() {
-        if (pauseTimer != null) {
-            pauseTimer.closeTimer();
-        }
+        baseRunPause.showPopTip();
     }
 
     /**
@@ -831,32 +684,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         lineChartView.setMaxValue(isLineChartIncline ? InitParam.MAX_INCLINE_MAX : (isMetric ? InitParam.MAX_SPEED_MAX_METRIC : InitParam.MAX_SPEED_MAX_IMPERIAL));
     }
 
-    public void showInclineError() {
-        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-            if (tv_incline.getText().toString().equals("E5")) {
-                return;
-            }
-            tv_incline.setText("E5");
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-            if (tv_incline.getText().toString().equals("E5")) {
-                return;
-            }
-            tv_incline.setText("E5");
-        } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-            if (tv_incline.getText().toString().equals(String.format("E%s", DataTypeConversion.intLowToByte(ErrorManager.ERR_INCLINE_ADJUST)))) {
-                return;
-            }
-            tv_incline.setText(String.format("E%s", DataTypeConversion.intLowToByte(ErrorManager.ERR_INCLINE_ADJUST)));
-        }
-        mRunningParam.setInclineError();
-        tv_incline.setTextColor(getResources().getColor(R.color.red, null));
-        txt_running_incline_ctrl.setTextColor(getResources().getColor(R.color.red, null));
-        txt_running_incline_param.setTextColor(getResources().getColor(R.color.red, null));
-        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
-            mCalcBuilder.stopPopWin();
-        }
-    }
-
     /**
      * 获取带单位的距离值
      *
@@ -901,7 +728,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     @Override
     protected void onPause() {
         super.onPause();
-        stopPauseTimer();
+        baseRunPause.stopPauseTimer();
     }
 
     @Override
@@ -1010,12 +837,13 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
     }
 
-    private Prepare321Go prepare321Go = new Prepare321Go(this);
-
     public void showPrepare(long delay) {
         prepare321Go.play321Go(delay);
     }
 
+    public Prepare321Go prepare321Go = new Prepare321Go(this);
     public BaseRunRefresh baseRunRefresh = new BaseRunRefresh(this);
+    public BaseRunError baseRunError = new BaseRunError(this);
+    public BaseRunPause baseRunPause = new BaseRunPause(this);
 
 }
