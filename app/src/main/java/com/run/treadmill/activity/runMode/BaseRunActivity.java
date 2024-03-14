@@ -158,7 +158,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public BaseCalculator.Builder mCalcBuilder;
 
     public boolean isCalcDialogShowing() {
-        return isCalcDialogShowing();
+        return mCalcBuilder != null && mCalcBuilder.isPopShowing();
     }
 
     /**
