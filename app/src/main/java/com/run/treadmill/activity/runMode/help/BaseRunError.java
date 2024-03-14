@@ -20,7 +20,6 @@ public class BaseRunError {
 
     public BaseRunPresenter getPresenter() {
         return (BaseRunPresenter) activity.getPresenter();
-
     }
 
     public void showInclineError() {

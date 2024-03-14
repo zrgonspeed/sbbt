@@ -218,7 +218,7 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
     }
 
     @Override
-    protected void runCmdKeyValue(int keyValue) {
+    public void runCmdKeyValue(int keyValue) {
         if (KeyUtils.isInclineKeyAndHasInclineError(keyValue)) {
             return;
         }

@@ -28,6 +28,8 @@ import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
 import com.run.treadmill.activity.runMode.help.BaseRunClick;
 import com.run.treadmill.activity.runMode.help.BaseRunError;
+import com.run.treadmill.activity.runMode.help.BaseRunKey;
+import com.run.treadmill.activity.runMode.help.BaseRunMcu;
 import com.run.treadmill.activity.runMode.help.BaseRunPause;
 import com.run.treadmill.activity.runMode.help.BaseRunRefresh;
 import com.run.treadmill.activity.runMode.help.Prepare321Go;
@@ -381,79 +383,12 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @Override
     public void beltAndInclineStatus(int beltStatus, int inclineStatus, int curInclineAd) {
-        // 每次进入暂停页面, 保持1秒禁用continue
-        if (disFlag) {
-            if (btn_pause_continue.isEnabled()) {
-                btn_pause_continue.setEnabled(false);
-            }
-            return;
-        }
-        if (disPauseBtn) {
-            if (btn_start_stop_skip.isEnabled()) {
-                btn_start_stop_skip.setEnabled(false);
-            }
-            return;
-        }
-
-        if (beltStatus != 0) {
-            if (mRunningParam.isNormal() && btn_start_stop_skip.isEnabled()) {
-                Logger.e("runStatus == " + mRunningParam.runStatus);
-                btn_start_stop_skip.setEnabled(false);
-            }
-            if (mRunningParam.isStopStatus() && btn_pause_continue.isEnabled()) {
-                btn_pause_continue.setEnabled(false);
-            }
-            return;
-        }
-
-        //有扬升错误，不管扬升状态
-        if (ErrorManager.getInstance().isHasInclineError()) {
-            if (mRunningParam.isNormal() && !btn_start_stop_skip.isEnabled()) {
-                btn_start_stop_skip.setEnabled(true);
-            }
-            if (mRunningParam.isStopStatus() && !btn_pause_continue.isEnabled()) {
-                btn_pause_continue.setEnabled(true);
-            }
-            return;
-        }
-
-        if (inclineStatus == 0) {
-            if (mRunningParam.isNormal() && !btn_start_stop_skip.isEnabled()) {
-                btn_start_stop_skip.setEnabled(true);
-            }
-            if (mRunningParam.isStopStatus() && !btn_pause_continue.isEnabled()) {
-                btn_pause_continue.setEnabled(true);
-            }
-            return;
-        }
-
-        if (mRunningParam.isNormal() && btn_start_stop_skip.isEnabled()) {
-            btn_start_stop_skip.setEnabled(false);
-        }
-        if (mRunningParam.isStopStatus() && btn_pause_continue.isEnabled()) {
-            btn_pause_continue.setEnabled(false);
-        }
+        baseRunMcu.beltAndInclineStatus(beltStatus, inclineStatus, curInclineAd);
     }
 
     @Override
     public void cmdKeyValue(int keyValue) {
-        if (mRunningParam.isPrepare() || mRunningParam.isContinue()) {
-            return;
-        }
-        if (!mRunningParam.isRunning()
-                && keyValue != SerialKeyValue.START_CLICK
-                && keyValue != SerialKeyValue.STOP_CLICK
-                && keyValue != SerialKeyValue.HAND_START_CLICK
-                && keyValue != SerialKeyValue.HAND_STOP_CLICK
-        ) {
-            // 不在运动状态的时候，只能接收Start和Stop按键
-            return;
-        }
-        if (isGoMedia) {
-            return;
-        }
-
-        runCmdKeyValue(keyValue);
+        baseRunKey.cmdKeyValue(keyValue);
     }
 
     /**
@@ -461,7 +396,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
      *
      * @param keyValue 按键值
      */
-    protected abstract void runCmdKeyValue(int keyValue);
+    public abstract void runCmdKeyValue(int keyValue);
 
     @OnClick({R.id.btn_start_stop_skip, R.id.btn_pause_continue, R.id.btn_pause_quit, R.id.btn_incline_up, R.id.btn_incline_down,
             R.id.btn_speed_up, R.id.btn_speed_down, R.id.btn_media, R.id.btn_line_chart_incline, R.id.btn_line_chart_speed,
@@ -845,5 +780,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public BaseRunRefresh baseRunRefresh = new BaseRunRefresh(this);
     public BaseRunError baseRunError = new BaseRunError(this);
     public BaseRunPause baseRunPause = new BaseRunPause(this);
+    public BaseRunKey baseRunKey = new BaseRunKey(this);
+    public BaseRunMcu baseRunMcu = new BaseRunMcu(this);
 
 }

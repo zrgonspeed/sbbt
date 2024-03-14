@@ -280,7 +280,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
     }
 
     @Override
-    protected void runCmdKeyValue(int keyValue) {
+    public void runCmdKeyValue(int keyValue) {
         if (KeyUtils.isInclineKeyAndHasInclineError(keyValue)) {
             return;
         }

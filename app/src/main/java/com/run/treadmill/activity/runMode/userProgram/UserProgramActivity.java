@@ -236,7 +236,7 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
     }
 
     @Override
-    protected void runCmdKeyValue(int keyValue) {
+    public void runCmdKeyValue(int keyValue) {
         if (KeyUtils.isInclineKeyAndHasInclineError(keyValue)) {
             return;
         }

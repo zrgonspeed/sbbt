@@ -169,7 +169,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
     }
 
     @Override
-    protected void runCmdKeyValue(int keyValue) {
+    public void runCmdKeyValue(int keyValue) {
         if (rl_tip.getVisibility() == View.VISIBLE) {
             return;
         }

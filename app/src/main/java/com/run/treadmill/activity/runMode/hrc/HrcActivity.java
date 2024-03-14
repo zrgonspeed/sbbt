@@ -240,7 +240,7 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
     }
 
     @Override
-    protected void runCmdKeyValue(int keyValue) {
+    public void runCmdKeyValue(int keyValue) {
         if (rl_tip.getVisibility() == View.VISIBLE) {
             return;
         }

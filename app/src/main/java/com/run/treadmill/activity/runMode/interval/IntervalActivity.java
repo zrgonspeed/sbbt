@@ -214,7 +214,7 @@ public class IntervalActivity extends BaseRunActivity<IntervalView, IntervalPres
     }
 
     @Override
-    protected void runCmdKeyValue(int keyValue) {
+    public void runCmdKeyValue(int keyValue) {
         switch (keyValue) {
             case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:

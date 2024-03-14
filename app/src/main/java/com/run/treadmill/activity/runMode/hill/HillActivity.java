@@ -215,7 +215,7 @@ public class HillActivity extends BaseRunActivity<HillView, HillPresenter> imple
     }
 
     @Override
-    protected void runCmdKeyValue(int keyValue) {
+    public void runCmdKeyValue(int keyValue) {
         switch (keyValue) {
             case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:
