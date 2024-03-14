@@ -76,7 +76,7 @@ public class VisionPresenter extends BaseRunPresenter<VisionView> {
     }
 
     void setInclneByTimePosition(int timePosition, int movieInx) {
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
+        if (mRunningParam.isRunning()
                 && !ErrorManager.getInstance().isHasInclineError()) {
             sendMsg(MSG_INCLINE, inclineTable[movieInx][timePosition]);
         }

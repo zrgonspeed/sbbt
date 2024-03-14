@@ -110,7 +110,7 @@ public abstract class BaseRunParamFloatWindow {
         tv_incline.addTextChangedListener(new BaseRunParamFloatWindow.InclineTextWatcher());
         tv_speed.addTextChangedListener(new BaseRunParamFloatWindow.SpeedTextWatcher());
 
-        if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
+        if (mFloatWindowManager.mRunningParam.isNormal()) {
             tv_speed.setText(mFloatWindowManager.getSpeedValue(String.valueOf(0.0f)));
             tv_incline.setText(StringUtil.valueAndUnit("0", mContext.getString(R.string.string_unit_percent), mFloatWindowManager.runParamUnitTextSize));
         } else {

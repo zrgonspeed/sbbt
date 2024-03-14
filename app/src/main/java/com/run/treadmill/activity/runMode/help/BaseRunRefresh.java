@@ -47,7 +47,7 @@ public class BaseRunRefresh {
         activity.btn_pause_continue.setOnLongClickListener(v -> true);
         activity.btn_pause_quit.setOnLongClickListener(v -> true);
 
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
+        if (mRunningParam.isNormal()) {
             activity.btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_start);
         } else if (!mRunningParam.isCoolDownStatus()) {
             activity.btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
@@ -57,7 +57,7 @@ public class BaseRunRefresh {
 
         activity.setTextWatcher();
 
-        if (mRunningParam.isPrepare() || mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
+        if (mRunningParam.isPrepare() || mRunningParam.isNormal()) {
             if (ErrorManager.getInstance().isHasInclineError()) {
                 activity.showInclineError();
             } else {
@@ -100,7 +100,7 @@ public class BaseRunRefresh {
             }
             return;
         }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING || mRunningParam.isWarmStatus()
+        if (mRunningParam.isRunning() || mRunningParam.isWarmStatus()
                 || mRunningParam.isCoolDownStatus()) {
             if (activity.img_pulse.getAnimation() == null) {
                 activity.img_pulse.startAnimation(activity.pulseAnimation);

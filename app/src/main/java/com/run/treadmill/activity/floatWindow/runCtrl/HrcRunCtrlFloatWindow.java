@@ -58,7 +58,7 @@ public class HrcRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
 
     @Override
     public void afterInclineChanged(float incline) {
-        if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL
+        if (mFloatWindowManager.mRunningParam.isNormal()
                 || mFloatWindowManager.mRunningParam.isPrepare()) {
             return;
         }
@@ -196,8 +196,8 @@ public class HrcRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
 
     @Override
     public void afterPrepare() {
-        if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
-            mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+        if (mFloatWindowManager.mRunningParam.isContinue()) {
+            mFloatWindowManager.mRunningParam.setToRunning();
             mFloatWindowManager.mRunningParam.notifyRefreshData();
             btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
             btn_speed_roller.setEnabled(false);
@@ -293,7 +293,7 @@ public class HrcRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
         switch (keyValue) {
             case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:
-                if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
+                if (mFloatWindowManager.mRunningParam.isRunning()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();

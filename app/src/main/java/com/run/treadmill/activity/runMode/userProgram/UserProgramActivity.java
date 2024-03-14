@@ -47,7 +47,7 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
     @Override
     protected void onResume() {
         super.onResume();
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
+        if (mRunningParam.isNormal()) {
             btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_start);
         }
     }
@@ -125,12 +125,12 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
     @Override
     public void afterPrepare() {
         if (mRunningParam.isPrepare()) {
-            mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+            mRunningParam.setToRunning();
             mRunningParam.setLcCurStageNum(0);
             mRunningParam.startRefreshData();
         }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
-            mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+        if (mRunningParam.isContinue()) {
+            mRunningParam.setToRunning();
             mRunningParam.notifyRefreshData();
         }
         ControlManager.getInstance().startRun();
@@ -266,7 +266,7 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
                     BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
+                if (mRunningParam.isRunning()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();

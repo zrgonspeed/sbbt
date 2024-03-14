@@ -29,7 +29,7 @@ public class BaseRunClick {
                 if (activity.btn_home.getVisibility() == View.VISIBLE) {
                     activity.btn_home.setVisibility(View.GONE);
                 }
-                if (activity.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
+                if (activity.mRunningParam.isNormal()) {
                     activity.rl_mask.setVisibility(View.GONE);
 
                     activity.btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
@@ -80,10 +80,10 @@ public class BaseRunClick {
                 if (activity.mRunningParam.isRunningEnd()) {
                     return;
                 }
-                if (activity.mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
+                if (activity.mRunningParam.isContinue()) {
                     return;
                 }
-                activity.mRunningParam.runStatus = CTConstant.RUN_STATUS_CONTINUE;
+                activity.mRunningParam.setToContinue();
                 BuzzerManager.getInstance().buzzerRingOnce();
                 activity.rl_mask.setVisibility(View.GONE);
                 activity.stopPauseTimer();

@@ -124,12 +124,12 @@ public class HillActivity extends BaseRunActivity<HillView, HillPresenter> imple
     @Override
     public void afterPrepare() {
         if (mRunningParam.isPrepare()) {
-            mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+            mRunningParam.setToRunning();
             mRunningParam.setLcCurStageNum(0);
             mRunningParam.startRefreshData();
         }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
-            mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+        if (mRunningParam.isContinue()) {
+            mRunningParam.setToRunning();
             mRunningParam.notifyRefreshData();
         }
         ControlManager.getInstance().startRun();
@@ -239,7 +239,7 @@ public class HillActivity extends BaseRunActivity<HillView, HillPresenter> imple
                     BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
+                if (mRunningParam.isRunning()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();

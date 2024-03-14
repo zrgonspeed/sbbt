@@ -34,7 +34,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
 
     @Override
     public void init() {
-        if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
+        if (mFloatWindowManager.mRunningParam.isNormal()) {
             btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_start);
             btn_incline_down.setEnabled(false);
             btn_incline_up.setEnabled(false);
@@ -73,7 +73,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
 
     @Override
     public void afterSpeedChanged(float speed) {
-        if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL
+        if (mFloatWindowManager.mRunningParam.isNormal()
                 || mFloatWindowManager.mRunningParam.isPrepare()) {
             return;
         }
@@ -106,7 +106,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
 
     @Override
     public void afterInclineChanged(float incline) {
-        if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL
+        if (mFloatWindowManager.mRunningParam.isNormal()
                 || mFloatWindowManager.mRunningParam.isPrepare()) {
             return;
         }
@@ -156,18 +156,18 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
     @Override
     public void afterPrepare() {
         if (mFloatWindowManager.mRunningParam.isPrepare()) {
-            mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+            mFloatWindowManager.mRunningParam.setToRunning();
             mFloatWindowManager.mRunningParam.setLcCurStageNum(0);
             btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
             btn_speed_roller.setEnabled(true);
             mFloatWindowManager.mRunningParam.startRefreshData();
         }
         if (mFloatWindowManager.mRunningParam.isStopStatus()) {
-            mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+            mFloatWindowManager.mRunningParam.setToRunning();
             mFloatWindowManager.mRunningParam.notifyRefreshData();
         }
-        if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
-            mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+        if (mFloatWindowManager.mRunningParam.isContinue()) {
+            mFloatWindowManager.mRunningParam.setToRunning();
             mFloatWindowManager.mRunningParam.notifyRefreshData();
             btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
             btn_speed_roller.setEnabled(true);
@@ -285,7 +285,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
         switch (keyValue) {
             case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:
-                if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL
+                if (mFloatWindowManager.mRunningParam.isNormal()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
@@ -293,7 +293,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
                 break;
             case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:
-                if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
+                if (mFloatWindowManager.mRunningParam.isRunning()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
@@ -394,7 +394,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
 
     @Override
     public void fitShowPausedRunning() {
-        if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
+        if (mFloatWindowManager.mRunningParam.isRunning()
                 && btn_start_stop_skip.isEnabled()) {
             btn_start_stop_skip.performClick();
         }
@@ -402,7 +402,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
 
     @Override
     public void fitShowStartRunning() {
-        if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL
+        if (mFloatWindowManager.mRunningParam.isNormal()
                 && btn_start_stop_skip.isEnabled()) {
             btn_start_stop_skip.performClick();
         }

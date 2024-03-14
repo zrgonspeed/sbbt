@@ -165,12 +165,12 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
     public void afterPrepare() {
         btn_speed_roller.setEnabled(false);
         if (mRunningParam.isPrepare()) {
-            mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+            mRunningParam.setToRunning();
             mRunningParam.setLcCurStageNum(0);
             mRunningParam.startRefreshData();
         }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
-            mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+        if (mRunningParam.isContinue()) {
+            mRunningParam.setToRunning();
             mRunningParam.notifyRefreshData();
         }
 
@@ -273,7 +273,7 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
                     BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
+                if (mRunningParam.isRunning()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();

@@ -279,7 +279,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             if (mRunningParam.isStopStatus()) {
                 tv_speed.setText(getSpeedValue(String.valueOf(0.0f)));
             }
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL || mRunningParam.isPrepare()
+            if (mRunningParam.isNormal() || mRunningParam.isPrepare()
                     || mRunningParam.isCoolDownStatus() || mRunningParam.isWarmStatus()) {
                 setControlEnable(false);
                 btn_speed_roller.setEnabled(false);
@@ -323,7 +323,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @Override
     public void dataCallback() {
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING) {
+        if (mRunningParam.isRunning()) {
             getPresenter().calcJump();
         }
         baseRunRefresh.refreshRunParam();
@@ -444,7 +444,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
 
         if (beltStatus != 0) {
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL && btn_start_stop_skip.isEnabled()) {
+            if (mRunningParam.isNormal() && btn_start_stop_skip.isEnabled()) {
                 Logger.e("runStatus == " + mRunningParam.runStatus);
                 btn_start_stop_skip.setEnabled(false);
             }
@@ -456,7 +456,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
         //有扬升错误，不管扬升状态
         if (ErrorManager.getInstance().isHasInclineError()) {
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL && !btn_start_stop_skip.isEnabled()) {
+            if (mRunningParam.isNormal() && !btn_start_stop_skip.isEnabled()) {
                 btn_start_stop_skip.setEnabled(true);
             }
             if (mRunningParam.isStopStatus() && !btn_pause_continue.isEnabled()) {
@@ -466,7 +466,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
 
         if (inclineStatus == 0) {
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL && !btn_start_stop_skip.isEnabled()) {
+            if (mRunningParam.isNormal() && !btn_start_stop_skip.isEnabled()) {
                 btn_start_stop_skip.setEnabled(true);
             }
             if (mRunningParam.isStopStatus() && !btn_pause_continue.isEnabled()) {
@@ -475,7 +475,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             return;
         }
 
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL && btn_start_stop_skip.isEnabled()) {
+        if (mRunningParam.isNormal() && btn_start_stop_skip.isEnabled()) {
             btn_start_stop_skip.setEnabled(false);
         }
         if (mRunningParam.isStopStatus() && btn_pause_continue.isEnabled()) {
@@ -485,10 +485,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @Override
     public void cmdKeyValue(int keyValue) {
-        if (mRunningParam.isPrepare() || mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
+        if (mRunningParam.isPrepare() || mRunningParam.isContinue()) {
             return;
         }
-        if (mRunningParam.runStatus != CTConstant.RUN_STATUS_RUNNING
+        if (!mRunningParam.isRunning()
                 && keyValue != SerialKeyValue.START_CLICK
                 && keyValue != SerialKeyValue.STOP_CLICK
                 && keyValue != SerialKeyValue.HAND_START_CLICK
@@ -945,7 +945,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             if (ErrorManager.getInstance().isHasInclineError()) {
                 return;
             }
-            if (mRunningParam.runStatus != CTConstant.RUN_STATUS_RUNNING) {
+            if (!mRunningParam.isRunning()) {
                 return;
             }
             afterInclineChanged(Float.parseFloat(StringUtil.removeUnit(s.toString())));
@@ -966,7 +966,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (mRunningParam.runStatus != CTConstant.RUN_STATUS_RUNNING) {
+            if (!mRunningParam.isRunning()) {
                 return;
             }
             afterSpeedChanged(Float.parseFloat(StringUtil.removeUnit(s.toString())));

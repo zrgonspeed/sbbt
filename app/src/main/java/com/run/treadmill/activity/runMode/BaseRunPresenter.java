@@ -108,7 +108,7 @@ public abstract class BaseRunPresenter<V extends BaseRunView> extends BasePresen
             return;
         }
         if (ErrorManager.getInstance().lastSpeed == 0
-                && (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
+                && (mRunningParam.isRunning()
                 || mRunningParam.isWarmStatus()
                 || mRunningParam.isCoolDownStatus())) {
             ErrorManager.getInstance().lastSpeed = (int) (isMetric ? (mRunningParam.getCurrSpeed() * 10) : (UnitUtil.getMileToKmByFloat1(mRunningParam.getCurrSpeed()) * 10));
@@ -182,7 +182,7 @@ public abstract class BaseRunPresenter<V extends BaseRunView> extends BasePresen
         if (Custom.DEF_DEVICE_TYPE == CTConstant.DEVICE_TYPE_DC) {
             // DC光感下控，发最小速度失败时
             if ((mRunningParam.isPrepare()
-                    || mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE)
+                    || mRunningParam.isContinue())
                     && data[3] == ParamCons.CMD_SET_SPEED) {
                 SerialUtils.getInstance().reMoveReSendPackage();
             }

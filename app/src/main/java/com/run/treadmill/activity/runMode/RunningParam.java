@@ -416,7 +416,7 @@ public class RunningParam {
         dateThread.start();
 
         setLcCurStageNum(0);
-        runStatus = CTConstant.RUN_STATUS_RUNNING;
+        setToRunning();
         mRunParamHandler.sendEmptyMessage(MsgWhat.MSG_REFRESH_DATA);
     }
 
@@ -605,7 +605,7 @@ public class RunningParam {
 
                         alreadyCoolDownMet += FormulaUtil.getMETs(currSpeed, currIncline, isMetric);
                         showMets = String.valueOf(UnitUtil.getFloatBy1f(FormulaUtil.getMETs(currSpeed, currIncline, isMetric)));
-                    } else if (runStatus == CTConstant.RUN_STATUS_RUNNING) {
+                    } else if (isRunning()) {
                         float curRunDistance = FormulaUtil.getRunDistances(currSpeed, (1 / 60.0f / 60.0f));
                         pre_recode_time++;
                         pre_recode_dis += curRunDistance;
@@ -723,7 +723,7 @@ public class RunningParam {
                         recodePreRunData();
                         reFlashDate = false;
                     }
-                    if (isStopStatus() || runStatus == CTConstant.RUN_STATUS_CONTINUE) {
+                    if (isStopStatus() || isContinue()) {
                         continue;
                     }
                     ControlManager.getInstance().setSpeed(currSpeed);
@@ -838,7 +838,7 @@ public class RunningParam {
     }
 
     public void setCurrPulse(int pulse) {
-        if (runStatus == CTConstant.RUN_STATUS_NORMAL) {
+        if (isNormal()) {
             // 进入悬浮窗，没开始运动也要能显示心率
             if (!this.showPulse.equals(String.valueOf(pulse))) {
                 showPulse = String.valueOf(pulse);
@@ -883,7 +883,7 @@ public class RunningParam {
     public void setLcCurStageNum(int curStageNum) {
         if (lcCurStageNum != curStageNum) {
             lcCurStageNum = curStageNum;
-            if (runStatus == CTConstant.RUN_STATUS_RUNNING) {
+            if (isRunning()) {
                 runLccurStageNum = curStageNum;
             }
             setCurrSpeed(mSpeedArray[lcCurStageNum]);
@@ -1030,7 +1030,7 @@ public class RunningParam {
                 BtHelper.getInstance().getRunParamBuilder().remainingTime(0);
             }
             if (targetTime > 0) {
-                if (runStatus == CTConstant.RUN_STATUS_RUNNING) {
+                if (isRunning()) {
                     BtHelper.getInstance().getRunParamBuilder().remainingTime(targetTime - alreadyRunTime);
                 }
             }
@@ -1117,5 +1117,29 @@ public class RunningParam {
 
     public void setToPrepare() {
         runStatus = CTConstant.RUN_STATUS_PREPARE;
+    }
+
+    public boolean isNormal() {
+        return runStatus == CTConstant.RUN_STATUS_NORMAL;
+    }
+
+    public void setToNormal() {
+        runStatus = CTConstant.RUN_STATUS_NORMAL;
+    }
+
+    public boolean isRunning() {
+        return runStatus == CTConstant.RUN_STATUS_RUNNING;
+    }
+
+    public void setToRunning() {
+        runStatus = CTConstant.RUN_STATUS_RUNNING;
+    }
+
+    public boolean isContinue() {
+        return runStatus == CTConstant.RUN_STATUS_CONTINUE;
+    }
+
+    public void setToContinue() {
+        runStatus = CTConstant.RUN_STATUS_CONTINUE;
     }
 }

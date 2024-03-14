@@ -62,7 +62,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
 
     @Override
     public void fitShowStartRunning() {
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL && btn_start_stop_skip.isEnabled()) {
+        if (mRunningParam.isNormal() && btn_start_stop_skip.isEnabled()) {
             btn_start_stop_skip.performClick();
         } else if (mRunningParam.isStopStatus() && btn_pause_continue.isEnabled()) {
             btn_pause_continue.performClick();
@@ -84,7 +84,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
                     FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_START_0x02);
                 }
             }
-            if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
+            if (mRunningParam.isNormal()) {
                 btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_start);
                 btn_home.setVisibility(View.VISIBLE);
             } else {
@@ -174,7 +174,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     @Override
     public void afterPrepare() {
         if (mRunningParam.isPrepare()) {
-            mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+            mRunningParam.setToRunning();
             mRunningParam.setLcCurStageNum(0);
             mRunningParam.startRefreshData();
 
@@ -185,8 +185,8 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
                 FitShowManager.getInstance().isProgramMode = false;
             }
         }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
-            mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+        if (mRunningParam.isContinue()) {
+            mRunningParam.setToRunning();
             mRunningParam.notifyRefreshData();
         }
 
@@ -300,7 +300,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
 
     @Override
     public void fitShowStopRunning() {
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING) {
+        if (mRunningParam.isRunning()) {
             ControlManager.getInstance().resetIncline();
             finishRunning();
         } else if (mRunningParam.isStopStatus()) {
@@ -311,7 +311,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
 
     @Override
     public void fitShowPausedRunning() {
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING) {
+        if (mRunningParam.isRunning()) {
             btn_start_stop_skip.performClick();
         }
     }
@@ -349,7 +349,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
         switch (keyValue) {
             case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL
+                if (mRunningParam.isNormal()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
@@ -368,7 +368,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
 //                    BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
+                if (mRunningParam.isRunning()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();

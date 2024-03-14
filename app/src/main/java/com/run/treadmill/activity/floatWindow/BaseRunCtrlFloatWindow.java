@@ -336,7 +336,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 mFloatWindowManager.goBackMyApp();
                 break;
             case R.id.btn_start_stop_skip:
-                if (mFloatWindowManager.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
+                if (mFloatWindowManager.mRunningParam.isNormal()) {
                     btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
                     btn_start_stop_skip.setEnabled(false);
                     btn_back.setEnabled(false);
@@ -396,7 +396,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
                     btn_back.setVisibility(View.VISIBLE);
                     btn_home.setVisibility(View.GONE);
-                    mFloatWindowManager.mRunningParam.runStatus = CTConstant.RUN_STATUS_CONTINUE;
+                    mFloatWindowManager.mRunningParam.setToContinue();
                     mFloatWindowManager.startPrepare();
                 }
                 break;

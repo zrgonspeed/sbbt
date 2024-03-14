@@ -133,8 +133,8 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
 
             mRunningParam.startRefreshData();
         }
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_CONTINUE) {
-            mRunningParam.runStatus = CTConstant.RUN_STATUS_RUNNING;
+        if (mRunningParam.isContinue()) {
+            mRunningParam.setToRunning();
             mRunningParam.notifyRefreshData();
         }
         ControlManager.getInstance().startRun();
@@ -143,7 +143,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
     @Override
     public void onSpeedChange(float speed) {
         tv_speed.setText(getSpeedValue(String.valueOf(speed)));
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING) {
+        if (mRunningParam.isRunning()) {
             refreshLineChart();
         }
     }
@@ -151,7 +151,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
     @Override
     public void onInclineChange(float incline) {
         tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) incline), getString(R.string.string_unit_percent), runParamUnitTextSize));
-        if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING) {
+        if (mRunningParam.isRunning()) {
             refreshLineChart();
         }
     }
@@ -201,7 +201,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
                     BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
-                if (mRunningParam.runStatus == CTConstant.RUN_STATUS_RUNNING
+                if (mRunningParam.isRunning()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
