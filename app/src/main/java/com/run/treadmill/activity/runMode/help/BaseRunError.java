@@ -12,7 +12,6 @@ import com.run.treadmill.util.ResourceUtils;
 
 public class BaseRunError {
     private BaseRunActivity activity;
-    private RunningParam mRunningParam;
 
     public BaseRunError(BaseRunActivity baseRunActivity) {
         this.activity = baseRunActivity;
@@ -23,7 +22,7 @@ public class BaseRunError {
     }
 
     public void showInclineError() {
-        this.mRunningParam = activity.mRunningParam;
+        RunningParam mRunningParam = activity.mRunningParam;
 
         if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
             if (activity.tv_incline.getText().toString().equals("E5")) {
@@ -51,7 +50,7 @@ public class BaseRunError {
     }
 
     public void safeError() {
-        this.mRunningParam = activity.mRunningParam;
+        RunningParam mRunningParam = activity.mRunningParam;
 
         activity.prepare321Go.safeError();
         //出现安全key时扬升处理动作
@@ -69,7 +68,7 @@ public class BaseRunError {
     }
 
     public void commOutError() {
-        this.mRunningParam = activity.mRunningParam;
+        RunningParam mRunningParam = activity.mRunningParam;
 
         activity.prepare321Go.commOutError();
         if (mRunningParam != null) {
@@ -83,7 +82,7 @@ public class BaseRunError {
     }
 
     public void showError(int errCode) {
-        this.mRunningParam = activity.mRunningParam;
+        RunningParam mRunningParam = activity.mRunningParam;
 
         if (ErrorManager.getInstance().isHasInclineError() || ErrorManager.getInstance().isInclineError()) {
             showInclineError();

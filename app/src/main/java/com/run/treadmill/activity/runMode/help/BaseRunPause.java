@@ -17,7 +17,6 @@ import com.run.treadmill.widget.calculator.BaseCalculator;
 
 public class BaseRunPause implements CustomTimer.TimerCallBack {
     private BaseRunActivity activity;
-    private RunningParam mRunningParam;
 
     public BaseRunPause(BaseRunActivity baseRunActivity) {
         this.activity = baseRunActivity;
@@ -56,7 +55,7 @@ public class BaseRunPause implements CustomTimer.TimerCallBack {
     }
 
     public void showPopTip() {
-        this.mRunningParam = activity.mRunningParam;
+        RunningParam mRunningParam = activity.mRunningParam;
         BaseCalculator.Builder mCalcBuilder = activity.mCalcBuilder;
 
         if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
