@@ -13,7 +13,6 @@ import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.ResourceUtils;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.util.TimeStringUtil;
-import com.run.treadmill.widget.calculator.BaseCalculator;
 
 public class BaseRunPause implements CustomTimer.TimerCallBack {
     private BaseRunActivity activity;
@@ -56,10 +55,9 @@ public class BaseRunPause implements CustomTimer.TimerCallBack {
 
     public void showPopTip() {
         RunningParam mRunningParam = activity.mRunningParam;
-        BaseCalculator.Builder mCalcBuilder = activity.mCalcBuilder;
 
-        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
-            mCalcBuilder.stopPopWin();
+        if (activity.isCalcDialogShowing()) {
+            activity.mCalcBuilder.stopPopWin();
         }
         if (mRunningParam.isQuickToSummary) {
             activity.rl_main.setVisibility(View.GONE);

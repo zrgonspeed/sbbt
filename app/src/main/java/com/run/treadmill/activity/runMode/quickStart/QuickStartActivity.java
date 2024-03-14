@@ -207,7 +207,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
 
     @Override
     public void afterInclineChanged(float incline) {
-        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
+        if (isCalcDialogShowing()) {
             return;
         }
         if (incline <= 0) {
@@ -236,7 +236,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
 
     @Override
     public void afterSpeedChanged(float speed) {
-        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()) {
+        if (isCalcDialogShowing()) {
             return;
         }
         if (speed <= minSpeed) {

@@ -198,7 +198,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
 
     @Override
     public void afterInclineChanged(float incline) {
-        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()
+        if (isCalcDialogShowing()
                 || mRunningParam.isWarmStatus()
                 || mRunningParam.isCoolDownStatus()) {
             return;
@@ -229,7 +229,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
 
     @Override
     public void afterSpeedChanged(float speed) {
-        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()
+        if (isCalcDialogShowing()
                 || mRunningParam.isWarmStatus()
                 || mRunningParam.isCoolDownStatus()) {
             return;

@@ -44,7 +44,7 @@ public class BaseRunError {
         activity.tv_incline.setTextColor(ResourceUtils.getColor(R.color.red));
         activity.txt_running_incline_ctrl.setTextColor(ResourceUtils.getColor(R.color.red));
         activity.txt_running_incline_param.setTextColor(ResourceUtils.getColor(R.color.red));
-        if (activity.mCalcBuilder != null && activity.mCalcBuilder.isPopShowing()) {
+        if (activity.isCalcDialogShowing()) {
             activity.mCalcBuilder.stopPopWin();
         }
     }

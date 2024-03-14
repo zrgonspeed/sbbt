@@ -13,7 +13,6 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -39,8 +38,6 @@ import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.sp.SpManager;
-import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
-import com.run.treadmill.util.ActivityUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.StringUtil;
@@ -54,8 +51,6 @@ import com.run.treadmill.widget.calculator.CalculatorCallBack;
 import com.run.treadmill.widget.calculator.CalculatorOfRun;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -169,6 +164,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     public BaseCalculator.Builder mCalcBuilder;
 
+    public boolean isCalcDialogShowing() {
+        return isCalcDialogShowing();
+    }
+
     /**
      * 记录当前音量，321go需要固定音量，做复位音量用
      */
@@ -234,7 +233,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 finish();
                 return;
             }
-            checkMediaBack();
+            baseRunMedia.checkMediaBack();
             getPresenter().setInclineAndSpeed(maxIncline, minSpeed, maxSpeed);
             if (speedInclineClickHandler == null) {
                 speedInclineClickHandler = new SpeedInclineClickHandler(this);
@@ -258,15 +257,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             if (mRunningParam.isStopStatus()) {
                 tv_speed.setText(getSpeedValue(String.valueOf(0.0f)));
             }
-            if (mRunningParam.isNormal() || mRunningParam.isPrepare()
-                    || mRunningParam.isCoolDownStatus() || mRunningParam.isWarmStatus()) {
-                setControlEnable(false);
-                btn_speed_roller.setEnabled(false);
-                btn_incline_roller.setEnabled(false);
-            } else {
-                btn_speed_roller.setEnabled(true);
-                btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
-            }
+            setOnCreateRoller();
 
             if (!(this instanceof VisionActivity)) {
                 settingLineChart();
@@ -276,22 +267,16 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         Logger.i("BaseRunActivity onResume() time == " + (end - start));
     }
 
-    private void checkMediaBack() {
-        //媒体的mp4（或者其他媒体） 自己退出回来
-        if (!quickToMedia && rl_main.getVisibility() == View.GONE) {
-            //关闭悬浮窗
-            if (mFloatWindowManager != null) {
-                if (!ActivityUtils.getTopActivity(this).contains(getPackageName())) {
-                    Logger.d("!getTopActivity(this).contains(getPackageName())   -> 不关闭悬浮窗");
-                } else {
-                    mFloatWindowManager.stopFloatWindow();
-                }
-                isGoMedia = false;
-            }
-            mRunningParam.setCallback(this);
-            rl_main.setVisibility(View.VISIBLE);
+    private void setOnCreateRoller() {
+        if (mRunningParam.isNormal() || mRunningParam.isPrepare()
+                || mRunningParam.isCoolDownStatus() || mRunningParam.isWarmStatus()) {
+            setControlEnable(false);
+            btn_speed_roller.setEnabled(false);
+            btn_incline_roller.setEnabled(false);
+        } else {
+            btn_speed_roller.setEnabled(true);
+            btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
         }
-
     }
 
     @Override

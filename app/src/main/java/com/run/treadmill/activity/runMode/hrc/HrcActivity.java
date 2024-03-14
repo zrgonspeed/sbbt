@@ -191,7 +191,7 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
 
     @Override
     public void afterInclineChanged(float incline) {
-        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()
+        if (isCalcDialogShowing()
                 || mRunningParam.isWarmStatus()
                 || mRunningParam.isCoolDownStatus()) {
             return;

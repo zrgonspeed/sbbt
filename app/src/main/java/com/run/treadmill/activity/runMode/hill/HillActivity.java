@@ -149,7 +149,7 @@ public class HillActivity extends BaseRunActivity<HillView, HillPresenter> imple
 
     @Override
     public void afterInclineChanged(float incline) {
-        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()
+        if (isCalcDialogShowing()
                 || mRunningParam.isWarmStatus()
                 || mRunningParam.isCoolDownStatus()) {
             return;
@@ -180,7 +180,7 @@ public class HillActivity extends BaseRunActivity<HillView, HillPresenter> imple
 
     @Override
     public void afterSpeedChanged(float speed) {
-        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()
+        if (isCalcDialogShowing()
                 || mRunningParam.isWarmStatus()
                 || mRunningParam.isCoolDownStatus()) {
             return;

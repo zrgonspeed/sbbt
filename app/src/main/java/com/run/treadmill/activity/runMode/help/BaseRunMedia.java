@@ -18,6 +18,7 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
+import com.run.treadmill.util.ActivityUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.ResourceUtils;
 import com.run.treadmill.util.ThirdApkSupport;
@@ -125,7 +126,7 @@ public class BaseRunMedia {
         if (mediaPopWin != null && mediaPopWin.isShowing()) {
             mediaPopWin.dismiss();
         }
-        if (activity.mCalcBuilder != null && activity.mCalcBuilder.isPopShowing()) {
+        if (activity.isCalcDialogShowing()) {
             activity.mCalcBuilder.stopPopWin();
         }
         if (activity.btn_media != null) {
@@ -141,5 +142,23 @@ public class BaseRunMedia {
 
     public boolean isShowing() {
         return mediaPopWin != null && mediaPopWin.isShowing();
+    }
+
+    public void checkMediaBack() {
+        //媒体的mp4（或者其他媒体） 自己退出回来
+        if (!activity.quickToMedia && activity.rl_main.getVisibility() == View.GONE) {
+            //关闭悬浮窗
+            if (activity.mFloatWindowManager != null) {
+                if (!ActivityUtils.isContainsMy()) {
+                    Logger.d("!ActivityUtils.isContainsMy() 顶部不是主apk的界面  -> 不关闭悬浮窗");
+                } else {
+                    Logger.d("ActivityUtils.isContainsMy() 顶部是主apk的界面  -> 关闭悬浮窗");
+                    activity.mFloatWindowManager.stopFloatWindow();
+                }
+                activity.isGoMedia = false;
+            }
+            activity.mRunningParam.setCallback(activity);
+            activity.rl_main.setVisibility(View.VISIBLE);
+        }
     }
 }

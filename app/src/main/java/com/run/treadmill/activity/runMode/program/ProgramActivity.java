@@ -111,7 +111,7 @@ public class ProgramActivity extends BaseRunActivity<ProgramView, ProgramPresent
 
     @Override
     public void afterInclineChanged(float incline) {
-        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()
+        if (isCalcDialogShowing()
                 || mRunningParam.isWarmStatus()
                 || mRunningParam.isCoolDownStatus()) {
             return;
@@ -142,7 +142,7 @@ public class ProgramActivity extends BaseRunActivity<ProgramView, ProgramPresent
 
     @Override
     public void afterSpeedChanged(float speed) {
-        if (mCalcBuilder != null && mCalcBuilder.isPopShowing()
+        if (isCalcDialogShowing()
                 || mRunningParam.isWarmStatus()
                 || mRunningParam.isCoolDownStatus()) {
             return;

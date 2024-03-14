@@ -12,6 +12,11 @@ import java.util.List;
 
 public class ActivityUtils {
 
+    // 顶部界面是不是主apk的
+    public static boolean isContainsMy() {
+        return getTopActivity().contains(getPackageName());
+    }
+
     public static String getTopActivity(Context context) {
         ActivityManager am = (ActivityManager) context.getSystemService(context.ACTIVITY_SERVICE);
         ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
