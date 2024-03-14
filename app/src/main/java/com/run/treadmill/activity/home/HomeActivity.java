@@ -119,7 +119,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         voiceFW = new LeftVoiceFloatWindow(this);
         voiceFW.init();
 
-        homeAnimation = new HomeAnimation(iv_home_bg);
+        homeAnimation = new HomeAnimation(iv_home_bg, this);
+        homeAnimation.setBlur(false);   // 模糊按钮背景会卡卡的
         homeAnimation.initAndStart();
 
         GpIoUtils.setOpenScreen();
@@ -149,13 +150,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         RunningParam.getInstance().cleanStep();
         ErrorManager.getInstance().exitError = false;
         ControlManager.getInstance().stopRun(SpManager.getGSMode());
-
-        // 模糊图片 不能模糊背景
-/*        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.btn_idlemode_media_3);
-        Bitmap blurBitmap = ImageFilter.blurBitmap(this, bmp, 10f);
-        iv_home_media.setImageBitmap(blurBitmap);
-        iv_home_media.setAlpha(0.9f);
-        iv_home_media.postInvalidate();*/
     }
 
     private void setTipsPop() {

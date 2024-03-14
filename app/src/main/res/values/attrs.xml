@@ -40,5 +40,11 @@
         <!-- 总时间(秒) -->
         <attr name="clickTime" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="BlurringView">
+        <attr name="blurRadius" format="integer" />
+        <attr name="downSampleFactor" format="integer" />
+        <attr name="overlayColor" format="color" />
+    </declare-styleable>
 </resources>
 

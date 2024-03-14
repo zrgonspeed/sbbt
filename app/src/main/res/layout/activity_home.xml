@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_main"
     android:layout_width="@dimen/dp_px_1920_x"
     android:layout_height="@dimen/dp_px_1080_x">
@@ -31,6 +32,63 @@
         android:layout_height="@dimen/dp_px_692_x"
         android:layout_marginTop="@dimen/dp_px_180_x"
         android:visibility="gone" />
+
+
+    <com.run.treadmill.widget.BlurringView
+        android:id="@+id/blur_sign"
+        android:layout_width="@dimen/dp_px_268_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_72_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        app:blurRadius="5"
+        app:downSampleFactor="3"
+        app:overlayColor="#00FFFFFF" />
+
+    <com.run.treadmill.widget.BlurringView
+        android:id="@+id/blur_media"
+        android:layout_width="@dimen/dp_px_268_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_380_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        app:blurRadius="5"
+        app:downSampleFactor="3"
+        app:overlayColor="#00FFFFFF" />
+
+
+    <com.run.treadmill.widget.BlurringView
+        android:id="@+id/blur_quickstart"
+        android:layout_width="@dimen/dp_px_544_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_688_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        app:blurRadius="5"
+        app:downSampleFactor="3"
+        app:overlayColor="#00FFFFFF" />
+
+    <com.run.treadmill.widget.BlurringView
+        android:id="@+id/blur_program"
+        android:layout_width="@dimen/dp_px_268_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_1272_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        app:blurRadius="5"
+        app:downSampleFactor="3"
+        app:overlayColor="#00FFFFFF" />
+
+    <com.run.treadmill.widget.BlurringView
+        android:id="@+id/blur_setting"
+        android:layout_width="@dimen/dp_px_268_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_1580_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        app:blurRadius="5"
+        app:downSampleFactor="3"
+        app:overlayColor="#00FFFFFF" />
 
     <TextView
         android:id="@+id/tv_home_signin"
