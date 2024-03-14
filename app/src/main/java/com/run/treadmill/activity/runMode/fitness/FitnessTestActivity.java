@@ -65,7 +65,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
     @Override
     public void showPopTip() {
         if (ErrorManager.getInstance().isHasInclineError()) {
-            baseRunError.showInclineError();
+            runError.showInclineError();
         } else {
            // tv_incline.setText(StringUtil.valueAndUnit("0", getString(R.string.string_unit_percent), runParamUnitTextSize));
         }
@@ -106,7 +106,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
                 refreshLineChart();
                 break;
             case R.id.btn_media:
-                baseRunMedia.showMediaPopWin(CTConstant.FITNESS_TEST);
+                runMedia.showMediaPopWin(CTConstant.FITNESS_TEST);
                 break;
             default:
                 break;
@@ -219,7 +219,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
 
     @Override
     public void showNoPulsePop() {
-        baseRunMedia.hideMediaPopWin();
+        runMedia.hideMediaPopWin();
         if (rl_tip.getVisibility() == View.GONE) {
             rl_tip.setVisibility(View.VISIBLE);
         }

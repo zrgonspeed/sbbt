@@ -4,10 +4,10 @@ import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.util.Logger;
 
-public class BaseRunMcu {
+public class RunMcu {
     private BaseRunActivity activity;
 
-    public BaseRunMcu(BaseRunActivity baseRunActivity) {
+    public RunMcu(BaseRunActivity baseRunActivity) {
         this.activity = baseRunActivity;
     }
 

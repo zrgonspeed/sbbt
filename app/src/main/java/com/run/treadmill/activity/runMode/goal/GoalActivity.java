@@ -110,7 +110,7 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
                 refreshLineChart();
                 break;
             case R.id.btn_media:
-                baseRunMedia.showMediaPopWin(CTConstant.GOAL);
+                runMedia.showMediaPopWin(CTConstant.GOAL);
         }
     }
 

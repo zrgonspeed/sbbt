@@ -14,10 +14,10 @@ import com.run.treadmill.util.ResourceUtils;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.util.TimeStringUtil;
 
-public class BaseRunPause implements CustomTimer.TimerCallBack {
+public class RunPause implements CustomTimer.TimerCallBack {
     private BaseRunActivity activity;
 
-    public BaseRunPause(BaseRunActivity baseRunActivity) {
+    public RunPause(BaseRunActivity baseRunActivity) {
         this.activity = baseRunActivity;
     }
 
@@ -89,19 +89,19 @@ public class BaseRunPause implements CustomTimer.TimerCallBack {
             if (activity.rl_tip.getVisibility() == View.VISIBLE) {
                 activity.rl_tip.setVisibility(View.GONE);
             }
-            activity.baseRunMedia.dismissPopWin();
+            activity.runMedia.dismissPopWin();
         } else if (mRunningParam.isWarmStatus()) {
             activity.img_run_pop_tip.setImageResource(R.drawable.img_pop_warmup);
             activity.btn_start_stop_skip.setImageResource(R.drawable.btn_skip_warmup);
             activity.rl_center_tip.setVisibility(View.VISIBLE);
             activity.btn_media.setEnabled(false);
-            activity.baseRunMedia.dismissPopWin();
+            activity.runMedia.dismissPopWin();
 
             mRunningParam.setCurrIncline(InitParam.WARM_UP_INCLIEN);
             mRunningParam.setCurrSpeed(activity.isMetric ? InitParam.WARM_UP_SPEED_METRIC : InitParam.WARM_UP_SPEED_IMPERIAL);
             activity.onSpeedChange(mRunningParam.getCurrSpeed());
             if (ErrorManager.getInstance().isHasInclineError()) {
-                activity.baseRunError.showInclineError();
+                activity.runError.showInclineError();
             } else {
                 activity.tv_incline.setText(StringUtil.valueAndUnit("0", ResourceUtils.getString(R.string.string_unit_percent), activity.runParamUnitTextSize));
             }
@@ -113,7 +113,7 @@ public class BaseRunPause implements CustomTimer.TimerCallBack {
             if (activity.btn_media != null) {
                 activity.btn_media.setEnabled(false);
             }
-            activity.baseRunMedia.hideMediaPopWin();
+            activity.runMedia.hideMediaPopWin();
             if (activity.rl_tip.getVisibility() == View.VISIBLE) {
                 activity.rl_tip.setVisibility(View.GONE);
             }

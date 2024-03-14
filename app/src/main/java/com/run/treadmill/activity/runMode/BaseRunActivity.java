@@ -21,17 +21,17 @@ import androidx.annotation.Nullable;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
 import com.run.treadmill.activity.runMode.help.BaseRunClick;
-import com.run.treadmill.activity.runMode.help.BaseRunError;
-import com.run.treadmill.activity.runMode.help.BaseRunKey;
-import com.run.treadmill.activity.runMode.help.BaseRunMcu;
-import com.run.treadmill.activity.runMode.help.BaseRunMedia;
-import com.run.treadmill.activity.runMode.help.BaseRunPause;
-import com.run.treadmill.activity.runMode.help.BaseRunRefresh;
 import com.run.treadmill.activity.runMode.help.Prepare321Go;
+import com.run.treadmill.activity.runMode.help.RunError;
+import com.run.treadmill.activity.runMode.help.RunKey;
+import com.run.treadmill.activity.runMode.help.RunLineChart;
+import com.run.treadmill.activity.runMode.help.RunMcu;
+import com.run.treadmill.activity.runMode.help.RunMedia;
+import com.run.treadmill.activity.runMode.help.RunPause;
+import com.run.treadmill.activity.runMode.help.RunRefresh;
 import com.run.treadmill.activity.runMode.vision.VisionActivity;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
@@ -42,7 +42,6 @@ import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.widget.HistogramListView;
 import com.run.treadmill.widget.LongClickImage;
-import com.run.treadmill.widget.MyYaxisViewManager;
 import com.run.treadmill.widget.VideoPlayerSelf;
 import com.run.treadmill.widget.YaxisView;
 import com.run.treadmill.widget.calculator.BaseCalculator;
@@ -54,11 +53,6 @@ import java.lang.ref.WeakReference;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/06/20
- */
 public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPresenter<V>> extends BaseActivity<V, P> implements BaseRunView, RunParamCallback, CalculatorCallBack {
     @BindView(R.id.rl_main)
     public RelativeLayout rl_main;
@@ -206,7 +200,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.heart_rate);
         pulseAnimation.setInterpolator(new AccelerateInterpolator());
 
-        baseRunMedia.onCreate();
+        runMedia.onCreate();
 
         mRunningParam.setCallback(this);
 
@@ -227,7 +221,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 finish();
                 return;
             }
-            baseRunMedia.checkMediaBack();
+            runMedia.checkMediaBack();
             getPresenter().setInclineAndSpeed(maxIncline, minSpeed, maxSpeed);
             if (speedInclineClickHandler == null) {
                 speedInclineClickHandler = new SpeedInclineClickHandler(this);
@@ -242,7 +236,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 btn_media.setVisibility(View.VISIBLE);
                 rl_chart_view.setVisibility(View.VISIBLE);
             }
-            baseRunRefresh.onResumeInitRunParam();
+            runRefresh.onResumeInitRunParam();
             if (mCalcBuilder == null) {
                 mCalcBuilder = new BaseCalculator.Builder(new CalculatorOfRun(this));
                 mCalcBuilder.callBack(this);
@@ -284,7 +278,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         if (mRunningParam.isRunning()) {
             getPresenter().calcJump();
         }
-        baseRunRefresh.refreshRunParam();
+        runRefresh.refreshRunParam();
         mRunningParam.isFloat = false;
         // Logger.i("isFloat " + false);
     }
@@ -304,19 +298,19 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @Override
     public void safeError() {
-        baseRunError.safeError();
+        runError.safeError();
         super.safeError();
     }
 
     @Override
     public void commOutError() {
-        baseRunError.commOutError();
+        runError.commOutError();
         super.commOutError();
     }
 
     @Override
     public void showError(int errCode) {
-        baseRunError.showError(errCode);
+        runError.showError(errCode);
         super.showError(errCode);
     }
 
@@ -324,12 +318,12 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @Override
     public void beltAndInclineStatus(int beltStatus, int inclineStatus, int curInclineAd) {
-        baseRunMcu.beltAndInclineStatus(beltStatus, inclineStatus, curInclineAd);
+        runMcu.beltAndInclineStatus(beltStatus, inclineStatus, curInclineAd);
     }
 
     @Override
     public void cmdKeyValue(int keyValue) {
-        baseRunKey.cmdKeyValue(keyValue);
+        runKey.cmdKeyValue(keyValue);
     }
 
     /**
@@ -376,7 +370,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
         mRunningParam.end();
         mRunningParam.recodePreRunData();
-        baseRunMedia.shortDownThirtyApk();
+        runMedia.shortDownThirtyApk();
         mRunningParam.saveHasRunData();
     }
 
@@ -414,7 +408,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     public void showPopTip() {
-        baseRunPause.showPopTip();
+        runPause.showPopTip();
     }
 
     /**
@@ -437,45 +431,11 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     public synchronized void refreshLineChart() {
-        lineChartView.setRunStageNum(mRunningParam.getRunLccurStageNum());//当前段数
-        lineChartView.setValueArray(isLineChartIncline ? mRunningParam.mInclineArray : mRunningParam.mSpeedArray);//30段的数据
-        lineChartView.postInvalidate();
+        runLineChart.refreshLineChart();
     }
 
     public void settingLineChart() {
-        if (isLineChartIncline) {
-            btn_line_chart_speed.setTextColor(getColor(R.color.gray));
-            btn_line_chart_incline.setTextColor(getColor(R.color.running_text_orange));
-            btn_line_chart_incline.setBackground(getDrawable(R.drawable.tx_fillet_max_bg));
-            btn_line_chart_speed.setBackground(getDrawable(R.drawable.tx_fillet_small_bg));
-
-            RelativeLayout.LayoutParams speedParams = (RelativeLayout.LayoutParams) btn_line_chart_speed.getLayoutParams();
-            speedParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_400_x);
-            speedParams.setMarginStart(getResources().getDimensionPixelSize(R.dimen.dp_px_1120_x));
-            btn_line_chart_speed.setLayoutParams(speedParams);
-
-            RelativeLayout.LayoutParams inclineParams = (RelativeLayout.LayoutParams) btn_line_chart_incline.getLayoutParams();
-            inclineParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_720_x);
-            btn_line_chart_incline.setLayoutParams(inclineParams);
-        } else {
-            btn_line_chart_speed.setTextColor(getColor(R.color.running_text_orange));
-            btn_line_chart_incline.setTextColor(getColor(R.color.gray));
-            btn_line_chart_incline.setBackground(getDrawable(R.drawable.tx_fillet_small_bg));
-            btn_line_chart_speed.setBackground(getDrawable(R.drawable.tx_fillet_max_bg));
-
-            RelativeLayout.LayoutParams speedParams = (RelativeLayout.LayoutParams) btn_line_chart_speed.getLayoutParams();
-            speedParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_720_x);
-            speedParams.setMarginStart(getResources().getDimensionPixelSize(R.dimen.dp_px_800_x));
-            btn_line_chart_speed.setLayoutParams(speedParams);
-
-            RelativeLayout.LayoutParams inclineParams = (RelativeLayout.LayoutParams) btn_line_chart_incline.getLayoutParams();
-            inclineParams.width = getResources().getDimensionPixelSize(R.dimen.dp_px_400_x);
-            btn_line_chart_incline.setLayoutParams(inclineParams);
-        }
-
-        MyYaxisViewManager.selectYaxis(isLineChartIncline, yv_unit);
-        // img_unit.setImageResource(isLineChartIncline ? R.drawable.img_sportmode_profile_incline_calibration_1 : (isMetric ? R.drawable.img_sportmode_profile_speed_calibration_km_1 : R.drawable.img_sportmode_profile_speed_calibration_mile_1));
-        lineChartView.setMaxValue(isLineChartIncline ? InitParam.MAX_INCLINE_MAX : (isMetric ? InitParam.MAX_SPEED_MAX_METRIC : InitParam.MAX_SPEED_MAX_IMPERIAL));
+        runLineChart.settingLineChart();
     }
 
     /**
@@ -522,7 +482,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     @Override
     protected void onPause() {
         super.onPause();
-        baseRunPause.stopPauseTimer();
+        runPause.stopPauseTimer();
     }
 
     @Override
@@ -533,7 +493,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             mRunningParam.end();
         }
 
-        baseRunMedia.shortDownThirtyApk();
+        runMedia.shortDownThirtyApk();
 
         prepare321Go.destoryVideoView();
     }
@@ -594,7 +554,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
     }
 
-
     @BindView(R.id.tv_setnum)
     public TextView tv_setnum;
 
@@ -636,11 +595,12 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     public Prepare321Go prepare321Go = new Prepare321Go(this);
-    public BaseRunRefresh baseRunRefresh = new BaseRunRefresh(this);
-    public BaseRunError baseRunError = new BaseRunError(this);
-    public BaseRunPause baseRunPause = new BaseRunPause(this);
-    public BaseRunKey baseRunKey = new BaseRunKey(this);
-    public BaseRunMcu baseRunMcu = new BaseRunMcu(this);
-    public BaseRunMedia baseRunMedia = new BaseRunMedia(this);
+    public RunRefresh runRefresh = new RunRefresh(this);
+    public RunError runError = new RunError(this);
+    public RunPause runPause = new RunPause(this);
+    public RunKey runKey = new RunKey(this);
+    public RunMcu runMcu = new RunMcu(this);
+    public RunMedia runMedia = new RunMedia(this);
+    public RunLineChart runLineChart = new RunLineChart(this);
 
 }

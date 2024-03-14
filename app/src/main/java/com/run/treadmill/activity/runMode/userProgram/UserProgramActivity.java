@@ -111,7 +111,7 @@ public class UserProgramActivity extends BaseRunActivity<UserProgramView, UserPr
                 refreshLineChart();
                 break;
             case R.id.btn_media:
-                baseRunMedia.showMediaPopWin(CTConstant.USER_PROGRAM);
+                runMedia.showMediaPopWin(CTConstant.USER_PROGRAM);
         }
     }
 

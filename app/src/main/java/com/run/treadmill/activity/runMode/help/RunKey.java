@@ -4,10 +4,10 @@ import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.activity.runMode.BaseRunPresenter;
 import com.run.treadmill.serial.SerialKeyValue;
 
-public class BaseRunKey {
+public class RunKey {
     private BaseRunActivity activity;
 
-    public BaseRunKey(BaseRunActivity baseRunActivity) {
+    public RunKey(BaseRunActivity baseRunActivity) {
         this.activity = baseRunActivity;
     }
 

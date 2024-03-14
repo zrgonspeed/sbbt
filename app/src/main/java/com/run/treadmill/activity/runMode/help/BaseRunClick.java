@@ -14,8 +14,8 @@ import com.run.treadmill.util.ThreadUtils;
 public class BaseRunClick {
     public static void click(BaseRunActivity activity, View view) {
         if (view.getId() == R.id.btn_start_stop_skip &&
-                activity.baseRunMedia.isShowing()) {
-            activity.baseRunMedia.hideMediaPopWin();
+                activity.runMedia.isShowing()) {
+            activity.runMedia.hideMediaPopWin();
         }
         switch (view.getId()) {
             case R.id.btn_home:
@@ -86,7 +86,7 @@ public class BaseRunClick {
                 activity.mRunningParam.setToContinue();
                 BuzzerManager.getInstance().buzzerRingOnce();
                 activity.rl_mask.setVisibility(View.GONE);
-                activity.baseRunPause.stopPauseTimer();
+                activity.runPause.stopPauseTimer();
                 activity.showPrepare(0);
                 break;
             case R.id.btn_pause_quit:
@@ -98,7 +98,7 @@ public class BaseRunClick {
                 if (activity.mVideoPlayerSelf != null) {
                     activity.mVideoPlayerSelf.onRelease();
                 }
-                activity.baseRunPause.stopPauseTimer();
+                activity.runPause.stopPauseTimer();
                 activity.finishRunning();
                 break;
             case R.id.btn_speed_roller:

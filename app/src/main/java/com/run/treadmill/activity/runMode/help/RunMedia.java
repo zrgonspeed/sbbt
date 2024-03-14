@@ -26,10 +26,10 @@ import com.run.treadmill.util.ThirdApkSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseRunMedia {
+public class RunMedia {
     private BaseRunActivity activity;
 
-    public BaseRunMedia(BaseRunActivity baseRunActivity) {
+    public RunMedia(BaseRunActivity baseRunActivity) {
         this.activity = baseRunActivity;
     }
 

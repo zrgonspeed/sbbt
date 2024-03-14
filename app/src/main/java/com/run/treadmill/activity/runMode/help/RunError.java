@@ -12,10 +12,10 @@ import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.ResourceUtils;
 
-public class BaseRunError {
+public class RunError {
     private BaseRunActivity activity;
 
-    public BaseRunError(BaseRunActivity baseRunActivity) {
+    public RunError(BaseRunActivity baseRunActivity) {
         this.activity = baseRunActivity;
     }
 

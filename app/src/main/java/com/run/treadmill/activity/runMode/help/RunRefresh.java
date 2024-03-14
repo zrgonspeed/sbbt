@@ -6,7 +6,6 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.activity.runMode.StepManager;
-import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
@@ -15,11 +14,11 @@ import com.run.treadmill.util.FormulaUtil;
 import com.run.treadmill.util.ResourceUtils;
 import com.run.treadmill.util.StringUtil;
 
-public class BaseRunRefresh {
+public class RunRefresh {
     private BaseRunActivity activity;
     private RunningParam mRunningParam;
 
-    public BaseRunRefresh(BaseRunActivity baseRunActivity) {
+    public RunRefresh(BaseRunActivity baseRunActivity) {
         this.activity = baseRunActivity;
     }
 
@@ -59,14 +58,14 @@ public class BaseRunRefresh {
 
         if (mRunningParam.isPrepare() || mRunningParam.isNormal()) {
             if (ErrorManager.getInstance().isHasInclineError()) {
-                activity.baseRunError.showInclineError();
+                activity.runError.showInclineError();
             } else {
                 activity.tv_incline.setText(StringUtil.valueAndUnit("0", ResourceUtils.getString(R.string.string_unit_percent), activity.runParamUnitTextSize));
             }
             activity.tv_speed.setText(activity.getSpeedValue("0.0"));
         } else {
             if (ErrorManager.getInstance().isHasInclineError()) {
-                activity.baseRunError.showInclineError();
+                activity.runError.showInclineError();
             } else if (!mRunningParam.isCoolDownStatus()) {
                 activity.tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) mRunningParam.getCurrIncline()), ResourceUtils.getString(R.string.string_unit_percent), activity.runParamUnitTextSize));
             }
@@ -118,7 +117,7 @@ public class BaseRunRefresh {
                 if (activity.mVideoPlayerSelf != null) {
                     activity.mVideoPlayerSelf.onRelease();
                 }
-                activity.baseRunPause.stopPauseTimer();
+                activity.runPause.stopPauseTimer();
                 activity.finishRunning();
             } else {
                 activity.btn_start_stop_skip.performClick();
