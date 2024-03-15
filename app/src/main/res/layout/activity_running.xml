@@ -294,14 +294,6 @@
             android:textColor="@color/light_gray"
             android:textSize="@dimen/font_size_16pt" />
 
-        <ImageView
-            android:id="@+id/img_pulse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_1235_x"
-            android:layout_marginTop="@dimen/dp_px_105_y"
-            android:src="@drawable/img_pulse_2" />
-
         <TextView
             android:layout_width="@dimen/dp_px_140_x"
             android:layout_height="wrap_content"
@@ -457,6 +449,7 @@
         app:layout_constraintVertical_bias="0.7" />
 
     <!--新新新新新新新新新新新新新新新新新新新-->
+    <!--底部-->
     <include
         android:id="@+id/run_bottom"
         layout="@layout/running_bottom"
@@ -464,4 +457,19 @@
         android:layout_height="@dimen/dp_px_170_x"
         android:layout_alignParentBottom="true" />
 
+    <!--中部 左右 incline speed  -->
+    <com.run.treadmill.widget.AdjustView
+        android:id="@+id/adjust_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_173_x"
+        android:layout_marginTop="@dimen/dp_px_180_x" />
+
+    <com.run.treadmill.widget.AdjustView
+        android:id="@+id/adjust_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dp_px_180_x"
+        android:layout_marginEnd="@dimen/dp_px_173_x" />
 </RelativeLayout>

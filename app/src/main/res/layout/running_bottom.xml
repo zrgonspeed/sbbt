@@ -94,6 +94,7 @@
         android:textSize="@dimen/font_size_80" />
 
     <ImageView
+        android:id="@+id/img_pulse"
         android:layout_width="@dimen/dp_px_64_x"
         android:layout_height="@dimen/dp_px_64_x"
         android:layout_marginStart="@dimen/dp_px_920_x"
