@@ -63,50 +63,14 @@ public class HomeAnimation {
             iv_home_bg.setBackground(transitionDrawable);
             transitionDrawable.startTransition(duration);
 
-            startBlue = true;
-            ThreadUtils.runInThread(() -> {
-                startBlue = false;
-            }, 2000);
+            if (openBlur) {
+                startBlue();
+            }
 
             change++;
             return false;
         }
     });
-
-    public void initBlurBtn() {
-        this.blur_sign = activity.findViewById(R.id.blur_sign);
-        this.blur_media = activity.findViewById(R.id.blur_media);
-        this.blur_quickstart = activity.findViewById(R.id.blur_quickstart);
-        this.blur_program = activity.findViewById(R.id.blur_program);
-        this.blur_setting = activity.findViewById(R.id.blur_setting);
-
-        setBlurView(blur_sign);
-        setBlurView(blur_media);
-        setBlurView(blur_quickstart);
-        setBlurView(blur_program);
-        setBlurView(blur_setting);
-    }
-
-    private void setBlurView(BlurringView blur_program) {
-        blur_program.setBlurredView(iv_home_bg);
-        //设置圆角；
-        blur_program.setOutlineProvider(new ViewOutlineProvider() {
-            @Override
-            public void getOutline(View view, Outline outline) {
-                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), 20);
-            }
-        });
-        blur_program.setClipToOutline(true);
-    }
-
-    private boolean openBlur = false;
-    public void setBlur(boolean b) {
-        openBlur = b;
-
-        if (openBlur) {
-            initBlurBtn();
-        }
-    }
 
     private class MyRunnable implements Runnable {
         @Override
@@ -123,43 +87,6 @@ public class HomeAnimation {
                     message.arg1 = duration;
                     mHandler.sendMessage(message);
                     Thread.sleep(sleep);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    boolean startBlue = false;
-    private class MyRunnable2 implements Runnable {
-        @Override
-        public void run() {
-            try {
-                while (threadRun) {
-                    if (pause) {
-                        Logger.d("当前处于暂停轮播图2");
-                        Thread.sleep(sleep);
-                        continue;
-                    }
-                    // Logger.d("sendHandler 轮播图2");
-                    if (startBlue) {
-                        Logger.d("模糊");
-                        blur_sign.postInvalidate();
-                        Thread.sleep(30);
-
-                        blur_media.postInvalidate();
-                        Thread.sleep(30);
-
-                        blur_quickstart.postInvalidate();
-                        Thread.sleep(30);
-
-                        blur_program.postInvalidate();
-                        Thread.sleep(30);
-
-                        blur_setting.postInvalidate();
-
-                        Thread.sleep(120);
-                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -202,5 +129,91 @@ public class HomeAnimation {
 
     public void resume() {
         pause = false;
+    }
+
+    /**
+     * 模糊按钮相关
+     * -----------------------------------------------------------------------------
+     */
+
+    public void setBlur(boolean b) {
+        openBlur = b;
+
+        if (openBlur) {
+            initBlurBtn();
+        }
+    }
+
+    private void startBlue() {
+        startBlue = true;
+        ThreadUtils.runInThread(() -> {
+            startBlue = false;
+        }, 2000);
+    }
+
+    private void initBlurBtn() {
+        this.blur_sign = activity.findViewById(R.id.blur_sign);
+        this.blur_media = activity.findViewById(R.id.blur_media);
+        this.blur_quickstart = activity.findViewById(R.id.blur_quickstart);
+        this.blur_program = activity.findViewById(R.id.blur_program);
+        this.blur_setting = activity.findViewById(R.id.blur_setting);
+
+        setBlurView(blur_sign);
+        setBlurView(blur_media);
+        setBlurView(blur_quickstart);
+        setBlurView(blur_program);
+        setBlurView(blur_setting);
+    }
+
+    private void setBlurView(BlurringView blur_program) {
+        blur_program.setBlurredView(iv_home_bg);
+        //设置圆角；
+        blur_program.setOutlineProvider(new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), 20);
+            }
+        });
+        blur_program.setClipToOutline(true);
+    }
+
+    private boolean openBlur = false;
+
+    private boolean startBlue = false;
+
+    private class MyRunnable2 implements Runnable {
+        @Override
+        public void run() {
+            try {
+                while (threadRun) {
+                    if (pause) {
+                        Logger.d("当前处于暂停轮播图2");
+                        Thread.sleep(sleep);
+                        continue;
+                    }
+                    // Logger.d("sendHandler 轮播图2");
+                    if (startBlue) {
+                        Logger.d("模糊");
+                        blur_sign.postInvalidate();
+                        Thread.sleep(30);
+
+                        blur_media.postInvalidate();
+                        Thread.sleep(30);
+
+                        blur_quickstart.postInvalidate();
+                        Thread.sleep(30);
+
+                        blur_program.postInvalidate();
+                        Thread.sleep(30);
+
+                        blur_setting.postInvalidate();
+
+                        Thread.sleep(120);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
