@@ -603,9 +603,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public RunMedia runMedia = new RunMedia(this);
     public RunLineChart runLineChart = new RunLineChart(this);
 
-    @BindView(R.id.tv_incline)
-    public TextView tv_incline;
-
     @BindView(R.id.run_adjust_incline)
     public AdjustInclineView adjustIncline;
 
