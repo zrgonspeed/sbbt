@@ -13,6 +13,7 @@ public class AdjustInclineView extends RelativeLayout {
 
     private TextView tv_adjust_value;
     private View iv_run_add;
+    private View iv_run_dec;
 
     public AdjustInclineView(Context context) {
         super(context);
@@ -23,6 +24,7 @@ public class AdjustInclineView extends RelativeLayout {
 
         View myView = inflate(getContext(), R.layout.adjust_incline, this);
         iv_run_add = myView.findViewById(R.id.iv_run_add);
+        iv_run_dec = myView.findViewById(R.id.iv_run_dec);
         tv_adjust_value = myView.findViewById(R.id.tv_adjust_value);
     }
 
@@ -38,7 +40,7 @@ public class AdjustInclineView extends RelativeLayout {
         tv_adjust_value.addTextChangedListener(watcher);
     }
 
-    public String getInclineValue() {
+    public String getIncline() {
         return tv_adjust_value.getText().toString();
     }
 

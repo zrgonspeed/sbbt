@@ -27,20 +27,20 @@ public class RunError {
         RunningParam mRunningParam = activity.mRunningParam;
 
         if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-            if (activity.getInclineValue().equals("E5")) {
+            if (activity.getIncline().equals("E5")) {
                 return;
             }
-            activity.setInclineValue("E5");
+            activity.setIncline("E5");
         } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-            if (activity.getInclineValue().equals("E5")) {
+            if (activity.getIncline().equals("E5")) {
                 return;
             }
-            activity.setInclineValue("E5");
+            activity.setIncline("E5");
         } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-            if (activity.getInclineValue().equals(String.format("E%s", DataTypeConversion.intLowToByte(ErrorManager.ERR_INCLINE_ADJUST)))) {
+            if (activity.getIncline().equals(String.format("E%s", DataTypeConversion.intLowToByte(ErrorManager.ERR_INCLINE_ADJUST)))) {
                 return;
             }
-            activity.setInclineValue(String.format("E%s", DataTypeConversion.intLowToByte(ErrorManager.ERR_INCLINE_ADJUST)));
+            activity.setIncline(String.format("E%s", DataTypeConversion.intLowToByte(ErrorManager.ERR_INCLINE_ADJUST)));
         }
         mRunningParam.setInclineError();
         activity.adjustIncline.setTextColor(ResourceUtils.getColor(R.color.red));

@@ -117,7 +117,7 @@ public class HillActivity extends BaseRunActivity<HillView, HillPresenter> imple
 
     @Override
     public void onInclineChange(float incline) {
-        setInclineValue(StringUtil.valueAndUnit(String.valueOf((int) incline), getString(R.string.string_unit_percent), runParamUnitTextSize));
+        setIncline(StringUtil.valueAndUnit(String.valueOf((int) incline), getString(R.string.string_unit_percent), runParamUnitTextSize));
         refreshLineChart();
     }
 

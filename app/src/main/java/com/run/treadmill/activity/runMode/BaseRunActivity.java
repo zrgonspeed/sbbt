@@ -606,11 +606,11 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     @BindView(R.id.run_adjust_incline)
     public AdjustInclineView adjustIncline;
 
-    public void setInclineValue(CharSequence value) {
+    public void setIncline(CharSequence value) {
         adjustIncline.setIncline(value);
     }
 
-    public String getInclineValue() {
-        return adjustIncline.getInclineValue();
+    public String getIncline() {
+        return adjustIncline.getIncline();
     }
 }

@@ -103,7 +103,7 @@ public class RunPause implements CustomTimer.TimerCallBack {
             if (ErrorManager.getInstance().isHasInclineError()) {
                 activity.runError.showInclineError();
             } else {
-                activity.setInclineValue(StringUtil.valueAndUnit("0", ResourceUtils.getString(R.string.string_unit_percent), activity.runParamUnitTextSize));
+                activity.setIncline(StringUtil.valueAndUnit("0", ResourceUtils.getString(R.string.string_unit_percent), activity.runParamUnitTextSize));
             }
         } else if (mRunningParam.isCoolDownStatus()) {
             activity.img_run_pop_tip.setImageResource(R.drawable.img_pop_cooldown);
@@ -119,7 +119,7 @@ public class RunPause implements CustomTimer.TimerCallBack {
             }
             //进入cool down要归零
             if (!ErrorManager.getInstance().isHasInclineError()) {
-                activity.setInclineValue(StringUtil.valueAndUnit("0", ResourceUtils.getString(R.string.string_unit_percent), activity.runParamUnitTextSize));
+                activity.setIncline(StringUtil.valueAndUnit("0", ResourceUtils.getString(R.string.string_unit_percent), activity.runParamUnitTextSize));
                 ControlManager.getInstance().resetIncline();
             }
         }
