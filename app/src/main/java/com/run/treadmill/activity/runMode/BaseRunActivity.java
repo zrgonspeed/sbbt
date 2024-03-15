@@ -205,6 +205,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         mRunningParam.setCallback(this);
 
         prepare321Go.init321Go();
+
+        initAdjustIncline();
     }
 
     @Override
@@ -605,6 +607,12 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @BindView(R.id.run_adjust_incline)
     public AdjustInclineView adjustIncline;
+
+    private void initAdjustIncline() {
+        adjustIncline.setOnClickAddDec(
+                v -> getPresenter().setInclineValue(1, 0, false),
+                v -> getPresenter().setInclineValue(-1, 0, false));
+    }
 
     public void setIncline(CharSequence value) {
         adjustIncline.setIncline(value);

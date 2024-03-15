@@ -51,4 +51,9 @@ public class AdjustInclineView extends RelativeLayout {
     public void setIncline(CharSequence value) {
         tv_adjust_value.setText(value.toString().trim());
     }
+
+    public void setOnClickAddDec(OnClickListener addClick, OnClickListener decClick) {
+        iv_run_add.setOnClickListener(addClick);
+        iv_run_dec.setOnClickListener(decClick);
+    }
 }
