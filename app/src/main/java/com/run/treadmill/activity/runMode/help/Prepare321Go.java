@@ -162,7 +162,7 @@ public class Prepare321Go {
         activity.tv_calories.setText(StringUtil.valueAndUnit(activity.mRunningParam.getShowCalories(), activity.getString(R.string.string_unit_kcal), activity.runParamUnitTextSize));
         activity.tv_speed.setText(activity.getSpeedValue(String.valueOf(activity.mRunningParam.getCurrSpeed())));
         if (!ErrorManager.getInstance().isHasInclineError()) {
-            activity.tv_incline.setText(
+            activity.setInclineValue(
                     StringUtil.valueAndUnit(String.valueOf((int) activity.mRunningParam.getCurrIncline()),
                             activity.getString(R.string.string_unit_percent),
                             activity.runParamUnitTextSize)

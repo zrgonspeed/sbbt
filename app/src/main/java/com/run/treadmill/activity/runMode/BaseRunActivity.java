@@ -44,6 +44,7 @@ import com.run.treadmill.widget.HistogramListView;
 import com.run.treadmill.widget.LongClickImage;
 import com.run.treadmill.widget.VideoPlayerSelf;
 import com.run.treadmill.widget.YaxisView;
+import com.run.treadmill.widget.adjust.AdjustInclineView;
 import com.run.treadmill.widget.calculator.BaseCalculator;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
 import com.run.treadmill.widget.calculator.CalculatorOfRun;
@@ -82,8 +83,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public TextView txt_running_incline_ctrl;
     @BindView(R.id.txt_running_incline_param)
     public TextView txt_running_incline_param;
-    @BindView(R.id.tv_incline)
-    public TextView tv_incline;
+
     @BindView(R.id.tv_time)
     public TextView tv_time;
     @BindView(R.id.tv_distance)
@@ -503,7 +503,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public void setTextWatcher() {
         if (mInclineTextWatcher == null) {
             mInclineTextWatcher = new InclineTextWatcher();
-            tv_incline.addTextChangedListener(mInclineTextWatcher);
+            adjustIncline.addTextChangedListener(mInclineTextWatcher);
         }
         if (mSpeedTextWatcher == null) {
             mSpeedTextWatcher = new SpeedTextWatcher();
@@ -603,4 +603,17 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public RunMedia runMedia = new RunMedia(this);
     public RunLineChart runLineChart = new RunLineChart(this);
 
+    @BindView(R.id.tv_incline)
+    public TextView tv_incline;
+
+    @BindView(R.id.run_adjust_incline)
+    public AdjustInclineView adjustIncline;
+
+    public void setInclineValue(CharSequence value) {
+        adjustIncline.setIncline(value);
+    }
+
+    public String getInclineValue() {
+        return adjustIncline.getInclineValue();
+    }
 }

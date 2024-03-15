@@ -27,23 +27,23 @@ public class RunError {
         RunningParam mRunningParam = activity.mRunningParam;
 
         if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
-            if (activity.tv_incline.getText().toString().equals("E5")) {
+            if (activity.getInclineValue().equals("E5")) {
                 return;
             }
-            activity.tv_incline.setText("E5");
+            activity.setInclineValue("E5");
         } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-            if (activity.tv_incline.getText().toString().equals("E5")) {
+            if (activity.getInclineValue().equals("E5")) {
                 return;
             }
-            activity.tv_incline.setText("E5");
+            activity.setInclineValue("E5");
         } else if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
-            if (activity.tv_incline.getText().toString().equals(String.format("E%s", DataTypeConversion.intLowToByte(ErrorManager.ERR_INCLINE_ADJUST)))) {
+            if (activity.getInclineValue().equals(String.format("E%s", DataTypeConversion.intLowToByte(ErrorManager.ERR_INCLINE_ADJUST)))) {
                 return;
             }
-            activity.tv_incline.setText(String.format("E%s", DataTypeConversion.intLowToByte(ErrorManager.ERR_INCLINE_ADJUST)));
+            activity.setInclineValue(String.format("E%s", DataTypeConversion.intLowToByte(ErrorManager.ERR_INCLINE_ADJUST)));
         }
         mRunningParam.setInclineError();
-        activity.tv_incline.setTextColor(ResourceUtils.getColor(R.color.red));
+        activity.adjustIncline.setTextColor(ResourceUtils.getColor(R.color.red));
         activity.txt_running_incline_ctrl.setTextColor(ResourceUtils.getColor(R.color.red));
         activity.txt_running_incline_param.setTextColor(ResourceUtils.getColor(R.color.red));
         if (activity.isCalcDialogShowing()) {

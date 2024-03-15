@@ -240,7 +240,7 @@ public abstract class BaseRunParamFloatWindow {
             int textColor = txt_running_incline_param.getCurrentTextColor();
             if (textColor != redColor) {
                 // 不为红色也就是不报扬升错误才设为0
-                // tv_incline.setText(StringUtil.valueAndUnit("0", mContext.getString(R.string.string_unit_percent), mFloatWindowManager.runParamUnitTextSize));
+                // setInclineValue(StringUtil.valueAndUnit("0", mContext.getString(R.string.string_unit_percent), mFloatWindowManager.runParamUnitTextSize));
             }
         }
     }
