@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_px_1920_x"
+    android:layout_height="@dimen/dp_px_170_x"
+    android:background="@drawable/bottom_workout">
+
+    <!--Time-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_212_x"
+        android:layout_marginTop="@dimen/dp_px_110_x"
+        android:gravity="start"
+        android:paddingStart="@dimen/dp_px_4_x"
+        android:text="TIME"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_32" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="@dimen/dp_px_235_x"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_212_x"
+        android:layout_marginTop="@dimen/dp_px_30_x"
+        android:gravity="start"
+        android:text="00:15"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_80" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_64_x"
+        android:layout_height="@dimen/dp_px_64_x"
+        android:layout_marginStart="@dimen/dp_px_127_x"
+        android:layout_marginTop="@dimen/dp_px_55_x"
+        android:background="@drawable/btn_workout_time" />
+
+    <!--KCAL-->
+    <TextView
+        android:layout_width="@dimen/dp_px_140_x"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_580_x"
+        android:layout_marginTop="@dimen/dp_px_110_x"
+        android:gravity="start"
+        android:paddingStart="@dimen/dp_px_4_x"
+        android:text="CALORIES"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_32" />
+
+    <TextView
+        android:id="@+id/tv_calories"
+        android:layout_width="@dimen/dp_px_235_x"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_580_x"
+        android:layout_marginTop="@dimen/dp_px_30_x"
+        android:gravity="start"
+        android:text="9999"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_80" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_64_x"
+        android:layout_height="@dimen/dp_px_64_x"
+        android:layout_marginStart="@dimen/dp_px_496_x"
+        android:layout_marginTop="@dimen/dp_px_55_x"
+        android:background="@drawable/btn_workout_calories" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_48_x"
+        android:layout_height="@dimen/dp_px_48_x"
+        android:layout_marginStart="@dimen/dp_px_575_x"
+        android:background="@drawable/btn_workout_expand_1" />
+
+    <!--HR-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_1004_x"
+        android:layout_marginTop="@dimen/dp_px_110_x"
+        android:gravity="start"
+        android:paddingStart="@dimen/dp_px_4_x"
+        android:text="HEART RATE"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_32" />
+
+    <TextView
+        android:id="@+id/tv_pulse"
+        android:layout_width="@dimen/dp_px_235_x"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_1004_x"
+        android:layout_marginTop="@dimen/dp_px_30_x"
+        android:gravity="start"
+        android:text="999"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_80" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_64_x"
+        android:layout_height="@dimen/dp_px_64_x"
+        android:layout_marginStart="@dimen/dp_px_920_x"
+        android:layout_marginTop="@dimen/dp_px_55_x"
+        android:background="@drawable/btn_workout_heart_rate" />
+
+    <!--3个按钮  profile track application-->
+    <ImageView
+        android:layout_width="@dimen/dp_px_100_x"
+        android:layout_height="@dimen/dp_px_100_x"
+        android:layout_marginStart="@dimen/dp_px_1322_x"
+        android:layout_marginTop="@dimen/dp_px_36_x"
+        android:background="@drawable/btn_workout_profile_3" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_100_x"
+        android:layout_height="@dimen/dp_px_100_x"
+        android:layout_marginStart="@dimen/dp_px_1430_x"
+        android:layout_marginTop="@dimen/dp_px_36_x"
+        android:background="@drawable/btn_workout_track_1" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_100_x"
+        android:layout_height="@dimen/dp_px_100_x"
+        android:layout_marginStart="@dimen/dp_px_1538_x"
+        android:layout_marginTop="@dimen/dp_px_36_x"
+        android:background="@drawable/btn_workout_application_1" />
+
+    <!--开始暂停-->
+    <ImageView
+        android:layout_width="@dimen/dp_px_148_x"
+        android:layout_height="@dimen/dp_px_148_x"
+        android:layout_marginStart="@dimen/dp_px_1688_x"
+        android:layout_marginTop="@dimen/dp_px_12_x"
+        android:background="@drawable/btn_start_1" />
+
+
+</RelativeLayout>

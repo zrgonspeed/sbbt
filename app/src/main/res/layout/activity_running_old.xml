@@ -2,16 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_main"
-    android:layout_width="@dimen/dp_px_1920_x"
-    android:layout_height="@dimen/dp_px_1080_x"
-    android:background="@drawable/bk_workout">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bk_0">
 
     <!-- 中间的图表 -->
     <RelativeLayout
         android:id="@+id/rl_chart_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <com.run.treadmill.widget.YaxisView
             android:id="@+id/yv_unit"
@@ -90,8 +90,7 @@
     <RelativeLayout
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/iv_running_bottom"
@@ -209,8 +208,7 @@
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_running_top"
@@ -253,6 +251,27 @@
             android:textSize="@dimen/font_size_18pt" />
 
         <TextView
+            android:layout_width="@dimen/dp_px_140_x"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_445_x"
+            android:layout_marginTop="@dimen/dp_px_6_y"
+            android:gravity="center"
+            android:text="@string/string_running_time"
+            android:textColor="@color/light_gray"
+            android:textSize="@dimen/font_size_16pt" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="@dimen/dp_px_140_x"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_445_x"
+            android:layout_marginTop="@dimen/dp_px_90_y"
+            android:gravity="center"
+            android:text="18:59"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_18pt" />
+
+        <TextView
             android:layout_width="@dimen/dp_px_180_x"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_px_650_x"
@@ -283,6 +302,16 @@
             android:textColor="@color/light_gray"
             android:textSize="@dimen/font_size_16pt" />
 
+        <TextView
+            android:id="@+id/tv_calories"
+            android:layout_width="@dimen/dp_px_200_x"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_860_x"
+            android:layout_marginTop="@dimen/dp_px_90_y"
+            android:gravity="center"
+            android:text="1532.6"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_18pt" />
 
         <TextView
             android:layout_width="@dimen/dp_px_180_x"
@@ -293,6 +322,17 @@
             android:text="@string/string_running_pulse"
             android:textColor="@color/light_gray"
             android:textSize="@dimen/font_size_16pt" />
+
+        <TextView
+            android:id="@+id/tv_pulse"
+            android:layout_width="@dimen/dp_px_120_x"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_1120_x"
+            android:layout_marginTop="@dimen/dp_px_90_y"
+            android:gravity="center"
+            android:text="120"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_18pt" />
 
         <ImageView
             android:id="@+id/img_pulse"
@@ -455,13 +495,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.7" />
+    <!--
 
-    <!--新新新新新新新新新新新新新新新新新新新-->
-    <include
-        android:id="@+id/run_bottom"
-        layout="@layout/running_bottom"
-        android:layout_width="@dimen/dp_px_1920_x"
-        android:layout_height="@dimen/dp_px_170_x"
-        android:layout_alignParentBottom="true" />
-
+        <VideoView
+            android:id="@+id/vv_go"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>-->
 </RelativeLayout>
