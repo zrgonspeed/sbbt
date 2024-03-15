@@ -44,7 +44,8 @@ import com.run.treadmill.widget.HistogramListView;
 import com.run.treadmill.widget.LongClickImage;
 import com.run.treadmill.widget.VideoPlayerSelf;
 import com.run.treadmill.widget.YaxisView;
-import com.run.treadmill.widget.adjust.AdjustInclineView;
+import com.run.treadmill.widget.adjust.AdjustIncline;
+import com.run.treadmill.widget.adjust.AdjustSpeed;
 import com.run.treadmill.widget.calculator.BaseCalculator;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
 import com.run.treadmill.widget.calculator.CalculatorOfRun;
@@ -207,6 +208,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         prepare321Go.init321Go();
 
         initAdjustIncline();
+        initAdjustSpeed();
     }
 
     @Override
@@ -605,8 +607,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public RunMedia runMedia = new RunMedia(this);
     public RunLineChart runLineChart = new RunLineChart(this);
 
+
+    /**********************扬升***********************/
     @BindView(R.id.run_adjust_incline)
-    public AdjustInclineView adjustIncline;
+    public AdjustIncline adjustIncline;
 
     private void initAdjustIncline() {
         adjustIncline.setOnClickAddDec(
@@ -620,5 +624,15 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     public String getIncline() {
         return adjustIncline.getIncline();
+    }
+
+    /**********************速度***********************/
+    @BindView(R.id.run_adjust_speed)
+    public AdjustSpeed adjustSpeed;
+
+    private void initAdjustSpeed() {
+        adjustSpeed.setOnClickAddDec(
+                v -> getPresenter().setSpeedValue(1, 0, false),
+                v -> getPresenter().setSpeedValue(-1, 0, false));
     }
 }
