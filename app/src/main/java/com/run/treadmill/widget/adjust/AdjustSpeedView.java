@@ -1,4 +1,4 @@
-package com.run.treadmill.widget;
+package com.run.treadmill.widget.adjust;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,26 +8,26 @@ import android.widget.RelativeLayout;
 import com.run.treadmill.R;
 import com.run.treadmill.util.Logger;
 
-public class AdjustView extends RelativeLayout {
-    public AdjustView(Context context) {
+public class AdjustSpeedView extends RelativeLayout {
+    public AdjustSpeedView(Context context) {
         super(context);
     }
 
-    public AdjustView(Context context, AttributeSet attrs) {
+    public AdjustSpeedView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        View myView = inflate(getContext(), R.layout.run_float_adjust, this);
+        View myView = inflate(getContext(), R.layout.adjust_speed, this);
         View iv_run_add = myView.findViewById(R.id.iv_run_add);
         iv_run_add.setOnClickListener((v) -> {
-            Logger.i("sssssssss");
+            Logger.i("adjust_speed");
         });
     }
 
-    public AdjustView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AdjustSpeedView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public AdjustView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public AdjustSpeedView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_px_168_x"
+    android:layout_height="@dimen/dp_px_700_x">
+
+    <ImageView
+        android:id="@+id/run_box"
+        android:layout_width="@dimen/dp_px_168_x"
+        android:layout_height="@dimen/dp_px_700_x"
+        android:background="@drawable/img_incline_speed_box" />
+
+    <ImageView
+        android:id="@+id/iv_run_add"
+        android:layout_width="@dimen/dp_px_48_x"
+        android:layout_height="@dimen/dp_px_48_x"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_192_x"
+        android:background="@drawable/btn_workout_plus_1" />
+
+    <ImageView
+        android:id="@+id/iv_run_dec"
+        android:layout_width="@dimen/dp_px_48_x"
+        android:layout_height="@dimen/dp_px_48_x"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_460_x"
+        android:background="@drawable/btn_workout_minus_1" />
+
+    <TextView
+        android:id="@+id/tv_adjust_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_270_x"
+        android:text="99.9"
+        android:textSize="@dimen/font_size_78" />
+
+    <TextView
+        android:id="@+id/tv_adjust_value_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_360_x"
+        android:text="@string/string_speed"
+        android:textSize="@dimen/font_size_40" />
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_548_x"
+        android:background="@drawable/btn_workout_speed_1" />
+</RelativeLayout>

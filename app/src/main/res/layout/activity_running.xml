@@ -452,21 +452,21 @@
     <!--底部-->
     <include
         android:id="@+id/run_bottom"
-        layout="@layout/running_bottom"
+        layout="@layout/run_bottom"
         android:layout_width="@dimen/dp_px_1920_x"
         android:layout_height="@dimen/dp_px_170_x"
         android:layout_alignParentBottom="true" />
 
     <!--中部 左右 incline speed  -->
-    <com.run.treadmill.widget.AdjustView
-        android:id="@+id/adjust_left"
+    <com.run.treadmill.widget.adjust.AdjustInclineView
+        android:id="@+id/run_adjust_incline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_173_x"
         android:layout_marginTop="@dimen/dp_px_180_x" />
 
-    <com.run.treadmill.widget.AdjustView
-        android:id="@+id/adjust_right"
+    <com.run.treadmill.widget.adjust.AdjustSpeedView
+        android:id="@+id/run_adjust_speed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
