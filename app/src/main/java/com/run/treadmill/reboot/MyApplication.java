@@ -7,11 +7,9 @@ import com.run.treadmill.Custom;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.HardwareSoundManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.manager.control.ParamCons;
-import com.run.treadmill.manager.fslight.FsLight;
 import com.run.treadmill.manager.musiclight.MusicReceiverManager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.sysbt.BtAppReboot;
@@ -22,7 +20,9 @@ import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.LanguageUtil;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.ThreadUtils;
 import com.run.treadmill.util.VolumeUtils;
+import com.run.treadmill.util.thread.ThreadPoolManager;
 
 import org.litepal.LitePalApplication;
 
@@ -145,6 +145,8 @@ public class MyApplication extends LitePalApplication implements Custom.Applicat
             new Thread(() -> {
                 ShellCmdUtils.getInstance().execCommand("sync");
             }).start();
+
+            ThreadUtils.initThreadPool();
         }
 
         HomeThirdAppUpdateManager.getInstance().setNewCheck(true);

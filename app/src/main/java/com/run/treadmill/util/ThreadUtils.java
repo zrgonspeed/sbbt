@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 
+import com.run.treadmill.util.thread.ThreadPoolManager;
+
 public class ThreadUtils {
     private static volatile Handler sMainThreadHandler;
 
@@ -34,5 +36,13 @@ public class ThreadUtils {
         }
 
         return sMainThreadHandler;
+    }
+
+    public static void initThreadPool() {
+        ThreadPoolManager.getInstance().createThreadPool();
+    }
+
+    public static void runInPoolThread(Runnable runnable) {
+        ThreadPoolManager.getInstance().addTask(runnable);
     }
 }
