@@ -6,66 +6,6 @@
     android:layout_height="@dimen/dp_px_1080_x"
     android:background="@drawable/bk_workout">
 
-    <!-- 中间的图表 -->
-    <RelativeLayout
-        android:id="@+id/rl_chart_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <com.run.treadmill.widget.YaxisView
-            android:id="@+id/yv_unit"
-            android:layout_width="@dimen/dp_px_100_x"
-            android:layout_height="@dimen/dp_px_450_y"
-            android:layout_marginStart="@dimen/dp_px_300_x"
-            android:layout_marginTop="@dimen/dp_px_292_y" />
-
-        <ImageView
-            android:id="@+id/img_unit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_250_x"
-            android:layout_marginTop="@dimen/dp_px_238_y"
-            android:src="@drawable/img_sportmode_profile_speed_calibration_km_1"
-            android:visibility="gone" />
-
-        <com.run.treadmill.widget.HistogramListView
-            android:id="@+id/lineChartView"
-            android:layout_width="@dimen/dp_px_1120_x"
-            android:layout_height="@dimen/dp_px_500_y"
-            android:layout_marginStart="@dimen/dp_px_400_x"
-            android:layout_marginTop="@dimen/dp_px_242_y"
-            android:visibility="visible"
-            app:modeName="@string/string_mode_quick_start"
-            app:txtSize="@dimen/font_size_16pt" />
-
-        <TextView
-            android:id="@+id/btn_line_chart_incline"
-            android:layout_width="@dimen/dp_px_720_x"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_400_x"
-            android:layout_marginTop="@dimen/dp_px_242_y"
-            android:background="@drawable/tx_fillet_max_bg"
-            android:gravity="center"
-            android:text="@string/string_incline"
-            android:textColor="@color/running_text_orange"
-            android:textSize="@dimen/font_size_21pt"
-            android:visibility="visible" />
-
-        <TextView
-            android:id="@+id/btn_line_chart_speed"
-            android:layout_width="@dimen/dp_px_400_x"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_1120_x"
-            android:layout_marginTop="@dimen/dp_px_242_y"
-            android:background="@drawable/tx_fillet_small_bg"
-            android:gravity="center"
-            android:text="@string/string_speed"
-            android:textColor="@color/gray"
-            android:textSize="@dimen/font_size_21pt"
-            android:visibility="visible" />
-    </RelativeLayout>
-
     <!-- 暖身、冷却 -->
     <RelativeLayout
         android:id="@+id/rl_center_tip"
@@ -394,6 +334,14 @@
         app:layout_constraintVertical_bias="0.7" />
 
     <!--新新新新新新新新新新新新新新新新新新新-->
+    <!-- 中间的图表 -->
+    <include
+        android:id="@+id/rl_chart_view"
+        layout="@layout/run_chart"
+        android:layout_width="@dimen/dp_px_1920_x"
+        android:layout_height="@dimen/dp_px_1080_x"
+        android:layout_alignParentBottom="true" />
+
     <!--底部-->
     <include
         android:id="@+id/run_bottom"
