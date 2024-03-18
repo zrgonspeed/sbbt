@@ -315,17 +315,6 @@
             android:textColor="@color/light_gray"
             android:textSize="@dimen/font_size_16pt" />
 
-        <TextView
-            android:id="@+id/tv_speed"
-            android:layout_width="@dimen/dp_px_200_x"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_1540_x"
-            android:layout_marginTop="@dimen/dp_px_90_y"
-            android:gravity="center"
-            android:text="13.5 kph"
-            android:textColor="@color/white"
-            android:textSize="@dimen/font_size_18pt" />
-
         <ImageView
             android:id="@+id/img_wifi"
             android:layout_width="wrap_content"

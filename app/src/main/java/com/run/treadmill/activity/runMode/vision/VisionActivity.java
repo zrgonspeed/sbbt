@@ -185,7 +185,7 @@ public class VisionActivity extends BaseRunActivity<VisionView, VisionPresenter>
 
     @Override
     public void onSpeedChange(float speed) {
-        tv_speed.setText(getSpeedValue(String.valueOf(speed)));
+        setSpeed(getSpeedValue(String.valueOf(speed)));
         if (mVideoPlayerSelf != null) {
             mVideoPlayerSelf.setSpeedCtrl(isMetric ? speed : UnitUtil.getMileToKmByFloat1(speed));
         }

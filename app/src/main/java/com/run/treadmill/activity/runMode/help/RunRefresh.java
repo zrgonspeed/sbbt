@@ -62,14 +62,14 @@ public class RunRefresh {
             } else {
                 activity.setIncline(StringUtil.valueAndUnit("0", ResourceUtils.getString(R.string.string_unit_percent), activity.runParamUnitTextSize));
             }
-            activity.tv_speed.setText(activity.getSpeedValue("0.0"));
+            activity.setSpeed(activity.getSpeedValue("0.0"));
         } else {
             if (ErrorManager.getInstance().isHasInclineError()) {
                 activity.runError.showInclineError();
             } else if (!mRunningParam.isCoolDownStatus()) {
                 activity.setIncline(StringUtil.valueAndUnit(String.valueOf((int) mRunningParam.getCurrIncline()), ResourceUtils.getString(R.string.string_unit_percent), activity.runParamUnitTextSize));
             }
-            activity.tv_speed.setText(activity.getSpeedValue(String.valueOf(mRunningParam.getCurrSpeed())));
+            activity.setSpeed(activity.getSpeedValue(String.valueOf(mRunningParam.getCurrSpeed())));
         }
         refreshRunParam();
     }

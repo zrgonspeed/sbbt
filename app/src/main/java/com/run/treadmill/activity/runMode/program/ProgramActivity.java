@@ -88,7 +88,7 @@ public class ProgramActivity extends BaseRunActivity<ProgramView, ProgramPresent
 
     @Override
     public void onSpeedChange(float speed) {
-        tv_speed.setText(getSpeedValue(String.valueOf(speed)));
+        setSpeed(getSpeedValue(String.valueOf(speed)));
         refreshLineChart();
     }
 

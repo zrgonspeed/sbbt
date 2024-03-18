@@ -179,7 +179,7 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
 
     @Override
     public void onSpeedChange(float speed) {
-        tv_speed.setText(getSpeedValue(String.valueOf(speed)));
+        setSpeed(getSpeedValue(String.valueOf(speed)));
         refreshLineChart();
     }
 

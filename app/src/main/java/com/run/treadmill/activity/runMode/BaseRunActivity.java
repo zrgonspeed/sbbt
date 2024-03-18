@@ -97,8 +97,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public ImageView img_pulse;
     @BindView(R.id.tv_mets)
     public TextView tv_mets;
-    @BindView(R.id.tv_speed)
-    public TextView tv_speed;
+
     @BindView(R.id.img_wifi)
     public ImageView img_wifi;
     @BindView(R.id.img_bt)
@@ -247,7 +246,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             }
 
             if (mRunningParam.isStopStatus()) {
-                tv_speed.setText(getSpeedValue(String.valueOf(0.0f)));
+                setSpeed(getSpeedValue(String.valueOf(0.0f)));
             }
             setOnCreateRoller();
 
@@ -458,8 +457,9 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
      * @param speed
      * @return
      */
-    public SpannableString getSpeedValue(String speed) {
-        return StringUtil.valueAndUnit(speed, isMetric ? getString(R.string.string_unit_kph) : getString(R.string.string_unit_mph), runParamUnitTextSize);
+    public String getSpeedValue(String speed) {
+        // return StringUtil.valueAndUnit(speed, isMetric ? getString(R.string.string_unit_kph) : getString(R.string.string_unit_mph), runParamUnitTextSize);
+        return speed;
     }
 
     @Override
@@ -511,7 +511,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
         if (mSpeedTextWatcher == null) {
             mSpeedTextWatcher = new SpeedTextWatcher();
-            tv_speed.addTextChangedListener(mSpeedTextWatcher);
+            adjustSpeed.addTextChangedListener(mSpeedTextWatcher);
         }
     }
 
@@ -634,5 +634,13 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         adjustSpeed.setOnClickAddDec(
                 v -> getPresenter().setSpeedValue(1, 0, false),
                 v -> getPresenter().setSpeedValue(-1, 0, false));
+    }
+
+    public void setSpeed(CharSequence value) {
+        adjustSpeed.setSpeed(value);
+    }
+
+    public String getSpeed() {
+        return adjustSpeed.getSpeed();
     }
 }

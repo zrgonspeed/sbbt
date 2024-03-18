@@ -111,7 +111,7 @@ public class HillActivity extends BaseRunActivity<HillView, HillPresenter> imple
 
     @Override
     public void onSpeedChange(float speed) {
-        tv_speed.setText(getSpeedValue(String.valueOf(speed)));
+        setSpeed(getSpeedValue(String.valueOf(speed)));
         refreshLineChart();
     }
 

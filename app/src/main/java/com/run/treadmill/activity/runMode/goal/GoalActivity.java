@@ -140,7 +140,7 @@ public class GoalActivity extends BaseRunActivity<GoalView, GoalPresenter> imple
 
     @Override
     public void onSpeedChange(float speed) {
-        tv_speed.setText(getSpeedValue(String.valueOf(speed)));
+        setSpeed(getSpeedValue(String.valueOf(speed)));
         refreshLineChart();
     }
 

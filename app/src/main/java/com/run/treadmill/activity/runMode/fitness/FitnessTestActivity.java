@@ -142,7 +142,7 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
 
     @Override
     public void onSpeedChange(float speed) {
-        tv_speed.setText(getSpeedValue(String.valueOf(speed)));
+        setSpeed(getSpeedValue(String.valueOf(speed)));
         if (mRunningParam.isRunning()) {
             refreshLineChart();
         }

@@ -74,7 +74,7 @@ public class RunPause implements CustomTimer.TimerCallBack {
         mRunningParam.recodePreRunData();
         if (mRunningParam.isStopStatus()) {
             activity.btn_pause_continue.setEnabled(false);
-            activity.tv_speed.setText(activity.getSpeedValue(String.valueOf(0.0f)));
+            activity.setSpeed(activity.getSpeedValue(String.valueOf(0.0f)));
             activity.img_run_pop_tip.setImageResource(R.drawable.img_pop_pause);
             activity.rl_mask.setVisibility(View.VISIBLE);
             //暂停倒计时

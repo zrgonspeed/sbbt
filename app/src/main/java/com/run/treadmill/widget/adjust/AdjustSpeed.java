@@ -1,6 +1,7 @@
 package com.run.treadmill.widget.adjust;
 
 import android.content.Context;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -32,6 +33,22 @@ public class AdjustSpeed extends RelativeLayout {
 
     public AdjustSpeed(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    public void addTextChangedListener(TextWatcher watcher) {
+        tv_adjust_value.addTextChangedListener(watcher);
+    }
+
+    public String getSpeed() {
+        return tv_adjust_value.getText().toString();
+    }
+
+    public void setTextColor(int color) {
+        tv_adjust_value.setTextColor(color);
+    }
+
+    public void setSpeed(CharSequence value) {
+        tv_adjust_value.setText(value.toString().trim());
     }
 
     public void setOnClickAddDec(OnClickListener addClick, OnClickListener decClick) {
