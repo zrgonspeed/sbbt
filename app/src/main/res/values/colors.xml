@@ -12,6 +12,7 @@
     <color name="transparent">#00000000</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent_black">#DD000000</color>
+    <color name="transparent_black_new">#8C000000</color>
 
     <color name="red">#CF1331</color>
     <color name="pink">#BA187B</color>
@@ -272,4 +273,11 @@
     <color name="color_picker_view_disable_triangle">#7F9D2227</color>
 
     <color name="color_bt_smart_refresh">#E1E1E1</color>
+    <color name="color_bt_1">#4E55D9</color>
+    <color name="color_bt_2">#32378C</color>
+    <color name="color_bt_3">#80575973</color>
+
+    <color name="color_bt_red_1">#FA198B</color>
+    <color name="color_bt_red_2">#AD115F</color>
+    <color name="color_bt_red_3">#80575973</color>
 </resources>

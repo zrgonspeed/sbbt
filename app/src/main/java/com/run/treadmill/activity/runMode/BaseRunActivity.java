@@ -69,9 +69,9 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     @BindView(R.id.img_run_pop_tip)
     public ImageView img_run_pop_tip;
     @BindView(R.id.btn_pause_quit)
-    public ImageView btn_pause_quit;
+    public TextView btn_pause_quit;
     @BindView(R.id.btn_pause_continue)
-    public ImageView btn_pause_continue;
+    public TextView btn_pause_continue;
     @BindView(R.id.rl_tip)
     public RelativeLayout rl_tip;
     @BindView(R.id.img_tip)
