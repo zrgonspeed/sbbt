@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_px_270_x"
+        android:layout_marginTop="@dimen/dp_px_280_x"
         android:text="99"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_78" />
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_px_360_x"
+        android:layout_marginTop="@dimen/dp_px_370_x"
         android:text="@string/string_incline"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_40" />
