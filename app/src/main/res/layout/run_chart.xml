@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/dp_px_1920_x"
-    android:layout_height="@dimen/dp_px_1080_x"
-    android:visibility="visible">
+    android:layout_height="@dimen/dp_px_1080_x">
 
     <com.run.treadmill.widget.YaxisView
         android:id="@+id/yv_unit"

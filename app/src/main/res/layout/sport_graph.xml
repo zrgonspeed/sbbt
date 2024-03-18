@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/motion_bar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/sport_graph_scene">
+
+    <!-- 这里的高度和边界刻度内缩suv_margin_y 相互搭配 -->
+    <com.run.treadmill.widget.chart.ScaleUnitView
+        android:id="@+id/v_unit"
+        android:layout_width="@dimen/dp_px_72_x"
+        android:layout_height="@dimen/dp_px_300_y"
+        android:layout_marginStart="@dimen/dp_px_41_x"
+        android:layout_marginTop="@dimen/dp_px_128_y"
+        app:layout_constraintBottom_toTopOf="@id/rg_graph"
+        app:layout_constraintStart_toStartOf="@id/rg_graph"
+        app:suv_line_stroke_width="2"
+        app:suv_margin_y="19"
+        app:suv_max_value="20"
+        app:suv_min_value="0"
+        app:suv_scale_stroke_width="2"
+        app:suv_scale_width="10"
+        app:suv_txt_size="25"
+        app:suv_val_count="6" />
+
+    <com.run.treadmill.widget.chart.BarGraph
+        android:id="@+id/v_bar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/dp_px_19_x"
+        android:layout_marginTop="@dimen/dp_px_15_x"
+        android:layout_marginEnd="@dimen/dp_px_118_x"
+        app:bar_currCompletedColorEnd="@color/color_11998e"
+        app:bar_currCompletedColorStart="@color/color_38ef7d"
+        app:bar_hasCompletedColorEnd="@color/color_8e9eab"
+        app:bar_hasCompletedColorStart="@color/color_eef2f3"
+        app:bar_unCompletedColorEnd="@color/color_093637"
+        app:bar_unCompletedColorStart="@color/color_44a08d"
+        app:layout_constraintBottom_toTopOf="@id/rg_graph"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/v_unit"
+        app:layout_constraintTop_toTopOf="@id/v_unit" />
+
+    <TextView
+        android:id="@+id/tv_bar_val"
+        android:layout_width="@dimen/dp_px_130_x"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="99.9"
+        android:textColor="@color/color_11998e"
+        android:textSize="@dimen/font_size_80"
+        app:layout_constraintEnd_toEndOf="@id/img_bar_icon"
+        app:layout_constraintStart_toStartOf="@id/img_bar_icon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_bar_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_incline_run"
+        app:layout_constraintStart_toStartOf="@id/v_bar"
+        app:layout_constraintTop_toBottomOf="@id/tv_bar_val" />
+
+    <RadioGroup
+        android:id="@+id/rg_graph"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_px_40_x"
+        android:layout_marginTop="@dimen/dp_px_19_y"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_bar">
+
+        <RadioButton
+            android:id="@+id/rb_graph_left"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_px_48_y"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/string_incline"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_32"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rb_graph_right"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_px_48_y"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/string_speed"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_32"
+            android:textStyle="bold" />
+    </RadioGroup>
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/btn_left"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="@dimen/dp_px_48_y"-->
+    <!--        android:text="INCLINE"-->
+    <!--        android:textSize="@dimen/font_size_32"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:gravity="center"-->
+    <!--        android:textIsSelectable="true"-->
+    <!--        android:background="@drawable/shape_click_green_green"-->
+    <!--        android:layout_marginTop="@dimen/dp_px_19_y"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/v_bar"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toStartOf="@id/btn_right"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/btn_right"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="@dimen/dp_px_48_y"-->
+    <!--        android:text="SPEED"-->
+    <!--        android:textSize="@dimen/font_size_32"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:gravity="center"-->
+    <!--        android:textIsSelectable="true"-->
+    <!--        android:background="@drawable/shape_click_green_blue"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/btn_left"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/btn_left"-->
+    <!--        app:layout_constraintStart_toEndOf="@id/btn_left"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"/>-->
+</androidx.constraintlayout.motion.widget.MotionLayout>
