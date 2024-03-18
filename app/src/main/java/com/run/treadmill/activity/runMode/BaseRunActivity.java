@@ -339,7 +339,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     @OnClick({R.id.btn_start_stop_skip, R.id.btn_pause_continue, R.id.btn_pause_quit, R.id.btn_incline_up, R.id.btn_incline_down,
             R.id.btn_speed_up, R.id.btn_speed_down, R.id.btn_media, R.id.btn_line_chart_incline, R.id.btn_line_chart_speed,
             R.id.btn_speed_roller, R.id.btn_incline_roller,
-            R.id.btn_home
+            R.id.btn_home,
+            R.id.iv_pause
     })
     public synchronized void click(View view) {
         BaseRunClick.click(this, view);
@@ -515,6 +516,11 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
     }
 
+    public void clickPause() {
+        runPause.clickPause();
+        showPopTip();
+    }
+
     public class InclineTextWatcher implements TextWatcher {
 
         @Override
@@ -671,4 +677,12 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public String getSpeed() {
         return adjustSpeed.getSpeed();
     }
+
+    @BindView(R.id.iv_pause)
+    public ImageView iv_pause;
+
+    @BindView(R.id.iv_start)
+    public ImageView iv_start;
+
+
 }

@@ -332,40 +332,6 @@
             android:src="@drawable/img_bt" />
     </RelativeLayout>
 
-    <!-- 暂停 -->
-    <RelativeLayout
-        android:id="@+id/rl_mask"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/transparent_black"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_337_x"
-            android:layout_marginTop="@dimen/dp_px_298_y"
-            android:src="@drawable/img_pop_pause" />
-
-        <ImageView
-            android:id="@+id/btn_pause_quit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_667_x"
-            android:layout_marginTop="@dimen/dp_px_830_y"
-            android:src="@drawable/btn_pause_quit" />
-
-        <ImageView
-            android:id="@+id/btn_pause_continue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_983_x"
-            android:layout_marginTop="@dimen/dp_px_830_y"
-            android:src="@drawable/btn_pause_continue" />
-    </RelativeLayout>
-
     <!-- 倒计时 -->
     <TextView
         android:id="@+id/tv_prepare"
@@ -461,6 +427,7 @@
         android:layout_marginStart="@dimen/dp_px_456_x"
         android:layout_marginTop="@dimen/dp_px_43_x" />
 
+    <!--时间-->
     <TextClock
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
@@ -476,4 +443,38 @@
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_45" />
 
+
+    <!-- 暂停 -->
+    <RelativeLayout
+        android:id="@+id/rl_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent_black"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_337_x"
+            android:layout_marginTop="@dimen/dp_px_298_y"
+            android:src="@drawable/img_pop_pause" />
+
+        <ImageView
+            android:id="@+id/btn_pause_quit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_667_x"
+            android:layout_marginTop="@dimen/dp_px_830_y"
+            android:src="@drawable/btn_pause_quit" />
+
+        <ImageView
+            android:id="@+id/btn_pause_continue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_px_983_x"
+            android:layout_marginTop="@dimen/dp_px_830_y"
+            android:src="@drawable/btn_pause_continue" />
+    </RelativeLayout>
 </RelativeLayout>

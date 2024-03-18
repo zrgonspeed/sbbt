@@ -2,14 +2,10 @@ package com.run.treadmill.activity.runMode.help;
 
 import android.view.View;
 
-import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.ControlManager;
-import com.run.treadmill.util.Logger;
-import com.run.treadmill.util.ThreadUtils;
 
 public class BaseRunClick {
     public static void click(BaseRunActivity activity, View view) {
@@ -25,56 +21,8 @@ public class BaseRunClick {
             case R.id.btn_line_chart_speed:
                 BuzzerManager.getInstance().buzzerRingOnce();
                 break;
-            case R.id.btn_start_stop_skip:
-                if (activity.btn_home.getVisibility() == View.VISIBLE) {
-                    activity.btn_home.setVisibility(View.GONE);
-                }
-                if (activity.mRunningParam.isNormal()) {
-                    activity.rl_mask.setVisibility(View.GONE);
-
-                    activity.btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
-                    activity.mRunningParam.setToPrepare();
-                    activity.showPrepare(0);
-                    break;
-                } else if (activity.mRunningParam.isStopStatus()
-                        || activity.mRunningParam.isPrepare()) {
-                    break;
-                } else if (activity.mRunningParam.isWarmStatus()) {
-                    BuzzerManager.getInstance().buzzerRingOnce();
-                    activity.warmUpToRunning();
-                } else if (activity.mRunningParam.isCoolDownStatus()) {
-                    BuzzerManager.getInstance().buzzerRingOnce();
-                    activity.btn_start_stop_skip.setEnabled(false);
-                    activity.finishRunning();
-                } else {
-                    activity.disFlag = true;
-                    Logger.i("disFlag = true");
-                    ThreadUtils.runInThread(() -> {
-                        activity.disFlag = false;
-                        Logger.i("disFlag = false");
-
-                        if (AppDebug.debug) {
-                            if (!activity.isDestroyed()) {
-                                activity.runOnUiThread(() -> {
-                                    activity.btn_pause_continue.setEnabled(true);
-                                });
-                            }
-                        }
-                    }, 1000);
-
-                    BuzzerManager.getInstance().buzzerRingOnce();
-                    activity.mRunningParam.setToStopStatus();
-                    activity.btn_pause_continue.setEnabled(false);
-                    // gsMode默认false
-                    // 客户要求修改扬升机制
-                    ControlManager.getInstance().stopRun(activity.gsMode);
-                    // ControlManager.getInstance().resetIncline();
-
-                    if (activity.mVideoPlayerSelf != null) {
-                        activity.mVideoPlayerSelf.videoPlayerStartPause();
-                    }
-                }
-                activity.showPopTip();
+            case R.id.iv_pause:
+                activity.clickPause();
                 break;
             case R.id.btn_pause_continue:
                 if (activity.mRunningParam.isRunningEnd()) {
