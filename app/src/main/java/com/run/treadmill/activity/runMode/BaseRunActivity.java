@@ -62,8 +62,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public RelativeLayout rl_top;
     @BindView(R.id.rl_bottom)
     public RelativeLayout rl_bottom;
-    @BindView(R.id.rl_mask)
-    public RelativeLayout rl_mask;
+    @BindView(R.id.run_pop_pause)
+    public RelativeLayout run_pop_pause;
     @BindView(R.id.rl_center_tip)
     public RelativeLayout rl_center_tip;
     @BindView(R.id.img_run_pop_tip)

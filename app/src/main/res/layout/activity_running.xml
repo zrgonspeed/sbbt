@@ -443,66 +443,11 @@
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_45" />
 
-
     <!-- 暂停 -->
-    <RelativeLayout
-        android:id="@+id/rl_mask"
+    <include
+        android:id="@+id/run_pop_pause"
+        layout="@layout/run_pop_pause"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/transparent_black_new"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="@dimen/dp_px_798_x"
-            android:layout_height="@dimen/dp_px_450_x"
-            android:layout_centerInParent="true"
-            android:background="@drawable/pop_pause_new" />
-
-        <ImageView
-            android:id="@+id/btn_pause_quit_old"
-            android:layout_width="@dimen/dp_px_312_x"
-            android:layout_height="@dimen/dp_px_94_x"
-            android:layout_marginStart="@dimen/dp_px_633_x"
-            android:layout_marginTop="@dimen/dp_px_635_x"
-            android:background="@drawable/btn_pause_quit"
-            android:visibility="gone" />
-
-        <com.hjq.shape.view.ShapeTextView
-            android:id="@+id/btn_pause_continue"
-            android:layout_width="@dimen/dp_px_312_x"
-            android:layout_height="@dimen/dp_px_94_x"
-            android:layout_marginStart="@dimen/dp_px_633_x"
-            android:layout_marginTop="@dimen/dp_px_635_x"
-            android:gravity="center"
-            android:text="Resume"
-            android:textAlignment="center"
-            android:textSize="@dimen/font_size_45"
-            app:shape_radius="@dimen/dp_px_15_x"
-            app:shape_solidCheckedColor="@color/color_bt_2"
-            app:shape_solidColor="@color/color_bt_1"
-            app:shape_solidDisabledColor="@color/color_bt_3"
-            app:shape_solidPressedColor="@color/color_bt_2"
-            app:shape_solidSelectedColor="@color/color_bt_2"
-            app:shape_type="rectangle" />
-
-        <com.hjq.shape.view.ShapeTextView
-            android:id="@+id/btn_pause_quit"
-            android:layout_width="@dimen/dp_px_312_x"
-            android:layout_height="@dimen/dp_px_94_x"
-            android:layout_marginStart="@dimen/dp_px_975_x"
-            android:layout_marginTop="@dimen/dp_px_635_x"
-            android:gravity="center"
-            android:text="Finish"
-            android:textAlignment="center"
-            android:textSize="@dimen/font_size_45"
-            app:shape_radius="@dimen/dp_px_15_x"
-            app:shape_solidCheckedColor="@color/color_bt_red_2"
-            app:shape_solidColor="@color/color_bt_red_1"
-            app:shape_solidDisabledColor="@color/color_bt_red_3"
-            app:shape_solidPressedColor="@color/color_bt_red_2"
-            app:shape_solidSelectedColor="@color/color_bt_red_2"
-            app:shape_type="rectangle" />
-    </RelativeLayout>
+        android:visibility="gone" />
 </RelativeLayout>

@@ -33,7 +33,7 @@ public class BaseRunClick {
                 }
                 activity.mRunningParam.setToContinue();
                 BuzzerManager.getInstance().buzzerRingOnce();
-                activity.rl_mask.setVisibility(View.GONE);
+                activity.run_pop_pause.setVisibility(View.GONE);
                 activity.runPause.stopPauseTimer();
                 activity.showPrepare(0);
                 break;

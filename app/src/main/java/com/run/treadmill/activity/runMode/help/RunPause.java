@@ -61,7 +61,7 @@ public class RunPause implements CustomTimer.TimerCallBack {
             activity.btn_home.setVisibility(View.GONE);
         }
         if (activity.mRunningParam.isNormal()) {
-            activity.rl_mask.setVisibility(View.GONE);
+            activity.run_pop_pause.setVisibility(View.GONE);
 
             activity.btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
             activity.mRunningParam.setToPrepare();
@@ -134,7 +134,7 @@ public class RunPause implements CustomTimer.TimerCallBack {
         activity.btn_pause_continue.setEnabled(false);
         activity.setSpeed(activity.getSpeedValue(String.valueOf(0.0f)));
         activity.img_run_pop_tip.setImageResource(R.drawable.img_pop_pause);
-        activity.rl_mask.setVisibility(View.VISIBLE);
+        activity.run_pop_pause.setVisibility(View.VISIBLE);
         //暂停倒计时
         startPauseTimer();
         activity.setControlEnable(false);
