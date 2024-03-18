@@ -15,7 +15,7 @@ import java.lang.ref.WeakReference;
 
 
 @SuppressLint("AppCompatCustomView")
-public class LongClickImage extends ImageView {
+public class LongClickView extends ImageView {
 
     /**
      * 长按连续响应的监听，长按时将会多次调用该接口中的方法直到长按结束
@@ -32,17 +32,17 @@ public class LongClickImage extends ImageView {
 
     private boolean isEnable = true;
 
-    public LongClickImage(Context context) {
+    public LongClickView(Context context) {
         super(context);
         init();
     }
 
-    public LongClickImage(Context context, AttributeSet attrs) {
+    public LongClickView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public LongClickImage(Context context, AttributeSet attrs, int defStyleAttr) {
+    public LongClickView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -75,7 +75,7 @@ public class LongClickImage extends ImageView {
 
         @Override
         public void run() {
-            while (LongClickImage.this.isPressed()) {
+            while (LongClickView.this.isPressed()) {
                 if (!isEnable) {
                     continue;
                 }
@@ -93,16 +93,16 @@ public class LongClickImage extends ImageView {
      */
     private static class MyHandler extends Handler {
 
-        private WeakReference<LongClickImage> ref;
+        private WeakReference<LongClickView> ref;
 
-        MyHandler(LongClickImage button) {
-            ref = new WeakReference<LongClickImage>(button);
+        MyHandler(LongClickView button) {
+            ref = new WeakReference<LongClickView>(button);
         }
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            LongClickImage button = ref.get();
+            LongClickView button = ref.get();
             if (!button.isEnable) {
                 return;
             }
@@ -111,7 +111,7 @@ public class LongClickImage extends ImageView {
                 button.setTag(1);
                 button.performClick();
 
-                // 长按时不响按键音，测试说太难听了
+                // 长按时是否响按键音
                 BuzzerManager.canBuzzerWhenLongKey = false;
             }
         }

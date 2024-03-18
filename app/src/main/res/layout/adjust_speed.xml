@@ -9,7 +9,7 @@
         android:layout_height="@dimen/dp_px_700_x"
         android:background="@drawable/img_incline_speed_box" />
 
-    <ImageView
+    <com.run.treadmill.widget.LongClickView
         android:id="@+id/iv_run_up"
         android:layout_width="@dimen/dp_px_48_x"
         android:layout_height="@dimen/dp_px_48_x"
@@ -17,7 +17,7 @@
         android:layout_marginTop="@dimen/dp_px_192_x"
         android:background="@drawable/btn_workout_plus_1" />
 
-    <ImageView
+    <com.run.treadmill.widget.LongClickView
         android:id="@+id/iv_run_down"
         android:layout_width="@dimen/dp_px_48_x"
         android:layout_height="@dimen/dp_px_48_x"
