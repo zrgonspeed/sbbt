@@ -447,7 +447,7 @@
     <include
         android:id="@+id/run_pop_pause"
         layout="@layout/run_pop_pause"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="@dimen/dp_px_1920_x"
+        android:layout_height="@dimen/dp_px_1080_x"
         android:visibility="gone" />
 </RelativeLayout>

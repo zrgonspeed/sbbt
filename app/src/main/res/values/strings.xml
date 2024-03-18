@@ -229,4 +229,10 @@
     <string name="str_weight">Weight</string>
     <string name="string_user_select_max_speed">Max Speed</string>
     <string name="string_unit_cal">cal</string>
+
+    <string name="str_pause">
+        Are you sure to leave?
+        \n
+        You will enter the Workout Summary
+    </string>
 </resources>

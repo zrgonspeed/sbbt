@@ -1,27 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="@dimen/dp_px_1920_x"
+    android:layout_height="@dimen/dp_px_1080_x"
     android:background="@color/transparent_black_new"
     android:clickable="true"
     android:focusable="true">
 
-
     <ImageView
         android:layout_width="@dimen/dp_px_798_x"
         android:layout_height="@dimen/dp_px_450_x"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_315_x"
         android:background="@drawable/pop_pause_new" />
 
-    <ImageView
-        android:id="@+id/btn_pause_quit_old"
-        android:layout_width="@dimen/dp_px_312_x"
-        android:layout_height="@dimen/dp_px_94_x"
-        android:layout_marginStart="@dimen/dp_px_633_x"
-        android:layout_marginTop="@dimen/dp_px_635_x"
-        android:background="@drawable/btn_pause_quit"
-        android:visibility="gone" />
+    <TextView
+        android:id="@+id/tv_pause_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_340_x"
+        android:gravity="center"
+        android:text="Pause"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_85" />
+
+    <View
+        android:layout_width="@dimen/dp_px_798_x"
+        android:layout_height="@dimen/dp_px_1_x"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_463_x"
+        android:background="#A5F2B3F3" />
+
+    <TextView
+        android:id="@+id/tv_pause_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_500_x"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.2"
+        android:text="@string/str_pause"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_45" />
 
     <com.hjq.shape.view.ShapeTextView
         android:id="@+id/btn_pause_continue"
@@ -32,6 +55,7 @@
         android:gravity="center"
         android:text="Resume"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="@dimen/font_size_45"
         app:shape_radius="@dimen/dp_px_15_x"
         app:shape_solidCheckedColor="@color/color_bt_2"
@@ -50,6 +74,7 @@
         android:gravity="center"
         android:text="Finish"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="@dimen/font_size_45"
         app:shape_radius="@dimen/dp_px_15_x"
         app:shape_solidCheckedColor="@color/color_bt_red_2"
