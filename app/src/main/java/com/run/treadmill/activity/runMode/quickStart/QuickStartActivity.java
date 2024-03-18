@@ -205,63 +205,6 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
         refreshLineChart();
     }
 
-    @Override
-    public void afterInclineChanged(float incline) {
-        if (isCalcDialogShowing()) {
-            return;
-        }
-        if (incline <= 0) {
-            if (btn_incline_down.isEnabled()) {
-                btn_incline_down.setEnabled(false);
-            }
-            if (!btn_incline_up.isEnabled()) {
-                btn_incline_up.setEnabled(true);
-            }
-        } else if (incline >= maxIncline) {
-            if (!btn_incline_down.isEnabled()) {
-                btn_incline_down.setEnabled(true);
-            }
-            if (btn_incline_up.isEnabled()) {
-                btn_incline_up.setEnabled(false);
-            }
-        } else {
-            if (!btn_incline_down.isEnabled()) {
-                btn_incline_down.setEnabled(true);
-            }
-            if (!btn_incline_up.isEnabled()) {
-                btn_incline_up.setEnabled(true);
-            }
-        }
-    }
-
-    @Override
-    public void afterSpeedChanged(float speed) {
-        if (isCalcDialogShowing()) {
-            return;
-        }
-        if (speed <= minSpeed) {
-            if (btn_speed_down.isEnabled()) {
-                btn_speed_down.setEnabled(false);
-            }
-            if (!btn_speed_up.isEnabled()) {
-                btn_speed_up.setEnabled(true);
-            }
-        } else if (speed >= maxSpeed) {
-            if (!btn_speed_down.isEnabled()) {
-                btn_speed_down.setEnabled(true);
-            }
-            if (btn_speed_up.isEnabled()) {
-                btn_speed_up.setEnabled(false);
-            }
-        } else {
-            if (!btn_speed_down.isEnabled()) {
-                btn_speed_down.setEnabled(true);
-            }
-            if (!btn_speed_up.isEnabled()) {
-                btn_speed_up.setEnabled(true);
-            }
-        }
-    }
 
     @Override
     public void showPopTip() {

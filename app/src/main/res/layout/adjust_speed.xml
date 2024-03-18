@@ -10,7 +10,7 @@
         android:background="@drawable/img_incline_speed_box" />
 
     <ImageView
-        android:id="@+id/iv_run_add"
+        android:id="@+id/iv_run_up"
         android:layout_width="@dimen/dp_px_48_x"
         android:layout_height="@dimen/dp_px_48_x"
         android:layout_centerHorizontal="true"
@@ -18,7 +18,7 @@
         android:background="@drawable/btn_workout_plus_1" />
 
     <ImageView
-        android:id="@+id/iv_run_dec"
+        android:id="@+id/iv_run_down"
         android:layout_width="@dimen/dp_px_48_x"
         android:layout_height="@dimen/dp_px_48_x"
         android:layout_centerHorizontal="true"

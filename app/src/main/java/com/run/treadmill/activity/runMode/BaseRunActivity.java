@@ -558,6 +558,22 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
     }
 
+    public void afterInclineChanged(float incline) {
+        if (isCalcDialogShowing()) {
+            return;
+        }
+
+        adjustIncline.afterInclineChanged(incline);
+    }
+
+    public void afterSpeedChanged(float speed) {
+        if (isCalcDialogShowing()) {
+            return;
+        }
+
+        adjustSpeed.afterSpeedChanged(speed);
+    }
+
     @BindView(R.id.tv_setnum)
     public TextView tv_setnum;
 
@@ -614,8 +630,14 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     private void initAdjustIncline() {
         adjustIncline.setOnClickAddDec(
-                v -> getPresenter().setInclineValue(1, 0, false),
-                v -> getPresenter().setInclineValue(-1, 0, false));
+                v -> {
+                    speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                    getPresenter().setInclineValue(1, 0, false);
+                },
+                v -> {
+                    speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
+                    getPresenter().setInclineValue(-1, 0, false);
+                });
     }
 
     public void setIncline(CharSequence value) {
@@ -632,8 +654,14 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     private void initAdjustSpeed() {
         adjustSpeed.setOnClickAddDec(
-                v -> getPresenter().setSpeedValue(1, 0, false),
-                v -> getPresenter().setSpeedValue(-1, 0, false));
+                v -> {
+                    speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
+                    getPresenter().setSpeedValue(1, 0, false);
+                },
+                v -> {
+                    speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
+                    getPresenter().setSpeedValue(-1, 0, false);
+                });
     }
 
     public void setSpeed(CharSequence value) {
