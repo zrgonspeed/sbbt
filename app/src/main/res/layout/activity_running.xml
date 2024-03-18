@@ -462,4 +462,29 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/dp_px_180_x"
         android:layout_marginEnd="@dimen/dp_px_173_x" />
+
+    <!--顶部-->
+    <include
+        android:id="@+id/run_top"
+        layout="@layout/run_top"
+        android:layout_width="@dimen/dp_px_976_x"
+        android:layout_height="@dimen/dp_px_64_x"
+        android:layout_marginStart="@dimen/dp_px_456_x"
+        android:layout_marginTop="@dimen/dp_px_43_x" />
+
+    <TextClock
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dp_px_50_x"
+        android:layout_marginEnd="@dimen/dp_px_50_x"
+        android:format12Hour="hh:mm\naa"
+        android:format24Hour="HH:mm"
+        android:gravity="end"
+        android:text="10:30 AM"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_45" />
+
 </RelativeLayout>

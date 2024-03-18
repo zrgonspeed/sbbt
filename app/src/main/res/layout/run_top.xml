@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_px_976_x"
+    android:layout_height="@dimen/dp_px_64_x">
+
+    <!--Time-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_212_x"
+        android:layout_marginTop="@dimen/dp_px_110_x"
+        android:gravity="start"
+        android:paddingStart="@dimen/dp_px_4_x"
+        android:text="TIME"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_32" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_64_x"
+        android:layout_height="@dimen/dp_px_64_x"
+        android:background="@drawable/btn_workout_fan_0" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_64_x"
+        android:layout_height="@dimen/dp_px_64_x"
+        android:layout_marginStart="@dimen/dp_px_114_x"
+        android:background="@drawable/btn_workout_hdmi_1" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_64_x"
+        android:layout_height="@dimen/dp_px_64_x"
+        android:layout_marginStart="@dimen/dp_px_228_x"
+        android:background="@drawable/btn_workout_mirror_1" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_64_x"
+        android:layout_height="@dimen/dp_px_64_x"
+        android:layout_marginStart="@dimen/dp_px_342_x"
+        android:background="@drawable/btn_application_1" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_64_x"
+        android:layout_height="@dimen/dp_px_64_x"
+        android:layout_marginStart="@dimen/dp_px_456_x"
+        android:background="@drawable/btn_workout_alarm_clock_on_1" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_64_x"
+        android:layout_height="@dimen/dp_px_64_x"
+        android:layout_marginStart="@dimen/dp_px_570_x"
+        android:background="@drawable/btn_workout_wearables_on_1" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_64_x"
+        android:layout_height="@dimen/dp_px_64_x"
+        android:layout_marginStart="@dimen/dp_px_684_x"
+        android:background="@drawable/btn_workout_volume_on_1" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_64_x"
+        android:layout_height="@dimen/dp_px_64_x"
+        android:layout_marginStart="@dimen/dp_px_798_x"
+        android:background="@drawable/img_workout_bluetooth_on_1" />
+
+    <ImageView
+        android:layout_width="@dimen/dp_px_64_x"
+        android:layout_height="@dimen/dp_px_64_x"
+        android:layout_marginStart="@dimen/dp_px_912_x"
+        android:background="@drawable/btn_workout_wifi_on_1" />
+</RelativeLayout>
