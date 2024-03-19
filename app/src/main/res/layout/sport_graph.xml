@@ -7,7 +7,7 @@
     app:layoutDescription="@xml/sport_graph_scene">
 
     <!-- 这里的高度和边界刻度内缩suv_margin_y 相互搭配 -->
-    <com.run.treadmill.widget.chart.ScaleUnitView
+    <com.run.treadmill.widget.chart.SportUnitView
         android:id="@+id/v_unit"
         android:layout_width="@dimen/dp_px_72_x"
         android:layout_height="@dimen/dp_px_300_y"

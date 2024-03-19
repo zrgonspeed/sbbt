@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 
 import com.run.treadmill.common.InitParam;
-import com.run.treadmill.sp.StorageParam;
 import com.run.treadmill.util.UnitUtil;
 
 /**
@@ -581,6 +580,10 @@ public class SpManager {
         }
     }
 
+    public static float getMaxSpeed() {
+        return getMaxSpeed(getIsMetric());
+    }
+
     /**
      * 设置最大速度
      *
@@ -620,6 +623,10 @@ public class SpManager {
         } else {
             return StorageParam.getParam(SET_MIN_SPEED_IMPERIAL, InitParam.DEFAULT_MIN_SPEED_IMPERIAL);
         }
+    }
+
+    public static float getMinSpeed() {
+        return getMinSpeed(getIsMetric());
     }
 
     // 设置轮径尺寸

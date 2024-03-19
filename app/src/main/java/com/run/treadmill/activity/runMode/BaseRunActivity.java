@@ -23,6 +23,7 @@ import com.run.treadmill.activity.floatWindow.FloatWindowManager;
 import com.run.treadmill.activity.runMode.help.BaseRunClick;
 import com.run.treadmill.activity.runMode.help.Prepare321Go;
 import com.run.treadmill.activity.runMode.help.RunError;
+import com.run.treadmill.activity.runMode.help.RunGraph;
 import com.run.treadmill.activity.runMode.help.RunKey;
 import com.run.treadmill.activity.runMode.help.RunLineChart;
 import com.run.treadmill.activity.runMode.help.RunMcu;
@@ -40,6 +41,7 @@ import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.StringUtil;
+import com.run.treadmill.weidget.SportGraph;
 import com.run.treadmill.widget.HistogramListView;
 import com.run.treadmill.widget.LongClickImage;
 import com.run.treadmill.widget.VideoPlayerSelf;
@@ -208,6 +210,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
         initAdjustIncline();
         initAdjustSpeed();
+
+        initGraph();
     }
 
     @Override
@@ -237,7 +241,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             }
             if (lineChartView != null) {
                 btn_media.setVisibility(View.VISIBLE);
-                rl_chart_view.setVisibility(View.VISIBLE);
+                // rl_chart_view.setVisibility(View.VISIBLE);
             }
             runRefresh.onResumeInitRunParam();
             if (mCalcBuilder == null) {
@@ -570,6 +574,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
 
         adjustIncline.afterInclineChanged(incline);
+        refreshChart();
     }
 
     public void afterSpeedChanged(float speed) {
@@ -578,6 +583,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
 
         adjustSpeed.afterSpeedChanged(speed);
+        refreshChart();
     }
 
     @BindView(R.id.tv_setnum)
@@ -684,5 +690,18 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     @BindView(R.id.iv_start)
     public ImageView iv_start;
 
+    /****************柱状图控制 RunGraph***************/
+    @BindView(R.id.bar_graph)
+    public SportGraph bar_graph;
+
+    public RunGraph runGraph = new RunGraph(this);
+
+    public void initGraph() {
+        runGraph.initGraph(bar_graph);
+    }
+
+    public void refreshChart() {
+        runGraph.refreshChart();
+    }
 
 }

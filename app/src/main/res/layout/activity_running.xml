@@ -340,7 +340,15 @@
         layout="@layout/run_chart"
         android:layout_width="@dimen/dp_px_1920_x"
         android:layout_height="@dimen/dp_px_1080_x"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:visibility="gone" />
+
+    <com.run.treadmill.weidget.SportGraph
+        android:id="@+id/bar_graph"
+        android:layout_width="@dimen/dp_px_1080_x"
+        android:layout_height="@dimen/dp_px_600_x"
+        android:layout_marginStart="@dimen/dp_px_420_x"
+        android:layout_marginTop="@dimen/dp_px_213_x" />
 
     <!--底部-->
     <include

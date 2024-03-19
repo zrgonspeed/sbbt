@@ -12,7 +12,7 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.run.treadmill.R
 import com.run.treadmill.widget.chart.BarGraph
-import com.run.treadmill.widget.chart.ScaleUnitView
+import com.run.treadmill.widget.chart.SportUnitView
 
 
 class SportGraph constructor(context: Context, attrs: AttributeSet) :
@@ -20,7 +20,7 @@ class SportGraph constructor(context: Context, attrs: AttributeSet) :
     var view: View? = null
     var motionVar: MotionLayout? = null
     private var vBar: BarGraph? = null
-    private var vUnit: ScaleUnitView? = null
+    private var vUnit: SportUnitView? = null
     private var rgRraph: RadioGroup? = null
     private var tvBarVal: TextView? = null
     private var imgBarIcon: ImageView? = null
@@ -155,4 +155,6 @@ class SportGraph constructor(context: Context, attrs: AttributeSet) :
         rbGraphLeft?.isEnabled = false
         rbGraphRight?.visibility = View.GONE
     }
+
+    var currSelectType: Int? = null
 }

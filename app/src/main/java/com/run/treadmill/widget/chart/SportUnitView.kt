@@ -10,12 +10,7 @@ import android.view.View
 import com.run.treadmill.R
 import com.run.treadmill.util.UnitUtil
 
-/**
- * @Description 刻度尺
- * @Author GaleLiu
- * @Time 2021/10/27
- */
-class ScaleUnitView : View {
+class SportUnitView : View {
     private var txtPaint = Paint()
     private var txtRect = Rect()
 
@@ -77,7 +72,7 @@ class ScaleUnitView : View {
         attrs?.let {
             val typeArray = context.obtainStyledAttributes(attrs, R.styleable.ScaleUnitView)
             txtGravity = typeArray.getInteger(R.styleable.ScaleUnitView_suv_txt_gravity, 1)
-            mColor = typeArray.getColor(R.styleable.ScaleUnitView_suv_color, Color.BLACK)
+            mColor = typeArray.getColor(R.styleable.ScaleUnitView_suv_color, Color.WHITE)
             minValue = typeArray.getFloat(R.styleable.ScaleUnitView_suv_min_value, 0f)
             maxValue = typeArray.getFloat(R.styleable.ScaleUnitView_suv_max_value, 30f)
             valCount = typeArray.getInteger(R.styleable.ScaleUnitView_suv_val_count, 6)
