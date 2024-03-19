@@ -17,6 +17,7 @@ import com.run.treadmill.reboot.MyApplication
  */
 class BarGraphView : View {
     private var barPaint = Paint()
+    private var barPaint2 = Paint()
     private var barRectF = RectF()
 
     /** 条形图的数量*/
@@ -33,6 +34,7 @@ class BarGraphView : View {
         }
 
     private var barWidth = 30f
+
     // 改间隔是改宽度
     private var barInterval = 8f
 
@@ -97,9 +99,11 @@ class BarGraphView : View {
         barPaint.isAntiAlias = true
         barPaint.style = Paint.Style.FILL
 
+/*        barPaint2.isAntiAlias = true
+        barPaint2.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN);
         for (index in barPointArray.indices) {
             barPointArray[index] = index * 0.01f
-        }
+        }*/
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -111,6 +115,9 @@ class BarGraphView : View {
     @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+
+//        var saved = canvas?.saveLayer(barRectF, barPaint, Canvas.ALL_SAVE_FLAG);
+
         for ((index, value) in barPointArray.withIndex()) {
             barRectF.left = index * (barInterval + barWidth)
             barRectF.right = barWidth * (index + 1) + barInterval * index
@@ -159,6 +166,11 @@ class BarGraphView : View {
                 }
             }
             canvas?.drawRoundRect(barRectF, 5f, 5f, barPaint)
+            //保存叠加后的内容
+//            canvas?.saveLayer(barRectF, barPaint2, Canvas.ALL_SAVE_FLAG);
+//            canvas?.restore()
+//            barPaint2.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN);
+//            canvas?.drawRoundRect(barRectF, 0f, 0f, barPaint2);
         }
     }
 

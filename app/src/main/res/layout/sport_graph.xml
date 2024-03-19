@@ -4,8 +4,17 @@
     android:id="@+id/motion_bar"
     android:layout_width="@dimen/dp_px_1080_x"
     android:layout_height="@dimen/dp_px_600_x"
-    android:background="#22AAE1A3"
     app:layoutDescription="@xml/sport_graph_scene">
+
+    <!--背景圆角，透明-->
+    <com.hjq.shape.view.ShapeView
+        android:id="@+id/sv_graph"
+        android:layout_width="@dimen/dp_px_1080_x"
+        android:layout_height="@dimen/dp_px_600_x"
+        app:shape_radius="@dimen/dp_px_30_x"
+        app:shape_solidColor="#1A5E6CB2"
+        app:shape_strokeColor="#4DFFFFFF"
+        app:shape_strokeSize="@dimen/dp_px_1_x" />
 
     <!-- 这里的高度和边界刻度内缩suv_margin_y 相互搭配 -->
     <com.run.treadmill.widget.chart.SportUnitView
