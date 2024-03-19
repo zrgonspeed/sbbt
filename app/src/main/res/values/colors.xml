@@ -277,6 +277,8 @@
     <color name="color_bt_2">#32378C</color>
     <color name="color_bt_3">#80575973</color>
 
+    <color name="color_FA198B">#FA198B</color>
+
     <color name="color_bt_red_1">#FA198B</color>
     <color name="color_bt_red_2">#AD115F</color>
     <color name="color_bt_red_3">#80575973</color>
@@ -359,4 +361,6 @@
     <color name="summary_1_1">#182848</color>
     <color name="summary_2">#44a08d</color>
     <color name="summary_2_1">#093637</color>
+
+    <color name="color_line">#59A9ACED</color>
 </resources>

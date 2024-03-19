@@ -78,7 +78,7 @@
         <!-- 凸出的刻度粗细 -->
         <attr name="suv_scale_stroke_width" format="reference|float"/>
         <!-- 凸出的刻度长度 -->
-        <attr name="suv_scale_width" format="reference|integer"/>
+        <attr name="suv_scale_width" format="dimension"/>
         <attr name="suv_margin_y" format="reference|integer"/>
         <attr name="suv_txt_size" format="reference|float"/>
         <attr name="suv_color" format="reference|color" />

@@ -18,6 +18,7 @@ class SportUnitView : View {
     private var txtGravity = 1
 
     private var mColor = Color.BLACK
+    private var mColorLine = Color.BLACK
 
     /** 刻度最小值*/
     var minValue = 0f
@@ -41,7 +42,7 @@ class SportUnitView : View {
     private var scaleStrokeWidth = 5f
 
     /** 刻度长度*/
-    private var scaleWidth = 20f
+    private var scaleWidth = 20
 
     /** 上下刻度到控件的边距*/
     private var scanMarginY = 10f
@@ -73,6 +74,7 @@ class SportUnitView : View {
             val typeArray = context.obtainStyledAttributes(attrs, R.styleable.ScaleUnitView)
             txtGravity = typeArray.getInteger(R.styleable.ScaleUnitView_suv_txt_gravity, 1)
             mColor = typeArray.getColor(R.styleable.ScaleUnitView_suv_color, Color.WHITE)
+            mColorLine = typeArray.getColor(R.styleable.ScaleUnitView_suv_color, resources.getColor(R.color.color_line))
             minValue = typeArray.getFloat(R.styleable.ScaleUnitView_suv_min_value, 0f)
             maxValue = typeArray.getFloat(R.styleable.ScaleUnitView_suv_max_value, 30f)
             valCount = typeArray.getInteger(R.styleable.ScaleUnitView_suv_val_count, 6)
@@ -81,7 +83,7 @@ class SportUnitView : View {
                 typeArray.getFloat(R.styleable.ScaleUnitView_suv_line_stroke_width, 5f)
             scaleStrokeWidth =
                 typeArray.getFloat(R.styleable.ScaleUnitView_suv_scale_stroke_width, 5f)
-            scaleWidth = typeArray.getFloat(R.styleable.ScaleUnitView_suv_scale_width, 20f)
+            scaleWidth = typeArray.getLayoutDimension(R.styleable.ScaleUnitView_suv_scale_width, 20)
             scanMarginY = typeArray.getFloat(R.styleable.ScaleUnitView_suv_margin_y, 10f)
             txtSize = typeArray.getFloat(R.styleable.ScaleUnitView_suv_txt_size, 30f)
             typeArray.recycle()
@@ -146,11 +148,13 @@ class SportUnitView : View {
                 txtPaint
             )
         }
+
         txtPaint.strokeWidth = scaleStrokeWidth
         //刻度间隔
         val scaleIntervalHeight = (height - 2f * scanMarginY) / (valCount - 1).toFloat()
         for (c in 0 until valCount) {
             txtArray?.get(c)?.let {
+                txtPaint.color = mColor
                 canvas?.drawText(
                     it,
                     txtX,
@@ -158,6 +162,7 @@ class SportUnitView : View {
                     txtPaint
                 )
             }
+            txtPaint.color = mColorLine
             canvas?.drawLine(
                 scaleStartX, c * scaleIntervalHeight + scanMarginY,
                 scaleStopX, c * scaleIntervalHeight + scanMarginY, txtPaint

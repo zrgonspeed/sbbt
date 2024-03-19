@@ -2,25 +2,27 @@
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/motion_bar"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="@dimen/dp_px_1080_x"
+    android:layout_height="@dimen/dp_px_600_x"
+    android:background="#22AAE1A3"
     app:layoutDescription="@xml/sport_graph_scene">
 
     <!-- 这里的高度和边界刻度内缩suv_margin_y 相互搭配 -->
     <com.run.treadmill.widget.chart.SportUnitView
         android:id="@+id/v_unit"
-        android:layout_width="@dimen/dp_px_72_x"
-        android:layout_height="@dimen/dp_px_300_y"
-        android:layout_marginStart="@dimen/dp_px_41_x"
-        android:layout_marginTop="@dimen/dp_px_128_y"
-        app:layout_constraintBottom_toTopOf="@id/rg_graph"
-        app:layout_constraintStart_toStartOf="@id/rg_graph"
-        app:suv_line_stroke_width="2"
+        android:layout_width="@dimen/dp_px_1020_x"
+        android:layout_height="@dimen/dp_px_350_x"
+        android:layout_marginStart="@dimen/dp_px_30_x"
+        android:layout_marginTop="@dimen/dp_px_158_x"
+        android:background="#22CF1331"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:suv_line_stroke_width="0"
         app:suv_margin_y="19"
         app:suv_max_value="20"
         app:suv_min_value="0"
-        app:suv_scale_stroke_width="2"
-        app:suv_scale_width="10"
+        app:suv_scale_stroke_width="1"
+        app:suv_scale_width="@dimen/dp_px_975_x"
         app:suv_txt_size="25"
         app:suv_val_count="6" />
 
@@ -28,18 +30,20 @@
         android:id="@+id/v_bar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/dp_px_19_x"
+        android:layout_marginStart="@dimen/dp_px_86_x"
         android:layout_marginTop="@dimen/dp_px_15_x"
-        android:layout_marginEnd="@dimen/dp_px_118_x"
+        android:layout_marginEnd="@dimen/dp_px_42_x"
+        android:layout_marginBottom="@dimen/dp_px_113_x"
         app:bar_currCompletedColorEnd="@color/color_11998e"
         app:bar_currCompletedColorStart="@color/color_38ef7d"
         app:bar_hasCompletedColorEnd="@color/color_8e9eab"
         app:bar_hasCompletedColorStart="@color/color_eef2f3"
         app:bar_unCompletedColorEnd="@color/color_093637"
         app:bar_unCompletedColorStart="@color/color_44a08d"
-        app:layout_constraintBottom_toTopOf="@id/rg_graph"
+        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/v_unit"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/v_unit" />
 
     <TextView
@@ -64,20 +68,16 @@
 
     <RadioGroup
         android:id="@+id/rg_graph"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_px_200_x"
         android:layout_height="@dimen/dp_px_40_x"
-        android:layout_marginTop="@dimen/dp_px_19_y"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/v_bar">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <RadioButton
             android:id="@+id/rb_graph_left"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_px_48_y"
-            android:layout_weight="1"
+            android:layout_width="@dimen/dp_px_100_x"
+            android:layout_height="@dimen/dp_px_40_x"
             android:background="@color/green"
             android:button="@null"
             android:gravity="center"
@@ -88,9 +88,8 @@
 
         <RadioButton
             android:id="@+id/rb_graph_right"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_px_48_y"
-            android:layout_weight="1"
+            android:layout_width="@dimen/dp_px_100_x"
+            android:layout_height="@dimen/dp_px_40_x"
             android:background="@color/green"
             android:button="@null"
             android:gravity="center"
