@@ -348,7 +348,7 @@
         android:layout_width="@dimen/dp_px_1080_x"
         android:layout_height="@dimen/dp_px_600_x"
         android:layout_marginStart="@dimen/dp_px_420_x"
-        android:layout_marginTop="@dimen/dp_px_213_x" />
+        android:layout_marginTop="@dimen/dp_px_220_x" />
 
     <!--底部-->
     <include

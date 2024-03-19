@@ -1,8 +1,12 @@
 package com.run.treadmill.activity.runMode.help;
 
+import android.view.View;
+import android.widget.RadioButton;
+
 import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.sp.SpManager;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.widget.chart.SportGraph;
 
 /**
@@ -10,21 +14,30 @@ import com.run.treadmill.widget.chart.SportGraph;
  */
 public class RunGraph {
     private SportGraph bar_graph;
+    private RadioButton rb_graph_left;
+    private RadioButton rb_graph_right;
 
     public void initGraph(SportGraph bar_graph) {
         this.bar_graph = bar_graph;
 
+        rb_graph_left = bar_graph.findViewById(R.id.rb_graph_left);
+        rb_graph_right = bar_graph.findViewById(R.id.rb_graph_right);
+
         /*扬升和速度点击切换事件*/
-        bar_graph.setOnGraphTypeChangeListerer((group, checkedId) -> {
+        bar_graph.setOnGraphTypeChangeListener((group, checkedId) -> {
             if (checkedId == R.id.rb_graph_left) {
-                checkIncline();
+                Logger.i("checkedId == 点扬升，要切为速度");
+                checkedSpeed();
             }
             if (checkedId == R.id.rb_graph_right) {
-                checkSpeed();
+                Logger.i("checkedId == 点速度, 要切为扬升");
+                checkedIncline();
             }
         });
 
-        bar_graph.setCheckBarGraph(0);
+        // bar_graph.setCheckBarGraph(0);
+        bar_graph.setCurrSelectType(1);
+        checkedSpeed();
     }
 
     private int getMaxIncline() {
@@ -35,7 +48,10 @@ public class RunGraph {
         return SpManager.getMaxSpeed();
     }
 
-    private void checkIncline() {
+    private void checkedIncline() {
+        rb_graph_left.setVisibility(View.VISIBLE);
+        rb_graph_right.setVisibility(View.GONE);
+
         bar_graph.setCurrSelectType(0);
         bar_graph.setUnitRange(0f, getMaxIncline(), 6, 0);
         bar_graph.setValueRange(0f, getMaxIncline());
@@ -45,10 +61,12 @@ public class RunGraph {
                 0
         );
         bar_graph.setCurrSelevtValue(0, ac.getIncline());
-        // bar_graph.setCurrSelectInx(0);
     }
 
-    private void checkSpeed() {
+    private void checkedSpeed() {
+        rb_graph_right.setVisibility(View.VISIBLE);
+        rb_graph_left.setVisibility(View.GONE);
+
         bar_graph.setCurrSelectType(1);
         bar_graph.setUnitRange(0f, getMaxSpeed(), 7, 0);
         bar_graph.setValueRange(0f, getMaxSpeed());
@@ -57,7 +75,6 @@ public class RunGraph {
                 ac.mRunningParam.getLcCurStageNum(),
                 1
         );
-        // bar_graph.setCurrSelectInx(1);
         bar_graph.setCurrSelevtValue(1, ac.getSpeed());
     }
 

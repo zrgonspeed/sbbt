@@ -50,7 +50,7 @@ class SportGraph constructor(context: Context, attrs: AttributeSet) :
      * 设置底下的切换事件
      * @param listener OnCheckedChangeListener
      */
-    fun setOnGraphTypeChangeListerer(listener: RadioGroup.OnCheckedChangeListener) {
+    fun setOnGraphTypeChangeListener(listener: RadioGroup.OnCheckedChangeListener) {
         rgRraph?.setOnCheckedChangeListener(listener)
     }
 
@@ -154,5 +154,5 @@ class SportGraph constructor(context: Context, attrs: AttributeSet) :
         rbGraphRight?.visibility = View.GONE
     }
 
-    var currSelectType: Int? = null
+    var currSelectType: Int = 1
 }
