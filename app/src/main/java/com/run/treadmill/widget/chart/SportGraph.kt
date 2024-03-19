@@ -17,7 +17,7 @@ class SportGraph constructor(context: Context, attrs: AttributeSet) :
     ConstraintLayout(context, attrs) {
     var view: View? = null
     var motionVar: MotionLayout? = null
-    private var vBar: BarGraph? = null
+    private var vBar: BarGraphView? = null
     private var vUnit: SportUnitView? = null
     private var rgRraph: RadioGroup? = null
     private var tvBarVal: TextView? = null

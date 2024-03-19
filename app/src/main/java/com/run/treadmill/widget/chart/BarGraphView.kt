@@ -15,7 +15,7 @@ import com.run.treadmill.reboot.MyApplication
  * @Author GaleLiu
  * @Time 2021/08/10
  */
-class BarGraph : View {
+class BarGraphView : View {
     private var barPaint = Paint()
     private var barRectF = RectF()
 

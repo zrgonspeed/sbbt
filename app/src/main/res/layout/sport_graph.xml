@@ -24,7 +24,7 @@
         app:suv_txt_size="25"
         app:suv_val_count="6" />
 
-    <com.run.treadmill.widget.chart.BarGraph
+    <com.run.treadmill.widget.chart.BarGraphView
         android:id="@+id/v_bar"
         android:layout_width="0dp"
         android:layout_height="0dp"
