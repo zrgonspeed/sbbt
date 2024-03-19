@@ -1,4 +1,4 @@
-package com.run.treadmill.weidget
+package com.run.treadmill.widget.chart
 
 import android.content.Context
 import android.util.AttributeSet
@@ -11,8 +11,6 @@ import android.widget.TextView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.run.treadmill.R
-import com.run.treadmill.widget.chart.BarGraph
-import com.run.treadmill.widget.chart.SportUnitView
 
 
 class SportGraph constructor(context: Context, attrs: AttributeSet) :

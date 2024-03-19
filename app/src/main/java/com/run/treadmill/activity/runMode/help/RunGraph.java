@@ -3,7 +3,7 @@ package com.run.treadmill.activity.runMode.help;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.sp.SpManager;
-import com.run.treadmill.weidget.SportGraph;
+import com.run.treadmill.widget.chart.SportGraph;
 
 /**
  * 速度和扬升的柱状图

@@ -343,7 +343,7 @@
         android:layout_alignParentBottom="true"
         android:visibility="gone" />
 
-    <com.run.treadmill.weidget.SportGraph
+    <com.run.treadmill.widget.chart.SportGraph
         android:id="@+id/bar_graph"
         android:layout_width="@dimen/dp_px_1080_x"
         android:layout_height="@dimen/dp_px_600_x"

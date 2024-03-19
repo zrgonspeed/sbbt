@@ -41,7 +41,7 @@ import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.StringUtil;
-import com.run.treadmill.weidget.SportGraph;
+import com.run.treadmill.widget.chart.SportGraph;
 import com.run.treadmill.widget.HistogramListView;
 import com.run.treadmill.widget.LongClickImage;
 import com.run.treadmill.widget.VideoPlayerSelf;
