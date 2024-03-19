@@ -277,7 +277,11 @@
     <color name="color_bt_2">#32378C</color>
     <color name="color_bt_3">#80575973</color>
 
-    <color name="color_FA198B">#FA198B</color>
+    <color name="color_cur_speed">#FA198B</color>
+    <color name="color_nocur_speed">#47D1DB</color>
+
+    <color name="color_cur_incline">#DC79D7</color>
+    <color name="color_nocur_incline">#957AE4</color>
 
     <color name="color_bt_red_1">#FA198B</color>
     <color name="color_bt_red_2">#AD115F</color>

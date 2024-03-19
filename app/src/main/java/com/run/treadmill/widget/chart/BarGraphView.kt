@@ -33,7 +33,8 @@ class BarGraphView : View {
         }
 
     private var barWidth = 30f
-    private var barInterval = 5f
+    // 改间隔是改宽度
+    private var barInterval = 8f
 
     /*** 已完成的颜色（渐变色的开始）*/
     private var hasCompletedColorStart = Color.WHITE
@@ -200,15 +201,21 @@ class BarGraphView : View {
      */
     private fun changeColor(type: Int) {
         if (type == 0) {
-            currCompletedColorStart = ContextCompat.getColor(context, R.color.color_38ef7d)
-            currCompletedColorEnd = ContextCompat.getColor(context, R.color.color_11998e)
-            unCompletedColorStart = ContextCompat.getColor(context, R.color.color_44a08d)
-            unCompletedColorEnd = ContextCompat.getColor(context, R.color.color_093637)
+            hasCompletedColorStart = ContextCompat.getColor(context, R.color.color_nocur_incline)
+            hasCompletedColorEnd = ContextCompat.getColor(context, R.color.color_nocur_incline)
+
+            currCompletedColorStart = ContextCompat.getColor(context, R.color.color_cur_incline)
+            currCompletedColorEnd = ContextCompat.getColor(context, R.color.color_cur_incline)
+            unCompletedColorStart = ContextCompat.getColor(context, R.color.color_nocur_incline)
+            unCompletedColorEnd = ContextCompat.getColor(context, R.color.color_nocur_incline)
         } else if (type == 1) {
-            currCompletedColorStart = ContextCompat.getColor(context, R.color.color_00c6ff)
-            currCompletedColorEnd = ContextCompat.getColor(context, R.color.color_0072ff)
-            unCompletedColorStart = ContextCompat.getColor(context, R.color.color_4b6cb7)
-            unCompletedColorEnd = ContextCompat.getColor(context, R.color.color_182848)
+            hasCompletedColorStart = ContextCompat.getColor(context, R.color.color_nocur_speed)
+            hasCompletedColorEnd = ContextCompat.getColor(context, R.color.color_nocur_speed)
+
+            currCompletedColorStart = ContextCompat.getColor(context, R.color.color_cur_speed)
+            currCompletedColorEnd = ContextCompat.getColor(context, R.color.color_cur_speed)
+            unCompletedColorStart = ContextCompat.getColor(context, R.color.color_nocur_speed)
+            unCompletedColorEnd = ContextCompat.getColor(context, R.color.color_nocur_speed)
         }
 
         postInvalidate()
