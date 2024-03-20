@@ -3,6 +3,7 @@ package com.run.treadmill.update.homeupdate.main;
 import android.content.Context;
 import android.os.Environment;
 
+import com.run.treadmill.Custom;
 import com.run.treadmill.sp.SpManager;
 
 public class ApkUpdateParam {
@@ -13,7 +14,7 @@ public class ApkUpdateParam {
     /**
      * 是否是测试服务器
      */
-    private final static boolean isTestServer = false;
+    private final static boolean isTestServer = Custom.isTestServer;
     /**
      * 国外服务器
      */
