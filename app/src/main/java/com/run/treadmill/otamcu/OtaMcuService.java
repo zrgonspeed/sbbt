@@ -5,10 +5,11 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import com.run.serial.SerialUtils;
+import com.run.treadmill.Custom;
 import com.run.treadmill.common.InitParam;
 
 public class OtaMcuService extends Service {
-    public static final String PROJECT_NAME = "AC00554-54T-11";
+    public static final String PROJECT_NAME = Custom.MCU_UPDATE_NAME;
     public static final String PLATFORM = "A133";
     public static final String PLATFORM_PORT = "/dev/ttyS2";
 
