@@ -314,7 +314,7 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
         String result = String.format(Locale.ENGLISH, "%.2f", dis1);
         round_distance.setValue(result);
 
-        tv_avg_mets.setText(mRunningParam.getAvgMets() + "");
+        tv_avg_mets.setText((int) mRunningParam.getAvgMets() + "");
     }
 
     /**
