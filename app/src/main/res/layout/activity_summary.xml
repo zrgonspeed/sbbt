@@ -1,14 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bk_0">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/dp_px_1920_x"
+    android:layout_height="@dimen/dp_px_1080_x"
+    android:background="@color/summary_bg">
+
+    <TextView
+        android:id="@+id/tv_program_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_73_x"
+        android:layout_marginTop="@dimen/dp_px_44_x"
+        android:text="PROGRAM - QUICKSTART"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_44" />
+
+    <!--背景矩形-->
+    <com.hjq.shape.view.ShapeView
+        android:id="@+id/sv_bg_1"
+        android:layout_width="@dimen/dp_px_900_x"
+        android:layout_height="@dimen/dp_px_450_x"
+        android:layout_marginStart="@dimen/dp_px_48_x"
+        android:layout_marginTop="@dimen/dp_px_135_x"
+        app:shape_radius="@dimen/dp_px_25_x"
+        app:shape_solidColor="#1B1D2D" />
+
+    <com.hjq.shape.view.ShapeView
+        android:id="@+id/sv_bg_2"
+        android:layout_width="@dimen/dp_px_435_x"
+        android:layout_height="@dimen/dp_px_120_x"
+        android:layout_marginStart="@dimen/dp_px_48_x"
+        android:layout_marginTop="@dimen/dp_px_605_x"
+        app:shape_radius="@dimen/dp_px_25_x"
+        app:shape_solidColor="#1B1D2D" />
+
+    <com.hjq.shape.view.ShapeView
+        android:id="@+id/sv_bg_3"
+        android:layout_width="@dimen/dp_px_435_x"
+        android:layout_height="@dimen/dp_px_120_x"
+        android:layout_marginStart="@dimen/dp_px_513_x"
+        android:layout_marginTop="@dimen/dp_px_605_x"
+        app:shape_radius="@dimen/dp_px_25_x"
+        app:shape_solidColor="#1B1D2D" />
+
+    <com.hjq.shape.view.ShapeView
+        android:id="@+id/sv_bg_4"
+        android:layout_width="@dimen/dp_px_904_x"
+        android:layout_height="@dimen/dp_px_120_x"
+        android:layout_marginStart="@dimen/dp_px_48_x"
+        android:layout_marginTop="@dimen/dp_px_745_x"
+        app:shape_radius="@dimen/dp_px_25_x"
+        app:shape_solidColor="#1B1D2D" />
+
+    <com.hjq.shape.view.ShapeView
+        android:id="@+id/sv_bg_5"
+        android:layout_width="@dimen/dp_px_900_x"
+        android:layout_height="@dimen/dp_px_355_x"
+        android:layout_marginStart="@dimen/dp_px_972_x"
+        android:layout_marginTop="@dimen/dp_px_135_x"
+        app:shape_radius="@dimen/dp_px_25_x"
+        app:shape_solidColor="#1B1D2D" />
+
+    <com.hjq.shape.view.ShapeView
+        android:id="@+id/sv_bg_6"
+        android:layout_width="@dimen/dp_px_900_x"
+        android:layout_height="@dimen/dp_px_355_x"
+        android:layout_marginStart="@dimen/dp_px_972_x"
+        android:layout_marginTop="@dimen/dp_px_510_x"
+        app:shape_radius="@dimen/dp_px_25_x"
+        app:shape_solidColor="#1B1D2D" />
+
+    <!--底部按钮-->
+    <com.hjq.shape.view.ShapeButton
+        android:id="@+id/bt_save_work_to_user"
+        android:layout_width="@dimen/dp_px_480_x"
+        android:layout_height="@dimen/dp_px_120_x"
+        android:layout_marginStart="@dimen/dp_px_48_x"
+        android:layout_marginTop="@dimen/dp_px_907_x"
+        android:drawableStart="@drawable/img_summary_save_1"
+        android:drawablePadding="@dimen/dp_px_20_x"
+        android:gravity="center_vertical|start"
+        android:paddingStart="@dimen/dp_px_44_x"
+        android:text="Save workout to user"
+        android:textSize="@dimen/font_size_45"
+        app:shape_radius="@dimen/dp_px_25_x"
+        app:shape_solidColor="@color/color_bt_1"
+        app:shape_solidDisabledColor="@color/color_bt_3"
+        app:shape_solidPressedColor="@color/color_bt_2" />
+
+    <com.hjq.shape.view.ShapeButton
+        android:id="@+id/bt_share"
+        android:layout_width="@dimen/dp_px_400_x"
+        android:layout_height="@dimen/dp_px_120_x"
+        android:layout_marginStart="@dimen/dp_px_1052_x"
+        android:layout_marginTop="@dimen/dp_px_907_x"
+        android:drawableStart="@drawable/img_summary_share_1"
+        android:gravity="center"
+        android:paddingStart="@dimen/dp_px_44_x"
+        android:paddingEnd="@dimen/dp_px_10_x"
+        android:text="Share"
+        android:textSize="@dimen/font_size_45"
+        app:shape_radius="@dimen/dp_px_25_x"
+        app:shape_solidColor="@color/color_bt_1"
+        app:shape_solidDisabledColor="@color/color_bt_3"
+        app:shape_solidPressedColor="@color/color_bt_2" />
+
+    <com.hjq.shape.view.ShapeButton
+        android:id="@+id/bt_home"
+        android:layout_width="@dimen/dp_px_400_x"
+        android:layout_height="@dimen/dp_px_120_x"
+        android:layout_marginStart="@dimen/dp_px_1474_x"
+        android:layout_marginTop="@dimen/dp_px_907_x"
+        android:drawableStart="@drawable/img_icon_home_1"
+        android:gravity="center"
+        android:onClick="goHome"
+        android:paddingStart="@dimen/dp_px_44_x"
+        android:paddingEnd="@dimen/dp_px_10_x"
+        android:text="Home"
+        android:textSize="@dimen/font_size_45"
+        app:shape_radius="@dimen/dp_px_25_x"
+        app:shape_solidColor="@color/color_bt_1"
+        app:shape_solidDisabledColor="@color/color_bt_3"
+        app:shape_solidPressedColor="@color/color_bt_2" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_summary"
         android:layout_width="@dimen/dp_px_1601_x"
         android:layout_height="@dimen/dp_px_893_y"
-        android:layout_marginStart="@dimen/dp_px_160_x" />
+        android:layout_marginStart="@dimen/dp_px_160_x"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/img_indicator"
@@ -17,11 +137,30 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="@dimen/dp_px_838_x"
         android:layout_marginTop="@dimen/dp_px_802_y"
-        android:src="@drawable/img_sportmode_summary_page_1" />
+        android:src="@drawable/img_sportmode_summary_page_1"
+        android:visibility="gone" />
+
+
+    <!--时间-->
+    <TextClock
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dp_px_50_x"
+        android:layout_marginEnd="@dimen/dp_px_50_x"
+        android:format12Hour="hh:mm\naa"
+        android:format24Hour="HH:mm"
+        android:gravity="end"
+        android:text="10:30 AM"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_45" />
 
     <include
         layout="@layout/layout_under_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_px_955_y" />
+        android:layout_marginTop="@dimen/dp_px_955_y"
+        android:visibility="gone" />
 </RelativeLayout>
