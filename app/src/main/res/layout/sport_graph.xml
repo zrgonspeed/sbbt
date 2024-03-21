@@ -31,10 +31,10 @@
     <!--柱状图头顶的图标和文字-->
     <TextView
         android:id="@+id/tv_bar_val"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/dp_px_130_x"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_px_10_x"
-        android:gravity="center"
+        android:gravity="start"
         android:paddingBottom="@dimen/dp_px_10_x"
         android:text="10.5"
         android:textColor="@color/white"
