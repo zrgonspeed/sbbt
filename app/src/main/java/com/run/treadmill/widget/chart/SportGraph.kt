@@ -112,7 +112,7 @@ class SportGraph constructor(context: Context, attrs: AttributeSet) :
         vBar?.setCurrSelectInx(inx)
     }
 
-    fun setCurrSelevtValue(type: Int, str: String) {
+    fun setCurrSelectValue(type: Int, str: String) {
         tvBarVal?.text = str
         if (type == 0) {
             tvBarVal?.setTextColor(context.getColor(R.color.color_11998e))

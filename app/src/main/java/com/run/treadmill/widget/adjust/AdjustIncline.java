@@ -59,6 +59,7 @@ public class AdjustIncline extends RelativeLayout {
     }
 
     public void afterInclineChanged(float incline) {
+        // 按钮是否禁用设置
         float maxIncline = SpManager.getMaxIncline();
         if (incline <= 0) {
             setDownFalse();

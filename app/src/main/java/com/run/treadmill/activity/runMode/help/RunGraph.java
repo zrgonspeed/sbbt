@@ -22,6 +22,9 @@ public class RunGraph {
 
         rb_graph_left = bar_graph.findViewById(R.id.rb_graph_left);
         rb_graph_right = bar_graph.findViewById(R.id.rb_graph_right);
+        rb_graph_left.setVisibility(View.GONE);
+        rb_graph_right.setVisibility(View.GONE);
+
         ClickRadio clickRadio = new ClickRadio();
         rb_graph_left.setOnClickListener(clickRadio);
         rb_graph_right.setOnClickListener(clickRadio);
@@ -57,47 +60,44 @@ public class RunGraph {
         return SpManager.getMaxSpeed();
     }
 
-    private void checkedIncline() {
+    public void checkedIncline() {
+        if (rb_graph_left.getVisibility() == View.VISIBLE) {
+            return;
+        }
         rb_graph_left.setVisibility(View.VISIBLE);
         rb_graph_right.setVisibility(View.GONE);
-
         bar_graph.setCurrSelectType(0);
         bar_graph.setUnitRange(0f, getMaxIncline(), 6, 0);
         bar_graph.setValueRange(0f, getMaxIncline());
-        bar_graph.setArrayData(
-                ac.mRunningParam.mInclineArray,
-                ac.mRunningParam.getLcCurStageNum(),
-                0
-        );
-        bar_graph.setCurrSelevtValue(0, ac.getIncline());
+        inclineRefresh();
     }
 
-    private void checkedSpeed() {
+    public void checkedSpeed() {
+        if (rb_graph_right.getVisibility() == View.VISIBLE) {
+            return;
+        }
         rb_graph_right.setVisibility(View.VISIBLE);
         rb_graph_left.setVisibility(View.GONE);
-
         bar_graph.setCurrSelectType(1);
         bar_graph.setUnitRange(0f, getMaxSpeed(), 7, 0);
         bar_graph.setValueRange(0f, getMaxSpeed());
-        bar_graph.setArrayData(
-                ac.mRunningParam.mSpeedArray,
-                ac.mRunningParam.getLcCurStageNum(),
-                1
-        );
-        bar_graph.setCurrSelevtValue(1, ac.getSpeed());
+        speedRefresh();
     }
 
-    public void refreshChart() {
+    public void afterInclineChanged() {
         if (curIsIncline()) {
             inclineRefresh();
         }
+    }
 
+    public void afterSpeedChanged() {
         if (curIsSpeed()) {
             speedRefresh();
         }
     }
 
-    public void speedRefresh() {
+    private void speedRefresh() {
+        bar_graph.setCurrSelectValue(1, ac.getSpeed());
         bar_graph.setArrayData(
                 ac.mRunningParam.mSpeedArray,
                 ac.mRunningParam.getLcCurStageNum(),
@@ -105,7 +105,8 @@ public class RunGraph {
         );
     }
 
-    public void inclineRefresh() {
+    private void inclineRefresh() {
+        bar_graph.setCurrSelectValue(0, ac.getIncline());
         bar_graph.setArrayData(
                 ac.mRunningParam.mInclineArray,
                 ac.mRunningParam.getLcCurStageNum(),
@@ -113,11 +114,11 @@ public class RunGraph {
         );
     }
 
-    public boolean curIsIncline() {
+    private boolean curIsIncline() {
         return bar_graph.getCurrSelectType() == 0;
     }
 
-    public boolean curIsSpeed() {
+    private boolean curIsSpeed() {
         return bar_graph.getCurrSelectType() == 1;
     }
 

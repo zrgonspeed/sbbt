@@ -58,6 +58,7 @@ public class AdjustSpeed extends RelativeLayout {
     }
 
     public void afterSpeedChanged(float speed) {
+        // 按钮是否禁用设置
         float minSpeed = SpManager.getMinSpeed(SpManager.getIsMetric());
         float maxSpeed = SpManager.getMaxSpeed(SpManager.getIsMetric());
 

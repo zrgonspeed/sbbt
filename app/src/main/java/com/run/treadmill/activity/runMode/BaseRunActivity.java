@@ -41,7 +41,6 @@ import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.StringUtil;
-import com.run.treadmill.widget.chart.SportGraph;
 import com.run.treadmill.widget.HistogramListView;
 import com.run.treadmill.widget.LongClickImage;
 import com.run.treadmill.widget.VideoPlayerSelf;
@@ -51,6 +50,7 @@ import com.run.treadmill.widget.adjust.AdjustSpeed;
 import com.run.treadmill.widget.calculator.BaseCalculator;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
 import com.run.treadmill.widget.calculator.CalculatorOfRun;
+import com.run.treadmill.widget.chart.SportGraph;
 
 import java.lang.ref.WeakReference;
 
@@ -574,7 +574,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
 
         adjustIncline.afterInclineChanged(incline);
-        refreshChart();
+        runGraph.afterInclineChanged();
     }
 
     public void afterSpeedChanged(float speed) {
@@ -583,7 +583,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
 
         adjustSpeed.afterSpeedChanged(speed);
-        refreshChart();
+        runGraph.afterSpeedChanged();
     }
 
     @BindView(R.id.tv_setnum)
@@ -605,16 +605,21 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             }
             switch (msg.what) {
                 case MsgWhat.MSG_CLICK_INCLINE:
-                    if (mActivity.btn_line_chart_incline != null) {
-                        mActivity.btn_line_chart_incline.performClick();
-                        BuzzerManager.getInstance().buzzerRingOnce();
-                    }
+                    mActivity.runGraph.checkedIncline();
+                    BuzzerManager.getInstance().buzzerRingOnce();
+
+                    // if (mActivity.btn_line_chart_incline != null) {
+                    // mActivity.btn_line_chart_incline.performClick();
+                    // BuzzerManager.getInstance().buzzerRingOnce();
+                    // }
                     break;
                 case MsgWhat.MSG_CLICK_SPEED:
-                    if (mActivity.btn_line_chart_speed != null) {
-                        mActivity.btn_line_chart_speed.performClick();
-                        BuzzerManager.getInstance().buzzerRingOnce();
-                    }
+                    // if (mActivity.btn_line_chart_speed != null) {
+                    //     mActivity.btn_line_chart_speed.performClick();
+                    //     BuzzerManager.getInstance().buzzerRingOnce();
+                    // }
+                    mActivity.runGraph.checkedSpeed();
+                    BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 default:
                     break;
@@ -699,9 +704,4 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public void initGraph() {
         runGraph.initGraph(bar_graph);
     }
-
-    public void refreshChart() {
-        runGraph.refreshChart();
-    }
-
 }
