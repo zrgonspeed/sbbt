@@ -14,8 +14,8 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.base.BaseActivity;
-import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.base.factory.CreatePresenter;
+import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.serial.SerialKeyValue;
@@ -23,9 +23,11 @@ import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.TimeStringUtil;
 import com.run.treadmill.util.UnitUtil;
 import com.run.treadmill.widget.LineGraphicView;
+import com.run.treadmill.widget.summary.SportRoundGraph;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 
@@ -45,6 +47,17 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
     @BindView(R.id.btn_logo)
     ImageView btn_logo;
 
+    @BindView(R.id.round_time)
+    SportRoundGraph round_time;
+    @BindView(R.id.round_calories)
+    SportRoundGraph round_calories;
+    @BindView(R.id.round_distance)
+    SportRoundGraph round_distance;
+
+    @BindView(R.id.tv_avg_mets)
+    TextView tv_avg_mets;
+
+
     private TextView tv_time;
     private TextView tv_distance;
     private TextView tv_calories;
@@ -53,7 +66,6 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
     private TextView tv_grade, tv_vo2;
     private TextView tv_avg_speed;
     private TextView tv_avg_incline;
-    private TextView tv_avg_mets;
     private TextView tv_avg_pulse;
 
     private TextView tv_max_speed, tv_min_speed, tv_max_incline, tv_min_incline, tv_max_pulse, tv_min_pulse, tv_unit_max_speed, tv_unit_min_speed;
@@ -80,11 +92,11 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
         mRunningParam = RunningParam.getInstance();
 
         views = new ArrayList<>();
-        views.add(View.inflate(this, R.layout.view_page_summary_result, null));
-        views.add(View.inflate(this, R.layout.view_page_summary_speed, null));
-        views.add(View.inflate(this, R.layout.view_page_summary_incline, null));
-        views.add(View.inflate(this, R.layout.view_page_summary_pulse, null));
-        vp_summary.setAdapter(new SummaryPagerAdapter(views));
+        // views.add(View.inflate(this, R.layout.view_page_summary_result, null));
+        // views.add(View.inflate(this, R.layout.view_page_summary_speed, null));
+        // views.add(View.inflate(this, R.layout.view_page_summary_incline, null));
+        // views.add(View.inflate(this, R.layout.view_page_summary_pulse, null));
+       /* vp_summary.setAdapter(new SummaryPagerAdapter(views));
         vp_summary.setOffscreenPageLimit(4);
         vp_summary.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -99,9 +111,16 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
             @Override
             public void onPageScrollStateChanged(int state) {
             }
-        });
+        });*/
 
-        init();
+        // init();
+
+        waiteTimer = new CustomTimer();
+        waiteTimer.setTag(waiteTimerTag);
+        waiteTimer.startTimer(waiteTime, this);
+
+        newInit();
+
     }
 
     @Override
@@ -208,7 +227,7 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
         tv_avg_speed = (TextView) views.get(0).findViewById(R.id.tv_avg_speed);
         tv_unit_speed = (TextView) views.get(0).findViewById(R.id.tv_unit_speed);
         tv_avg_incline = (TextView) views.get(0).findViewById(R.id.tv_avg_incline);
-        tv_avg_mets = (TextView) views.get(0).findViewById(R.id.tv_avg_mets);
+        // tv_avg_mets = (TextView) views.get(0).findViewById(R.id.tv_avg_mets);
         tv_avg_pulse = (TextView) views.get(0).findViewById(R.id.tv_avg_pulse);
 
         tv_time.setText(TimeStringUtil.getsecToHrMinOrMinSec(mRunningParam.alreadyRunTime, "%02d:%02d", "%02d:%02d"));
@@ -216,7 +235,7 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
         tv_calories.setText(String.valueOf((int) mRunningParam.alreadyRunCalories));
         tv_avg_speed.setText(String.valueOf(mRunningParam.getAvgSpeed()));
         tv_avg_incline.setText(String.valueOf((int) mRunningParam.getAvgIncline()));
-        tv_avg_mets.setText(String.valueOf(mRunningParam.getAvgMets()));
+        // tv_avg_mets.setText(String.valueOf(mRunningParam.getAvgMets()));
         tv_avg_pulse.setText(String.valueOf((int) mRunningParam.getAvgPulse()));
 
         tv_unit_time.setText(getString(mRunningParam.alreadyRunTime >= (60 * 60) ? R.string.string_summary_unit_hr_min : R.string.string_summary_unit_min_sec));
@@ -257,9 +276,7 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
                 getPointTap(mRunningParam.getTimeList()),
                 250, 2, mRunningParam.alreadyRunTime);
 
-        waiteTimer = new CustomTimer();
-        waiteTimer.setTag(waiteTimerTag);
-        waiteTimer.startTimer(waiteTime, this);
+
         vp_summary.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -279,6 +296,25 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
             }
         });
 
+    }
+
+    private void newInit() {
+        // tv_time.setText(TimeStringUtil.getsecToHrMinOrMinSec(mRunningParam.alreadyRunTime, "%02d:%02d", "%02d:%02d"));
+        // 单位设置
+        if (mRunningParam.alreadyRunTime >= 60 * 60) {
+            round_time.setInfo(getString(R.string.string_common_time), getString(R.string.string_summary_unit_hr_min));
+        } else {
+            round_time.setInfo(getString(R.string.string_common_time), getString(R.string.string_summary_unit_min_sec));
+        }
+        round_time.setValue(TimeStringUtil.getsecToHrMinOrMinSec(mRunningParam.alreadyRunTime, "%02d:%02d", "%02d:%02d"));
+
+        round_calories.setValue(UnitUtil.getFloatToIntClear(mRunningParam.alreadyRunCalories) + "");
+
+        float dis1 = UnitUtil.getFloatBy2f(mRunningParam.alreadyRunDistance);
+        String result = String.format(Locale.ENGLISH, "%.2f", dis1);
+        round_distance.setValue(result);
+
+        tv_avg_mets.setText(mRunningParam.getAvgMets() + "");
     }
 
     /**
