@@ -123,6 +123,161 @@
         app:shape_solidDisabledColor="@color/color_bt_3"
         app:shape_solidPressedColor="@color/color_bt_2" />
 
+    <!--时间-->
+    <TextView
+        android:id="@+id/tv_total_time"
+        android:layout_width="@dimen/dp_px_100_x"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_164_x"
+        android:layout_marginTop="@dimen/dp_px_300_x"
+        android:gravity="center|end"
+        android:text="30:00"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/font_size_40"
+        android:visibility="gone" />
+
+    <!--3个进度条-->
+    <com.run.treadmill.widget.summary.SportRoundGraph
+        android:id="@+id/round_time"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="@dimen/dp_px_350_x"
+        android:layout_marginStart="@dimen/dp_px_120_x"
+        android:layout_marginTop="@dimen/dp_px_140_x"
+        app:sport_rpg_end_color="@color/color_005bea"
+        app:sport_rpg_start_angle="-90"
+        app:sport_rpg_start_color="@color/color_00c6fb"
+        app:sport_rpg_sweep_angle="360"
+        app:sport_rpg_tip="Time"
+        app:sport_rpg_unit="@string/string_summary_unit_min_sec"
+        app:sport_rpg_value="000:00" />
+
+    <com.run.treadmill.widget.summary.SportRoundGraph
+        android:id="@+id/round_distance"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="@dimen/dp_px_350_x"
+        android:layout_marginStart="@dimen/dp_px_390_x"
+        android:layout_marginTop="@dimen/dp_px_140_x"
+        app:sport_rpg_end_color="@color/color_ff7f00"
+        app:sport_rpg_start_angle="-180"
+        app:sport_rpg_start_color="@color/color_ffd25f"
+        app:sport_rpg_sweep_angle="360"
+        app:sport_rpg_tip="Total Distance"
+        app:sport_rpg_unit="@string/string_unit_km"
+        app:sport_rpg_value="000.0" />
+
+    <com.run.treadmill.widget.summary.SportRoundGraph
+        android:id="@+id/round_calories"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="@dimen/dp_px_350_x"
+        android:layout_marginStart="@dimen/dp_px_660_x"
+        android:layout_marginTop="@dimen/dp_px_140_x"
+        app:sport_rpg_end_color="@color/color_ff0844"
+        app:sport_rpg_start_angle="-90"
+        app:sport_rpg_start_color="@color/color_ffb199"
+        app:sport_rpg_sweep_angle="360"
+        app:sport_rpg_tip="Calories"
+        app:sport_rpg_unit="@string/string_unit_cal"
+        app:sport_rpg_value="0000" />
+
+    <!--底部3个参数-->
+    <!--Avg Pace-->
+    <TextView
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/sv_bg_2"
+        android:layout_alignTop="@+id/sv_bg_2"
+        android:layout_alignBottom="@id/sv_bg_2"
+        android:gravity="center|end"
+        android:text="Avg Pace"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_43" />
+
+    <TextView
+        android:id="@+id/tv_avg_pace"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/sv_bg_2"
+        android:layout_alignEnd="@+id/sv_bg_2"
+        android:layout_alignBottom="@id/sv_bg_2"
+        android:gravity="center"
+        android:text="00:00"
+        android:textColor="#63DC38"
+        android:textSize="@dimen/font_size_70" />
+
+    <!--Avg Mets-->
+    <TextView
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/sv_bg_3"
+        android:layout_alignTop="@+id/sv_bg_3"
+        android:layout_alignBottom="@id/sv_bg_3"
+        android:gravity="center|end"
+        android:text="Avg Mets"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_43" />
+
+    <TextView
+        android:id="@+id/tv_avg_mets"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/sv_bg_3"
+        android:layout_alignEnd="@+id/sv_bg_3"
+        android:layout_alignBottom="@id/sv_bg_3"
+        android:gravity="center"
+        android:text="000"
+        android:textColor="#63DC38"
+        android:textSize="@dimen/font_size_70" />
+
+    <!--Mas Speed/Elapsed Time-->
+    <TextView
+        android:layout_width="@dimen/dp_px_470_x"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/sv_bg_4"
+        android:layout_alignTop="@+id/sv_bg_4"
+        android:layout_alignBottom="@id/sv_bg_4"
+        android:gravity="center|end"
+        android:text="Max Speed/Elapsed Time"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_43" />
+
+    <TextView
+        android:layout_width="@dimen/dp_px_100_x"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/sv_bg_4"
+        android:layout_alignTop="@+id/sv_bg_4"
+        android:layout_alignBottom="@id/sv_bg_4"
+        android:layout_marginStart="@dimen/dp_px_578_x"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp_px_30_x"
+        android:text="@string/string_unit_km"
+        android:textColor="#B3FFFFFF"
+        android:textSize="@dimen/font_size_28" />
+
+    <TextView
+        android:layout_width="@dimen/dp_px_100_x"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/sv_bg_4"
+        android:layout_alignTop="@+id/sv_bg_4"
+        android:layout_alignBottom="@id/sv_bg_4"
+        android:layout_marginStart="@dimen/dp_px_608_x"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp_px_15_x"
+        android:text="/"
+        android:textColor="#B3FFFFFF"
+        android:textSize="@dimen/font_size_50" />
+
+    <TextView
+        android:id="@+id/tv_max_speed_elapsed"
+        android:layout_width="@dimen/dp_px_500_x"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/sv_bg_4"
+        android:layout_alignEnd="@+id/sv_bg_4"
+        android:layout_alignBottom="@id/sv_bg_4"
+        android:gravity="center"
+        android:text="00.0     00:00"
+        android:textColor="#63DC38"
+        android:textSize="@dimen/font_size_70" />
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_summary"
         android:layout_width="@dimen/dp_px_1601_x"

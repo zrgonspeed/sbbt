@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:saveEnabled="false">
+
+    <!-- 半径要剪掉粗细 -->
+    <com.run.treadmill.widget.summary.RoundGraphView
+        android:id="@+id/round_progress"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cpb_start_angle="-180"
+        app:cpb_sweep_angle="180"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rpb_background="true"
+        app:rpb_background_color="@color/color_44504f_28"
+        app:rpb_end_color="@color/color_00c6fb"
+        app:rpb_radius="@dimen/dp_px_90_x"
+        app:rpb_start_color="@color/color_005bea"
+        app:rpb_width="@dimen/dp_px_18_x" />
+
+    <TextView
+        android:id="@+id/tv_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="000:00"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_43"
+        app:layout_constraintBottom_toBottomOf="@id/round_progress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/round_progress"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="time"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_40"
+        app:layout_constraintBottom_toBottomOf="@id/round_progress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/round_progress"
+        app:layout_constraintVertical_bias="0.97" />
+
+    <TextView
+        android:id="@+id/tv_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="min:sec"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_30"
+        app:layout_constraintBottom_toBottomOf="@id/round_progress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/round_progress"
+        app:layout_constraintVertical_bias="0.6" />
+</androidx.constraintlayout.widget.ConstraintLayout>

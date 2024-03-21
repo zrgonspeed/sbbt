@@ -83,5 +83,41 @@
         <attr name="suv_txt_size" format="reference|float"/>
         <attr name="suv_color" format="reference|color" />
     </declare-styleable>
+
+    <declare-styleable name="RoundProgressBarGraph">
+        <!--  进度条的半径  -->
+        <attr name="rpb_radius" format="float|dimension" />
+        <!--  进度条的粗细  -->
+        <attr name="rpb_width" format="float|dimension" />
+        <!-- 开始颜色（渐变色的开始） -->
+        <attr name="rpb_start_color" format="color|reference" />
+        <!-- 结束颜色（渐变色的结束如果没有设，则只有开始颜色） -->
+        <attr name="rpb_end_color" format="color|reference" />
+        <!--  是否需要背景圈  -->
+        <attr name="rpb_background" format="boolean" />
+        <attr name="rpb_background_color" format="color|reference" />
+        <!-- 开始角度，从右边顺时针计算角度，，默认-90度 -->
+        <attr name="cpb_start_angle" format="float" />
+        <!-- 扫过的角度，从右边顺时针计算角度，，默认360度 -->
+        <attr name="cpb_sweep_angle" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="SportRoundProgressGraph">
+        <!-- 开始颜色（渐变色的开始） -->
+        <attr name="sport_rpg_start_color" format="color|reference" />
+        <!-- 结束颜色（渐变色的结束如果没有设，则只有开始颜色） -->
+        <attr name="sport_rpg_end_color" format="color|reference" />
+        <!-- 开始角度，从右边顺时针计算角度，，默认-90度 -->
+        <attr name="sport_rpg_start_angle" format="float" />
+        <!-- 扫过的角度，从右边顺时针计算角度，，默认360度 -->
+        <attr name="sport_rpg_sweep_angle" format="float" />
+        <!-- 数值 -->
+        <attr name="sport_rpg_value" format="string|reference" />
+        <!-- 说明 -->
+        <attr name="sport_rpg_tip" format="string|reference" />
+        <!-- 单位 -->
+        <attr name="sport_rpg_unit" format="reference|string" />
+    </declare-styleable>
+
 </resources>
 
