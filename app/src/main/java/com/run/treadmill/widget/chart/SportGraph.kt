@@ -121,6 +121,7 @@ class SportGraph constructor(context: Context, attrs: AttributeSet) :
 
     fun tiaoduan(cur: Int) {
         motionVar?.progress = cur / (InitParam.TOTAL_RUN_STAGE_NUM - 1).toFloat()
+        // 数值换位,换到图标左边
     }
 
     /**
