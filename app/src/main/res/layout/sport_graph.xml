@@ -16,6 +16,39 @@
         app:shape_strokeColor="#4DFFFFFF"
         app:shape_strokeSize="@dimen/dp_px_1_x" />
 
+    <View
+        android:id="@+id/v_icon_path"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/dp_px_70_x"
+        android:layout_marginTop="@dimen/dp_px_100_x"
+        android:layout_marginEnd="@dimen/dp_px_25_x"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--柱状图头顶的图标和文字-->
+    <TextView
+        android:id="@+id/tv_bar_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_10_x"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dp_px_10_x"
+        android:text="10.5"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_45"
+        app:layout_constraintBottom_toBottomOf="@id/img_bar_icon"
+        app:layout_constraintStart_toEndOf="@id/img_bar_icon"
+        app:layout_constraintTop_toTopOf="@id/img_bar_icon" />
+
+    <ImageView
+        android:id="@+id/img_bar_icon"
+        android:layout_width="@dimen/dp_px_64_x"
+        android:layout_height="@dimen/dp_px_64_x"
+        android:background="@drawable/img_profile_run" />
+
     <!-- 这里的高度和边界刻度内缩suv_margin_y 相互搭配 -->
     <com.run.treadmill.widget.chart.SportUnitView
         android:id="@+id/v_unit"
@@ -53,26 +86,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/v_unit" />
-
-    <TextView
-        android:id="@+id/tv_bar_val"
-        android:layout_width="@dimen/dp_px_130_x"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="99.9"
-        android:textColor="@color/color_11998e"
-        android:textSize="@dimen/font_size_80"
-        app:layout_constraintEnd_toEndOf="@id/img_bar_icon"
-        app:layout_constraintStart_toStartOf="@id/img_bar_icon"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/img_bar_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/img_incline_run"
-        app:layout_constraintStart_toStartOf="@id/v_bar"
-        app:layout_constraintTop_toBottomOf="@id/tv_bar_val" />
 
     <com.hjq.shape.layout.ShapeRadioGroup
         android:id="@+id/rg_graph"
@@ -113,36 +126,4 @@
             android:visibility="visible" />
     </com.hjq.shape.layout.ShapeRadioGroup>
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/btn_left"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="@dimen/dp_px_48_y"-->
-    <!--        android:text="INCLINE"-->
-    <!--        android:textSize="@dimen/font_size_32"-->
-    <!--        android:textStyle="bold"-->
-    <!--        android:textColor="@color/white"-->
-    <!--        android:gravity="center"-->
-    <!--        android:textIsSelectable="true"-->
-    <!--        android:background="@drawable/shape_click_green_green"-->
-    <!--        android:layout_marginTop="@dimen/dp_px_19_y"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/v_bar"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toStartOf="@id/btn_right"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/btn_right"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="@dimen/dp_px_48_y"-->
-    <!--        android:text="SPEED"-->
-    <!--        android:textSize="@dimen/font_size_32"-->
-    <!--        android:textStyle="bold"-->
-    <!--        android:textColor="@color/white"-->
-    <!--        android:gravity="center"-->
-    <!--        android:textIsSelectable="true"-->
-    <!--        android:background="@drawable/shape_click_green_blue"-->
-    <!--        app:layout_constraintTop_toTopOf="@id/btn_left"-->
-    <!--        app:layout_constraintBottom_toBottomOf="@id/btn_left"-->
-    <!--        app:layout_constraintStart_toEndOf="@id/btn_left"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"/>-->
 </androidx.constraintlayout.motion.widget.MotionLayout>

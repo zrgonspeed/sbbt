@@ -196,13 +196,16 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     @Override
     public void onSpeedChange(float speed) {
         setSpeed(getSpeedValue(String.valueOf(speed)));
-        refreshLineChart();
+        runGraph.afterSpeedChanged();
+        // refreshLineChart();
     }
 
     @Override
     public void onInclineChange(float incline) {
         setIncline(StringUtil.valueAndUnit(String.valueOf((int) incline), getString(R.string.string_unit_percent), runParamUnitTextSize));
-        refreshLineChart();
+        // refreshLineChart();
+        runGraph.afterInclineChanged();
+
     }
 
 

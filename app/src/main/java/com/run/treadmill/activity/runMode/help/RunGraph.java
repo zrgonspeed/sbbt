@@ -22,14 +22,14 @@ public class RunGraph {
 
         rb_graph_left = bar_graph.findViewById(R.id.rb_graph_left);
         rb_graph_right = bar_graph.findViewById(R.id.rb_graph_right);
-        rb_graph_left.setVisibility(View.GONE);
-        rb_graph_right.setVisibility(View.GONE);
 
         ClickRadio clickRadio = new ClickRadio();
         rb_graph_left.setOnClickListener(clickRadio);
         rb_graph_right.setOnClickListener(clickRadio);
 
         // 默认先显示速度
+        rb_graph_left.setVisibility(View.GONE);
+        rb_graph_right.setVisibility(View.GONE);
         bar_graph.setCurrSelectType(1);
         checkedSpeed();
     }
@@ -60,7 +60,7 @@ public class RunGraph {
         return SpManager.getMaxSpeed();
     }
 
-    public void checkedIncline() {
+    public synchronized void checkedIncline() {
         if (rb_graph_left.getVisibility() == View.VISIBLE) {
             return;
         }
@@ -72,7 +72,7 @@ public class RunGraph {
         inclineRefresh();
     }
 
-    public void checkedSpeed() {
+    public synchronized void checkedSpeed() {
         if (rb_graph_right.getVisibility() == View.VISIBLE) {
             return;
         }
@@ -84,19 +84,19 @@ public class RunGraph {
         speedRefresh();
     }
 
-    public void afterInclineChanged() {
+    public synchronized void afterInclineChanged() {
         if (curIsIncline()) {
             inclineRefresh();
         }
     }
 
-    public void afterSpeedChanged() {
+    public synchronized void afterSpeedChanged() {
         if (curIsSpeed()) {
             speedRefresh();
         }
     }
 
-    private void speedRefresh() {
+    private synchronized void speedRefresh() {
         bar_graph.setCurrSelectValue(1, ac.getSpeed());
         bar_graph.setArrayData(
                 ac.mRunningParam.mSpeedArray,
@@ -105,7 +105,7 @@ public class RunGraph {
         );
     }
 
-    private void inclineRefresh() {
+    private synchronized void inclineRefresh() {
         bar_graph.setCurrSelectValue(0, ac.getIncline());
         bar_graph.setArrayData(
                 ac.mRunningParam.mInclineArray,
@@ -114,11 +114,11 @@ public class RunGraph {
         );
     }
 
-    private boolean curIsIncline() {
+    private synchronized boolean curIsIncline() {
         return bar_graph.getCurrSelectType() == 0;
     }
 
-    private boolean curIsSpeed() {
+    private synchronized boolean curIsSpeed() {
         return bar_graph.getCurrSelectType() == 1;
     }
 

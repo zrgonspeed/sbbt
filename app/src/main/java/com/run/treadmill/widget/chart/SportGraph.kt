@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.run.treadmill.R
+import com.run.treadmill.common.InitParam
 
 
 class SportGraph constructor(context: Context, attrs: AttributeSet) :
@@ -101,6 +102,8 @@ class SportGraph constructor(context: Context, attrs: AttributeSet) :
                 }
             }
         }
+        currStage = inx
+        tiaoduan(currStage)
         vBar?.setArrayData(tempArray, inx, type)
     }
 
@@ -114,13 +117,10 @@ class SportGraph constructor(context: Context, attrs: AttributeSet) :
 
     fun setCurrSelectValue(type: Int, str: String) {
         tvBarVal?.text = str
-        if (type == 0) {
-            tvBarVal?.setTextColor(context.getColor(R.color.color_11998e))
-            imgBarIcon?.setImageResource(R.drawable.img_incline_run)
-        } else if (type == 1) {
-            tvBarVal?.setTextColor(context.getColor(R.color.color_4b6cb7))
-            imgBarIcon?.setImageResource(R.drawable.img_speed_run)
-        }
+    }
+
+    fun tiaoduan(cur: Int) {
+        motionVar?.progress = cur / (InitParam.TOTAL_RUN_STAGE_NUM - 1).toFloat()
     }
 
     /**
@@ -155,4 +155,5 @@ class SportGraph constructor(context: Context, attrs: AttributeSet) :
     }
 
     var currSelectType: Int = 1
+    var currStage: Int = 0   //  0 - 29
 }
