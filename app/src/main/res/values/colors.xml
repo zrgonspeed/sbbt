@@ -368,4 +368,5 @@
 
     <color name="color_line">#59A9ACED</color>
     <color name="summary_bg">#141726</color>
+    <color name="login_A9ACED">#A9ACED</color>
 </resources>

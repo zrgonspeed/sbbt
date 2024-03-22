@@ -217,7 +217,7 @@
 
     <string name="log_in">Log in</string>
     <string name="str_account">account</string>
-    <string name="str_pass">password</string>
+    <string name="str_pass">Password</string>
     <string name="str_auto_login">Automatic login</string>
     <string name="str_guest">Guest</string>
     <string name="str_person_info">Personal Information</string>
