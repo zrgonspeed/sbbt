@@ -285,4 +285,9 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
 
     private FactoryOne factoryOne;
     private FactoryTwo factoryTwo;
+
+    @Override
+    public void onCurAd(int arg1) {
+        factoryOne.onCurAd(arg1);
+    }
 }

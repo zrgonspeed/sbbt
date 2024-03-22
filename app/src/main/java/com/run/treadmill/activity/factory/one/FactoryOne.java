@@ -46,6 +46,7 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
     private LongClickImage btn_rpm_up, btn_rpm_down;
 
     private int curRPM;
+    private TextView tv_cur_ad;
 
     /**
      * 是否在校正速度
@@ -256,6 +257,7 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
         img_loading = (ImageView) findViewById(R.id.img_loading);
         tv_ad_max = (TextView) findViewById(R.id.tv_ad_max);
         tv_ad_min = (TextView) findViewById(R.id.tv_ad_min);
+        tv_cur_ad = (TextView) findViewById(R.id.tv_cur_ad);
 
         tv_ad_max.setText(String.valueOf(SpManager.getMaxAd()));
         tv_ad_min.setText(String.valueOf(SpManager.getMinAd()));
@@ -498,4 +500,7 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
 
     }
 
+    public void onCurAd(int arg1) {
+        tv_cur_ad.setText(String.valueOf(arg1));
+    }
 }

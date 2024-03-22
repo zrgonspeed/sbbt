@@ -184,6 +184,7 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
                 } else if (inclienStatus == 2) {
                     getView().onCalibrationAd(-1, msg.arg1);
                 }
+                getView().onCurAd(msg.arg1);
                 break;
             case msg_calibration_success:
                 LitePal.deleteAll(UserCustomDataDB.class);

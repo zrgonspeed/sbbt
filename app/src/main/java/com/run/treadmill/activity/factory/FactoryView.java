@@ -34,4 +34,6 @@ public interface FactoryView extends BaseView {
      * @param type 可按类型
      */
     void setRpmEnable(int type);
+
+    void onCurAd(int arg1);
 }

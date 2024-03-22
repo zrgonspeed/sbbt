@@ -51,6 +51,29 @@
         android:textSize="@dimen/font_size_36pt"
         android:textStyle="bold" />
 
+
+    <TextView
+        android:id="@+id/tv_ad_tint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_895_x"
+        android:layout_marginTop="@dimen/dp_px_445_x"
+        android:text="CurAD"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_18pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_cur_ad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_px_737_x"
+        android:layout_marginTop="@dimen/dp_px_420_x"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_36pt"
+        android:textStyle="bold" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,9 +97,9 @@
         android:layout_alignStart="@id/img_loading"
         android:layout_alignEnd="@id/img_loading"
         android:layout_marginTop="@dimen/dp_px_744_y"
+        android:gravity="center"
         android:text="@string/string_factory_calibration"
         android:textAlignment="center"
-        android:gravity="center"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_18pt" />
 </RelativeLayout>

@@ -7,6 +7,7 @@ import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.util.DataTypeConversion;
+import com.run.treadmill.util.Logger;
 
 public class DcControl extends BaseControl {
     private float lastSpeed;
@@ -108,6 +109,7 @@ public class DcControl extends BaseControl {
      */
     @Override
     public void stopIncline() {
+        Logger.i("stopIncline() 扬升停止 0x11");
         sendControl(ParamCons.CONTROL_CMD_INCLINE_STOP);
     }
 
@@ -116,6 +118,7 @@ public class DcControl extends BaseControl {
      */
     @Override
     public void resetIncline() {
+        Logger.i("resetIncline() 扬升归零 0x13");
         sendControl(ParamCons.CONTROL_CMD_INCLINE_RESET);
     }
 
