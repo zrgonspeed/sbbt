@@ -1,5 +1,6 @@
 package com.run.treadmill.activity.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;
+import com.run.treadmill.activity.factory.FactoryActivity;
 import com.run.treadmill.activity.floatWindow.LeftVoiceFloatWindow;
 import com.run.treadmill.activity.home.bg.HomeAnimation;
 import com.run.treadmill.activity.home.help.HomeClick;
@@ -27,10 +29,10 @@ import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.update.homeupdate.main.HomeApkUpdateManager;
-import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.PermissionUtil;
 import com.run.treadmill.util.ThreadUtils;
+import com.run.treadmill.widget.MultiClickAndLongPressView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -60,6 +62,11 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     TextClock tv_time;
     @BindView(R.id.iv_home_bg)
     ImageView iv_home_bg;
+    @BindView(R.id.iv_home_logo)
+    ImageView iv_home_logo;
+
+    @BindView(R.id.btn_to_fact)
+    MultiClickAndLongPressView btn_to_fact;
 
     public HomeTipsDialog tipsPop;
     public boolean isFirst = true;
@@ -122,6 +129,16 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         homeAnimation = new HomeAnimation(iv_home_bg, this);
         homeAnimation.setBlur(false);   // 模糊按钮背景会卡卡的
         homeAnimation.initAndStart();
+
+        // 进入工厂
+        btn_to_fact.setOnMultiClickListener(() -> {
+            if (getPresenter().inOnSleep
+                    || isOnClicking) {
+                return;
+            }
+            isOnClicking = true;
+            startActivity(new Intent(HomeActivity.this, FactoryActivity.class));
+        });
 
         GpIoUtils.setOpenScreen();
     }
@@ -191,7 +208,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             }
         });
 
-        HomeThirdAppUpdateManager.getInstance().checkOnResume(this);
+        // HomeThirdAppUpdateManager.getInstance().checkOnResume(this);
     }
 
     @Override
@@ -288,7 +305,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     public void showTipPop(int tips) {
         if (!((MyApplication) getApplication()).isFirst) {
-            // btn_factory.releasedLongClick();
+            btn_to_fact.releasedLongClick();
             tipsPop.showTipPop(tips);
         }
     }

@@ -12,11 +12,17 @@
         android:background="@drawable/bk_background_idle_mode_1" />
 
     <ImageView
+        android:id="@+id/iv_home_logo"
         android:layout_width="@dimen/dp_px_120_x"
         android:layout_height="@dimen/dp_px_120_x"
         android:layout_marginStart="@dimen/dp_px_40_x"
         android:layout_marginTop="@dimen/dp_px_40_x"
         android:background="@drawable/img_logo" />
+
+    <com.run.treadmill.widget.MultiClickAndLongPressView
+        android:id="@+id/btn_to_fact"
+        android:layout_width="@dimen/dp_px_220_x"
+        android:layout_height="@dimen/dp_px_180_x" />
 
     <include
         android:id="@+id/inclue_float_left"

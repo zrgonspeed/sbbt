@@ -6,6 +6,7 @@ import android.view.View;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.activity.login.LoginActivity;
+import com.run.treadmill.activity.setting.SettingActivity;
 import com.run.treadmill.sysbt.BtAppUtils;
 import com.run.treadmill.util.SystemWifiUtils;
 import com.run.treadmill.util.WifiBackFloatWindowManager;
@@ -60,6 +61,10 @@ public class HomeClick extends BaseHomeHelp {
 
             case R.id.tv_home_signin:
                 activity.startActivity(new Intent(activity, LoginActivity.class));
+                break;
+
+            case R.id.tv_home_setting:
+                // activity.startActivity(new Intent(activity, SettingActivity.class));
                 break;
         }
     }
