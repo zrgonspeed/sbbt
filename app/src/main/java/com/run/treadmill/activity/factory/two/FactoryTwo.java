@@ -160,6 +160,8 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
         btn_ota_update.setOnMultiClickListener(() -> {
             Logger.i("mUdiskPath == " + mUdiskPath);
             try {
+                btn_ota_update.releasedLongClick();
+
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -497,6 +499,9 @@ public class FactoryTwo implements CustomTimer.TimerCallBack, USBBroadcastReceiv
         }
 
         OtaMcuUtils.checkCurIsOtamcu();
+        if (btn_ota_update != null) {
+            btn_ota_update.releasedLongClick();
+        }
     }
 
     public void selectTv(TextView tv, boolean isSelect) {

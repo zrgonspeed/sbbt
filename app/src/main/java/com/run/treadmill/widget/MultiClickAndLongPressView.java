@@ -104,6 +104,13 @@ public class MultiClickAndLongPressView extends ImageView {
             return true;
         }
 
+        // Logger.i("event.getAction() == " + event.getAction());
+
+        if (event.getAction() == MotionEvent.ACTION_CANCEL) {
+            isReleased = true;
+            removeCallbacks(mLongPressRunnable);
+            return super.dispatchTouchEvent(event);
+        }
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mCounter++;
