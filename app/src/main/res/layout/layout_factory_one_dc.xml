@@ -5,6 +5,12 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bk_0">
 
+    <com.run.treadmill.widget.TextMultiClickAndLongPressView
+        android:id="@+id/btn_print_logo"
+        android:layout_width="@dimen/dp_px_150_x"
+        android:layout_height="@dimen/dp_px_100_x"
+        android:gravity="center" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

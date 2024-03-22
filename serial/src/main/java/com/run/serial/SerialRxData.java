@@ -31,7 +31,9 @@ public class SerialRxData {
     }
 
     protected synchronized void rxDataPackage(byte[] data, int len) {
-        // Log.v("read", ">>  " + ConvertData.byteArrayToHexString(data, len));
+        if (LogUtils.printLog) {
+            Log.v("read", ">>  " + ConvertData.byteArrayToHexString(data, len));
+        }
         SerialTxData.timeOutCount = SerialCommand.TIME_OUT_COUNT;
 
         if (rxDataCallBack == null) {

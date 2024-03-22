@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.run.serial.LogUtils;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.factory.FactoryActivity;
@@ -22,7 +23,9 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.sp.SpManager;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.widget.LongClickImage;
+import com.run.treadmill.widget.TextMultiClickAndLongPressView;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
 
 public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
@@ -125,6 +128,20 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
 
         btn_calibrate.setEnabled(false);
         btn_rpm_start_stop.setEnabled(false);
+
+        TextMultiClickAndLongPressView btn_print_logo = (TextMultiClickAndLongPressView) findViewById(R.id.btn_print_logo);
+        if (LogUtils.printLog) {
+            btn_print_logo.setText("串口打印");
+        }
+        btn_print_logo.setOnMultiClickListener(() -> {
+            Logger.i("btn_print_logo  click");
+            LogUtils.printLog = !LogUtils.printLog;
+            if (LogUtils.printLog) {
+                btn_print_logo.setText("串口打印");
+            } else {
+                btn_print_logo.setText("");
+            }
+        });
 
         ControlManager.getInstance().setIncline(0);
     }
