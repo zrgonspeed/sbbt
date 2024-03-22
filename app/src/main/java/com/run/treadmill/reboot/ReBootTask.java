@@ -6,14 +6,15 @@ import com.run.serial.SerialUtils;
 import com.run.treadmill.Custom;
 import com.run.treadmill.base.BasePresenter;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.control.NormalParam;
 import com.run.treadmill.manager.control.ParamCons;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.MsgWhat;
+import com.run.treadmill.util.UnitUtil;
 
 public class ReBootTask implements Runnable, RxDataCallBack, Custom.Mcu.McuReboot {
 
@@ -118,16 +119,22 @@ public class ReBootTask implements Runnable, RxDataCallBack, Custom.Mcu.McuReboo
 
                 getInfoCount = 3;
 
-                if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-                    //AA
-                    ControlManager.getInstance().write02Normal(buildDeviceInfoData());
+                if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
+                    //DC
+                    ControlManager.getInstance().read02Normal();
+                    ControlManager.getInstance().readMaxAd();
+                    ControlManager.getInstance().readMinAd();
+                    getInfoCount = getInfoCount + 3;
+                }
 
-                    if (SpManager.getGSMode()) {
-                        ControlManager.getInstance().stopIncline();
+                if (!SpManager.getGSMode() && ErrorManager.getInstance().errStatus != ErrorManager.ERR_INCLINE_CALIBRATE
+                        && !ErrorManager.getInstance().hasInclineError) {
+                   /* if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
+                        ControlManager.getInstance().setIncline(0.0f);
                     } else {
                         ControlManager.getInstance().resetIncline();
-                    }
-                    getInfoCount += 1;
+                    }*/
+//                    getInfoCount += 1;
                 }
 
                 while (getInfoCount > 0) {
@@ -186,9 +193,8 @@ public class ReBootTask implements Runnable, RxDataCallBack, Custom.Mcu.McuReboo
                     return;
                 }
                 int curSysError = resolveDate(data, NormalParam.SYS_ERROR_INX, NormalParam.SYS_ERROR_LEN);
-                // int curSysError =ErrorManager.ERR_NO_ERROR;
-                if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-                    if (curSysError != ErrorManager.ERR_NO_ERROR) {
+                if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
+                    if (ErrorManager.getInstance().isNoInclineError(curSysError)) {
                         ErrorManager.getInstance().errStatus = curSysError;
                         if (presenter != null) {
                             presenter.sendNormalMsg(MsgWhat.MSG_ERROR, curSysError);
@@ -196,7 +202,6 @@ public class ReBootTask implements Runnable, RxDataCallBack, Custom.Mcu.McuReboo
                         return;
                     }
                 }
-
                 ErrorManager.getInstance().errStatus = ErrorManager.ERR_NO_ERROR;
                 int curBelt = resolveDate(data, NormalParam.BELT_STATE_INX, NormalParam.BELT_STATE_LEN);
                 int curIncline = resolveDate(data, NormalParam.INCLINE_STATE_INX, NormalParam.INCLINE_STATE_LEN);
@@ -222,14 +227,23 @@ public class ReBootTask implements Runnable, RxDataCallBack, Custom.Mcu.McuReboo
             return;
         }
         //GS扬升命令
-        if (data[2] == SerialCommand.TX_WR_CTR_CMD
-                && data[3] == ParamCons.CONTROL_CMD_INCLINE_RESET) {
-            getInfoCount--;
-            return;
+        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
+            if (data[2] == SerialCommand.TX_WR_ONE
+                    && data[3] == ParamCons.CMD_SET_INCLINE) {
+                getInfoCount--;
+                return;
+            }
         }
 
-        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
+        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
             if (data[3] == ParamCons.NORMAL_PACKAGE_PARAM_02) {
+                parseDeviceInfo(data);
+                getInfoCount--;
+            } else if (data[3] == ParamCons.CMD_MIN_AD) {
+                parseDeviceMinADC(data);
+                getInfoCount--;
+            } else if (data[3] == ParamCons.CMD_MAX_AD) {
+                parseDeviceMaxADC(data);
                 getInfoCount--;
             }
         }
@@ -277,6 +291,49 @@ public class ReBootTask implements Runnable, RxDataCallBack, Custom.Mcu.McuReboo
         }
     }
 
+    private void parseDeviceInfo(byte[] bytes) {
+        if (bytes[2] == SerialCommand.TX_RD_SOME) {
+
+            int unit = bytes[4] & 0xFF;
+            float maxSpeed = bytes[5] & 0xFF;
+            float minSpeed = bytes[6] & 0xFF;
+            int maxIncline = bytes[7] & 0xFF;
+
+            //TODO: 注意,在AC00412(DC)的项目,这里的轮径值,不是按照通信协议的低位在前,高位在后实现的,而是正常的高位在前,低位在后
+            //TODO: 新的DC项目需要确认这个数据的高低位状态
+            float wheelSize = DataTypeConversion.bytesToShortLiterEnd(bytes, 8);
+
+            maxSpeed = maxSpeed / 10f;
+            minSpeed = minSpeed / 10f;
+            wheelSize = wheelSize / 100f;
+
+            SpManager.setIsMetric((unit == 0));
+            if (unit == 1) {// 1是英制
+                minSpeed = UnitUtil.getKmToMileByFloat1(minSpeed);
+                maxSpeed = UnitUtil.getKmToMileByFloat1(maxSpeed);
+            }
+            //会出现数值溢出问题
+            SpManager.setMaxSpeed(maxSpeed, (unit == 0));
+            SpManager.setMinSpeed(minSpeed, (unit == 0));
+            SpManager.setMaxIncline(maxIncline);
+            SpManager.setWheelSize(wheelSize);
+        }
+    }
+
+    private synchronized void parseDeviceMaxADC(byte[] bytes) {
+        if (bytes[2] == SerialCommand.TX_RD_ONE) {
+            int maxADC = DataTypeConversion.doubleBytesToIntLiterEnd(bytes, 4);
+            SpManager.setMaxAd(maxADC);
+        }
+    }
+
+    private synchronized void parseDeviceMinADC(byte[] bytes) {
+        if (bytes[2] == SerialCommand.TX_RD_ONE) {
+            int minADC = DataTypeConversion.doubleBytesToIntLiterEnd(bytes, 4);
+            SpManager.setMinAd(minADC);
+        }
+    }
+
     private synchronized void parseNcuVersion(byte[] bytes) {
         if (bytes[2] != SerialCommand.TX_RD_ONE) {
             return;
@@ -298,20 +355,5 @@ public class ReBootTask implements Runnable, RxDataCallBack, Custom.Mcu.McuReboo
             SpManager.setNcuMonthDay(res);
             Logger.d("reboot parseNcuVersion   READ_NCU_MONTH_DAY  = " + res);
         }
-    }
-
-    private synchronized byte[] buildDeviceInfoData() {
-        byte[] data = new byte[5];
-        byte[] s1 = DataTypeConversion.shortToBytes((short) SpManager.getMaxAd());
-        byte[] s2 = DataTypeConversion.shortToBytes((short) SpManager.getMinAd());
-        byte s3 = (byte) SpManager.getMaxIncline();
-        data[0] = s1[0];
-        data[1] = s1[1];
-
-        data[2] = s2[0];
-        data[3] = s2[1];
-
-        data[4] = s3;
-        return data;
     }
 }
