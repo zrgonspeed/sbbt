@@ -88,7 +88,8 @@
         android:layout_marginTop="@dimen/dp_px_600_y"
         android:text="@string/add_2_app"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_21pt" />
+        android:textSize="@dimen/font_size_21pt"
+        android:visibility="gone" />
 
     <ToggleButton
         android:id="@+id/tb_has_two"
@@ -98,7 +99,8 @@
         android:layout_marginTop="@dimen/dp_px_600_y"
         android:background="@drawable/btn_on_off"
         android:textOff=""
-        android:textOn="" />
+        android:textOn=""
+        android:visibility="gone" />
 
     <ImageView
         android:layout_width="wrap_content"
