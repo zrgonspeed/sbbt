@@ -2,26 +2,35 @@ package com.run.treadmill.activity.home;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.run.treadmill.R;
+import com.run.treadmill.activity.factory.FactoryActivity;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
+import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.update.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.widget.MultiClickAndLongPressView;
+import com.run.treadmill.widget.WifiMultiClickAndLongPressView;
 
 public class HomeTipsDialog extends Dialog implements View.OnClickListener {
     private Context context;
     private OnTipDialogStatusChange mOnTipDialogStatusChange;
-
-
+    private RelativeLayout rl_error;
+    private MultiClickAndLongPressView lpv_update;
+    private ImageView img_err_bk;
+    private ImageView img_err_icon;
+    private TextView tv_err;
     private RelativeLayout rl_update;
     private ImageView btn_update_pop_yes;
     private ImageView btn_update_pop_no;
@@ -104,18 +113,24 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
     }
 
     private void onCreate() {
+        rl_error = (RelativeLayout) findViewById(R.id.rl_error);
+        lpv_update = (MultiClickAndLongPressView) findViewById(R.id.lpv_update);
+        img_err_bk = (ImageView) findViewById(R.id.img_err_bk);
+        img_err_icon = (ImageView) findViewById(R.id.img_err_icon);
+        tv_err = (TextView) findViewById(R.id.tv_err);
 
         rl_update = (RelativeLayout) findViewById(R.id.rl_update);
         btn_update_pop_yes = (ImageView) findViewById(R.id.btn_update_pop_yes);
         btn_update_pop_no = (ImageView) findViewById(R.id.btn_update_pop_no);
 
+
+        rl_error.setVisibility(View.GONE);
         rl_update.setVisibility(View.GONE);
 
         initListener();
     }
 
     private void initListener() {
-
 
         View.OnClickListener sleepClick = v -> {
             if (presenter != null) {
@@ -126,13 +141,25 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
                 }
             }
         };
+        lpv_update.setOnMultiClickListener(new MultiClickAndLongPressView.OnMultiClickListener() {
+            @Override
+            public void onMultiClick() {
+                Intent intent = new Intent(context, FactoryActivity.class);
+                // intent.putExtra(CTConstant.FACTORY_NUM, 2);
+                intent.putExtra(CTConstant.FACTORY_NO_SHOW_ERR, true);
 
+                // startActivity(new Intent(HomeActivity.this, FactoryActivity.class));
+
+                context.startActivity(intent);
+            }
+        });
 
         RelativeLayout rl_tip = (RelativeLayout) findViewById(R.id.rl_tip);
         ImageView im_update_bk = (ImageView) findViewById(R.id.im_update_bk);
 
         rl_tip.setOnClickListener(sleepClick);
         im_update_bk.setOnClickListener(sleepClick);
+        img_err_bk.setOnClickListener(sleepClick);
 
 
         btn_update_pop_yes.setOnClickListener(this);
@@ -211,13 +238,32 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
         lastError = ErrorManager.getInstance().errStatus;
         switch (lastTips) {
             case CTConstant.SHOW_TIPS_COMM_ERROR:
+                img_err_bk.setImageResource(R.drawable.img_pop_error);
+                img_err_bk.setVisibility(View.VISIBLE);
+                img_err_icon.setVisibility(View.GONE);
+                tv_err.setVisibility(View.GONE);
                 break;
             case CTConstant.SHOW_TIPS_SAFE_ERROR:
-
+                img_err_bk.setVisibility(View.GONE);
+                tv_err.setTextColor(context.getResources().getColor(R.color.white, null));
+                tv_err.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.font_size_55pt));
+                tv_err.setText(R.string.string_emergency_stop);
+                tv_err.setVisibility(View.VISIBLE);
                 break;
             case CTConstant.SHOW_TIPS_OTHER_ERROR:
             default:
-
+                img_err_bk.setImageResource(R.drawable.img_pop_bk);
+                img_err_bk.setVisibility(View.VISIBLE);
+                tv_err.setTextColor(context.getResources().getColor(R.color.textView_black, null));
+                tv_err.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.font_size_30pt));
+                if (ErrorManager.getInstance().errStatus == ErrorManager.ERR_INCLINE_CALIBRATE) {
+                    tv_err.setText(R.string.string_calibration_failure);
+                } else {
+                   if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
+                        tv_err.setText(String.format("E %d", ErrorManager.getInstance().errStatus));
+                    }
+                }
+                tv_err.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -228,11 +274,44 @@ public class HomeTipsDialog extends Dialog implements View.OnClickListener {
         lastError = ErrorManager.ERR_NO_ERROR;
         isShowLockError = false;
 
+        rl_error.setVisibility(View.GONE);
+        img_err_bk.setImageResource(R.drawable.img_pop_bk);
+        img_err_bk.setVisibility(View.GONE);
+        img_err_icon.setVisibility(View.VISIBLE);
+        tv_err.setTextColor(context.getResources().getColor(R.color.white, null));
+        tv_err.setText(R.string.string_emergency_stop);
+        tv_err.setVisibility(View.VISIBLE);
 
         rl_update.setVisibility(View.GONE);
         btn_update_pop_yes.setVisibility(View.VISIBLE);
         btn_update_pop_no.setVisibility(View.VISIBLE);
 
+
+        switch (reSetType) {
+            case CTConstant.SHOW_TIPS_POINT:
+                break;
+            case CTConstant.SHOW_TIPS_MACHINE_LUBE:
+
+                break;
+            case CTConstant.SHOW_TIPS_MACHINE_LUBE_NULL:
+                break;
+            case CTConstant.SHOW_TIPS_LOCK:
+                break;
+            case CTConstant.SHOW_TIPS_LUBE:
+                break;
+            case CTConstant.SHOW_TIPS_COMM_ERROR:
+            case CTConstant.SHOW_TIPS_SAFE_ERROR:
+            case CTConstant.SHOW_TIPS_OTHER_ERROR:
+                showErrorTips();
+                rl_error.setVisibility(View.VISIBLE);
+                break;
+            case CTConstant.SHOW_TIPS_UPDATE:
+                rl_update.setVisibility(View.VISIBLE);
+                break;
+            case CTConstant.NO_SHOW_TIPS:
+            default:
+                break;
+        }
 
     }
 

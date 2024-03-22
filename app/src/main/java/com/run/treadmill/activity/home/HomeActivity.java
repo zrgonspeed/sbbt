@@ -30,6 +30,7 @@ import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.update.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.util.GpIoUtils;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.PermissionUtil;
 import com.run.treadmill.util.ThreadUtils;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
@@ -90,6 +91,9 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        tipsPop = new HomeTipsDialog(this);
+        setTipsPop();
+
         ThreadUtils.postOnMainThread(() -> {
             onCreate2();
         }, 1000);
@@ -111,7 +115,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         PermissionUtil.hasReadExternalStoragePermission(this);
         PermissionUtil.hasAlertWindowPermission(this);
 
-        tipsPop = new HomeTipsDialog(this);
 
         tv_sleep.setOnClickListener(v -> {
             if (getPresenter().inOnSleep) {
@@ -156,7 +159,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
         getPresenter().setContext(this);
 
-        setTipsPop();
         setUpdate();
         checkFirst();
 
@@ -214,6 +216,12 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+
+        Logger.i("tipsPop == " + tipsPop);
+
+        if (tipsPop == null) {
+            return;
+        }
         if (hasFocus && ((MyApplication) getApplication()).isFirst) {
             if (((MyApplication) getApplication()).isFirst) {
                 ((MyApplication) getApplication()).isFirst = false;
@@ -260,6 +268,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @Override
     public void commOutError() {
+        Logger.e("Home commOutError()");
         homeError.commOutError();
     }
 
@@ -267,6 +276,9 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @Override
     public void hideTips() {
+        if (tipsPop == null) {
+            return;
+        }
         if (tipsPop.isSafeError() || tipsPop.isOtherError()) {
             ErrorManager.getInstance().exitError = false;
 
