@@ -16,14 +16,14 @@ import com.run.treadmill.activity.factory.one.FactoryOne;
 import com.run.treadmill.activity.factory.two.FactoryTwo;
 import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.base.BaseActivity;
-import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.base.factory.CreatePresenter;
+import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.PermissionUtil;
 import com.run.treadmill.widget.calculator.BaseCalculator;
@@ -199,7 +199,7 @@ public class FactoryActivity extends BaseActivity<FactoryView, FactoryPresenter>
         switch (v.getId()) {
             case R.id.btn_factory_one:
                 rl_factory_select.removeAllViews();
-                LayoutInflater.from(this).inflate(R.layout.layout_factory_one, rl_factory_select, true);
+                LayoutInflater.from(this).inflate(R.layout.layout_factory_one_dc, rl_factory_select, true);
                 factoryOne.initFactoryOne();
                 break;
             case R.id.btn_factory_two:

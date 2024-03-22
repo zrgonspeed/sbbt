@@ -11,6 +11,8 @@
     <dimen name="summary_1">@dimen/dp_px_900_x</dimen>
     <dimen name="summary_avg_speed">@dimen/font_size_25pt</dimen>
     <dimen name="media_1">@dimen/dp_px_0_x</dimen>
+    <dimen name="font_size_factory_one_cali_2">28.0sp</dimen>
+    <dimen name="font_size_factory_one_cali_3">28.0sp</dimen>
 
     <dimen name="font_size_15pt">20.0sp</dimen>
     <dimen name="font_size_16pt">22.67sp</dimen>

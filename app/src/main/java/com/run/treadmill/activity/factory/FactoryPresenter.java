@@ -10,11 +10,13 @@ import com.run.treadmill.db.UserCustomDataDB;
 import com.run.treadmill.db.UserDB;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.UserInfoManager;
 import com.run.treadmill.manager.control.NormalParam;
 import com.run.treadmill.manager.control.ParamCons;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.DataTypeConversion;
+import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.UnitUtil;
 
 import org.litepal.LitePal;
 
@@ -35,6 +37,22 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
      * 延迟判断是否校正成功
      */
     private int delayCount = 70;
+
+    public void calibrate(boolean isMetric, float maxSpeed, float minSpeed, float wheelSize, int maxIncline) {
+        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
+            ControlManager.getInstance().setCalcMetric(isMetric);
+            if (!isMetric) {
+                minSpeed = UnitUtil.getMileToKmByFloat1(minSpeed);
+                maxSpeed = UnitUtil.getMileToKmByFloat1(maxSpeed);
+            }
+            Logger.d("--data-- maxSpeed=" + maxSpeed + " minSpeed=" + minSpeed);
+            ControlManager.getInstance().setMaxSpeed(DataTypeConversion.shortToBytes((short) (maxSpeed * 10)));//扩大10倍下发
+            ControlManager.getInstance().setMinSpeed(DataTypeConversion.shortToBytes((short) (minSpeed * 10)));//扩大10倍下发
+            ControlManager.getInstance().setWheelSize(DataTypeConversion.shortToBytes((short) (wheelSize * 100)));//扩大100倍下发
+            ControlManager.getInstance().setMaxIncline(DataTypeConversion.shortToBytes((short) maxIncline));//扬升段数
+        }
+        ControlManager.getInstance().calibrate();
+    }
 
     public void setParam() {
         ControlManager.getInstance().write02Normal(buildDeviceInfoData());
@@ -94,15 +112,25 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
             return;
         }
         if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
-            int state = (data[NormalParam.INCLINE_STATE_INX] & 0x03);
+            int state = resolveDate(data, NormalParam.INCLINE_STATE_INX, NormalParam.INCLINE_STATE_LEN);
 
             if (state == ParamCons.CMD_INCLINE_UP) {
                 //主扬升状态(上升)
+                hasCalibrating = true;
                 inclienStatus = 1;
             } else if (state == ParamCons.CMD_INCLINE_DOWN) {
                 inclienStatus = 2;
             } else if (state == 0x00) {
                 inclienStatus = 0;
+            }
+
+            state = resolveDate(data, NormalParam.BELT_STATE_INX, NormalParam.BELT_STATE_LEN);
+            if (state == 0x04) {//跑带矫正中
+                beltStatus = 1;
+            } else if (state == 0x06) {
+                beltStatus = 2;
+            } else if (state == 0x00) {
+                beltStatus = 0;
             }
         } else if (data[2] == SerialCommand.TX_WR_CTR_CMD && data[3] == ParamCons.CONTROL_CMD_CALIBRATE) {
             isCalibrating = true;
@@ -117,12 +145,9 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
                 }
             }).start();
         } else if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM_03) {
-            if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-                sendMsg(msg_calibration_ad, DataTypeConversion.byteToInt(data[4]));
-                int state = resolveDate(data, 9, 1);
-                if (state == 2) {
-                    hasCalibrating = true;
-                }
+            sendMsg(msg_calibration_ad, DataTypeConversion.byteToInt(data[4]));
+            if (resolveDate(data, NormalParam.CURR_SPEED_INX, NormalParam.CURR_SPEED_LEN) != 0) {
+                ErrorManager.getInstance().lastSpeed = resolveDate(data, NormalParam.CURR_SPEED_INX, NormalParam.CURR_SPEED_LEN);
             }
         }
 

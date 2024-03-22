@@ -17,6 +17,7 @@ import com.run.treadmill.activity.factory.FactoryActivity;
 import com.run.treadmill.activity.factory.FactoryPresenter;
 import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.common.CTConstant;
+import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
@@ -37,6 +38,7 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
     private ImageView img_loading;
     private TextView tv_ad_max, tv_ad_min;
     private TextView edit_rpm;
+    private TextView edit_wheel_size;
     private ImageView btn_rpm_start_stop;
     private LongClickImage btn_rpm_up, btn_rpm_down;
 
@@ -57,6 +59,7 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
         btn_calibrate = (ImageView) findViewById(R.id.btn_calibrate);
         edit_max_speed = (TextView) findViewById(R.id.edit_max_speed);
         edit_min_speed = (TextView) findViewById(R.id.edit_min_speed);
+        edit_wheel_size = (TextView) findViewById(R.id.edit_wheel_size);
         edit_max_incline = (TextView) findViewById(R.id.edit_max_incline);
         tv_minspeed_unit = (TextView) findViewById(R.id.tv_minspeed_unit);
         tv_maxspeed_unit = (TextView) findViewById(R.id.tv_maxspeed_unit);
@@ -104,6 +107,7 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
         }
 
         edit_max_incline.setText(String.valueOf(SpManager.getMaxIncline()));
+        edit_wheel_size.setText(String.valueOf(SpManager.getWheelSize()));
 
         btn_rpm_up.setTag(-1);
         btn_rpm_down.setTag(-1);
@@ -111,6 +115,7 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
         edit_max_speed.setOnClickListener(this);
         edit_min_speed.setOnClickListener(this);
         edit_max_incline.setOnClickListener(this);
+        edit_wheel_size.setOnClickListener(this);
         btn_calibrate.setOnClickListener(this);
 
         edit_rpm.setOnClickListener(this);
@@ -127,7 +132,7 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
     @Override
     public void onClick(View v) {
         BuzzerManager.getInstance().buzzerRingOnce();
-        if (v.getId() == R.id.edit_max_speed || v.getId() == R.id.edit_min_speed
+        if (v.getId() == R.id.edit_max_speed || v.getId() == R.id.edit_min_speed || v.getId() == R.id.edit_wheel_size
                 || v.getId() == R.id.edit_max_incline
                 || v.getId() == R.id.edit_rpm) {
             tip_mark.setVisibility(View.VISIBLE);
@@ -164,9 +169,19 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
                 break;
             case R.id.btn_calibrate:
                 setRpmEnable(2);
+                if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
+                    if (checkCalcView()) {
+                        break;
+                    }
+                }
                 inflateLoading();
-                if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-                    ControlManager.getInstance().calibrate();
+                int checkedRadioButtonId = rg_metric.getCheckedRadioButtonId();
+                if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
+                    getPresenter().calibrate(checkedRadioButtonId == R.id.rb_metric,
+                            Float.valueOf(edit_max_speed.getText().toString()),
+                            Float.valueOf(edit_min_speed.getText().toString()),
+                            Float.valueOf(edit_wheel_size.getText().toString()),
+                            Integer.valueOf(edit_max_incline.getText().toString()));
                 }
                 break;
             case R.id.edit_max_speed:
@@ -183,6 +198,18 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
                 selectTv(edit_max_incline, true);
                 showCalculator(CTConstant.TYPE_FACTORY_MAX_INCLINE, edit_max_incline, R.string.string_keybord_max_incline, 0, this, rl_main_one,
                         getResources().getDimensionPixelSize(R.dimen.dp_px_630_x), getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
+                break;
+            case R.id.edit_wheel_size:
+                selectTv(edit_wheel_size, true);
+                if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
+                    showCalculator(CTConstant.TYPE_FACTORY_WHEEL_SIZE,
+                            edit_wheel_size,
+                            R.string.string_keybord_wheel_size, 2,
+                            this,
+                            rl_main_one,
+                            getResources().getDimensionPixelSize(R.dimen.dp_px_630_x),
+                            getResources().getDimensionPixelSize(R.dimen.dp_px_265_y));
+                }
                 break;
             default:
                 break;
@@ -254,6 +281,8 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
                 selectTv(edit_max_speed, false);
             } else if (edit_min_speed.isSelected()) {
                 selectTv(edit_min_speed, false);
+            } else if (edit_wheel_size.isSelected()) {
+                selectTv(edit_wheel_size, false);
             } else if (edit_max_incline.isSelected()) {
                 selectTv(edit_max_incline, false);
             } else if (edit_rpm.isSelected()) {
@@ -388,19 +417,14 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
         SpManager.setMaxSpeed(Float.valueOf(edit_max_speed.getText().toString()), SpManager.getIsMetric());
         SpManager.setMinSpeed(Float.valueOf(edit_min_speed.getText().toString()), SpManager.getIsMetric());
 
+        SpManager.setWheelSize(Float.valueOf(edit_wheel_size.getText().toString()));
+
         SpManager.setMaxIncline(Integer.valueOf(edit_max_incline.getText().toString()));
         SpManager.resetRunTotalTime(0L);
         SpManager.resetRunTotalDis(0f);
 
-        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-            //内缩+/-10
-            SpManager.setMaxAd(Integer.valueOf(tv_ad_max.getText().toString()) - 2);
-            SpManager.setMinAd(Integer.valueOf(tv_ad_min.getText().toString()) + 2);
-        }
-
-        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
-            getPresenter().setParam();
-        }
+        SpManager.setMaxAd(Integer.valueOf(tv_ad_max.getText().toString()));
+        SpManager.setMinAd(Integer.valueOf(tv_ad_min.getText().toString()));
     }
 
 
@@ -411,4 +435,50 @@ public class FactoryOne implements View.OnClickListener, CalculatorCallBack {
     private String getString(int id) {
         return activity.getString(id);
     }
+
+    private boolean checkCalcView() {
+        int curIncline = Integer.valueOf(edit_max_incline.getText().toString());
+        float cutMaxSpeed = Float.valueOf(edit_max_speed.getText().toString());
+        float curMinSpeed = Float.valueOf(edit_min_speed.getText().toString());
+        float curWheel = Float.valueOf(edit_wheel_size.getText().toString());
+        boolean hasChange = false;
+
+        if (curIncline > InitParam.MAX_INCLINE_MAX || curIncline < InitParam.MAX_INCLINE_MIN) {
+            curIncline = InitParam.DEFAULT_MAX_INCLINE;
+            hasChange = true;
+        }
+
+        if (activity.isMetric) {
+            if (cutMaxSpeed > InitParam.MAX_SPEED_MAX_METRIC || cutMaxSpeed < InitParam.MAX_SPEED_MIN_METRIC) {
+                cutMaxSpeed = InitParam.DEFAULT_MAX_SPEED_METRIC;
+                hasChange = true;
+            }
+            if (curMinSpeed > InitParam.MIN_SPEED_MAX_METRIC || curMinSpeed < InitParam.MIN_SPEED_MIN_METRIC) {
+                curMinSpeed = InitParam.DEFAULT_MIN_SPEED_METRIC;
+                hasChange = true;
+            }
+
+        } else {
+            if (cutMaxSpeed > InitParam.MAX_SPEED_MAX_IMPERIAL || cutMaxSpeed < InitParam.MAX_SPEED_MIN_IMPERIAL) {
+                cutMaxSpeed = InitParam.DEFAULT_MAX_SPEED_IMPERIAL;
+                hasChange = true;
+            }
+            if (curMinSpeed > InitParam.MIN_SPEED_MAX_IMPERIAL || curMinSpeed < InitParam.MIN_SPEED_MIN_IMPERIAL) {
+                curMinSpeed = InitParam.DEFAULT_MIN_SPEED_IMPERIAL;
+                hasChange = true;
+            }
+        }
+        if (curWheel > InitParam.MAX_WHEEL_SIZE || curWheel < InitParam.MIN_WHEEL_SIZE) {
+            curWheel = InitParam.DEFAULT_WHEEL_SIZE;
+            hasChange = true;
+        }
+
+        edit_max_incline.setText(curIncline + "");
+        edit_max_speed.setText(cutMaxSpeed + "");
+        edit_min_speed.setText(curMinSpeed + "");
+        edit_wheel_size.setText(curWheel + "");
+        return hasChange;
+
+    }
+
 }

@@ -132,12 +132,12 @@ public class ParamCons implements Custom.Mcu.CmdParams {
     /**
      * 扬升上升
      */
-    public static byte CMD_INCLINE_UP = 0x01;
+    public static byte CMD_INCLINE_UP = 0x02;
 
     /**
      * 扬升下降
      */
-    public static byte CMD_INCLINE_DOWN = 0x02;
+    public static byte CMD_INCLINE_DOWN = 0x03;
 
     /**
      * 休眠命令
@@ -165,16 +165,16 @@ public class ParamCons implements Custom.Mcu.CmdParams {
     public static byte CMD_BUZZ = 0x00;
 
     public static void reset(int type) {
-        resetAa();
+        resetDc();
     }
 
-    private static void resetAa() {
+    private static void resetDc() {
 
         CONTROL_CMD_STOP = 0x00;
 
         CONTROL_CMD_START = 0x01;
 
-        CONTROL_CMD_SLEEP = 0x7A;
+        CONTROL_CMD_SLEEP = 0x02;
 
         CONTROL_CMD_CALIBRATE = 0x21;
 
@@ -196,8 +196,6 @@ public class ParamCons implements Custom.Mcu.CmdParams {
         CONTROL_CMD_CLEAR_ERROR_CODE = 0x24;
 
         NORMAL_PACKAGE_PARAM = 0x01;
-        NORMAL_PACKAGE_PARAM_02 = 0x02;
-        NORMAL_PACKAGE_PARAM_03 = 0x03;
 
         CMD_BELT = 0x20;
 
@@ -209,9 +207,15 @@ public class ParamCons implements Custom.Mcu.CmdParams {
         CMD_WHEEL_SIZE = 0x13;
         CMD_MAX_INCLINE = 0x14;
 
-        CMD_SET_SPEED = 0x4F;
+        CMD_SET_SPEED = 0x23;
 
         CMD_SET_INCLINE = 0x2A;
+
+        CMD_INCLINE_AD = 0x2B;
+        /** 检测最大ad值*/
+        CMD_INCLINE_UP = 0x09;
+        /** 检测最小ad值*/
+        CMD_INCLINE_DOWN = 0x0A;
 
         CMD_SLEEP = 0x7A;
 
@@ -220,8 +224,6 @@ public class ParamCons implements Custom.Mcu.CmdParams {
         READ_NCU_MONTH_DAY = 0x7F;
 
         CMD_FAN = 0x78;
-
-        CMD_LUBE = 0x78;
         CMD_REBOOT = 0x7B;
     }
 }
