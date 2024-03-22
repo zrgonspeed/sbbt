@@ -21,6 +21,7 @@
 
     <com.run.treadmill.widget.MultiClickAndLongPressView
         android:id="@+id/btn_to_fact"
+        android:background="@color/transparent"
         android:layout_width="@dimen/dp_px_220_x"
         android:layout_height="@dimen/dp_px_180_x" />
 
