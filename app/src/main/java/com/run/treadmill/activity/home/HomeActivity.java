@@ -139,9 +139,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
         homeAnimation = new HomeAnimation(iv_home_bg, this);
         homeAnimation.setBlur(false);   // 模糊按钮背景会卡卡的
-        ThreadUtils.postOnMainThread(() -> {
-            homeAnimation.initAndStart();
-        }, 3000);
 
         // 进入工厂
         btn_to_fact.setOnMultiClickListener(() -> {
@@ -398,7 +395,10 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         avv_load.show();
         ThreadUtils.postOnMainThread(() -> {
             closeLoading();
-        }, 5000);
+            ThreadUtils.postOnMainThread(() -> {
+                homeAnimation.initAndStart();
+            }, 5000);
+        }, 6000);
     }
 
     private void closeLoading() {

@@ -51,7 +51,7 @@ public class HomeAnimation {
     private boolean threadRun = true;   //线程结束标志符
     private boolean pause = false;
     private int duration = 2000;
-    private int sleep = 5000;
+    private int sleep = 7000;
 
     private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
