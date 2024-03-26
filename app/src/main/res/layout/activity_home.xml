@@ -21,9 +21,9 @@
 
     <com.run.treadmill.widget.MultiClickAndLongPressView
         android:id="@+id/btn_to_fact"
-        android:background="@color/transparent"
         android:layout_width="@dimen/dp_px_220_x"
-        android:layout_height="@dimen/dp_px_180_x" />
+        android:layout_height="@dimen/dp_px_180_x"
+        android:background="@color/transparent" />
 
     <include
         android:id="@+id/inclue_float_left"
@@ -209,4 +209,40 @@
         android:background="@color/background_black"
         android:clickable="true"
         android:visibility="gone" />
+
+    <View
+        android:id="@+id/v_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C8000000"
+        android:clickable="true"
+        android:visibility="gone" />
+    <!--
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_anim"
+            android:layout_width="@dimen/dp_px_150_x"
+            android:layout_height="@dimen/dp_px_150_x"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            app:lottie_autoPlay="false"
+            app:lottie_fileName="anim/img_marathon_animation.json"
+            app:lottie_loop="true"
+            app:lottie_speed="2.0" />-->
+    <!--
+        <ProgressBar
+            android:id="@+id/pb_loading"
+            style="@style/style.zrg"
+            android:layout_width="@dimen/dp_px_200_x"
+            android:layout_height="@dimen/dp_px_200_x"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />-->
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avv_load"
+        android:layout_width="@dimen/dp_px_100_x"
+        android:layout_height="@dimen/dp_px_100_x"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_px_800_x"
+        app:indicatorColor="@color/lightBlue"
+        app:indicatorName="BallSpinFadeLoaderIndicator" />
 </RelativeLayout>

@@ -34,6 +34,7 @@ import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.PermissionUtil;
 import com.run.treadmill.util.ThreadUtils;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -66,6 +67,11 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @BindView(R.id.iv_home_logo)
     ImageView iv_home_logo;
 
+    @BindView(R.id.v_loading)
+    View v_loading;
+    @BindView(R.id.avv_load)
+    AVLoadingIndicatorView avv_load;
+
     @BindView(R.id.btn_to_fact)
     MultiClickAndLongPressView btn_to_fact;
 
@@ -90,6 +96,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        onInitLoading();
 
         tipsPop = new HomeTipsDialog(this);
         setTipsPop();
@@ -131,7 +139,9 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
         homeAnimation = new HomeAnimation(iv_home_bg, this);
         homeAnimation.setBlur(false);   // 模糊按钮背景会卡卡的
-        homeAnimation.initAndStart();
+        ThreadUtils.postOnMainThread(() -> {
+            homeAnimation.initAndStart();
+        }, 3000);
 
         // 进入工厂
         btn_to_fact.setOnMultiClickListener(() -> {
@@ -159,7 +169,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
         getPresenter().setContext(this);
 
-        setUpdate();
+        // setUpdate();
         checkFirst();
 
         if (!isNormal) {
@@ -380,5 +390,19 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         if (tv_home_quickstart.isEnabled()) {
             tv_home_quickstart.setEnabled(AppDebug.debug ? true : false);
         }
+    }
+
+    private void onInitLoading() {
+        v_loading.setVisibility(View.VISIBLE);
+        // https://gitcode.com/baitutang1221/AVLoadingIndicatorView/overview?utm_source=csdn_github_accelerator&isLogin=1
+        avv_load.show();
+        ThreadUtils.postOnMainThread(() -> {
+            closeLoading();
+        }, 5000);
+    }
+
+    private void closeLoading() {
+        v_loading.setVisibility(View.GONE);
+        avv_load.hide();
     }
 }
