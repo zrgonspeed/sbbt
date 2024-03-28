@@ -224,7 +224,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        Logger.i("tipsPop == " + tipsPop);
+        // Logger.i("tipsPop == " + tipsPop);
 
         if (tipsPop == null) {
             return;

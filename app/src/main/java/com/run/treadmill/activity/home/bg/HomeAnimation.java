@@ -102,6 +102,7 @@ public class HomeAnimation {
         threadRun = true;
         thread = new Thread(new MyRunnable());
         thread.start();
+        Logger.i("开始背景轮播图动画");
 
         if (openBlur) {
             thread2 = new Thread(new MyRunnable2());

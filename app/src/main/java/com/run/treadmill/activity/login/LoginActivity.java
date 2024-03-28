@@ -42,6 +42,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     @Override
     protected void onResume() {
         super.onResume();
+        isOnClicking = false;
     }
 
     @Override
@@ -71,11 +72,20 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
 
     }
 
+    public boolean isOnClicking = true;
+
     @OnClick({R.id.bt_guest,
             R.id.bt_sign_in,
             R.id.bt_sign_up,
     })
     public void click(View view) {
+        if (isOnClicking) {
+            return;
+        }
+        if (view.getId() == R.id.bt_guest) {
+            // 这个按钮不准多次点击事件
+            isOnClicking = true;
+        }
         switch (view.getId()) {
             case R.id.bt_guest:
                 Logger.i("click");

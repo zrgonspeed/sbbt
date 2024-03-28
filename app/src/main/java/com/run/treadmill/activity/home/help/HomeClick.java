@@ -28,7 +28,9 @@ public class HomeClick extends BaseHomeHelp {
         // 有些按钮要防止快速点击多次
         if (view.getId() == R.id.iv_bluetooth ||
                 view.getId() == R.id.iv_wifi ||
-                view.getId() == R.id.tv_home_quickstart
+                view.getId() == R.id.tv_home_quickstart ||
+                view.getId() == R.id.tv_home_setting
+
         ) {
             activity.isOnClicking = true;
         }
