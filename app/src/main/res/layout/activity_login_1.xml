@@ -18,7 +18,6 @@
         android:stateListAnimator="@null"
         android:text="@string/str_guest"
         android:textAlignment="center"
-        android:textColor="@drawable/tv_color_red3_selector"
         android:textSize="@dimen/dp_px_40_x"
         app:touch_effects_radius="@dimen/dp_px_25_x" />
 
@@ -134,34 +133,32 @@
 
 
     <!--登录按钮-->
-    <com.hjq.shape.view.ShapeButton
+    <Button
         android:id="@+id/bt_sign_in"
         android:layout_width="@dimen/dp_px_550_x"
         android:layout_height="@dimen/dp_px_94_x"
         android:layout_marginStart="@dimen/dp_px_1230_x"
         android:layout_marginTop="@dimen/dp_px_623_x"
+        android:background="@drawable/bt_blue3_selector_24r"
         android:gravity="center"
         android:text="Sign in"
+        android:textColor="@drawable/tv_color_red3_selector"
         android:textSize="@dimen/font_size_45"
-        app:shape_radius="@dimen/dp_px_25_x"
-        app:shape_solidColor="@color/color_bt_blue_1"
-        app:shape_solidDisabledColor="@color/color_bt_blue_3"
-        app:shape_solidPressedColor="@color/color_bt_blue_2" />
+        app:touch_effects_radius="@dimen/dp_px_25_x" />
 
     <!--注册按钮-->
-    <com.hjq.shape.view.ShapeButton
+    <Button
         android:id="@+id/bt_sign_up"
         android:layout_width="@dimen/dp_px_550_x"
         android:layout_height="@dimen/dp_px_94_x"
         android:layout_marginStart="@dimen/dp_px_1230_x"
         android:layout_marginTop="@dimen/dp_px_826_x"
+        android:background="@drawable/bt_blue3_selector_24r"
         android:gravity="center"
         android:text="Sign Up"
+        android:textColor="@drawable/tv_color_red3_selector"
         android:textSize="@dimen/font_size_45"
-        app:shape_radius="@dimen/dp_px_25_x"
-        app:shape_solidColor="@color/color_bt_blue_1"
-        app:shape_solidDisabledColor="@color/color_bt_blue_3"
-        app:shape_solidPressedColor="@color/color_bt_blue_2" />
+        app:touch_effects_radius="@dimen/dp_px_25_x" />
 
     <TextView
         android:layout_width="wrap_content"

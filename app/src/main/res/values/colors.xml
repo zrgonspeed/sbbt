@@ -381,6 +381,6 @@
     <color name="color_bt_blue_3">#80575973</color>
 
     <!--第三方库的水波纹效果的颜色  按下  松开-->
-    <color name="color_ripple_1">#41FFFFFF</color>
-    <color name="color_ripple_2">#41FFFFFF</color>
+    <color name="color_ripple_white_1">#41FFFFFF</color>
+    <color name="color_ripple_white_2">#41FFFFFF</color>
 </resources>

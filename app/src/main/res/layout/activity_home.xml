@@ -110,8 +110,8 @@
         android:text="Sign out"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_45"
-        app:touch_effects_normal_color="@color/color_ripple_2"
-        app:touch_effects_pressed_color="@color/color_ripple_1"
+        app:touch_effects_normal_color="@color/color_ripple_white_2"
+        app:touch_effects_pressed_color="@color/color_ripple_white_1"
         app:touch_effects_radius="@dimen/dp_px_25_x" />
 
     <TextView
@@ -127,8 +127,8 @@
         android:text="Media"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_45"
-        app:touch_effects_normal_color="@color/color_ripple_2"
-        app:touch_effects_pressed_color="@color/color_ripple_1"
+        app:touch_effects_normal_color="@color/color_ripple_white_2"
+        app:touch_effects_pressed_color="@color/color_ripple_white_1"
         app:touch_effects_radius="@dimen/dp_px_25_x" />
 
     <TextView
@@ -144,8 +144,8 @@
         android:text="Quick Start"
         android:textColor="#FA198B"
         android:textSize="@dimen/font_size_65"
-        app:touch_effects_normal_color="@color/color_ripple_2"
-        app:touch_effects_pressed_color="@color/color_ripple_1"
+        app:touch_effects_normal_color="@color/color_ripple_white_2"
+        app:touch_effects_pressed_color="@color/color_ripple_white_1"
         app:touch_effects_radius="@dimen/dp_px_25_x" />
 
     <TextView
@@ -161,8 +161,8 @@
         android:text="Program"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_45"
-        app:touch_effects_normal_color="@color/color_ripple_2"
-        app:touch_effects_pressed_color="@color/color_ripple_1"
+        app:touch_effects_normal_color="@color/color_ripple_white_2"
+        app:touch_effects_pressed_color="@color/color_ripple_white_1"
         app:touch_effects_radius="@dimen/dp_px_25_x" />
 
     <TextView
@@ -178,8 +178,8 @@
         android:text="Setting"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_45"
-        app:touch_effects_normal_color="@color/color_ripple_2"
-        app:touch_effects_pressed_color="@color/color_ripple_1"
+        app:touch_effects_normal_color="@color/color_ripple_white_2"
+        app:touch_effects_pressed_color="@color/color_ripple_white_1"
         app:touch_effects_radius="@dimen/dp_px_25_x" />
 
     <ImageView
