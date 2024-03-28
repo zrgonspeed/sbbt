@@ -6,26 +6,20 @@
     android:layout_height="@dimen/dp_px_1080_x"
     android:background="@drawable/bk_background_1">
 
-    <com.hjq.shape.view.ShapeButton
+    <Button
         android:id="@+id/bt_guest"
         android:layout_width="@dimen/dp_px_468_x"
         android:layout_height="@dimen/dp_px_94_x"
         android:layout_marginStart="@dimen/dp_px_166_x"
         android:layout_marginTop="@dimen/dp_px_786_x"
         android:layout_marginEnd="@dimen/dp_px_100_x"
+        android:background="@drawable/bt_red3_selector_24r"
         android:gravity="center"
         android:stateListAnimator="@null"
-
         android:text="@string/str_guest"
         android:textAlignment="center"
-        android:textColor="@color/white"
-
-        android:textSize="@dimen/dp_px_40_x"
-
-        app:shape_radius="@dimen/dp_px_24_x"
-        app:shape_solidColor="#FA198B"
-        app:shape_solidDisabledColor="#80575973"
-        app:shape_solidPressedColor="#AD115F" />
+        android:textColor="@drawable/tv_color_red3_selector"
+        android:textSize="@dimen/dp_px_40_x" />
 
     <TextView
         android:id="@+id/tv_login"
