@@ -273,9 +273,7 @@
     <color name="color_picker_view_disable_triangle">#7F9D2227</color>
 
     <color name="color_bt_smart_refresh">#E1E1E1</color>
-    <color name="color_bt_1">#4E55D9</color>
-    <color name="color_bt_2">#32378C</color>
-    <color name="color_bt_3">#80575973</color>
+
 
     <color name="color_cur_speed">#FA198B</color>
     <color name="color_nocur_speed">#47D1DB</color>
@@ -283,9 +281,6 @@
     <color name="color_cur_incline">#DC79D7</color>
     <color name="color_nocur_incline">#957AE4</color>
 
-    <color name="color_bt_red_1">#FA198B</color>
-    <color name="color_bt_red_2">#AD115F</color>
-    <color name="color_bt_red_3">#80575973</color>
 
     <color name="color_aaaaaa">#AAAAAA</color>
     <color name="color_aaa280">#AAA280</color>
@@ -370,9 +365,18 @@
     <color name="summary_bg">#141726</color>
     <color name="login_A9ACED">#A9ACED</color>
 
+    <!--水波纹按下的颜色特别-->
     <color name="color_blue_pressed">#1F2356</color>
     <color name="color_blue_normal">#4E55D9</color>
     <color name="color_red_pressed">#840E49</color>
     <color name="color_red_normal">#FA198B</color>
     <color name="color_dis">#AE575973</color>
+
+    <!--不用水波纹点击效果的颜色-->
+    <color name="color_bt_red_1">#FA198B</color>
+    <color name="color_bt_red_2">#AD115F</color>
+    <color name="color_bt_red_3">#80575973</color>
+    <color name="color_bt_1">#4E55D9</color>
+    <color name="color_bt_2">#32378C</color>
+    <color name="color_bt_3">#80575973</color>
 </resources>
