@@ -376,7 +376,7 @@
     <color name="color_bt_red_1">#FA198B</color>
     <color name="color_bt_red_2">#AD115F</color>
     <color name="color_bt_red_3">#80575973</color>
-    <color name="color_bt_1">#4E55D9</color>
-    <color name="color_bt_2">#32378C</color>
-    <color name="color_bt_3">#80575973</color>
+    <color name="color_bt_blue_1">#4E55D9</color>
+    <color name="color_bt_blue_2">#32378C</color>
+    <color name="color_bt_blue_3">#80575973</color>
 </resources>
