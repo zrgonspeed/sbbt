@@ -83,6 +83,7 @@
         android:paddingStart="@dimen/dp_px_44_x"
         android:text="Save workout to user"
         android:textSize="@dimen/font_size_45"
+        android:onClick="goHome"
         app:shape_radius="@dimen/dp_px_25_x"
         app:shape_solidColor="@color/color_bt_1"
         app:shape_solidDisabledColor="@color/color_bt_3"
@@ -99,29 +100,28 @@
         android:paddingStart="@dimen/dp_px_44_x"
         android:paddingEnd="@dimen/dp_px_10_x"
         android:text="Share"
+        android:onClick="goHome"
         android:textSize="@dimen/font_size_45"
         app:shape_radius="@dimen/dp_px_25_x"
         app:shape_solidColor="@color/color_bt_1"
         app:shape_solidDisabledColor="@color/color_bt_3"
         app:shape_solidPressedColor="@color/color_bt_2" />
 
-    <com.hjq.shape.view.ShapeButton
+    <Button
         android:id="@+id/bt_home"
         android:layout_width="@dimen/dp_px_400_x"
         android:layout_height="@dimen/dp_px_120_x"
         android:layout_marginStart="@dimen/dp_px_1474_x"
         android:layout_marginTop="@dimen/dp_px_907_x"
+        android:background="@drawable/bt_blue3_selector_24r"
         android:drawableStart="@drawable/img_icon_home_1"
         android:gravity="center"
         android:onClick="goHome"
         android:paddingStart="@dimen/dp_px_44_x"
         android:paddingEnd="@dimen/dp_px_10_x"
         android:text="Home"
-        android:textSize="@dimen/font_size_45"
-        app:shape_radius="@dimen/dp_px_25_x"
-        app:shape_solidColor="@color/color_bt_1"
-        app:shape_solidDisabledColor="@color/color_bt_3"
-        app:shape_solidPressedColor="@color/color_bt_2" />
+        android:textColor="@drawable/tv_color_red3_selector"
+        android:textSize="@dimen/font_size_45" />
 
     <!--时间-->
     <TextView

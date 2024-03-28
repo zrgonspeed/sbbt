@@ -369,4 +369,10 @@
     <color name="color_line">#59A9ACED</color>
     <color name="summary_bg">#141726</color>
     <color name="login_A9ACED">#A9ACED</color>
+
+    <color name="color_blue_pressed">#22265F</color>
+    <color name="color_blue_normal">#4E55D9</color>
+    <color name="color_red_pressed">#840E49</color>
+    <color name="color_red_normal">#FA198B</color>
+    <color name="color_dis">#AE575973</color>
 </resources>
