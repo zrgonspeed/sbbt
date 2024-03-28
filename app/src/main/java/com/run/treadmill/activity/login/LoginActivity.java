@@ -76,8 +76,10 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         switch (view.getId()) {
             case R.id.bt_guest:
                 Logger.i("click");
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                finish();
+                bt_guest.postDelayed(() -> {
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    finish();
+                }, 200);
                 break;
         }
     }
