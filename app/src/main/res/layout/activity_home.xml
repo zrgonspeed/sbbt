@@ -109,7 +109,10 @@
         android:paddingTop="@dimen/dp_px_75_x"
         android:text="Sign out"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_45" />
+        android:textSize="@dimen/font_size_45"
+        app:touch_effects_normal_color="@color/color_ripple_2"
+        app:touch_effects_pressed_color="@color/color_ripple_1"
+        app:touch_effects_radius="@dimen/dp_px_25_x" />
 
     <TextView
         android:id="@+id/tv_home_media"
@@ -123,7 +126,10 @@
         android:paddingTop="@dimen/dp_px_75_x"
         android:text="Media"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_45" />
+        android:textSize="@dimen/font_size_45"
+        app:touch_effects_normal_color="@color/color_ripple_2"
+        app:touch_effects_pressed_color="@color/color_ripple_1"
+        app:touch_effects_radius="@dimen/dp_px_25_x" />
 
     <TextView
         android:id="@+id/tv_home_quickstart"
@@ -137,7 +143,10 @@
         android:paddingStart="@dimen/dp_px_200_x"
         android:text="Quick Start"
         android:textColor="#FA198B"
-        android:textSize="@dimen/font_size_65" />
+        android:textSize="@dimen/font_size_65"
+        app:touch_effects_normal_color="@color/color_ripple_2"
+        app:touch_effects_pressed_color="@color/color_ripple_1"
+        app:touch_effects_radius="@dimen/dp_px_25_x" />
 
     <TextView
         android:id="@+id/tv_home_program"
@@ -151,7 +160,10 @@
         android:paddingTop="@dimen/dp_px_75_x"
         android:text="Program"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_45" />
+        android:textSize="@dimen/font_size_45"
+        app:touch_effects_normal_color="@color/color_ripple_2"
+        app:touch_effects_pressed_color="@color/color_ripple_1"
+        app:touch_effects_radius="@dimen/dp_px_25_x" />
 
     <TextView
         android:id="@+id/tv_home_setting"
@@ -164,9 +176,11 @@
         android:gravity="center_horizontal"
         android:paddingTop="@dimen/dp_px_75_x"
         android:text="Setting"
-        app:touch_effects_radius="@dimen/dp_px_25_x"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_45" />
+        android:textSize="@dimen/font_size_45"
+        app:touch_effects_normal_color="@color/color_ripple_2"
+        app:touch_effects_pressed_color="@color/color_ripple_1"
+        app:touch_effects_radius="@dimen/dp_px_25_x" />
 
     <ImageView
         android:id="@+id/iv_bluetooth"

@@ -19,7 +19,8 @@
         android:text="@string/str_guest"
         android:textAlignment="center"
         android:textColor="@drawable/tv_color_red3_selector"
-        android:textSize="@dimen/dp_px_40_x" />
+        android:textSize="@dimen/dp_px_40_x"
+        app:touch_effects_radius="@dimen/dp_px_25_x" />
 
     <TextView
         android:id="@+id/tv_login"
