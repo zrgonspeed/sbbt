@@ -1,6 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/bt_blue3_selector_ripple_dis_24r" android:state_enabled="false" />
-    <item android:drawable="@drawable/bt_blue3_selector_ripple_nor_pre_24r" android:state_pressed="true" />
-    <item android:drawable="@drawable/bt_blue3_selector_ripple_nor_pre_24r" />
+    <item android:state_enabled="false">
+        <shape>
+            <corners android:radius="@dimen/dp_px_24_x" />
+            <solid android:color="@color/color_dis" />
+        </shape>
+    </item>
+
+    <item android:state_pressed="true">
+        <shape>
+            <corners android:radius="@dimen/dp_px_24_x" />
+            <solid android:color="@color/color_bt_blue_2" />
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <corners android:radius="@dimen/dp_px_24_x" />
+            <solid android:color="@color/color_bt_blue_1" />
+        </shape>
+    </item>
 </selector>
