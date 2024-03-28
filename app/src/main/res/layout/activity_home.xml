@@ -190,7 +190,9 @@
         android:layout_marginTop="@dimen/dp_px_40_x"
         android:layout_marginEnd="@dimen/dp_px_90_x"
         android:layout_toStartOf="@+id/tv_time"
-        android:background="@drawable/btn_bluetooth_on" />
+        android:background="@drawable/btn_bluetooth_on"
+        app:touch_effects_forbid="true"
+        app:touch_effects_type="none" />
 
     <ImageView
         android:id="@+id/iv_wifi"
@@ -200,7 +202,9 @@
         android:layout_marginTop="@dimen/dp_px_40_x"
         android:layout_marginEnd="@dimen/dp_px_25_x"
         android:layout_toStartOf="@+id/tv_time"
-        android:background="@drawable/btn_wifi_on" />
+        android:background="@drawable/btn_wifi_on"
+        app:touch_effects_forbid="true"
+        app:touch_effects_type="none" />
 
     <TextClock
         android:id="@+id/tv_time"
