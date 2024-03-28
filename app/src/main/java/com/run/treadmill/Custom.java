@@ -18,7 +18,7 @@ public class Custom {
     public static final String MCU_UPDATE_NAME = PROJECT_NAME;
     public static final int DEF_DEVICE_TYPE = CTConstant.DEVICE_TYPE_DC;
     public static final boolean isTestServer = false;
-    // 是否开启点击按钮水波纹效果
+    // 是否开启点击按钮水波纹效果  使用第三方库的
     public static final boolean CLICK_VIEW_ANIMATION = true;
 
     public static class Mcu {
