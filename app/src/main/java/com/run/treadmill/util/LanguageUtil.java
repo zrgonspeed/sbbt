@@ -31,6 +31,7 @@ public class LanguageUtil {
                 BackupManager.dataChanged("com.android.providers.settings");
             }
         } catch (Exception e) {
+            Logger.e("切换语言异常：" + e.getMessage());
             e.printStackTrace();
         }
     }
