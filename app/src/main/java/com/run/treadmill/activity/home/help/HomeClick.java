@@ -64,7 +64,7 @@ public class HomeClick extends BaseHomeHelp {
                 break;
 
             case R.id.tv_home_setting:
-                // activity.startActivity(new Intent(activity, SettingActivity.class));
+                activity.startActivity(new Intent(activity, SettingActivity.class));
                 break;
         }
     }

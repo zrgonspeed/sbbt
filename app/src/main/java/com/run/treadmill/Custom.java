@@ -18,6 +18,8 @@ public class Custom {
     public static final String MCU_UPDATE_NAME = PROJECT_NAME;
     public static final int DEF_DEVICE_TYPE = CTConstant.DEVICE_TYPE_DC;
     public static final boolean isTestServer = false;
+    // 是否开启点击按钮水波纹效果
+    public static final boolean CLICK_VIEW_ANIMATION = true;
 
     public static class Mcu {
         public interface McuReboot {

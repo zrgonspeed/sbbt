@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/dp_px_1920_x"
     android:layout_height="@dimen/dp_px_170_x"
     android:background="@drawable/bottom_workout">
@@ -130,7 +131,8 @@
         android:layout_height="@dimen/dp_px_148_x"
         android:layout_marginStart="@dimen/dp_px_1688_x"
         android:layout_marginTop="@dimen/dp_px_12_x"
-        android:background="@drawable/btn_pause_1" />
+        android:background="@drawable/btn_pause_1"
+        app:touch_effects_radius="@dimen/dp_px_50_x" />
 
     <!--开始图标，隐藏，可能暂停的时候显示-->
     <ImageView

@@ -10,6 +10,8 @@ import androidx.annotation.Nullable;
 import com.chuhui.btcontrol.BtCallBack;
 import com.chuhui.btcontrol.BtHelper;
 import com.chuhui.btcontrol.CbData;
+import com.lky.toucheffectsmodule.factory.TouchEffectsFactory;
+import com.run.treadmill.Custom;
 import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.base.factory.PresenterFactory;
 import com.run.treadmill.base.factory.PresenterFactoryImpl;
@@ -54,6 +56,9 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (Custom.CLICK_VIEW_ANIMATION) {
+            TouchEffectsFactory.initTouchEffects(this);
+        }
         super.onCreate(savedInstanceState);
         TAG = getClass().getSimpleName();
         Logger.i(TAG, "onCreate()");

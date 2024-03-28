@@ -1,5 +1,8 @@
 package com.run.treadmill.reboot;
 
+import com.lky.toucheffectsmodule.TouchEffectsManager;
+import com.lky.toucheffectsmodule.types.TouchEffectsViewType;
+import com.lky.toucheffectsmodule.types.TouchEffectsWholeType;
 import com.run.android.ShellCmdUtils;
 import com.run.serial.SerialCommand;
 import com.run.treadmill.AppDebug;
@@ -43,6 +46,14 @@ public class MyApplication extends LitePalApplication implements Custom.Applicat
      * 是否第一次启动
      */
     public boolean isFirst = true;
+
+    static {
+        if (Custom.CLICK_VIEW_ANIMATION) {
+            TouchEffectsManager.build(TouchEffectsWholeType.RIPPLE)//设置全局使用哪种效果
+                    .addViewType(TouchEffectsViewType.ALL)//添加哪些View支持这个效果
+                    .setListWholeType(TouchEffectsWholeType.RIPPLE);//为父控件为列表的情况下，设置特定效果
+        }
+    }
 
     @Override
     public void onCreate() {
