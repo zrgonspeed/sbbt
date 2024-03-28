@@ -71,7 +71,10 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
 
     }
 
-    @OnClick({R.id.bt_guest})
+    @OnClick({R.id.bt_guest,
+            R.id.bt_sign_in,
+            R.id.bt_sign_up,
+    })
     public void click(View view) {
         switch (view.getId()) {
             case R.id.bt_guest:
