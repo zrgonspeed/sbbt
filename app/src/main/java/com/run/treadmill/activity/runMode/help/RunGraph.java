@@ -67,6 +67,9 @@ public class RunGraph {
         // TODO: 2024/3/29  可能left 即扬升图标没有显示成功 
         rb_graph_right.setVisibility(View.GONE);
         rb_graph_left.setVisibility(View.VISIBLE);
+        rb_graph_left.setVisibility(View.VISIBLE);
+        rb_graph_left.setVisibility(View.VISIBLE);
+        rb_graph_left.invalidate();
         bar_graph.setCurrSelectType(0);
         bar_graph.setUnitRange(0f, getMaxIncline(), 6, 0);
         bar_graph.setValueRange(0f, getMaxIncline());

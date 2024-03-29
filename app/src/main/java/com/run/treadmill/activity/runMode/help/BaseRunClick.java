@@ -35,7 +35,7 @@ public class BaseRunClick {
                 BuzzerManager.getInstance().buzzerRingOnce();
                 activity.run_pop_pause.setVisibility(View.GONE);
                 activity.runPause.stopPauseTimer();
-                activity.showPrepare(0);
+                activity.showPreparePlayVideo(0);
                 break;
             case R.id.btn_pause_quit:
                 if (!activity.mRunningParam.isStopStatus()) {

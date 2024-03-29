@@ -41,6 +41,7 @@ import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.StringUtil;
+import com.run.treadmill.util.ThreadUtils;
 import com.run.treadmill.widget.HistogramListView;
 import com.run.treadmill.widget.LongClickImage;
 import com.run.treadmill.widget.VideoPlayerSelf;
@@ -186,8 +187,41 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             safeError();
             return;
         }
-        FitShowManager.isBaseRun = true;
+        Logger.i("onCreate 1");
         mRunningParam = RunningParam.getInstance();
+        mRunningParam.setToPrepare();
+
+        prepare321Go.init321Go();
+        prepare321Go.newHandler();
+        if (mRunningParam.isPrepare()) {
+            showPreparePlayVideo(0);
+        }
+        ThreadUtils.postOnMainThread(()-> {
+            Logger.i("onCreate2()");
+            onCreate2();
+        }, 500);
+        Logger.i("onCreate 1 结束");
+    }
+
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_running;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Logger.i("onResume");
+
+        ThreadUtils.postOnMainThread(()-> {
+            Logger.i("onResume2()");
+            onResume2();
+        }, 800);
+    }
+
+    private void onCreate2() {
+        FitShowManager.isBaseRun = true;
         mFloatWindowManager = new FloatWindowManager(this);
 
         runParamUnitTextSize = getResources().getDimensionPixelSize(R.dimen.font_size_run_param_unit);
@@ -206,23 +240,13 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
         mRunningParam.setCallback(this);
 
-        prepare321Go.init321Go();
-
         initAdjustIncline();
         initAdjustSpeed();
 
         initGraph();
     }
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_running;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        long start = System.currentTimeMillis();
+    private void onResume2() {
         {
             if (ErrorManager.getInstance().exitError) {
                 finish();
@@ -234,11 +258,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 speedInclineClickHandler = new SpeedInclineClickHandler(this);
             }
 
-            prepare321Go.newHandler();
-
-            if (mRunningParam.isPrepare()) {
-                showPrepare(0);
-            }
             if (lineChartView != null) {
                 btn_media.setVisibility(View.VISIBLE);
                 // rl_chart_view.setVisibility(View.VISIBLE);
@@ -258,8 +277,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 settingLineChart();
             }
         }
-        long end = System.currentTimeMillis();
-        Logger.i("BaseRunActivity onResume() time == " + (end - start));
     }
 
     private void setOnCreateRoller() {
@@ -627,7 +644,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         }
     }
 
-    public void showPrepare(long delay) {
+    public void showPreparePlayVideo(long delay) {
         prepare321Go.play321Go(delay);
     }
 

@@ -73,6 +73,7 @@ public class Prepare321Go {
         this.delay = delay;
         Logger.i("play321Go");
         vv_go.setVisibility(View.VISIBLE);
+        // 真正播放视频的地方
         vv_go.start();
     }
 

@@ -65,7 +65,7 @@ public class RunPause implements CustomTimer.TimerCallBack {
 
             activity.btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
             activity.mRunningParam.setToPrepare();
-            activity.showPrepare(0);
+            activity.showPreparePlayVideo(0);
             return;
         } else if (activity.mRunningParam.isStopStatus()
                 || activity.mRunningParam.isPrepare()) {

@@ -64,10 +64,10 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
         Logger.i(TAG, "onCreate()");
 
         hideBottomUIMenu();
-        // Logger.i(TAG, "onCreate()2222");
+        Logger.i(TAG, "onCreate() 开始 setContentView(getLayoutId())");
 
         setContentView(getLayoutId());
-        // Logger.i(TAG, "onCreate()3333");
+        Logger.i(TAG, "onCreate() 结束 setContentView(getLayoutId())");
 
         ButterKnife.bind(this);
 
