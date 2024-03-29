@@ -2,6 +2,7 @@ package com.run.treadmill.activity.home;
 
 import android.view.View;
 
+import com.run.treadmill.Custom;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.update.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
@@ -9,9 +10,9 @@ import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
 
-public class HomeSleepManager implements CustomTimer.TimerCallBack {
+public class HomeSleepManager implements CustomTimer.TimerCallBack, Custom.HomeSleep {
     private HomeActivity homeActivity;
-    public static final int SLEEP_TIME = 60 * 100;
+    public static final int SLEEP_TIME = Custom.HomeSleep.SLEEP_TIME;
 
     private final String sleepTag = "sleep";
     private CustomTimer mSleepTimer;

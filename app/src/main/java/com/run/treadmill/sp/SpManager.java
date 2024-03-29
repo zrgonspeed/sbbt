@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 
+import com.run.treadmill.Custom;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.util.UnitUtil;
 
@@ -767,11 +768,8 @@ public class SpManager {
         StorageParam.setParam(SET_LANGUAGE, language);
     }
 
-    /**
-     * zh de en fr es pt
-     */
     public static String getLanguage() {
-        return StorageParam.getParam(SET_LANGUAGE, "en");
+        return StorageParam.getParam(SET_LANGUAGE, Custom.Language.defLanguage);
     }
 
 }

@@ -4,11 +4,9 @@ package com.run.treadmill;
 import com.run.serial.RxDataCallBack;
 import com.run.treadmill.activity.factory.FactoryPresenter;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
-import com.run.treadmill.activity.home.HomeSleepManager;
 import com.run.treadmill.activity.home.help.HomeMcu;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.ControlManager;
-import com.run.treadmill.sp.SpManager;
 
 /**
  * 方便跳转到需要修改的地方
@@ -84,15 +82,11 @@ public class Custom {
     }
 
     public interface HomeSleep {
-        default void fun() {
-            new HomeSleepManager(null).timerComply(0, null);
-        }
+        int SLEEP_TIME = 60 * 100; // 单位 秒
     }
 
     public interface Language {
-        default void fun() {
-            SpManager.getLanguage();
-        }
+        String defLanguage = "en";  // de en fr es pt  繁体 简体
     }
 
     public static int logo = R.drawable.img_logo;

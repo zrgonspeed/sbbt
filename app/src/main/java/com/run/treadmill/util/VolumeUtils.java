@@ -8,8 +8,6 @@ import com.run.treadmill.Custom;
 import com.run.treadmill.manager.SystemSoundManager;
 
 public class VolumeUtils implements Custom.Volume {
-
-
     public static void changeVolume(Context context) {
         AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         ThreadUtils.runInThread(() -> {
