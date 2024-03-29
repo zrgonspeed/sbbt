@@ -20,6 +20,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FileUtil;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.TimeStringUtil;
 import com.run.treadmill.util.UnitUtil;
 import com.run.treadmill.widget.LineGraphicView;
@@ -133,13 +134,22 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
 
     }
 
+    // 防止多次点击
+    private boolean clickedHome = false;
+
     public void goHome(View view) {
-        BuzzerManager.getInstance().buzzerRingOnce();
-        if (waiteTimer != null) {
-            waiteTimer.closeTimer();
-            waiteTimer = null;
+        if (clickedHome) {
+            return;
         }
-        finish();
+        clickedHome = true;
+        view.postDelayed(() -> {
+            BuzzerManager.getInstance().buzzerRingOnce();
+            if (waiteTimer != null) {
+                waiteTimer.closeTimer();
+                waiteTimer = null;
+            }
+            finish();
+        }, 100);
     }
 
     @Override
