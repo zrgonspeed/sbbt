@@ -6,6 +6,7 @@ import android.widget.RadioButton;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.sp.SpManager;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.RunGraphUtils;
 import com.run.treadmill.widget.chart.SportGraph;
 
@@ -64,12 +65,9 @@ public class RunGraph {
         if (rb_graph_left.getVisibility() == View.VISIBLE) {
             return;
         }
-        // TODO: 2024/3/29  可能left 即扬升图标没有显示成功 
         rb_graph_right.setVisibility(View.GONE);
         rb_graph_left.setVisibility(View.VISIBLE);
-        rb_graph_left.setVisibility(View.VISIBLE);
-        rb_graph_left.setVisibility(View.VISIBLE);
-        rb_graph_left.invalidate();
+
         bar_graph.setCurrSelectType(0);
         bar_graph.setUnitRange(0f, getMaxIncline(), 6, 0);
         bar_graph.setValueRange(0f, getMaxIncline());
