@@ -21,34 +21,6 @@ public class BaseRunClick {
             case R.id.btn_line_chart_speed:
                 BuzzerManager.getInstance().buzzerRingOnce();
                 break;
-            case R.id.iv_pause:
-                activity.clickPause();
-                break;
-            case R.id.btn_pause_continue:
-                if (activity.mRunningParam.isRunningEnd()) {
-                    return;
-                }
-                if (activity.mRunningParam.isContinue()) {
-                    return;
-                }
-                activity.mRunningParam.setToContinue();
-                BuzzerManager.getInstance().buzzerRingOnce();
-                activity.run_pop_pause.setVisibility(View.GONE);
-                activity.runPause.stopPauseTimer();
-                activity.showPreparePlayVideo(0);
-                break;
-            case R.id.btn_pause_quit:
-                if (!activity.mRunningParam.isStopStatus()) {
-                    return;
-                }
-                activity.btn_pause_quit.setEnabled(false);
-                BuzzerManager.getInstance().buzzerRingOnce();
-                if (activity.mVideoPlayerSelf != null) {
-                    activity.mVideoPlayerSelf.onRelease();
-                }
-                activity.runPause.stopPauseTimer();
-                activity.finishRunning();
-                break;
             case R.id.btn_speed_roller:
                 if (activity.btn_speed_roller.isSelected()) {
                     return;
@@ -85,6 +57,38 @@ public class BaseRunClick {
 
                 activity.setControlEnable(false);
                 activity.btn_incline_roller.setSelected(true);
+                break;
+
+            // 暂停相关按钮
+            case R.id.iv_pause:
+                activity.clickPause();
+                break;
+            case R.id.btn_pause_continue:
+                BuzzerManager.getInstance().buzzerRingOnce();
+                activity.btn_pause_continue.postDelayed(() -> {
+                    if (activity.mRunningParam.isRunningEnd()) {
+                        return;
+                    }
+                    if (activity.mRunningParam.isContinue()) {
+                        return;
+                    }
+                    activity.mRunningParam.setToContinue();
+                    activity.run_pop_pause.setVisibility(View.GONE);
+                    activity.runPause.stopPauseTimer();
+                    activity.showPreparePlayVideo(0);
+                }, 300);
+                break;
+            case R.id.btn_pause_quit:
+                if (!activity.mRunningParam.isStopStatus()) {
+                    return;
+                }
+                activity.btn_pause_quit.setEnabled(false);
+                BuzzerManager.getInstance().buzzerRingOnce();
+                if (activity.mVideoPlayerSelf != null) {
+                    activity.mVideoPlayerSelf.onRelease();
+                }
+                activity.runPause.stopPauseTimer();
+                activity.finishRunning();
                 break;
             default:
                 break;
