@@ -110,6 +110,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @Override
     protected void onResume() {
         super.onResume();
+        isOnClicking = false;
 
         ThreadUtils.postOnMainThread(() -> {
             onResume2();
@@ -158,7 +159,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
         OtaMcuUtils.curIsOtamcu = false;
         sleepWakeUpFlag = true;
-        isOnClicking = false;
         isOnPause = false;
         isMetric = SpManager.getIsMetric();
         disableQuickStart();

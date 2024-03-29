@@ -39,7 +39,7 @@ public class HomeClick extends BaseHomeHelp {
             case R.id.tv_home_quickstart:
                 view.postDelayed(() -> {
                     GoRun.quickStart(activity);
-                }, 200);
+                }, 150);
                 break;
             case R.id.iv_float_close:
                 activity.findViewById(R.id.inclue_float_left).setVisibility(View.GONE);
@@ -64,11 +64,15 @@ public class HomeClick extends BaseHomeHelp {
                 break;
 
             case R.id.tv_home_signin:
-                activity.startActivity(new Intent(activity, LoginActivity.class));
+                view.postDelayed(() -> {
+                    activity.startActivity(new Intent(activity, LoginActivity.class));
+                }, 100);
                 break;
 
             case R.id.tv_home_setting:
-                activity.startActivity(new Intent(activity, SettingActivity.class));
+                view.postDelayed(() -> {
+                    activity.startActivity(new Intent(activity, SettingActivity.class));
+                }, 100);
                 break;
         }
     }
