@@ -8,6 +8,8 @@ import com.run.treadmill.Custom;
 import com.run.treadmill.manager.SystemSoundManager;
 
 public class VolumeUtils implements Custom.Volume {
+
+
     public static void changeVolume(Context context) {
         AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         ThreadUtils.runInThread(() -> {
@@ -30,14 +32,15 @@ public class VolumeUtils implements Custom.Volume {
 
                 if (ioOutSideInsert) {
                     // 音源输入
-                    SystemSoundManager.maxVolume = 15;
+                    SystemSoundManager.maxVolume = inputMaxVolume;
                 } else {
                     // 非音源输入
                     if (isHeadSetOn) {
                         // 插入耳机  音源输出?
-                        SystemSoundManager.maxVolume = 13;
+                        SystemSoundManager.maxVolume = insertEarMaxVolume;
                     } else {
-                        SystemSoundManager.maxVolume = 12;
+                        // 正常喇叭播放走这里
+                        SystemSoundManager.maxVolume = normalMaxVolume;
                     }
                 }
 

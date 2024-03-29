@@ -24,6 +24,7 @@ import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.util.ThreadUtils;
+import com.run.treadmill.util.VolumeUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.Timer;
@@ -78,7 +79,7 @@ public class Prepare321Go {
     private void playMusic(long delay) {
         mCountdownTask = new EmptyMessageTask(prepareHandler, MsgWhat.MSG_PREPARE_TIME);
         activity.currentPro = SystemSoundManager.getInstance().getCurrentPro();
-        SystemSoundManager.getInstance().setAudioVolume(SystemSoundManager.Go321Volume, SystemSoundManager.maxVolume);
+        SystemSoundManager.getInstance().setAudioVolume(VolumeUtils.Go321Volume, SystemSoundManager.maxVolume);
         try {
             mTimer.schedule(mCountdownTask, delay, goTime);
         } catch (Exception e) {

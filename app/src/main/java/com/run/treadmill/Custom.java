@@ -75,6 +75,10 @@ public class Custom {
     }
 
     public interface Volume {
+        int normalMaxVolume = 15;   // 正常喇叭播放
+        int insertEarMaxVolume = 15;    // 插入耳机
+        int inputMaxVolume = 15;    // 音源输入
+        int Go321Volume = 3;
     }
 
     public interface HomeSleep {

@@ -6,6 +6,7 @@ import android.media.AudioManager;
 import android.provider.Settings;
 
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.VolumeUtils;
 
 
 /**
@@ -39,8 +40,7 @@ public class SystemSoundManager {
         return ourInstance;
     }
 
-    public static int maxVolume = 12;
-    public static int Go321Volume = 3;
+    public static int maxVolume = VolumeUtils.normalMaxVolume;
 
     public void init(Context context) {
         mContext = context;
