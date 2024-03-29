@@ -48,9 +48,9 @@ public class RunPause implements CustomTimer.TimerCallBack {
         Logger.d(tag + "=== 定时器回调 ===>   " + lastTime);
         if (tag.equals(pauseTimerTag)) {
             if (activity.mRunningParam.isStopStatus()) {
-                activity.runOnUiThread(() -> {
-                    activity.btn_pause_quit.performClick();
-                    stopPauseTimer();
+                stopPauseTimer();
+                activity.btn_pause_quit.post(() -> {
+                    activity.click(activity.btn_pause_quit);
                 });
             }
         }
