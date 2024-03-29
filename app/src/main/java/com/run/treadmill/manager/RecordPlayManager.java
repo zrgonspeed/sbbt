@@ -7,6 +7,7 @@ import android.media.AudioTrack;
 import android.media.MediaRecorder;
 
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.VolumeUtils;
 
 import java.util.LinkedList;
 
@@ -193,13 +194,13 @@ public class RecordPlayManager {
     }
 
     private short SHRT_MAX = (short) 0x7F00;
-    private short SHRT_MIN = (short)-0x7F00;
+    private short SHRT_MIN = (short) -0x7F00;
     //db为0表示保持音量不变，db为负数表示较低音量，为正数表示提高音量
-    private int db = 2;
-    private double factor = Math.pow(10, (double)db / 20);
+    private int db = VolumeUtils.db;
+    private double factor = Math.pow(10, (double) db / 20);
 
     private short getShort(byte[] data, int start) {
-        return (short)((data[start] & 0xFF) | (data[start+1] << 8));
+        return (short) ((data[start] & 0xFF) | (data[start + 1] << 8));
     }
 
     int AmplifyPCMData(byte[] pData, int nLen, byte[] data2, int nBitsPerSample, float multiple) {
@@ -214,8 +215,8 @@ public class RecordPlayManager {
                 if (volum > SHRT_MAX) {//爆音的处理
                     volum = SHRT_MAX;
                 }
-                data2[nCur] = (byte)( volum & 0xFF);
-                data2[nCur+1] = (byte)((volum >> 8) & 0xFF);
+                data2[nCur] = (byte) (volum & 0xFF);
+                data2[nCur + 1] = (byte) ((volum >> 8) & 0xFF);
                 nCur += 2;
             }
         }

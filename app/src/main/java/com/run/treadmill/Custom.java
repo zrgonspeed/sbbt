@@ -79,6 +79,8 @@ public class Custom {
         int insertEarMaxVolume = 15;    // 插入耳机
         int inputMaxVolume = 15;    // 音源输入
         int Go321Volume = 3;
+
+        int db = 2;  //db为0表示保持音量不变，db为负数表示较低音量，为正数表示提高音量
     }
 
     public interface HomeSleep {
