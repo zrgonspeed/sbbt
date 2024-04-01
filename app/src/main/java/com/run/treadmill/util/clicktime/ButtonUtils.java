@@ -1,11 +1,11 @@
-package com.run.treadmill.util;
+package com.run.treadmill.util.clicktime;
 
-public class HomeClickMedia {
+public class ButtonUtils {
     private static long lastBuzzOnceTime;
 
     public static boolean canResponse() {
         long curTime = System.currentTimeMillis();
-        if (Math.abs(curTime - lastBuzzOnceTime) < 500) {
+        if (Math.abs(curTime - lastBuzzOnceTime) < 60 + 140) {
             return false;
         }
         lastBuzzOnceTime = System.currentTimeMillis();

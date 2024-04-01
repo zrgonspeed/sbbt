@@ -18,7 +18,7 @@ import com.run.treadmill.base.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.serial.SerialKeyValue;
-import com.run.treadmill.util.ButtonUtilsVision;
+import com.run.treadmill.util.clicktime.ButtonUtilsVision;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.StringUtil;

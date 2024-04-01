@@ -17,7 +17,7 @@ import com.run.treadmill.util.http.OkHttpHelper;
 import com.run.treadmill.util.Md5Manager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.WifiBTStateManager;
-import com.run.treadmill.util.DownloadTimeUtils;
+import com.run.treadmill.util.clicktime.DownloadTimeUtils;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.VersionUtil;

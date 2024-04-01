@@ -1,6 +1,6 @@
-package com.run.treadmill.util;
+package com.run.treadmill.util.clicktime;
 
-public class RunGraphUtils {
+public class FullButtonUtils {
     private static long lastBuzzOnceTime;
 
     public static boolean canResponse() {

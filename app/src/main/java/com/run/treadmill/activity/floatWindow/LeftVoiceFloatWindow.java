@@ -22,7 +22,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.util.Logger;
-import com.run.treadmill.util.VolumeResponseUtils;
+import com.run.treadmill.util.clicktime.VolumeResponseUtils;
 import com.run.treadmill.widget.LeftSeekBar;
 
 import java.lang.ref.WeakReference;

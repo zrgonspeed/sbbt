@@ -11,7 +11,7 @@ import android.os.Message;
 import androidx.annotation.IntDef;
 
 import com.run.treadmill.R;
-import com.run.treadmill.util.ButtonUtils;
+import com.run.treadmill.util.clicktime.ButtonUtils;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
 

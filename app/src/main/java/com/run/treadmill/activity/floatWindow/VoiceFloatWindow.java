@@ -19,7 +19,7 @@ import com.run.treadmill.R;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.SystemSoundManager;
-import com.run.treadmill.util.VolumeResponseUtils;
+import com.run.treadmill.util.clicktime.VolumeResponseUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.widget.VerticalSeekBar;
 

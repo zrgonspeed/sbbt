@@ -6,8 +6,7 @@ import android.widget.RadioButton;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.sp.SpManager;
-import com.run.treadmill.util.Logger;
-import com.run.treadmill.util.RunGraphUtils;
+import com.run.treadmill.util.clicktime.RunGraphUtils;
 import com.run.treadmill.widget.chart.SportGraph;
 
 /**

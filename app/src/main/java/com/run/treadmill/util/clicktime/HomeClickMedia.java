@@ -1,11 +1,11 @@
-package com.run.treadmill.util;
+package com.run.treadmill.util.clicktime;
 
-public class VolumeResponseUtils {
+public class HomeClickMedia {
     private static long lastBuzzOnceTime;
 
     public static boolean canResponse() {
         long curTime = System.currentTimeMillis();
-        if (Math.abs(curTime - lastBuzzOnceTime) < 200) {
+        if (Math.abs(curTime - lastBuzzOnceTime) < 500) {
             return false;
         }
         lastBuzzOnceTime = System.currentTimeMillis();
