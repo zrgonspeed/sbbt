@@ -23,6 +23,20 @@
         android:textColor="#2CC5D5"
         android:textSize="@dimen/font_size_40" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_media_app"
+        android:layout_width="@dimen/dp_px_1260_x"
+        android:layout_height="@dimen/dp_px_500_x"
+        android:layout_marginStart="@dimen/dp_px_170_x"
+        android:layout_marginTop="@dimen/dp_px_110_x"
+
+        android:fadeScrollbars="false"
+        android:overScrollMode="never"
+        android:scrollbarSize="@dimen/dp_px_15_x"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbarThumbHorizontal="@drawable/scroll_media_list"
+
+        android:scrollbars="horizontal" />
 
     <ImageView
         android:id="@+id/iv_media_app_x"

@@ -1,13 +1,22 @@
 package com.run.treadmill.activity.home.help;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.home.HomeActivity;
+import com.run.treadmill.activity.home.help.media.HomeAppAdapter;
 import com.run.treadmill.activity.login.LoginActivity;
 import com.run.treadmill.activity.setting.SettingActivity;
+import com.run.treadmill.manager.BuzzerManager;
+import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.sysbt.BtAppUtils;
+import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.SystemWifiUtils;
 import com.run.treadmill.util.WifiBackFloatWindowManager;
@@ -124,6 +133,51 @@ public class HomeClick extends BaseHomeHelp {
         Logger.i("openMediaAppList()");
         activity.include_home_media_app.setVisibility(View.VISIBLE);
         activity.include_home_media.setVisibility(View.GONE);
+        initAppList();
+    }
+
+    private void initAppList() {
+        final String[] pkgName = HomeAndRunAppUtils.getPkgNames();
+        int[] drawable = HomeAndRunAppUtils.getHomeDrawables();
+        String[] apkNames = HomeAndRunAppUtils.getNames();
+
+        RecyclerView rv_media_app = activity.findViewById(R.id.rv_media_app);
+
+        GridLayoutManager glm1 = new GridLayoutManager(activity, 2);
+        glm1.setOrientation(RecyclerView.HORIZONTAL);
+        rv_media_app.setLayoutManager(glm1);
+        // 跟显示滑动条有关
+        rv_media_app.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                outRect.left = 0;
+                outRect.bottom = 0;
+                outRect.top = 0;
+                outRect.right = 0;
+            }
+        });
+
+        int[] drawable1 = new int[drawable.length];
+        System.arraycopy(drawable, 0, drawable1, 0, drawable1.length);
+
+        HomeAppAdapter adapter1 = new HomeAppAdapter(MyApplication.getContext(), drawable1);
+        adapter1.setNames(apkNames);
+
+        rv_media_app.setAdapter(adapter1);
+        adapter1.setOnItemClick(position -> {
+/*            if (!isCanStart && !AppDebug.debug) {
+                return;
+            }*/
+            String mediaPkName = pkgName[position];
+            Logger.i("点击了 " + mediaPkName);
+
+            enterThirdApp(mediaPkName);
+        });
+    }
+
+    private void enterThirdApp(String mediaPkName) {
+        BuzzerManager.getInstance().buzzerRingOnce();
+        GoRun.homeMediaToQuickStart(activity, mediaPkName);
     }
 
     private void clickMedia() {
