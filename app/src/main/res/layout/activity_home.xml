@@ -26,14 +26,14 @@
         android:background="@color/transparent" />
 
     <include
-        android:id="@+id/inclue_float_left"
+        android:id="@+id/include_float_left"
         layout="@layout/float_left"
         android:layout_width="@dimen/dp_px_276_x"
         android:layout_height="@dimen/dp_px_692_x"
         android:layout_marginTop="@dimen/dp_px_180_x" />
 
     <include
-        android:id="@+id/inclue_float_left_2"
+        android:id="@+id/include_float_left_2"
         layout="@layout/float_left_2"
         android:layout_width="@dimen/dp_px_276_x"
         android:layout_height="@dimen/dp_px_692_x"
@@ -221,6 +221,16 @@
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_45" />
 
+    <!--Media-->
+    <include
+        android:id="@+id/include_home_media"
+        layout="@layout/home_media"
+        android:layout_width="@dimen/dp_px_1608_x"
+        android:layout_height="@dimen/dp_px_660_x"
+        android:layout_marginStart="@dimen/dp_px_156_x"
+        android:layout_marginTop="@dimen/dp_px_210_x"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/tv_sleep"
         android:layout_width="match_parent"
@@ -229,6 +239,7 @@
         android:clickable="true"
         android:visibility="gone" />
 
+    <!--加载动画-->
     <View
         android:id="@+id/v_loading"
         android:layout_width="match_parent"
@@ -262,6 +273,7 @@
         android:layout_height="@dimen/dp_px_100_x"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_px_800_x"
+        android:visibility="gone"
         app:indicatorColor="@color/lightBlue"
         app:indicatorName="BallSpinFadeLoaderIndicator" />
 </RelativeLayout>

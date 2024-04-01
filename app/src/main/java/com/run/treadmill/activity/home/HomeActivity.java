@@ -49,6 +49,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @BindView(R.id.tv_home_signin)
     TextView tv_home_signin;
     @BindView(R.id.tv_home_media)
+    public
     TextView tv_home_media;
     @BindView(R.id.tv_home_program)
     TextView tv_home_program;
@@ -66,6 +67,10 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     ImageView iv_home_bg;
     @BindView(R.id.iv_home_logo)
     ImageView iv_home_logo;
+
+    @BindView(R.id.include_home_media)
+    public
+    RelativeLayout include_home_media;
 
     @BindView(R.id.v_loading)
     View v_loading;
@@ -371,7 +376,9 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             R.id.iv_wifi,
             R.id.iv_bluetooth,
             R.id.iv_float_close,
-            R.id.iv_float_open
+            R.id.iv_float_open,
+
+            R.id.iv_media_x
     })
     public void click(View view) {
         homeClick.click(view);
@@ -390,8 +397,10 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     }
 
     private void onInitLoading() {
-        v_loading.setVisibility(View.VISIBLE);
         // https://gitcode.com/baitutang1221/AVLoadingIndicatorView/overview?utm_source=csdn_github_accelerator&isLogin=1
+
+        avv_load.setVisibility(View.VISIBLE);
+        v_loading.setVisibility(View.VISIBLE);
         avv_load.show();
         ThreadUtils.postOnMainThread(() -> {
             closeLoading();

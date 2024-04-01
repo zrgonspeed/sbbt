@@ -8,6 +8,7 @@ import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.activity.login.LoginActivity;
 import com.run.treadmill.activity.setting.SettingActivity;
 import com.run.treadmill.sysbt.BtAppUtils;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.SystemWifiUtils;
 import com.run.treadmill.util.WifiBackFloatWindowManager;
 
@@ -29,7 +30,8 @@ public class HomeClick extends BaseHomeHelp {
         if (view.getId() == R.id.iv_bluetooth ||
                 view.getId() == R.id.iv_wifi ||
                 view.getId() == R.id.tv_home_quickstart ||
-                view.getId() == R.id.tv_home_setting
+                view.getId() == R.id.tv_home_setting ||
+                view.getId() == R.id.tv_home_media
 
         ) {
             activity.isOnClicking = true;
@@ -42,13 +44,10 @@ public class HomeClick extends BaseHomeHelp {
                 }, 150);
                 break;
             case R.id.iv_float_close:
-                activity.findViewById(R.id.inclue_float_left).setVisibility(View.GONE);
-                activity.findViewById(R.id.inclue_float_left_2).setVisibility(View.VISIBLE);
-                activity.voiceFW.hide();
+                closeLeft();
                 break;
             case R.id.iv_float_open:
-                activity.findViewById(R.id.inclue_float_left).setVisibility(View.VISIBLE);
-                activity.findViewById(R.id.inclue_float_left_2).setVisibility(View.GONE);
+                openLeft();
                 break;
 
             case R.id.iv_bluetooth:
@@ -74,6 +73,50 @@ public class HomeClick extends BaseHomeHelp {
                     activity.startActivity(new Intent(activity, SettingActivity.class));
                 }, 100);
                 break;
+
+            case R.id.tv_home_media:
+                clickMedia();
+                break;
+            case R.id.iv_media_x:
+                closeMedia();
+                break;
         }
+    }
+
+    private void clickMedia() {
+        if (activity.include_home_media.getVisibility() == View.VISIBLE) {
+            closeMedia();
+            activity.isOnClicking = false;
+            return;
+        }
+
+        activity.tv_home_media.postDelayed(() -> {
+            activity.tv_home_media.setSelected(true);
+            closeLeft();
+            openMedia();
+            activity.isOnClicking = false;
+        }, 200);
+    }
+
+    private void openMedia() {
+        Logger.i("openMedia()");
+        activity.include_home_media.setVisibility(View.VISIBLE);
+    }
+
+    private void closeMedia() {
+        Logger.e("closeMedia");
+        activity.include_home_media.setVisibility(View.GONE);
+        activity.tv_home_media.setSelected(false);
+    }
+
+    private void openLeft() {
+        activity.findViewById(R.id.include_float_left).setVisibility(View.VISIBLE);
+        activity.findViewById(R.id.include_float_left_2).setVisibility(View.GONE);
+    }
+
+    private void closeLeft() {
+        activity.findViewById(R.id.include_float_left).setVisibility(View.GONE);
+        activity.findViewById(R.id.include_float_left_2).setVisibility(View.VISIBLE);
+        activity.voiceFW.hide();
     }
 }
