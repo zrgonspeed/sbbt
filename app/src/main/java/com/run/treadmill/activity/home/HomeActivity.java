@@ -68,9 +68,15 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @BindView(R.id.iv_home_logo)
     ImageView iv_home_logo;
 
+    @BindView(R.id.iv_media_app)
+    ImageView iv_app;
+
     @BindView(R.id.include_home_media)
     public
-    RelativeLayout include_home_media;    
+    RelativeLayout include_home_media;
+    @BindView(R.id.include_home_media_app)
+    public
+    RelativeLayout include_home_media_app;
     @BindView(R.id.v_media_bg)
     public
     View v_media_bg;
@@ -381,7 +387,11 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             R.id.iv_float_close,
             R.id.iv_float_open,
 
-            R.id.iv_media_x
+            R.id.iv_media_x,
+            R.id.iv_media_app,
+
+            R.id.iv_media_app_back,
+            R.id.iv_media_app_x,
     })
     public void click(View view) {
         homeClick.click(view);

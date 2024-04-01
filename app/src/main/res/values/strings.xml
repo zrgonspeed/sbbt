@@ -236,4 +236,5 @@
         You will enter the Workout Summary
     </string>
     <string name="home_media">Media</string>
+    <string name="home_media_application">Application</string>
 </resources>

@@ -239,6 +239,16 @@
         android:layout_marginTop="@dimen/dp_px_210_x"
         android:visibility="gone" />
 
+    <!--Media Application-->
+    <include
+        android:id="@+id/include_home_media_app"
+        layout="@layout/home_media_application"
+        android:layout_width="@dimen/dp_px_1608_x"
+        android:layout_height="@dimen/dp_px_660_x"
+        android:layout_marginStart="@dimen/dp_px_156_x"
+        android:layout_marginTop="@dimen/dp_px_210_x"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/tv_sleep"
         android:layout_width="match_parent"

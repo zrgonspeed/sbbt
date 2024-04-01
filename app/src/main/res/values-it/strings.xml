@@ -202,4 +202,5 @@
     <string name="string_running_media_pause">pausa</string>
     <string name="fact_img_reset_tip">Ripristino dello stabilimento franco fabbrica</string>
     <string name="home_media">Media</string>
+    <string name="home_media_application">Application</string>
 </resources>

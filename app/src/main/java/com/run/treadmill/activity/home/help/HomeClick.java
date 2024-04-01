@@ -25,7 +25,14 @@ public class HomeClick extends BaseHomeHelp {
             Logger.i("不准点太快");
             return;
         }
-        if (view.getId() == R.id.tv_home_media) {
+        if (view.getId() == R.id.tv_home_media ||
+
+                view.getId() == R.id.iv_media_x ||
+                view.getId() == R.id.iv_media_app ||
+
+                view.getId() == R.id.iv_media_app_x ||
+                view.getId() == R.id.iv_media_app_back
+        ) {
             if (!HomeClickMedia.canResponse()) {
                 Logger.i("不准点太快Media");
                 return;
@@ -45,7 +52,6 @@ public class HomeClick extends BaseHomeHelp {
                 view.getId() == R.id.tv_home_quickstart ||
                 view.getId() == R.id.tv_home_setting ||
                 view.getId() == R.id.tv_home_media
-
         ) {
             activity.isOnClicking = true;
         }
@@ -93,7 +99,31 @@ public class HomeClick extends BaseHomeHelp {
             case R.id.iv_media_x:
                 closeMedia();
                 break;
+            case R.id.iv_media_app:
+                view.postDelayed(() -> {
+                    openMediaAppList();
+                    activity.isOnClicking = false;
+                }, 100);
+                break;
+            case R.id.iv_media_app_back:
+                backMediaAppList();
+                break;
+            case R.id.iv_media_app_x:
+                closeMedia();
+                break;
         }
+    }
+
+    private void backMediaAppList() {
+        Logger.i("backMediaAppList()");
+        activity.include_home_media.setVisibility(View.VISIBLE);
+        activity.include_home_media_app.setVisibility(View.GONE);
+    }
+
+    private void openMediaAppList() {
+        Logger.i("openMediaAppList()");
+        activity.include_home_media_app.setVisibility(View.VISIBLE);
+        activity.include_home_media.setVisibility(View.GONE);
     }
 
     private void clickMedia() {
@@ -121,6 +151,7 @@ public class HomeClick extends BaseHomeHelp {
         Logger.e("closeMedia");
         activity.v_media_bg.setVisibility(View.GONE);
         activity.include_home_media.setVisibility(View.GONE);
+        activity.include_home_media_app.setVisibility(View.GONE);
         activity.tv_home_media.setSelected(false);
     }
 

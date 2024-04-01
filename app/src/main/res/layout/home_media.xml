@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/dp_px_1608_x"
     android:layout_height="@dimen/dp_px_660_x"
     android:background="@drawable/img_frame_media_1">
@@ -17,19 +18,20 @@
 
     <!--HDMI-->
     <ImageView
-        android:id="@+id/iv_hdmi"
+        android:id="@+id/iv_media_hdmi"
         android:layout_width="@dimen/dp_px_450_x"
         android:layout_height="@dimen/dp_px_470_x"
         android:layout_marginStart="@dimen/dp_px_99_x"
         android:layout_marginTop="@dimen/dp_px_123_x"
-        android:background="@drawable/btn_media_hdmi_1" />
+        android:background="@drawable/btn_media_hdmi_1"
+        app:touch_effects_radius="@dimen/dp_px_20_x" />
 
     <TextView
-        android:id="@+id/tv_hdmi"
+        android:id="@+id/tv_media_hdmi"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_px_100_x"
-        android:layout_alignStart="@+id/iv_hdmi"
-        android:layout_alignEnd="@+id/iv_hdmi"
+        android:layout_alignStart="@+id/iv_media_hdmi"
+        android:layout_alignEnd="@+id/iv_media_hdmi"
         android:layout_marginTop="@dimen/dp_px_355_x"
         android:gravity="center"
         android:text="HDMI"
@@ -40,8 +42,8 @@
         android:id="@+id/tv_hdmi_mirror"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_px_100_x"
-        android:layout_alignStart="@+id/iv_hdmi"
-        android:layout_alignEnd="@+id/iv_hdmi"
+        android:layout_alignStart="@+id/iv_media_hdmi"
+        android:layout_alignEnd="@+id/iv_media_hdmi"
         android:layout_marginTop="@dimen/dp_px_470_x"
         android:gravity="center"
         android:rotationX="180"
@@ -52,19 +54,20 @@
 
     <!--MIRROR-->
     <ImageView
-        android:id="@+id/iv_mirror"
+        android:id="@+id/iv_media_mirror"
         android:layout_width="@dimen/dp_px_450_x"
         android:layout_height="@dimen/dp_px_470_x"
         android:layout_marginStart="@dimen/dp_px_580_x"
         android:layout_marginTop="@dimen/dp_px_123_x"
-        android:background="@drawable/btn_media_mirror_1" />
+        android:background="@drawable/btn_media_mirror_1"
+        app:touch_effects_radius="@dimen/dp_px_20_x" />
 
     <TextView
-        android:id="@+id/tv_mirror"
+        android:id="@+id/tv_media_mirror"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_px_100_x"
-        android:layout_alignStart="@+id/iv_mirror"
-        android:layout_alignEnd="@+id/iv_mirror"
+        android:layout_alignStart="@+id/iv_media_mirror"
+        android:layout_alignEnd="@+id/iv_media_mirror"
         android:layout_marginTop="@dimen/dp_px_355_x"
         android:gravity="center"
         android:text="Mirror"
@@ -75,8 +78,8 @@
         android:id="@+id/tv_mirror_mirror"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_px_100_x"
-        android:layout_alignStart="@+id/iv_mirror"
-        android:layout_alignEnd="@+id/iv_mirror"
+        android:layout_alignStart="@+id/iv_media_mirror"
+        android:layout_alignEnd="@+id/iv_media_mirror"
         android:layout_marginTop="@dimen/dp_px_470_x"
         android:gravity="center"
         android:rotationX="180"
@@ -86,22 +89,23 @@
 
     <!--App-->
     <ImageView
-        android:id="@+id/iv_app"
+        android:id="@+id/iv_media_app"
         android:layout_width="@dimen/dp_px_450_x"
         android:layout_height="@dimen/dp_px_470_x"
         android:layout_marginStart="@dimen/dp_px_1059_x"
         android:layout_marginTop="@dimen/dp_px_123_x"
-        android:background="@drawable/btn_media_application_1" />
+        android:background="@drawable/btn_media_application_1"
+        app:touch_effects_radius="@dimen/dp_px_20_x" />
 
     <TextView
-        android:id="@+id/tv_app"
+        android:id="@+id/tv_media_app"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_px_100_x"
-        android:layout_alignStart="@+id/iv_app"
-        android:layout_alignEnd="@+id/iv_app"
+        android:layout_alignStart="@+id/iv_media_app"
+        android:layout_alignEnd="@+id/iv_media_app"
         android:layout_marginTop="@dimen/dp_px_355_x"
         android:gravity="center"
-        android:text="Application"
+        android:text="@string/home_media_application"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_40" />
 
@@ -109,8 +113,8 @@
         android:id="@+id/tv_app_mirror"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_px_100_x"
-        android:layout_alignStart="@+id/iv_app"
-        android:layout_alignEnd="@+id/iv_app"
+        android:layout_alignStart="@+id/iv_media_app"
+        android:layout_alignEnd="@+id/iv_media_app"
         android:layout_marginTop="@dimen/dp_px_470_x"
         android:gravity="center"
         android:rotationX="180"

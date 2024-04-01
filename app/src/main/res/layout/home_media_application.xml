@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_px_1608_x"
+    android:layout_height="@dimen/dp_px_660_x"
+    android:background="@drawable/img_frame_media_1">
+
+    <ImageView
+        android:id="@+id/iv_media_app_back"
+        android:layout_width="@dimen/dp_px_48_x"
+        android:layout_height="@dimen/dp_px_48_x"
+        android:layout_marginStart="@dimen/dp_px_73_x"
+        android:layout_marginTop="@dimen/dp_px_34_x"
+        android:background="@drawable/btn_application_back_1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_px_48_x"
+        android:layout_marginStart="@dimen/dp_px_141_x"
+        android:layout_marginTop="@dimen/dp_px_34_x"
+        android:drawableStart="@drawable/img_icon_application"
+        android:drawablePadding="@dimen/dp_px_20_x"
+        android:text="@string/home_media_application"
+        android:textColor="#2CC5D5"
+        android:textSize="@dimen/font_size_40" />
+
+
+    <ImageView
+        android:id="@+id/iv_media_app_x"
+        android:layout_width="@dimen/dp_px_48_x"
+        android:layout_height="@dimen/dp_px_48_x"
+        android:layout_marginStart="@dimen/dp_px_1508_x"
+        android:layout_marginTop="@dimen/dp_px_32_x"
+        android:background="@drawable/btn_x_1" />
+</RelativeLayout>

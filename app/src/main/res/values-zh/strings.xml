@@ -222,4 +222,5 @@
     <string name="string_user_select_max_speed">最高速度</string>
     <string name="string_unit_cal">cal</string>
     <string name="home_media">Media</string>
+    <string name="home_media_application">Application</string>
 </resources>
