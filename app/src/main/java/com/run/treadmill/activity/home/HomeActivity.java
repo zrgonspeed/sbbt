@@ -70,7 +70,10 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @BindView(R.id.include_home_media)
     public
-    RelativeLayout include_home_media;
+    RelativeLayout include_home_media;    
+    @BindView(R.id.v_media_bg)
+    public
+    View v_media_bg;
 
     @BindView(R.id.v_loading)
     View v_loading;

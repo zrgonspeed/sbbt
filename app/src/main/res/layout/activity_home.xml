@@ -222,6 +222,14 @@
         android:textSize="@dimen/font_size_45" />
 
     <!--Media-->
+    <View
+        android:id="@+id/v_media_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#AF000000"
+        android:clickable="true"
+        android:visibility="gone" />
+
     <include
         android:id="@+id/include_home_media"
         layout="@layout/home_media"

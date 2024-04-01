@@ -8,11 +8,11 @@ import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.activity.login.LoginActivity;
 import com.run.treadmill.activity.setting.SettingActivity;
 import com.run.treadmill.sysbt.BtAppUtils;
-import com.run.treadmill.util.clicktime.HomeClickMedia;
-import com.run.treadmill.util.clicktime.HomeClickUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.SystemWifiUtils;
 import com.run.treadmill.util.WifiBackFloatWindowManager;
+import com.run.treadmill.util.clicktime.HomeClickMedia;
+import com.run.treadmill.util.clicktime.HomeClickUtils;
 
 public class HomeClick extends BaseHomeHelp {
 
@@ -113,11 +113,13 @@ public class HomeClick extends BaseHomeHelp {
 
     private void openMedia() {
         Logger.i("openMedia()");
+        activity.v_media_bg.setVisibility(View.VISIBLE);
         activity.include_home_media.setVisibility(View.VISIBLE);
     }
 
     private void closeMedia() {
         Logger.e("closeMedia");
+        activity.v_media_bg.setVisibility(View.GONE);
         activity.include_home_media.setVisibility(View.GONE);
         activity.tv_home_media.setSelected(false);
     }
