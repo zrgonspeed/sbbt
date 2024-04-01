@@ -203,4 +203,5 @@
     <string name="string_factory_img_reset">Restablecimiento Sistema</string>
     <string name="string_running_media_pause">Pausar</string>
     <string name="fact_img_reset_tip">Restaurar los ajustes de fábrica</string>
+    <string name="home_media">Media</string>
 </resources>

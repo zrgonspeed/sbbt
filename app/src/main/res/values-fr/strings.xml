@@ -202,4 +202,5 @@
     <string name="string_factory_img_reset">Réinitialisation Système</string>
     <string name="string_running_media_pause">PAUSE</string>
     <string name="fact_img_reset_tip">Restaurer les paramètres d’usine</string>
+    <string name="home_media">Media</string>
 </resources>

@@ -200,4 +200,5 @@
 
     <string name="string_factory_img_reset">איפוס מערכת</string>
     <string name="string_running_media_pause">השהייה</string>
+    <string name="home_media">Media</string>
 </resources>
