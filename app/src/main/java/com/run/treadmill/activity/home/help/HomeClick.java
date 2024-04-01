@@ -8,6 +8,8 @@ import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.activity.login.LoginActivity;
 import com.run.treadmill.activity.setting.SettingActivity;
 import com.run.treadmill.sysbt.BtAppUtils;
+import com.run.treadmill.util.HomeClickMedia;
+import com.run.treadmill.util.HomeClickUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.SystemWifiUtils;
 import com.run.treadmill.util.WifiBackFloatWindowManager;
@@ -19,6 +21,17 @@ public class HomeClick extends BaseHomeHelp {
     }
 
     public void click(View view) {
+        if (!HomeClickUtils.canResponse()) {
+            Logger.i("不准点太快");
+            return;
+        }
+        if (view.getId() == R.id.tv_home_media) {
+            if (!HomeClickMedia.canResponse()) {
+                Logger.i("不准点太快Media");
+                return;
+            }
+        }
+
         if (activity.getPresenter().inOnSleep) {
             activity.wakeUpSleep();
             return;
