@@ -99,8 +99,8 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
         DisplayMetrics dm = new DisplayMetrics();
         mWindowManager.getDefaultDisplay().getMetrics(dm);
-        mFloatWindow = createFloatWindow(dm.widthPixels, mContext.getResources().getDimensionPixelSize(R.dimen.dp_px_250_y));
-
+        mFloatWindow = createFloatWindow(dm.widthPixels, mContext.getResources().getDimensionPixelSize(R.dimen.dp_px_170_x));
+/*
         btn_start_stop_skip = (ImageView) mFloatWindow.findViewById(R.id.btn_start_stop_skip);
         btn_incline_up = (LongClickImage) mFloatWindow.findViewById(R.id.btn_incline_up);
         txt_running_incline_ctrl = (TextView) mFloatWindow.findViewById(R.id.txt_running_incline_ctrl);
@@ -110,25 +110,25 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         btn_speed_down = (LongClickImage) mFloatWindow.findViewById(R.id.btn_speed_down);
         btn_speed_roller = (ImageView) mFloatWindow.findViewById(R.id.btn_speed_roller);
         btn_back = (ImageView) mFloatWindow.findViewById(R.id.btn_back);
-        btn_home = (ImageView) mFloatWindow.findViewById(R.id.btn_home);
-
+        btn_home = (ImageView) mFloatWindow.findViewById(R.id.btn_home);*/
+/*
         layout_float_pause = (ConstraintLayout) mFloatWindow.findViewById(R.id.layout_float_pause);
         btn_float_pause_quit = (ImageView) mFloatWindow.findViewById(R.id.btn_float_pause_quit);
-        btn_float_pause_continue = (ImageView) mFloatWindow.findViewById(R.id.btn_float_pause_continue);
-        btn_float_pause_quit.setOnClickListener(this);
-        btn_float_pause_continue.setOnClickListener(this);
+        btn_float_pause_continue = (ImageView) mFloatWindow.findViewById(R.id.btn_float_pause_continue);*/
+       /* btn_float_pause_quit.setOnClickListener(this);
+        btn_float_pause_continue.setOnClickListener(this);*/
 
         init();
 
         floatWindowManager.addView(mFloatWindow, wmParams);
 
-        btn_start_stop_skip.setOnClickListener(this);
+      /*  btn_start_stop_skip.setOnClickListener(this);
         btn_back.setOnClickListener(this);
 
         btn_incline_down.setTag(-1);
         btn_incline_up.setTag(-1);
         btn_speed_down.setTag(-1);
-        btn_speed_up.setTag(-1);
+        btn_speed_up.setTag(-1);*/
 
 //        btn_incline_down.setLongCycle(2);
 //        btn_incline_up.setLongCycle(2);
@@ -367,7 +367,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
                 enterPause();
                 break;
-            case R.id.btn_float_pause_quit:
+           /* case R.id.btn_float_pause_quit:
                 BuzzerManager.getInstance().buzzerRingOnce();
                 stopPauseTimer();
                 mFloatWindowManager.goBackMyAppToSummary();
@@ -399,7 +399,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                     mFloatWindowManager.mRunningParam.setToContinue();
                     mFloatWindowManager.startPrepare();
                 }
-                break;
+                break;*/
         }
     }
 

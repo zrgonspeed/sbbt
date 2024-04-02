@@ -34,7 +34,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
 
     @Override
     public void init() {
-        if (mFloatWindowManager.mRunningParam.isNormal()) {
+/*        if (mFloatWindowManager.mRunningParam.isNormal()) {
             btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_start);
             btn_incline_down.setEnabled(false);
             btn_incline_up.setEnabled(false);
@@ -48,13 +48,13 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
             btn_back.setVisibility(View.VISIBLE);
             btn_home.setEnabled(false);
             btn_home.setVisibility(View.GONE);
-        }
+        }*/
         FitShowManager.getInstance().setFitShowRunningCallBack(this);
     }
 
     @Override
     public void initListener() {
-        btn_home.setOnClickListener(this);
+      /*  btn_home.setOnClickListener(this);
 
         btn_incline_down.setOnClickListener(this);
         btn_incline_up.setOnClickListener(this);
@@ -62,7 +62,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
         btn_speed_down.setOnClickListener(this);
 
         btn_incline_roller.setOnClickListener(this);
-        btn_speed_roller.setOnClickListener(this);
+        btn_speed_roller.setOnClickListener(this);*/
     }
 
 
@@ -267,10 +267,10 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
 
     @Override
     public void onCalculatorDismiss() {
-        btn_speed_roller.setSelected(false);
-        btn_incline_roller.setSelected(false);
+        // btn_speed_roller.setSelected(false);
+        // btn_incline_roller.setSelected(false);
 
-        setControlEnable(true);
+        // setControlEnable(true);
     }
 
     @Override

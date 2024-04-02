@@ -254,22 +254,22 @@
             android:text="@string/string_running_speed"
             android:textColor="@color/light_gray"
             android:textSize="@dimen/font_size_16pt" />
-<!--
-        <ImageView
-            android:id="@+id/img_wifi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_1804_x"
-            android:layout_marginTop="@dimen/dp_px_64_y"
-            android:src="@drawable/img_wifi" />
+        <!--
+                <ImageView
+                    android:id="@+id/img_wifi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_px_1804_x"
+                    android:layout_marginTop="@dimen/dp_px_64_y"
+                    android:src="@drawable/img_wifi" />
 
-        <ImageView
-            android:id="@+id/img_bt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_px_1865_x"
-            android:layout_marginTop="@dimen/dp_px_64_y"
-            android:src="@drawable/img_bt" />-->
+                <ImageView
+                    android:id="@+id/img_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_px_1865_x"
+                    android:layout_marginTop="@dimen/dp_px_64_y"
+                    android:src="@drawable/img_bt" />-->
     </RelativeLayout>
 
     <!-- 倒计时 -->
@@ -361,6 +361,13 @@
         android:visibility="gone" />
 
     <!--底部-->
+    <!--底部背景紫色-->
+    <ImageView
+        android:layout_width="@dimen/dp_px_1920_x"
+        android:layout_height="@dimen/dp_px_170_x"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottom_workout" />
+
     <include
         android:id="@+id/run_bottom"
         layout="@layout/run_bottom"
