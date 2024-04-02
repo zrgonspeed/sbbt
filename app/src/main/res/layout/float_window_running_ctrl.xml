@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/dp_px_1920_x"
-    android:layout_height="@dimen/dp_px_170_x"
-    android:background="#99141726">
+    android:layout_height="@dimen/dp_px_170_x">
+
+    <!--背景透明-->
+    <com.hjq.shape.view.ShapeView
+        android:layout_width="@dimen/dp_px_1920_x"
+        android:layout_height="@dimen/dp_px_170_x"
+        app:shape_radiusInTopLeft="@dimen/dp_px_30_x"
+        app:shape_radiusInTopRight="@dimen/dp_px_30_x"
+        app:shape_solidColor="#99141726" />
 
     <include layout="@layout/run_bottom" />
 
