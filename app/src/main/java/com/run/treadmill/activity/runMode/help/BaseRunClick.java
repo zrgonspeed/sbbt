@@ -89,6 +89,7 @@ public class BaseRunClick {
 
             // 顶部icon
             case R.id.iv_run_media:
+                BuzzerManager.getInstance().buzzerRingOnce();
                 activity.runMedia.clickMedia();
                 break;
             default:

@@ -2,6 +2,7 @@ package com.run.treadmill.activity.runMode.help;
 
 import android.graphics.Rect;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -38,14 +39,31 @@ public class RunMedia {
             initAppList();
         }
 
+        // 3.显示布局
+        showAppList();
+    }
+
+    private void showAppList() {
         if (rl_run_media_application.getVisibility() == View.GONE) {
             rl_run_media_application.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void hideAppList() {
+        if (rl_run_media_application.getVisibility() == View.VISIBLE) {
+            rl_run_media_application.setVisibility(View.GONE);
         }
     }
 
     private void initAppList() {
         rl_run_media_application = activity.findViewById(R.id.run_media_application);
         RecyclerView rv_media_app = activity.findViewById(R.id.rv_media_app);
+        ImageView iv_media_app_x = activity.findViewById(R.id.iv_media_app_x);
+        iv_media_app_x.setOnClickListener((v) -> {
+            BuzzerManager.getInstance().buzzerRingOnce();
+            hideAppList();
+            activity.runGraph.show();
+        });
 
         final String[] pkgName = HomeAndRunAppUtils.getPkgNames();
         int[] drawable = HomeAndRunAppUtils.getHomeDrawables();

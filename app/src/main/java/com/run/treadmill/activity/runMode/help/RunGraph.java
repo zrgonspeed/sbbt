@@ -40,6 +40,12 @@ public class RunGraph {
         }
     }
 
+    public void show() {
+        if (bar_graph.getVisibility() == View.GONE) {
+            bar_graph.setVisibility(View.VISIBLE);
+        }
+    }
+
     private class ClickRadio implements View.OnClickListener {
         @Override
         public void onClick(View v) {
