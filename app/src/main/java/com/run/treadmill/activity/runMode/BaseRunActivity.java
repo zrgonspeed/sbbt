@@ -236,7 +236,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.heart_rate);
         pulseAnimation.setInterpolator(new AccelerateInterpolator());
 
-        runMedia.onCreate();
 
         mRunningParam.setCallback(this);
 
@@ -727,7 +726,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     /****************App 列表***************/
-    @BindView(R.id.run_media_application)
-    public RelativeLayout run_media_application;
+
 
 }

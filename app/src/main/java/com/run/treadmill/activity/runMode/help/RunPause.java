@@ -147,7 +147,6 @@ public class RunPause implements CustomTimer.TimerCallBack {
         if (activity.rl_tip.getVisibility() == View.VISIBLE) {
             activity.rl_tip.setVisibility(View.GONE);
         }
-        activity.runMedia.dismissPopWin();
     }
 
     private void quickToSummary() {
@@ -167,7 +166,6 @@ public class RunPause implements CustomTimer.TimerCallBack {
         activity.btn_start_stop_skip.setImageResource(R.drawable.btn_skip_warmup);
         activity.rl_center_tip.setVisibility(View.VISIBLE);
         activity.btn_media.setEnabled(false);
-        activity.runMedia.dismissPopWin();
 
         activity.mRunningParam.setCurrIncline(InitParam.WARM_UP_INCLIEN);
         activity.mRunningParam.setCurrSpeed(activity.isMetric ? InitParam.WARM_UP_SPEED_METRIC : InitParam.WARM_UP_SPEED_IMPERIAL);
@@ -187,7 +185,6 @@ public class RunPause implements CustomTimer.TimerCallBack {
         if (activity.btn_media != null) {
             activity.btn_media.setEnabled(false);
         }
-        activity.runMedia.hideMediaPopWin();
         if (activity.rl_tip.getVisibility() == View.VISIBLE) {
             activity.rl_tip.setVisibility(View.GONE);
         }

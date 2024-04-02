@@ -1,16 +1,17 @@
 package com.run.treadmill.activity.runMode.help;
 
-import android.view.Gravity;
+import android.graphics.Rect;
 import android.view.View;
-import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.run.android.ShellCmdUtils;
 import com.run.treadmill.R;
+import com.run.treadmill.activity.home.help.media.HomeAppAdapter;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
-import com.run.treadmill.activity.runMode.MediaRunAppAdapter;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
@@ -20,67 +21,62 @@ import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.util.ActivityUtils;
 import com.run.treadmill.util.Logger;
-import com.run.treadmill.util.ResourceUtils;
 import com.run.treadmill.util.ThirdApkSupport;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class RunMedia {
-    private BaseRunActivity activity;
-
-    public RunMedia(BaseRunActivity baseRunActivity) {
-        this.activity = baseRunActivity;
-    }
-
-    private MediaRunAppAdapter mMediaRunAppAdapter;
-    /*** 媒体列表*/
-    private PopupWindow mediaPopWin;
-    /*** 媒体icon*/
-    private List<Integer> iconList;
-    private String[] pkgName;
     private String mediaPkgName = "";
+    public RelativeLayout rl_run_media_application;
 
-    public void onCreate() {
-        iconList = new ArrayList<>();
-        pkgName = HomeAndRunAppUtils.getPkgNames();
+    public void clickMedia() {
+        Logger.i("R.id.iv_run_media");
+        // 1.隐藏中间图表
+        activity.runGraph.hide();
 
-        int[] drawable = HomeAndRunAppUtils.getRunDrawables();
-        for (int id : drawable) {
-            iconList.add(id);
+        // 2.加载和显示app列表
+        if (rl_run_media_application == null) {
+            Logger.i("rl_run_media_application == null  初始化媒体列表");
+            initAppList();
+        }
+
+        if (rl_run_media_application.getVisibility() == View.GONE) {
+            rl_run_media_application.setVisibility(View.VISIBLE);
         }
     }
 
-    public void showMediaPopWin(@CTConstant.RunMode int runMode) {
-        if (mMediaRunAppAdapter == null) {
-            mMediaRunAppAdapter = new MediaRunAppAdapter(iconList);
-            mMediaRunAppAdapter.setOnItemClick(position -> {
-                BuzzerManager.getInstance().buzzerRingOnce();
-                activity.isGoMedia = true;
-                enterThirdApk(runMode, pkgName[position]);
-                hideMediaPopWin();
-                activity.rl_main.setVisibility(View.GONE);
-            });
-        }
-        if (mediaPopWin == null) {
-            View mediaView = activity.getLayoutInflater().inflate(R.layout.pop_window_media, null);
-            RecyclerView rv_media = mediaView.findViewById(R.id.rv_media);
-            rv_media.setLayoutManager(new GridLayoutManager(activity, 2));
-            rv_media.setAdapter(mMediaRunAppAdapter);
-            mediaPopWin = new PopupWindow(mediaView,
-                    ResourceUtils.getDimensionPixelSize(R.dimen.dp_px_300_x),
-                    ResourceUtils.getDimensionPixelSize(R.dimen.dp_px_715_y));
-        }
+    private void initAppList() {
+        rl_run_media_application = activity.findViewById(R.id.run_media_application);
+        RecyclerView rv_media_app = activity.findViewById(R.id.rv_media_app);
 
-        if (mediaPopWin.isShowing()) {
-            hideMediaPopWin();
-        } else if (!activity.mRunningParam.isStopStatus() && !activity.mRunningParam.isCoolDownStatus()) {
-            mediaPopWin.showAtLocation(activity.btn_media,
-                    Gravity.NO_GRAVITY,
-                    (ResourceUtils.getDimensionPixelSize(R.dimen.dp_px_0_x)),
-                    ResourceUtils.getDimensionPixelSize(R.dimen.dp_px_147_y));
-            activity.btn_media.setSelected(true);
-        }
+        final String[] pkgName = HomeAndRunAppUtils.getPkgNames();
+        int[] drawable = HomeAndRunAppUtils.getHomeDrawables();
+        String[] apkViewNames = HomeAndRunAppUtils.getViewNames();
+
+        HomeAppAdapter appAdapter = new HomeAppAdapter(activity, drawable);
+        appAdapter.setNames(apkViewNames);
+        appAdapter.setOnItemClick(position -> {
+            BuzzerManager.getInstance().buzzerRingOnce();
+            // activity.isGoMedia = true;
+            // enterThirdApk(runMode, pkgName[position]);
+            // activity.rl_main.setVisibility(View.GONE);
+
+            String mediaPkName = pkgName[position];
+            Logger.i("点击了 " + apkViewNames[position] + "   " + mediaPkName);
+        });
+
+        GridLayoutManager glm1 = new GridLayoutManager(activity, 2);
+        glm1.setOrientation(RecyclerView.HORIZONTAL);
+        rv_media_app.setLayoutManager(glm1);
+        // 跟显示滑动条有关
+        rv_media_app.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                outRect.left = 0;
+                outRect.bottom = 0;
+                outRect.top = 0;
+                outRect.right = 0;
+            }
+        });
+        rv_media_app.setAdapter(appAdapter);
     }
 
     public synchronized void enterThirdApk(@CTConstant.RunMode int runMode, String pkgName) {
@@ -122,28 +118,6 @@ public class RunMedia {
         }
     }
 
-    public void hideMediaPopWin() {
-        if (mediaPopWin != null && mediaPopWin.isShowing()) {
-            mediaPopWin.dismiss();
-        }
-        if (activity.isCalcDialogShowing()) {
-            activity.mCalcBuilder.stopPopWin();
-        }
-        if (activity.btn_media != null) {
-            activity.btn_media.setSelected(false);
-        }
-    }
-
-    public void dismissPopWin() {
-        if (mediaPopWin != null && mediaPopWin.isShowing()) {
-            mediaPopWin.dismiss();
-        }
-    }
-
-    public boolean isShowing() {
-        return mediaPopWin != null && mediaPopWin.isShowing();
-    }
-
     public void checkMediaBack() {
         //媒体的mp4（或者其他媒体） 自己退出回来
         if (!activity.quickToMedia && activity.rl_main.getVisibility() == View.GONE) {
@@ -160,5 +134,11 @@ public class RunMedia {
             activity.mRunningParam.setCallback(activity);
             activity.rl_main.setVisibility(View.VISIBLE);
         }
+    }
+
+    private BaseRunActivity activity;
+
+    public RunMedia(BaseRunActivity baseRunActivity) {
+        this.activity = baseRunActivity;
     }
 }

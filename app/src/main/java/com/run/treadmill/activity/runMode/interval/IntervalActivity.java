@@ -98,7 +98,6 @@ public class IntervalActivity extends BaseRunActivity<IntervalView, IntervalPres
                 refreshLineChart();
                 break;
             case R.id.btn_media:
-                runMedia.showMediaPopWin(CTConstant.INTERVAL);
         }
     }
 

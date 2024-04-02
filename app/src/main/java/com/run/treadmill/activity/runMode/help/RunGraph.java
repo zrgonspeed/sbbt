@@ -35,7 +35,9 @@ public class RunGraph {
     }
 
     public void hide() {
-        bar_graph.setVisibility(View.GONE);
+        if (bar_graph.getVisibility() == View.VISIBLE) {
+            bar_graph.setVisibility(View.GONE);
+        }
     }
 
     private class ClickRadio implements View.OnClickListener {

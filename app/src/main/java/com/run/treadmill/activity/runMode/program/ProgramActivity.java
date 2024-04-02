@@ -342,7 +342,6 @@ public class ProgramActivity extends BaseRunActivity<ProgramView, ProgramPresent
                 refreshLineChart();
                 break;
             case R.id.btn_media:
-                runMedia.showMediaPopWin(CTConstant.PROGRAM);
                 break;
         }
     }

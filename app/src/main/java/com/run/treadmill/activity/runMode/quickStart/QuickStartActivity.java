@@ -158,7 +158,6 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
                 refreshLineChart();
                 break;
             case R.id.btn_media:
-                runMedia.showMediaPopWin(CTConstant.QUICKSTART);
         }
     }
 

@@ -110,13 +110,11 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
                 refreshLineChart();
                 break;
             case R.id.btn_media:
-                runMedia.showMediaPopWin(CTConstant.HRC);
         }
     }
 
     @Override
     public void showNoPulse() {
-        runMedia.hideMediaPopWin();
         if (rl_tip.getVisibility() == View.GONE) {
             rl_tip.setVisibility(View.VISIBLE);
             btn_incline_down.setPressed(false);
@@ -127,7 +125,6 @@ public class HrcActivity extends BaseRunActivity<HrcView, HrcPresenter> implemen
 
     @Override
     public void showOverPulse() {
-        runMedia.hideMediaPopWin();
         if (rl_tip.getVisibility() == View.GONE) {
             rl_tip.setVisibility(View.VISIBLE);
         }

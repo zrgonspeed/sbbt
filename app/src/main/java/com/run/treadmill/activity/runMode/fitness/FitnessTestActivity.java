@@ -106,7 +106,6 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
                 refreshLineChart();
                 break;
             case R.id.btn_media:
-                runMedia.showMediaPopWin(CTConstant.FITNESS_TEST);
                 break;
             default:
                 break;
@@ -219,7 +218,6 @@ public class FitnessTestActivity extends BaseRunActivity<FitnessTestView, Fitnes
 
     @Override
     public void showNoPulsePop() {
-        runMedia.hideMediaPopWin();
         if (rl_tip.getVisibility() == View.GONE) {
             rl_tip.setVisibility(View.VISIBLE);
         }
