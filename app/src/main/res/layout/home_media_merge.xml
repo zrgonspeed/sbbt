@@ -1,0 +1,8 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/dp_px_1920_x"
+    android:layout_height="@dimen/dp_px_1080_x"
+    tools:parentTag="RelativeLayout">
+
+
+</merge>

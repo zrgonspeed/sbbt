@@ -1,0 +1,150 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/dp_px_1920_x"
+    android:layout_height="@dimen/dp_px_1080_x"
+    tools:parentTag="RelativeLayout">
+
+    <!--底部模糊控件-->
+    <com.run.treadmill.widget.BlurringView
+        android:id="@+id/blur_sign"
+        android:layout_width="@dimen/dp_px_268_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_72_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        app:blurRadius="5"
+        app:downSampleFactor="3"
+        app:overlayColor="#00FFFFFF" />
+
+    <com.run.treadmill.widget.BlurringView
+        android:id="@+id/blur_media"
+        android:layout_width="@dimen/dp_px_268_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_380_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        app:blurRadius="5"
+        app:downSampleFactor="3"
+        app:overlayColor="#00FFFFFF" />
+
+
+    <com.run.treadmill.widget.BlurringView
+        android:id="@+id/blur_quickstart"
+        android:layout_width="@dimen/dp_px_544_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_688_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        app:blurRadius="5"
+        app:downSampleFactor="3"
+        app:overlayColor="#00FFFFFF" />
+
+    <com.run.treadmill.widget.BlurringView
+        android:id="@+id/blur_program"
+        android:layout_width="@dimen/dp_px_268_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_1272_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        app:blurRadius="5"
+        app:downSampleFactor="3"
+        app:overlayColor="#00FFFFFF" />
+
+    <com.run.treadmill.widget.BlurringView
+        android:id="@+id/blur_setting"
+        android:layout_width="@dimen/dp_px_268_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_1580_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        app:blurRadius="5"
+        app:downSampleFactor="3"
+        app:overlayColor="#00FFFFFF" />
+
+    <!--底部按钮-->
+    <TextView
+        android:id="@+id/tv_home_signin"
+        android:layout_width="@dimen/dp_px_268_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_72_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        android:background="@drawable/btn_home_sign_out"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/dp_px_75_x"
+        android:text="Sign out"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_45"
+        app:touch_effects_normal_color="@color/color_ripple_white_2"
+        app:touch_effects_pressed_color="@color/color_ripple_white_1"
+        app:touch_effects_radius="@dimen/dp_px_25_x" />
+
+    <TextView
+        android:id="@+id/tv_home_media"
+        android:layout_width="@dimen/dp_px_268_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_380_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        android:background="@drawable/btn_home_media_new"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/dp_px_75_x"
+        android:text="Media"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_45"
+        app:touch_effects_normal_color="@color/color_ripple_white_2"
+        app:touch_effects_pressed_color="@color/color_ripple_white_1"
+        app:touch_effects_radius="@dimen/dp_px_25_x" />
+
+    <TextView
+        android:id="@+id/tv_home_quickstart"
+        android:layout_width="@dimen/dp_px_544_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_688_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        android:background="@drawable/btn_home_qs"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp_px_200_x"
+        android:text="Quick Start"
+        android:textColor="#FA198B"
+        android:textSize="@dimen/font_size_65"
+        app:touch_effects_normal_color="@color/color_ripple_white_2"
+        app:touch_effects_pressed_color="@color/color_ripple_white_1"
+        app:touch_effects_radius="@dimen/dp_px_25_x" />
+
+    <TextView
+        android:id="@+id/tv_home_program"
+        android:layout_width="@dimen/dp_px_268_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_1272_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        android:background="@drawable/btn_home_program_new"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/dp_px_75_x"
+        android:text="Program"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_45"
+        app:touch_effects_normal_color="@color/color_ripple_white_2"
+        app:touch_effects_pressed_color="@color/color_ripple_white_1"
+        app:touch_effects_radius="@dimen/dp_px_25_x" />
+
+    <TextView
+        android:id="@+id/tv_home_setting"
+        android:layout_width="@dimen/dp_px_268_x"
+        android:layout_height="@dimen/dp_px_140_x"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_px_1580_x"
+        android:layout_marginBottom="@dimen/dp_px_38_x"
+        android:background="@drawable/btn_home_setting_new"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/dp_px_75_x"
+        android:text="Setting"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_45"
+        app:touch_effects_normal_color="@color/color_ripple_white_2"
+        app:touch_effects_pressed_color="@color/color_ripple_white_1"
+        app:touch_effects_radius="@dimen/dp_px_25_x" />
+</merge>
