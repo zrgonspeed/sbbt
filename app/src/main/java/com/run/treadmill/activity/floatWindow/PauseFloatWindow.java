@@ -3,9 +3,6 @@ package com.run.treadmill.activity.floatWindow;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PixelFormat;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,18 +14,12 @@ import com.run.treadmill.R;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.util.ResourceUtils;
 
-import java.lang.ref.WeakReference;
-
 public class PauseFloatWindow {
     private final Context mContext;
-
     private final WindowManager mWindowManager;
     private FloatWindowManager mFwm;
     private WindowManager.LayoutParams wmParams;
-
     private RelativeLayout mFloatWindow;
-
-    private MyFloatHandler myFloatHandler;
 
     PauseFloatWindow(Context context, WindowManager windowManager) {
         this.mContext = context;
@@ -101,32 +92,9 @@ public class PauseFloatWindow {
             mFwm.goBackMyAppToSummary();
         });
 
-        myFloatHandler = new MyFloatHandler(Looper.getMainLooper(), this);
     }
-
 
     void stopFloat() {
-        myFloatHandler.removeCallbacksAndMessages(null);
-        myFloatHandler = null;
         mFwm.removeView(mFloatWindow);
-    }
-
-    static class MyFloatHandler extends Handler {
-        private final WeakReference<PauseFloatWindow> mWeakRefrence;
-        private PauseFloatWindow vfw;
-
-        MyFloatHandler(Looper looper, PauseFloatWindow vfw) {
-            super(looper);
-            mWeakRefrence = new WeakReference<>(vfw);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            if (mWeakRefrence == null) {
-                return;
-            }
-            vfw = mWeakRefrence.get();
-
-        }
     }
 }
