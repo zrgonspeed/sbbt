@@ -58,14 +58,14 @@ public class HrcRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
 
     @Override
     public void afterInclineChanged(float incline) {
-        if (mFloatWindowManager.mRunningParam.isNormal()
-                || mFloatWindowManager.mRunningParam.isPrepare()) {
+        if (mfwm.mRunningParam.isNormal()
+                || mfwm.mRunningParam.isPrepare()) {
             return;
         }
         if (ErrorManager.getInstance().isHasInclineError()) {
             return;
         }
-        if (mFloatWindowManager.isShowingCalculator()) {
+        if (mfwm.isShowingCalculator()) {
             return;
         }
         if (incline <= 0) {
@@ -94,111 +94,111 @@ public class HrcRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
 
     @Override
     public void dealLineChart() {
-        if (mFloatWindowManager.mRunningParam.targetTime > 0 && mFloatWindowManager.mRunningParam.targetTime <= mFloatWindowManager.mRunningParam.alreadyRunTime) {
-            mFloatWindowManager.mRunningParam.saveHasRunData();
-            mFloatWindowManager.mRunningParam.runningToCoolDown();
-            mFloatWindowManager.goBackMyApp();
+        if (mfwm.mRunningParam.targetTime > 0 && mfwm.mRunningParam.targetTime <= mfwm.mRunningParam.alreadyRunTime) {
+            mfwm.mRunningParam.saveHasRunData();
+            mfwm.mRunningParam.runningToCoolDown();
+            mfwm.goBackMyApp();
             return;
         }
 
-        if (mFloatWindowManager.mRunningParam.getCurPulse() != 0) {
-            if (mFloatWindowManager.mRunningParam.noPulseCount != 0) {
-                mFloatWindowManager.mRunningParam.noPulseCount = 0;
+        if (mfwm.mRunningParam.getCurPulse() != 0) {
+            if (mfwm.mRunningParam.noPulseCount != 0) {
+                mfwm.mRunningParam.noPulseCount = 0;
             }
         }
-        if (mFloatWindowManager.mRunningParam.getCurrSpeed() > minSpeed && mFloatWindowManager.mRunningParam.getCurPulse() != 0
-                && mFloatWindowManager.mRunningParam.getCurPulse() <= (mFloatWindowManager.mRunningParam.targetHrc + 25)) {
-            if (mFloatWindowManager.mRunningParam.overPulseCount != 0) {
-                mFloatWindowManager.mRunningParam.overPulseCount = 0;
+        if (mfwm.mRunningParam.getCurrSpeed() > minSpeed && mfwm.mRunningParam.getCurPulse() != 0
+                && mfwm.mRunningParam.getCurPulse() <= (mfwm.mRunningParam.targetHrc + 25)) {
+            if (mfwm.mRunningParam.overPulseCount != 0) {
+                mfwm.mRunningParam.overPulseCount = 0;
             }
         }
 
-        if (mFloatWindowManager.mRunningParam.getCurPulse() == 0) {
+        if (mfwm.mRunningParam.getCurPulse() == 0) {
 //            mFloatWindowManager.mRunningParam.noPulseCount++;
-            if (mFloatWindowManager.mRunningParam.overPulseCount != 0) {
-                mFloatWindowManager.mRunningParam.overPulseCount = 0;
+            if (mfwm.mRunningParam.overPulseCount != 0) {
+                mfwm.mRunningParam.overPulseCount = 0;
             }
-            if (mFloatWindowManager.mRunningParam.noPulseCount == 0) {
-                mFloatWindowManager.mRunningParam.noPulseCount = (int) mFloatWindowManager.mRunningParam.alreadyRunTime;
+            if (mfwm.mRunningParam.noPulseCount == 0) {
+                mfwm.mRunningParam.noPulseCount = (int) mfwm.mRunningParam.alreadyRunTime;
             }
-            if (mFloatWindowManager.mRunningParam.alreadyRunTime - mFloatWindowManager.mRunningParam.noPulseCount == 15) {
-                mFloatWindowManager.goBackMyApp();
+            if (mfwm.mRunningParam.alreadyRunTime - mfwm.mRunningParam.noPulseCount == 15) {
+                mfwm.goBackMyApp();
                 return;
-            } else if (mFloatWindowManager.mRunningParam.alreadyRunTime - mFloatWindowManager.mRunningParam.noPulseCount == 30) {
-                mFloatWindowManager.mRunningParam.end();
-                mFloatWindowManager.goBackMyApp();
-                return;
-            }
-        }
-
-        if (mFloatWindowManager.mRunningParam.getCurrSpeed() <= minSpeed
-                && mFloatWindowManager.mRunningParam.getCurPulse() > (mFloatWindowManager.mRunningParam.targetHrc + 25)) {
-            mFloatWindowManager.mRunningParam.overPulseCount++;
-            if (mFloatWindowManager.mRunningParam.overPulseCount == 15) {
-                mFloatWindowManager.goBackMyApp();
-                return;
-            } else if (mFloatWindowManager.mRunningParam.overPulseCount == 30) {
-                mFloatWindowManager.mRunningParam.end();
-                mFloatWindowManager.goBackMyApp();
+            } else if (mfwm.mRunningParam.alreadyRunTime - mfwm.mRunningParam.noPulseCount == 30) {
+                mfwm.mRunningParam.end();
+                mfwm.goBackMyApp();
                 return;
             }
         }
 
-        if (mFloatWindowManager.mRunningParam.getCurPulse() > 0 && mFloatWindowManager.mRunningParam.getCurPulse() < (mFloatWindowManager.mRunningParam.targetHrc - 5)) {
-            mFloatWindowManager.mRunningParam.lessSpeedChangeCount++;
-            if (mFloatWindowManager.mRunningParam.moreSpeedChangeCount != 0) {
-                mFloatWindowManager.mRunningParam.moreSpeedChangeCount = 0;
+        if (mfwm.mRunningParam.getCurrSpeed() <= minSpeed
+                && mfwm.mRunningParam.getCurPulse() > (mfwm.mRunningParam.targetHrc + 25)) {
+            mfwm.mRunningParam.overPulseCount++;
+            if (mfwm.mRunningParam.overPulseCount == 15) {
+                mfwm.goBackMyApp();
+                return;
+            } else if (mfwm.mRunningParam.overPulseCount == 30) {
+                mfwm.mRunningParam.end();
+                mfwm.goBackMyApp();
+                return;
             }
-            if (mFloatWindowManager.mRunningParam.lessSpeedChangeCount >= 10) {
-                if (mFloatWindowManager.mRunningParam.getCurrSpeed() + 0.5f > maxSpeed) {
+        }
+
+        if (mfwm.mRunningParam.getCurPulse() > 0 && mfwm.mRunningParam.getCurPulse() < (mfwm.mRunningParam.targetHrc - 5)) {
+            mfwm.mRunningParam.lessSpeedChangeCount++;
+            if (mfwm.mRunningParam.moreSpeedChangeCount != 0) {
+                mfwm.mRunningParam.moreSpeedChangeCount = 0;
+            }
+            if (mfwm.mRunningParam.lessSpeedChangeCount >= 10) {
+                if (mfwm.mRunningParam.getCurrSpeed() + 0.5f > maxSpeed) {
                     setSpeedValue(0, maxSpeed, false);
                 } else {
-                    setSpeedValue(0, mFloatWindowManager.mRunningParam.getCurrSpeed() + 0.5f, false);
+                    setSpeedValue(0, mfwm.mRunningParam.getCurrSpeed() + 0.5f, false);
                 }
-                mFloatWindowManager.mRunningParam.lessSpeedChangeCount = 0;
+                mfwm.mRunningParam.lessSpeedChangeCount = 0;
             }
-        } else if (mFloatWindowManager.mRunningParam.getCurPulse() > (mFloatWindowManager.mRunningParam.targetHrc + 5)) {
-            mFloatWindowManager.mRunningParam.moreSpeedChangeCount++;
-            if (mFloatWindowManager.mRunningParam.lessSpeedChangeCount != 0) {
-                mFloatWindowManager.mRunningParam.lessSpeedChangeCount = 0;
+        } else if (mfwm.mRunningParam.getCurPulse() > (mfwm.mRunningParam.targetHrc + 5)) {
+            mfwm.mRunningParam.moreSpeedChangeCount++;
+            if (mfwm.mRunningParam.lessSpeedChangeCount != 0) {
+                mfwm.mRunningParam.lessSpeedChangeCount = 0;
             }
-            if (mFloatWindowManager.mRunningParam.moreSpeedChangeCount >= 10) {
-                if (mFloatWindowManager.mRunningParam.getCurrSpeed() - 0.5f < minSpeed) {
+            if (mfwm.mRunningParam.moreSpeedChangeCount >= 10) {
+                if (mfwm.mRunningParam.getCurrSpeed() - 0.5f < minSpeed) {
                     setSpeedValue(0, minSpeed, false);
                 } else {
-                    setSpeedValue(0, mFloatWindowManager.mRunningParam.getCurrSpeed() - 0.5f, false);
+                    setSpeedValue(0, mfwm.mRunningParam.getCurrSpeed() - 0.5f, false);
                 }
-                mFloatWindowManager.mRunningParam.moreSpeedChangeCount = 0;
+                mfwm.mRunningParam.moreSpeedChangeCount = 0;
             }
         } else {
-            if (mFloatWindowManager.mRunningParam.lessSpeedChangeCount != 0) {
-                mFloatWindowManager.mRunningParam.lessSpeedChangeCount = 0;
+            if (mfwm.mRunningParam.lessSpeedChangeCount != 0) {
+                mfwm.mRunningParam.lessSpeedChangeCount = 0;
             }
-            if (mFloatWindowManager.mRunningParam.moreSpeedChangeCount != 0) {
-                mFloatWindowManager.mRunningParam.moreSpeedChangeCount = 0;
+            if (mfwm.mRunningParam.moreSpeedChangeCount != 0) {
+                mfwm.mRunningParam.moreSpeedChangeCount = 0;
             }
         }
 
         //处理段数
-        if (mFloatWindowManager.mRunningParam.targetTime > 0) {
-            mFloatWindowManager.mRunningParam.setLcCurStageNum((int) (mFloatWindowManager.mRunningParam.alreadyRunTime / (mFloatWindowManager.mRunningParam.targetTime / InitParam.TOTAL_RUN_STAGE_NUM)));
+        if (mfwm.mRunningParam.targetTime > 0) {
+            mfwm.mRunningParam.setLcCurStageNum((int) (mfwm.mRunningParam.alreadyRunTime / (mfwm.mRunningParam.targetTime / InitParam.TOTAL_RUN_STAGE_NUM)));
         } else {
-            if (mFloatWindowManager.mRunningParam.alreadyRunTime > 0 && mFloatWindowManager.mRunningParam.alreadyRunTime % (60 * InitParam.TOTAL_RUN_STAGE_NUM) == 0) {
-                mFloatWindowManager.mRunningParam.saveHasRunData();
+            if (mfwm.mRunningParam.alreadyRunTime > 0 && mfwm.mRunningParam.alreadyRunTime % (60 * InitParam.TOTAL_RUN_STAGE_NUM) == 0) {
+                mfwm.mRunningParam.saveHasRunData();
 
-                Arrays.fill(mFloatWindowManager.mRunningParam.mSpeedArray, mFloatWindowManager.mRunningParam.mSpeedArray[mFloatWindowManager.mRunningParam.mSpeedArray.length - 1]);
-                Arrays.fill(mFloatWindowManager.mRunningParam.mInclineArray, mFloatWindowManager.mRunningParam.mInclineArray[mFloatWindowManager.mRunningParam.mInclineArray.length - 1]);
+                Arrays.fill(mfwm.mRunningParam.mSpeedArray, mfwm.mRunningParam.mSpeedArray[mfwm.mRunningParam.mSpeedArray.length - 1]);
+                Arrays.fill(mfwm.mRunningParam.mInclineArray, mfwm.mRunningParam.mInclineArray[mfwm.mRunningParam.mInclineArray.length - 1]);
             }
 
-            mFloatWindowManager.mRunningParam.setLcCurStageNum((int) ((mFloatWindowManager.mRunningParam.alreadyRunTime - mFloatWindowManager.mRunningParam.targetTime) / 60) % InitParam.TOTAL_RUN_STAGE_NUM);
+            mfwm.mRunningParam.setLcCurStageNum((int) ((mfwm.mRunningParam.alreadyRunTime - mfwm.mRunningParam.targetTime) / 60) % InitParam.TOTAL_RUN_STAGE_NUM);
         }
     }
 
     @Override
     public void afterPrepare() {
-        if (mFloatWindowManager.mRunningParam.isContinue()) {
-            mFloatWindowManager.mRunningParam.setToRunning();
-            mFloatWindowManager.mRunningParam.notifyRefreshData();
+        if (mfwm.mRunningParam.isContinue()) {
+            mfwm.mRunningParam.setToRunning();
+            mfwm.mRunningParam.notifyRefreshData();
             btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
             btn_speed_roller.setEnabled(false);
         }
@@ -208,11 +208,11 @@ public class HrcRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
         btn_back.setVisibility(View.VISIBLE);
         btn_home.setVisibility(View.GONE);
 
-        setInclineValue(0, mFloatWindowManager.mRunningParam.mInclineArray[mFloatWindowManager.mRunningParam.getLcCurStageNum()], false);
-        setSpeedValue(0, mFloatWindowManager.mRunningParam.mSpeedArray[mFloatWindowManager.mRunningParam.getLcCurStageNum()], false);
+        setInclineValue(0, mfwm.mRunningParam.mInclineArray[mfwm.mRunningParam.getLcCurStageNum()], false);
+        setSpeedValue(0, mfwm.mRunningParam.mSpeedArray[mfwm.mRunningParam.getLcCurStageNum()], false);
         //为了更新倒数后按钮的点击状态
-        afterSpeedChanged(mFloatWindowManager.mRunningParam.getCurrSpeed());
-        afterInclineChanged(mFloatWindowManager.mRunningParam.getCurrIncline());
+        afterSpeedChanged(mfwm.mRunningParam.getCurrSpeed());
+        afterInclineChanged(mfwm.mRunningParam.getCurrIncline());
     }
 
     @Override
@@ -243,11 +243,11 @@ public class HrcRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
         }
         super.setSpeedValue(isUp, speed);
         if (!onlyCurr) {
-            for (int i = mFloatWindowManager.mRunningParam.getLcCurStageNum(); i < InitParam.TOTAL_RUN_STAGE_NUM; i++) {
-                mFloatWindowManager.mRunningParam.mSpeedArray[i] = mFloatWindowManager.mRunningParam.getCurrSpeed();
+            for (int i = mfwm.mRunningParam.getLcCurStageNum(); i < InitParam.TOTAL_RUN_STAGE_NUM; i++) {
+                mfwm.mRunningParam.mSpeedArray[i] = mfwm.mRunningParam.getCurrSpeed();
             }
         } else {
-            mFloatWindowManager.mRunningParam.mSpeedArray[mFloatWindowManager.mRunningParam.getLcCurStageNum()] = mFloatWindowManager.mRunningParam.getCurrSpeed();
+            mfwm.mRunningParam.mSpeedArray[mfwm.mRunningParam.getLcCurStageNum()] = mfwm.mRunningParam.getCurrSpeed();
         }
     }
 
@@ -258,11 +258,11 @@ public class HrcRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
         }
         super.setInclineValue(isUp, incline);
         if (!onlyCurr) {
-            for (int i = mFloatWindowManager.mRunningParam.getLcCurStageNum(); i < InitParam.TOTAL_RUN_STAGE_NUM; i++) {
-                mFloatWindowManager.mRunningParam.mInclineArray[i] = mFloatWindowManager.mRunningParam.getCurrIncline();
+            for (int i = mfwm.mRunningParam.getLcCurStageNum(); i < InitParam.TOTAL_RUN_STAGE_NUM; i++) {
+                mfwm.mRunningParam.mInclineArray[i] = mfwm.mRunningParam.getCurrIncline();
             }
         } else {
-            mFloatWindowManager.mRunningParam.mInclineArray[mFloatWindowManager.mRunningParam.getLcCurStageNum()] = mFloatWindowManager.mRunningParam.getCurrIncline();
+            mfwm.mRunningParam.mInclineArray[mfwm.mRunningParam.getLcCurStageNum()] = mfwm.mRunningParam.getCurrIncline();
         }
     }
 
@@ -293,7 +293,7 @@ public class HrcRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
         switch (keyValue) {
             case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:
-                if (mFloatWindowManager.mRunningParam.isRunning()
+                if (mfwm.mRunningParam.isRunning()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();

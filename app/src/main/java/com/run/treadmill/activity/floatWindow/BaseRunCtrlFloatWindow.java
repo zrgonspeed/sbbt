@@ -15,7 +15,6 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.fitShow.treadmill.FitShowCommand;
-import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.common.CTConstant;
@@ -41,12 +40,13 @@ import com.run.treadmill.widget.calculator.CalculatorCallBack;
 public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, CalculatorCallBack {
     private Context mContext;
 
-    public FloatWindowManager mFloatWindowManager;
+    public FloatWindowManager mfwm;
     private WindowManager mWindowManager;
     private LayoutParams wmParams;
     private RelativeLayout mFloatWindow;
 
     public ImageView btn_start_stop_skip;
+    public ImageView iv_pause;
     public ImageView btn_back;
     public ImageView btn_home;
     private TextView txt_running_incline_ctrl;
@@ -91,16 +91,18 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
     }
 
     public void startFloat(FloatWindowManager floatWindowManager) {
-        this.mFloatWindowManager = floatWindowManager;
+        this.mfwm = floatWindowManager;
 
-        maxSpeed = SpManager.getMaxSpeed(mFloatWindowManager.isMetric);
-        minSpeed = SpManager.getMinSpeed(mFloatWindowManager.isMetric);
+        maxSpeed = SpManager.getMaxSpeed(mfwm.isMetric);
+        minSpeed = SpManager.getMinSpeed(mfwm.isMetric);
         maxIncline = SpManager.getMaxIncline();
         gsMode = SpManager.getGSMode();
 
         DisplayMetrics dm = new DisplayMetrics();
         mWindowManager.getDefaultDisplay().getMetrics(dm);
         mFloatWindow = createFloatWindow(dm.widthPixels, mContext.getResources().getDimensionPixelSize(R.dimen.dp_px_170_x));
+        iv_pause = mFloatWindow.findViewById(R.id.iv_pause);
+        iv_pause.setOnClickListener(this::onClick);
 /*
         btn_start_stop_skip = (ImageView) mFloatWindow.findViewById(R.id.btn_start_stop_skip);
         btn_incline_up = (LongClickImage) mFloatWindow.findViewById(R.id.btn_incline_up);
@@ -145,7 +147,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
     public void stopFloat() {
         stopPauseTimer();
-        mFloatWindowManager.removeView(mFloatWindow);
+        mfwm.removeView(mFloatWindow);
     }
 
     public void backHomeOrRunning() {
@@ -173,7 +175,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         switch (keyValue) {
             case SerialKeyValue.START_CLICK:
             case SerialKeyValue.HAND_START_CLICK:
-                if ((mFloatWindowManager.mRunningParam.isStopStatus())
+                if ((mfwm.mRunningParam.isStopStatus())
                         && btn_float_pause_continue.isEnabled()) {
                     btn_float_pause_continue.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
@@ -182,7 +184,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
             case SerialKeyValue.STOP_CLICK:
             case SerialKeyValue.HAND_STOP_CLICK:
-                if (mFloatWindowManager.mRunningParam.isStopStatus()
+                if (mfwm.mRunningParam.isStopStatus()
                         && btn_float_pause_quit.isEnabled()) {
                     btn_float_pause_quit.performClick();
 //                    BuzzerManager.getInstance().buzzerRingOnce();
@@ -219,11 +221,11 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
      * @return
      */
     protected boolean lcCurStageNumIsInRange() {
-        return (mFloatWindowManager.mRunningParam.getLcCurStageNum() >= 0 && mFloatWindowManager.mRunningParam.getLcCurStageNum() < InitParam.TOTAL_RUN_STAGE_NUM);
+        return (mfwm.mRunningParam.getLcCurStageNum() >= 0 && mfwm.mRunningParam.getLcCurStageNum() < InitParam.TOTAL_RUN_STAGE_NUM);
     }
 
     public void setSpeedValue(int isUp, float speed) {
-        int mSpeedInx = FormulaUtil.getInxBySpeed(mFloatWindowManager.mRunningParam.mSpeedArray[mFloatWindowManager.mRunningParam.getLcCurStageNum()], minSpeed);
+        int mSpeedInx = FormulaUtil.getInxBySpeed(mfwm.mRunningParam.mSpeedArray[mfwm.mRunningParam.getLcCurStageNum()], minSpeed);
         if (isUp == 1) {
             if (maxSpeed <= FormulaUtil.getSpeedByInx(mSpeedInx, minSpeed)) {
                 mSpeedInx = FormulaUtil.getInxBySpeed(maxSpeed, minSpeed);
@@ -243,9 +245,9 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 mSpeedInx = FormulaUtil.getInxBySpeed(speed, minSpeed);
             }
         }
-        mFloatWindowManager.mRunningParam.currSpeedInx = mSpeedInx;
-        mFloatWindowManager.mRunningParam.setCurrSpeed(FormulaUtil.getSpeedByInx(mSpeedInx, minSpeed));
-        mFloatWindowManager.setSpeedValue();
+        mfwm.mRunningParam.currSpeedInx = mSpeedInx;
+        mfwm.mRunningParam.setCurrSpeed(FormulaUtil.getSpeedByInx(mSpeedInx, minSpeed));
+        mfwm.setSpeedValue();
     }
 
     public abstract void setSpeedValue(int isUp, float speed, boolean onlyCurr);
@@ -258,7 +260,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         if (ErrorManager.getInstance().isHasInclineError()) {
             return;
         }
-        float mIncline = mFloatWindowManager.mRunningParam.mInclineArray[mFloatWindowManager.mRunningParam.getLcCurStageNum()];
+        float mIncline = mfwm.mRunningParam.mInclineArray[mfwm.mRunningParam.getLcCurStageNum()];
         if (isUp == 1) {
             if (mIncline >= maxIncline) {
                 mIncline = maxIncline;
@@ -278,8 +280,8 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 mIncline = incline;
             }
         }
-        mFloatWindowManager.mRunningParam.setCurrIncline(mIncline);
-        mFloatWindowManager.setInclineValue();
+        mfwm.mRunningParam.setCurrIncline(mIncline);
+        mfwm.setInclineValue();
     }
 
     public abstract void setInclineValue(int isUp, float incline, boolean onlyCurr);
@@ -291,7 +293,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         }
         if ((type == CTConstant.TYPE_SPEED && btn_incline_roller.isSelected())
                 || (type == CTConstant.TYPE_INCLINE && btn_speed_roller.isSelected())) {
-            mFloatWindowManager.hideFloatWindow();
+            mfwm.hideFloatWindow();
             btn_speed_roller.setSelected(false);
             btn_incline_roller.setSelected(false);
         }
@@ -302,7 +304,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         if (type == CTConstant.TYPE_INCLINE) {
             btn_incline_roller.setSelected(true);
         }
-        mFloatWindowManager.startCalculatorFloatWindow(floatPoint, type, stringId);
+        mfwm.startCalculatorFloatWindow(floatPoint, type, stringId);
     }
 
     /**
@@ -317,8 +319,8 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
             btn_speed_down.setEnabled(enable);
             btn_speed_up.setEnabled(enable);
         } else {
-            afterInclineChanged(mFloatWindowManager.mRunningParam.getCurrIncline());
-            afterSpeedChanged(mFloatWindowManager.mRunningParam.getCurrSpeed());
+            afterInclineChanged(mfwm.mRunningParam.getCurrIncline());
+            afterSpeedChanged(mfwm.mRunningParam.getCurrSpeed());
         }
     }
 
@@ -333,39 +335,10 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
             case R.id.btn_back:
                 BuzzerManager.getInstance().buzzerRingOnce();
                 stopPauseTimer();
-                mFloatWindowManager.goBackMyApp();
+                mfwm.goBackMyApp();
                 break;
-            case R.id.btn_start_stop_skip:
-                if (mFloatWindowManager.mRunningParam.isNormal()) {
-                    btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
-                    btn_start_stop_skip.setEnabled(false);
-                    btn_back.setEnabled(false);
-                    btn_home.setEnabled(false);
-                    btn_back.setVisibility(View.GONE);
-                    btn_home.setVisibility(View.GONE);
-                    mFloatWindowManager.mRunningParam.setToPrepare();
-                    stopPauseTimer();
-                    mFloatWindowManager.startPrepare();
-                    return;
-                } else if (mFloatWindowManager.mRunningParam.isStopStatus()
-                        || mFloatWindowManager.mRunningParam.isPrepare()) {
-                    return;
-                } else if (mFloatWindowManager.mRunningParam.isWarmStatus()) {
-                    mFloatWindowManager.mRunningParam.warmUpToRunning();
-                    return;
-                } else if (mFloatWindowManager.mRunningParam.isCoolDownStatus()) {
-                    return;
-                }
-                BuzzerManager.getInstance().buzzerRingOnce();
-
-                mFloatWindowManager.disFlag = true;
-                Logger.i("float disFlag = true");
-                ThreadUtils.runInThread(() -> {
-                    mFloatWindowManager.disFlag = false;
-                    Logger.i("float disFlag = false");
-                }, 1000);
-
-                enterPause();
+            case R.id.iv_pause:
+                clickPause();
                 break;
            /* case R.id.btn_float_pause_quit:
                 BuzzerManager.getInstance().buzzerRingOnce();
@@ -403,25 +376,40 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         }
     }
 
+    private void clickPause() {
+        // 从home进的，是未开始运动状态
+        if (mfwm.mRunningParam.isNormal()) {
+            // btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
+            // btn_start_stop_skip.setEnabled(false);
+            mfwm.mRunningParam.setToPrepare();
+            stopPauseTimer();
+            mfwm.startPrepare();
+            return;
+        } else if (mfwm.mRunningParam.isStopStatus()
+                || mfwm.mRunningParam.isPrepare()) {
+            return;
+        } else if (mfwm.mRunningParam.isWarmStatus()) {
+            mfwm.mRunningParam.warmUpToRunning();
+            return;
+        } else if (mfwm.mRunningParam.isCoolDownStatus()) {
+            return;
+        }
+        BuzzerManager.getInstance().buzzerRingOnce();
+
+        mfwm.disFlag = true;
+        Logger.i("float disFlag = true");
+        ThreadUtils.runInThread(() -> {
+            mfwm.disFlag = false;
+            Logger.i("float disFlag = false");
+        }, 1000);
+
+        enterPause();
+    }
+
     protected void enterPause() {
-        mFloatWindowManager.hideCalc();
+        mfwm.hideCalc();
 
-        mFloatWindowManager.mRunningParam.setToStopStatus();
-
-        if (mFloatWindowManager.runMode == CTConstant.QUICKSTART ||
-                mFloatWindowManager.runMode == CTConstant.GOAL ||
-                mFloatWindowManager.runMode == CTConstant.HRC ||
-                mFloatWindowManager.runMode == CTConstant.VISION
-        ) {
-            // setSpeedValue(0, minSpeed, false);
-            // setInclineValue(0, 0, false);
-        }
-        if (mFloatWindowManager.runMode == CTConstant.PROGRAM ||
-                mFloatWindowManager.runMode == CTConstant.USER_PROGRAM
-        ) {
-            // setSpeedValue(0, minSpeed, true);
-            // setInclineValue(0, 0, true);
-        }
+        mfwm.mRunningParam.setToStopStatus();
 
         // gsMode默认false
         // 客户要求修改扬升机制
@@ -430,8 +418,8 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         if (FitShowManager.getInstance().isConnect()) {
             FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_PAUSED_0x0A);
         }
-        mFloatWindowManager.mRunningParam.recodePreRunData();
-        mFloatWindowManager.paramEnterPauseState();
+        mfwm.mRunningParam.recodePreRunData();
+        mfwm.paramEnterPauseState();
         showPause();
 
         startPauseTimer();
@@ -454,7 +442,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 return;
             }
             if (tag.equals(pauseTimerTag)) {
-                if (mFloatWindowManager.mRunningParam.isStopStatus()) {
+                if (mfwm.mRunningParam.isStopStatus()) {
                     ThreadUtils.postOnMainThread(() -> {
                         btn_float_pause_quit.performClick();
                         stopPauseTimer();
@@ -475,27 +463,24 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
     protected ImageView btn_float_pause_continue;
 
     protected void showPause() {
-        btn_start_stop_skip.setVisibility(View.GONE);
+        // TODO: 2024/4/2 悬浮窗的暂停
 
-        layout_float_pause.setVisibility(View.VISIBLE);
 
-        btn_back.setVisibility(View.VISIBLE);
-        btn_back.setEnabled(true);
 
-        btn_float_pause_quit.setEnabled(true);
+
+        // btn_start_stop_skip.setVisibility(View.GONE);
+
+        // layout_float_pause.setVisibility(View.VISIBLE);
+
+        // btn_back.setVisibility(View.VISIBLE);
+        // btn_back.setEnabled(true);
+
+    /*    btn_float_pause_quit.setEnabled(true);
         btn_float_pause_continue.setEnabled(false);
         if (AppDebug.debug) {
             btn_float_pause_continue.setEnabled(true);
-        }
+        }*/
 
-        btn_incline_down.setEnabled(false);
-        btn_incline_up.setEnabled(false);
-
-        btn_speed_down.setEnabled(false);
-        btn_speed_up.setEnabled(false);
-
-        btn_incline_roller.setEnabled(false);
-        btn_speed_roller.setEnabled(false);
     }
 
     void showOrHideFloatWindow(boolean isShow) {
@@ -525,7 +510,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         if (btn_incline_roller.isEnabled()) {
             btn_incline_roller.setEnabled(false);
         }
-        mFloatWindowManager.hideCalcFloatWindowByInclineError();
+        mfwm.hideCalcFloatWindowByInclineError();
     }
 
     public void setData() {
@@ -536,9 +521,9 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
 
     private void setRunParam() {
-        tv_time.setText(String.valueOf(mFloatWindowManager.mRunningParam.getShowTime()));
-        tv_calories.setText(StringUtil.valueAndUnit(mFloatWindowManager.mRunningParam.getShowCalories(), mContext.getString(R.string.string_unit_kcal), mFloatWindowManager.runParamUnitTextSize));
-        tv_pulse.setText(mFloatWindowManager.mRunningParam.getShowPulse());
+        tv_time.setText(String.valueOf(mfwm.mRunningParam.getShowTime()));
+        tv_calories.setText(StringUtil.valueAndUnit(mfwm.mRunningParam.getShowCalories(), mContext.getString(R.string.string_unit_kcal), mfwm.runParamUnitTextSize));
+        tv_pulse.setText(mfwm.mRunningParam.getShowPulse());
         // tv_mets.setText(mFloatWindowManager.mRunningParam.getShowMets());
     }
 

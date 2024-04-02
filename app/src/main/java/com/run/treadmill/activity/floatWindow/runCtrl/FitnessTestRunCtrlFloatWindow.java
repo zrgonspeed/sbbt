@@ -6,7 +6,6 @@ import android.view.WindowManager;
 
 import com.run.treadmill.activity.floatWindow.BaseRunCtrlFloatWindow;
 import com.run.treadmill.activity.runMode.RunningParam;
-import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.common.table.RunModeTable;
 import com.run.treadmill.manager.BuzzerManager;
@@ -61,64 +60,64 @@ public class FitnessTestRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
     @Override
     public void dealLineChart() {
         if (targetHrc == 0) {
-            targetHrc = FormulaUtil.getTHR(mFloatWindowManager.mRunningParam.curAge, 85);
+            targetHrc = FormulaUtil.getTHR(mfwm.mRunningParam.curAge, 85);
         }
 
-        if (mFloatWindowManager.mRunningParam.getCurPulse() == 0) {
-            mFloatWindowManager.mRunningParam.noPulseCount++;
-            if (mFloatWindowManager.mRunningParam.noPulseCount == 16) {
-                mFloatWindowManager.goBackMyApp();
+        if (mfwm.mRunningParam.getCurPulse() == 0) {
+            mfwm.mRunningParam.noPulseCount++;
+            if (mfwm.mRunningParam.noPulseCount == 16) {
+                mfwm.goBackMyApp();
                 return;
-            } else if (mFloatWindowManager.mRunningParam.noPulseCount == 31) {
-                mFloatWindowManager.mRunningParam.saveHasRunData();
-                mFloatWindowManager.mRunningParam.end();
-                mFloatWindowManager.goBackMyApp();
+            } else if (mfwm.mRunningParam.noPulseCount == 31) {
+                mfwm.mRunningParam.saveHasRunData();
+                mfwm.mRunningParam.end();
+                mfwm.goBackMyApp();
                 return;
-            }
-        }
-
-        if (mFloatWindowManager.mRunningParam.getCurPulse() != 0) {
-            if (mFloatWindowManager.mRunningParam.getCurPulse() > targetHrc) {
-                mFloatWindowManager.mRunningParam.saveHasRunData();
-                mFloatWindowManager.mRunningParam.runningToCoolDown();
-                mFloatWindowManager.goBackMyApp();
-                return;
-            }
-            if (mFloatWindowManager.mRunningParam.noPulseCount != 0) {
-                mFloatWindowManager.mRunningParam.noPulseCount = 0;
             }
         }
 
-        if (mFloatWindowManager.mRunningParam.alreadyRunTime >= (60 * 11)) {
-            mFloatWindowManager.mRunningParam.saveHasRunData();
-            mFloatWindowManager.mRunningParam.runningToCoolDown();
-            mFloatWindowManager.goBackMyApp();
+        if (mfwm.mRunningParam.getCurPulse() != 0) {
+            if (mfwm.mRunningParam.getCurPulse() > targetHrc) {
+                mfwm.mRunningParam.saveHasRunData();
+                mfwm.mRunningParam.runningToCoolDown();
+                mfwm.goBackMyApp();
+                return;
+            }
+            if (mfwm.mRunningParam.noPulseCount != 0) {
+                mfwm.mRunningParam.noPulseCount = 0;
+            }
+        }
+
+        if (mfwm.mRunningParam.alreadyRunTime >= (60 * 11)) {
+            mfwm.mRunningParam.saveHasRunData();
+            mfwm.mRunningParam.runningToCoolDown();
+            mfwm.goBackMyApp();
             return;
         }
 
-        if (mFloatWindowManager.mRunningParam.alreadyRunTime < 60) {//第一轮 第一段
-            mFloatWindowManager.mRunningParam.setLcCurStageNum(0);
-        } else if (mFloatWindowManager.mRunningParam.alreadyRunTime >= (60 + 15 * 29)) { //第二轮
+        if (mfwm.mRunningParam.alreadyRunTime < 60) {//第一轮 第一段
+            mfwm.mRunningParam.setLcCurStageNum(0);
+        } else if (mfwm.mRunningParam.alreadyRunTime >= (60 + 15 * 29)) { //第二轮
             if (RunningParam.getInstance().round == 1) {
-                if (mFloatWindowManager.isMetric) {
+                if (mfwm.isMetric) {
                     System.arraycopy(RunModeTable.ftModeTableSpeed[0], InitParam.TOTAL_RUN_STAGE_NUM, RunningParam.getInstance().mSpeedArray, 0, InitParam.TOTAL_RUN_STAGE_NUM);
                 } else {
                     System.arraycopy(RunModeTable.ftModeTableSpeed[1], InitParam.TOTAL_RUN_STAGE_NUM, RunningParam.getInstance().mSpeedArray, 0, InitParam.TOTAL_RUN_STAGE_NUM);
                 }
                 System.arraycopy(RunModeTable.ftModeTableIncline, InitParam.TOTAL_RUN_STAGE_NUM, RunningParam.getInstance().mInclineArray, 0, InitParam.TOTAL_RUN_STAGE_NUM);
             }
-            mFloatWindowManager.mRunningParam.round = 2;
-            mFloatWindowManager.mRunningParam.setLcCurStageNum((int) (mFloatWindowManager.mRunningParam.alreadyRunTime - (60 + 15 * 29)) / 15);
+            mfwm.mRunningParam.round = 2;
+            mfwm.mRunningParam.setLcCurStageNum((int) (mfwm.mRunningParam.alreadyRunTime - (60 + 15 * 29)) / 15);
         } else { //第一轮
-            mFloatWindowManager.mRunningParam.setLcCurStageNum((int) ((mFloatWindowManager.mRunningParam.alreadyRunTime - 60) / 15) + 1);
+            mfwm.mRunningParam.setLcCurStageNum((int) ((mfwm.mRunningParam.alreadyRunTime - 60) / 15) + 1);
         }
     }
 
     @Override
     public void afterPrepare() {
-        if (mFloatWindowManager.mRunningParam.isContinue()) {
-            mFloatWindowManager.mRunningParam.setToRunning();
-            mFloatWindowManager.mRunningParam.notifyRefreshData();
+        if (mfwm.mRunningParam.isContinue()) {
+            mfwm.mRunningParam.setToRunning();
+            mfwm.mRunningParam.notifyRefreshData();
             btn_incline_roller.setEnabled(false);
             btn_speed_roller.setEnabled(false);
         }
@@ -128,12 +127,12 @@ public class FitnessTestRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
         btn_back.setVisibility(View.VISIBLE);
         btn_home.setVisibility(View.GONE);
 
-        setInclineValue(0, mFloatWindowManager.mRunningParam.mInclineArray[mFloatWindowManager.mRunningParam.getLcCurStageNum()], false);
-        setSpeedValue(0, mFloatWindowManager.mRunningParam.mSpeedArray[mFloatWindowManager.mRunningParam.getLcCurStageNum()], false);
+        setInclineValue(0, mfwm.mRunningParam.mInclineArray[mfwm.mRunningParam.getLcCurStageNum()], false);
+        setSpeedValue(0, mfwm.mRunningParam.mSpeedArray[mfwm.mRunningParam.getLcCurStageNum()], false);
 
-        mFloatWindowManager.setSpeedValue();
+        mfwm.setSpeedValue();
         if (!ErrorManager.getInstance().isHasInclineError()) {
-            mFloatWindowManager.setInclineValue();
+            mfwm.setInclineValue();
         }
     }
 
@@ -163,7 +162,7 @@ public class FitnessTestRunCtrlFloatWindow extends BaseRunCtrlFloatWindow {
         switch (keyValue) {
             case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:
-                if (mFloatWindowManager.mRunningParam.isRunning()
+                if (mfwm.mRunningParam.isRunning()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
