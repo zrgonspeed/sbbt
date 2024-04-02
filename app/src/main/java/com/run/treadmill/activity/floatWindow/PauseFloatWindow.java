@@ -20,6 +20,7 @@ public class PauseFloatWindow {
     private FloatWindowManager mFwm;
     private WindowManager.LayoutParams wmParams;
     private RelativeLayout mFloatWindow;
+    private View btn_pause_quit;
 
     PauseFloatWindow(Context context, WindowManager windowManager) {
         this.mContext = context;
@@ -71,27 +72,41 @@ public class PauseFloatWindow {
     @SuppressLint("ClickableViewAccessibility")
     private void init() {
         View btn_pause_continue = mFloatWindow.findViewById(R.id.btn_pause_continue);
-        View btn_pause_quit = mFloatWindow.findViewById(R.id.btn_pause_quit);
+        btn_pause_quit = mFloatWindow.findViewById(R.id.btn_pause_quit);
 
         btn_pause_continue.setOnClickListener(v -> {
-            BuzzerManager.getInstance().buzzerRingOnce();
-            // stopPauseTimer();
-            if (mFwm.mRunningParam.isRunningEnd()) {
-                return;
-            }
-            if (mFwm.mRunningParam.isStopStatus()) {
-                hide();
-
-                mFwm.mRunningParam.setToContinue();
-                mFwm.startPrepare();
-            }
+            resume();
         });
         btn_pause_quit.setOnClickListener(v -> {
-            BuzzerManager.getInstance().buzzerRingOnce();
-            // stopPauseTimer();
-            mFwm.goBackMyAppToSummary();
+            quitRun();
         });
 
+    }
+
+    public void resume() {
+        BuzzerManager.getInstance().buzzerRingOnce();
+        // stopPauseTimer();
+        if (mFwm.mRunningParam.isRunningEnd()) {
+            return;
+        }
+        if (mFwm.mRunningParam.isStopStatus()) {
+            hide();
+
+            mFwm.mRunningParam.setToContinue();
+            mFwm.startPrepare();
+        }
+    }
+
+    private void quitRun() {
+        BuzzerManager.getInstance().buzzerRingOnce();
+        // stopPauseTimer();
+        mFwm.goBackMyAppToSummary();
+    }
+
+    public void clickQuit() {
+        quitRun();
+        // performClick 无效
+        // btn_pause_quit.performClick();
     }
 
     void stopFloat() {

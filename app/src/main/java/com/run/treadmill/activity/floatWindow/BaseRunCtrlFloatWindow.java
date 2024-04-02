@@ -444,7 +444,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
             if (tag.equals(pauseTimerTag)) {
                 if (mfwm.mRunningParam.isStopStatus()) {
                     ThreadUtils.postOnMainThread(() -> {
-                        btn_float_pause_quit.performClick();
+                        mfwm.clickPauseQuit();
                         stopPauseTimer();
                     });
                 }
