@@ -19,6 +19,7 @@ import com.run.treadmill.activity.home.bg.HomeAnimation;
 import com.run.treadmill.activity.home.help.HomeClick;
 import com.run.treadmill.activity.home.help.HomeError;
 import com.run.treadmill.activity.home.help.HomeMcu;
+import com.run.treadmill.activity.home.help.media.HomeMedia;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.base.factory.CreatePresenter;
@@ -101,6 +102,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     private HomeError homeError = new HomeError(this);
     private HomeMcu homeMcu = new HomeMcu(this);
     private HomeClick homeClick = new HomeClick(this);
+    public HomeMedia homeMedia = new HomeMedia(this);
 
     @Override
     protected int getLayoutId() {
@@ -386,12 +388,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             R.id.iv_bluetooth,
             R.id.iv_float_close,
             R.id.iv_float_open,
-
-            R.id.iv_media_x,
-            R.id.iv_media_app,
-
-            R.id.iv_media_app_back,
-            R.id.iv_media_app_x,
     })
     public void click(View view) {
         homeClick.click(view);
@@ -426,5 +422,16 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     private void closeLoading() {
         v_loading.setVisibility(View.GONE);
         avv_load.hide();
+    }
+
+    public void openLeft() {
+        findViewById(R.id.include_float_left).setVisibility(View.VISIBLE);
+        findViewById(R.id.include_float_left_2).setVisibility(View.GONE);
+    }
+
+    public void closeLeft() {
+        findViewById(R.id.include_float_left).setVisibility(View.GONE);
+        findViewById(R.id.include_float_left_2).setVisibility(View.VISIBLE);
+        voiceFW.hide();
     }
 }
