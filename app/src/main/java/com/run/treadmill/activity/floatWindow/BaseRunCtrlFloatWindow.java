@@ -24,10 +24,11 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
-import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.FormulaUtil;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.util.ThreadUtils;
 import com.run.treadmill.widget.LongClickImage;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
@@ -155,7 +156,6 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
     }
 
-    public abstract void init();
 
     public abstract void initListener();
 
@@ -448,7 +448,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
             pauseTimer.setTag(pauseTimerTag);
         }
         pauseTimer.closeTimer();
-        pauseTimer.startTimer(1000,1000, (lastTime, tag) -> {
+        pauseTimer.startTimer(1000, 1000, (lastTime, tag) -> {
             Logger.d(tag + "=== float pause定时器回调 ===>   " + lastTime);
             if (lastTime < PAUSE_TIME) {
                 return;
@@ -526,5 +526,26 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
             btn_incline_roller.setEnabled(false);
         }
         mFloatWindowManager.hideCalcFloatWindowByInclineError();
+    }
+
+    public void setData() {
+        setRunParam();
+    }
+
+    private TextView tv_time, tv_calories, tv_pulse, tv_mets;
+
+
+    private void setRunParam() {
+        tv_time.setText(String.valueOf(mFloatWindowManager.mRunningParam.getShowTime()));
+        tv_calories.setText(StringUtil.valueAndUnit(mFloatWindowManager.mRunningParam.getShowCalories(), mContext.getString(R.string.string_unit_kcal), mFloatWindowManager.runParamUnitTextSize));
+        tv_pulse.setText(mFloatWindowManager.mRunningParam.getShowPulse());
+        // tv_mets.setText(mFloatWindowManager.mRunningParam.getShowMets());
+    }
+
+    public void init() {
+        tv_time = mFloatWindow.findViewById(R.id.tv_time);
+        tv_calories = mFloatWindow.findViewById(R.id.tv_calories);
+        tv_pulse = mFloatWindow.findViewById(R.id.tv_pulse);
+        // tv_mets = mFloatWindow.findViewById(R.id.tv_mets);
     }
 }

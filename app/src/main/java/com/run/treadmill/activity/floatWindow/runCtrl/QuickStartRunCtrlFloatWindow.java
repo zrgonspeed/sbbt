@@ -33,26 +33,6 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
     }
 
     @Override
-    public void init() {
-/*        if (mFloatWindowManager.mRunningParam.isNormal()) {
-            btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_start);
-            btn_incline_down.setEnabled(false);
-            btn_incline_up.setEnabled(false);
-            btn_speed_down.setEnabled(false);
-            btn_speed_up.setEnabled(false);
-            btn_incline_roller.setEnabled(false);
-            btn_speed_roller.setEnabled(false);
-            btn_home.setEnabled(true);
-            btn_home.setVisibility(View.VISIBLE);
-        } else {
-            btn_back.setVisibility(View.VISIBLE);
-            btn_home.setEnabled(false);
-            btn_home.setVisibility(View.GONE);
-        }*/
-        FitShowManager.getInstance().setFitShowRunningCallBack(this);
-    }
-
-    @Override
     public void initListener() {
       /*  btn_home.setOnClickListener(this);
 
