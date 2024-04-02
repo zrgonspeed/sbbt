@@ -9,6 +9,6 @@
         android:id="@+id/btn_media_dot"
         android:layout_width="@dimen/dp_px_110_x"
         android:layout_height="@dimen/dp_px_110_y"
-        android:src="@drawable/btn_media_dot"
+        android:src="@drawable/btn_zoom_out_1"
         app:touch_effects_radius="@dimen/dp_px_25_x" />
 </LinearLayout>
