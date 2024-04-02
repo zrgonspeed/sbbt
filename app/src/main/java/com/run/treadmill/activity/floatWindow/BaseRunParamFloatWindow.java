@@ -18,8 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.run.treadmill.R;
-import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.WifiBTStateManager;
 import com.run.treadmill.util.StringUtil;
@@ -77,8 +75,8 @@ public abstract class BaseRunParamFloatWindow {
         mFloatWindow = createFloatWindow(dm.widthPixels, mContext.getResources().getDimensionPixelSize(R.dimen.dp_px_184_y));
         floatWindowManager.addView(mFloatWindow, wmParams);
 
-        pulseAnimation = AnimationUtils.loadAnimation(mContext, R.anim.heart_rate);
-        pulseAnimation.setInterpolator(new LinearInterpolator());
+        // pulseAnimation = AnimationUtils.loadAnimation(mContext, R.anim.heart_rate);
+        // pulseAnimation.setInterpolator(new LinearInterpolator());
 
         init();
         if (ErrorManager.getInstance().isHasInclineError()) {
@@ -93,8 +91,8 @@ public abstract class BaseRunParamFloatWindow {
     public abstract void initSelf();
 
     private void init() {
-        txt_running_incline_param = (TextView) mFloatWindow.findViewById(R.id.txt_running_incline_param);
-        tv_incline = (TextView) mFloatWindow.findViewById(R.id.tv_incline);
+        // txt_running_incline_param = (TextView) mFloatWindow.findViewById(R.id.txt_running_incline_param);
+        /*tv_incline = (TextView) mFloatWindow.findViewById(R.id.tv_incline);
         tv_time = (TextView) mFloatWindow.findViewById(R.id.tv_time);
         tv_distance = (TextView) mFloatWindow.findViewById(R.id.tv_distance);
         tv_calories = (TextView) mFloatWindow.findViewById(R.id.tv_calories);
@@ -104,23 +102,23 @@ public abstract class BaseRunParamFloatWindow {
         img_pulse = (ImageView) mFloatWindow.findViewById(R.id.img_pulse);
         img_voice = (ImageView) mFloatWindow.findViewById(R.id.img_voice);
         img_wifi = (ImageView) mFloatWindow.findViewById(R.id.img_wifi);
-        img_bt = (ImageView) mFloatWindow.findViewById(R.id.img_bt);
+        img_bt = (ImageView) mFloatWindow.findViewById(R.id.img_bt);*/
         initSelf();
 
-        tv_incline.addTextChangedListener(new BaseRunParamFloatWindow.InclineTextWatcher());
+        /*tv_incline.addTextChangedListener(new BaseRunParamFloatWindow.InclineTextWatcher());
         tv_speed.addTextChangedListener(new BaseRunParamFloatWindow.SpeedTextWatcher());
-
-        if (mFloatWindowManager.mRunningParam.isNormal()) {
+*/
+       /* if (mFloatWindowManager.mRunningParam.isNormal()) {
             tv_speed.setText(mFloatWindowManager.getSpeedValue(String.valueOf(0.0f)));
             tv_incline.setText(StringUtil.valueAndUnit("0", mContext.getString(R.string.string_unit_percent), mFloatWindowManager.runParamUnitTextSize));
         } else {
             tv_speed.setText(mFloatWindowManager.getSpeedValue(String.valueOf(mFloatWindowManager.mRunningParam.getCurrSpeed())));
             tv_incline.setText(StringUtil.valueAndUnit(String.valueOf((int) mFloatWindowManager.mRunningParam.getCurrIncline()), mContext.getString(R.string.string_unit_percent), mFloatWindowManager.runParamUnitTextSize));
-        }
+        }*/
 
-        img_voice.setOnClickListener(v ->
+       /* img_voice.setOnClickListener(v ->
                 mFloatWindowManager.showOrHideVoiceFloatWindow()
-        );
+        );*/
         setRunParam();
     }
 
@@ -129,7 +127,7 @@ public abstract class BaseRunParamFloatWindow {
     }
 
     private void setRunParam() {
-        tv_time.setText(String.valueOf(mFloatWindowManager.mRunningParam.getShowTime()));
+      /*  tv_time.setText(String.valueOf(mFloatWindowManager.mRunningParam.getShowTime()));
         tv_distance.setText(getDistenceValue(mFloatWindowManager.mRunningParam.getShowDistance()));
         tv_calories.setText(StringUtil.valueAndUnit(mFloatWindowManager.mRunningParam.getShowCalories(), mContext.getString(R.string.string_unit_kcal), mFloatWindowManager.runParamUnitTextSize));
         tv_pulse.setText(mFloatWindowManager.mRunningParam.getShowPulse());
@@ -143,7 +141,7 @@ public abstract class BaseRunParamFloatWindow {
             img_pulse.clearAnimation();
         }
 
-        refreshWifiAndBt();
+        refreshWifiAndBt();*/
     }
 
     private void refreshWifiAndBt() {
@@ -151,20 +149,20 @@ public abstract class BaseRunParamFloatWindow {
     }
 
     void setSpeedValue(SpannableString speedValue) {
-        tv_speed.setText(speedValue);
+        // tv_speed.setText(speedValue);
     }
 
     void setInclineValue(SpannableString inclineValue) {
-        tv_incline.setText(inclineValue);
+        // tv_incline.setText(inclineValue);
     }
 
     void setInclineError(SpannableString inclineValue) {
-        tv_incline.setText(inclineValue);
-        txt_running_incline_param.setTextColor(mContext.getResources().getColor(R.color.red, null));
+        // tv_incline.setText(inclineValue);
+        // txt_running_incline_param.setTextColor(mContext.getResources().getColor(R.color.red, null));
     }
 
     String getInclineStr() {
-        return tv_incline.getText().toString();
+        return "xxx";
     }
 
     void stopFloat() {
@@ -180,7 +178,7 @@ public abstract class BaseRunParamFloatWindow {
     }
 
     void setVoiceEnable(boolean isEnable) {
-        img_voice.setEnabled(isEnable);
+        // img_voice.setEnabled(isEnable);
     }
 
     /**
@@ -230,9 +228,9 @@ public abstract class BaseRunParamFloatWindow {
     }
 
     public void enterPauseState() {
-        if (img_pulse.getAnimation() != null) {
-            img_pulse.clearAnimation();
-        }
+        // if (img_pulse.getAnimation() != null) {
+        //     img_pulse.clearAnimation();
+        // }
         if (tv_speed != null) {
             tv_speed.setText(mFloatWindowManager.getSpeedValue("0.0"));
 

@@ -73,8 +73,9 @@ public class RunMedia {
         appAdapter.setNames(apkViewNames);
         appAdapter.setOnItemClick(position -> {
             BuzzerManager.getInstance().buzzerRingOnce();
-            // activity.isGoMedia = true;
-            // enterThirdApk(runMode, pkgName[position]);
+
+            activity.isGoMedia = true;
+            enterThirdApk(CTConstant.QUICKSTART, pkgName[position]);
             // activity.rl_main.setVisibility(View.GONE);
 
             String mediaPkName = pkgName[position];

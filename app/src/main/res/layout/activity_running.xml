@@ -254,7 +254,7 @@
             android:text="@string/string_running_speed"
             android:textColor="@color/light_gray"
             android:textSize="@dimen/font_size_16pt" />
-
+<!--
         <ImageView
             android:id="@+id/img_wifi"
             android:layout_width="wrap_content"
@@ -269,7 +269,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_px_1865_x"
             android:layout_marginTop="@dimen/dp_px_64_y"
-            android:src="@drawable/img_bt" />
+            android:src="@drawable/img_bt" />-->
     </RelativeLayout>
 
     <!-- 倒计时 -->

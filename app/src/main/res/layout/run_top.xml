@@ -40,18 +40,21 @@
         android:background="@drawable/btn_workout_wearables_on_1" />
 
     <ImageView
+        android:id="@+id/img_voice"
         android:layout_width="@dimen/dp_px_64_x"
         android:layout_height="@dimen/dp_px_64_x"
         android:layout_marginStart="@dimen/dp_px_684_x"
         android:background="@drawable/btn_workout_volume_on_1" />
 
     <ImageView
+        android:id="@+id/img_bt"
         android:layout_width="@dimen/dp_px_64_x"
         android:layout_height="@dimen/dp_px_64_x"
         android:layout_marginStart="@dimen/dp_px_798_x"
         android:background="@drawable/img_workout_bluetooth_on_1" />
 
     <ImageView
+        android:id="@+id/img_wifi"
         android:layout_width="@dimen/dp_px_64_x"
         android:layout_height="@dimen/dp_px_64_x"
         android:layout_marginStart="@dimen/dp_px_912_x"

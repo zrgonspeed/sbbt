@@ -87,7 +87,7 @@ public class RunRefresh {
         if (activity.lineChartView != null) {
             activity.refreshLineChart();
         }
-        WifiBTStateManager.setBTWifiStatus(activity.img_wifi, activity.img_bt, activity);
+        // WifiBTStateManager.setBTWifiStatus(activity.img_wifi, activity.img_bt, activity);
 
         pulseAnimation();
     }
