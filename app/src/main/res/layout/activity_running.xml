@@ -334,7 +334,6 @@
         app:layout_constraintVertical_bias="0.7" />
 
     <!--新新新新新新新新新新新新新新新新新新新-->
-    <!-- 中间的图表 -->
     <include
         android:id="@+id/rl_chart_view"
         layout="@layout/run_chart"
@@ -343,12 +342,23 @@
         android:layout_alignParentBottom="true"
         android:visibility="gone" />
 
+    <!-- 中间的图表 -->
     <com.run.treadmill.widget.chart.SportGraph
         android:id="@+id/bar_graph"
         android:layout_width="@dimen/dp_px_1080_x"
         android:layout_height="@dimen/dp_px_600_x"
         android:layout_marginStart="@dimen/dp_px_420_x"
         android:layout_marginTop="@dimen/dp_px_220_x" />
+
+    <!-- 中间的app列表 -->
+    <include
+        android:id="@+id/run_media_application"
+        layout="@layout/run_media_application"
+        android:layout_width="@dimen/dp_px_1080_x"
+        android:layout_height="@dimen/dp_px_608_x"
+        android:layout_marginStart="@dimen/dp_px_420_x"
+        android:layout_marginTop="@dimen/dp_px_220_x"
+        android:visibility="gone" />
 
     <!--底部-->
     <include

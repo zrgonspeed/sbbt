@@ -34,6 +34,10 @@ public class RunGraph {
         checkedSpeed();
     }
 
+    public void hide() {
+        bar_graph.setVisibility(View.GONE);
+    }
+
     private class ClickRadio implements View.OnClickListener {
         @Override
         public void onClick(View v) {

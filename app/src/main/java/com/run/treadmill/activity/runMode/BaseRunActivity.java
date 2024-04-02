@@ -196,7 +196,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         if (mRunningParam.isPrepare()) {
             showPreparePlayVideo(0);
         }
-        ThreadUtils.postOnMainThread(()-> {
+        ThreadUtils.postOnMainThread(() -> {
             Logger.i("onCreate2()");
             onCreate2();
         }, 500);
@@ -214,7 +214,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         super.onResume();
         Logger.i("onResume");
 
-        ThreadUtils.postOnMainThread(()-> {
+        ThreadUtils.postOnMainThread(() -> {
             Logger.i("onResume2()");
             onResume2();
         }, 800);
@@ -361,7 +361,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             R.id.btn_speed_up, R.id.btn_speed_down, R.id.btn_media, R.id.btn_line_chart_incline, R.id.btn_line_chart_speed,
             R.id.btn_speed_roller, R.id.btn_incline_roller,
             R.id.btn_home,
-            R.id.iv_pause
+            R.id.iv_pause,
+            R.id.iv_run_media
     })
     public synchronized void click(View view) {
         BaseRunClick.click(this, view);
@@ -708,6 +709,9 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     @BindView(R.id.iv_pause)
     public ImageView iv_pause;
+    /*顶部*/
+    @BindView(R.id.iv_run_media)
+    public ImageView iv_run_media;
 
     @BindView(R.id.iv_start)
     public ImageView iv_start;
@@ -721,4 +725,9 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public void initGraph() {
         runGraph.initGraph(bar_graph);
     }
+
+    /****************App 列表***************/
+    @BindView(R.id.run_media_application)
+    public RelativeLayout run_media_application;
+
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/dp_px_1080_x"
+    android:layout_height="@dimen/dp_px_608_x">
+
+    <!--背景圆角，透明-->
+    <com.hjq.shape.view.ShapeView
+        android:id="@+id/sv_graph"
+        android:layout_width="@dimen/dp_px_1080_x"
+        android:layout_height="@dimen/dp_px_600_x"
+        app:shape_radius="@dimen/dp_px_30_x"
+        app:shape_solidColor="#1A5E6CB2"
+        app:shape_strokeColor="#4DFFFFFF"
+        app:shape_strokeSize="@dimen/dp_px_1_x" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_px_48_x"
+        android:layout_marginStart="@dimen/dp_px_32_x"
+        android:layout_marginTop="@dimen/dp_px_34_x"
+        android:drawableStart="@drawable/img_icon_application"
+        android:drawablePadding="@dimen/dp_px_20_x"
+        android:text="@string/home_media_application"
+        android:textColor="#2CC5D5"
+        android:textSize="@dimen/font_size_40" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_media_app"
+        android:layout_width="@dimen/dp_px_850_x"
+        android:layout_height="@dimen/dp_px_500_x"
+        android:layout_marginStart="@dimen/dp_px_110_x"
+        android:layout_marginTop="@dimen/dp_px_90_x"
+
+        android:fadeScrollbars="false"
+        android:overScrollMode="never"
+        android:scrollbarSize="@dimen/dp_px_15_x"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbarThumbHorizontal="@drawable/scroll_media_list"
+
+        android:scrollbars="horizontal" />
+
+    <ImageView
+        android:id="@+id/iv_media_app_x"
+        android:layout_width="@dimen/dp_px_48_x"
+        android:layout_height="@dimen/dp_px_48_x"
+        android:layout_marginStart="@dimen/dp_px_1000_x"
+        android:layout_marginTop="@dimen/dp_px_32_x"
+        android:background="@drawable/btn_x_1" />
+</RelativeLayout>

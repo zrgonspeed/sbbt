@@ -3,18 +3,6 @@
     android:layout_width="@dimen/dp_px_976_x"
     android:layout_height="@dimen/dp_px_64_x">
 
-    <!--Time-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_px_212_x"
-        android:layout_marginTop="@dimen/dp_px_110_x"
-        android:gravity="start"
-        android:paddingStart="@dimen/dp_px_4_x"
-        android:text="TIME"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_size_32" />
-
     <ImageView
         android:layout_width="@dimen/dp_px_64_x"
         android:layout_height="@dimen/dp_px_64_x"
@@ -33,6 +21,7 @@
         android:background="@drawable/btn_workout_mirror_1" />
 
     <ImageView
+        android:id="@+id/iv_run_media"
         android:layout_width="@dimen/dp_px_64_x"
         android:layout_height="@dimen/dp_px_64_x"
         android:layout_marginStart="@dimen/dp_px_342_x"
