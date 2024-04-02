@@ -167,6 +167,16 @@ public class ThirdUpdateUtils {
         return arr;
     }
 
+    public static String[] getViewNames() {
+        initList();
+
+        String[] arr = new String[list.size()];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = list.get(i).viewName;
+        }
+        return arr;
+    }
+
     public static String[] getPkgNames() {
         initList();
 

@@ -139,7 +139,7 @@ public class HomeClick extends BaseHomeHelp {
     private void initAppList() {
         final String[] pkgName = HomeAndRunAppUtils.getPkgNames();
         int[] drawable = HomeAndRunAppUtils.getHomeDrawables();
-        String[] apkNames = HomeAndRunAppUtils.getNames();
+        String[] apkViewNames = HomeAndRunAppUtils.getViewNames();
 
         RecyclerView rv_media_app = activity.findViewById(R.id.rv_media_app);
 
@@ -161,7 +161,7 @@ public class HomeClick extends BaseHomeHelp {
         System.arraycopy(drawable, 0, drawable1, 0, drawable1.length);
 
         HomeAppAdapter adapter1 = new HomeAppAdapter(MyApplication.getContext(), drawable1);
-        adapter1.setNames(apkNames);
+        adapter1.setNames(apkViewNames);
 
         rv_media_app.setAdapter(adapter1);
         adapter1.setOnItemClick(position -> {
@@ -171,7 +171,7 @@ public class HomeClick extends BaseHomeHelp {
             String mediaPkName = pkgName[position];
             Logger.i("点击了 " + mediaPkName);
 
-            enterThirdApp(mediaPkName);
+            // enterThirdApp(mediaPkName);
         });
     }
 

@@ -35,6 +35,7 @@ public class HomeAndRunAppUtils {
         ThirdApp youtube = new ThirdApp.Builder("YouTube", "com.google.android.youtube")
                 .homeDrawable(R.drawable.btn_home_youtube)
                 .runDrawable(R.drawable.btn_home_youtube)
+                .viewName("Youtube")
                 .build();
 
         ThirdApp chrome = new ThirdApp.Builder("GoogleChrome", "com.android.chrome")
@@ -44,6 +45,7 @@ public class HomeAndRunAppUtils {
         ThirdApp twitter = new ThirdApp.Builder("Twitter", "com.twitter.android")
                 .homeDrawable(R.drawable.btn_home_twitter)
                 .runDrawable(R.drawable.btn_home_twitter)
+                .viewName("X")
                 .build();
         ThirdApp facebook = new ThirdApp.Builder("Facebook", "com.facebook.katana")
                 .homeDrawable(R.drawable.btn_home_facebook)
@@ -63,21 +65,26 @@ public class HomeAndRunAppUtils {
         ThirdApp netflix = new ThirdApp.Builder("NETFLIX", "com.netflix.mediaclient")
                 .homeDrawable(R.drawable.btn_home_netflix)
                 .runDrawable(R.drawable.btn_home_netflix)
+                .viewName("Netflix")
+
                 .build();
 
         ThirdApp ponymusic = new ThirdApp.Builder("ponymusic", "me.wcy.music")
                 .homeDrawable(R.drawable.btn_home_mp3)
                 .runDrawable(R.drawable.btn_home_mp3)
+                .viewName("MP3")
                 .build();
 
         ThirdApp mp4 = new ThirdApp.Builder("mp4", "com.softwinner.fireplayer")
                 .homeDrawable(R.drawable.btn_home_mp4)
                 .runDrawable(R.drawable.btn_home_mp4)
+                .viewName("MP4")
                 .build();
 
         ThirdApp kinomap = new ThirdApp.Builder("Kinomap", "com.kinomap.training")
                 .homeDrawable(R.drawable.btn_home_kinomap)
                 .runDrawable(R.drawable.btn_home_kinomap)
+                .viewName("kinomap")
                 .build();
 
         ThirdApp AnplusMirroring = new ThirdApp.Builder("AnplusMirroring", "com.anplus.tft")
@@ -88,6 +95,8 @@ public class HomeAndRunAppUtils {
         ThirdApp disney = new ThirdApp.Builder("Disneyplus", "com.disney.disneyplus")
                 .homeDrawable(R.drawable.btn_home_disney)
                 .runDrawable(R.drawable.btn_home_disney)
+                .viewName("Disney+")
+
                 .build();
 
         ThirdApp disney2 = new ThirdApp.Builder("Disneyplus2", "in.startv.hotstar.dplus.tv")
@@ -173,6 +182,16 @@ public class HomeAndRunAppUtils {
         String[] arr = new String[list.size()];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = list.get(i).name;
+        }
+        return arr;
+    }
+
+    public static String[] getViewNames() {
+        initList();
+
+        String[] arr = new String[list.size()];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = list.get(i).viewName;
         }
         return arr;
     }
