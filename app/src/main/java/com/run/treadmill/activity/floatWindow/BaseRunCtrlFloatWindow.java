@@ -452,7 +452,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         });
     }
 
-    private void stopPauseTimer() {
+    public void stopPauseTimer() {
         if (pauseTimer != null) {
             pauseTimer.closeTimer();
         }
