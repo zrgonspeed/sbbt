@@ -464,8 +464,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
     protected void showPause() {
         // TODO: 2024/4/2 悬浮窗的暂停
-
-
+        mfwm.showPauseFw();
 
 
         // btn_start_stop_skip.setVisibility(View.GONE);

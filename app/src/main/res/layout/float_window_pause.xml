@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/float_window_volume_layout"
+    android:layout_width="@dimen/dp_px_1920_x"
+    android:layout_height="@dimen/dp_px_1080_x"
+    android:background="#33000000"
+    android:visibility="visible">
+
+
+</RelativeLayout>

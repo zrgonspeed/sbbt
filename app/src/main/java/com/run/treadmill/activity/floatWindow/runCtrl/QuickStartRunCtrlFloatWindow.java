@@ -60,7 +60,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
         if (mfwm.isShowingCalculator()) {
             return;
         }
-        if (speed <= minSpeed) {
+       /* if (speed <= minSpeed) {
             if (btn_speed_down.isEnabled()) {
                 btn_speed_down.setEnabled(false);
             }
@@ -81,7 +81,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
             if (!btn_speed_up.isEnabled()) {
                 btn_speed_up.setEnabled(true);
             }
-        }
+        }*/
     }
 
     @Override
@@ -96,7 +96,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
         if (mfwm.isShowingCalculator()) {
             return;
         }
-        if (incline <= 0) {
+        /*if (incline <= 0) {
             if (btn_incline_down.isEnabled()) {
                 btn_incline_down.setEnabled(false);
             }
@@ -117,7 +117,7 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
             if (!btn_incline_up.isEnabled()) {
                 btn_incline_up.setEnabled(true);
             }
-        }
+        }*/
     }
 
     @Override
@@ -149,14 +149,14 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
         if (mfwm.mRunningParam.isContinue()) {
             mfwm.mRunningParam.setToRunning();
             mfwm.mRunningParam.notifyRefreshData();
-            btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
-            btn_speed_roller.setEnabled(true);
+            // btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
+            // btn_speed_roller.setEnabled(true);
         }
         ControlManager.getInstance().startRun();
-        btn_back.setEnabled(true);
+       /* btn_back.setEnabled(true);
         btn_home.setEnabled(false);
         btn_back.setVisibility(View.VISIBLE);
-        btn_home.setVisibility(View.GONE);
+        btn_home.setVisibility(View.GONE);*/
 
         setInclineValue(0, mfwm.mRunningParam.mInclineArray[mfwm.mRunningParam.getLcCurStageNum()], false);
         setSpeedValue(0, mfwm.mRunningParam.mSpeedArray[mfwm.mRunningParam.getLcCurStageNum()], false);
