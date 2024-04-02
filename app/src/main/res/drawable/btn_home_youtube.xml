@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/btn_home_youtube_3" android:state_enabled="false" />
-    <item android:drawable="@drawable/btn_home_youtube_2" android:state_pressed="true" />
-    <item android:drawable="@drawable/btn_home_youtube_1" />
+    <item android:drawable="@drawable/btn_app_youtube_1_1" android:state_pressed="true" />
+    <item android:drawable="@drawable/btn_app_youtube_1" />
 
 </selector>

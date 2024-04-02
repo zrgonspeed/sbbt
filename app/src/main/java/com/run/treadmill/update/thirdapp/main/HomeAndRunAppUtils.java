@@ -34,7 +34,7 @@ public class HomeAndRunAppUtils {
     private static synchronized void initListEnglish() {
         ThirdApp youtube = new ThirdApp.Builder("YouTube", "com.google.android.youtube")
                 .homeDrawable(R.drawable.btn_home_youtube)
-                .runDrawable(R.drawable.btn_media_youtube)
+                .runDrawable(R.drawable.btn_home_youtube)
                 .build();
 
         ThirdApp chrome = new ThirdApp.Builder("GoogleChrome", "com.android.chrome")
@@ -43,41 +43,41 @@ public class HomeAndRunAppUtils {
                 .build();
         ThirdApp twitter = new ThirdApp.Builder("Twitter", "com.twitter.android")
                 .homeDrawable(R.drawable.btn_home_twitter)
-                .runDrawable(R.drawable.btn_media_twitter)
+                .runDrawable(R.drawable.btn_home_twitter)
                 .build();
         ThirdApp facebook = new ThirdApp.Builder("Facebook", "com.facebook.katana")
                 .homeDrawable(R.drawable.btn_home_facebook)
-                .runDrawable(R.drawable.btn_media_facebook)
+                .runDrawable(R.drawable.btn_home_facebook)
                 .build();
 
         ThirdApp instagram = new ThirdApp.Builder("Instagram", "com.instagram.android")
                 .homeDrawable(R.drawable.btn_home_instagram)
-                .runDrawable(R.drawable.btn_media_instagram)
+                .runDrawable(R.drawable.btn_home_instagram)
                 .build();
 
         ThirdApp spotify = new ThirdApp.Builder("Spotify", "com.spotify.music")
                 .homeDrawable(R.drawable.btn_home_spotify)
-                .runDrawable(R.drawable.btn_media_spotify)
+                .runDrawable(R.drawable.btn_home_spotify)
                 .build();
 
         ThirdApp netflix = new ThirdApp.Builder("NETFLIX", "com.netflix.mediaclient")
                 .homeDrawable(R.drawable.btn_home_netflix)
-                .runDrawable(R.drawable.btn_media_netflix)
+                .runDrawable(R.drawable.btn_home_netflix)
                 .build();
 
         ThirdApp ponymusic = new ThirdApp.Builder("ponymusic", "me.wcy.music")
                 .homeDrawable(R.drawable.btn_home_mp3)
-                .runDrawable(R.drawable.btn_media_mp3)
+                .runDrawable(R.drawable.btn_home_mp3)
                 .build();
 
         ThirdApp mp4 = new ThirdApp.Builder("mp4", "com.softwinner.fireplayer")
                 .homeDrawable(R.drawable.btn_home_mp4)
-                .runDrawable(R.drawable.btn_media_mp4)
+                .runDrawable(R.drawable.btn_home_mp4)
                 .build();
 
         ThirdApp kinomap = new ThirdApp.Builder("Kinomap", "com.kinomap.training")
                 .homeDrawable(R.drawable.btn_home_kinomap)
-                .runDrawable(R.drawable.btn_media_kinomap)
+                .runDrawable(R.drawable.btn_home_kinomap)
                 .build();
 
         ThirdApp AnplusMirroring = new ThirdApp.Builder("AnplusMirroring", "com.anplus.tft")
@@ -87,7 +87,7 @@ public class HomeAndRunAppUtils {
 
         ThirdApp disney = new ThirdApp.Builder("Disneyplus", "com.disney.disneyplus")
                 .homeDrawable(R.drawable.btn_home_disney)
-                .runDrawable(R.drawable.btn_media_disney)
+                .runDrawable(R.drawable.btn_home_disney)
                 .build();
 
         ThirdApp disney2 = new ThirdApp.Builder("Disneyplus2", "in.startv.hotstar.dplus.tv")
@@ -102,24 +102,24 @@ public class HomeAndRunAppUtils {
 
         ThirdApp amazonVideo = new ThirdApp.Builder("AmazonVideo", "com.amazon.avod.thirdpartyclient")
                 .homeDrawable(R.drawable.btn_home_prime)
-                .runDrawable(R.drawable.btn_media_prime)
+                .runDrawable(R.drawable.btn_home_prime)
                 .build();
 
         list = new ArrayList<>();
         list.add(youtube);
-        list.add(chrome);
-        list.add(twitter);
         list.add(facebook);
-        list.add(instagram);
-        list.add(spotify);
         list.add(netflix);
+        list.add(twitter);
+        list.add(disney);
+        list.add(instagram);
+        list.add(amazonVideo);
+        list.add(spotify);
         list.add(ponymusic);
         list.add(mp4);
-        list.add(AnplusMirroring);
         list.add(kinomap);
-        list.add(disney2);
-        list.add(amazonVideo);
 
+        // list.add(chrome);
+        // list.add(AnplusMirroring);
     }
 
     private static synchronized void initListChina() {
