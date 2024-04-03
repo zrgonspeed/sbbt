@@ -62,7 +62,7 @@ public class PauseFloatWindow {
         wmParams.y = 0;
         wmParams.width = w;
         wmParams.height = h;
-        wmParams.windowAnimations = android.R.style.Animation_Translucent;
+        wmParams.windowAnimations = 0;
 
         // 悬浮窗默认隐藏
         mWindow.setVisibility(View.GONE);

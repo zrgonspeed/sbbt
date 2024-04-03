@@ -84,7 +84,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         params.y = 0;
         params.width = w;
         params.height = h;
-        params.windowAnimations = android.R.style.Animation_Translucent;
+        params.windowAnimations = 0;
 
         wmParams = params;
         return mWindow;

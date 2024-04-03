@@ -62,7 +62,7 @@ public abstract class BaseRunParamFloatWindow {
         wmParams.y = 0;
         wmParams.width = w;
         wmParams.height = h;
-        wmParams.windowAnimations = android.R.style.Animation_Translucent;
+        wmParams.windowAnimations = 0;
 
         return mWindow;
     }
