@@ -276,6 +276,13 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                 settingLineChart();
             }
         }
+        {
+            Logger.i("quickToMedia == " + quickToMedia);
+            if (quickToMedia) {
+                quickToMedia = false;
+                mFloatWindowManager.regRxDataCallBackAgain();
+            }
+        }
     }
 
     private void setOnCreateRoller() {

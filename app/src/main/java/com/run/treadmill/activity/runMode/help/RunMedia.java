@@ -80,7 +80,7 @@ public class RunMedia {
 
             activity.isGoMedia = true;
             enterThirdApk(CTConstant.QUICKSTART, pkgName[position]);
-            // activity.rl_main.setVisibility(View.GONE);
+            activity.rl_main.setVisibility(View.GONE);
 
             String mediaPkName = pkgName[position];
             Logger.i("点击了 " + apkViewNames[position] + "   " + mediaPkName);

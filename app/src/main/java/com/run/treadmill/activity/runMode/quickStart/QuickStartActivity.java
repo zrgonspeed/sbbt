@@ -72,36 +72,11 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     @Override
     protected void onResume() {
         super.onResume();
-        long start = System.currentTimeMillis();
-        {
-            // Logger.i("quickToMedia == " + quickToMedia);
-            if (quickToMedia) {
-                quickToMedia = false;
-                mFloatWindowManager.regRxDataCallBackAgain();
-            } else {
-                FitShowManager.getInstance().setFitShowRunningCallBack(this);
-                if (mRunningParam.isPrepare()) {
-                    FitShowManager.getInstance().setRunStart(FitShowCommand.STATUS_START_0x02);
-                }
-            }
-            if (mRunningParam.isNormal()) {
-                btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_start);
-                btn_home.setVisibility(View.VISIBLE);
-            } else {
-                btn_home.setVisibility(View.GONE);
-            }
-        }
-        long end = System.currentTimeMillis();
-        // Logger.i("QuickStartActivity onResume() time == " + (end - start));
     }
 
     @Override
     protected void onPause() {
-        long start = System.currentTimeMillis();
         super.onPause();
-        //FitShowManager.getInstance().setFitShowRunningCallBack(null);
-        long end = System.currentTimeMillis();
-        // Logger.i("QuickStartActivity onPause() time == " + (end - start));
     }
 
     @Override
@@ -120,22 +95,22 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
         super.click(view);
         switch (view.getId()) {
             case R.id.btn_incline_up:
-                
+
                 speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                 getPresenter().setInclineValue(1, 0, false);
                 break;
             case R.id.btn_incline_down:
-                
+
                 speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_INCLINE);
                 getPresenter().setInclineValue(-1, 0, false);
                 break;
             case R.id.btn_speed_up:
-                
+
                 speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                 getPresenter().setSpeedValue(1, 0, false);
                 break;
             case R.id.btn_speed_down:
-                
+
                 speedInclineClickHandler.sendEmptyMessage(MsgWhat.MSG_CLICK_SPEED);
                 getPresenter().setSpeedValue(-1, 0, false);
                 break;
