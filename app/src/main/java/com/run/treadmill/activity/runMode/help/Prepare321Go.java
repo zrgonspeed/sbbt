@@ -45,12 +45,11 @@ public class Prepare321Go {
             mTimer = new Timer();
         }
 
-        String uri = "android.resource://" + ActivityUtils.getPackageName() + "/" + R.raw.go;
         vv_go = new VideoView(MyApplication.getContext());
+        vv_go.setVisibility(View.GONE);
         activity.rl_main.addView(vv_go, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         vv_go.setClickable(true);  // 防止321go时还能点击到背面
-        vv_go.setVideoURI(Uri.parse(uri));
         vv_go.setOnPreparedListener(mp -> {
                     Logger.i("准备好321go的mp4 onPrepared " + mp);
                     Logger.i("delay == " + delay);
@@ -72,6 +71,8 @@ public class Prepare321Go {
     public void play321Go(long delay) {
         this.delay = delay;
         Logger.i("play321Go");
+        String uri = "android.resource://" + ActivityUtils.getPackageName() + "/" + R.raw.go;
+        vv_go.setVideoURI(Uri.parse(uri));
         vv_go.setVisibility(View.VISIBLE);
         // 真正播放视频的地方
         vv_go.start();

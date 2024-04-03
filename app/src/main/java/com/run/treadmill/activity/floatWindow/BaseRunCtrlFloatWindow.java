@@ -68,6 +68,10 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
     public float maxIncline;
 
     private boolean gsMode;
+    private View tv_home_quickstart;
+    private RelativeLayout home_start_app_bottom;
+    private RelativeLayout run_bottom;
+    private View v_bg_run;
 
     public BaseRunCtrlFloatWindow(Context context, WindowManager windowManager) {
         this.mContext = context;
@@ -329,7 +333,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
     @Override
     public void onClick(View v) {
-        if (!FloatClickUtils.canResponse()){
+        if (!FloatClickUtils.canResponse()) {
             Logger.e("float 不可快点");
             return;
         }
@@ -350,39 +354,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
             case R.id.iv_run_profile:
                 clickProfile();
                 break;
-           /* case R.id.btn_float_pause_quit:
-                BuzzerManager.getInstance().buzzerRingOnce();
-                stopPauseTimer();
-                mFloatWindowManager.goBackMyAppToSummary();
-                break;
-            case R.id.btn_float_pause_continue:
-                Logger.d("--data-- runStatus=" + mFloatWindowManager.mRunningParam.runStatus);
-                BuzzerManager.getInstance().buzzerRingOnce();
-                stopPauseTimer();
-                if (mFloatWindowManager.mRunningParam.isRunningEnd()) {
-                    return;
-                }
-                if (mFloatWindowManager.mRunningParam.isStopStatus()) {
-                    layout_float_pause.setVisibility(View.GONE);
-                    btn_float_pause_continue.setEnabled(false);
-                    if (AppDebug.debug) {
-                        btn_float_pause_continue.setEnabled(true);
-                    }
-                    btn_float_pause_quit.setEnabled(false);
 
-                    btn_start_stop_skip.setImageResource(R.drawable.btn_sportmode_stop);
-                    btn_start_stop_skip.setEnabled(false);
-                    btn_start_stop_skip.setVisibility(View.VISIBLE);
-                    btn_back.setEnabled(false);
-                    btn_home.setEnabled(false);
-                    setControlEnable(false);
-
-                    btn_back.setVisibility(View.VISIBLE);
-                    btn_home.setVisibility(View.GONE);
-                    mFloatWindowManager.mRunningParam.setToContinue();
-                    mFloatWindowManager.startPrepare();
-                }
-                break;*/
         }
     }
 
@@ -550,6 +522,17 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         iv_run_track = mFloatWindow.findViewById(R.id.iv_run_track);
         iv_run_profile = mFloatWindow.findViewById(R.id.iv_run_profile);
 
+        run_bottom = mFloatWindow.findViewById(R.id.run_bottom);
+        v_bg_run = mFloatWindow.findViewById(R.id.v_bg_run);
+
+        home_start_app_bottom = mFloatWindow.findViewById(R.id.home_start_app_bottom);
+        tv_home_quickstart = mFloatWindow.findViewById(R.id.tv_home_quickstart);
+        tv_home_quickstart.setOnClickListener(this::onClickHomeBottom);
+
+        if (mfwm.isQuickToMedia()) {
+            showHomeBottom();
+        }
+
         iv_run_application.setSelected(true);
         iv_pause.setOnClickListener(this::onClick);
         iv_run_profile.setOnClickListener(this::onClick);
@@ -561,4 +544,41 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         // tv_mets = mFloatWindow.findViewById(R.id.tv_mets);
     }
 
+    private void showHomeBottom() {
+        home_start_app_bottom.setVisibility(View.VISIBLE);
+        run_bottom.setVisibility(View.GONE);
+        v_bg_run.setVisibility(View.GONE);
+    }
+
+    private void showRunBottom() {
+        home_start_app_bottom.setVisibility(View.GONE);
+        run_bottom.setVisibility(View.VISIBLE);
+        v_bg_run.setVisibility(View.VISIBLE);
+    }
+
+    public void onClickHomeBottom(View v) {
+        if (!FloatClickUtils.canResponse()) {
+            Logger.e("float 不可快点");
+            return;
+        }
+
+        switch (v.getId()) {
+            default:
+                break;
+            case R.id.tv_home_quickstart:
+                clickHomeQuickStart();
+                break;
+        }
+    }
+
+    private void clickHomeQuickStart() {
+        if (mfwm.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
+            Logger.i("clickHomeQuickStart() ok ");
+            tv_home_quickstart.setEnabled(false);
+            mfwm.mRunningParam.setToPrepare();
+            stopPauseTimer();
+            mfwm.startPrepare();
+            showRunBottom();
+        }
+    }
 }

@@ -138,8 +138,8 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
         if (mfwm.mRunningParam.isPrepare()) {
             mfwm.mRunningParam.setToRunning();
             mfwm.mRunningParam.setLcCurStageNum(0);
-            btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
-            btn_speed_roller.setEnabled(true);
+            // btn_incline_roller.setEnabled(!ErrorManager.getInstance().isHasInclineError());
+            // btn_speed_roller.setEnabled(true);
             mfwm.mRunningParam.startRefreshData();
         }
         if (mfwm.mRunningParam.isStopStatus()) {

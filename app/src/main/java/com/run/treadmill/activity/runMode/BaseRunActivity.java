@@ -198,6 +198,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         mRunningParam = RunningParam.getInstance();
 
         quickToMedia = getIntent().getBooleanExtra(CTConstant.IS_MEDIA, false);
+
+        prepare321Go.newHandler();
+        prepare321Go.init321Go();
+
         if (quickToMedia) {
             onCreate_homeAppToRun();
         } else {
@@ -217,8 +221,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     private void onCreate_run() {
-        prepare321Go.newHandler();
-        prepare321Go.init321Go();
         mRunningParam.setToPrepare();
         if (mRunningParam.isPrepare()) {
             showPreparePlayVideo(0);
@@ -537,13 +539,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         isGoMedia = false;
         mRunningParam.setCallback(this);
         rl_main.setVisibility(View.VISIBLE);
-
-//        if(mRunningParam.errorCode != ErrorManager.ERR_NO_ERROR){
-//            getPresenter().sendMyError();
-//        }
-//        if(lineChartView != null){
-//            refreshLineChart();
-//        }
     }
 
     @Override

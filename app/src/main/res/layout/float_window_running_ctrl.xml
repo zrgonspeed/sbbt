@@ -6,12 +6,22 @@
 
     <!--背景透明-->
     <com.hjq.shape.view.ShapeView
+        android:id="@+id/v_bg_run"
         android:layout_width="@dimen/dp_px_1920_x"
         android:layout_height="@dimen/dp_px_170_x"
         app:shape_radiusInTopLeft="@dimen/dp_px_30_x"
         app:shape_radiusInTopRight="@dimen/dp_px_30_x"
         app:shape_solidColor="#99141726" />
 
-    <include layout="@layout/run_bottom" />
+    <include
+        android:id="@+id/run_bottom"
+        layout="@layout/run_bottom"
+        android:visibility="visible" />
+
+    <!--Home点第三方进入的-->
+    <include
+        android:id="@+id/home_start_app_bottom"
+        layout="@layout/home_start_app_bottom"
+        android:visibility="gone" />
 
 </RelativeLayout>
