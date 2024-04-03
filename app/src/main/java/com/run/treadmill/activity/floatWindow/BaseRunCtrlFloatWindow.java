@@ -125,7 +125,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         btn_float_pause_continue.setOnClickListener(this);*/
 
         init();
-
+        setRunParam();
         floatWindowManager.addView(mFloatWindow, wmParams);
 
       /*  btn_start_stop_skip.setOnClickListener(this);
@@ -560,4 +560,5 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         tv_pulse = mFloatWindow.findViewById(R.id.tv_pulse);
         // tv_mets = mFloatWindow.findViewById(R.id.tv_mets);
     }
+
 }
