@@ -169,6 +169,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     public int currentPro = -1;
     /**
      * 针对quick start 进入媒体与媒体回来运动的逻辑差别作区分
+     * 只有一瞬间能用，onResume后为false
      */
     public boolean quickToMedia = false;
     /**

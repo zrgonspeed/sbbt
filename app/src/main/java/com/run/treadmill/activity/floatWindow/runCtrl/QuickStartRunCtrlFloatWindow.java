@@ -13,9 +13,9 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
-import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.fitshow.other.FitShowRunningCallBack;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.Logger;
 
@@ -135,6 +135,12 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
 
     @Override
     public void afterPrepare() {
+        if (curIsHomeBottom()) {
+            tv_home_quickstart.postDelayed(() -> {
+                showRunBottom();
+            }, 200);
+        }
+
         if (mfwm.mRunningParam.isPrepare()) {
             mfwm.mRunningParam.setToRunning();
             mfwm.mRunningParam.setLcCurStageNum(0);
@@ -178,19 +184,19 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
                 mfwm.goBackHome();
                 break;
             case R.id.btn_incline_up:
-                
+
                 setInclineValue(1, 0, false);
                 break;
             case R.id.btn_incline_down:
-                
+
                 setInclineValue(-1, 0, false);
                 break;
             case R.id.btn_speed_up:
-                
+
                 setSpeedValue(1, 0, false);
                 break;
             case R.id.btn_speed_down:
-                
+
                 setSpeedValue(-1, 0, false);
                 break;
             case R.id.btn_incline_roller:

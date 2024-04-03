@@ -68,7 +68,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
     public float maxIncline;
 
     private boolean gsMode;
-    private View tv_home_quickstart;
+    protected View tv_home_quickstart;
     private RelativeLayout home_start_app_bottom;
     private RelativeLayout run_bottom;
     private View v_bg_run;
@@ -544,13 +544,17 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         // tv_mets = mFloatWindow.findViewById(R.id.tv_mets);
     }
 
+    protected boolean curIsHomeBottom() {
+        return home_start_app_bottom.getVisibility() == View.VISIBLE;
+    }
+
     private void showHomeBottom() {
         home_start_app_bottom.setVisibility(View.VISIBLE);
         run_bottom.setVisibility(View.GONE);
         v_bg_run.setVisibility(View.GONE);
     }
 
-    private void showRunBottom() {
+    protected void showRunBottom() {
         home_start_app_bottom.setVisibility(View.GONE);
         run_bottom.setVisibility(View.VISIBLE);
         v_bg_run.setVisibility(View.VISIBLE);
@@ -579,10 +583,6 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
             mfwm.mRunningParam.setToPrepare();
             mfwm.startPrepare();
-
-            tv_home_quickstart.postDelayed(() -> {
-                showRunBottom();
-            }, 200);
         }
     }
 }
