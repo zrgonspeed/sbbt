@@ -16,8 +16,4 @@ public class QuickStartTopFloat extends BaseRunTopFloat {
         return R.layout.float_window_running_param;
     }
 
-    @Override
-    public void initSelf() {
-
-    }
 }

@@ -85,12 +85,6 @@ public abstract class BaseRunTopFloat {
         }
     }
 
-    /**
-     * <br>根据运动模式有可能出现界面参数不一样的情况,这个时候需要在该模式添加额外处理</br>
-     * <br>但是对于布局参数必须要写在BaseRunParamFloatWindow类里面</br>
-     */
-    public abstract void initSelf();
-
     private void init() {
         // txt_running_incline_param = (TextView) mFloatWindow.findViewById(R.id.txt_running_incline_param);
         /*tv_incline = (TextView) mFloatWindow.findViewById(R.id.tv_incline);
@@ -104,7 +98,6 @@ public abstract class BaseRunTopFloat {
         img_voice = (ImageView) mFloatWindow.findViewById(R.id.img_voice);
         img_wifi = (ImageView) mFloatWindow.findViewById(R.id.img_wifi);
         img_bt = (ImageView) mFloatWindow.findViewById(R.id.img_bt);*/
-        initSelf();
 
         /*tv_incline.addTextChangedListener(new BaseRunTopFloat.InclineTextWatcher());
         tv_speed.addTextChangedListener(new BaseRunTopFloat.SpeedTextWatcher());
@@ -182,17 +175,6 @@ public abstract class BaseRunTopFloat {
         // img_voice.setEnabled(isEnable);
     }
 
-    /**
-     * 获取带单位的距离值
-     *
-     * @param distance
-     * @return
-     */
-    private SpannableString getDistenceValue(String distance) {
-        return StringUtil.valueAndUnit(distance,
-                mFloatWindowManager.isMetric ? mContext.getString(R.string.string_unit_km) : mContext.getString(R.string.string_unit_mile),
-                mFloatWindowManager.runParamUnitTextSize);
-    }
 
     private class InclineTextWatcher implements TextWatcher {
 
@@ -229,18 +211,6 @@ public abstract class BaseRunTopFloat {
     }
 
     public void enterPauseState() {
-        // if (img_pulse.getAnimation() != null) {
-        //     img_pulse.clearAnimation();
-        // }
-        if (tv_speed != null) {
-            tv_speed.setText(mFloatWindowManager.getSpeedValue("0.0"));
 
-            int redColor = mContext.getResources().getColor(R.color.red, null);
-            int textColor = txt_running_incline_param.getCurrentTextColor();
-            if (textColor != redColor) {
-                // 不为红色也就是不报扬升错误才设为0
-                // setInclineValue(StringUtil.valueAndUnit("0", mContext.getString(R.string.string_unit_percent), mFloatWindowManager.runParamUnitTextSize));
-            }
-        }
     }
 }
