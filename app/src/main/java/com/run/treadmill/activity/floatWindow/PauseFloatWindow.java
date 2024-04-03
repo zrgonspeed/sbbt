@@ -21,6 +21,7 @@ public class PauseFloatWindow {
     private WindowManager.LayoutParams wmParams;
     private RelativeLayout mFloatWindow;
     private View btn_pause_quit;
+    private View btn_pause_continue;
 
     PauseFloatWindow(Context context, WindowManager windowManager) {
         this.mContext = context;
@@ -71,7 +72,7 @@ public class PauseFloatWindow {
 
     @SuppressLint("ClickableViewAccessibility")
     private void init() {
-        View btn_pause_continue = mFloatWindow.findViewById(R.id.btn_pause_continue);
+        btn_pause_continue = mFloatWindow.findViewById(R.id.btn_pause_continue);
         btn_pause_quit = mFloatWindow.findViewById(R.id.btn_pause_quit);
 
         btn_pause_continue.setOnClickListener(v -> {
@@ -81,6 +82,18 @@ public class PauseFloatWindow {
             quitRun();
         });
 
+    }
+
+    public void disContinue() {
+        if (btn_pause_continue.isEnabled()) {
+            btn_pause_continue.setEnabled(false);
+        }
+    }
+
+    public void enContinue() {
+        if (!btn_pause_continue.isEnabled()) {
+            btn_pause_continue.setEnabled(true);
+        }
     }
 
     public void resume() {

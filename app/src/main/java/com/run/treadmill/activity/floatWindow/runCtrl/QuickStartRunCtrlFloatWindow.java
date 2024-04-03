@@ -199,14 +199,14 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
 
                 setSpeedValue(-1, 0, false);
                 break;
-            case R.id.btn_incline_roller:
+           /* case R.id.btn_incline_roller:
                 showCalculatorFloatWindow(0, CTConstant.TYPE_INCLINE, R.string.string_incline);
                 setControlEnable(false);
                 break;
             case R.id.btn_speed_roller:
                 showCalculatorFloatWindow(1, CTConstant.TYPE_SPEED, R.string.string_speed);
                 setControlEnable(false);
-                break;
+                break;*/
         }
     }
 
@@ -242,13 +242,13 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
 
     @Override
     public void enterCallBack(int type, String value) {
-        if (type == CTConstant.TYPE_SPEED) {
+       /* if (type == CTConstant.TYPE_SPEED) {
             setSpeedValue(0, Float.valueOf(value), false);
             btn_speed_roller.setSelected(false);
         } else if (type == CTConstant.TYPE_INCLINE) {
             setInclineValue(0, Float.valueOf(value), false);
             btn_incline_roller.setSelected(false);
-        }
+        }*/
     }
 
     @Override
@@ -318,10 +318,10 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
             case SerialKeyValue.SPEED_UP_HAND_CLICK:
             case SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_1:
             case SerialKeyValue.SPEED_UP_HAND_CLICK_LONG_2:
-                if (btn_speed_up.isEnabled()) {
+       /*         if (btn_speed_up.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setSpeedValue(1, 0, false);
-                }
+                }*/
                 break;
             case SerialKeyValue.SPEED_DOWN_CLICK:
             case SerialKeyValue.SPEED_DOWN_CLICK_LONG_1:
@@ -329,10 +329,10 @@ public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow impleme
             case SerialKeyValue.SPEED_DOWN_HAND_CLICK:
             case SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_1:
             case SerialKeyValue.SPEED_DOWN_HAND_CLICK_LONG_2:
-                if (btn_speed_down.isEnabled()) {
+               /* if (btn_speed_down.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setSpeedValue(-1, 0, false);
-                }
+                }*/
                 break;
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_2_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_4_CLICK:

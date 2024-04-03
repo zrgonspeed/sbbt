@@ -48,6 +48,11 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
     public ImageView btn_start_stop_skip;
     public ImageView iv_pause;
+    public void disIvPause() {
+        if (iv_pause.isEnabled()) {
+            iv_pause.setEnabled(false);
+        }
+    }
     public ImageView iv_run_application;
     public ImageView iv_run_track;
     public ImageView iv_run_profile;
@@ -320,7 +325,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
      * @param enable
      */
     protected void setControlEnable(boolean enable) {
-        if (!enable) {
+       /* if (!enable) {
             btn_incline_down.setEnabled(enable);
             btn_incline_up.setEnabled(enable);
             btn_speed_down.setEnabled(enable);
@@ -328,7 +333,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         } else {
             afterInclineChanged(mfwm.mRunningParam.getCurrIncline());
             afterSpeedChanged(mfwm.mRunningParam.getCurrSpeed());
-        }
+        }*/
     }
 
     @Override
@@ -490,15 +495,6 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
 
     void inclineError() {
-        if (btn_incline_down.isEnabled()) {
-            btn_incline_down.setEnabled(false);
-        }
-        if (btn_incline_up.isEnabled()) {
-            btn_incline_up.setEnabled(false);
-        }
-        if (btn_incline_roller.isEnabled()) {
-            btn_incline_roller.setEnabled(false);
-        }
         mfwm.hideCalcFloatWindowByInclineError();
     }
 
