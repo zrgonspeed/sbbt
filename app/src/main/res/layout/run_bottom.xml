@@ -103,25 +103,31 @@
 
     <!--3个按钮  profile track application-->
     <ImageView
+        android:id="@+id/iv_run_profile"
         android:layout_width="@dimen/dp_px_100_x"
         android:layout_height="@dimen/dp_px_100_x"
         android:layout_marginStart="@dimen/dp_px_1322_x"
         android:layout_marginTop="@dimen/dp_px_36_x"
-        android:background="@drawable/btn_workout_profile_3" />
+        android:background="@drawable/btn_workout_profile"
+        app:touch_effects_radius="@dimen/dp_px_50_x" />
 
     <ImageView
+        android:id="@+id/iv_run_track"
         android:layout_width="@dimen/dp_px_100_x"
         android:layout_height="@dimen/dp_px_100_x"
         android:layout_marginStart="@dimen/dp_px_1430_x"
         android:layout_marginTop="@dimen/dp_px_36_x"
-        android:background="@drawable/btn_workout_track_1" />
+        android:background="@drawable/btn_workout_track"
+        app:touch_effects_radius="@dimen/dp_px_50_x" />
 
     <ImageView
+        android:id="@+id/iv_run_application"
         android:layout_width="@dimen/dp_px_100_x"
         android:layout_height="@dimen/dp_px_100_x"
         android:layout_marginStart="@dimen/dp_px_1538_x"
         android:layout_marginTop="@dimen/dp_px_36_x"
-        android:background="@drawable/btn_workout_application_1" />
+        android:background="@drawable/btn_workout_application"
+        app:touch_effects_radius="@dimen/dp_px_50_x" />
 
     <!--暂停-->
     <ImageView

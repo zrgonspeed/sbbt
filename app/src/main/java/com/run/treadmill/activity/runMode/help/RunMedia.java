@@ -73,6 +73,10 @@ public class RunMedia {
         appAdapter.setNames(apkViewNames);
         appAdapter.setOnItemClick(position -> {
             BuzzerManager.getInstance().buzzerRingOnce();
+            if (activity.isGoMedia) {
+                Logger.i("isGoMedia true 不给再打开第三方");
+                return;
+            }
 
             activity.isGoMedia = true;
             enterThirdApk(CTConstant.QUICKSTART, pkgName[position]);

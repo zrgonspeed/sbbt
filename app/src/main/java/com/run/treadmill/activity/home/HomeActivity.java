@@ -416,7 +416,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
             ThreadUtils.postOnMainThread(() -> {
                 homeAnimation.initAndStart();
             }, 5000);
-        }, 6000);
+        }, 2000);
     }
 
     private void closeLoading() {

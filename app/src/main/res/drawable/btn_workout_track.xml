@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/btn_workout_track_4" android:state_enabled="false" />
+    <item android:drawable="@drawable/btn_workout_track_3" android:state_selected="true" />
+    <item android:drawable="@drawable/btn_workout_track_2" android:state_pressed="true" />
+    <item android:drawable="@drawable/btn_workout_track_1" />
+</selector>

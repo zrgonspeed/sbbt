@@ -29,6 +29,7 @@ import com.run.treadmill.util.FormulaUtil;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.util.ThreadUtils;
+import com.run.treadmill.util.clicktime.FloatClickUtils;
 import com.run.treadmill.widget.LongClickImage;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
 
@@ -47,6 +48,9 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
     public ImageView btn_start_stop_skip;
     public ImageView iv_pause;
+    public ImageView iv_run_application;
+    public ImageView iv_run_track;
+    public ImageView iv_run_profile;
     public ImageView btn_back;
     public ImageView btn_home;
     private TextView txt_running_incline_ctrl;
@@ -101,8 +105,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         DisplayMetrics dm = new DisplayMetrics();
         mWindowManager.getDefaultDisplay().getMetrics(dm);
         mFloatWindow = createFloatWindow(dm.widthPixels, mContext.getResources().getDimensionPixelSize(R.dimen.dp_px_170_x));
-        iv_pause = mFloatWindow.findViewById(R.id.iv_pause);
-        iv_pause.setOnClickListener(this::onClick);
+
 /*
         btn_start_stop_skip = (ImageView) mFloatWindow.findViewById(R.id.btn_start_stop_skip);
         btn_incline_up = (LongClickImage) mFloatWindow.findViewById(R.id.btn_incline_up);
@@ -326,19 +329,26 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
     @Override
     public void onClick(View v) {
+        if (!FloatClickUtils.canResponse()){
+            Logger.e("float 不可快点");
+            return;
+        }
         if (ErrorManager.getInstance().isNoInclineError()) {
             return;
         }
         switch (v.getId()) {
             default:
                 break;
-            case R.id.btn_back:
+/*            case R.id.btn_back:
                 BuzzerManager.getInstance().buzzerRingOnce();
                 stopPauseTimer();
                 mfwm.goBackMyApp();
-                break;
+                break;*/
             case R.id.iv_pause:
                 clickPause();
+                break;
+            case R.id.iv_run_profile:
+                clickProfile();
                 break;
            /* case R.id.btn_float_pause_quit:
                 BuzzerManager.getInstance().buzzerRingOnce();
@@ -374,6 +384,13 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
                 }
                 break;*/
         }
+    }
+
+    private void clickProfile() {
+        Logger.i("clickProfile() 返回运动界面");
+        BuzzerManager.getInstance().buzzerRingOnce();
+        stopPauseTimer();
+        mfwm.goBackMyApp();
     }
 
     private void clickPause() {
@@ -527,6 +544,16 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
     }
 
     public void init() {
+        iv_pause = mFloatWindow.findViewById(R.id.iv_pause);
+        iv_run_application = mFloatWindow.findViewById(R.id.iv_run_application);
+        iv_run_track = mFloatWindow.findViewById(R.id.iv_run_track);
+        iv_run_profile = mFloatWindow.findViewById(R.id.iv_run_profile);
+
+        iv_run_application.setSelected(true);
+        iv_pause.setOnClickListener(this::onClick);
+        iv_run_profile.setOnClickListener(this::onClick);
+
+
         tv_time = mFloatWindow.findViewById(R.id.tv_time);
         tv_calories = mFloatWindow.findViewById(R.id.tv_calories);
         tv_pulse = mFloatWindow.findViewById(R.id.tv_pulse);

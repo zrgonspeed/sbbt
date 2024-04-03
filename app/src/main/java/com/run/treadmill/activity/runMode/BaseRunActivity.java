@@ -715,6 +715,13 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     @BindView(R.id.iv_start)
     public ImageView iv_start;
 
+    @BindView(R.id.iv_run_profile)
+    public ImageView iv_run_profile;
+    @BindView(R.id.iv_run_application)
+    public ImageView iv_run_application;
+    @BindView(R.id.iv_run_track)
+    public ImageView iv_run_track;
+
     /****************柱状图控制 RunGraph***************/
     @BindView(R.id.bar_graph)
     public SportGraph bar_graph;

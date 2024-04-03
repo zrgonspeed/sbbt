@@ -32,6 +32,7 @@ public class RunRefresh {
         }
         activity.btn_pause_continue.setEnabled(false);
 
+        activity.iv_run_profile.setSelected(true);
         activity.btn_incline_down.setIntervalTime(110);
         activity.btn_incline_up.setIntervalTime(110);
         activity.btn_speed_down.setIntervalTime(110);
