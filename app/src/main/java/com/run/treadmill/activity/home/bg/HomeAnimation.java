@@ -153,12 +153,12 @@ public class HomeAnimation {
     }
 
     private void initBlurBtn() {
-        this.blur_sign = activity.findViewById(R.id.blur_sign);
+       /* this.blur_sign = activity.findViewById(R.id.blur_sign);
         this.blur_media = activity.findViewById(R.id.blur_media);
         this.blur_quickstart = activity.findViewById(R.id.blur_quickstart);
         this.blur_program = activity.findViewById(R.id.blur_program);
         this.blur_setting = activity.findViewById(R.id.blur_setting);
-
+*/
         setBlurView(blur_sign);
         setBlurView(blur_media);
         setBlurView(blur_quickstart);
