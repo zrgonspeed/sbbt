@@ -109,7 +109,7 @@ public class HomeMedia extends BaseHomeHelp {
             String mediaPkName = pkgName[position];
             Logger.i("点击了 " + apkViewNames[position] + "   " + mediaPkName);
 
-            // enterThirdApp(mediaPkName);
+            enterThirdApp(mediaPkName);
         });
     }
 

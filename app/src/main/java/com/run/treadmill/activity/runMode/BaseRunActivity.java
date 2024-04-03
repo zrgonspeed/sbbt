@@ -176,6 +176,9 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
      * 是否已经点了进入媒体，防止同时按按键造成数据无法同步
      */
     public boolean isGoMedia = false;
+
+    public boolean isHomeOpenMedia = false;
+
     public boolean gsMode;
 
 //    private LocaleChangeReceiver localeChangeReceiver;
@@ -188,14 +191,26 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             return;
         }
         Logger.i("onCreate 1");
-        mRunningParam = RunningParam.getInstance();
-        mRunningParam.setToPrepare();
 
-        prepare321Go.init321Go();
-        prepare321Go.newHandler();
-        if (mRunningParam.isPrepare()) {
-            showPreparePlayVideo(0);
+        mRunningParam = RunningParam.getInstance();
+
+        quickToMedia = getIntent().getBooleanExtra(CTConstant.IS_MEDIA, false);
+        if (quickToMedia) {
+            mFloatWindowManager = new FloatWindowManager(this);
+
+            // normal状态
+            String pkgName = getIntent().getStringExtra(CTConstant.PK_NAME);
+            runMedia.enterThirdApk(CTConstant.QUICKSTART, pkgName);
+            rl_main.setVisibility(View.GONE);
+        } else {
+            prepare321Go.newHandler();
+            prepare321Go.init321Go();
+            mRunningParam.setToPrepare();
+            if (mRunningParam.isPrepare()) {
+                showPreparePlayVideo(0);
+            }
         }
+
         ThreadUtils.postOnMainThread(() -> {
             Logger.i("onCreate2()");
             onCreate2();
@@ -222,7 +237,9 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     private void onCreate2() {
         FitShowManager.isBaseRun = true;
-        mFloatWindowManager = new FloatWindowManager(this);
+        if (mFloatWindowManager == null) {
+            mFloatWindowManager = new FloatWindowManager(this);
+        }
 
         runParamUnitTextSize = getResources().getDimensionPixelSize(R.dimen.font_size_run_param_unit);
 
@@ -243,6 +260,35 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         initAdjustSpeed();
 
         initGraph();
+
+        quickOnCreate();
+    }
+
+    private void quickOnCreate() {
+        if (ErrorManager.getInstance().exitError) {
+            finish();
+            return;
+        }
+        if (ErrorManager.getInstance().isNoInclineError()) {
+            finish();
+            return;
+        }
+        quickToMedia = getIntent().getBooleanExtra(CTConstant.IS_MEDIA, false);
+
+        if (quickToMedia) {
+            /*String pkgName = getIntent().getStringExtra(CTConstant.PK_NAME);
+            runMedia.enterThirdApk(CTConstant.QUICKSTART, pkgName);
+            rl_main.setVisibility(View.GONE);*/
+        } else {
+            mRunningParam.setToPrepare();
+        }
+
+        btn_media = (TextView) findViewById(R.id.btn_media);
+        btn_line_chart_incline = (TextView) findViewById(R.id.btn_line_chart_incline);
+        btn_line_chart_speed = (TextView) findViewById(R.id.btn_line_chart_speed);
+        img_unit = (ImageView) findViewById(R.id.img_unit);
+        lineChartView = (HistogramListView) findViewById(R.id.lineChartView);
+        lineChartView.setModeName(getString(R.string.string_mode_quick_start));
     }
 
     private void onResume2() {
@@ -255,11 +301,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             getPresenter().setInclineAndSpeed(maxIncline, minSpeed, maxSpeed);
             if (speedInclineClickHandler == null) {
                 speedInclineClickHandler = new SpeedInclineClickHandler(this);
-            }
-
-            if (lineChartView != null) {
-                btn_media.setVisibility(View.VISIBLE);
-                // rl_chart_view.setVisibility(View.VISIBLE);
             }
             runRefresh.onResumeInitRunParam();
             if (mCalcBuilder == null) {

@@ -34,30 +34,6 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (ErrorManager.getInstance().exitError) {
-            finish();
-            return;
-        }
-        if (ErrorManager.getInstance().isNoInclineError()) {
-            finish();
-            return;
-        }
-        quickToMedia = getIntent().getBooleanExtra(CTConstant.IS_MEDIA, false);
-
-        if (quickToMedia) {
-            String pkgName = getIntent().getStringExtra(CTConstant.PK_NAME);
-            runMedia.enterThirdApk(CTConstant.QUICKSTART, pkgName);
-            rl_main.setVisibility(View.GONE);
-        } else {
-            mRunningParam.setToPrepare();
-        }
-
-        btn_media = (TextView) findViewById(R.id.btn_media);
-        btn_line_chart_incline = (TextView) findViewById(R.id.btn_line_chart_incline);
-        btn_line_chart_speed = (TextView) findViewById(R.id.btn_line_chart_speed);
-        img_unit = (ImageView) findViewById(R.id.img_unit);
-        lineChartView = (HistogramListView) findViewById(R.id.lineChartView);
-        lineChartView.setModeName(getString(R.string.string_mode_quick_start));
     }
 
     @Override
