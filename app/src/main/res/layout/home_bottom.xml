@@ -51,7 +51,7 @@
         android:gravity="center_vertical"
         android:paddingStart="@dimen/dp_px_200_x"
         android:text="Quick Start"
-        android:textColor="#FA198B"
+        android:textColor="@drawable/tv_color_home_qs_selector"
         android:textSize="@dimen/font_size_65"
         app:touch_effects_normal_color="@color/color_ripple_white_2"
         app:touch_effects_pressed_color="@color/color_ripple_white_1"
