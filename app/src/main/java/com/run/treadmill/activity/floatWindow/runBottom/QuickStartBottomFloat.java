@@ -1,4 +1,4 @@
-package com.run.treadmill.activity.floatWindow.runCtrl;
+package com.run.treadmill.activity.floatWindow.runBottom;
 
 import android.content.Context;
 import android.view.View;
@@ -25,9 +25,9 @@ import java.util.Arrays;
  * @Author GaleLiu
  * @Time 2019/06/14
  */
-public class QuickStartTopFloat extends BaseRunBottomFloat implements View.OnClickListener, FitShowRunningCallBack {
+public class QuickStartBottomFloat extends BaseRunBottomFloat implements View.OnClickListener, FitShowRunningCallBack {
 
-    public QuickStartTopFloat(Context context, WindowManager windowManager) {
+    public QuickStartBottomFloat(Context context, WindowManager windowManager) {
         super(context, windowManager);
     }
 

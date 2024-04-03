@@ -1,4 +1,4 @@
-package com.run.treadmill.activity.floatWindow.runParam;
+package com.run.treadmill.activity.floatWindow.runTop;
 
 import android.content.Context;
 import android.view.WindowManager;
