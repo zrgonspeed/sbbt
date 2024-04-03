@@ -6,8 +6,7 @@ import android.view.WindowManager;
 
 import com.chuhui.btcontrol.CbData;
 import com.run.treadmill.R;
-import com.run.treadmill.activity.floatWindow.BaseRunCtrlFloatWindow;
-import com.run.treadmill.common.CTConstant;
+import com.run.treadmill.activity.floatWindow.BaseRunBottomFloat;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;
@@ -26,9 +25,9 @@ import java.util.Arrays;
  * @Author GaleLiu
  * @Time 2019/06/14
  */
-public class QuickStartRunCtrlFloatWindow extends BaseRunCtrlFloatWindow implements View.OnClickListener, FitShowRunningCallBack {
+public class QuickStartTopFloat extends BaseRunBottomFloat implements View.OnClickListener, FitShowRunningCallBack {
 
-    public QuickStartRunCtrlFloatWindow(Context context, WindowManager windowManager) {
+    public QuickStartTopFloat(Context context, WindowManager windowManager) {
         super(context, windowManager);
     }
 

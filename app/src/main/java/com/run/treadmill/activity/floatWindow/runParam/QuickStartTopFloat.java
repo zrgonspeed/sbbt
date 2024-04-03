@@ -4,11 +4,11 @@ import android.content.Context;
 import android.view.WindowManager;
 
 import com.run.treadmill.R;
-import com.run.treadmill.activity.floatWindow.BaseRunParamFloatWindow;
+import com.run.treadmill.activity.floatWindow.BaseRunTopFloat;
 
-public class QuickStartRunParamFloatWindow extends BaseRunParamFloatWindow {
+public class QuickStartTopFloat extends BaseRunTopFloat {
 
-    public QuickStartRunParamFloatWindow(Context context, WindowManager windowManager) {
+    public QuickStartTopFloat(Context context, WindowManager windowManager) {
         super(context, windowManager);
     }
 

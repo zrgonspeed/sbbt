@@ -38,7 +38,7 @@ import com.run.treadmill.widget.calculator.CalculatorCallBack;
  * @Author GaleLiu
  * @Time 2019/06/14
  */
-public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, CalculatorCallBack {
+public abstract class BaseRunBottomFloat implements View.OnClickListener, CalculatorCallBack {
     private Context mContext;
 
     public FloatWindowManager mfwm;
@@ -78,7 +78,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
     private RelativeLayout run_bottom;
     private View v_bg_run;
 
-    public BaseRunCtrlFloatWindow(Context context, WindowManager windowManager) {
+    public BaseRunBottomFloat(Context context, WindowManager windowManager) {
         this.mContext = context;
         this.mWindowManager = windowManager;
     }

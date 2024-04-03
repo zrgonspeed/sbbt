@@ -22,7 +22,7 @@ import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.WifiBTStateManager;
 import com.run.treadmill.util.StringUtil;
 
-public abstract class BaseRunParamFloatWindow {
+public abstract class BaseRunTopFloat {
     private Context mContext;
 
     private WindowManager mWindowManager;
@@ -38,7 +38,7 @@ public abstract class BaseRunParamFloatWindow {
 
     private Animation pulseAnimation;
 
-    protected BaseRunParamFloatWindow(Context context, WindowManager windowManager) {
+    protected BaseRunTopFloat(Context context, WindowManager windowManager) {
         this.mContext = context;
         this.mWindowManager = windowManager;
     }
@@ -105,8 +105,8 @@ public abstract class BaseRunParamFloatWindow {
         img_bt = (ImageView) mFloatWindow.findViewById(R.id.img_bt);*/
         initSelf();
 
-        /*tv_incline.addTextChangedListener(new BaseRunParamFloatWindow.InclineTextWatcher());
-        tv_speed.addTextChangedListener(new BaseRunParamFloatWindow.SpeedTextWatcher());
+        /*tv_incline.addTextChangedListener(new BaseRunTopFloat.InclineTextWatcher());
+        tv_speed.addTextChangedListener(new BaseRunTopFloat.SpeedTextWatcher());
 */
        /* if (mFloatWindowManager.mRunningParam.isNormal()) {
             tv_speed.setText(mFloatWindowManager.getSpeedValue(String.valueOf(0.0f)));
