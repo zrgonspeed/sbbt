@@ -585,4 +585,18 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
             mfwm.startPrepare();
         }
     }
+
+    public void disClick() {
+        iv_pause.setEnabled(false);
+        iv_run_profile.setEnabled(false);
+        iv_run_track.setEnabled(false);
+        iv_run_application.setEnabled(false);
+    }
+
+    public void enClick() {
+        iv_pause.setEnabled(true);
+        iv_run_profile.setEnabled(true);
+        iv_run_track.setEnabled(true);
+        iv_run_application.setEnabled(true);
+    }
 }

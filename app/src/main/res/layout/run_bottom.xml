@@ -136,7 +136,7 @@
         android:layout_height="@dimen/dp_px_148_x"
         android:layout_marginStart="@dimen/dp_px_1688_x"
         android:layout_marginTop="@dimen/dp_px_12_x"
-        android:background="@drawable/btn_pause_1"
+        android:background="@drawable/btn_run_pause"
         app:touch_effects_radius="@dimen/dp_px_50_x" />
 
     <!--开始图标，隐藏，可能暂停的时候显示-->
