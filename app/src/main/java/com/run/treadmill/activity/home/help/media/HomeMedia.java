@@ -106,6 +106,10 @@ public class HomeMedia extends BaseHomeHelp {
 /*            if (!isCanStart && !AppDebug.debug) {
                 return;
             }*/
+            if (activity.isOnPause){
+                return;
+            }
+
             String mediaPkName = pkgName[position];
             Logger.i("点击了 " + apkViewNames[position] + "   " + mediaPkName);
 

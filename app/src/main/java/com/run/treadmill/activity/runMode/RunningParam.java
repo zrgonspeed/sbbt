@@ -439,6 +439,7 @@ public class RunningParam {
     }
 
     public void setCallback(RunParamCallback callback) {
+        Logger.i("setCallback " + callback);
         if (callback != null) {
             this.mCallback = callback;
         }

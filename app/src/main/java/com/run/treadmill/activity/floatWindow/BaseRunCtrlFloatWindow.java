@@ -575,10 +575,14 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
         if (mfwm.mRunningParam.runStatus == CTConstant.RUN_STATUS_NORMAL) {
             Logger.i("clickHomeQuickStart() ok ");
             tv_home_quickstart.setEnabled(false);
-            mfwm.mRunningParam.setToPrepare();
             stopPauseTimer();
+
+            mfwm.mRunningParam.setToPrepare();
             mfwm.startPrepare();
-            showRunBottom();
+
+            tv_home_quickstart.postDelayed(() -> {
+                showRunBottom();
+            }, 200);
         }
     }
 }

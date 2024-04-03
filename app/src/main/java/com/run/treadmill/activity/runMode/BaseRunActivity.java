@@ -225,6 +225,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         if (mRunningParam.isPrepare()) {
             showPreparePlayVideo(0);
         }
+        mRunningParam.setCallback(this);
 
         ThreadUtils.postOnMainThread(() -> {
             Logger.i("onCreate2()");
@@ -256,11 +257,9 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     private void onCreate2() {
-        FitShowManager.isBaseRun = true;
         if (mFloatWindowManager == null) {
             mFloatWindowManager = new FloatWindowManager(this);
         }
-        mRunningParam.setCallback(this);
 
         initSomeParam();
         initAdjustIncline();
