@@ -1,4 +1,4 @@
-package com.run.treadmill.activity.floatWindow;
+package com.run.treadmill.activity.floatWindow.runTop;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.run.treadmill.R;
+import com.run.treadmill.activity.floatWindow.FloatWindowManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.WifiBTStateManager;
 import com.run.treadmill.util.StringUtil;
@@ -67,7 +68,7 @@ public abstract class BaseRunTopFloat {
         return mWindow;
     }
 
-    void startFloat(FloatWindowManager floatWindowManager) {
+    public void startFloat(FloatWindowManager floatWindowManager) {
         this.mFloatWindowManager = floatWindowManager;
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -148,11 +149,11 @@ public abstract class BaseRunTopFloat {
         WifiBTStateManager.setBTWifiStatus(img_wifi, img_bt, mContext);
     }
 
-    void setSpeedValue(SpannableString speedValue) {
+    public void setSpeedValue(SpannableString speedValue) {
         // tv_speed.setText(speedValue);
     }
 
-    void setInclineValue(SpannableString inclineValue) {
+    public void setInclineValue(SpannableString inclineValue) {
         // tv_incline.setText(inclineValue);
     }
 
@@ -161,15 +162,15 @@ public abstract class BaseRunTopFloat {
         // txt_running_incline_param.setTextColor(mContext.getResources().getColor(R.color.red, null));
     }
 
-    String getInclineStr() {
+    public String getInclineStr() {
         return "xxx";
     }
 
-    void stopFloat() {
+    public void stopFloat() {
         mFloatWindowManager.removeView(mFloatWindow);
     }
 
-    void showOrHideFloatWindow(boolean isShow) {
+    public void showOrHideFloatWindow(boolean isShow) {
         if (isShow) {
             mFloatWindow.setVisibility(View.GONE);
         } else {
@@ -177,7 +178,7 @@ public abstract class BaseRunTopFloat {
         }
     }
 
-    void setVoiceEnable(boolean isEnable) {
+    public void setVoiceEnable(boolean isEnable) {
         // img_voice.setEnabled(isEnable);
     }
 

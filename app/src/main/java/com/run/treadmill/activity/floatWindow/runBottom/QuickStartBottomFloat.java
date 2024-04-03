@@ -6,7 +6,6 @@ import android.view.WindowManager;
 
 import com.chuhui.btcontrol.CbData;
 import com.run.treadmill.R;
-import com.run.treadmill.activity.floatWindow.BaseRunBottomFloat;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.ControlManager;

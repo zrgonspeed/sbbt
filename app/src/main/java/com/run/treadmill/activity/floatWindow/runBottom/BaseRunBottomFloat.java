@@ -1,4 +1,4 @@
-package com.run.treadmill.activity.floatWindow;
+package com.run.treadmill.activity.floatWindow.runBottom;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.fitShow.treadmill.FitShowCommand;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
+import com.run.treadmill.activity.floatWindow.FloatWindowManager;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
@@ -477,7 +478,7 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
 
     }
 
-    void showOrHideFloatWindow(boolean isShow) {
+    public void showOrHideFloatWindow(boolean isShow) {
         if (isShow) {
             mFloatWindow.setVisibility(View.GONE);
         } else {
@@ -494,7 +495,7 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
     }
 
 
-    void inclineError() {
+    public void inclineError() {
         mfwm.hideCalcFloatWindowByInclineError();
     }
 

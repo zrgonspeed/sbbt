@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.WindowManager;
 
 import com.run.treadmill.R;
-import com.run.treadmill.activity.floatWindow.BaseRunTopFloat;
 
 public class QuickStartTopFloat extends BaseRunTopFloat {
 
