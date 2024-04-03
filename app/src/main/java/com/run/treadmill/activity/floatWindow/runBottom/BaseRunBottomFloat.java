@@ -98,9 +98,6 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
 
         initListener();
 
-        if (ErrorManager.getInstance().isHasInclineError()) {
-            inclineError();
-        }
     }
 
     public void stopFloat() {
@@ -358,7 +355,6 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
     }
 
     public void inclineError() {
-        mfwm.hideCalcFloatWindowByInclineError();
     }
 
     public void setData() {
