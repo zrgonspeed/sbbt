@@ -74,7 +74,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
         super.onResume();
         long start = System.currentTimeMillis();
         {
-            Logger.i("quickToMedia == " + quickToMedia);
+            // Logger.i("quickToMedia == " + quickToMedia);
             if (quickToMedia) {
                 quickToMedia = false;
                 mFloatWindowManager.regRxDataCallBackAgain();
@@ -92,7 +92,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
             }
         }
         long end = System.currentTimeMillis();
-        Logger.i("QuickStartActivity onResume() time == " + (end - start));
+        // Logger.i("QuickStartActivity onResume() time == " + (end - start));
     }
 
     @Override
@@ -101,7 +101,7 @@ public class QuickStartActivity extends BaseRunActivity<QuickStartView, QuickSta
         super.onPause();
         //FitShowManager.getInstance().setFitShowRunningCallBack(null);
         long end = System.currentTimeMillis();
-        Logger.i("QuickStartActivity onPause() time == " + (end - start));
+        // Logger.i("QuickStartActivity onPause() time == " + (end - start));
     }
 
     @Override

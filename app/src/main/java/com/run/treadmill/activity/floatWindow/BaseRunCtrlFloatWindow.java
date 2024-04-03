@@ -388,6 +388,7 @@ public abstract class BaseRunCtrlFloatWindow implements View.OnClickListener, Ca
 
     private void clickProfile() {
         Logger.i("clickProfile() 返回运动界面");
+        iv_run_profile.setEnabled(false);
         BuzzerManager.getInstance().buzzerRingOnce();
         stopPauseTimer();
         mfwm.goBackMyApp();

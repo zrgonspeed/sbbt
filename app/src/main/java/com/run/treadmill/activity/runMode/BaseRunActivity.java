@@ -212,10 +212,10 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     @Override
     protected void onResume() {
         super.onResume();
-        Logger.i("onResume");
+        Logger.i("BaseRun onResume");
 
         ThreadUtils.postOnMainThread(() -> {
-            Logger.i("onResume2()");
+            Logger.i("BaseRun onResume2()");
             onResume2();
         }, 800);
     }
