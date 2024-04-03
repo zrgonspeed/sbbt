@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/dp_px_1920_x"
     android:layout_height="@dimen/dp_px_1080_x"
     android:background="@color/transparent_black_new">
@@ -12,12 +13,20 @@
         android:clickable="true"
         android:focusable="true" />
 
-    <ImageView
+    <!--对话框背景上下渐变-->
+    <com.hjq.shape.view.ShapeView
         android:layout_width="@dimen/dp_px_798_x"
         android:layout_height="@dimen/dp_px_450_x"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_px_315_x"
-        android:background="@drawable/pop_pause_new" />
+        app:shape_radius="@dimen/dp_px_25_x"
+        app:shape_solidGradientEndColor="#6B090B18"
+        app:shape_solidGradientOrientation="topToBottom"
+        app:shape_solidGradientStartColor="#FA198B"
+        app:shape_strokeGradientColor="#4EC5C2C2"
+        app:shape_strokeGradientOrientation="topToBottom"
+        app:shape_strokeGradientStartColor="#9DFFFFFF"
+        app:shape_strokeSize="@dimen/dp_px_1_x" />
 
     <TextView
         android:id="@+id/tv_pause_title"
