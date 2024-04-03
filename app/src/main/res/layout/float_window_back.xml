@@ -6,10 +6,10 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/btn_media_dot"
+        android:id="@+id/btn_back_dot"
         android:layout_width="@dimen/dp_px_128_x"
         android:layout_height="@dimen/dp_px_128_x"
-        android:background="@drawable/btn_media_dot"
+        android:background="@drawable/btn_media_back"
         app:touch_effects_forbid="true"
         app:touch_effects_type="none" />
 </LinearLayout>
