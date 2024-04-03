@@ -196,19 +196,29 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
         quickToMedia = getIntent().getBooleanExtra(CTConstant.IS_MEDIA, false);
         if (quickToMedia) {
-            mFloatWindowManager = new FloatWindowManager(this);
-
-            // normal状态
-            String pkgName = getIntent().getStringExtra(CTConstant.PK_NAME);
-            runMedia.enterThirdApk(CTConstant.QUICKSTART, pkgName);
-            rl_main.setVisibility(View.GONE);
+            onCreate_homeAppToRun();
         } else {
-            prepare321Go.newHandler();
-            prepare321Go.init321Go();
-            mRunningParam.setToPrepare();
-            if (mRunningParam.isPrepare()) {
-                showPreparePlayVideo(0);
-            }
+            onCreate_run();
+        }
+    }
+
+    private void onCreate_homeAppToRun() {
+        mFloatWindowManager = new FloatWindowManager(this);
+
+        // normal状态
+        String pkgName = getIntent().getStringExtra(CTConstant.PK_NAME);
+        runMedia.enterThirdApk(CTConstant.QUICKSTART, pkgName);
+        rl_main.setVisibility(View.GONE);
+
+        onCreate2();
+    }
+
+    private void onCreate_run() {
+        prepare321Go.newHandler();
+        prepare321Go.init321Go();
+        mRunningParam.setToPrepare();
+        if (mRunningParam.isPrepare()) {
+            showPreparePlayVideo(0);
         }
 
         ThreadUtils.postOnMainThread(() -> {
@@ -228,7 +238,18 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     protected void onResume() {
         super.onResume();
         Logger.i("BaseRun onResume");
+        if (quickToMedia) {
+            onResume_homeAppToRun();
+        } else {
+            onResume_run();
+        }
+    }
 
+    private void onResume_homeAppToRun() {
+        onResume2();
+    }
+
+    private void onResume_run() {
         ThreadUtils.postOnMainThread(() -> {
             Logger.i("BaseRun onResume2()");
             onResume2();
@@ -690,6 +711,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
                     break;
             }
         }
+
     }
 
     public void showPreparePlayVideo(long delay) {
