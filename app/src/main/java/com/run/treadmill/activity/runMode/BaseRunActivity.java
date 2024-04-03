@@ -30,7 +30,6 @@ import com.run.treadmill.activity.runMode.help.RunMcu;
 import com.run.treadmill.activity.runMode.help.RunMedia;
 import com.run.treadmill.activity.runMode.help.RunPause;
 import com.run.treadmill.activity.runMode.help.RunRefresh;
-import com.run.treadmill.activity.runMode.vision.VisionActivity;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
@@ -181,7 +180,11 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
     public boolean gsMode;
 
-//    private LocaleChangeReceiver localeChangeReceiver;
+    //    private LocaleChangeReceiver localeChangeReceiver;
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_running;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -228,12 +231,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         Logger.i("onCreate 1 结束");
     }
 
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_running;
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -261,7 +258,16 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
         if (mFloatWindowManager == null) {
             mFloatWindowManager = new FloatWindowManager(this);
         }
+        mRunningParam.setCallback(this);
 
+        initSomeParam();
+        initAdjustIncline();
+        initAdjustSpeed();
+        initGraph();
+        checkExitError();
+    }
+
+    private void initSomeParam() {
         runParamUnitTextSize = getResources().getDimensionPixelSize(R.dimen.font_size_run_param_unit);
 
         maxSpeed = SpManager.getMaxSpeed(isMetric);
@@ -273,43 +279,13 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
         pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.heart_rate);
         pulseAnimation.setInterpolator(new AccelerateInterpolator());
-
-
-        mRunningParam.setCallback(this);
-
-        initAdjustIncline();
-        initAdjustSpeed();
-
-        initGraph();
-
-        quickOnCreate();
     }
 
-    private void quickOnCreate() {
+    private void checkExitError() {
         if (ErrorManager.getInstance().exitError) {
             finish();
             return;
         }
-        if (ErrorManager.getInstance().isNoInclineError()) {
-            finish();
-            return;
-        }
-        quickToMedia = getIntent().getBooleanExtra(CTConstant.IS_MEDIA, false);
-
-        if (quickToMedia) {
-            /*String pkgName = getIntent().getStringExtra(CTConstant.PK_NAME);
-            runMedia.enterThirdApk(CTConstant.QUICKSTART, pkgName);
-            rl_main.setVisibility(View.GONE);*/
-        } else {
-            mRunningParam.setToPrepare();
-        }
-
-        btn_media = (TextView) findViewById(R.id.btn_media);
-        btn_line_chart_incline = (TextView) findViewById(R.id.btn_line_chart_incline);
-        btn_line_chart_speed = (TextView) findViewById(R.id.btn_line_chart_speed);
-        img_unit = (ImageView) findViewById(R.id.img_unit);
-        lineChartView = (HistogramListView) findViewById(R.id.lineChartView);
-        lineChartView.setModeName(getString(R.string.string_mode_quick_start));
     }
 
     private void onResume2() {
@@ -332,11 +308,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             if (mRunningParam.isStopStatus()) {
                 setSpeed(getSpeedValue(String.valueOf(0.0f)));
             }
-            setOnCreateRoller();
-
-            if (!(this instanceof VisionActivity)) {
-                settingLineChart();
-            }
+            // setOnCreateRoller();
         }
         {
             Logger.i("quickToMedia == " + quickToMedia);
