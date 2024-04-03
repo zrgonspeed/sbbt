@@ -269,20 +269,20 @@ public class QuickStartBottomFloat extends BaseRunBottomFloat implements View.On
         switch (keyValue) {
             case SerialKeyValue.HAND_START_CLICK:
             case SerialKeyValue.START_CLICK:
-                if (mfwm.mRunningParam.isNormal()
-                        && btn_start_stop_skip.isEnabled()) {
-                    btn_start_stop_skip.performClick();
-                    BuzzerManager.getInstance().buzzerRingOnce();
-                }
+                // if (mfwm.mRunningParam.isNormal()
+                //         && btn_start_stop_skip.isEnabled()) {
+                //     btn_start_stop_skip.performClick();
+                //     BuzzerManager.getInstance().buzzerRingOnce();
+                // }
                 break;
             case SerialKeyValue.HAND_STOP_CLICK:
             case SerialKeyValue.STOP_CLICK:
-                if (mfwm.mRunningParam.isRunning()
+                /*if (mfwm.mRunningParam.isRunning()
                         && btn_start_stop_skip.isEnabled()) {
                     btn_start_stop_skip.performClick();
                     BuzzerManager.getInstance().buzzerRingOnce();
                     break;
-                }
+                }*/
                 break;
 
             case SerialKeyValue.STOP_CLICK_LONG_2:
@@ -294,10 +294,10 @@ public class QuickStartBottomFloat extends BaseRunBottomFloat implements View.On
             case SerialKeyValue.INCLINE_UP_HAND_CLICK:
             case SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_1:
             case SerialKeyValue.INCLINE_UP_HAND_CLICK_LONG_2:
-                if (btn_incline_up.isEnabled()) {
+/*                if (btn_incline_up.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setInclineValue(1, 0, false);
-                }
+                }*/
                 break;
             case SerialKeyValue.INCLINE_DOWN_CLICK:
             case SerialKeyValue.INCLINE_DOWN_CLICK_LONG_1:
@@ -305,10 +305,10 @@ public class QuickStartBottomFloat extends BaseRunBottomFloat implements View.On
             case SerialKeyValue.INCLINE_DOWN_HAND_CLICK:
             case SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_1:
             case SerialKeyValue.INCLINE_DOWN_HAND_CLICK_LONG_2:
-                if (btn_incline_down.isEnabled()) {
+               /* if (btn_incline_down.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setInclineValue(-1, 0, false);
-                }
+                }*/
                 break;
             case SerialKeyValue.SPEED_UP_CLICK:
             case SerialKeyValue.SPEED_UP_CLICK_LONG_1:
@@ -338,10 +338,10 @@ public class QuickStartBottomFloat extends BaseRunBottomFloat implements View.On
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_6_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_INCLINE_12_CLICK:
 
-                if (btn_incline_up.isEnabled() || btn_incline_down.isEnabled()) {
+               /* if (btn_incline_up.isEnabled() || btn_incline_down.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setInclineValue(0, SerialKeyValue.getKeyRepresentValue(keyValue), false);
-                }
+                }*/
                 break;
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_4_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_6_CLICK:
@@ -349,10 +349,10 @@ public class QuickStartBottomFloat extends BaseRunBottomFloat implements View.On
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_12_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_15_CLICK:
             case SerialKeyValue.QUICK_KEY_EVENT_SPEED_16_CLICK:
-                if (btn_speed_up.isEnabled() || btn_speed_down.isEnabled()) {
+                /*if (btn_speed_up.isEnabled() || btn_speed_down.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     setSpeedValue(0, SerialKeyValue.getKeyRepresentValue(keyValue), false);
-                }
+                }*/
                 break;
             default:
                 break;
@@ -378,39 +378,22 @@ public class QuickStartBottomFloat extends BaseRunBottomFloat implements View.On
 
     @Override
     public void fitShowPausedRunning() {
-        if (mfwm.mRunningParam.isRunning()
-                && btn_start_stop_skip.isEnabled()) {
-            btn_start_stop_skip.performClick();
-        }
+
     }
 
     @Override
     public void fitShowStartRunning() {
-        if (mfwm.mRunningParam.isNormal()
-                && btn_start_stop_skip.isEnabled()) {
-            btn_start_stop_skip.performClick();
-        }
+
     }
 
     @Override
     public void fitShowSetSpeed(float speed) {
-        if (mfwm.mRunningParam.getCurrSpeed() == speed) {
-            return;
-        }
-        BuzzerManager.getInstance().buzzerRingOnce();
-        setSpeedValue(0, speed, false);
+
     }
 
     @Override
     public void fitShowSetIncline(float incline) {
-        if (mfwm.mRunningParam.getCurrIncline() == incline) {
-            return;
-        }
-        if (ErrorManager.getInstance().isHasInclineError()) {
-            return;
-        }
-        BuzzerManager.getInstance().buzzerRingOnce();
-        setInclineValue(0, incline, false);
+
     }
 
     public void onDataCallback(CbData data) {

@@ -76,10 +76,10 @@ public class PauseFloatWindow {
         btn_pause_quit = mFloatWindow.findViewById(R.id.btn_pause_quit);
 
         btn_pause_continue.setOnClickListener(v -> {
-            resume();
+            clickContinue();
         });
         btn_pause_quit.setOnClickListener(v -> {
-            quitRun();
+            clickFinish();
         });
 
     }
@@ -96,7 +96,7 @@ public class PauseFloatWindow {
         }
     }
 
-    public void resume() {
+    public void clickContinue() {
         BuzzerManager.getInstance().buzzerRingOnce();
         // stopPauseTimer();
         if (mFwm.mRunningParam.isRunningEnd()) {
@@ -110,14 +110,14 @@ public class PauseFloatWindow {
         }
     }
 
-    private void quitRun() {
+    public void clickFinish() {
         BuzzerManager.getInstance().buzzerRingOnce();
         // stopPauseTimer();
         mFwm.goBackMyAppToSummary();
     }
 
     public void clickQuit() {
-        quitRun();
+        clickFinish();
         // performClick 无效
         // btn_pause_quit.performClick();
     }

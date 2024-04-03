@@ -12,9 +12,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.fitShow.treadmill.FitShowCommand;
+import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.CustomTimer;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
@@ -31,14 +30,8 @@ import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.StringUtil;
 import com.run.treadmill.util.ThreadUtils;
 import com.run.treadmill.util.clicktime.FloatClickUtils;
-import com.run.treadmill.widget.LongClickImage;
 import com.run.treadmill.widget.calculator.CalculatorCallBack;
 
-/**
- * @Description 控制栏的悬浮窗
- * @Author GaleLiu
- * @Time 2019/06/14
- */
 public abstract class BaseRunBottomFloat implements View.OnClickListener, CalculatorCallBack {
     private Context mContext;
 
@@ -47,37 +40,20 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
     private LayoutParams wmParams;
     private RelativeLayout mFloatWindow;
 
-    public ImageView btn_start_stop_skip;
+    private RelativeLayout run_bottom;
+    private View v_bg_run;
     public ImageView iv_pause;
-    public void disIvPause() {
-        if (iv_pause.isEnabled()) {
-            iv_pause.setEnabled(false);
-        }
-    }
     public ImageView iv_run_application;
     public ImageView iv_run_track;
     public ImageView iv_run_profile;
-    public ImageView btn_back;
-    public ImageView btn_home;
-    private TextView txt_running_incline_ctrl;
-    public LongClickImage btn_incline_up;
-    public LongClickImage btn_incline_down;
-    public ImageView btn_incline_roller;
-    public LongClickImage btn_speed_up;
-    public LongClickImage btn_speed_down;
-    public ImageView btn_speed_roller;
 
-    /**
-     * 最大最小速度
-     */
+    private RelativeLayout home_start_app_bottom;
+    protected View tv_home_quickstart;
+
     public float maxSpeed, minSpeed;
     public float maxIncline;
 
     private boolean gsMode;
-    protected View tv_home_quickstart;
-    private RelativeLayout home_start_app_bottom;
-    private RelativeLayout run_bottom;
-    private View v_bg_run;
 
     public BaseRunBottomFloat(Context context, WindowManager windowManager) {
         this.mContext = context;
@@ -116,40 +92,9 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
         mWindowManager.getDefaultDisplay().getMetrics(dm);
         mFloatWindow = createFloatWindow(dm.widthPixels, mContext.getResources().getDimensionPixelSize(R.dimen.dp_px_170_x));
 
-/*
-        btn_start_stop_skip = (ImageView) mFloatWindow.findViewById(R.id.btn_start_stop_skip);
-        btn_incline_up = (LongClickImage) mFloatWindow.findViewById(R.id.btn_incline_up);
-        txt_running_incline_ctrl = (TextView) mFloatWindow.findViewById(R.id.txt_running_incline_ctrl);
-        btn_incline_down = (LongClickImage) mFloatWindow.findViewById(R.id.btn_incline_down);
-        btn_incline_roller = (ImageView) mFloatWindow.findViewById(R.id.btn_incline_roller);
-        btn_speed_up = (LongClickImage) mFloatWindow.findViewById(R.id.btn_speed_up);
-        btn_speed_down = (LongClickImage) mFloatWindow.findViewById(R.id.btn_speed_down);
-        btn_speed_roller = (ImageView) mFloatWindow.findViewById(R.id.btn_speed_roller);
-        btn_back = (ImageView) mFloatWindow.findViewById(R.id.btn_back);
-        btn_home = (ImageView) mFloatWindow.findViewById(R.id.btn_home);*/
-/*
-        layout_float_pause = (ConstraintLayout) mFloatWindow.findViewById(R.id.layout_float_pause);
-        btn_float_pause_quit = (ImageView) mFloatWindow.findViewById(R.id.btn_float_pause_quit);
-        btn_float_pause_continue = (ImageView) mFloatWindow.findViewById(R.id.btn_float_pause_continue);*/
-       /* btn_float_pause_quit.setOnClickListener(this);
-        btn_float_pause_continue.setOnClickListener(this);*/
-
         init();
         setRunParam();
         floatWindowManager.addView(mFloatWindow, wmParams);
-
-      /*  btn_start_stop_skip.setOnClickListener(this);
-        btn_back.setOnClickListener(this);
-
-        btn_incline_down.setTag(-1);
-        btn_incline_up.setTag(-1);
-        btn_speed_down.setTag(-1);
-        btn_speed_up.setTag(-1);*/
-
-//        btn_incline_down.setLongCycle(2);
-//        btn_incline_up.setLongCycle(2);
-//        btn_speed_down.setLongCycle(2);
-//        btn_speed_up.setLongCycle(2);
 
         initListener();
 
@@ -162,15 +107,6 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
         stopPauseTimer();
         mfwm.removeView(mFloatWindow);
     }
-
-    public void backHomeOrRunning() {
-
-    }
-
-    public void quitHomeOrRunning() {
-
-    }
-
 
     public abstract void initListener();
 
@@ -188,42 +124,40 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
         switch (keyValue) {
             case SerialKeyValue.START_CLICK:
             case SerialKeyValue.HAND_START_CLICK:
-                if ((mfwm.mRunningParam.isStopStatus())
-                        && btn_float_pause_continue.isEnabled()) {
-                    btn_float_pause_continue.performClick();
+                if ((mfwm.mRunningParam.isStopStatus())) {
+                    mfwm.pauseFw.clickContinue();
                     BuzzerManager.getInstance().buzzerRingOnce();
                 }
                 break;
 
             case SerialKeyValue.STOP_CLICK:
             case SerialKeyValue.HAND_STOP_CLICK:
-                if (mfwm.mRunningParam.isStopStatus()
-                        && btn_float_pause_quit.isEnabled()) {
-                    btn_float_pause_quit.performClick();
+                if (mfwm.mRunningParam.isStopStatus()) {
+                    mfwm.pauseFw.clickFinish();
 //                    BuzzerManager.getInstance().buzzerRingOnce();
                     break;
                 }
-                if (btn_home.getVisibility() == View.VISIBLE && btn_home.isEnabled()) {
+               /* if (btn_home.getVisibility() == View.VISIBLE && btn_home.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     btn_home.performClick();
-                }
+                }*/
                 break;
 
             case SerialKeyValue.HOME_KEY_CLICK:
-                if (btn_home.getVisibility() == View.VISIBLE && btn_home.isEnabled()) {
-                    BuzzerManager.getInstance().buzzerRingOnce();
-                    btn_home.performClick();
-                }
+                // if (btn_home.getVisibility() == View.VISIBLE && btn_home.isEnabled()) {
+                //     BuzzerManager.getInstance().buzzerRingOnce();
+                //     btn_home.performClick();
+                // }
                 break;
             case SerialKeyValue.BACK_KEY_CLICK:
-                if (btn_back.getVisibility() == View.VISIBLE && btn_back.isEnabled()) {
+               /* if (btn_back.getVisibility() == View.VISIBLE && btn_back.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     btn_back.performClick();
                 }
                 if (btn_home.getVisibility() == View.VISIBLE && btn_home.isEnabled()) {
                     BuzzerManager.getInstance().buzzerRingOnce();
                     btn_home.performClick();
-                }
+                }*/
                 break;
         }
     }
@@ -265,10 +199,6 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
 
     public abstract void setSpeedValue(int isUp, float speed, boolean onlyCurr);
 
-    void setInclineError() {
-        txt_running_incline_ctrl.setTextColor(mContext.getResources().getColor(R.color.red, null));
-    }
-
     public void setInclineValue(int isUp, float incline) {
         if (ErrorManager.getInstance().isHasInclineError()) {
             return;
@@ -299,43 +229,6 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
 
     public abstract void setInclineValue(int isUp, float incline, boolean onlyCurr);
 
-    public void showCalculatorFloatWindow(int floatPoint, int type, int stringId) {
-        if ((type == CTConstant.TYPE_SPEED && btn_speed_roller.isSelected())
-                || (type == CTConstant.TYPE_INCLINE && btn_incline_roller.isSelected())) {
-            return;
-        }
-        if ((type == CTConstant.TYPE_SPEED && btn_incline_roller.isSelected())
-                || (type == CTConstant.TYPE_INCLINE && btn_speed_roller.isSelected())) {
-            mfwm.hideFloatWindow();
-            btn_speed_roller.setSelected(false);
-            btn_incline_roller.setSelected(false);
-        }
-        BuzzerManager.getInstance().buzzerRingOnce();
-        if (type == CTConstant.TYPE_SPEED) {
-            btn_speed_roller.setSelected(true);
-        }
-        if (type == CTConstant.TYPE_INCLINE) {
-            btn_incline_roller.setSelected(true);
-        }
-        mfwm.startCalculatorFloatWindow(floatPoint, type, stringId);
-    }
-
-    /**
-     * 控制扬升 速度+/-和快速按键的enable
-     *
-     * @param enable
-     */
-    protected void setControlEnable(boolean enable) {
-       /* if (!enable) {
-            btn_incline_down.setEnabled(enable);
-            btn_incline_up.setEnabled(enable);
-            btn_speed_down.setEnabled(enable);
-            btn_speed_up.setEnabled(enable);
-        } else {
-            afterInclineChanged(mfwm.mRunningParam.getCurrIncline());
-            afterSpeedChanged(mfwm.mRunningParam.getCurrSpeed());
-        }*/
-    }
 
     @Override
     public void onClick(View v) {
@@ -349,18 +242,12 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
         switch (v.getId()) {
             default:
                 break;
-/*            case R.id.btn_back:
-                BuzzerManager.getInstance().buzzerRingOnce();
-                stopPauseTimer();
-                mfwm.goBackMyApp();
-                break;*/
             case R.id.iv_pause:
                 clickPause();
                 break;
             case R.id.iv_run_profile:
                 clickProfile();
                 break;
-
         }
     }
 
@@ -454,28 +341,12 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
         }
     }
 
-    public ConstraintLayout layout_float_pause;
-    protected ImageView btn_float_pause_quit;
-    protected ImageView btn_float_pause_continue;
-
     protected void showPause() {
-        // TODO: 2024/4/2 悬浮窗的暂停
         mfwm.showPauseFw();
-
-
-        // btn_start_stop_skip.setVisibility(View.GONE);
-
-        // layout_float_pause.setVisibility(View.VISIBLE);
-
-        // btn_back.setVisibility(View.VISIBLE);
-        // btn_back.setEnabled(true);
-
-    /*    btn_float_pause_quit.setEnabled(true);
-        btn_float_pause_continue.setEnabled(false);
+        mfwm.pauseFw.disContinue();
         if (AppDebug.debug) {
-            btn_float_pause_continue.setEnabled(true);
-        }*/
-
+            mfwm.pauseFw.enContinue();
+        }
     }
 
     public void showOrHideFloatWindow(boolean isShow) {
@@ -486,15 +357,6 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
         }
     }
 
-    public void longClickBuzzer(LongClickImage btn) {
-        // if ((Integer) btn.getTag() != 1) {
-        BuzzerManager.getInstance().buzzerRingOnce();
-        // } else {
-        //     btn.setTag(-1);
-        // }
-    }
-
-
     public void inclineError() {
         mfwm.hideCalcFloatWindowByInclineError();
     }
@@ -504,7 +366,6 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
     }
 
     private TextView tv_time, tv_calories, tv_pulse, tv_mets;
-
 
     private void setRunParam() {
         tv_time.setText(String.valueOf(mfwm.mRunningParam.getShowTime()));
@@ -595,5 +456,11 @@ public abstract class BaseRunBottomFloat implements View.OnClickListener, Calcul
         iv_run_profile.setEnabled(true);
         iv_run_track.setEnabled(true);
         iv_run_application.setEnabled(true);
+    }
+
+    public void disIvPause() {
+        if (iv_pause.isEnabled()) {
+            iv_pause.setEnabled(false);
+        }
     }
 }
