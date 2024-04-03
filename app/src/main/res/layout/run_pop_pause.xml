@@ -71,7 +71,8 @@
         android:text="Resume"
         android:textAlignment="center"
         android:textColor="@drawable/tv_color_red3_selector"
-        android:textSize="@dimen/font_size_45" />
+        android:textSize="@dimen/font_size_45"
+        app:touch_effects_radius="@dimen/dp_px_15_x" />
 
     <TextView
         android:id="@+id/btn_pause_quit"
@@ -84,5 +85,6 @@
         android:text="Finish"
         android:textAlignment="center"
         android:textColor="@drawable/tv_color_red3_selector"
-        android:textSize="@dimen/font_size_45" />
+        android:textSize="@dimen/font_size_45"
+        app:touch_effects_radius="@dimen/dp_px_15_x" />
 </RelativeLayout>
