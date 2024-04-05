@@ -2,6 +2,7 @@ package com.run.treadmill.activity.runMode.help;
 
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
@@ -15,12 +16,14 @@ import com.run.treadmill.widget.chart.SportGraph;
  */
 public class RunGraph {
     private SportGraph bar_graph;
+    private RadioGroup rg_graph_sp_in;
     private RadioButton rb_graph_left;
     private RadioButton rb_graph_right;
 
     public void initGraph(SportGraph bar_graph) {
         this.bar_graph = bar_graph;
 
+        rg_graph_sp_in = ac.findViewById(R.id.rg_graph_sp_in);
         rb_graph_left = ac.findViewById(R.id.rb_graph_left);
         rb_graph_right = ac.findViewById(R.id.rb_graph_right);
 
@@ -38,12 +41,14 @@ public class RunGraph {
     public void hide() {
         if (bar_graph.getVisibility() == View.VISIBLE) {
             bar_graph.setVisibility(View.GONE);
+            rg_graph_sp_in.setVisibility(View.GONE);
         }
     }
 
     public void show() {
         if (bar_graph.getVisibility() == View.GONE) {
             bar_graph.setVisibility(View.VISIBLE);
+            rg_graph_sp_in.setVisibility(View.VISIBLE);
         }
     }
 
