@@ -20,7 +20,7 @@ import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.appStore.AppStoreActivity;
-import com.run.treadmill.activity.floatWindow.SettingBackFloatWindow;
+import com.run.treadmill.activity.floatWindow.otherFloat.SettingBackFloatWindow;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.sysbt.BtAppUtils;
 import com.run.treadmill.common.CTConstant;

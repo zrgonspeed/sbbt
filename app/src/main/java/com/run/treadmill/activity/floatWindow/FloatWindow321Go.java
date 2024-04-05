@@ -1,4 +1,4 @@
-package com.run.treadmill.activity.floatWindow.help;
+package com.run.treadmill.activity.floatWindow;
 
 import com.run.treadmill.Custom;
 import com.run.treadmill.activity.EmptyMessageTask;

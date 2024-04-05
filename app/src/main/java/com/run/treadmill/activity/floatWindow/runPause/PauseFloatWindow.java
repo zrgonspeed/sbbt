@@ -1,4 +1,4 @@
-package com.run.treadmill.activity.floatWindow;
+package com.run.treadmill.activity.floatWindow.runPause;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.run.treadmill.R;
+import com.run.treadmill.activity.floatWindow.FloatWindowManager;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.util.ResourceUtils;
 
@@ -23,12 +24,12 @@ public class PauseFloatWindow {
     private View btn_pause_quit;
     private View btn_pause_continue;
 
-    PauseFloatWindow(Context context, WindowManager windowManager) {
+    public PauseFloatWindow(Context context, WindowManager windowManager) {
         this.mContext = context;
         this.mWindowManager = windowManager;
     }
 
-    void startFloat(FloatWindowManager floatWindowManager) {
+    public void startFloat(FloatWindowManager floatWindowManager) {
         this.mFwm = floatWindowManager;
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -122,7 +123,7 @@ public class PauseFloatWindow {
         // btn_pause_quit.performClick();
     }
 
-    void stopFloat() {
+    public void stopFloat() {
         mFwm.removeView(mFloatWindow);
     }
 }

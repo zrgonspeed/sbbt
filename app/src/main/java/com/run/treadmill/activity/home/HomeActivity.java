@@ -14,7 +14,7 @@ import com.run.treadmill.AppDebug;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.factory.FactoryActivity;
-import com.run.treadmill.activity.floatWindow.LeftVoiceFloatWindow;
+import com.run.treadmill.activity.floatWindow.otherFloat.LeftVoiceFloatWindow;
 import com.run.treadmill.activity.home.bg.HomeAnimation;
 import com.run.treadmill.activity.home.help.HomeClick;
 import com.run.treadmill.activity.home.help.HomeError;
