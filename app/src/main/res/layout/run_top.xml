@@ -25,7 +25,7 @@
         android:layout_width="@dimen/dp_px_64_x"
         android:layout_height="@dimen/dp_px_64_x"
         android:layout_marginStart="@dimen/dp_px_342_x"
-        android:background="@drawable/btn_application_1" />
+        android:background="@drawable/btn_run_application" />
 
     <ImageView
         android:layout_width="@dimen/dp_px_64_x"

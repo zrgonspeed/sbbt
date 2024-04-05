@@ -30,6 +30,8 @@ public class RunMedia {
 
     public void clickMedia() {
         Logger.i("R.id.iv_run_media");
+        activity.iv_run_media.setSelected(true);
+
         // 1.隐藏中间图表
         activity.runGraph.hide();
 
@@ -53,6 +55,7 @@ public class RunMedia {
         if (rl_run_media_application.getVisibility() == View.VISIBLE) {
             rl_run_media_application.setVisibility(View.GONE);
         }
+        activity.iv_run_media.setSelected(false);
     }
 
     private void initAppList() {
