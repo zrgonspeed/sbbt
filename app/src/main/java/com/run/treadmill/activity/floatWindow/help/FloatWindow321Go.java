@@ -1,6 +1,7 @@
 package com.run.treadmill.activity.floatWindow.help;
 
 import com.run.treadmill.Custom;
+import com.run.treadmill.activity.EmptyMessageTask;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
@@ -8,7 +9,11 @@ import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.ThreadUtils;
+import com.run.treadmill.util.VolumeUtils;
+
+import java.util.Timer;
 
 public class FloatWindow321Go {
     public static void prepare(FloatWindowManager mFwm) {
@@ -55,5 +60,23 @@ public class FloatWindow321Go {
         }
         mFwm.mRunningParam.countDown--;
 
+    }
+
+    public static void startPrepare(FloatWindowManager fwm) {
+        fwm.baseRunBottomFloat.disClick();
+
+        fwm.backDotFloatWindow.disClick();
+        fwm.mMediaDotFloatWindow.disClick();
+
+        fwm.baseRunBottomFloat.stopPauseTimer();
+        fwm.currentPro = SystemSoundManager.getInstance().getCurrentPro();
+        //设置音量
+        SystemSoundManager.getInstance().setAudioVolume(VolumeUtils.Go321Volume, SystemSoundManager.maxVolume);
+        fwm.showOrHideVoiceFloatWindow(true);
+        fwm.mCountdownTask = new EmptyMessageTask(fwm.myFloatHandler, MsgWhat.MSG_PREPARE_TIME);
+        if (fwm.mTimer == null) {
+            fwm.mTimer = new Timer();
+        }
+        fwm.mTimer.schedule(fwm.mCountdownTask, 1000, 1000);
     }
 }
