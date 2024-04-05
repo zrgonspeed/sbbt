@@ -16,6 +16,25 @@ import com.run.treadmill.util.VolumeUtils;
 import java.util.Timer;
 
 public class FloatWindow321Go {
+
+    public static void startPrepare(FloatWindowManager fwm) {
+        fwm.baseRunBottomFloat.disClick();
+
+        fwm.backDotFloatWindow.disClick();
+        fwm.mMediaDotFloatWindow.disClick();
+
+        fwm.baseRunBottomFloat.stopPauseTimer();
+        fwm.currentPro = SystemSoundManager.getInstance().getCurrentPro();
+        //设置音量
+        SystemSoundManager.getInstance().setAudioVolume(VolumeUtils.Go321Volume, SystemSoundManager.maxVolume);
+        fwm.showOrHideVoiceFloatWindow(true);
+        fwm.mCountdownTask = new EmptyMessageTask(fwm.myFloatHandler, MsgWhat.MSG_PREPARE_TIME);
+        if (fwm.mTimer == null) {
+            fwm.mTimer = new Timer();
+        }
+        fwm.mTimer.schedule(fwm.mCountdownTask, 1000, 1000);
+    }
+
     public static void prepare(FloatWindowManager mFwm) {
         if (mFwm.mRunningParam.countDown == 0) {
             BuzzerManager.getInstance().buzzRingLongObliged(1000);
@@ -62,21 +81,4 @@ public class FloatWindow321Go {
 
     }
 
-    public static void startPrepare(FloatWindowManager fwm) {
-        fwm.baseRunBottomFloat.disClick();
-
-        fwm.backDotFloatWindow.disClick();
-        fwm.mMediaDotFloatWindow.disClick();
-
-        fwm.baseRunBottomFloat.stopPauseTimer();
-        fwm.currentPro = SystemSoundManager.getInstance().getCurrentPro();
-        //设置音量
-        SystemSoundManager.getInstance().setAudioVolume(VolumeUtils.Go321Volume, SystemSoundManager.maxVolume);
-        fwm.showOrHideVoiceFloatWindow(true);
-        fwm.mCountdownTask = new EmptyMessageTask(fwm.myFloatHandler, MsgWhat.MSG_PREPARE_TIME);
-        if (fwm.mTimer == null) {
-            fwm.mTimer = new Timer();
-        }
-        fwm.mTimer.schedule(fwm.mCountdownTask, 1000, 1000);
-    }
 }
