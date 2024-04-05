@@ -5,6 +5,7 @@
     android:background="#4D000000">
 
     <include
+        android:id="@+id/run_top"
         layout="@layout/run_top"
         android:layout_width="@dimen/dp_px_976_x"
         android:layout_height="@dimen/dp_px_64_x"
@@ -13,7 +14,7 @@
 
     <!--时间-->
     <TextClock
-        android:id="@+id/tv_time"
+        android:id="@+id/tv_run_systime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -26,4 +27,10 @@
         android:text="10:30 AM"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_45" />
+
+    <!--Home点第三方进入的-->
+    <include
+        android:id="@+id/home_start_app_top"
+        layout="@layout/home_start_app_top"
+        android:visibility="gone" />
 </RelativeLayout>

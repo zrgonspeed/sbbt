@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_main"
+    android:layout_width="@dimen/dp_px_1920_x"
+    android:layout_height="@dimen/dp_px_180_x">
+
+    <ImageView
+        android:id="@+id/iv_bluetooth"
+        android:layout_width="@dimen/dp_px_48_x"
+        android:layout_height="@dimen/dp_px_48_x"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/dp_px_40_x"
+        android:layout_marginEnd="@dimen/dp_px_90_x"
+        android:layout_toStartOf="@+id/tv_time"
+        android:background="@drawable/btn_bluetooth_on"
+        app:touch_effects_forbid="true"
+        app:touch_effects_type="none" />
+
+    <ImageView
+        android:id="@+id/iv_wifi"
+        android:layout_width="@dimen/dp_px_48_x"
+        android:layout_height="@dimen/dp_px_48_x"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/dp_px_40_x"
+        android:layout_marginEnd="@dimen/dp_px_25_x"
+        android:layout_toStartOf="@+id/tv_time"
+        android:background="@drawable/btn_wifi_on"
+        app:touch_effects_forbid="true"
+        app:touch_effects_type="none" />
+
+    <TextClock
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dp_px_40_x"
+        android:layout_marginEnd="@dimen/dp_px_40_x"
+        android:format12Hour="yyyy.MM.dd hh:mm\naa"
+        android:format24Hour="yyyy.MM.dd HH:mm"
+        android:gravity="end"
+        android:text="2023.10.29 10:30 AM"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_45" />
+</RelativeLayout>

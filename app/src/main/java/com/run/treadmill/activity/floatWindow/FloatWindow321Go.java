@@ -44,6 +44,7 @@ public class FloatWindow321Go {
             // mFwm.mBaseRunCtrlFloatWindow.btn_start_stop_skip.setEnabled(false);
 
             mFwm.baseRunBottomFloat.afterPrepare();
+            mFwm.baseRunTopFloat.afterPrepare();
             mFwm.backDotFloatWindow.remove();
             mFwm.mMediaDotFloatWindow.enClick();
 
