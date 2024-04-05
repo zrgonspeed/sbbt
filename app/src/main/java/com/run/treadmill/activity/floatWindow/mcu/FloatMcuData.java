@@ -1,17 +1,21 @@
-package com.run.treadmill.activity.floatWindow;
+package com.run.treadmill.activity.floatWindow.mcu;
 
 import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
+import com.run.treadmill.activity.floatWindow.FloatWindowManager;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.control.NormalParam;
 import com.run.treadmill.manager.control.ParamCons;
 import com.run.treadmill.serial.SerialKeyValue;
+import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.MsgWhat;
+import com.run.treadmill.util.ThirdApkSupport;
 
 public class FloatMcuData {
     public static void onSucceed(byte[] data, int len, FloatWindowManager fwm) {
+        // 常态包打印
         if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
             NormalParam.print(data);
         }
@@ -23,6 +27,7 @@ public class FloatMcuData {
             return;
         }
 
+        // 常态包
         if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
             int curSafeError = NormalParam.getSafeError(data);
             int curSysError = NormalParam.getSysError(data);
@@ -145,5 +150,47 @@ public class FloatMcuData {
                 }
             }
         }
+    }
+
+    /**
+     * Float回调的按键
+     */
+    public static void key(FloatWindowManager mFwm, int curKeyValue) {
+        if (mFwm.baseRunBottomFloat == null) {
+            return;
+        }
+
+        if (curKeyValue == SerialKeyValue.VOICE_UP_CLICK
+                || curKeyValue == SerialKeyValue.VOICE_UP_CLICK_LONG_1
+                || curKeyValue == SerialKeyValue.VOICE_UP_CLICK_LONG_2) {
+            if (mFwm.mVoiceFloatWindow != null
+                    && !mFwm.mRunningParam.isPrepare()
+                    && !mFwm.mRunningParam.isContinue()) {
+                mFwm.mVoiceFloatWindow.setProgress(1);
+            }
+            return;
+        }
+        if (curKeyValue == SerialKeyValue.VOICE_DOWN_CLICK
+                || curKeyValue == SerialKeyValue.VOICE_DOWN_CLICK_LONG_1
+                || curKeyValue == SerialKeyValue.VOICE_DOWN_CLICK_LONG_2) {
+            if (mFwm.mVoiceFloatWindow != null
+                    && !mFwm.mRunningParam.isPrepare()
+                    && !mFwm.mRunningParam.isContinue()) {
+                mFwm.mVoiceFloatWindow.setProgress(-1);
+            }
+            return;
+        }
+
+        mFwm.baseRunBottomFloat.cmdKeyValue(curKeyValue);
+    }
+
+    public static void error(FloatWindowManager mFwm) {
+        mFwm.restoreVolume();
+        mFwm.cancelTime();
+        mFwm.stopFloatWindow();
+        Logger.e("mFwm.stopFloatWindow();");
+        mFwm.killThirdApk();
+        ThirdApkSupport.shortDownThirtyLoginApp(mFwm.mActivity);
+        mFwm.goBackHome();
     }
 }
