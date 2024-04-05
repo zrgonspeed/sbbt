@@ -115,8 +115,8 @@ public abstract class BasePresenter<V extends BaseView> implements RxDataCallBac
             sendMsg(MsgWhat.MSG_ERROR, ErrorManager.getInstance().errStatus);
         }
         //暂停的时候速度也会0
-        if (resolveDate(data, NormalParam.CURR_SPEED_INX, NormalParam.CURR_SPEED_LEN) != 0) {
-            ErrorManager.getInstance().lastSpeed = resolveDate(data, NormalParam.CURR_SPEED_INX, NormalParam.CURR_SPEED_LEN);
+        if (NormalParam.getSpeed(data) != 0) {
+            ErrorManager.getInstance().lastSpeed = NormalParam.getSpeed(data);
         }
         if (msgNomal.obj == null) {
             return;

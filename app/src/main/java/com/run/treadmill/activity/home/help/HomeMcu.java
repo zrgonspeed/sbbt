@@ -23,10 +23,10 @@ public class HomeMcu extends BaseHomeHelp {
     public static void onSucceed(byte[] data, int len) {
         if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
             int homeHr;
-            if (NormalParam.resolveDate(data, NormalParam.HR_VALUE1_INX, NormalParam.HR_VALUE1_LEN) == 0) {
-                homeHr = (NormalParam.resolveDate(data, NormalParam.HR_VALUE2_INX, NormalParam.HR_VALUE2_LEN));
+            if (NormalParam.getHr1(data) == 0) {
+                homeHr = NormalParam.getHr2(data);
             } else {
-                homeHr = (NormalParam.resolveDate(data, NormalParam.HR_VALUE1_INX, NormalParam.HR_VALUE1_LEN));
+                homeHr = NormalParam.getHr1(data);
             }
             if (homeHr >= 0) {
                 if (BtHelper.getInstance().connected()) {

@@ -6,8 +6,8 @@ import com.run.serial.SerialUtils;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.control.NormalParam;
+import com.run.treadmill.sp.SpManager;
 
 /**
  * @Description 安全key的错误拦截
@@ -20,11 +20,11 @@ public class SafeKeyInterceptor implements SerialInterceptor {
     @Override
     public Message intercept(Chain chain) {
         byte[] data = ((RealChain) chain).getmData();
-        int safeError = ((RealChain) chain).resolveDate(data, NormalParam.SAFE_ERROR_INX, NormalParam.SAFE_ERROR_LEN);
+        int safeError = NormalParam.getSafeError(data);
         if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AC) {
             //AC 机种 25错误也归为安全key 错误
             //这个行为 后续如果被发现 需要修改
-            int otherError = ((RealChain) chain).resolveDate(data, NormalParam.SYS_ERROR_INX, NormalParam.SYS_ERROR_LEN);
+            int otherError = NormalParam.getSysError(data);
             if (otherError == ErrorManager.ERR_SAFE_FC_ERROR) {
                 safeError = ErrorManager.ERR_SAFE_FC_ERROR;
             }
@@ -46,13 +46,13 @@ public class SafeKeyInterceptor implements SerialInterceptor {
             if (ErrorManager.getInstance().errorDelayTime != ErrorManager.SAFE_DELAY_TIME) {
                 ErrorManager.getInstance().errorDelayTime = ErrorManager.SAFE_DELAY_TIME;
             }
-            return getMsg(((RealChain) chain).isInOnSleep(), ((RealChain) chain).resolveDate(data, NormalParam.KEY_VALUE_INX, NormalParam.KEY_VALUE_LEN));
+            return getMsg(((RealChain) chain).isInOnSleep(), NormalParam.getKey(data));
         }
         if (ErrorManager.getInstance().isSafeError) {
             ErrorManager.getInstance().errorDelayTime--;
         }
         if (ErrorManager.getInstance().errorDelayTime > 0) {
-            return getMsg(((RealChain) chain).isInOnSleep(), ((RealChain) chain).resolveDate(data, NormalParam.KEY_VALUE_INX, NormalParam.KEY_VALUE_LEN));
+            return getMsg(((RealChain) chain).isInOnSleep(), NormalParam.getKey(data));
         }
         SerialUtils.getInstance().resetSend();
         return chain.procced(data, ((RealChain) chain).isInOnSleep());

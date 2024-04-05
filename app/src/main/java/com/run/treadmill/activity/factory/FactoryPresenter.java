@@ -112,7 +112,7 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
             return;
         }
         if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
-            int state = resolveDate(data, NormalParam.INCLINE_STATE_INX, NormalParam.INCLINE_STATE_LEN);
+            int state = NormalParam.getInclineState(data);
 
             if (state == ParamCons.CMD_INCLINE_UP) {
                 //主扬升状态(上升)
@@ -124,7 +124,7 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
                 inclienStatus = 0;
             }
 
-            state = resolveDate(data, NormalParam.BELT_STATE_INX, NormalParam.BELT_STATE_LEN);
+            state = NormalParam.getBeltState(data);
             if (state == 0x04) {//跑带矫正中
                 beltStatus = 1;
             } else if (state == 0x06) {
@@ -146,8 +146,8 @@ public class FactoryPresenter extends BasePresenter<FactoryView> {
             }).start();
         } else if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM_03) {
             sendMsg(msg_calibration_ad, DataTypeConversion.byteToInt(data[4]));
-            if (resolveDate(data, NormalParam.CURR_SPEED_INX, NormalParam.CURR_SPEED_LEN) != 0) {
-                ErrorManager.getInstance().lastSpeed = resolveDate(data, NormalParam.CURR_SPEED_INX, NormalParam.CURR_SPEED_LEN);
+            if (NormalParam.getSpeed(data) != 0) {
+                ErrorManager.getInstance().lastSpeed = NormalParam.getSpeed(data);
             }
         }
 

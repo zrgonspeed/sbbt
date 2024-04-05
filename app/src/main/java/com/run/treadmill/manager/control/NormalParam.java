@@ -8,74 +8,74 @@ import com.run.treadmill.util.DataTypeConversion;
 
 public class NormalParam implements Custom.Mcu.Normal {
 
-    public static int SAFE_ERROR_INX = 0;
-    public static int SAFE_ERROR_LEN = 1;
+    private static int SAFE_ERROR_INX = 0;
+    private static int SAFE_ERROR_LEN = 1;
 
-    public static int SYS_ERROR_INX = 0;
-    public static int SYS_ERROR_LEN = 1;
+    private static int SYS_ERROR_INX = 0;
+    private static int SYS_ERROR_LEN = 1;
 
-    public static int BELT_STATE_INX = 0;
-    public static int BELT_STATE_LEN = 1;
+    private static int BELT_STATE_INX = 0;
+    private static int BELT_STATE_LEN = 1;
 
-    public static int INCLINE_STATE_INX = 0;
-    public static int INCLINE_STATE_LEN = 1;
+    private static int INCLINE_STATE_INX = 0;
+    private static int INCLINE_STATE_LEN = 1;
 
     /**
      * 心跳值来源
      */
-    public static int HR_VALUE_FROM_INX = 0;
-    public static int HR_VALUE_FROM_LEN = 0;
+    private static int HR_VALUE_FROM_INX = 0;
+    private static int HR_VALUE_FROM_LEN = 0;
 
     /**
      * 无线心跳
      */
-    public static int HR_VALUE1_INX = 0;
-    public static int HR_VALUE1_LEN = 1;
+    private static int HR_VALUE1_INX = 0;
+    private static int HR_VALUE1_LEN = 1;
 
     /**
      * 有线心跳
      */
-    public static int HR_VALUE2_INX = 0;
-    public static int HR_VALUE2_LEN = 1;
+    private static int HR_VALUE2_INX = 0;
+    private static int HR_VALUE2_LEN = 1;
 
     /**
      * 按键值
      */
-    public static int KEY_VALUE_INX = 0;
-    public static int KEY_VALUE_LEN = 1;
+    private static int KEY_VALUE_INX = 0;
+    private static int KEY_VALUE_LEN = 1;
 
     /**
      * 当前速度
      */
-    public static int CURR_SPEED_INX = 0;
-    public static int CURR_SPEED_LEN = 1;
+    private static int CURR_SPEED_INX = 0;
+    private static int CURR_SPEED_LEN = 1;
 
     /**
      * 当前ad值
      */
-    public static int CURR_AD_INX = 0;
-    public static int CURR_AD_LEN = 1;
+    private static int CURR_AD_INX = 0;
+    private static int CURR_AD_LEN = 1;
 
     /**
      * 扬升错误
      */
-    public static int INCLINE_ERROR_INX = 0;
-    public static int INCLINE_ERROR_LEN = 1;
+    private static int INCLINE_ERROR_INX = 0;
+    private static int INCLINE_ERROR_LEN = 1;
 
     /**
      * 步数
      */
-    public static int CURR_STEPS_INX = 0;
-    public static int CURR_STEPS_LEN = 2;
+    private static int CURR_STEPS_INX = 0;
+    private static int CURR_STEPS_LEN = 2;
 
-    public static int MCU_STATE_INX = 0;
-    public static int MCU_STATE_LEN = 0;
+    private static int MCU_STATE_INX = 0;
+    private static int MCU_STATE_LEN = 0;
 
     public static void reset(int type) {
-        resetAa();
+        resetDc();
     }
 
-    private static void resetAa() {
+    private static void resetDc() {
         //1
         KEY_VALUE_INX = 4;
         KEY_VALUE_LEN = 1;

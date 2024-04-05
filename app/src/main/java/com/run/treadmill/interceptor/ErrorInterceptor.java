@@ -13,7 +13,7 @@ public class ErrorInterceptor implements SerialInterceptor {
     @Override
     public Message intercept(Chain chain) {
         byte[] data = ((RealChain) chain).getmData();
-        int curSysError = ((RealChain) chain).resolveDate(data, NormalParam.SYS_ERROR_INX, NormalParam.SYS_ERROR_LEN);
+        int curSysError = NormalParam.getSysError(data);
         //curSysError = 0;
         //TODO: 注意--> CTConstant.DEVICE_TYPE_AA 强制屏蔽部分错误,后面是否删除,待议
 //        if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {
@@ -35,7 +35,7 @@ public class ErrorInterceptor implements SerialInterceptor {
         }
 
         if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_AA) {//暂时屏蔽不报扬升出错
-            int curInclineError = ((RealChain) chain).resolveDate(data, NormalParam.INCLINE_ERROR_INX, NormalParam.INCLINE_ERROR_LEN);
+            int curInclineError = NormalParam.getInclineError(data);
             if (curInclineError == 0) {
                 InclineError.hasInError = false;
             } else {
@@ -47,7 +47,7 @@ public class ErrorInterceptor implements SerialInterceptor {
                 curSysError = ErrorManager.ERR_INCLINE_CALIBRATE;
             }
         }
-        int curKeyValue = ((RealChain) chain).resolveDate(data, NormalParam.KEY_VALUE_INX, NormalParam.KEY_VALUE_LEN);
+        int curKeyValue = NormalParam.getKey(data);
 
         //非扬升错误
         if (ErrorManager.getInstance().isNoInclineError(curSysError)) {

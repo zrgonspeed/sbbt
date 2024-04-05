@@ -127,14 +127,14 @@ public abstract class BaseRunPresenter<V extends BaseRunView> extends BasePresen
             return;
         }
         if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
-            if (resolveDate(data, NormalParam.HR_VALUE1_INX, NormalParam.HR_VALUE1_LEN) == 0) {
-                mRunningParam.setCurrPulse(resolveDate(data, NormalParam.HR_VALUE2_INX, NormalParam.HR_VALUE2_LEN));
+            if (NormalParam.getHr1(data) == 0) {
+                mRunningParam.setCurrPulse(NormalParam.getHr2(data));
             } else {
-                mRunningParam.setCurrPulse(resolveDate(data, NormalParam.HR_VALUE1_INX, NormalParam.HR_VALUE1_LEN));
+                mRunningParam.setCurrPulse(NormalParam.getHr1(data));
             }
 
-            mRunningParam.setCurrAD(resolveDate(data, NormalParam.CURR_AD_INX, NormalParam.CURR_AD_LEN));
-            mRunningParam.setStepNumber(resolveDate(data, NormalParam.CURR_STEPS_INX, NormalParam.CURR_STEPS_LEN));
+            mRunningParam.setCurrAD(NormalParam.getIncline(data));
+            mRunningParam.setStepNumber(NormalParam.getStep(data));
         }
     }
 

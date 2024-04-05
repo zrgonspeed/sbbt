@@ -173,7 +173,7 @@ public class ReBootTask implements Runnable, RxDataCallBack, Custom.Mcu.McuReboo
         // 常态包
         if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
             notNormal = false;
-            int curSafeError = resolveDate(data, NormalParam.SAFE_ERROR_INX, NormalParam.SAFE_ERROR_LEN);
+            int curSafeError = NormalParam.getSafeError(data);
             if (curSafeError != ErrorManager.ERR_NO_ERROR) {
                 isReBootSafeError = true;
                 ErrorManager.getInstance().isSafeError = true;
@@ -192,7 +192,7 @@ public class ReBootTask implements Runnable, RxDataCallBack, Custom.Mcu.McuReboo
                     }
                     return;
                 }
-                int curSysError = resolveDate(data, NormalParam.SYS_ERROR_INX, NormalParam.SYS_ERROR_LEN);
+                int curSysError = NormalParam.getSysError(data);
                 if (ControlManager.deviceType == CTConstant.DEVICE_TYPE_DC) {
                     if (ErrorManager.getInstance().isNoInclineError(curSysError)) {
                         ErrorManager.getInstance().errStatus = curSysError;
@@ -203,14 +203,14 @@ public class ReBootTask implements Runnable, RxDataCallBack, Custom.Mcu.McuReboo
                     }
                 }
                 ErrorManager.getInstance().errStatus = ErrorManager.ERR_NO_ERROR;
-                int curBelt = resolveDate(data, NormalParam.BELT_STATE_INX, NormalParam.BELT_STATE_LEN);
-                int curIncline = resolveDate(data, NormalParam.INCLINE_STATE_INX, NormalParam.INCLINE_STATE_LEN);
+                int curBelt = NormalParam.getBeltState(data);
+                int curIncline = NormalParam.getInclineState(data);
                 int[] normalArray = new int[5];
                 normalArray[0] = -1;
                 normalArray[1] = curBelt;
                 normalArray[2] = curIncline;
-                normalArray[3] = resolveDate(data, NormalParam.CURR_SPEED_INX, NormalParam.CURR_SPEED_LEN);
-                normalArray[4] = resolveDate(data, NormalParam.CURR_AD_INX, NormalParam.CURR_AD_LEN);
+                normalArray[3] = NormalParam.getSpeed(data);
+                normalArray[4] = NormalParam.getIncline(data);
                 if (presenter != null) {
                     presenter.sendNormalMsg(MsgWhat.MSG_DATA_BELT_AND_INCLINE, normalArray);
                 }
