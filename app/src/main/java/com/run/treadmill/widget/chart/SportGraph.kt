@@ -20,11 +20,8 @@ class SportGraph constructor(context: Context, attrs: AttributeSet) :
     var motionVar: MotionLayout? = null
     private var vBar: BarGraphView? = null
     private var vUnit: SportUnitView? = null
-    private var rgRraph: RadioGroup? = null
     private var tvBarVal: TextView? = null
     private var imgBarIcon: ImageView? = null
-    private var rbGraphLeft: RadioButton? = null
-    private var rbGraphRight: RadioButton? = null
 
     /** 最大值*/
     private var maxValue: Float? = null
@@ -39,18 +36,15 @@ class SportGraph constructor(context: Context, attrs: AttributeSet) :
         view?.run {
             vBar = findViewById(R.id.v_bar)
             vUnit = findViewById(R.id.v_unit)
-            rgRraph = findViewById(R.id.rg_graph)
             tvBarVal = findViewById(R.id.tv_bar_val)
             imgBarIcon = findViewById(R.id.img_bar_icon)
-            rbGraphLeft = findViewById(R.id.rb_graph_left)
-            rbGraphRight = findViewById(R.id.rb_graph_right)
         }
     }
-
-    /**
+/*
+    *//**
      * 设置底下的切换事件
      * @param listener OnCheckedChangeListener
-     */
+     *//*
     fun setOnGraphTypeChangeListener(listener: RadioGroup.OnCheckedChangeListener) {
         rgRraph?.setOnCheckedChangeListener(listener)
     }
@@ -64,7 +58,7 @@ class SportGraph constructor(context: Context, attrs: AttributeSet) :
                 rgRraph?.check(R.id.rb_graph_right)
             }
         }
-    }
+    }*/
 
     /**
      * 设置柱状图数据
@@ -145,15 +139,15 @@ class SportGraph constructor(context: Context, attrs: AttributeSet) :
         vUnit?.setRange(min, max, count, pointCount)
     }
 
-    /**
+ /*   *//**
      * 设置为单个类型
      * @param str String 类型名字
-     */
+     *//*
     fun setOnlyOneType(str: String) {
         rbGraphLeft?.text = str
         rbGraphLeft?.isEnabled = false
         rbGraphRight?.visibility = View.GONE
-    }
+    }*/
 
     var currSelectType: Int = 1
     var currStage: Int = 0   //  0 - 29

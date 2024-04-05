@@ -20,8 +20,8 @@ public class RunGraph {
     public void initGraph(SportGraph bar_graph) {
         this.bar_graph = bar_graph;
 
-        rb_graph_left = bar_graph.findViewById(R.id.rb_graph_left);
-        rb_graph_right = bar_graph.findViewById(R.id.rb_graph_right);
+        rb_graph_left = ac.findViewById(R.id.rb_graph_left);
+        rb_graph_right = ac.findViewById(R.id.rb_graph_right);
 
         ClickRadio clickRadio = new ClickRadio();
         rb_graph_left.setOnClickListener(clickRadio);

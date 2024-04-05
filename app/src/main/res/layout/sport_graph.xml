@@ -87,43 +87,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/v_unit" />
 
-    <com.hjq.shape.layout.ShapeRadioGroup
-        android:id="@+id/rg_graph"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_px_64_x"
-        android:layout_marginTop="@dimen/dp_px_515_x"
-        android:layout_marginEnd="@dimen/dp_px_27_x"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shape_radius="@dimen/dp_px_30_x"
-        app:shape_solidColor="#4D000000">
 
-        <RadioButton
-            android:id="@+id/rb_graph_left"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_px_64_x"
-            android:button="@null"
-            android:drawableStart="@drawable/btn_workout_switch_incline"
-            android:drawablePadding="@dimen/dp_px_10_x"
-            android:paddingEnd="@dimen/dp_px_30_x"
-            android:text="@string/string_incline"
-            android:textColor="@color/white"
-            android:textSize="@dimen/font_size_28"
-            android:visibility="gone" />
-
-        <RadioButton
-            android:id="@+id/rb_graph_right"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_px_64_x"
-            android:button="@null"
-            android:drawableEnd="@drawable/btn_workout_switch_speed"
-            android:drawablePadding="@dimen/dp_px_10_x"
-            android:paddingStart="@dimen/dp_px_30_x"
-            android:text="@string/string_speed"
-            android:textColor="@color/white"
-            android:textSize="@dimen/font_size_28"
-            android:visibility="visible" />
-    </com.hjq.shape.layout.ShapeRadioGroup>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

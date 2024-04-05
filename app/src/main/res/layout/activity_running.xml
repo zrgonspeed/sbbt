@@ -343,12 +343,7 @@
         android:visibility="gone" />
 
     <!-- 中间的图表 -->
-    <com.run.treadmill.widget.chart.SportGraph
-        android:id="@+id/bar_graph"
-        android:layout_width="@dimen/dp_px_1080_x"
-        android:layout_height="@dimen/dp_px_600_x"
-        android:layout_marginStart="@dimen/dp_px_420_x"
-        android:layout_marginTop="@dimen/dp_px_220_x" />
+    <include layout="@layout/run_center_graph_merge" />
 
     <!-- 中间的app列表 -->
     <include
