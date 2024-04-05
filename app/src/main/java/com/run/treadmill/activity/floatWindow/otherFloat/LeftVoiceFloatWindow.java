@@ -65,7 +65,7 @@ public class LeftVoiceFloatWindow {
         wmParams.y = mContext.getResources().getDimensionPixelSize(R.dimen.dp_px_713_x);
         wmParams.width = w;
         wmParams.height = h;
-        wmParams.windowAnimations = android.R.style.Animation_Translucent;
+        wmParams.windowAnimations = 0;
 
         return mWindow;
     }
