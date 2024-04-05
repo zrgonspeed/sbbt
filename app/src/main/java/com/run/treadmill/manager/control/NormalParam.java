@@ -1,5 +1,8 @@
 package com.run.treadmill.manager.control;
 
+import android.util.Log;
+
+import com.run.serial.LogUtils;
 import com.run.treadmill.Custom;
 import com.run.treadmill.util.DataTypeConversion;
 
@@ -60,16 +63,13 @@ public class NormalParam implements Custom.Mcu.Normal {
     public static int INCLINE_ERROR_LEN = 1;
 
     /**
-     * 自带加油的油箱剩余油量
-     */
-    public static int LUBE_BOX_VALUE_INX = 0;
-    public static int LUBE_BOX_VALUE_LEN = 1;
-
-    /**
      * 步数
      */
-    public static int Step_Number_VALUE_INX = 0;
-    public static int Step_Number_VALUE_LEN = 2;
+    public static int CURR_STEPS_INX = 0;
+    public static int CURR_STEPS_LEN = 2;
+
+    public static int MCU_STATE_INX = 0;
+    public static int MCU_STATE_LEN = 0;
 
     public static void reset(int type) {
         resetAa();
@@ -109,24 +109,24 @@ public class NormalParam implements Custom.Mcu.Normal {
         INCLINE_STATE_LEN = 1;
 
         //9
-        INCLINE_ERROR_INX = 12;
-        INCLINE_ERROR_LEN = 1;
+ /*       INCLINE_ERROR_INX = 12;
+        INCLINE_ERROR_LEN = 1;*/
 
         //10 不处理
 
+        MCU_STATE_INX = 15;
+        MCU_STATE_LEN = 1;
+
         //11
-        CURR_SPEED_INX = 14;
-        CURR_SPEED_LEN = 2;
+        CURR_SPEED_INX = 16;
+        CURR_SPEED_LEN = 1;
 
         //12
-        CURR_AD_INX = 16;
-        CURR_AD_LEN = 2;
+        CURR_AD_INX = 17;
+        CURR_AD_LEN = 1;
 
-        LUBE_BOX_VALUE_INX = 24;
-        LUBE_BOX_VALUE_LEN = 1;
-
-        Step_Number_VALUE_INX = 18;
-        Step_Number_VALUE_LEN = 2;
+        CURR_STEPS_INX = 18;
+        CURR_STEPS_LEN = 2;
 
     }
 
@@ -143,5 +143,72 @@ public class NormalParam implements Custom.Mcu.Normal {
             result = 0;
         }
         return result;
+    }
+
+    public static int getHr1(byte[] data) {
+        return resolveDate(data, NormalParam.HR_VALUE1_INX, NormalParam.HR_VALUE1_LEN);
+    }
+
+    public static int getHr2(byte[] data) {
+        return resolveDate(data, NormalParam.HR_VALUE2_INX, NormalParam.HR_VALUE2_LEN);
+    }
+
+    public static int getMcuState(byte[] data) {
+        return resolveDate(data, NormalParam.MCU_STATE_INX, NormalParam.MCU_STATE_LEN);
+    }
+
+    public static int getKey(byte[] data) {
+        return resolveDate(data, NormalParam.KEY_VALUE_INX, NormalParam.KEY_VALUE_LEN);
+    }
+
+    public static int getStep(byte[] data) {
+        return resolveDate(data, NormalParam.CURR_STEPS_INX, NormalParam.CURR_STEPS_LEN);
+    }
+
+    public static int getInclineError(byte[] data) {
+        return resolveDate(data, NormalParam.INCLINE_ERROR_INX, NormalParam.INCLINE_ERROR_LEN);
+    }
+
+    public static int getSysError(byte[] data) {
+        return resolveDate(data, NormalParam.SYS_ERROR_INX, NormalParam.SYS_ERROR_LEN);
+    }
+
+    public static int getSafeError(byte[] data) {
+        return resolveDate(data, NormalParam.SAFE_ERROR_INX, NormalParam.SAFE_ERROR_LEN);
+    }
+
+    public static int getBeltState(byte[] data) {
+        return resolveDate(data, NormalParam.BELT_STATE_INX, NormalParam.BELT_STATE_LEN);
+    }
+
+    public static int getSpeed(byte[] data) {
+        return resolveDate(data, NormalParam.CURR_SPEED_INX, NormalParam.CURR_SPEED_LEN);
+    }
+
+    public static int getInclineState(byte[] data) {
+        return data[NormalParam.INCLINE_STATE_INX];
+    }
+
+    public static int getInclineStateX03(byte[] data) {
+        return data[NormalParam.INCLINE_STATE_INX] & 0x03;
+    }
+
+    public static int getIncline(byte[] data) {
+        return resolveDate(data, NormalParam.CURR_AD_INX, NormalParam.CURR_AD_LEN);
+    }
+
+    public static void print(byte[] data) {
+        if (!LogUtils.printLog) {
+            return;
+        }
+        Log.d("Normal", "beltState=" + getBeltState(data) +
+                "  inclineState=" + getInclineState(data) +
+                "  speed=" + getSpeed(data) +
+                "  incline=" + getIncline(data) +
+                "  sysErr=" + getSysError(data) +
+                "  safeErr=" + getSafeError(data) +
+                "  mcuState=" + getMcuState(data)
+
+        );
     }
 }
