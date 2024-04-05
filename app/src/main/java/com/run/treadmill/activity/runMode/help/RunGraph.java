@@ -5,6 +5,7 @@ import android.widget.RadioButton;
 
 import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
+import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.clicktime.RunGraphUtils;
 import com.run.treadmill.widget.chart.SportGraph;
@@ -52,7 +53,7 @@ public class RunGraph {
             if (!RunGraphUtils.canResponse()) {
                 return;
             }
-
+            BuzzerManager.getInstance().buzzerRingOnce();
             if (v.getId() == R.id.rb_graph_left) {
                 // Logger.i("checkedId == 点扬升，要切为速度");
                 checkedSpeed();
