@@ -15,7 +15,7 @@
         <item name="android:windowIsTranslucent">false</item>
         <!--是否全屏-->
         <item name="android:windowFullscreen">true</item>
-        <!--  <item name="android:windowAnimationStyle">@style/notAnimation</item> -->
+          <item name="android:windowAnimationStyle">@style/notAnimation</item>
     </style>
 
     <style name="AlertDialogStyle" parent="@android:style/Theme.Dialog">
@@ -59,22 +59,22 @@
 
     <!-- 取消界面转场动画使用-->
     <style name="NoAnimationTheme" parent="AppTheme">
-        <item name="android:windowAnimationStyle">@style/Animation</item>
+        <item name="android:windowAnimationStyle">@style/notAnimation</item>
     </style>
 
-    <style name="Animation">
+    <style name="notAnimation">
         <item name="android:activityOpenEnterAnimation">@null</item>
         <item name="android:activityOpenExitAnimation">@null</item>
         <item name="android:activityCloseEnterAnimation">@null</item>
         <item name="android:activityCloseExitAnimation">@null</item>
-        <item name="android:taskOpenEnterAnimation">@null</item>
+      <!--  <item name="android:taskOpenEnterAnimation">@null</item>
         <item name="android:taskOpenExitAnimation">@null</item>
         <item name="android:taskCloseEnterAnimation">@null</item>
         <item name="android:taskCloseExitAnimation">@null</item>
         <item name="android:taskToFrontEnterAnimation">@null</item>
         <item name="android:taskToFrontExitAnimation">@null</item>
         <item name="android:taskToBackEnterAnimation">@null</item>
-        <item name="android:taskToBackExitAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@null</item>-->
     </style>
 
 <!--    <style name="style.zrg" parent="Widget.AppCompat.ProgressBar">-->
