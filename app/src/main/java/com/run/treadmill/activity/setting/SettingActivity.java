@@ -41,7 +41,7 @@ import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.LanguageUtil;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.ThirdApkSupport;
-import com.run.treadmill.util.ThreadUtils;
+import com.run.treadmill.util.thread.ThreadUtils;
 import com.run.treadmill.util.TimeStringUtil;
 import com.run.treadmill.util.UnitUtil;
 import com.run.treadmill.widget.ViewDialog;

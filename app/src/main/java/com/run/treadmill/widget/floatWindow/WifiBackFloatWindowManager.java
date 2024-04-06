@@ -1,6 +1,7 @@
-package com.run.treadmill.util;
+package com.run.treadmill.widget.floatWindow;
 
 import com.run.treadmill.reboot.MyApplication;
+import com.run.treadmill.widget.floatWindow.WifiBackFloatWindow;
 
 public class WifiBackFloatWindowManager {
     private static WifiBackFloatWindow wifiBackFloatWindow;

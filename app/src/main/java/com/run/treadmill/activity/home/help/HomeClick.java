@@ -10,7 +10,7 @@ import com.run.treadmill.activity.setting.SettingActivity;
 import com.run.treadmill.sysbt.BtAppUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.SystemWifiUtils;
-import com.run.treadmill.util.WifiBackFloatWindowManager;
+import com.run.treadmill.widget.floatWindow.WifiBackFloatWindowManager;
 import com.run.treadmill.util.clicktime.HomeClickMediaUtils;
 import com.run.treadmill.util.clicktime.HomeClickUtils;
 

@@ -23,7 +23,7 @@ import com.run.treadmill.util.ActivityUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.MsgWhat;
 import com.run.treadmill.util.StringUtil;
-import com.run.treadmill.util.ThreadUtils;
+import com.run.treadmill.util.thread.ThreadUtils;
 import com.run.treadmill.util.VolumeUtils;
 
 import java.lang.ref.WeakReference;

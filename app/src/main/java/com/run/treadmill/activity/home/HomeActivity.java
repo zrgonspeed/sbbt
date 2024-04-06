@@ -33,7 +33,7 @@ import com.run.treadmill.update.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.PermissionUtil;
-import com.run.treadmill.util.ThreadUtils;
+import com.run.treadmill.util.thread.ThreadUtils;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
 import com.wang.avi.AVLoadingIndicatorView;
 

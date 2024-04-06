@@ -13,7 +13,7 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.ResourceUtils;
-import com.run.treadmill.util.ThreadUtils;
+import com.run.treadmill.util.thread.ThreadUtils;
 import com.run.treadmill.widget.BlurringView;
 
 // 图片轮播图，淡入淡出

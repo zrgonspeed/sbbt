@@ -1,4 +1,4 @@
-package com.run.treadmill.util;
+package com.run.treadmill.util.thread;
 
 import android.os.Handler;
 import android.os.Looper;
