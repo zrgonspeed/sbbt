@@ -15,6 +15,7 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.clicktime.HomeClickMediaUtils;
+import com.run.treadmill.util.thread.DelayUtils;
 
 public class HomeMedia extends BaseHomeHelp {
 
@@ -42,12 +43,12 @@ public class HomeMedia extends BaseHomeHelp {
             return;
         }
 
-        activity.tv_home_media.postDelayed(() -> {
+        DelayUtils.post(activity.tv_home_media, 200, () -> {
             activity.tv_home_media.setSelected(true);
             activity.closeLeft();
             openMedia();
             activity.isOnClicking = false;
-        }, 200);
+        });
     }
 
     private void openMedia() {
@@ -166,10 +167,10 @@ public class HomeMedia extends BaseHomeHelp {
                 closeMedia();
                 break;
             case R.id.iv_media_app:
-                view.postDelayed(() -> {
+                DelayUtils.post(view, 100, () -> {
                     openMediaAppList();
                     activity.isOnClicking = false;
-                }, 100);
+                });
                 break;
             case R.id.iv_media_app_back:
                 backMediaAppList();

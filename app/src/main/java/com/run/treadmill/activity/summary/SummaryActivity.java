@@ -20,9 +20,9 @@ import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.FileUtil;
-import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.TimeStringUtil;
 import com.run.treadmill.util.UnitUtil;
+import com.run.treadmill.util.thread.DelayUtils;
 import com.run.treadmill.widget.LineGraphicView;
 import com.run.treadmill.widget.summary.SportRoundGraph;
 
@@ -142,14 +142,14 @@ public class SummaryActivity extends BaseActivity<SummaryView, SummaryPresenter>
             return;
         }
         clickedHome = true;
-        view.postDelayed(() -> {
+        DelayUtils.post(view, 100, () -> {
             BuzzerManager.getInstance().buzzerRingOnce();
             if (waiteTimer != null) {
                 waiteTimer.closeTimer();
                 waiteTimer = null;
             }
             finish();
-        }, 100);
+        });
     }
 
     @Override

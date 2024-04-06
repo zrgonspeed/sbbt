@@ -16,6 +16,7 @@ import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.KeyUtils;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.thread.DelayUtils;
 
 import java.util.Arrays;
 
@@ -134,9 +135,9 @@ public class QuickStartBottomFloat extends BaseRunBottomFloat implements View.On
     @Override
     public void afterPrepare() {
         if (curIsHomeBottom()) {
-            tv_home_quickstart.postDelayed(() -> {
+            DelayUtils.post(tv_home_quickstart, 200, () -> {
                 showRunBottom();
-            }, 200);
+            });
         }
 
         if (mfwm.mRunningParam.isPrepare()) {

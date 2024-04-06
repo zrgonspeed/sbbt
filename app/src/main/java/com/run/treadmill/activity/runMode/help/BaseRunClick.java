@@ -6,6 +6,7 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
+import com.run.treadmill.util.thread.DelayUtils;
 
 public class BaseRunClick {
     public static void click(BaseRunActivity activity, View view) {
@@ -61,7 +62,7 @@ public class BaseRunClick {
                 break;
             case R.id.btn_pause_continue:
                 BuzzerManager.getInstance().buzzerRingOnce();
-                activity.btn_pause_continue.postDelayed(() -> {
+                DelayUtils.post(activity.btn_pause_continue, 300, () -> {
                     if (activity.mRunningParam.isRunningEnd()) {
                         return;
                     }
@@ -72,7 +73,7 @@ public class BaseRunClick {
                     activity.run_pop_pause.setVisibility(View.GONE);
                     activity.runPause.stopPauseTimer();
                     activity.showPreparePlayVideo(0);
-                }, 300);
+                });
                 break;
             case R.id.btn_pause_quit:
                 if (!activity.mRunningParam.isStopStatus()) {

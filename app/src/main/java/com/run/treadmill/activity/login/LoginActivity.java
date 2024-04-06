@@ -14,6 +14,7 @@ import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.base.factory.CreatePresenter;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.thread.DelayUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -89,10 +90,10 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         switch (view.getId()) {
             case R.id.bt_guest:
                 Logger.i("click");
-                bt_guest.postDelayed(() -> {
+                DelayUtils.post(bt_guest, 200, () -> {
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     finish();
-                }, 200);
+                });
                 break;
         }
     }

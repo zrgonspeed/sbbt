@@ -10,9 +10,10 @@ import com.run.treadmill.activity.setting.SettingActivity;
 import com.run.treadmill.sysbt.BtAppUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.SystemWifiUtils;
-import com.run.treadmill.widget.floatWindow.WifiBackFloatWindowManager;
 import com.run.treadmill.util.clicktime.HomeClickMediaUtils;
 import com.run.treadmill.util.clicktime.HomeClickUtils;
+import com.run.treadmill.util.thread.DelayUtils;
+import com.run.treadmill.widget.floatWindow.WifiBackFloatWindowManager;
 
 public class HomeClick extends BaseHomeHelp {
 
@@ -52,9 +53,9 @@ public class HomeClick extends BaseHomeHelp {
 
         switch (view.getId()) {
             case R.id.tv_home_quickstart:
-                view.postDelayed(() -> {
+                DelayUtils.post(view, 150, () -> {
                     GoRun.quickStart(activity);
-                }, 150);
+                });
                 break;
             case R.id.iv_float_close:
                 activity.closeLeft();
@@ -76,15 +77,15 @@ public class HomeClick extends BaseHomeHelp {
                 break;
 
             case R.id.tv_home_signin:
-                view.postDelayed(() -> {
+                DelayUtils.post(view, 100, () -> {
                     activity.startActivity(new Intent(activity, LoginActivity.class));
-                }, 100);
+                });
                 break;
 
             case R.id.tv_home_setting:
-                view.postDelayed(() -> {
+                DelayUtils.post(view, 100, () -> {
                     activity.startActivity(new Intent(activity, SettingActivity.class));
-                }, 100);
+                });
                 break;
 
             case R.id.tv_home_media:

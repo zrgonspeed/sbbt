@@ -13,6 +13,7 @@ import android.widget.TextClock;
 import com.run.treadmill.R;
 import com.run.treadmill.activity.floatWindow.FloatWindowManager;
 import com.run.treadmill.manager.ErrorManager;
+import com.run.treadmill.util.thread.DelayUtils;
 
 public abstract class BaseRunTopFloat {
     private Context mContext;
@@ -121,9 +122,9 @@ public abstract class BaseRunTopFloat {
 
     public void afterPrepare() {
         if (curIsHomeTop()) {
-            mFloatWindow.postDelayed(() -> {
+            DelayUtils.post(mFloatWindow, 200, () -> {
                 showRunTop();
-            }, 200);
+            });
         }
     }
 }
