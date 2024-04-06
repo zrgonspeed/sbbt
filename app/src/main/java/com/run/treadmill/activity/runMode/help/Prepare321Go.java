@@ -144,7 +144,7 @@ public class Prepare321Go {
     // 321GO之后，禁用1秒暂停键
     private void disPauseBtn() {
         activity.disPauseBtn = true;
-        activity.btn_start_stop_skip.setEnabled(false);
+        activity.iv_pause.setEnabled(false);
         Logger.i("disPauseBtn = true");
         ThreadUtils.runInThread(() -> {
             activity.disPauseBtn = false;
@@ -152,7 +152,7 @@ public class Prepare321Go {
 
             if (!activity.isDestroyed()) {
                 activity.runOnUiThread(() -> {
-                    activity.btn_start_stop_skip.setEnabled(true);
+                    activity.iv_pause.setEnabled(true);
                 });
             }
         }, 1000);
