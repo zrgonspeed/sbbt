@@ -8,4 +8,10 @@ public class DelayUtils {
             runnable.run();
         }, delay);
     }
+
+    public static void post(View view, Runnable runnable) {
+        view.post(() -> {
+            runnable.run();
+        });
+    }
 }

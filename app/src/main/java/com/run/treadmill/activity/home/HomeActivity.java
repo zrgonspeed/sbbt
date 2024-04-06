@@ -140,6 +140,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     }
 
     private void onCreate2() {
+        Logger.d("Home onCreate2()");
+
         //开机上电需要reboot时间
         isNormal = false;
 
@@ -177,6 +179,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     }
 
     private void onResume2() {
+        Logger.d("Home onResume2()");
         homeAnimation.resume();
 
         OtaMcuUtils.curIsOtamcu = false;

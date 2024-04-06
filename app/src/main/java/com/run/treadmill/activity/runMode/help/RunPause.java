@@ -14,8 +14,9 @@ import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.ResourceUtils;
 import com.run.treadmill.util.StringUtil;
-import com.run.treadmill.util.thread.ThreadUtils;
 import com.run.treadmill.util.TimeStringUtil;
+import com.run.treadmill.util.thread.DelayUtils;
+import com.run.treadmill.util.thread.ThreadUtils;
 
 public class RunPause implements CustomTimer.TimerCallBack {
     private BaseRunActivity activity;
@@ -49,7 +50,7 @@ public class RunPause implements CustomTimer.TimerCallBack {
         if (tag.equals(pauseTimerTag)) {
             if (activity.mRunningParam.isStopStatus()) {
                 stopPauseTimer();
-                activity.btn_pause_quit.post(() -> {
+                DelayUtils.post(activity.btn_pause_quit, () -> {
                     activity.click(activity.btn_pause_quit);
                 });
             }
