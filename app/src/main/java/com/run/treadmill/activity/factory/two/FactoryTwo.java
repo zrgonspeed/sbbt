@@ -37,7 +37,7 @@ import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.util.receiver.USBBroadcastReceiver;
 import com.run.treadmill.util.FileUtil;
 import com.run.treadmill.util.Logger;
-import com.run.treadmill.util.AppInit;
+import com.run.treadmill.reboot.AppInit;
 import com.run.treadmill.util.TimeStringUtil;
 import com.run.treadmill.util.UnitUtil;
 import com.run.treadmill.util.VersionUtil;

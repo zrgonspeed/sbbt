@@ -18,14 +18,12 @@ import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.sysbt.BtAppReboot;
 import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.update.thirdapp.other.IgnoreSendMessageUtils;
-import com.run.treadmill.util.AppInit;
 import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.LanguageUtil;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.ThreadUtils;
 import com.run.treadmill.util.VolumeUtils;
-import com.run.treadmill.util.thread.ThreadPoolManager;
 
 import org.litepal.LitePalApplication;
 

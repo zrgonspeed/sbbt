@@ -1,4 +1,4 @@
-package com.run.treadmill.util;
+package com.run.treadmill.reboot;
 
 import android.Manifest;
 import android.content.Context;
