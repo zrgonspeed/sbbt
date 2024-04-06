@@ -31,13 +31,13 @@
         android:layout_width="@dimen/dp_px_64_x"
         android:layout_height="@dimen/dp_px_64_x"
         android:layout_marginStart="@dimen/dp_px_456_x"
-        android:background="@drawable/btn_workout_alarm_clock_on_1" />
+        android:background="@drawable/btn_workout_alarm_clock_off_1" />
 
     <ImageView
         android:layout_width="@dimen/dp_px_64_x"
         android:layout_height="@dimen/dp_px_64_x"
         android:layout_marginStart="@dimen/dp_px_570_x"
-        android:background="@drawable/btn_workout_wearables_on_1" />
+        android:background="@drawable/btn_workout_wearables_off_1" />
 
     <ImageView
         android:id="@+id/img_voice"
