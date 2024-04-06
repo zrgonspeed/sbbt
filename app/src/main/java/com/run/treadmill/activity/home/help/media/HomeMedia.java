@@ -12,14 +12,27 @@ import com.run.treadmill.activity.home.HomeActivity;
 import com.run.treadmill.activity.home.help.BaseHomeHelp;
 import com.run.treadmill.activity.home.help.GoRun;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.reboot.MyApplication;
 import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.util.Logger;
-import com.run.treadmill.util.clicktime.HomeClickMedia;
+import com.run.treadmill.util.clicktime.HomeClickMediaUtils;
 
 public class HomeMedia extends BaseHomeHelp {
+
+    private String[] pkgName;
+    private String[] apkViewNames;
+    private int[] drawable;
+    private RecyclerView rv_media_app;
+    private HomeAndRunAppAdapter appAdapter;
+
     public HomeMedia(HomeActivity activity) {
         super(activity);
+    }
+
+    // 刷新列表item变为可点
+    public void onResume() {
+        if (appAdapter != null) {
+            appAdapter.refresh();
+        }
     }
 
     public void clickMedia() {
@@ -75,14 +88,29 @@ public class HomeMedia extends BaseHomeHelp {
     }
 
     private void initAppList() {
-        final String[] pkgName = HomeAndRunAppUtils.getPkgNames();
-        int[] drawable = HomeAndRunAppUtils.getHomeDrawables();
-        String[] apkViewNames = HomeAndRunAppUtils.getViewNames();
+        if (pkgName == null) {
+            initAppAdapter();
+            initRecyclerView();
+        }
+    }
 
-        RecyclerView rv_media_app = activity.findViewById(R.id.rv_media_app);
+    private void initAppAdapter() {
+        pkgName = HomeAndRunAppUtils.getPkgNames();
+        drawable = HomeAndRunAppUtils.getHomeDrawables();
+        apkViewNames = HomeAndRunAppUtils.getViewNames();
 
+        appAdapter = new HomeAndRunAppAdapter(activity, drawable);
+        appAdapter.setNames(apkViewNames);
+        appAdapter.setOnItemClick(position -> {
+            clickItemApp(position);
+        });
+    }
+
+    private void initRecyclerView() {
         GridLayoutManager glm1 = new GridLayoutManager(activity, 2);
         glm1.setOrientation(RecyclerView.HORIZONTAL);
+
+        rv_media_app = activity.findViewById(R.id.rv_media_app);
         rv_media_app.setLayoutManager(glm1);
         // 跟显示滑动条有关
         rv_media_app.addItemDecoration(new RecyclerView.ItemDecoration() {
@@ -94,31 +122,28 @@ public class HomeMedia extends BaseHomeHelp {
                 outRect.right = 0;
             }
         });
+        rv_media_app.setAdapter(appAdapter);
+    }
 
-        int[] drawable1 = new int[drawable.length];
-        System.arraycopy(drawable, 0, drawable1, 0, drawable1.length);
+    private void clickItemApp(int position) {
+        if (activity.isOnPause) {
+            return;
+        }
 
-        HomeAppAdapter adapter1 = new HomeAppAdapter(MyApplication.getContext(), drawable1);
-        adapter1.setNames(apkViewNames);
+        if (!HomeClickMediaUtils.canResponse()) {
+            Logger.e("clickItemApp 不准点快");
+            return;
+        }
 
-        rv_media_app.setAdapter(adapter1);
-        adapter1.setOnItemClick(position -> {
-/*            if (!isCanStart && !AppDebug.debug) {
-                return;
-            }*/
-            if (activity.isOnPause){
-                return;
-            }
+        BuzzerManager.getInstance().buzzerRingOnce();
 
-            String mediaPkName = pkgName[position];
-            Logger.i("点击了 " + apkViewNames[position] + "   " + mediaPkName);
+        String mediaPkName = pkgName[position];
+        Logger.i("home 点击了 " + apkViewNames[position] + "   " + mediaPkName);
 
-            enterThirdApp(mediaPkName);
-        });
+        enterThirdApp(mediaPkName);
     }
 
     private void enterThirdApp(String mediaPkName) {
-        BuzzerManager.getInstance().buzzerRingOnce();
         GoRun.homeMediaToQuickStart(activity, mediaPkName);
     }
 
@@ -130,7 +155,7 @@ public class HomeMedia extends BaseHomeHelp {
                         view.getId() == R.id.iv_media_app_x ||
                         view.getId() == R.id.iv_media_app_back
         ) {
-            if (!HomeClickMedia.canResponse()) {
+            if (!HomeClickMediaUtils.canResponse()) {
                 Logger.i("不准点太快Media里的View");
                 return;
             }

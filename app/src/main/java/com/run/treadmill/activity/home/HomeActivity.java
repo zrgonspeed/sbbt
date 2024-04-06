@@ -128,9 +128,15 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         super.onResume();
         isOnClicking = false;
 
+        onResume1_must();
         ThreadUtils.postOnMainThread(() -> {
             onResume2();
         }, 1100);
+    }
+
+    // 不能延时的,需要立刻执行
+    private void onResume1_must() {
+        homeMedia.onResume();
     }
 
     private void onCreate2() {

@@ -1,6 +1,6 @@
 package com.run.treadmill.util.clicktime;
 
-public class HomeClickMedia {
+public class HomeClickMediaUtils {
     private static long lastBuzzOnceTime;
 
     public static boolean canResponse() {

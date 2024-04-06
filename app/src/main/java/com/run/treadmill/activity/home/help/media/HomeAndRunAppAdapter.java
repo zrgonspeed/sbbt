@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.run.treadmill.R;
 
-public class HomeAppAdapter extends RecyclerView.Adapter<HomeAppAdapter.ViewHolder> {
+public class HomeAndRunAppAdapter extends RecyclerView.Adapter<HomeAndRunAppAdapter.ViewHolder> {
     private int[] imgs;
     private String[] apkNames;
     private OnItemClick mOnItemClick;
     private Context context;
 
-    public HomeAppAdapter(Context context, int[] list) {
+    public HomeAndRunAppAdapter(Context context, int[] list) {
         this.context = context;
         if (list == null) {
             imgs = new int[]{};
@@ -34,9 +34,14 @@ public class HomeAppAdapter extends RecyclerView.Adapter<HomeAppAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.img_media_app.setImageResource(imgs[position]);
+        holder.img_media_app.setEnabled(true);
+        holder.img_media_app.setSelected(false);
+
         holder.tv_name.setText(apkNames[position]);
         if (mOnItemClick != null) {
             holder.img_media_app.setOnClickListener(v -> {
+                holder.img_media_app.setSelected(true);
+                holder.img_media_app.setEnabled(false);
                 mOnItemClick.setOnItemClick(position);
             });
         }
@@ -69,5 +74,9 @@ public class HomeAppAdapter extends RecyclerView.Adapter<HomeAppAdapter.ViewHold
             img_media_app = itemView.findViewById(R.id.img_media_app);
             tv_name = itemView.findViewById(R.id.tv_app_name);
         }
+    }
+
+    public void refresh() {
+        notifyDataSetChanged();
     }
 }

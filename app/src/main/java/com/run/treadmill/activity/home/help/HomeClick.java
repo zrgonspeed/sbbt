@@ -11,7 +11,7 @@ import com.run.treadmill.sysbt.BtAppUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.SystemWifiUtils;
 import com.run.treadmill.util.WifiBackFloatWindowManager;
-import com.run.treadmill.util.clicktime.HomeClickMedia;
+import com.run.treadmill.util.clicktime.HomeClickMediaUtils;
 import com.run.treadmill.util.clicktime.HomeClickUtils;
 
 public class HomeClick extends BaseHomeHelp {
@@ -27,7 +27,7 @@ public class HomeClick extends BaseHomeHelp {
         }
         // 再加一层防止快点
         if (view.getId() == R.id.tv_home_media) {
-            if (!HomeClickMedia.canResponse()) {
+            if (!HomeClickMediaUtils.canResponse()) {
                 Logger.i("不准点太快Media");
                 return;
             }

@@ -3,7 +3,7 @@ package com.run.treadmill;
 
 import com.run.serial.RxDataCallBack;
 import com.run.treadmill.activity.factory.FactoryPresenter;
-import com.run.treadmill.activity.floatWindow.FloatWindowManager;
+import com.run.treadmill.activity.floatWindow.mcu.FloatMcuData;
 import com.run.treadmill.activity.home.help.HomeMcu;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.ControlManager;
@@ -56,7 +56,7 @@ public class Custom {
             }
 
             default void floatWindow() {
-                new FloatWindowManager(null).onSucceed(null, 0);
+                FloatMcuData.onSucceed(null, 0, null);
             }
 
             default void factory() {

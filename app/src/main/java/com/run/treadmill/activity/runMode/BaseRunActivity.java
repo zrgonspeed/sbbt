@@ -215,7 +215,7 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
 
         // normal状态
         String pkgName = getIntent().getStringExtra(CTConstant.PK_NAME);
-        runMedia.enterThirdApk(CTConstant.QUICKSTART, pkgName);
+        runMedia.enterThirdApp(CTConstant.QUICKSTART, pkgName);
         rl_main.setVisibility(View.GONE);
 
         onCreate2();
@@ -239,6 +239,8 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     protected void onResume() {
         super.onResume();
         Logger.i("BaseRun onResume");
+
+        runMedia.onResume();
         if (quickToMedia) {
             onResume_homeAppToRun();
         } else {

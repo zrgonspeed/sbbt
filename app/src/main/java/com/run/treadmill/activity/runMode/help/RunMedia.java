@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.run.android.ShellCmdUtils;
 import com.run.treadmill.R;
-import com.run.treadmill.activity.home.help.media.HomeAppAdapter;
+import com.run.treadmill.activity.home.help.media.HomeAndRunAppAdapter;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.common.CTConstant;
@@ -26,7 +26,17 @@ import com.run.treadmill.util.ThirdApkSupport;
 
 public class RunMedia {
     private String mediaPkgName = "";
-    public RelativeLayout rl_run_media_application;
+    private RelativeLayout rl_run_media_application;
+    private HomeAndRunAppAdapter appAdapter;
+    private String[] pkgName;
+    private int[] drawable;
+    private String[] apkViewNames;
+
+    public void onResume() {
+        if (appAdapter != null) {
+            appAdapter.refresh();
+        }
+    }
 
     public void clickMedia() {
         Logger.i("R.id.iv_run_media");
@@ -36,10 +46,7 @@ public class RunMedia {
         activity.runGraph.hide();
 
         // 2.加载和显示app列表
-        if (rl_run_media_application == null) {
-            Logger.i("rl_run_media_application == null  初始化媒体列表");
-            initAppList();
-        }
+        initApp();
 
         // 3.显示布局
         showAppList();
@@ -58,39 +65,46 @@ public class RunMedia {
         activity.iv_run_media.setSelected(false);
     }
 
-    private void initAppList() {
+    private void initApp() {
+        if (rl_run_media_application != null) {
+            return;
+        }
+        Logger.i("rl_run_media_application == null  初始化媒体列表");
         rl_run_media_application = activity.findViewById(R.id.run_media_application);
-        RecyclerView rv_media_app = activity.findViewById(R.id.rv_media_app);
+
+        initCloseEvent();
+
+        initAppAdapter();
+
+        initRecyclerView();
+    }
+
+    private void initCloseEvent() {
         ImageView iv_media_app_x = activity.findViewById(R.id.iv_media_app_x);
         iv_media_app_x.setOnClickListener((v) -> {
             BuzzerManager.getInstance().buzzerRingOnce();
             hideAppList();
             activity.runGraph.show();
         });
+    }
 
-        final String[] pkgName = HomeAndRunAppUtils.getPkgNames();
-        int[] drawable = HomeAndRunAppUtils.getHomeDrawables();
-        String[] apkViewNames = HomeAndRunAppUtils.getViewNames();
+    private void initAppAdapter() {
+        pkgName = HomeAndRunAppUtils.getPkgNames();
+        drawable = HomeAndRunAppUtils.getHomeDrawables();
+        apkViewNames = HomeAndRunAppUtils.getViewNames();
 
-        HomeAppAdapter appAdapter = new HomeAppAdapter(activity, drawable);
+        appAdapter = new HomeAndRunAppAdapter(activity, drawable);
         appAdapter.setNames(apkViewNames);
         appAdapter.setOnItemClick(position -> {
-            BuzzerManager.getInstance().buzzerRingOnce();
-            if (activity.isGoMedia) {
-                Logger.i("isGoMedia true 不给再打开第三方");
-                return;
-            }
-
-            activity.isGoMedia = true;
-            enterThirdApk(CTConstant.QUICKSTART, pkgName[position]);
-            activity.rl_main.setVisibility(View.GONE);
-
-            String mediaPkName = pkgName[position];
-            Logger.i("点击了 " + apkViewNames[position] + "   " + mediaPkName);
+            clickItemApp(position);
         });
+    }
 
+    private void initRecyclerView() {
         GridLayoutManager glm1 = new GridLayoutManager(activity, 2);
         glm1.setOrientation(RecyclerView.HORIZONTAL);
+
+        RecyclerView rv_media_app = activity.findViewById(R.id.rv_media_app);
         rv_media_app.setLayoutManager(glm1);
         // 跟显示滑动条有关
         rv_media_app.addItemDecoration(new RecyclerView.ItemDecoration() {
@@ -105,12 +119,25 @@ public class RunMedia {
         rv_media_app.setAdapter(appAdapter);
     }
 
-    public synchronized void enterThirdApk(@CTConstant.RunMode int runMode, String pkgName) {
+    private void clickItemApp(int position) {
+        if (activity.isGoMedia) {
+            Logger.i("isGoMedia true 不给再打开第三方");
+            return;
+        }
+        activity.isGoMedia = true;
+
+        BuzzerManager.getInstance().buzzerRingOnce();
+
+        String mediaPkName = pkgName[position];
+        Logger.i("run 点击了 " + apkViewNames[position] + "   " + mediaPkName);
+
+        activity.rl_main.setVisibility(View.GONE);
+        enterThirdApp(CTConstant.QUICKSTART, pkgName[position]);
+    }
+
+    public synchronized void enterThirdApp(@CTConstant.RunMode int runMode, String pkgName) {
         RunningParam mRunningParam = activity.mRunningParam;
-
         mRunningParam.isFloat = true;
-        Logger.i("isFloat " + true);
-
         ControlManager.getInstance().setSendWaiteTime(70);
         mRunningParam.waiteTime = 955;
         mRunningParam.waiteNanosTime = 14000;
