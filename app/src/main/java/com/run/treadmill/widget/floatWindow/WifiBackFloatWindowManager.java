@@ -14,4 +14,11 @@ public class WifiBackFloatWindowManager {
         wifiBackFloatWindow = new WifiBackFloatWindow(MyApplication.getContext());
         wifiBackFloatWindow.startFloat();
     }
+
+    public static void stopFloat() {
+        if (wifiBackFloatWindow != null) {
+            wifiBackFloatWindow.stopFloatNew();
+            wifiBackFloatWindow = null;
+        }
+    }
 }

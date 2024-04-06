@@ -35,6 +35,7 @@ import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.PermissionUtil;
 import com.run.treadmill.util.thread.ThreadUtils;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
+import com.run.treadmill.widget.floatWindow.WifiBackFloatWindowManager;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
@@ -137,6 +138,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     // 不能延时的,需要立刻执行
     private void onResume1_must() {
         homeMedia.onResume();
+        WifiBackFloatWindowManager.stopFloat();
     }
 
     private void onCreate2() {
