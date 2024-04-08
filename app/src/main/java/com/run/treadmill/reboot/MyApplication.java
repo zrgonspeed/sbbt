@@ -22,6 +22,7 @@ import com.run.treadmill.util.CrashHandler;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.LanguageUtil;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.ToastUtils;
 import com.run.treadmill.util.thread.ThreadUtils;
 import com.run.treadmill.util.VolumeUtils;
 
@@ -156,6 +157,7 @@ public class MyApplication extends LitePalApplication implements Custom.Applicat
             }).start();
 
             ThreadUtils.initThreadPool();
+            ToastUtils.init(this);
         }
 
         HomeThirdAppUpdateManager.getInstance().setNewCheck(true);

@@ -23,6 +23,7 @@ import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.util.ActivityUtils;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.ThirdApkSupport;
+import com.run.treadmill.util.ToastUtils;
 
 public class RunMedia {
     private String mediaPkgName = "";
@@ -129,7 +130,14 @@ public class RunMedia {
         BuzzerManager.getInstance().buzzerRingOnce();
 
         String mediaPkName = pkgName[position];
-        Logger.i("run 点击了 " + apkViewNames[position] + "   " + mediaPkName);
+        String apkViewName = apkViewNames[position];
+        Logger.i("run 点击了 " + apkViewName + "   " + mediaPkName);
+
+        if (!ThirdApkSupport.checkApkExist(activity, mediaPkName)) {
+            Logger.e("没有安装 " + mediaPkName);
+            ToastUtils.showShort("Not installed");
+            return;
+        }
 
         activity.rl_main.setVisibility(View.GONE);
         enterThirdApp(CTConstant.QUICKSTART, pkgName[position]);

@@ -14,6 +14,8 @@ import com.run.treadmill.activity.home.help.GoRun;
 import com.run.treadmill.manager.BuzzerManager;
 import com.run.treadmill.update.thirdapp.main.HomeAndRunAppUtils;
 import com.run.treadmill.util.Logger;
+import com.run.treadmill.util.ThirdApkSupport;
+import com.run.treadmill.util.ToastUtils;
 import com.run.treadmill.util.clicktime.HomeClickMediaUtils;
 import com.run.treadmill.util.thread.DelayUtils;
 
@@ -139,7 +141,14 @@ public class HomeMedia extends BaseHomeHelp {
         BuzzerManager.getInstance().buzzerRingOnce();
 
         String mediaPkName = pkgName[position];
-        Logger.i("home 点击了 " + apkViewNames[position] + "   " + mediaPkName);
+        String apkViewName = apkViewNames[position];
+        Logger.i("home 点击了 " + apkViewName + "   " + mediaPkName);
+
+        if (!ThirdApkSupport.checkApkExist(activity, mediaPkName)) {
+            Logger.e("没有安装 " + mediaPkName);
+            ToastUtils.showShort("Not installed");
+            return;
+        }
 
         enterThirdApp(mediaPkName);
     }
