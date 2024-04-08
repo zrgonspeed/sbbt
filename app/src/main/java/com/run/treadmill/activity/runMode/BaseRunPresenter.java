@@ -7,6 +7,7 @@ import android.os.Message;
 import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
 import com.run.treadmill.Custom;
+import com.run.treadmill.activity.runMode.help.RunMcu;
 import com.run.treadmill.base.BasePresenter;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.mcu.control.ControlManager;
@@ -123,24 +124,7 @@ public abstract class BaseRunPresenter<V extends BaseRunView> extends BasePresen
     @Override
     public void onSucceed(byte[] data, int len) {
         super.onSucceed(data, len);
-        // 常态包打印
-        if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
-            NormalParam.print(data);
-        }
-
-        if (mRunningParam == null) {
-            return;
-        }
-        if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
-            if (NormalParam.getHr1(data) == 0) {
-                mRunningParam.setCurrPulse(NormalParam.getHr2(data));
-            } else {
-                mRunningParam.setCurrPulse(NormalParam.getHr1(data));
-            }
-
-            mRunningParam.setCurrAD(NormalParam.getIncline(data));
-            mRunningParam.setStepNumber(NormalParam.getStep(data));
-        }
+        RunMcu.onSucceed(data, len);
     }
 
     @Override

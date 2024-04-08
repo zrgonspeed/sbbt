@@ -1,7 +1,11 @@
 package com.run.treadmill.activity.runMode.help;
 
+import com.run.serial.SerialCommand;
 import com.run.treadmill.activity.runMode.BaseRunActivity;
+import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.manager.ErrorManager;
+import com.run.treadmill.mcu.param.NormalParam;
+import com.run.treadmill.mcu.param.ParamCons;
 import com.run.treadmill.util.Logger;
 
 public class RunMcu {
@@ -9,6 +13,24 @@ public class RunMcu {
 
     public RunMcu(BaseRunActivity baseRunActivity) {
         this.activity = baseRunActivity;
+    }
+
+    public static void onSucceed(byte[] data, int len) {
+        // 常态包打印
+        if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
+            NormalParam.print(data);
+        }
+
+        if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
+            if (NormalParam.getHr1(data) == 0) {
+                RunningParam.getInstance().setCurrPulse(NormalParam.getHr2(data));
+            } else {
+                RunningParam.getInstance().setCurrPulse(NormalParam.getHr1(data));
+            }
+
+            RunningParam.getInstance().setCurrAD(NormalParam.getIncline(data));
+            RunningParam.getInstance().setStepNumber(NormalParam.getStep(data));
+        }
     }
 
     public void beltAndInclineStatus(int beltStatus, int inclineStatus, int curInclineAd) {
