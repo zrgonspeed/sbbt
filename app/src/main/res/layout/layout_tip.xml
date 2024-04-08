@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_tip"
     android:layout_width="@dimen/dp_px_1920_x"
     android:layout_height="@dimen/dp_px_1080_y"
     android:background="@color/transparent_black"
-    android:clickable="true">
+    android:clickable="true"
+    app:touch_effects_forbid="true"
+    app:touch_effects_type="none">
 
     <!-- 提示更新   -->
     <RelativeLayout
         android:id="@+id/rl_update"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:clickable="false"
+        android:focusable="false"
+        android:visibility="gone"
+        app:touch_effects_forbid="true"
+        app:touch_effects_type="none">
 
         <ImageView
             android:id="@+id/im_update_bk"
@@ -43,7 +50,11 @@
         android:id="@+id/rl_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:clickable="false"
+        android:focusable="false"
+        android:visibility="gone"
+        app:touch_effects_forbid="true"
+        app:touch_effects_type="none">
 
         <com.run.treadmill.widget.MultiClickAndLongPressView
             android:id="@+id/lpv_update"
@@ -63,7 +74,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_px_250_y"
             android:src="@drawable/img_pop_bk"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:touch_effects_forbid="true"
+            app:touch_effects_type="none" />
 
         <ImageView
             android:id="@+id/img_err_icon"
@@ -71,7 +84,9 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_px_300_y"
-            android:src="@drawable/img_factory_update_2" />
+            android:src="@drawable/img_factory_update_2"
+            app:touch_effects_forbid="true"
+            app:touch_effects_type="none" />
 
         <TextView
             android:id="@+id/tv_err"
