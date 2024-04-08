@@ -4,7 +4,7 @@ import com.run.treadmill.Custom;
 import com.run.treadmill.activity.EmptyMessageTask;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.ControlManager;
+import com.run.treadmill.mcu.control.ControlManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.Logger;

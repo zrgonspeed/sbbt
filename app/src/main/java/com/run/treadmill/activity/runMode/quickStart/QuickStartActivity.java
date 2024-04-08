@@ -13,7 +13,7 @@ import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.activity.summary.SummaryActivity;
 import com.run.treadmill.base.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.ControlManager;
+import com.run.treadmill.mcu.control.ControlManager;
 import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.fitshow.other.FitShowRunningCallBack;
 import com.run.treadmill.serial.SerialKeyValue;

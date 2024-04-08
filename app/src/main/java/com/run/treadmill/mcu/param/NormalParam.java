@@ -1,4 +1,4 @@
-package com.run.treadmill.manager.control;
+package com.run.treadmill.mcu.param;
 
 import android.util.Log;
 

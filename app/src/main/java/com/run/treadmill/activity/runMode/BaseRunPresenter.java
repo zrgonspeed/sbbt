@@ -9,11 +9,11 @@ import com.run.serial.SerialUtils;
 import com.run.treadmill.Custom;
 import com.run.treadmill.base.BasePresenter;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.manager.ControlManager;
+import com.run.treadmill.mcu.control.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.sp.SpManager;
-import com.run.treadmill.manager.control.NormalParam;
-import com.run.treadmill.manager.control.ParamCons;
+import com.run.treadmill.mcu.param.NormalParam;
+import com.run.treadmill.mcu.param.ParamCons;
 import com.run.treadmill.util.FormulaUtil;
 import com.run.treadmill.util.UnitUtil;
 

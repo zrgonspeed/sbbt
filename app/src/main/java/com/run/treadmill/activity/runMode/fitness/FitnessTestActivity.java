@@ -14,7 +14,7 @@ import com.run.treadmill.activity.summary.SummaryActivity;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.base.factory.CreatePresenter;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.ControlManager;
+import com.run.treadmill.mcu.control.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.serial.SerialKeyValue;
 import com.run.treadmill.util.StringUtil;

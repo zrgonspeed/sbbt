@@ -1,4 +1,4 @@
-package com.run.treadmill.manager;
+package com.run.treadmill.mcu.control;
 
 import android.content.Context;
 
@@ -9,10 +9,8 @@ import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
 import com.run.treadmill.Custom;
-import com.run.treadmill.manager.control.ControlStrategy;
-import com.run.treadmill.manager.control.DcControl;
-import com.run.treadmill.manager.control.NormalParam;
-import com.run.treadmill.manager.control.ParamCons;
+import com.run.treadmill.mcu.param.NormalParam;
+import com.run.treadmill.mcu.param.ParamCons;
 import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.UnitUtil;
 

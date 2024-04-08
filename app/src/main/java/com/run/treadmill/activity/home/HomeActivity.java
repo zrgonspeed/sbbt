@@ -26,7 +26,7 @@ import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.base.BaseActivity;
 import com.run.treadmill.base.factory.CreatePresenter;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.manager.ControlManager;
+import com.run.treadmill.mcu.control.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.reboot.MyApplication;

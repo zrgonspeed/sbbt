@@ -1,9 +1,9 @@
 package com.run.treadmill.activity.home.help;
 
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.manager.ControlManager;
+import com.run.treadmill.mcu.control.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
-import com.run.treadmill.reboot.ReBootTask;
+import com.run.treadmill.mcu.ReBootTask;
 
 public class HomeSafeKeyTimeManager {
     public static int getDelayTime() {

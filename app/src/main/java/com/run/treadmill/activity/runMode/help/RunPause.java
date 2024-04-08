@@ -9,7 +9,7 @@ import com.run.treadmill.activity.runMode.BaseRunActivity;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.ControlManager;
+import com.run.treadmill.mcu.control.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.ResourceUtils;

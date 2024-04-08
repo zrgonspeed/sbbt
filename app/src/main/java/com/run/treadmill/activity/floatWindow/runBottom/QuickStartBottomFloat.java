@@ -8,7 +8,7 @@ import com.chuhui.btcontrol.CbData;
 import com.run.treadmill.R;
 import com.run.treadmill.common.InitParam;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.ControlManager;
+import com.run.treadmill.mcu.control.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.manager.FitShowManager;
 import com.run.treadmill.manager.fitshow.other.FitShowRunningCallBack;

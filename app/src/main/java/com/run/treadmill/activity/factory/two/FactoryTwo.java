@@ -30,7 +30,7 @@ import com.run.treadmill.update.homeupdate.main.ApkUpdateParam;
 import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
 import com.run.treadmill.util.http.OkHttpHelper;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.ControlManager;
+import com.run.treadmill.mcu.control.ControlManager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.manager.SystemSoundManager;
 import com.run.treadmill.otamcu.OtaMcuUtils;

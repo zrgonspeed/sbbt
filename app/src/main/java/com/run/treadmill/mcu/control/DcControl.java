@@ -1,4 +1,4 @@
-package com.run.treadmill.manager.control;
+package com.run.treadmill.mcu.control;
 
 import android.content.Context;
 
@@ -7,6 +7,7 @@ import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
 import com.run.treadmill.Custom;
 import com.run.treadmill.manager.ErrorManager;
+import com.run.treadmill.mcu.param.ParamCons;
 import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.Logger;
 

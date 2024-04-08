@@ -6,7 +6,7 @@ import com.run.treadmill.activity.factory.FactoryPresenter;
 import com.run.treadmill.activity.floatWindow.mcu.FloatMcuData;
 import com.run.treadmill.activity.home.help.HomeMcu;
 import com.run.treadmill.common.CTConstant;
-import com.run.treadmill.manager.ControlManager;
+import com.run.treadmill.mcu.control.ControlManager;
 
 /**
  * 方便跳转到需要修改的地方

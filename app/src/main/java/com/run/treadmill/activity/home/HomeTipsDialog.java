@@ -15,13 +15,12 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.factory.FactoryActivity;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.manager.BuzzerManager;
-import com.run.treadmill.manager.ControlManager;
+import com.run.treadmill.mcu.control.ControlManager;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.update.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.widget.MultiClickAndLongPressView;
-import com.run.treadmill.widget.WifiMultiClickAndLongPressView;
 
 public class HomeTipsDialog extends Dialog implements View.OnClickListener {
     private Context context;

@@ -1,4 +1,4 @@
-package com.run.treadmill.manager.control;
+package com.run.treadmill.mcu.control;
 
 import android.content.Context;
 
