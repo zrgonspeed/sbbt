@@ -15,10 +15,12 @@ import com.run.treadmill.R;
 import com.run.treadmill.activity.SafeKeyTimer;
 import com.run.treadmill.activity.factory.FactoryActivity;
 import com.run.treadmill.activity.floatWindow.otherFloat.LeftVoiceFloatWindow;
-import com.run.treadmill.activity.home.bg.HomeAnimation;
+import com.run.treadmill.activity.home.bg.HomeBgAnimation;
 import com.run.treadmill.activity.home.help.HomeClick;
 import com.run.treadmill.activity.home.help.HomeError;
+import com.run.treadmill.activity.home.help.HomeLoadAnim;
 import com.run.treadmill.activity.home.help.HomeMcu;
+import com.run.treadmill.activity.home.help.HomeSleepManager;
 import com.run.treadmill.activity.home.help.media.HomeMedia;
 import com.run.treadmill.activity.runMode.RunningParam;
 import com.run.treadmill.base.BaseActivity;
@@ -46,6 +48,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @BindView(R.id.rl_main)
     RelativeLayout rl_main;
     @BindView(R.id.tv_sleep)
+    public
     TextView tv_sleep;
 
     @BindView(R.id.tv_home_signin)
@@ -84,8 +87,10 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     View v_media_bg;
 
     @BindView(R.id.v_loading)
+    public
     View v_loading;
     @BindView(R.id.avv_load)
+    public
     AVLoadingIndicatorView avv_load;
 
     @BindView(R.id.btn_to_fact)
@@ -97,12 +102,13 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     public boolean isOnPause = false;
 
     public LeftVoiceFloatWindow voiceFW;
-    private HomeAnimation homeAnimation;
+    public HomeBgAnimation homeBgAnimation;
 
     private HomeSleepManager homeSleep = new HomeSleepManager(this);
     private HomeError homeError = new HomeError(this);
     private HomeMcu homeMcu = new HomeMcu(this);
     private HomeClick homeClick = new HomeClick(this);
+    private HomeLoadAnim homeLoadAnim = new HomeLoadAnim(this);
     public HomeMedia homeMedia = new HomeMedia(this);
 
     @Override
@@ -114,9 +120,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        onInitLoading();
-
-        tipsPop = new HomeTipsDialog(this);
+        homeLoadAnim.onInitLoading();
         setTipsPop();
 
         ThreadUtils.postOnMainThread(() -> {
@@ -164,8 +168,8 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         voiceFW = new LeftVoiceFloatWindow(this);
         voiceFW.init();
 
-        homeAnimation = new HomeAnimation(iv_home_bg, this);
-        homeAnimation.setBlur(false);   // 模糊按钮背景会卡卡的
+        homeBgAnimation = new HomeBgAnimation(iv_home_bg, this);
+        homeBgAnimation.setBlur(false);   // 模糊按钮背景会卡卡的
 
         // 进入工厂
         btn_to_fact.setOnMultiClickListener(() -> {
@@ -182,7 +186,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     private void onResume2() {
         Logger.d("Home onResume2()");
-        homeAnimation.resume();
+        homeBgAnimation.resume();
 
         OtaMcuUtils.curIsOtamcu = false;
         sleepWakeUpFlag = true;
@@ -206,6 +210,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     }
 
     private void setTipsPop() {
+        tipsPop = new HomeTipsDialog(this);
         tipsPop.setPresent(getPresenter());
         tipsPop.setOnTipDialogStatusChange(new HomeTipsDialog.OnTipDialogStatusChange() {
             @Override
@@ -275,7 +280,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         isOnPause = true;
         homeSleep.closeTimer();
         isFirst = false;
-        homeAnimation.pause();
+        homeBgAnimation.pause();
     }
 
     @Override
@@ -287,7 +292,7 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        homeAnimation.destroy();
+        homeBgAnimation.destroy();
     }
 
     @Override
@@ -414,25 +419,6 @@ public class HomeActivity extends BaseActivity<HomeView, HomePresenter> implemen
         if (tv_home_quickstart.isEnabled()) {
             tv_home_quickstart.setEnabled(AppDebug.debug ? true : false);
         }
-    }
-
-    private void onInitLoading() {
-        // https://gitcode.com/baitutang1221/AVLoadingIndicatorView/overview?utm_source=csdn_github_accelerator&isLogin=1
-
-        avv_load.setVisibility(View.VISIBLE);
-        v_loading.setVisibility(View.VISIBLE);
-        avv_load.show();
-        ThreadUtils.postOnMainThread(() -> {
-            closeLoading();
-            ThreadUtils.postOnMainThread(() -> {
-                homeAnimation.initAndStart();
-            }, 5000);
-        }, 2000);
-    }
-
-    private void closeLoading() {
-        v_loading.setVisibility(View.GONE);
-        avv_load.hide();
     }
 
     public void openLeft() {

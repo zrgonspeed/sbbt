@@ -1,27 +1,27 @@
-package com.run.treadmill.activity.home;
+package com.run.treadmill.activity.home.help;
 
 import android.view.View;
 
 import com.run.treadmill.Custom;
 import com.run.treadmill.activity.CustomTimer;
+import com.run.treadmill.activity.home.HomeActivity;
+import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.update.homeupdate.main.HomeApkUpdateManager;
 import com.run.treadmill.update.homeupdate.third.HomeThirdAppUpdateManager;
-import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.GpIoUtils;
 import com.run.treadmill.util.Logger;
 
-public class HomeSleepManager implements CustomTimer.TimerCallBack, Custom.HomeSleep {
-    private HomeActivity homeActivity;
+public class HomeSleepManager extends BaseHomeHelp implements CustomTimer.TimerCallBack, Custom.HomeSleep {
     public static final int SLEEP_TIME = Custom.HomeSleep.SLEEP_TIME;
 
     private final String sleepTag = "sleep";
     private CustomTimer mSleepTimer;
 
     public HomeSleepManager(HomeActivity homeActivity) {
-        this.homeActivity = homeActivity;
+        super(homeActivity);
     }
 
-    protected void startTimerOfSleep() {
+    public void startTimerOfSleep() {
         if (SpManager.getSleep()) {
             if (mSleepTimer == null) {
                 mSleepTimer = new CustomTimer();
@@ -50,12 +50,12 @@ public class HomeSleepManager implements CustomTimer.TimerCallBack, Custom.HomeS
                 return;
             }
             Logger.d("==========     睡眠     ==========");
-            homeActivity.getPresenter().inOnSleep = true;
+            activity.getPresenter().inOnSleep = true;
 
             GpIoUtils.setCloseScreen();
-            homeActivity.runOnUiThread(() -> homeActivity.tv_sleep.setVisibility(View.VISIBLE));
+            activity.runOnUiThread(() -> activity.tv_sleep.setVisibility(View.VISIBLE));
 
-            homeActivity.runOnUiThread(() -> {
+            activity.runOnUiThread(() -> {
                 // 隐藏第三方app更新弹窗
                 if (HomeThirdAppUpdateManager.getInstance().isShow()) {
                     HomeThirdAppUpdateManager.getInstance().hideDialog();
@@ -77,8 +77,8 @@ public class HomeSleepManager implements CustomTimer.TimerCallBack, Custom.HomeS
     public void wakeUpSleep() {
         if (GpIoUtils.checkScreenState() == GpIoUtils.IO_STATE_0) {
             GpIoUtils.setOpenScreen();
-            homeActivity.getPresenter().inOnSleep = false;
-            homeActivity.tv_sleep.setVisibility(View.GONE);
+            activity.getPresenter().inOnSleep = false;
+            activity.tv_sleep.setVisibility(View.GONE);
             // KeyLight.openLight();
         }
         startTimerOfSleep();

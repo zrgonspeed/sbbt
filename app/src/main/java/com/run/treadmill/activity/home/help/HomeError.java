@@ -38,7 +38,7 @@ public class HomeError extends BaseHomeHelp {
         activity.disableQuickStart();
         SafeKeyTimer.getInstance().registerSafeCb(activity);
         if (SafeKeyTimer.getInstance().getIsSafe()) {
-            SafeKeyTimer.getInstance().startTimer(SafeKeyTime.getSafeKeyDelayTime(), activity);
+            SafeKeyTimer.getInstance().startTimer(HomeSafeKeyTimeManager.getDelayTime(), activity);
         }
     }
 }

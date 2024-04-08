@@ -17,7 +17,7 @@ import com.run.treadmill.util.thread.ThreadUtils;
 import com.run.treadmill.widget.BlurringView;
 
 // 图片轮播图，淡入淡出
-public class HomeAnimation {
+public class HomeBgAnimation {
     private ImageView iv_home_bg;
     private HomeActivity activity;
 
@@ -27,7 +27,7 @@ public class HomeAnimation {
     private BlurringView blur_program;
     private BlurringView blur_setting;
 
-    public HomeAnimation(ImageView iv_home_bg, HomeActivity activity) {
+    public HomeBgAnimation(ImageView iv_home_bg, HomeActivity activity) {
         setIv_home_bg(iv_home_bg);
         this.activity = activity;
     }
