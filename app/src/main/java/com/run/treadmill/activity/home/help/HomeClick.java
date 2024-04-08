@@ -83,9 +83,9 @@ public class HomeClick extends BaseHomeHelp {
                 break;
 
             case R.id.tv_home_setting:
-                DelayUtils.post(view, 100, () -> {
+                /*DelayUtils.post(view, 100, () -> {
                     activity.startActivity(new Intent(activity, SettingActivity.class));
-                });
+                });*/
                 break;
 
             case R.id.tv_home_media:
