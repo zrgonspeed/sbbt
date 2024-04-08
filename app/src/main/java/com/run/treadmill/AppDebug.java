@@ -8,7 +8,7 @@ public class AppDebug {
     private Custom custom;
 
     static {
-        LogUtils.printLog = true;
-        Logger.i("AppDebug static  printLog == " + true);
+        LogUtils.printLog = false;
+        Logger.i("AppDebug static  printLog == " + LogUtils.printLog);
     }
 }
