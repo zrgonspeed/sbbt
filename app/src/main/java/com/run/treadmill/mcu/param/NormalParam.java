@@ -6,6 +6,8 @@ import com.run.serial.LogUtils;
 import com.run.treadmill.Custom;
 import com.run.treadmill.util.DataTypeConversion;
 
+import java.util.Arrays;
+
 public class NormalParam implements Custom.Mcu.Normal {
 
     private static int SAFE_ERROR_INX = 0;
@@ -197,18 +199,27 @@ public class NormalParam implements Custom.Mcu.Normal {
         return resolveDate(data, NormalParam.CURR_AD_INX, NormalParam.CURR_AD_LEN);
     }
 
+    private static String log = "";
+    private static byte[] data2;
+
     public static void print(byte[] data) {
         if (!LogUtils.printLog) {
             return;
         }
-        Log.d("Normal", "beltState=" + getBeltState(data) +
+        if (Arrays.equals(data2, data)) {
+            // 相同的log不打印
+            return;
+        }
+        data2 = Arrays.copyOf(data, data.length);
+
+        log = "beltState=" + getBeltState(data) +
                 "  inclineState=" + getInclineState(data) +
                 "  speed=" + getSpeed(data) +
                 "  incline=" + getIncline(data) +
                 "  sysErr=" + getSysError(data) +
                 "  safeErr=" + getSafeError(data) +
-                "  mcuState=" + getMcuState(data)
+                "  mcuState=" + getMcuState(data);
 
-        );
+        Log.d("Normal", log);
     }
 }
