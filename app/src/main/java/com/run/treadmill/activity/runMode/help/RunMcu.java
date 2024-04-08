@@ -16,11 +16,6 @@ public class RunMcu {
     }
 
     public static void onSucceed(byte[] data, int len) {
-        // 常态包打印
-        if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
-            NormalParam.print(data);
-        }
-
         if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
             if (NormalParam.getHr1(data) == 0) {
                 RunningParam.getInstance().setCurrPulse(NormalParam.getHr2(data));

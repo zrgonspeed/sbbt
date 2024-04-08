@@ -97,7 +97,10 @@ public abstract class BasePresenter<V extends BaseView> implements RxDataCallBac
 
     @Override
     public void onSucceed(byte[] data, int len) {
-//        Logger.d("onSucceed  = " + ConvertData.byteArrayToHexString(data, len));
+        // 常态包打印
+        if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
+            NormalParam.print(data);
+        }
         if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
             realChain.changeData(0, data, inOnSleep);
             msgNomal = realChain.procced(data, inOnSleep);

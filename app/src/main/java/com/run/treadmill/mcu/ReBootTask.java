@@ -165,6 +165,11 @@ public class ReBootTask implements Runnable, RxDataCallBack, Custom.Mcu.McuReboo
 
     @Override
     public void onSucceed(byte[] data, int len) {
+        // 常态包打印
+        if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
+            NormalParam.print(data);
+        }
+
         if (data[2] == SerialCommand.TX_RD_ONE
                 && data[3] == ParamCons.PARAM_DEVICE) {
             parseDeviceType(data);
