@@ -3,6 +3,7 @@ package com.run.treadmill.mcu.control;
 import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
+import com.run.treadmill.mcu.param.McuLogPrint;
 
 /**
  * @Description 这里用一句话描述
@@ -18,6 +19,8 @@ public abstract class BaseControl implements ControlStrategy {
      * @param data  内容
      */
     void sendWriteOneData(byte param, byte[] data) {
+        McuLogPrint.printSendWriteOneData(param, data);
+
         TxData.getInstance().setCtrl(SerialCommand.TX_WR_ONE);
         TxData.getInstance().setParam(param);
         TxData.getInstance().setData(data);
@@ -67,6 +70,8 @@ public abstract class BaseControl implements ControlStrategy {
      * @param ctrl 指令码
      */
     void sendControl(byte ctrl) {
+        McuLogPrint.printSendControl(ctrl);
+
         TxData.getInstance().setCtrl(SerialCommand.TX_WR_CTR_CMD);
         TxData.getInstance().setParam(ctrl);
         TxData.getInstance().setData(new byte[]{});
