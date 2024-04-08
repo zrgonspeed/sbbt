@@ -18,6 +18,8 @@ public class Custom {
     public static final boolean isTestServer = false;
     // 是否开启点击按钮水波纹效果  使用第三方库的
     public static final boolean CLICK_VIEW_ANIMATION = true;
+    // 进入home显示加载动画的时间 秒
+    public static final long HomeLoadAnimTime = 7;
 
     public interface Volume {
         int normalMaxVolume = 15;   // 正常喇叭播放
