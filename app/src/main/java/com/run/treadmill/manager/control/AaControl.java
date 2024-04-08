@@ -10,8 +10,8 @@ import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.sp.SpManager;
 import com.run.treadmill.util.DataTypeConversion;
 
-public class AaControl extends BaseControl implements Custom.Mcu.SubControl {
-    private float lastSpeed;
+public class AaControl {
+/*    private float lastSpeed;
     private float lastIncline = -1;
 
     @Override
@@ -215,5 +215,5 @@ public class AaControl extends BaseControl implements Custom.Mcu.SubControl {
         } else {
             sendWriteSomeData(ParamCons.CMD_BUZZ, data);
         }
-    }
+    }*/
 }

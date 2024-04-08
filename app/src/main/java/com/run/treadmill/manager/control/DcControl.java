@@ -5,11 +5,12 @@ import android.content.Context;
 import com.run.serial.SerialCommand;
 import com.run.serial.SerialUtils;
 import com.run.serial.TxData;
+import com.run.treadmill.Custom;
 import com.run.treadmill.manager.ErrorManager;
 import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.Logger;
 
-public class DcControl extends BaseControl {
+public class DcControl extends BaseControl implements Custom.Mcu.SubControl {
     private float lastSpeed;
     private float lastIncline = -1;
 
