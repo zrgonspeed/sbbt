@@ -123,6 +123,11 @@ public abstract class BaseRunPresenter<V extends BaseRunView> extends BasePresen
     @Override
     public void onSucceed(byte[] data, int len) {
         super.onSucceed(data, len);
+        // 常态包打印
+        if (data[2] == SerialCommand.TX_RD_SOME && data[3] == ParamCons.NORMAL_PACKAGE_PARAM) {
+            NormalParam.print(data);
+        }
+
         if (mRunningParam == null) {
             return;
         }
