@@ -548,7 +548,7 @@ public class SpManager {
     }
 
     public static boolean getSleep() {
-        return StorageParam.getParam(SET_SLEEP, true);
+        return StorageParam.getParam(SET_SLEEP, Custom.HomeSleep.SLEEP_DEF);
     }
 
     public static void setDisplay(boolean display) {

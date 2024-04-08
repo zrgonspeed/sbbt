@@ -82,7 +82,8 @@ public class Custom {
     }
 
     public interface HomeSleep {
-        int SLEEP_TIME = 60 * 100; // 单位 秒
+        int SLEEP_TIME = 60 * 30; // 单位 秒
+        boolean SLEEP_DEF = true;
     }
 
     public interface Language {
