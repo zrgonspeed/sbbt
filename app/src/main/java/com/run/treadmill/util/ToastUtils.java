@@ -1,7 +1,10 @@
 package com.run.treadmill.util;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.widget.Toast;
+
+import com.run.treadmill.R;
 
 public class ToastUtils {
     private static Context context;
@@ -53,7 +56,7 @@ public class ToastUtils {
         //View view = toast.getView();
         //view.setBackgroundResource(R.drawable.toast_frame_style);
         // 设置Toast要显示的位置，水平居中并在底部，X轴偏移0个单位，Y轴偏移200个单位，
-        //toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 200);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, ResourceUtils.getDimensionPixelSize(R.dimen.dp_px_180_x));
         toast.show();
     }
 

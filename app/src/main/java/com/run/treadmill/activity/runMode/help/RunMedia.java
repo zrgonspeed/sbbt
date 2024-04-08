@@ -125,8 +125,6 @@ public class RunMedia {
             Logger.i("isGoMedia true 不给再打开第三方");
             return;
         }
-        activity.isGoMedia = true;
-
         BuzzerManager.getInstance().buzzerRingOnce();
 
         String mediaPkName = pkgName[position];
@@ -138,6 +136,7 @@ public class RunMedia {
             ToastUtils.showShort("Not installed");
             return;
         }
+        activity.isGoMedia = true;
 
         activity.rl_main.setVisibility(View.GONE);
         enterThirdApp(CTConstant.QUICKSTART, pkgName[position]);
