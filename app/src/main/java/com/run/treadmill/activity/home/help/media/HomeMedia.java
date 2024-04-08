@@ -75,17 +75,17 @@ public class HomeMedia extends BaseHomeHelp {
         activity.tv_home_media.setSelected(false);
     }
 
-    private void backMediaAppList() {
-        Logger.i("backMediaAppList()");
-        activity.include_home_media.setVisibility(View.VISIBLE);
-        activity.include_home_media_app.setVisibility(View.GONE);
-    }
-
     private void openMediaAppList() {
         Logger.i("openMediaAppList()");
         activity.include_home_media_app.setVisibility(View.VISIBLE);
         activity.include_home_media.setVisibility(View.GONE);
         initAppList();
+    }
+
+    private void backMediaAppList() {
+        Logger.i("backMediaAppList()");
+        activity.include_home_media.setVisibility(View.VISIBLE);
+        activity.include_home_media_app.setVisibility(View.GONE);
     }
 
     private void initAppList() {

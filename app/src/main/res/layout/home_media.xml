@@ -59,7 +59,7 @@
         android:layout_height="@dimen/dp_px_470_x"
         android:layout_marginStart="@dimen/dp_px_580_x"
         android:layout_marginTop="@dimen/dp_px_123_x"
-        android:background="@drawable/btn_media_mirror_1"
+        android:background="@drawable/btn_media_mirror"
         app:touch_effects_radius="@dimen/dp_px_20_x" />
 
     <TextView
@@ -94,7 +94,7 @@
         android:layout_height="@dimen/dp_px_470_x"
         android:layout_marginStart="@dimen/dp_px_1059_x"
         android:layout_marginTop="@dimen/dp_px_123_x"
-        android:background="@drawable/btn_media_application_1"
+        android:background="@drawable/btn_media_application"
         app:touch_effects_radius="@dimen/dp_px_20_x" />
 
     <TextView
