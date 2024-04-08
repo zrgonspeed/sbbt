@@ -3,11 +3,7 @@ package com.run.treadmill.base.factory;
 import com.run.treadmill.base.BasePresenter;
 import com.run.treadmill.base.BaseView;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/05/29
- */
+
 public class PresenterFactoryImpl<V extends BaseView, P extends BasePresenter<V>> implements PresenterFactory<V, P> {
     /**
      * 需要创建的presenter

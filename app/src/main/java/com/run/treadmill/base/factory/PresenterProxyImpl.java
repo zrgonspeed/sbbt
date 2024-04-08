@@ -6,11 +6,7 @@ import com.run.treadmill.base.BasePresenter;
 import com.run.treadmill.base.BaseView;
 import com.run.treadmill.util.Logger;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/05/29
- */
+
 public class PresenterProxyImpl<V extends BaseView, P extends BasePresenter<V>> implements PresenterProxy<V, P> {
     private String TAG = "PresenterProxyImpl";
 

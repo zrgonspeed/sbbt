@@ -47,11 +47,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/08/17
- */
+
 @CreatePresenter(AppStorePresenter.class)
 public class AppStoreActivity extends BaseActivity<AppStoreView, AppStorePresenter> implements AppStoreView, AppStoreAdapter.OnItemClickListener, DownloadListener {
     @BindView(R.id.rl_app)

@@ -1,10 +1,6 @@
 package com.run.treadmill.base;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/05/29
- */
+
 public interface BaseView {
 
     /**

@@ -20,18 +20,13 @@ import com.run.treadmill.mcu.param.NormalParam;
 import com.run.treadmill.mcu.param.ParamCons;
 import com.run.treadmill.otamcu.OtaMcuUtils;
 import com.run.treadmill.sp.SpManager;
-import com.run.treadmill.util.DataTypeConversion;
 import com.run.treadmill.util.Logger;
 import com.run.treadmill.util.MsgWhat;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/05/29
- */
+
 public abstract class BasePresenter<V extends BaseView> implements RxDataCallBack {
     public String TAG;
     private V view;
@@ -303,18 +298,4 @@ public abstract class BasePresenter<V extends BaseView> implements RxDataCallBac
         mCmdHandler.sendMessage(msg);
     }
 
-    public int resolveDate(byte[] date, int offSet, int len) {
-        int result;
-        if (len == 3) {
-            //3个字节 ,暂时不知道如何处理
-            result = 0;
-        } else if (len == 2) {
-            result = DataTypeConversion.bytesToShortLiterEnd(date, offSet);
-        } else if (len == 1) {
-            result = DataTypeConversion.byteToInt(date[offSet]);
-        } else {
-            result = 0;
-        }
-        return result;
-    }
 }

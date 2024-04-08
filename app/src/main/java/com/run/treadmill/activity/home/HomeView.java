@@ -2,11 +2,7 @@ package com.run.treadmill.activity.home;
 
 import com.run.treadmill.base.BaseView;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/05/29
- */
+
 public interface HomeView extends BaseView {
     /**
      * 显示加油提示

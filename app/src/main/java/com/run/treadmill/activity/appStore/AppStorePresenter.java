@@ -19,11 +19,7 @@ import java.util.Map;
 
 import okhttp3.Call;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/08/17
- */
+
 public class AppStorePresenter extends BasePresenter<AppStoreView> implements OkHttpCallBack {
     private Map<String, String> mAppPacknames = new ArrayMap<>();
     private Map<String, Integer> mAppImgs = new ArrayMap<>();

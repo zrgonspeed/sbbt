@@ -14,11 +14,7 @@ import com.run.treadmill.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @Description 这里用一句话描述
- * @Author GaleLiu
- * @Time 2019/08/17
- */
+
 public class AppStoreAdapter extends RecyclerView.Adapter<AppStoreAdapter.ViewHolder> {
     private List<AppBean.AppInfo> apps;
     private OnItemClickListener mListener;
