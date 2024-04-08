@@ -5,6 +5,8 @@ import com.run.serial.RxDataCallBack;
 import com.run.treadmill.activity.factory.FactoryPresenter;
 import com.run.treadmill.activity.floatWindow.mcu.FloatMcuData;
 import com.run.treadmill.activity.home.help.HomeMcu;
+import com.run.treadmill.activity.runMode.help.RunKey;
+import com.run.treadmill.activity.runMode.help.RunMcu;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.mcu.control.ControlManager;
 
@@ -73,12 +75,20 @@ public class Custom {
         public interface McuOnSuccess {
             default void home() {
                 new HomeMcu(null).onSucceed(null, 0);
-                new HomeMcu(null).cmdKeyValue(0);
                 new HomeMcu(null).beltAndInclineStatus(0, 0, 0);
+                new HomeMcu(null).cmdKeyValue(0);
+            }
+
+            default void run() {
+                new RunMcu(null).onSucceed(null, 0);
+                new RunMcu(null).beltAndInclineStatus(0, 0, 0);
+                new RunKey(null).cmdKeyValue(0);
             }
 
             default void floatWindow() {
                 FloatMcuData.onSucceed(null, 0, null);
+                FloatMcuData.beltAndIncline(null, null);
+                FloatMcuData.key(null, 0);
             }
 
             default void factory() {
