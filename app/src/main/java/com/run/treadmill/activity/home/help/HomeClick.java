@@ -45,7 +45,7 @@ public class HomeClick extends BaseHomeHelp {
         if (view.getId() == R.id.iv_bluetooth ||
                 view.getId() == R.id.iv_wifi ||
                 view.getId() == R.id.tv_home_quickstart ||
-                view.getId() == R.id.tv_home_setting ||
+                // view.getId() == R.id.tv_home_setting ||
                 view.getId() == R.id.tv_home_media
         ) {
             activity.isOnClicking = true;
