@@ -19,6 +19,26 @@ public class Custom {
     // 是否开启点击按钮水波纹效果  使用第三方库的
     public static final boolean CLICK_VIEW_ANIMATION = true;
 
+    public interface Volume {
+        int normalMaxVolume = 15;   // 正常喇叭播放
+        int insertEarMaxVolume = 15;    // 插入耳机
+        int inputMaxVolume = 15;    // 音源输入
+        int Go321Volume = 3;
+
+        int db = 2;  //db为0表示保持音量不变，db为负数表示较低音量，为正数表示提高音量
+    }
+
+    public interface HomeSleep {
+        int SLEEP_TIME = 60 * 30; // 单位 秒
+        boolean SLEEP_DEF = true;
+    }
+
+    public interface Language {
+        String defLanguage = "en";  // de en fr es pt  繁体 简体
+    }
+
+    public static int logo = R.drawable.img_logo;
+
     public static class Mcu {
         public interface McuReboot {
         }
@@ -71,25 +91,4 @@ public class Custom {
 
     public interface Application {
     }
-
-    public interface Volume {
-        int normalMaxVolume = 15;   // 正常喇叭播放
-        int insertEarMaxVolume = 15;    // 插入耳机
-        int inputMaxVolume = 15;    // 音源输入
-        int Go321Volume = 3;
-
-        int db = 2;  //db为0表示保持音量不变，db为负数表示较低音量，为正数表示提高音量
-    }
-
-    public interface HomeSleep {
-        int SLEEP_TIME = 60 * 30; // 单位 秒
-        boolean SLEEP_DEF = true;
-    }
-
-    public interface Language {
-        String defLanguage = "en";  // de en fr es pt  繁体 简体
-    }
-
-    public static int logo = R.drawable.img_logo;
-
 }
