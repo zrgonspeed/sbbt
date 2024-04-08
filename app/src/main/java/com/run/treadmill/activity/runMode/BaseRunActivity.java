@@ -249,10 +249,14 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
     }
 
     private void onResume_homeAppToRun() {
+        runRefresh.onResumeInitRunParam();
+
         onResume2();
     }
 
     private void onResume_run() {
+        runRefresh.onResumeInitRunParam();
+
         ThreadUtils.postOnMainThread(() -> {
             Logger.i("BaseRun onResume2()");
             onResume2();
@@ -303,7 +307,6 @@ public abstract class BaseRunActivity<V extends BaseRunView, P extends BaseRunPr
             if (speedInclineClickHandler == null) {
                 speedInclineClickHandler = new SpeedInclineClickHandler(this);
             }
-            runRefresh.onResumeInitRunParam();
             if (mCalcBuilder == null) {
                 mCalcBuilder = new BaseCalculator.Builder(new CalculatorOfRun(this));
                 mCalcBuilder.callBack(this);
