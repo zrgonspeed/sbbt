@@ -44,6 +44,7 @@ public class WhiteListUtils {
             "com.disney.disneyplus",
 
             "com.google.android.gms",
+            "com.android.webview",
     };
 
     private static final String whiteListFilePath = "/data/WhiteListAppFilter.properties";

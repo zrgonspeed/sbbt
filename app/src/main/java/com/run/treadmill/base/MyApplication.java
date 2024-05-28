@@ -3,6 +3,7 @@ package com.run.treadmill.base;
 import com.run.android.ShellCmdUtils;
 import com.run.serial.SerialCommand;
 import com.run.treadmill.AppDebug;
+import com.run.treadmill.autoupdate.WebViewUpdate;
 import com.run.treadmill.bluetooth.BtAppReboot;
 import com.run.treadmill.common.CTConstant;
 import com.run.treadmill.homeupdate.third.HomeThirdAppUpdateManager;
@@ -145,6 +146,8 @@ public class MyApplication extends LitePalApplication {
             }).start();
 
             SystemUtils.setAppWhiteList();
+
+            WebViewUpdate.getInstance().startCheckUpdate(this);
         }
 
         HomeThirdAppUpdateManager.getInstance().setNewCheck(true);

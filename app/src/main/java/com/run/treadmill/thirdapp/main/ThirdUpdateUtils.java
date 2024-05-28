@@ -104,6 +104,11 @@ public class ThirdUpdateUtils {
         list.add(vod);
 
         list.add(gms);
+
+        ThirdApp webview = new ThirdApp.Builder("webview", "com.android.webview")
+                .updateDrawable(R.drawable.btn_media_webview_1)
+                .build();
+        list.add(webview);
     }
 
     private static synchronized void initListChina() {
